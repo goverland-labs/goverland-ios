@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Setting(\.termsAccepted) var termsAccepted
+    @Setting(\.onboardingFinished) var onboardingFinished
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        if !termsAccepted {
+            IntroView()
+        } else if !onboardingFinished {
+            AddWalletView()
+        } else {
+            AppTabView()
         }
-        .padding()
     }
 }
 
