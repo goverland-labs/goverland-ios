@@ -11,7 +11,9 @@ struct AddWalletView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some View {
+        Spacer()
         Text("Add Wallet View")
+        Spacer()
         Button("Finish onboarding") {
             onboardingFinished = true
         }

@@ -1,10 +1,19 @@
 #!/bin/bash
 
-TICKET=`git symbolic-ref HEAD | sed -E 's:.*\/([a-zA-Z]+-[0-9]+).*:\1:'`
+# Extract issue number (e.g. my-branch-name-123)
+fetch_github_issue_no() {
+  git rev-parse --abbrev-ref HEAD | grep -e '[0-9]\+$' -o
+}
 
-test -z "$TICKET" && exit 0
-head -1 "$1" | grep -q "$TICKET" && exit 0
+ISSUE_NO=`fetch_github_issue_no`
+# Get the current commit message
+MESSAGE="$(cat $1)"
 
-echo -n "$TICKET " > "$1.msg"
-cat "$1" >> "$1.msg"
-mv "$1.msg" "$1"
+# Append the issue number if the issue number is in the branch
+# and the issue number is not already in the commit message.
+if [ -n "$ISSUE_NO" ]  && [[ $MESSAGE != *"#$ISSUE_NO"* ]]
+then
+   NEW_MESSAGE="$MESSAGE [#$ISSUE_NO]"
+   echo "New commit message: $NEW_MESSAGE"
+   echo "$NEW_MESSAGE" > $1
+fi

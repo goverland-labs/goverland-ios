@@ -20,11 +20,6 @@ struct AppTabView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            BrowseView()
-                .tabItem {
-                    Label("Browse", systemImage: "globe.desk")
-                }
-
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "person.circle")

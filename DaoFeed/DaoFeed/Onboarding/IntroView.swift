@@ -7,15 +7,20 @@
 
 import SwiftUI
 
-struct IntroView: View {
-    @Setting(\.termsAccepted) var termsAccepted
+struct IntroView: View {    
+    @State var termsViewIsPresented = false
 
     var body: some View {
         VStack {
+            Spacer()
             Text("Intro View")
-            Button("Accept") {
-                termsAccepted = true
+            Spacer()
+            Button("Start") {
+                termsViewIsPresented = true
             }
+        }.sheet(isPresented: $termsViewIsPresented) {
+            TermsView()
+                .presentationDetents([.medium, .large])
         }
     }
 }
