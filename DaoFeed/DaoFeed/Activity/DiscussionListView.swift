@@ -9,7 +9,11 @@ import SwiftUI
 
 struct DiscussionListView: View {
     var body: some View {
-        ListItemHeader()
+        
+        VStack {
+            ListItemHeader()
+            ListItemBody()
+        }
     }
 }
 
