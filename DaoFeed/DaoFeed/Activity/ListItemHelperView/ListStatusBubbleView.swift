@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListStatusBubbleView: View {
     
-    @State var listStatus: ListStatus  = .executed
+    @State var listStatus: ListStatus  = .discussion
     
     var body: some View {
         
@@ -21,13 +21,12 @@ struct ListStatusBubbleView: View {
         case .executed:
             ListExecutedBubbleView()
         case .failed:
-            Text("failed goes here")
+            ListFailedBubbleView()
         case .queue:
-            Text("queue goes here")
+            ListQueuedBubbleView()
         }
     }
 }
-
 
 struct ListDiscussionBubbleView: View {
     var body: some View {
@@ -90,6 +89,45 @@ struct ListExecutedBubbleView: View {
         }
             .frame(width: 90, height: 20)
             .background(.green)
+            .cornerRadius(50)
+    }
+}
+
+struct ListFailedBubbleView: View {
+    var body: some View {
+        HStack(spacing: 0) {
+            
+            Image(systemName: "xmark")
+                .font(.system(size: 9))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+            
+            Text(" FAILED")
+                .font(.system(size: 12))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.1)
+                .lineLimit(1)
+        }
+            .frame(width: 65, height: 20)
+            .background(.red)
+            .cornerRadius(50)
+    }
+}
+
+struct ListQueuedBubbleView: View {
+    var body: some View {
+        HStack(spacing: 0) {
+            
+            Text("QUEUED")
+                .font(.system(size: 12))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.1)
+                .lineLimit(1)
+        }
+            .frame(width: 70, height: 20)
+            .background(.yellow)
             .cornerRadius(50)
     }
 }
