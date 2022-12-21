@@ -8,13 +8,33 @@
 import SwiftUI
 
 struct ActivityView: View {
+        
+    @State var listType: ListType  = .discussion
+        
     var body: some View {
-        Text("Activity View")
+            
+        List(0..<10) { _ in
+            
+            switch self.listType {
+            case .vote:
+                VoteListView()
+            case .discussion:
+                DiscussionListView()
+            default:
+                Text("List type is undefined")
+            }
+        }
     }
+}
+
+enum ListType {
+    case vote
+    case discussion
+    case undefined
 }
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView()
+        ActivityView(listType: .vote)
     }
 }
