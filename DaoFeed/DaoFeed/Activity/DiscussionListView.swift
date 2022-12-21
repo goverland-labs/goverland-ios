@@ -13,6 +13,7 @@ struct DiscussionListView: View {
         VStack {
             ListItemHeader()
             ListItemBody()
+            ListItemFooter()
         }
     }
 }

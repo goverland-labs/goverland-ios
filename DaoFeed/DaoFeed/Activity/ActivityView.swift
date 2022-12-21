@@ -12,18 +12,32 @@ struct ActivityView: View {
     @State var listType: ListType  = .discussion
         
     var body: some View {
-            
-        List(0..<10) { _ in
-            
-            switch self.listType {
-            case .vote:
-                VoteListView()
-            case .discussion:
-                DiscussionListView()
-            default:
-                Text("List type is undefined")
+        
+        List {
+            ForEach(0..<10) { _ in
+                
+                ZStack {
+                    
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(.white)
+                        .padding(.horizontal, -15.0)
+                    
+                    
+                    switch self.listType {
+                    case .vote:
+                        VoteListView()
+                    case .discussion:
+                        DiscussionListView()
+                    default:
+                        Text("List type is undefined")
+                    }
+                }
             }
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(.init(top: 10, leading: 15, bottom: 20, trailing: 15))
         }
+        
     }
 }
 
@@ -43,6 +57,6 @@ enum ListStatus {
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView(listType: .vote)
+        ActivityView(listType: .discussion)
     }
 }

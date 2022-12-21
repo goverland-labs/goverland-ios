@@ -29,6 +29,7 @@
 		BAAA526929538138003177BC /* ListItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ListItemHeader.swift */; };
 		BAAA526C29538207003177BC /* ListStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ListStatusBubbleView.swift */; };
 		BAAA526F2953AC28003177BC /* ListItemBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ListItemBody.swift */; };
+		BAAA52712953BB61003177BC /* ListItemFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ListItemFooter.swift */; };
 		C65AF20EC60D5D9DC0BADB76 /* Pods_DaoFeedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A91B842D4B533AA1B7711BCD /* Pods_DaoFeedTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		BAAA526829538138003177BC /* ListItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeader.swift; sourceTree = "<group>"; };
 		BAAA526B29538207003177BC /* ListStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusBubbleView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ListItemBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemBody.swift; sourceTree = "<group>"; };
+		BAAA52702953BB61003177BC /* ListItemFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemFooter.swift; sourceTree = "<group>"; };
 		CE3001B20D999F2CF4C49439 /* Pods-DaoFeedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaoFeedTests.release.xcconfig"; path = "Target Support Files/Pods-DaoFeedTests/Pods-DaoFeedTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 			children = (
 				BAAA526829538138003177BC /* ListItemHeader.swift */,
 				BAAA526E2953AC28003177BC /* ListItemBody.swift */,
+				BAAA52702953BB61003177BC /* ListItemFooter.swift */,
 				BAAA526A295381BB003177BC /* ListItemHelperView */,
 			);
 			path = ListItem;
@@ -501,6 +504,7 @@
 				BAAA526529537075003177BC /* DiscussionListView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BAAA52712953BB61003177BC /* ListItemFooter.swift in Sources */,
 				BAAA526929538138003177BC /* ListItemHeader.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
