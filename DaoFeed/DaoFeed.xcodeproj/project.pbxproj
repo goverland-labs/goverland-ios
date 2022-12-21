@@ -24,6 +24,8 @@
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
 		BAAA526529537075003177BC /* DiscussionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* DiscussionListView.swift */; };
 		BAAA526729537086003177BC /* VoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* VoteListView.swift */; };
+		BAAA526929538138003177BC /* ListItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ListItemHeader.swift */; };
+		BAAA526C29538207003177BC /* ListStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ListStatusBubbleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BAAA526429537075003177BC /* DiscussionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionListView.swift; sourceTree = "<group>"; };
 		BAAA526629537086003177BC /* VoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListView.swift; sourceTree = "<group>"; };
+		BAAA526829538138003177BC /* ListItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeader.swift; sourceTree = "<group>"; };
+		BAAA526B29538207003177BC /* ListStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusBubbleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
 				BAAA526429537075003177BC /* DiscussionListView.swift */,
 				BAAA526629537086003177BC /* VoteListView.swift */,
+				BAAA526829538138003177BC /* ListItemHeader.swift */,
+				BAAA526A295381BB003177BC /* ListItemHelperView */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -187,6 +193,14 @@
 				55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */,
 			);
 			path = DaoFeedUITests;
+			sourceTree = "<group>";
+		};
+		BAAA526A295381BB003177BC /* ListItemHelperView */ = {
+			isa = PBXGroup;
+			children = (
+				BAAA526B29538207003177BC /* ListStatusBubbleView.swift */,
+			);
+			path = ListItemHelperView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,10 +337,12 @@
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				BAAA526729537086003177BC /* VoteListView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
+				BAAA526C29538207003177BC /* ListStatusBubbleView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				BAAA526529537075003177BC /* DiscussionListView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BAAA526929538138003177BC /* ListItemHeader.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,

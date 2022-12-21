@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DiscussionListView: View {
     var body: some View {
-        Text("DiscussionListView")
+        ListItemHeader()
     }
 }
 
