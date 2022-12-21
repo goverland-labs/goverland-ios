@@ -33,6 +33,14 @@ enum ListType {
     case undefined
 }
 
+enum ListStatus {
+    case discussion
+    case activeVote
+    case executed
+    case failed
+    case queue
+}
+
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
         ActivityView(listType: .vote)
