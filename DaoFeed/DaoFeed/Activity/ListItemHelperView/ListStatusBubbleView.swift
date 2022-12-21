@@ -9,7 +9,22 @@ import SwiftUI
 
 struct ListStatusBubbleView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 0) {
+            
+            Image(systemName: "bubble.left.and.bubble.right")
+                .font(.system(size: 9))
+                .foregroundColor(.white)
+            
+            Text("DISCUSSION")
+                .font(.system(size: 12))
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.1)
+                .lineLimit(1)
+        }
+            .frame(width: 110, height: 20)
+            .background(.gray)
+            .cornerRadius(50)
     }
 }
 
