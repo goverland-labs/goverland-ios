@@ -31,6 +31,7 @@
 		BAAA526F2953AC28003177BC /* ListItemBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ListItemBody.swift */; };
 		BAAA52712953BB61003177BC /* ListItemFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ListItemFooter.swift */; };
 		BAAA52732953D4A6003177BC /* ListFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52722953D4A6003177BC /* ListFooterMenu.swift */; };
+		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
 		C65AF20EC60D5D9DC0BADB76 /* Pods_DaoFeedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A91B842D4B533AA1B7711BCD /* Pods_DaoFeedTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAAA52762954AC14003177BC /* Kingfisher in Frameworks */,
 				51648FA1A717574514F1AD68 /* Pods_DaoFeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +260,9 @@
 			dependencies = (
 			);
 			name = DaoFeed;
+			packageProductDependencies = (
+				BAAA52752954AC14003177BC /* Kingfisher */,
+			);
 			productName = DaoFeed;
 			productReference = 55F143D9294B1DDA00D00B73 /* DaoFeed.app */;
 			productType = "com.apple.product-type.application";
@@ -333,6 +338,9 @@
 				Base,
 			);
 			mainGroup = 55F143D0294B1DDA00D00B73;
+			packageReferences = (
+				BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 55F143DA294B1DDA00D00B73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -815,6 +823,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BAAA52752954AC14003177BC /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55F143D1294B1DDA00D00B73 /* Project object */;
 }
