@@ -9,7 +9,12 @@ import SwiftUI
 
 struct VoteListView: View {
     var body: some View {
-        Text("VoteListView")
+        
+        VStack {
+            ListItemHeader()
+            ListItemBody()
+            ListItemFooter(footerType: .vote)
+        }
     }
     
 }
