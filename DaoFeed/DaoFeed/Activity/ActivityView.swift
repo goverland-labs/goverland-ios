@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ActivityView: View {
-        
+    
     @State var listType: ListType  = .discussion
-        
+    
     var body: some View {
         
         List {
