@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		51648FA1A717574514F1AD68 /* Pods_DaoFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93276BDD5B6FE0F72262B151 /* Pods_DaoFeed.framework */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* ActivityView.swift */; };
@@ -89,7 +88,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAAA52762954AC14003177BC /* Kingfisher in Frameworks */,
-				51648FA1A717574514F1AD68 /* Pods_DaoFeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,11 +247,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F143FD294B1DDD00D00B73 /* Build configuration list for PBXNativeTarget "DaoFeed" */;
 			buildPhases = (
-				14721AB21A5A4271AE85F67F /* [CP] Check Pods Manifest.lock */,
 				55F143D5294B1DDA00D00B73 /* Sources */,
 				55F143D6294B1DDA00D00B73 /* Frameworks */,
 				55F143D7294B1DDA00D00B73 /* Resources */,
-				A19259306BCE9B6B03A44EE4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -379,28 +375,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14721AB21A5A4271AE85F67F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DaoFeed-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		17DA760003E64B9750485721 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,23 +412,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A19259306BCE9B6B03A44EE4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaoFeed/Pods-DaoFeed-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaoFeed/Pods-DaoFeed-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DaoFeed/Pods-DaoFeed-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC84F4B39616213D3E4ABC2E /* [CP] Check Pods Manifest.lock */ = {
