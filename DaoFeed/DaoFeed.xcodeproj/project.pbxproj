@@ -22,16 +22,15 @@
 		55F143EE294B1DDD00D00B73 /* DaoFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143ED294B1DDD00D00B73 /* DaoFeedTests.swift */; };
 		55F143F8294B1DDD00D00B73 /* DaoFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */; };
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
-		57B47E3AD7F791C439CCE1B5 /* Pods_DaoFeed_DaoFeedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6B49E1E44BEF0AC44496B4 /* Pods_DaoFeed_DaoFeedUITests.framework */; };
-		BAAA526529537075003177BC /* DiscussionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* DiscussionListView.swift */; };
-		BAAA526729537086003177BC /* VoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* VoteListView.swift */; };
+		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
+		BAAA526529537075003177BC /* DiscussionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* DiscussionListItemView.swift */; };
+		BAAA526729537086003177BC /* VoteListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* VoteListItemView.swift */; };
 		BAAA526929538138003177BC /* ListItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ListItemHeader.swift */; };
-		BAAA526C29538207003177BC /* ListStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ListStatusBubbleView.swift */; };
+		BAAA526C29538207003177BC /* ListItemStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */; };
 		BAAA526F2953AC28003177BC /* ListItemBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ListItemBody.swift */; };
 		BAAA52712953BB61003177BC /* ListItemFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ListItemFooter.swift */; };
 		BAAA52732953D4A6003177BC /* ListFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52722953D4A6003177BC /* ListFooterMenu.swift */; };
 		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
-		C65AF20EC60D5D9DC0BADB76 /* Pods_DaoFeedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A91B842D4B533AA1B7711BCD /* Pods_DaoFeedTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +69,11 @@
 		55F143F3294B1DDD00D00B73 /* DaoFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaoFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITests.swift; sourceTree = "<group>"; };
 		55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		93276BDD5B6FE0F72262B151 /* Pods_DaoFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaoFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A6B49E1E44BEF0AC44496B4 /* Pods_DaoFeed_DaoFeedUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaoFeed_DaoFeedUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A91B842D4B533AA1B7711BCD /* Pods_DaoFeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaoFeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAAA526429537075003177BC /* DiscussionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionListView.swift; sourceTree = "<group>"; };
-		BAAA526629537086003177BC /* VoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListView.swift; sourceTree = "<group>"; };
+		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
+		BAAA526429537075003177BC /* DiscussionListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionListItemView.swift; sourceTree = "<group>"; };
+		BAAA526629537086003177BC /* VoteListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ListItemHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeader.swift; sourceTree = "<group>"; };
-		BAAA526B29538207003177BC /* ListStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusBubbleView.swift; sourceTree = "<group>"; };
+		BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemStatusBubbleView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ListItemBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemBody.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ListItemFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemFooter.swift; sourceTree = "<group>"; };
 		BAAA52722953D4A6003177BC /* ListFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterMenu.swift; sourceTree = "<group>"; };
@@ -95,7 +92,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C65AF20EC60D5D9DC0BADB76 /* Pods_DaoFeedTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57B47E3AD7F791C439CCE1B5 /* Pods_DaoFeed_DaoFeedUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,8 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
-				BAAA526429537075003177BC /* DiscussionListView.swift */,
-				BAAA526629537086003177BC /* VoteListView.swift */,
+				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
+				BAAA526429537075003177BC /* DiscussionListItemView.swift */,
+				BAAA526629537086003177BC /* VoteListItemView.swift */,
 				BAAA526D2953ABF9003177BC /* ListItem */,
 			);
 			path = Activity;
@@ -213,9 +209,6 @@
 		AEBDE4E97998B3E1655EF210 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				93276BDD5B6FE0F72262B151 /* Pods_DaoFeed.framework */,
-				9A6B49E1E44BEF0AC44496B4 /* Pods_DaoFeed_DaoFeedUITests.framework */,
-				A91B842D4B533AA1B7711BCD /* Pods_DaoFeedTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -223,7 +216,7 @@
 		BAAA526A295381BB003177BC /* ListItemHelperView */ = {
 			isa = PBXGroup;
 			children = (
-				BAAA526B29538207003177BC /* ListStatusBubbleView.swift */,
+				BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */,
 				BAAA52722953D4A6003177BC /* ListFooterMenu.swift */,
 			);
 			path = ListItemHelperView;
@@ -445,11 +438,11 @@
 			files = (
 				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
-				BAAA526729537086003177BC /* VoteListView.swift in Sources */,
+				BAAA526729537086003177BC /* VoteListItemView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
-				BAAA526C29538207003177BC /* ListStatusBubbleView.swift in Sources */,
+				BAAA526C29538207003177BC /* ListItemStatusBubbleView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
-				BAAA526529537075003177BC /* DiscussionListView.swift in Sources */,
+				BAAA526529537075003177BC /* DiscussionListItemView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ListItemFooter.swift in Sources */,
@@ -457,6 +450,7 @@
 				BAAA52732953D4A6003177BC /* ListFooterMenu.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
+				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ListItemBody.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,

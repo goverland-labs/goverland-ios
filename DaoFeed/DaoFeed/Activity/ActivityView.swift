@@ -9,54 +9,52 @@ import SwiftUI
 
 struct ActivityView: View {
     
-    @State var listType: ListType  = .discussion
+   // var listType: ListType  = .discussion
+    let event = Event(type: .discussion)
     
     var body: some View {
         
         List {
             ForEach(0..<10) { _ in
                 
-                ZStack {
-                    
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(.white)
-                        .padding(.horizontal, -15.0)
-                    
-                    
-                    switch self.listType {
-                    case .vote:
-                        VoteListView()
-                    case .discussion:
-                        DiscussionListView()
-                    default:
-                        Text("List type is undefined")
-                    }
-                }
+                ActivityListItemView(event: event)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(.init(top: 10, leading: 15, bottom: 20, trailing: 15))
             }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(.init(top: 10, leading: 15, bottom: 20, trailing: 15))
         }
         
     }
 }
 
-enum ListType {
+struct Event{
+    
+    private (set) var type: ListItemType = .undefined
+    
+    init(type: ListItemType) {
+        self.type = type
+    }
+}
+                      
+                      
+// TODO: Move to models
+
+enum ListItemType {
     case vote
     case discussion
     case undefined
 }
 
-enum ListStatus {
+enum ListItemStatus {
     case discussion
     case activeVote
     case executed
     case failed
-    case queue
+    case queued
 }
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView(listType: .discussion)
+        ActivityView()
     }
 }

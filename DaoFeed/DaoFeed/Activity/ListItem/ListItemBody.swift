@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ListItemBody: View {
+    
+    var event: Event
+    
     var body: some View {
         
         HStack {
@@ -23,14 +26,12 @@ struct ListItemBody: View {
                     .lineLimit(2)
                 
             }
-            //.padding(.leading, 25)
             
             Spacer()
             
             Image(systemName: "face.smiling")
                 .resizable()
                 .frame(width: 50, height: 50)
-              //.aspectRatio(contentMode: .fill)
                 .foregroundColor(.pink)
         }
     }
@@ -38,6 +39,6 @@ struct ListItemBody: View {
 
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemBody()
+        ListItemBody(event: Event(type: .discussion))
     }
 }

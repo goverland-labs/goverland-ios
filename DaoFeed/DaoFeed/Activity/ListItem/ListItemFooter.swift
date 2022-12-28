@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ListItemFooter: View {
     
-    var footerType: ListType
+    var event: Event
     
     var body: some View {
         
         HStack(spacing: 20) {
             
-            switch self.footerType {
+            switch event.type {
             case .vote:
                 VoteFooter()
             case .discussion:
@@ -99,6 +99,6 @@ struct VoteFooter: View {
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemFooter(footerType: .discussion)
+        ListItemFooter(event: Event(type: .discussion))
     }
 }

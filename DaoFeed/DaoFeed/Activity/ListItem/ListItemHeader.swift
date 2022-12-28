@@ -9,6 +9,9 @@ import SwiftUI
 
 
 struct ListItemHeader: View {
+    
+    var event: Event
+    
     var body: some View {
         HStack {
             Image(systemName: "circle.fill")
@@ -23,13 +26,13 @@ struct ListItemHeader: View {
             Text("2 days ago")
                 .foregroundColor(.gray)
             Spacer() // to push content to the left edge
-            ListStatusBubbleView()
+            ListItemStatusBubbleView()
         }
     }
 }
 
 struct ListItemHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemHeader()
+        ListItemHeader(event: Event(type: .discussion))
     }
 }
