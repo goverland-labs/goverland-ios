@@ -21,6 +21,9 @@ struct ListItemHeader: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.purple)
             
+            
+            
+            // this logic should be in ViewModel
             if user.endName != ""  {
                 Text(user.endName)
                     .fontWeight(.semibold)
@@ -34,7 +37,9 @@ struct ListItemHeader: View {
             
             Text("2 days ago")
                 .foregroundColor(.gray)
-            Spacer() // to push content to the left edge
+            
+            Spacer()
+            
             ListItemStatusBubbleView()
         }
     }

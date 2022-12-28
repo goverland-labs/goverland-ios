@@ -23,6 +23,7 @@
 		55F143F8294B1DDD00D00B73 /* DaoFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */; };
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
+		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526529537075003177BC /* DiscussionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* DiscussionListItemView.swift */; };
 		BAAA526729537086003177BC /* VoteListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* VoteListItemView.swift */; };
 		BAAA526929538138003177BC /* ListItemHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ListItemHeader.swift */; };
@@ -84,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				BAAA52762954AC14003177BC /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +253,7 @@
 			name = DaoFeed;
 			packageProductDependencies = (
 				BAAA52752954AC14003177BC /* Kingfisher */,
+				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 			);
 			productName = DaoFeed;
 			productReference = 55F143D9294B1DDA00D00B73 /* DaoFeed.app */;
@@ -329,6 +332,7 @@
 			mainGroup = 55F143D0294B1DDA00D00B73;
 			packageReferences = (
 				BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 			);
 			productRefGroup = 55F143DA294B1DDA00D00B73 /* Products */;
 			projectDirPath = "";
@@ -776,6 +780,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -787,6 +799,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BAA6C2F3295CF5E000C848D8 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
 		BAAA52752954AC14003177BC /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */;
