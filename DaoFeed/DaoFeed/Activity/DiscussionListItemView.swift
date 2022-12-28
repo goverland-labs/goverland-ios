@@ -13,7 +13,7 @@ struct DiscussionListItemView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 20) {
             ListItemHeader(event: event)
             ListItemBody(event: event)
             ListItemFooter(event: event)

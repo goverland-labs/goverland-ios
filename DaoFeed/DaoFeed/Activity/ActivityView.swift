@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ActivityView: View {
     
-   // var listType: ListType  = .discussion
     let event = Event(type: .discussion)
     
     var body: some View {
@@ -27,7 +26,7 @@ struct ActivityView: View {
     }
 }
 
-struct Event{
+struct Event {
     
     private (set) var type: ListItemType = .undefined
     
@@ -51,6 +50,8 @@ enum ListItemStatus {
     case executed
     case failed
     case queued
+    case succeeded
+    case defeated
 }
 
 struct ActivityView_Previews: PreviewProvider {

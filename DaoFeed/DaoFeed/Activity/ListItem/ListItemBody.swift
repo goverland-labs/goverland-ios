@@ -10,6 +10,7 @@ import SwiftUI
 struct ListItemBody: View {
     
     var event: Event
+    var isWarningSubtitle: Bool = true
     
     var body: some View {
         
@@ -24,6 +25,11 @@ struct ListItemBody: View {
                 Text("2 days left to vote vs snapshot")
                     .foregroundColor(.gray)
                     .lineLimit(2)
+                
+                if isWarningSubtitle {
+                    Text("Waiting for execution")
+                        .foregroundColor(.yellow)
+                }
                 
             }
             

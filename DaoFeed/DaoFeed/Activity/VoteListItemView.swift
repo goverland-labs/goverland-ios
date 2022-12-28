@@ -13,7 +13,7 @@ struct VoteListItemView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 20) {
             ListItemHeader(event: event)
             ListItemBody(event: event)
             ListItemFooter(event: event)
@@ -21,9 +21,6 @@ struct VoteListItemView: View {
     }
     
 }
-
-              
-
 
 struct VoteListView_Previews: PreviewProvider {
     static var previews: some View {

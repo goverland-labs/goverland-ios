@@ -36,14 +36,26 @@ struct ListItemStatusBubbleView: View {
         case .failed:
             ListItemBubbleView(
                 image: Image(systemName: "xmark"),
-                text: Text(" FAILED"),
+                text: Text("FAILED"),
                 backgroundColor: Color.red)
         
         case .queued:
             ListItemBubbleView(
-                image: Image(systemName: "plus"),
+                image: Image(systemName: ""),
                 text: Text("QUEUED"),
                 backgroundColor: Color.yellow)
+            
+        case .succeeded:
+            ListItemBubbleView(
+                image: Image(systemName: ""),
+                text: Text("SUCCEEDE"),
+                backgroundColor: Color.green)
+        
+        case .defeated:
+            ListItemBubbleView(
+                image: Image(systemName: ""),
+                text: Text("DEFEATED"),
+                backgroundColor: Color.pink)
         }
     }
 }
@@ -55,7 +67,7 @@ struct ListItemBubbleView: View {
     var backgroundColor: Color
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 3) {
             
             image
                 .font(.system(size: 9))
@@ -68,7 +80,7 @@ struct ListItemBubbleView: View {
                 .minimumScaleFactor(0.1)
                 .lineLimit(1)
         }
-        .padding(4)
+        .padding(5)
         .background(Capsule().fill(backgroundColor))
     }
 }
