@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct DiscussionListItemView: View {
+struct ActivityDiscussionListItemView: View {
     
     var event: Event
     
     var body: some View {
         
         VStack(spacing: 20) {
-            ListItemHeaderView(event: event)
-            ListItemBodyView(event: event)
-            ListItemFooterView(event: event)
+            ActivityListItemHeaderView(event: event)
+            ActivityListItemBodyView(event: event)
+            ActivityListItemFooterView(event: event)
         }
     }
 }
 
 struct DiscussionListView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscussionListItemView(event: Event(type: .discussion, meta: []))
+        ActivityDiscussionListItemView(event: Event(type: .discussion, meta: []))
     }
 }

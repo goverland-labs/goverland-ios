@@ -1,5 +1,5 @@
 //
-//  ListItemHeaderTimeView.swift
+//  ActivityListItemHeaderTimeView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-30.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftDate
 
-struct ListItemHeaderTimeView: View {
+struct ActivityListItemHeaderTimeView: View {
     var body: some View {
         
         // 3 min for testing, here will be time of listItem passing with Event object
@@ -19,6 +19,6 @@ struct ListItemHeaderTimeView: View {
 
 struct ListItemHeaderTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemHeaderTimeView()
+        ActivityListItemHeaderTimeView()
     }
 }

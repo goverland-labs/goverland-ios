@@ -24,16 +24,16 @@
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
-		BAA6C2F6295F250700C848D8 /* ListItemHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F5295F250700C848D8 /* ListItemHeaderImageView.swift */; };
-		BAA6C2F8295F260200C848D8 /* ListItemHeaderUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F7295F260200C848D8 /* ListItemHeaderUserView.swift */; };
-		BAA6C2FA295F266000C848D8 /* ListItemHeaderTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F9295F266000C848D8 /* ListItemHeaderTimeView.swift */; };
-		BAAA526529537075003177BC /* DiscussionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* DiscussionListItemView.swift */; };
-		BAAA526729537086003177BC /* VoteListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* VoteListItemView.swift */; };
-		BAAA526929538138003177BC /* ListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ListItemHeaderView.swift */; };
-		BAAA526C29538207003177BC /* ListItemStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */; };
-		BAAA526F2953AC28003177BC /* ListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ListItemBodyView.swift */; };
-		BAAA52712953BB61003177BC /* ListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ListItemFooterView.swift */; };
-		BAAA52732953D4A6003177BC /* ListFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52722953D4A6003177BC /* ListFooterMenu.swift */; };
+		BAA6C2F6295F250700C848D8 /* ActivityListItemHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F5295F250700C848D8 /* ActivityListItemHeaderImageView.swift */; };
+		BAA6C2F8295F260200C848D8 /* ActivityListItemHeaderUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F7295F260200C848D8 /* ActivityListItemHeaderUserView.swift */; };
+		BAA6C2FA295F266000C848D8 /* ActivityListItemHeaderTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA6C2F9295F266000C848D8 /* ActivityListItemHeaderTimeView.swift */; };
+		BAAA526529537075003177BC /* ActivityDiscussionListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526429537075003177BC /* ActivityDiscussionListItemView.swift */; };
+		BAAA526729537086003177BC /* ActivityVoteListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526629537086003177BC /* ActivityVoteListItemView.swift */; };
+		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
+		BAAA526C29538207003177BC /* ActivityListItemStatusBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526B29538207003177BC /* ActivityListItemStatusBubbleView.swift */; };
+		BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */; };
+		BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */; };
+		BAAA52732953D4A6003177BC /* ActivityListFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52722953D4A6003177BC /* ActivityListFooterMenu.swift */; };
 		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -74,16 +74,16 @@
 		55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITests.swift; sourceTree = "<group>"; };
 		55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
-		BAA6C2F5295F250700C848D8 /* ListItemHeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeaderImageView.swift; sourceTree = "<group>"; };
-		BAA6C2F7295F260200C848D8 /* ListItemHeaderUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeaderUserView.swift; sourceTree = "<group>"; };
-		BAA6C2F9295F266000C848D8 /* ListItemHeaderTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeaderTimeView.swift; sourceTree = "<group>"; };
-		BAAA526429537075003177BC /* DiscussionListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionListItemView.swift; sourceTree = "<group>"; };
-		BAAA526629537086003177BC /* VoteListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListItemView.swift; sourceTree = "<group>"; };
-		BAAA526829538138003177BC /* ListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemHeaderView.swift; sourceTree = "<group>"; };
-		BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemStatusBubbleView.swift; sourceTree = "<group>"; };
-		BAAA526E2953AC28003177BC /* ListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemBodyView.swift; sourceTree = "<group>"; };
-		BAAA52702953BB61003177BC /* ListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemFooterView.swift; sourceTree = "<group>"; };
-		BAAA52722953D4A6003177BC /* ListFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterMenu.swift; sourceTree = "<group>"; };
+		BAA6C2F5295F250700C848D8 /* ActivityListItemHeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderImageView.swift; sourceTree = "<group>"; };
+		BAA6C2F7295F260200C848D8 /* ActivityListItemHeaderUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderUserView.swift; sourceTree = "<group>"; };
+		BAA6C2F9295F266000C848D8 /* ActivityListItemHeaderTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderTimeView.swift; sourceTree = "<group>"; };
+		BAAA526429537075003177BC /* ActivityDiscussionListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDiscussionListItemView.swift; sourceTree = "<group>"; };
+		BAAA526629537086003177BC /* ActivityVoteListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVoteListItemView.swift; sourceTree = "<group>"; };
+		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
+		BAAA526B29538207003177BC /* ActivityListItemStatusBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemStatusBubbleView.swift; sourceTree = "<group>"; };
+		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
+		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
+		BAAA52722953D4A6003177BC /* ActivityListFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListFooterMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,8 +128,8 @@
 			children = (
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
-				BAAA526429537075003177BC /* DiscussionListItemView.swift */,
-				BAAA526629537086003177BC /* VoteListItemView.swift */,
+				BAAA526429537075003177BC /* ActivityDiscussionListItemView.swift */,
+				BAAA526629537086003177BC /* ActivityVoteListItemView.swift */,
 				BAAA526D2953ABF9003177BC /* ListItem */,
 			);
 			path = Activity;
@@ -224,11 +224,11 @@
 		BAAA526A295381BB003177BC /* ListItemHelperView */ = {
 			isa = PBXGroup;
 			children = (
-				BAA6C2F5295F250700C848D8 /* ListItemHeaderImageView.swift */,
-				BAA6C2F7295F260200C848D8 /* ListItemHeaderUserView.swift */,
-				BAA6C2F9295F266000C848D8 /* ListItemHeaderTimeView.swift */,
-				BAAA526B29538207003177BC /* ListItemStatusBubbleView.swift */,
-				BAAA52722953D4A6003177BC /* ListFooterMenu.swift */,
+				BAA6C2F5295F250700C848D8 /* ActivityListItemHeaderImageView.swift */,
+				BAA6C2F7295F260200C848D8 /* ActivityListItemHeaderUserView.swift */,
+				BAA6C2F9295F266000C848D8 /* ActivityListItemHeaderTimeView.swift */,
+				BAAA526B29538207003177BC /* ActivityListItemStatusBubbleView.swift */,
+				BAAA52722953D4A6003177BC /* ActivityListFooterMenu.swift */,
 			);
 			path = ListItemHelperView;
 			sourceTree = "<group>";
@@ -236,9 +236,9 @@
 		BAAA526D2953ABF9003177BC /* ListItem */ = {
 			isa = PBXGroup;
 			children = (
-				BAAA526829538138003177BC /* ListItemHeaderView.swift */,
-				BAAA526E2953AC28003177BC /* ListItemBodyView.swift */,
-				BAAA52702953BB61003177BC /* ListItemFooterView.swift */,
+				BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */,
+				BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */,
+				BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */,
 				BAAA526A295381BB003177BC /* ListItemHelperView */,
 			);
 			path = ListItem;
@@ -451,25 +451,25 @@
 			files = (
 				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
-				BAAA526729537086003177BC /* VoteListItemView.swift in Sources */,
+				BAAA526729537086003177BC /* ActivityVoteListItemView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
-				BAAA526C29538207003177BC /* ListItemStatusBubbleView.swift in Sources */,
+				BAAA526C29538207003177BC /* ActivityListItemStatusBubbleView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
-				BAAA526529537075003177BC /* DiscussionListItemView.swift in Sources */,
+				BAAA526529537075003177BC /* ActivityDiscussionListItemView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
-				BAA6C2F8295F260200C848D8 /* ListItemHeaderUserView.swift in Sources */,
-				BAAA52712953BB61003177BC /* ListItemFooterView.swift in Sources */,
-				BAAA526929538138003177BC /* ListItemHeaderView.swift in Sources */,
-				BAAA52732953D4A6003177BC /* ListFooterMenu.swift in Sources */,
+				BAA6C2F8295F260200C848D8 /* ActivityListItemHeaderUserView.swift in Sources */,
+				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
+				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
+				BAAA52732953D4A6003177BC /* ActivityListFooterMenu.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
-				BAA6C2F6295F250700C848D8 /* ListItemHeaderImageView.swift in Sources */,
-				BAAA526F2953AC28003177BC /* ListItemBodyView.swift in Sources */,
+				BAA6C2F6295F250700C848D8 /* ActivityListItemHeaderImageView.swift in Sources */,
+				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
-				BAA6C2FA295F266000C848D8 /* ListItemHeaderTimeView.swift in Sources */,
+				BAA6C2FA295F266000C848D8 /* ActivityListItemHeaderTimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

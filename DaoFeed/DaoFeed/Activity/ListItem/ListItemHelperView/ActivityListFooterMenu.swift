@@ -1,5 +1,5 @@
 //
-//  ListFooterMenu.swift
+//  ActivityListFooterMenu.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListFooterMenu: View {
+struct ActivityListFooterMenu: View {
     var body: some View {
         
         Menu {
@@ -35,6 +35,6 @@ struct ListFooterMenu: View {
 
 struct ListFooterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ListFooterMenu()
+        ActivityListFooterMenu()
     }
 }

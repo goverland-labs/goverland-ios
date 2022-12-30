@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct VoteListItemView: View {
+struct ActivityVoteListItemView: View {
     
     var event: Event
     
     var body: some View {
         
         VStack(spacing: 20) {
-            ListItemHeaderView(event: event)
-            ListItemBodyView(event: event)
-            ListItemFooterView(event: event)
+            ActivityListItemHeaderView(event: event)
+            ActivityListItemBodyView(event: event)
+            ActivityListItemFooterView(event: event)
         }
     }
     
@@ -24,6 +24,6 @@ struct VoteListItemView: View {
 
 struct VoteListView_Previews: PreviewProvider {
     static var previews: some View {
-        VoteListItemView(event: Event(type: .discussion, meta: []))
+        ActivityVoteListItemView(event: Event(type: .discussion, meta: []))
     }
 }

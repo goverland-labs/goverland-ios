@@ -22,9 +22,9 @@ struct ActivityListItemView: View {
             
             switch event.type {
             case .vote:
-                VoteListItemView(event: event)
+                ActivityVoteListItemView(event: event)
             case .discussion:
-                DiscussionListItemView(event: event)
+                ActivityDiscussionListItemView(event: event)
             case .undefined:
                 Text("List type is undefined")
             }

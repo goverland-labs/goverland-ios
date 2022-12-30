@@ -1,5 +1,5 @@
 //
-//  ListItemHeaderView.swift
+//  ActivityListItemHeaderView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct ListItemHeaderView: View {
+struct ActivityListItemHeaderView: View {
     
     var event: Event
     
     var body: some View {
         
         HStack {
-            ListItemHeaderImageView(event: event)
+            ActivityListItemHeaderImageView(event: event)
                 .frame(width: 15, height: 15)
                 //.fixedSize(horizontal: true, vertical: true)
-            ListItemHeaderUserView()
-            ListItemHeaderTimeView()
+            ActivityListItemHeaderUserView()
+            ActivityListItemHeaderTimeView()
             Spacer()
-            ListItemStatusBubbleView()
+            ActivityListItemStatusBubbleView()
         }
     }
 }
@@ -43,6 +43,6 @@ struct User {
 
 struct ListItemHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemHeaderView(event: Event(type: .discussion, meta: []))
+        ActivityListItemHeaderView(event: Event(type: .discussion, meta: []))
     }
 }

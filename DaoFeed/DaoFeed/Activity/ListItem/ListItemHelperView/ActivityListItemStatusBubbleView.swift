@@ -1,5 +1,5 @@
 //
-//  ListItemStatusBubbleView.swift
+//  ActivityListItemStatusBubbleView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListItemStatusBubbleView: View {
+struct ActivityListItemStatusBubbleView: View {
     
     var listItemStatus: ListItemStatus  = .discussion
     
@@ -87,6 +87,6 @@ struct ListItemBubbleView: View {
 
 struct ListStatusBubbleView_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemStatusBubbleView()
+        ActivityListItemStatusBubbleView()
     }
 }

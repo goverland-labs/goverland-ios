@@ -1,5 +1,5 @@
 //
-//  ListItemFooterView.swift
+//  ActivityListItemFooterView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListItemFooterView: View {
+struct ActivityListItemFooterView: View {
     
     var event: Event
     
@@ -26,7 +26,7 @@ struct ListItemFooterView: View {
             
             Spacer()
             
-            ListFooterMenu()
+            ActivityListFooterMenu()
         }
     }
 }
@@ -103,6 +103,6 @@ struct VoteFooter: View {
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemFooterView(event: Event(type: .discussion, meta: []))
+        ActivityListItemFooterView(event: Event(type: .discussion, meta: []))
     }
 }
