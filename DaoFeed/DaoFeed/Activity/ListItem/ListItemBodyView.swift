@@ -1,5 +1,5 @@
 //
-//  ListItemBody.swift
+//  ListItemBodyView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListItemBody: View {
+struct ListItemBodyView: View {
     
     var event: Event
     var isWarningSubtitle: Bool = true
@@ -45,6 +45,6 @@ struct ListItemBody: View {
 
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemBody(event: Event(type: .discussion))
+        ListItemBodyView(event: Event(type: .discussion, meta: []))
     }
 }

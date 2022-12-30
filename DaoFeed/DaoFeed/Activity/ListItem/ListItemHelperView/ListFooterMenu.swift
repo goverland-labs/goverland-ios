@@ -15,8 +15,8 @@ struct ListFooterMenu: View {
             Button("Share", action: performShare)
             Button("Cancel", action: performCancel)
             
-        
         } label: {
+            
             Image(systemName: "ellipsis")
                 .foregroundColor(.black)
             .fontWeight(.bold)

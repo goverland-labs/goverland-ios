@@ -25,7 +25,7 @@ struct ActivityListItemView: View {
                 VoteListItemView(event: event)
             case .discussion:
                 DiscussionListItemView(event: event)
-            default:
+            case .undefined:
                 Text("List type is undefined")
             }
         }
@@ -34,6 +34,6 @@ struct ActivityListItemView: View {
 
 struct ActivityListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemView(event: Event(type: .discussion))
+        ActivityListItemView(event: Event(type: .discussion, meta: []))
     }
 }

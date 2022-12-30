@@ -14,15 +14,15 @@ struct DiscussionListItemView: View {
     var body: some View {
         
         VStack(spacing: 20) {
-            ListItemHeader(event: event)
-            ListItemBody(event: event)
-            ListItemFooter(event: event)
+            ListItemHeaderView(event: event)
+            ListItemBodyView(event: event)
+            ListItemFooterView(event: event)
         }
     }
 }
 
 struct DiscussionListView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscussionListItemView(event: Event(type: .discussion))
+        DiscussionListItemView(event: Event(type: .discussion, meta: []))
     }
 }

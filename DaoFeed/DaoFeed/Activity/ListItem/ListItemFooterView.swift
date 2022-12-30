@@ -1,5 +1,5 @@
 //
-//  ListItemFooter.swift
+//  ListItemFooterView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListItemFooter: View {
+struct ListItemFooterView: View {
     
     var event: Event
     
@@ -17,10 +17,10 @@ struct ListItemFooter: View {
             
             switch event.type {
             case .vote:
-                VoteFooter()
+                VoteFooter(event: event)
             case .discussion:
-                DiscussionFooter()
-            default:
+                DiscussionFooter(event: event)
+            case .undefined:
                 Text("List type is undefined")
             }
             
@@ -33,6 +33,8 @@ struct ListItemFooter: View {
 
 struct DiscussionFooter: View {
     
+    var event: Event
+    
     var body: some View {
         HStack(spacing: 4) {
             
@@ -42,7 +44,7 @@ struct DiscussionFooter: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text("239")
+            Text(event.meta[0])
         }
         
         HStack(spacing: 4) {
@@ -53,7 +55,7 @@ struct DiscussionFooter: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text("150")
+            Text(event.meta[1])
         }
         
         HStack(spacing: 4) {
@@ -64,12 +66,14 @@ struct DiscussionFooter: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text("12")
+            Text(event.meta[2])
         }
     }
 }
 
 struct VoteFooter: View {
+    
+    var event: Event
     
     var body: some View {
         HStack(spacing: 4) {
@@ -80,7 +84,7 @@ struct VoteFooter: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text("239")
+            Text(event.meta[0])
         }
         
         HStack(spacing: 4) {
@@ -92,13 +96,13 @@ struct VoteFooter: View {
                 .foregroundColor(.gray)
                 .rotationEffect(.degrees(-90))
             
-            Text("150%")
+            Text(event.meta[1])
         }
     }
 }
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemFooter(event: Event(type: .discussion))
+        ListItemFooterView(event: Event(type: .discussion, meta: []))
     }
 }

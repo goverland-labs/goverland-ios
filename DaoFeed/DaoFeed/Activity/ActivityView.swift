@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivityView: View {
     
-    let event = Event(type: .discussion)
+    let event = Event(type: .discussion, meta: ["130", "238", "12"])
     
     var body: some View {
         
@@ -29,9 +29,11 @@ struct ActivityView: View {
 struct Event {
     
     private (set) var type: ListItemType = .undefined
+    private (set) var meta: [String]
     
-    init(type: ListItemType) {
+    init(type: ListItemType, meta: [String]) {
         self.type = type
+        self.meta = meta
     }
 }
                       
