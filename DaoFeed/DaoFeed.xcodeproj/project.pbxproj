@@ -272,7 +272,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F14400294B1DDD00D00B73 /* Build configuration list for PBXNativeTarget "DaoFeedTests" */;
 			buildPhases = (
-				516EE7AA8077B498D58727CB /* [CP] Check Pods Manifest.lock */,
 				55F143E5294B1DDD00D00B73 /* Sources */,
 				55F143E6294B1DDD00D00B73 /* Frameworks */,
 				55F143E7294B1DDD00D00B73 /* Resources */,
@@ -291,11 +290,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F14403294B1DDD00D00B73 /* Build configuration list for PBXNativeTarget "DaoFeedUITests" */;
 			buildPhases = (
-				EC84F4B39616213D3E4ABC2E /* [CP] Check Pods Manifest.lock */,
 				55F143EF294B1DDD00D00B73 /* Sources */,
 				55F143F0294B1DDD00D00B73 /* Frameworks */,
 				55F143F1294B1DDD00D00B73 /* Resources */,
-				17DA760003E64B9750485721 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -379,70 +376,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		17DA760003E64B9750485721 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaoFeed-DaoFeedUITests/Pods-DaoFeed-DaoFeedUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DaoFeed-DaoFeedUITests/Pods-DaoFeed-DaoFeedUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DaoFeed-DaoFeedUITests/Pods-DaoFeed-DaoFeedUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		516EE7AA8077B498D58727CB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DaoFeedTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EC84F4B39616213D3E4ABC2E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DaoFeed-DaoFeedUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55F143D5294B1DDA00D00B73 /* Sources */ = {
