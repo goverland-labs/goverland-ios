@@ -14,8 +14,8 @@ struct ActivityListItemHeaderUserView: View {
     var body: some View {
         
         // this logic should be in ViewModel
-        if user.endName != ""  {
-            Text(user.endName)
+        if user.endsName != ""  {
+            Text(user.endsName)
                 .fontWeight(.semibold)
                 .lineLimit(1)
         } else {
