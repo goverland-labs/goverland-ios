@@ -30,12 +30,12 @@ struct ActivityListItemHeaderView: View {
 struct User {
     
     var address: String
-    var endName: String
+    var endsName: String
     var image: String
     
     init(address: String, image: String, name: String) {
         self.address = address
-        self.endName = name
+        self.endsName = name
         self.image = image
     }
 }

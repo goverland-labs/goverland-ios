@@ -28,8 +28,8 @@ struct ActivityView: View {
 
 struct Event {
     
-    private (set) var type: ListItemType = .undefined
-    private (set) var meta: [String]
+    private(set) var type: ListItemType = .undefined
+    private(set) var meta: [String]
     
     init(type: ListItemType, meta: [String]) {
         self.type = type
