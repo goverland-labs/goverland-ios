@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ActivityListItemStatusBubbleView: View {
     
-    var listItemStatus: ListItemStatus  = .discussion
+    var event: ActivityEvent
     
     var body: some View {
         
-        switch self.listItemStatus {
+        switch event.status {
         
         case .discussion:
             ListItemBubbleView(
@@ -29,7 +29,7 @@ struct ActivityListItemStatusBubbleView: View {
         
         case .executed:
             ListItemBubbleView(
-                image: Image(systemName: "plus"),
+                image: Image(systemName: "checkmark"),
                 text: Text("EXECUTED"),
                 backgroundColor: Color.green)
         
@@ -80,13 +80,23 @@ struct ListItemBubbleView: View {
                 .minimumScaleFactor(0.1)
                 .lineLimit(1)
         }
-        .padding(5)
+        .padding([.leading, .trailing], 9)
+        .padding([.top, .bottom], 5)
         .background(Capsule().fill(backgroundColor))
     }
 }
 
 struct ListStatusBubbleView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemStatusBubbleView()
+        ActivityListItemStatusBubbleView(event: ActivityEvent(
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
+                name: "safe1.sche.eth"),
+            date: Date(),
+            type: .discussion,
+            status: .discussion,
+            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            meta: ["", "", ""]))
     }
 }

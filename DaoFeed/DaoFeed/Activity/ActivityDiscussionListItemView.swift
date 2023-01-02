@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivityDiscussionListItemView: View {
     
-    var event: Event
+    var event: ActivityEvent
     
     var body: some View {
         
@@ -23,6 +23,15 @@ struct ActivityDiscussionListItemView: View {
 
 struct DiscussionListView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDiscussionListItemView(event: Event(type: .discussion, meta: []))
+        ActivityDiscussionListItemView(event: ActivityEvent(
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: "https://example.org/image.jpg",
+                name: "safe1.sche.eth"),
+            date: Date(),
+            type: .discussion,
+            status: .discussion,
+            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            meta: ["", "", ""]))
     }
 }
