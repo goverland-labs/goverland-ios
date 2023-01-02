@@ -14,7 +14,7 @@ struct ActivityListItemHeaderUserView: View {
     var body: some View {
         
         // this logic should be in ViewModel
-        if let name = event.user.endsName {
+        if let name = event.user.ensName {
             Text(name)
                 .fontWeight(.semibold)
                 .lineLimit(1)
@@ -38,6 +38,7 @@ struct ListItemHeaderUserView_Previews: PreviewProvider {
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            daoImage: "",
             meta: ["", "", ""]))
     }
 }

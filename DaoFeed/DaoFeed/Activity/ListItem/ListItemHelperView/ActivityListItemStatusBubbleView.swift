@@ -60,7 +60,7 @@ struct ActivityListItemStatusBubbleView: View {
     }
 }
 
-struct ListItemBubbleView: View {
+fileprivate struct ListItemBubbleView: View {
     
     var image: Image?
     var text: Text
@@ -97,6 +97,7 @@ struct ListStatusBubbleView_Previews: PreviewProvider {
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            daoImage: "",
             meta: ["", "", ""]))
     }
 }

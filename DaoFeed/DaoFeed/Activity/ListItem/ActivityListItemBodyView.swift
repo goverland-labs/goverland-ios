@@ -37,10 +37,8 @@ struct ActivityListItemBodyView: View {
             
             Spacer()
             
-            Image(systemName: "face.smiling")
-                .resizable()
+            ActivityListItemBodyImageView(event: event)
                 .frame(width: 50, height: 50)
-                .foregroundColor(.pink)
         }
     }
 }
@@ -56,6 +54,7 @@ struct ListItemBody_Previews: PreviewProvider {
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            daoImage: "",
             meta: ["", "", ""]))
     }
 }

@@ -33,6 +33,7 @@ struct VoteListView_Previews: PreviewProvider {
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            daoImage: "",
             meta: ["", "", ""]))
     }
 }

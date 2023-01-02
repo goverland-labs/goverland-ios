@@ -55,6 +55,7 @@ class TestActivityEventsData {
                 title: "UIP23 - DAO Operations Buget",
                 subtitle: "2 days left to vote via Snapshot",
                 warningSubtitle: nil),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["239", "105%", ""])
         
         let eventDiscussionDiscussion = ActivityEvent(
@@ -69,6 +70,7 @@ class TestActivityEventsData {
                 title: "Deploy Uniswap V3 to Boba Layer 2 Network",
                 subtitle: "2 days left to vote vs snapshot",
                 warningSubtitle: nil),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["239", "342", "12"])
         
         let eventVoteQueued = ActivityEvent(
@@ -83,6 +85,7 @@ class TestActivityEventsData {
                 title: "UIP19 - DAO Operations",
                 subtitle: "Snapshot voting ended  3 days ago",
                 warningSubtitle: "Waiting for execution"),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["132", "124%", ""])
     
         let eventVoteExecuted = ActivityEvent(
@@ -97,6 +100,7 @@ class TestActivityEventsData {
                 title: "UIP18 - Fee mechanism",
                 subtitle: "Executed 1 day ago",
                 warningSubtitle: nil),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["593", "121%", "voted"])
         
         let eventVoteFailed = ActivityEvent(
@@ -111,6 +115,7 @@ class TestActivityEventsData {
                 title: "UIP17 - Updated terms & conditions",
                 subtitle: "Failed 1 day ago: Quorum not reached",
                 warningSubtitle: nil),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["22", "54%", "voted"])
 
         
@@ -131,12 +136,12 @@ class TestActivityEventsData {
 struct User {
     
     private(set) var address: String
-    private(set) var endsName: String?
+    private(set) var ensName: String?
     private(set) var image: String
     
     init(address: String, image: String, name: String?) {
         self.address = address
-        self.endsName = name
+        self.ensName = name
         self.image = image
     }
 }
@@ -149,15 +154,17 @@ struct ActivityEvent: Identifiable {
     private(set) var type: ActivityListItemType
     private(set) var status: ActivityListItemStatus
     private(set) var content: ActivityViewContent
+    private(set) var daoImage: String
     private(set) var meta: [String]
     
-    init(user: User, date: Date, type: ActivityListItemType, status: ActivityListItemStatus, content: ActivityViewContent, meta: [String]) {
+    init(user: User, date: Date, type: ActivityListItemType, status: ActivityListItemStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
         self.id = UUID()
         self.user = user
         self.date = date
         self.type = type
         self.status = status
         self.content = content
+        self.daoImage = daoImage
         self.meta = meta
     }
 }

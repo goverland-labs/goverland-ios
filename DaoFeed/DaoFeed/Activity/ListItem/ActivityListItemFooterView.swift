@@ -17,9 +17,9 @@ struct ActivityListItemFooterView: View {
             
             switch event.type {
             case .vote:
-                VoteFooter(event: event)
+                VoteFooterView(event: event)
             case .discussion:
-                DiscussionFooter(event: event)
+                DiscussionFooterView(event: event)
             case .undefined:
                 Text("List type is undefined")
             }
@@ -31,7 +31,7 @@ struct ActivityListItemFooterView: View {
     }
 }
 
-struct DiscussionFooter: View {
+fileprivate struct DiscussionFooterView: View {
     
     var event: ActivityEvent
     
@@ -71,7 +71,7 @@ struct DiscussionFooter: View {
     }
 }
 
-struct VoteFooter: View {
+fileprivate struct VoteFooterView: View {
     
     var event: ActivityEvent
     
@@ -132,6 +132,7 @@ struct ListItemFooter_Previews: PreviewProvider {
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            daoImage: "",
             meta: ["", "", ""]))
     }
 }
