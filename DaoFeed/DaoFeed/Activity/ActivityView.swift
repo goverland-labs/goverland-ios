@@ -83,7 +83,7 @@ class TestActivityEventsData {
             status: .queued,
             content: ActivityViewContent(
                 title: "UIP19 - DAO Operations",
-                subtitle: "Snapshot voting ended  3 days ago",
+                subtitle: "Snapshot voting ended 3 days ago",
                 warningSubtitle: "Waiting for execution"),
             daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["132", "124%", ""])
@@ -135,9 +135,9 @@ class TestActivityEventsData {
 
 struct User {
     
-    private(set) var address: String
-    private(set) var ensName: String?
-    private(set) var image: String
+    let address: String
+    let ensName: String?
+    let image: String
     
     init(address: String, image: String, name: String?) {
         self.address = address
@@ -148,14 +148,14 @@ struct User {
 
 struct ActivityEvent: Identifiable {
     
-    private(set) var id: UUID
-    private(set) var user: User
-    private(set) var date: Date
-    private(set) var type: ActivityListItemType
-    private(set) var status: ActivityListItemStatus
-    private(set) var content: ActivityViewContent
-    private(set) var daoImage: String
-    private(set) var meta: [String]
+    let id: UUID
+    let user: User
+    let date: Date
+    let type: ActivityListItemType
+    let status: ActivityListItemStatus
+    let content: ActivityViewContent
+    let daoImage: String
+    let meta: [String]
     
     init(user: User, date: Date, type: ActivityListItemType, status: ActivityListItemStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
         self.id = UUID()
@@ -171,9 +171,9 @@ struct ActivityEvent: Identifiable {
 
 struct ActivityViewContent {
     
-    private(set) var title: String
-    private(set) var subtitle: String
-    private(set) var warningSubtitle: String?
+    let title: String
+    let subtitle: String
+    let warningSubtitle: String?
     
     init(title: String, subtitle: String, warningSubtitle: String?) {
         self.title = title

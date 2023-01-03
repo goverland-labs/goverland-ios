@@ -14,8 +14,7 @@ struct ActivityListItemHeaderTimeView: View {
     
     var body: some View {
         
-        // 3 min for testing, here will be time of listItem passing with Event object
-        Text( (event.date - 3.minutes).toRelative(since: DateInRegion()) )
+        Text(event.date.toRelative(since: DateInRegion()))
             .foregroundColor(.gray)
     }
 }
