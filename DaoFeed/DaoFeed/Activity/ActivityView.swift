@@ -34,6 +34,18 @@ struct ActivityView: View {
             .listStyle(.plain)
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
+            .refreshable {
+                print("refreshed")
+                do {
+                    // api will be called here
+                    // 5 sec delay for now to emetate
+                    try? await Task.sleep(for: Duration.seconds(5))
+                    ActivityDataService.data.refreshedEvents()
+                } catch {
+                    // will handle api errors here
+                    
+                }
+            }
         }
         .background(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
     }

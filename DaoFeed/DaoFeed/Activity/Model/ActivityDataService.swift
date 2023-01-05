@@ -104,5 +104,9 @@ class ActivityDataService: ObservableObject {
     }
     
     
+    func refreshedEvents() -> [ActivityEvent] {
+        return events
+    }
+    
     
 }
