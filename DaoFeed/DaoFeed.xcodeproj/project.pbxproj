@@ -23,6 +23,9 @@
 		55F143F8294B1DDD00D00B73 /* DaoFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */; };
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
 		BA2EA2012967610500FB87AC /* ActivityFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* ActivityFilterMenu.swift */; };
+		BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */; };
+		BA2EA2062967903A00FB87AC /* ActivityConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2052967903A00FB87AC /* ActivityConstant.swift */; };
+		BA2EA2082967918600FB87AC /* ActivityObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2072967918600FB87AC /* ActivityObjects.swift */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
@@ -68,6 +71,9 @@
 		55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITests.swift; sourceTree = "<group>"; };
 		55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* ActivityFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterMenu.swift; sourceTree = "<group>"; };
+		BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataService.swift; sourceTree = "<group>"; };
+		BA2EA2052967903A00FB87AC /* ActivityConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityConstant.swift; sourceTree = "<group>"; };
+		BA2EA2072967918600FB87AC /* ActivityObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObjects.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 				BA2EA2002967610500FB87AC /* ActivityFilterMenu.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
+				BA2EA20229677F0800FB87AC /* Model */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -206,6 +213,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA2EA20229677F0800FB87AC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */,
+				BA2EA2052967903A00FB87AC /* ActivityConstant.swift */,
+				BA2EA2072967918600FB87AC /* ActivityObjects.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BAAA526D2953ABF9003177BC /* ActivityListItem */ = {
@@ -379,6 +396,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
+				BA2EA2082967918600FB87AC /* ActivityObjects.swift in Sources */,
+				BA2EA2062967903A00FB87AC /* ActivityConstant.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
@@ -390,6 +409,7 @@
 				BA2EA2012967610500FB87AC /* ActivityFilterMenu.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
+				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
