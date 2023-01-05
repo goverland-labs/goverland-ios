@@ -19,18 +19,12 @@ struct ActivityView: View {
                 ActivityListItemView(event: event)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
-                    .listRowInsets(.init(top: 10, leading: 15, bottom: 20, trailing: 15))
+                    .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
             }
         }
         
     }
 }
-
-
-
-
-
-
 
 
 

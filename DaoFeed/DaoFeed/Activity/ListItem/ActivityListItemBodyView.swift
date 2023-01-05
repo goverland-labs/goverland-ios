@@ -37,31 +37,19 @@ struct ActivityListItemBodyView: View {
             }
             
             Spacer()
-            
-            ActivityListItemBodyImageView(event: event)
+
+            KFImage(URL(string: event.daoImage))
+                .placeholder {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(.gray)
+                }
+                .resizable()
+                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
                 .frame(width: 50, height: 50)
         }
-    }
-}
-
-fileprivate struct ActivityListItemBodyImageView: View {
-    
-    var event: ActivityEvent
-    
-    var body: some View {
-        
-        let url = URL(string: event.daoImage)
-        
-        KFImage(url)
-            .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.gray)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
     }
 }
 

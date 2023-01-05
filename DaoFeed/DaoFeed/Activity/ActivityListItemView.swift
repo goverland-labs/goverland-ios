@@ -17,16 +17,14 @@ struct ActivityListItemView: View {
             
             RoundedRectangle(cornerRadius: 5)
                 .fill(.white)
-                .padding(.horizontal, -15.0)
-            
-            switch event.type {
-            case .vote:
-                ActivityVoteListItemView(event: event)
-            case .discussion:
-                ActivityDiscussionListItemView(event: event)
-            case .undefined:
-                Text("List type is undefined")
+                .padding(.horizontal, -20)
+
+            VStack(spacing: 12) {
+                ActivityListItemHeaderView(event: event)
+                ActivityListItemBodyView(event: event)
+                ActivityListItemFooterView(event: event)
             }
+
         }
     }
 }

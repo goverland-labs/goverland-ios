@@ -16,37 +16,30 @@ struct ActivityListItemHeaderView: View {
     var body: some View {
         
         HStack {
-            ActivityListItemHeaderImageView(event: event)
+            KFImage(URL(string: event.user.image))
+                .placeholder {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(.purple)
+                }
+                .resizable()
+                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 15, height: 15), mode: .aspectFit))
                 .frame(width: 15, height: 15)
+
             ActivityListItemHeaderUserView(event: event)
-            ActivityListItemHeaderTimeView(event: event)
+
+            Text(event.date.toRelative(since: DateInRegion()))
+                .foregroundColor(.gray)
+
             Spacer()
+
             ActivityListItemStatusBubbleView(event: event)
         }
     }
 }
 
-fileprivate struct ActivityListItemHeaderImageView: View {
-    
-    var event: ActivityEvent
-    
-    var body: some View {
-        
-        let url = URL(string: event.user.image)
-        
-        KFImage(url)
-            .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 15, height: 15)
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.purple)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 15, height: 15), mode: .aspectFit))
-    }
-        
-}
 
 fileprivate struct ActivityListItemHeaderUserView: View {
     
@@ -64,17 +57,6 @@ fileprivate struct ActivityListItemHeaderUserView: View {
                 .lineLimit(1)
                 .truncationMode(.middle)
         }
-    }
-}
-
-fileprivate struct ActivityListItemHeaderTimeView: View {
-    
-    var event: ActivityEvent
-    
-    var body: some View {
-        
-        Text(event.date.toRelative(since: DateInRegion()))
-            .foregroundColor(.gray)
     }
 }
 
@@ -139,7 +121,6 @@ fileprivate struct ListItemBubbleView: View {
     
     var body: some View {
         HStack(spacing: 3) {
-            
             image
                 .font(.system(size: 9))
                 .foregroundColor(.white)
