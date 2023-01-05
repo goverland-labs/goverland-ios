@@ -22,6 +22,12 @@
 		55F143EE294B1DDD00D00B73 /* DaoFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143ED294B1DDD00D00B73 /* DaoFeedTests.swift */; };
 		55F143F8294B1DDD00D00B73 /* DaoFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */; };
 		55F143FA294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */; };
+		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
+		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
+		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
+		BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */; };
+		BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */; };
+		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +66,10 @@
 		55F143F3294B1DDD00D00B73 /* DaoFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaoFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F143F7294B1DDD00D00B73 /* DaoFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITests.swift; sourceTree = "<group>"; };
 		55F143F9294B1DDD00D00B73 /* DaoFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
+		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
+		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
+		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
+				BAAA52762954AC14003177BC /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
+				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
+				BAAA526D2953ABF9003177BC /* ListItem */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -128,6 +142,7 @@
 				55F143EC294B1DDD00D00B73 /* DaoFeedTests */,
 				55F143F6294B1DDD00D00B73 /* DaoFeedUITests */,
 				55F143DA294B1DDA00D00B73 /* Products */,
+				AEBDE4E97998B3E1655EF210 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,6 +198,23 @@
 			path = DaoFeedUITests;
 			sourceTree = "<group>";
 		};
+		AEBDE4E97998B3E1655EF210 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAAA526D2953ABF9003177BC /* ListItem */ = {
+			isa = PBXGroup;
+			children = (
+				BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */,
+				BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */,
+				BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */,
+			);
+			path = ListItem;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,12 +225,17 @@
 				55F143D5294B1DDA00D00B73 /* Sources */,
 				55F143D6294B1DDA00D00B73 /* Frameworks */,
 				55F143D7294B1DDA00D00B73 /* Resources */,
+				BA2EA1FE29636C2700FB87AC /* TODO Warnings */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DaoFeed;
+			packageProductDependencies = (
+				BAAA52752954AC14003177BC /* Kingfisher */,
+				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
+			);
 			productName = DaoFeed;
 			productReference = 55F143D9294B1DDA00D00B73 /* DaoFeed.app */;
 			productType = "com.apple.product-type.application";
@@ -271,6 +308,10 @@
 				Base,
 			);
 			mainGroup = 55F143D0294B1DDA00D00B73;
+			packageReferences = (
+				BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+			);
 			productRefGroup = 55F143DA294B1DDA00D00B73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,6 +349,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BA2EA1FE29636C2700FB87AC /* TODO Warnings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "TODO Warnings";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nTAGS=\"TODO:|FIXME:|WARNING:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		55F143D5294B1DDA00D00B73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -319,8 +381,12 @@
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
+				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
+				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
+				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 			);
@@ -488,6 +554,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -516,6 +583,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -641,6 +709,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BAA6C2F3295CF5E000C848D8 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+		BAAA52752954AC14003177BC /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAAA52742954AC14003177BC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55F143D1294B1DDA00D00B73 /* Project object */;
 }
