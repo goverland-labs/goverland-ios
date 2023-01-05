@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ActivityListItemBodyView: View {
     
@@ -14,6 +15,7 @@ struct ActivityListItemBodyView: View {
     var body: some View {
         
         HStack {
+            
             VStack(alignment: .leading, spacing: 5) {
                 
                 Text(event.content.title)
@@ -32,7 +34,6 @@ struct ActivityListItemBodyView: View {
                 } else {
                     Text("")
                 }
-                
             }
             
             Spacer()
@@ -40,6 +41,27 @@ struct ActivityListItemBodyView: View {
             ActivityListItemBodyImageView(event: event)
                 .frame(width: 50, height: 50)
         }
+    }
+}
+
+fileprivate struct ActivityListItemBodyImageView: View {
+    
+    var event: ActivityEvent
+    
+    var body: some View {
+        
+        let url = URL(string: event.daoImage)
+        
+        KFImage(url)
+            .placeholder {
+                Image(systemName: "circle.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .aspectRatio(contentMode: .fill)
+                    .foregroundColor(.gray)
+            }
+            .resizable()
+            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
     }
 }
 

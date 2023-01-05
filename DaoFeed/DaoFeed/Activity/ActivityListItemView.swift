@@ -19,7 +19,6 @@ struct ActivityListItemView: View {
                 .fill(.white)
                 .padding(.horizontal, -15.0)
             
-            
             switch event.type {
             case .vote:
                 ActivityVoteListItemView(event: event)

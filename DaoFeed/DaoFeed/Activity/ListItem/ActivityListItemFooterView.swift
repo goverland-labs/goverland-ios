@@ -36,6 +36,7 @@ fileprivate struct DiscussionFooterView: View {
     var event: ActivityEvent
     
     var body: some View {
+        
         HStack(spacing: 4) {
             
             Image(systemName: "text.bubble.fill")
@@ -76,6 +77,7 @@ fileprivate struct VoteFooterView: View {
     var event: ActivityEvent
     
     var body: some View {
+        
         HStack(spacing: 4) {
             
             Image(systemName: "square.stack.3d.down.forward")
@@ -120,6 +122,33 @@ fileprivate struct VoteFooterView: View {
         }
     }
 }
+
+fileprivate struct ActivityListFooterMenu: View {
+    var body: some View {
+        
+        Menu {
+            
+            Button("Share", action: performShare)
+            Button("Cancel", action: performCancel)
+            
+        } label: {
+            
+            Image(systemName: "ellipsis")
+                .foregroundColor(.black)
+            .fontWeight(.bold)
+            
+        }
+    }
+    
+    private func performShare() {
+        
+    }
+    
+    private func performCancel() {
+        
+    }
+}
+
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {

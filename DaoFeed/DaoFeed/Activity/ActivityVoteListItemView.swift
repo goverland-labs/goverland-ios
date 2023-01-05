@@ -19,7 +19,6 @@ struct ActivityVoteListItemView: View {
             ActivityListItemFooterView(event: event)
         }
     }
-    
 }
 
 struct VoteListView_Previews: PreviewProvider {
