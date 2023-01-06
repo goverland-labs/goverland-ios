@@ -104,8 +104,23 @@ class ActivityDataService: ObservableObject {
     }
     
     
-    func refreshedEvents() -> [ActivityEvent] {
-        return events
+    func refreshedEvents() {
+        events.removeAll()
+        let eventVoteFailed = ActivityEvent(
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
+                name: nil),
+            date: Date(),
+            type: .vote,
+            status: .failed,
+            content: ActivityViewContent(
+                title: "UIP17 - Updated terms & conditions",
+                subtitle: "Failed 1 day ago: Quorum not reached",
+                warningSubtitle: nil),
+            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
+            meta: ["22", "54%", "voted"])
+        events.append(eventVoteFailed)
     }
     
     

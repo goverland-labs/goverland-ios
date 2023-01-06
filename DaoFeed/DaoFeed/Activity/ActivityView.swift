@@ -10,9 +10,7 @@ import SwiftUI
 struct ActivityView: View {
     
     @State private var index: Int = 0
-    
-    var events: [ActivityEvent] = ActivityDataService
-        .data.getEvents()
+    @StateObject private var data = ActivityDataService.data
     
     var body: some View {
         
@@ -21,7 +19,7 @@ struct ActivityView: View {
             ActivityFilterMenu(index: self.$index)
             
             List {
-                ForEach(events) { event in
+                ForEach(data.events) { event in
                     
                     ActivityListItemView(event: event)
                         .listRowSeparator(.hidden)
