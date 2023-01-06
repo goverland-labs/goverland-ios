@@ -1,24 +1,11 @@
 //
-//  ActivityObjects.swift
+//  ActivityEvent.swift
 //  DaoFeed
 //
-//  Created by Jenny Shalai on 2023-01-05.
+//  Created by Jenny Shalai on 2023-01-06.
 //
 
 import SwiftUI
-
-struct User {
-    
-    let address: String
-    let ensName: String?
-    let image: String
-    
-    init(address: String, image: String, name: String?) {
-        self.address = address
-        self.ensName = name
-        self.image = image
-    }
-}
 
 struct ActivityEvent: Identifiable {
     
@@ -43,6 +30,22 @@ struct ActivityEvent: Identifiable {
     }
 }
 
+enum ActivityListItemType {
+    case vote
+    case discussion
+    case undefined
+}
+
+enum ActivityListItemStatus {
+    case discussion
+    case activeVote
+    case executed
+    case failed
+    case queued
+    case succeeded
+    case defeated
+}
+
 struct ActivityViewContent {
     
     let title: String
@@ -55,4 +58,3 @@ struct ActivityViewContent {
         self.warningSubtitle = warningSubtitle
     }
 }
-
