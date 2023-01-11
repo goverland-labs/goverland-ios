@@ -6,14 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 
 class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
     static let data = ActivityDataService()
-    
+    var cancellables = Set<AnyCancellable>() // to store publishers
+
     private init() {
-        
+        getEventsTestData()
+    }
+    
+    func getEventsWithCombine() {
+        guard let url = URL(string: "add JSON url here") else { return }
+//                
+//        URLSession.shared.dataTaskPublisher(for: url)
+//            //.subscribe(on: DispatchQueue.global(qos: .background))
+//            .receive(on: DispatchQueue.main)
+//            .tryMap { (data, responce) -> Data in
+//                guard let response = responce as? HTTPURLResponse,
+//                      responce.statusCode >= 200 && responce.statusCode < 300 else {
+//                    throw URLError(.badServerResponse)
+//                }
+//                return data
+//            }
+//            .decode(type: [ActivityEvent].self, decoder: JSONDecoder())
+//            .sink { (complition) in
+//                print("complition is : \(complition)")
+//            } receiveValue: { [weak self] (returnedEvent) in
+//                self?.events = returnedEvent
+//            }
+//            .store(in: &cancellables)
+
+    }
+    
+    
+    func getEventsTestData() {
         let eventVoteActiveVote = ActivityEvent(
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -95,12 +124,11 @@ class ActivityDataService: ObservableObject {
         events.append(eventVoteQueued)
         events.append(eventVoteExecuted)
         events.append(eventVoteFailed)
-        
-    }
-    
-    
-    func getEvents() -> [ActivityEvent] {
-        return events
+        events.append(eventVoteActiveVote)
+        events.append(eventDiscussionDiscussion)
+        events.append(eventVoteQueued)
+        events.append(eventVoteExecuted)
+        events.append(eventVoteFailed)
     }
     
     

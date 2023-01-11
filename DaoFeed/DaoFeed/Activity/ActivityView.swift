@@ -16,7 +16,7 @@ struct ActivityView: View {
         
         VStack(spacing: 10) {
             
-            ActivityFilterMenu(index: self.$index)
+            ActivityFilterMenuView(index: self.$index)
             
             List {
                 ForEach(data.events) { event in

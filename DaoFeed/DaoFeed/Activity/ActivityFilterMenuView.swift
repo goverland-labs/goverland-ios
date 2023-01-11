@@ -1,5 +1,5 @@
 //
-//  ActivityFilterMenu.swift
+//  ActivityFilterMenuView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2023-01-05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActivityFilterMenu: View {
+struct ActivityFilterMenuView: View {
     
     @Binding var index: Int
     
@@ -53,7 +53,7 @@ struct ActivityFilterMenu: View {
        
 }
 
-struct ActivityFilterMenuItem: View {
+fileprivate struct ActivityFilterMenuItem: View {
     
     var menuItemName: String
     
@@ -69,6 +69,6 @@ struct ActivityFilterMenuItem: View {
 
 struct ActivityFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityFilterMenu(index: .constant(0))
+        ActivityFilterMenuView(index: .constant(0))
     }
 }
