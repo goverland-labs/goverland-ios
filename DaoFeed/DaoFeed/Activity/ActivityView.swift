@@ -37,7 +37,7 @@ struct ActivityView: View {
                 do {
                     // api will be called here
                     // 5 sec delay for now to emetate
-                    try? await Task.sleep(for: Duration.seconds(5))
+                    try await Task.sleep(for: Duration.seconds(5))
                     ActivityDataService.data.refreshedEvents()
                 } catch {
                     // will handle api errors here

@@ -20,7 +20,7 @@ class ActivityDataService: ObservableObject {
     
     func getEventsWithCombine() {
         guard let url = URL(string: "add JSON url here") else { return }
-//                
+//
 //        URLSession.shared.dataTaskPublisher(for: url)
 //            //.subscribe(on: DispatchQueue.global(qos: .background))
 //            .receive(on: DispatchQueue.main)

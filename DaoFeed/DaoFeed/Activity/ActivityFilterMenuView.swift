@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+
+enum MenuItem: Int {
+    case all = 0
+    case discussion = 1
+    case vote = 2
+    
+}
+
+
 struct ActivityFilterMenuView: View {
     
     @Binding var index: Int
@@ -30,7 +39,7 @@ struct ActivityFilterMenuView: View {
                     self.index = 1
                     print("Discussion button tapped")
                 }) {
-                    ActivityFilterMenuItem(menuItemName:    "Discussion")
+                    ActivityFilterMenuItem(menuItemName: "Discussion")
                         .background(Capsule().fill(1 == index ? .black : .white))
                         .foregroundColor(1 == index ? .white : .black)
                 }

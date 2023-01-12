@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivityFilterMenuViewModel {
     
-    func filteredActivityItems(type: ActivityListItemType) -> [ActivityEvent] {
+    func filteredActivityItems(type: ActivityEventType) -> [ActivityEvent] {
         let events = ActivityDataService.data.events
         switch type {
         case .discussion:

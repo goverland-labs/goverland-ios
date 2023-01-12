@@ -12,13 +12,13 @@ struct ActivityEvent: Identifiable {
     let id: UUID
     let user: User
     let date: Date
-    let type: ActivityListItemType
-    let status: ActivityListItemStatus
+    let type: ActivityEventType
+    let status: ActivityEventStatus
     let content: ActivityViewContent
     let daoImage: String
     let meta: [String]
     
-    init(user: User, date: Date, type: ActivityListItemType, status: ActivityListItemStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
+    init(user: User, date: Date, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
         self.id = UUID()
         self.user = user
         self.date = date
@@ -30,13 +30,13 @@ struct ActivityEvent: Identifiable {
     }
 }
 
-enum ActivityListItemType {
+enum ActivityEventType {
     case vote
     case discussion
     case undefined
 }
 
-enum ActivityListItemStatus {
+enum ActivityEventStatus {
     case discussion
     case activeVote
     case executed
