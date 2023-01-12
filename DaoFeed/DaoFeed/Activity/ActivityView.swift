@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ActivityView: View {
     
-    //@State private var index: Int = 0
+    @State private var index: Int = 0
     @StateObject private var data = ActivityDataService.data
     
     var body: some View {
         
         VStack(spacing: 10) {
             
-            ActivityFilterMenuView(index: 0)
+            ActivityFilterMenuView(index: $index)
             
             List {
                 ForEach(data.events) { event in
@@ -33,12 +33,11 @@ struct ActivityView: View {
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
             .refreshable {
-                print("refreshed")
                 do {
                     // api will be called here
-                    // 5 sec delay for now to emetate
-                    try await Task.sleep(for: Duration.seconds(5))
-                    ActivityDataService.data.refreshedEvents()
+                    // 3 sec delay for now to emetate
+                    try await Task.sleep(for: Duration.seconds(3))
+                    ActivityDataService.data.refreshedEvents(withFilter: index)
                 } catch {
                     // will handle api errors here
                     

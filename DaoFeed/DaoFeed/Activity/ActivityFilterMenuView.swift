@@ -16,7 +16,7 @@ enum MenuItem: Int {
 
 struct ActivityFilterMenuView: View {
     
-    @State var index: Int
+    @Binding var index: Int
     
     let vm = ActivityDataService.data
  
@@ -82,6 +82,6 @@ fileprivate struct ActivityFilterMenuItem: View {
 
 struct ActivityFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityFilterMenuView(index: 0)
+        ActivityFilterMenuView(index: .constant(0))
     }
 }
