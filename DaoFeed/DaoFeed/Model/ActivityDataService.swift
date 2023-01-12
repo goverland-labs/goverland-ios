@@ -12,10 +12,23 @@ class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
     static let data = ActivityDataService()
+    private var cashedEvents: [ActivityEvent] = []
     var cancellables = Set<AnyCancellable>() // to store publishers
 
     private init() {
         getEventsTestData()
+        cashedEvents = events
+    }
+    
+    func filteredActivityItems(type: MenuItem) {
+        switch type {
+        case .discussion:
+            self.events = cashedEvents.filter { $0.type == .discussion }
+        case .vote:
+            self.events = cashedEvents.filter { $0.type == .vote }
+        case .all:
+            self.events = cashedEvents
+        }
     }
     
     func getEventsWithCombine() {
@@ -122,13 +135,10 @@ class ActivityDataService: ObservableObject {
         events.append(eventVoteActiveVote)
         events.append(eventDiscussionDiscussion)
         events.append(eventVoteQueued)
-        events.append(eventVoteExecuted)
-        events.append(eventVoteFailed)
-        events.append(eventVoteActiveVote)
         events.append(eventDiscussionDiscussion)
-        events.append(eventVoteQueued)
-        events.append(eventVoteExecuted)
         events.append(eventVoteFailed)
+        events.append(eventVoteExecuted)
+        
     }
     
     

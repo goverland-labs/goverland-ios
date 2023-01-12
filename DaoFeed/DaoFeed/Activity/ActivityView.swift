@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ActivityView: View {
     
-    @State private var index: Int = 0
+    //@State private var index: Int = 0
     @StateObject private var data = ActivityDataService.data
     
     var body: some View {
         
         VStack(spacing: 10) {
             
-            ActivityFilterMenuView(index: self.$index)
+            ActivityFilterMenuView(index: 0)
             
             List {
                 ForEach(data.events) { event in

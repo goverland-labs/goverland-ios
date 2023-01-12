@@ -9,16 +9,17 @@ import SwiftUI
 
 
 enum MenuItem: Int {
-    case all = 0
-    case discussion = 1
-    case vote = 2
+    case all, discussion, vote
     
 }
 
 
 struct ActivityFilterMenuView: View {
     
-    @Binding var index: Int
+    @State var index: Int
+    
+    let vm = ActivityDataService.data
+ 
     
     var body: some View {
         
@@ -28,6 +29,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.index = 0
+                    vm.filteredActivityItems(type: .all)
                     print("All button tapped")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
@@ -37,6 +39,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.index = 1
+                    vm.filteredActivityItems(type: .discussion)
                     print("Discussion button tapped")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
@@ -46,6 +49,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.index = 2
+                    vm.filteredActivityItems(type: .vote)
                     print("Vote button tapped")
                 }) {
                     
@@ -78,6 +82,6 @@ fileprivate struct ActivityFilterMenuItem: View {
 
 struct ActivityFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityFilterMenuView(index: .constant(0))
+        ActivityFilterMenuView(index: 0)
     }
 }
