@@ -46,6 +46,12 @@ enum ActivityEventStatus {
     case defeated
 }
 
+enum FilterType {
+    case all
+    case discussion
+    case vote
+}
+
 struct ActivityViewContent {
     
     let title: String

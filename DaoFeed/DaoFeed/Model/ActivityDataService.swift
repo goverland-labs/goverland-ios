@@ -20,7 +20,7 @@ class ActivityDataService: ObservableObject {
         cashedEvents = events
     }
     
-    func filteredActivityItems(type: MenuItem) {
+    func filteredActivityItems(type: FilterType) {
         switch type {
         case .discussion:
             self.events = cashedEvents.filter { $0.type == .discussion }
@@ -31,8 +31,15 @@ class ActivityDataService: ObservableObject {
         }
     }
     
-    func getEventsWithCombine() {
-        guard let url = URL(string: "add JSON url here") else { return }
+    
+    func refreshedEvents(withFilter filter: FilterType) {
+        events.removeAll()
+        getEventsTestData()
+        filteredActivityItems(type: filter)
+    }
+    
+//    func getEvents() {
+//        guard let url = URL(string: "add JSON url here") else { return }
 //
 //        URLSession.shared.dataTaskPublisher(for: url)
 //            //.subscribe(on: DispatchQueue.global(qos: .background))
@@ -51,8 +58,7 @@ class ActivityDataService: ObservableObject {
 //                self?.events = returnedEvent
 //            }
 //            .store(in: &cancellables)
-
-    }
+//    }
     
     
     func getEventsTestData() {
@@ -131,7 +137,6 @@ class ActivityDataService: ObservableObject {
             daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
             meta: ["22", "54%", "voted"])
 
-        
         events.append(eventVoteActiveVote)
         events.append(eventDiscussionDiscussion)
         events.append(eventVoteQueued)
@@ -140,20 +145,4 @@ class ActivityDataService: ObservableObject {
         events.append(eventVoteExecuted)
         
     }
-    
-    
-    func refreshedEvents(withFilter filter: Int) {
-        events.removeAll()
-        getEventsTestData()
-        switch filter {
-        case 1:
-            filteredActivityItems(type: .discussion)
-        case 2:
-            filteredActivityItems(type: .vote)
-        default:
-            return
-        }
-        
-    }
-    
 }

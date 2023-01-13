@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ActivityView: View {
     
-    @State private var index: Int = 0
+    @State private var filter: FilterType = .all
     @StateObject private var data = ActivityDataService.data
-    
-    var body: some View {
+
+    var body: some View {        
         
         VStack(spacing: 10) {
             
-            ActivityFilterMenuView(index: $index)
+            ActivityFilterMenuView(filter: $filter)
             
             List {
                 ForEach(data.events) { event in
@@ -26,7 +26,6 @@ struct ActivityView: View {
                         .listRowBackground(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
                         .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                         .padding(.top, 10)
-                        
                 }
             }
             .listStyle(.plain)
@@ -37,7 +36,7 @@ struct ActivityView: View {
                     // api will be called here
                     // 3 sec delay for now to emetate
                     try await Task.sleep(for: Duration.seconds(3))
-                    ActivityDataService.data.refreshedEvents(withFilter: index)
+                        data.refreshedEvents(withFilter: filter)
                 } catch {
                     // will handle api errors here
                     

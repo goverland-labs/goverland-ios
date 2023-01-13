@@ -124,7 +124,6 @@
 				BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
-				BA2EA2092967C0BA00FB87AC /* ViewModel */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -224,13 +223,6 @@
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		BA2EA2092967C0BA00FB87AC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BAAA526D2953ABF9003177BC /* ActivityListItem */ = {

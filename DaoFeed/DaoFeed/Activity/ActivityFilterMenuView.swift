@@ -7,19 +7,10 @@
 
 import SwiftUI
 
-
-enum MenuItem: Int {
-    case all, discussion, vote
-    
-}
-
-
 struct ActivityFilterMenuView: View {
     
-    @Binding var index: Int
+    @Binding var filter: FilterType
     
-    let vm = ActivityDataService.data
- 
     
     var body: some View {
         
@@ -28,34 +19,34 @@ struct ActivityFilterMenuView: View {
             HStack {
                 
                 Button(action: {
-                    self.index = 0
-                    vm.filteredActivityItems(type: .all)
-                    print("All button tapped")
+                    self.filter = .all
+                    ActivityDataService.data.filteredActivityItems(type: .all)
+                    print("All button tapped and filter is \(filter)")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
-                        .background(Capsule().fill(0 == index ? .black : .white))
-                        .foregroundColor(0 == index ? .white : .black)
+                        .background(Capsule().fill(filter == .all ? .black : .white))
+                        .foregroundColor(filter == .all ? .white : .black)
                 }
                 
                 Button(action: {
-                    self.index = 1
-                    vm.filteredActivityItems(type: .discussion)
-                    print("Discussion button tapped")
+                    self.filter = .discussion
+                    ActivityDataService.data.filteredActivityItems(type: .discussion)
+                    print("Discussion button tapped and filter is \(filter)")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
-                        .background(Capsule().fill(1 == index ? .black : .white))
-                        .foregroundColor(1 == index ? .white : .black)
+                        .background(Capsule().fill(filter == .discussion ? .black : .white))
+                        .foregroundColor(filter == .discussion ? .white : .black)
                 }
                 
                 Button(action: {
-                    self.index = 2
-                    vm.filteredActivityItems(type: .vote)
-                    print("Vote button tapped")
+                    self.filter = .vote
+                    ActivityDataService.data.filteredActivityItems(type: .vote)
+                    print("Vote button tapped and filter is \(filter)")
                 }) {
                     
                     ActivityFilterMenuItem(menuItemName: "Vote")
-                        .background(Capsule().fill(2 == index ? .black : .white))
-                        .foregroundColor(2 == index ? .white : .black)
+                        .background(Capsule().fill(filter == .vote ? .black : .white))
+                        .foregroundColor(filter == .vote ? .white : .black)
                 }
             }
         }
@@ -82,6 +73,6 @@ fileprivate struct ActivityFilterMenuItem: View {
 
 struct ActivityFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityFilterMenuView(index: .constant(0))
+        ActivityFilterMenuView(filter: .constant(.vote))
     }
 }
