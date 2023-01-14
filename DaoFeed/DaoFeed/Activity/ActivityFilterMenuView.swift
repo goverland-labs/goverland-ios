@@ -21,7 +21,6 @@ struct ActivityFilterMenuView: View {
                 Button(action: {
                     self.filter = .all
                     ActivityDataService.data.filteredActivityItems(type: .all)
-                    print("All button tapped and filter is \(filter)")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
                         .background(Capsule().fill(filter == .all ? .black : .white))
@@ -31,7 +30,6 @@ struct ActivityFilterMenuView: View {
                 Button(action: {
                     self.filter = .discussion
                     ActivityDataService.data.filteredActivityItems(type: .discussion)
-                    print("Discussion button tapped and filter is \(filter)")
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
                         .background(Capsule().fill(filter == .discussion ? .black : .white))
@@ -41,7 +39,6 @@ struct ActivityFilterMenuView: View {
                 Button(action: {
                     self.filter = .vote
                     ActivityDataService.data.filteredActivityItems(type: .vote)
-                    print("Vote button tapped and filter is \(filter)")
                 }) {
                     
                     ActivityFilterMenuItem(menuItemName: "Vote")
