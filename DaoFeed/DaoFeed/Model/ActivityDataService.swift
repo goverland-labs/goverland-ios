@@ -16,29 +16,12 @@ class ActivityDataService: ObservableObject {
     private var cancellables = Set<AnyCancellable>() // to store publishers
     
     private init() {
-        getEvents()
+        getEvents(withFilter: .all)
         cashedEvents = events
     }
     
-    func filteredActivityItems(type: FilterType) {
-        switch type {
-        case .discussion:
-            self.events = cashedEvents.filter { $0.type == .discussion }
-        case .vote:
-            self.events = cashedEvents.filter { $0.type == .vote }
-        case .all:
-            self.events = cashedEvents
-        }
-    }
-    
-    func refreshedEvents(withFilter filter: FilterType) {
-        events.removeAll()
-        getEvents()
-        filteredActivityItems(type: filter)
-    }
-    
-    func getEvents() {
-        
+    func getEvents(withFilter filter: FilterType) {
+        print("getEvents() started")
         guard let url = URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/0eb37b5bb465151c00e07bc5597ba4e179712ee4/ActivityEvents.json") else { return }
         
         URLSession
@@ -51,8 +34,23 @@ class ActivityDataService: ObservableObject {
             .sink { (complition) in
                 print("complition is : \(complition)")
             } receiveValue: { [weak self] (returnedEvent) in
+                self?.events.removeAll()
+                self?.cashedEvents.removeAll()
                 self?.events = returnedEvent
+                self?.cashedEvents = returnedEvent
+                self?.filteredActivityEvents(withFilter: filter)
             }
             .store(in: &cancellables)
+    }
+    
+    func filteredActivityEvents(withFilter filter: FilterType) {
+        switch filter {
+        case .discussion:
+            self.events = cashedEvents.filter { $0.type == .discussion }
+        case .vote:
+            self.events = cashedEvents.filter { $0.type == .vote }
+        case .all:
+            self.events = cashedEvents
+        }
     }
 }
