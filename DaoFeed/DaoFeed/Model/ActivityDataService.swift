@@ -31,8 +31,8 @@ class ActivityDataService: ObservableObject {
             .receive(on: DispatchQueue.main)
             .map(\.data)
             .decode(type: [ActivityEvent].self, decoder: JSONDecoder())
-            .sink { (complition) in
-                print("complition is : \(complition)")
+            .sink { (completion) in
+                print("completion is : \(completion)")
             } receiveValue: { [weak self] (returnedEvent) in
                 self?.events.removeAll()
                 self?.cashedEvents.removeAll()
@@ -41,6 +41,7 @@ class ActivityDataService: ObservableObject {
                 self?.filteredActivityEvents(withFilter: filter)
             }
             .store(in: &cancellables)
+            
     }
     
     func filteredActivityEvents(withFilter filter: FilterType) {

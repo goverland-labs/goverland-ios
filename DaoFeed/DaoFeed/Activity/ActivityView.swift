@@ -34,7 +34,7 @@ struct ActivityView: View {
             .refreshable {
                 do {
                     // api will be called here
-                    // 3 sec delay for now to emetate
+                    // 3 sec delay for now to imitate
                     try await Task.sleep(for: Duration.seconds(3))
                         data.getEvents(withFilter: filter)
                 } catch {
