@@ -30,7 +30,7 @@ struct ActivityListItemHeaderView: View {
 
             ActivityListItemHeaderUserView(event: event)
 
-            Text(DateConvert(withString: event.date).toRelative(since: DateInRegion()))
+            Text(event.date.toRelative(since: DateInRegion()))
                 .foregroundColor(.gray)
 
             Spacer()
@@ -38,14 +38,6 @@ struct ActivityListItemHeaderView: View {
             ActivityListItemStatusBubbleView(event: event)
         }
     }
-}
-
-fileprivate func DateConvert(withString dateString: String) -> Date {
-    let dateFormatter = ISO8601DateFormatter()
-    dateFormatter.formatOptions.insert(.withFractionalSeconds)
-    guard let date = dateFormatter.date(from: dateString) else {return Date()}
-    return date
-   
 }
 
 fileprivate struct ActivityListItemHeaderUserView: View {
@@ -153,7 +145,7 @@ struct ListItemHeader_Previews: PreviewProvider {
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
                 image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
                 name: "safe1.sche.eth"),
-            date: "",
+            date: Date(),
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),

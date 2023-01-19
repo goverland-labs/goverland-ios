@@ -11,14 +11,14 @@ struct ActivityEvent: Identifiable, Decodable {
     
     let id: String
     let user: User
-    let date: String
+    let date: Date
     let type: ActivityEventType
     let status: ActivityEventStatus
     let content: ActivityViewContent
     let daoImage: String
     let meta: [String]
     
-    init(id: String, user: User, date: String, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
+    init(id: String, user: User, date: Date, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
         self.id = id
         self.user = user
         self.date = date

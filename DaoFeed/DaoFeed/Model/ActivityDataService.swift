@@ -23,14 +23,20 @@ class ActivityDataService: ObservableObject {
     func getEvents(withFilter filter: FilterType) {
         guard let url = URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/ec3d791bd3f9abff71a80f70bf03919338281cad/ActivityEvents.json") else { return }
         
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSZ"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
         URLSession
             .shared
             .dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map(\.data)
-            .decode(type: [ActivityEvent].self, decoder: JSONDecoder())
+            .decode(type: [ActivityEvent].self, decoder: decoder)
             .sink { (completion) in
+                print("complition \(completion)")
             } receiveValue: { [weak self] (returnedEvent) in
                 self?.events = returnedEvent
                 self?.cashedEvents = returnedEvent
