@@ -21,8 +21,7 @@ class ActivityDataService: ObservableObject {
     }
     
     func getEvents(withFilter filter: FilterType) {
-        print("getEvents() started")
-        guard let url = URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/0eb37b5bb465151c00e07bc5597ba4e179712ee4/ActivityEvents.json") else { return }
+        guard let url = URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/ec3d791bd3f9abff71a80f70bf03919338281cad/ActivityEvents.json") else { return }
         
         URLSession
             .shared
@@ -32,19 +31,16 @@ class ActivityDataService: ObservableObject {
             .map(\.data)
             .decode(type: [ActivityEvent].self, decoder: JSONDecoder())
             .sink { (completion) in
-                print("completion is : \(completion)")
             } receiveValue: { [weak self] (returnedEvent) in
-                self?.events.removeAll()
-                self?.cashedEvents.removeAll()
                 self?.events = returnedEvent
                 self?.cashedEvents = returnedEvent
-                self?.filteredActivityEvents(withFilter: filter)
+                self?.filterCashedEvents(withFilter: filter)
             }
             .store(in: &cancellables)
             
     }
     
-    func filteredActivityEvents(withFilter filter: FilterType) {
+    func filterCashedEvents(withFilter filter: FilterType) {
         switch filter {
         case .discussion:
             self.events = cashedEvents.filter { $0.type == .discussion }

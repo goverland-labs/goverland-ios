@@ -78,7 +78,6 @@
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
-		BAD9A2B32971F07600438148 /* ActivityEvent.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = ActivityEvent.geojson; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */,
-				BAD9A2B32971F07600438148 /* ActivityEvent.geojson */,
 				BA2EA20C2968904C00FB87AC /* ActivityEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 			);
