@@ -93,13 +93,13 @@ fileprivate struct ActivityListItemStatusBubbleView: View {
         
         case .queued:
             ListItemBubbleView(
-                image: Image(systemName: ""),
+                image: nil,
                 text: Text("QUEUED"),
                 backgroundColor: Color.yellow)
             
         case .succeeded:
             ListItemBubbleView(
-                image: Image(systemName: ""),
+                image: nil,
                 text: Text("SUCCEEDE"),
                 backgroundColor: Color.green)
         

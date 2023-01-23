@@ -27,7 +27,10 @@ struct ActivityView: View {
                             .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                             .padding(.top, 10)
                             .onAppear {
-                                // call fetch more activity events here 
+                                Task {
+                                    try await Task.sleep(for: Duration.seconds(1))
+                                        data.getEvents(withFilter: filter)
+                                }
                             }
                 } else {
                     ActivityListItemView(event: data.events[index])
