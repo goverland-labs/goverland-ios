@@ -11,7 +11,7 @@ import Combine
 class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
-    private var nextPageURL: String = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/f7fcb47a9fe8a0897d74926e0e1d23b6199e5b05/ActivityEventsPage1.json"
+    private var nextPageURL: String? = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/f7fcb47a9fe8a0897d74926e0e1d23b6199e5b05/ActivityEventsPage1.json"
     static let data = ActivityDataService()
     private var cashedEvents: [ActivityEvent] = []
     private var cancellables = Set<AnyCancellable>() // to store publishers
@@ -22,6 +22,7 @@ class ActivityDataService: ObservableObject {
     }
     
     func getEvents(withFilter filter: FilterType) {
+        guard let nextPageURL = nextPageURL else { return }
         guard let url = URL(string: nextPageURL) else { return }
         
         let decoder = JSONDecoder()

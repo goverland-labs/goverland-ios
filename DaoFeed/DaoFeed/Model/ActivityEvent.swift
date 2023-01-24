@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivityEvent: Identifiable, Decodable {
     
-    let id: String
+    let id: UUID
     let user: User
     let date: Date
     let type: ActivityEventType
@@ -18,7 +18,7 @@ struct ActivityEvent: Identifiable, Decodable {
     let daoImage: String
     let meta: [String]
     
-    init(id: String, user: User, date: Date, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
+    init(id: UUID, user: User, date: Date, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: [String]) {
         self.id = id
         self.user = user
         self.date = date
