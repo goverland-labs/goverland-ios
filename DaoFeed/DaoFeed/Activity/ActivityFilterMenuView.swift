@@ -20,7 +20,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .all
-                    ActivityDataService.data.filterCashedEvents(withFilter: .all)
+                    ActivityDataService.data.getEvents(withFilter: .all)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
                         .background(Capsule().fill(filter == .all ? .black : .white))
@@ -29,7 +29,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .discussion
-                    ActivityDataService.data.filterCashedEvents(withFilter: .discussion)
+                    ActivityDataService.data.getEvents(withFilter: .discussion)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
                         .background(Capsule().fill(filter == .discussion ? .black : .white))
@@ -38,7 +38,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .vote
-                    ActivityDataService.data.filterCashedEvents(withFilter: .vote)
+                    ActivityDataService.data.getEvents(withFilter: .vote)
                 }) {
                     
                     ActivityFilterMenuItem(menuItemName: "Vote")
