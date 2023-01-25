@@ -20,14 +20,12 @@ struct ActivityView: View {
             
             List(0..<data.events.count, id: \.self) { index in
                 // need to add validation, that URL is valid (API valid and returning data)
-                if index == data.events.count - 1 && data.isNextPageURL() {
+                if index == data.events.count - 1 && data.hasNextPageURL() {
                     
                     ActivityListItemView(event: data.events[index])
                         .redacted(reason: .placeholder)
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                data.getEvents(withFilter: filter)
-                            }
+                            data.getEvents(withFilter: filter)
                         }
                 } else {
                     ActivityListItemView(event: data.events[index])
@@ -41,6 +39,8 @@ struct ActivityView: View {
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
             .refreshable {
+                data.nextPageURL = ""
+                data.events = []
                 data.getEvents(withFilter: filter)
             }
         }

@@ -11,32 +11,42 @@ import Combine
 class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
-    private var nextPageURL: String? = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/35a88a34e457eda8b26c58b23a1b5f9c5aa4eb46/ActivityEventsPage1.json"
+    var nextPageURL: String? = ""
     static let data = ActivityDataService()
-    private var cancellables = Set<AnyCancellable>() // to store publishers
+    private var cancellables = Set<AnyCancellable>()
     
     private init() {
         getEvents(withFilter: .all)
     }
     
-    func isNextPageURL() -> Bool {
-        return nextPageURL == "nil" ? false : true
+    func hasNextPageURL() -> Bool {
+        return nextPageURL == nil ? false : true
+    }
+    
+    private func getUrl(filter: FilterType) -> String? {
+        var url: String?
+        
+        switch filter {
+        case .discussion:
+            self.events = []
+            url = "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/4134fd741c095adb381d53f49612c3c9f363ca39/ActivityEventsFilteredDiscussions.json"
+        case .vote:
+            self.events = []
+            url = "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/d9c1fae17ed11b241d6db53d71b8253de8e9c118/ActivityEventsFilteredVotes.json"
+        case .all:
+            if nextPageURL == "" {
+                url = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/8fd73d2ff6ee6479aa0ef66ea1cf1e7141f4e43d/ActivityEventsPage1.json"
+            }
+            if nextPageURL != "" && nextPageURL != nil {
+                url = nextPageURL!
+            }
+        }
+        return url
     }
     
     func getEvents(withFilter filter: FilterType) {
         
-        var urlGist: String = ""
-        
-        switch filter {
-        case .discussion:
-            urlGist = "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/2f82baa0a88735241ee79cf551f90d45c5d1972a/ActivityEventsFilteredDiscussions.json"
-        case .vote:
-            urlGist = "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/517fe666d627d2480eed86371219eb1d9e3e8a6c/ActivityEventsFilteredDiscussions.json"
-        case .all:
-            guard let nextPageURL = nextPageURL else { return }
-            urlGist = nextPageURL
-        }
-        
+        guard let urlGist = getUrl(filter: filter) else { return }
         guard let url = URL(string: urlGist) else { return }
         
         let decoder = JSONDecoder()
@@ -53,7 +63,7 @@ class ActivityDataService: ObservableObject {
             .decode(type: ResponceDataForActivityEvents.self, decoder: decoder)
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
-                self?.events = returnedData.result
+                self?.events.append(contentsOf: returnedData.result)
                 self?.nextPageURL = returnedData.next
             }
             .store(in: &cancellables)
@@ -62,6 +72,7 @@ class ActivityDataService: ObservableObject {
 
 fileprivate struct ResponceDataForActivityEvents: Decodable {
     
-    let next: String
+    let next: String?
     let result: [ActivityEvent]
 }
+

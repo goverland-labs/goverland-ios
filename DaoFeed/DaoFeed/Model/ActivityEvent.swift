@@ -17,9 +17,16 @@ struct ActivityEvent: Identifiable, Decodable {
     let status: ActivityEventStatus
     let content: ActivityViewContent
     let daoImage: String
-    let meta: ActivityEventMetaInfo
+    let meta: ActivityEventMetaInfo?
     
-    init(id: UUID, user: User, date: Date, type: ActivityEventType, status: ActivityEventStatus, content: ActivityViewContent, daoImage: String, meta: ActivityEventMetaInfo) {
+    init(id: UUID,
+         user: User,
+         date: Date,
+         type: ActivityEventType,
+         status: ActivityEventStatus,
+         content: ActivityViewContent,
+         daoImage: String,
+         meta: ActivityEventMetaInfo?) {
         self.id = id
         self.user = user
         self.date = date
