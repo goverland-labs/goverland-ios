@@ -21,6 +21,10 @@ class ActivityDataService: ObservableObject {
         cashedEvents = events
     }
     
+    func isNextPageURL() -> Bool {
+        return nextPageURL == "nil" ? false : true
+    }
+    
     func getEvents(withFilter filter: FilterType) {
         guard let nextPageURL = nextPageURL else { return }
         guard let url = URL(string: nextPageURL) else { return }
@@ -38,7 +42,6 @@ class ActivityDataService: ObservableObject {
             .map(\.data)
             .decode(type: ResponceDataForActivityEvents.self, decoder: decoder)
             .sink { (completion) in
-                print("complition \(completion)")
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
                 self?.cashedEvents.append(contentsOf: returnedData.result)
