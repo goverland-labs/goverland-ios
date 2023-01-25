@@ -150,6 +150,6 @@ struct ListItemHeader_Previews: PreviewProvider {
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: "",
-            meta: ["", "", ""]))
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

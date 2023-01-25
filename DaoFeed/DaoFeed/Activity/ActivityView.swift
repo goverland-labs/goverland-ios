@@ -19,7 +19,7 @@ struct ActivityView: View {
             ActivityFilterMenuView(filter: $filter)
             
             List(0..<data.events.count, id: \.self) { index in
-            
+                // need to add validation, that URL is valid (API valid and returning data)
                 if index == data.events.count - 1 && data.isNextPageURL() {
                     
                     ActivityListItemView(event: data.events[index])
@@ -28,7 +28,7 @@ struct ActivityView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 data.getEvents(withFilter: filter)
                             }
-                        }   
+                        }
                 } else {
                     ActivityListItemView(event: data.events[index])
                             .listRowSeparator(.hidden)
@@ -36,8 +36,6 @@ struct ActivityView: View {
                             .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                             .padding(.top, 10)
                 }
-
-                
             }
             .listStyle(.plain)
             .padding(.horizontal, 10)

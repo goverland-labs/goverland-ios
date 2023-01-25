@@ -15,15 +15,12 @@ struct ActivityListItemFooterView: View {
         
         HStack(spacing: 20) {
             
-            switch event.type {
-            case .vote:
-                VoteFooterView(event: event)
-            case .discussion:
-                DiscussionFooterView(event: event)
-            case .undefined:
-                Text("List type is undefined")
+            if let meta = event.meta as? ActivityEventsDiscussionMeta {
+                DiscussionFooterView(meta: meta)
+            } else if let meta = event.meta as? ActivityEventsVoteMeta {
+                VoteFooterView(meta: meta)
             }
-            
+        
             Spacer()
             
             ActivityListFooterMenu()
@@ -33,7 +30,7 @@ struct ActivityListItemFooterView: View {
 
 fileprivate struct DiscussionFooterView: View {
     
-    var event: ActivityEvent
+    var meta: ActivityEventsDiscussionMeta
     
     var body: some View {
         
@@ -45,7 +42,7 @@ fileprivate struct DiscussionFooterView: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text(event.meta[0])
+            Text(String(meta.comments))
         }
         
         HStack(spacing: 4) {
@@ -56,7 +53,7 @@ fileprivate struct DiscussionFooterView: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text(event.meta[1])
+            Text(String(meta.views))
         }
         
         HStack(spacing: 4) {
@@ -67,14 +64,14 @@ fileprivate struct DiscussionFooterView: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text(event.meta[2])
+            Text(String(meta.views))
         }
     }
 }
 
 fileprivate struct VoteFooterView: View {
     
-    var event: ActivityEvent
+    var meta: ActivityEventsVoteMeta
     
     var body: some View {
         
@@ -86,7 +83,7 @@ fileprivate struct VoteFooterView: View {
                 .aspectRatio(contentMode: .fill)
                 .foregroundColor(.gray)
             
-            Text(event.meta[0])
+            Text(String(meta.voters))
         }
         
         HStack(spacing: 4) {
@@ -98,12 +95,12 @@ fileprivate struct VoteFooterView: View {
                 .foregroundColor(.gray)
                 .rotationEffect(.degrees(-90))
             
-            Text(event.meta[1])
+            Text(meta.quorum)
             
             
         }
         
-        if event.meta[2] == "voted" {
+        if meta.voted {
             HStack(spacing: 1) {
                 
                 Image(systemName: "checkmark")
@@ -163,6 +160,6 @@ struct ListItemFooter_Previews: PreviewProvider {
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: "",
-            meta: ["", "", ""]))
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

@@ -11,7 +11,7 @@ import Combine
 class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
-    private var nextPageURL: String? = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/f7fcb47a9fe8a0897d74926e0e1d23b6199e5b05/ActivityEventsPage1.json"
+    private var nextPageURL: String? = "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/35a88a34e457eda8b26c58b23a1b5f9c5aa4eb46/ActivityEventsPage1.json"
     static let data = ActivityDataService()
     private var cashedEvents: [ActivityEvent] = []
     private var cancellables = Set<AnyCancellable>() // to store publishers
@@ -44,6 +44,7 @@ class ActivityDataService: ObservableObject {
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
+                print(self?.events)
                 self?.cashedEvents.append(contentsOf: returnedData.result)
                 self?.nextPageURL = returnedData.next
                 self?.filterCashedEvents(withFilter: filter)
