@@ -19,7 +19,7 @@ struct ActivityListItemFooterView: View {
                 DiscussionFooterView(meta: meta)
             } else if let meta = event.meta as? ActivityEventsVoteMeta {
                 VoteFooterView(meta: meta)
-            }
+            } 
         
             Spacer()
             

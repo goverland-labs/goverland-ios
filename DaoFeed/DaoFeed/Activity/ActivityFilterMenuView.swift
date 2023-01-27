@@ -20,6 +20,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .all
+                    ActivityDataService.data.reset()
                     ActivityDataService.data.getEvents(withFilter: .all)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
@@ -29,6 +30,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .discussion
+                    ActivityDataService.data.reset()
                     ActivityDataService.data.getEvents(withFilter: .discussion)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
@@ -38,6 +40,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .vote
+                    ActivityDataService.data.reset()
                     ActivityDataService.data.getEvents(withFilter: .vote)
                 }) {
                     

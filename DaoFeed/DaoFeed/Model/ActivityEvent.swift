@@ -57,15 +57,13 @@ struct ActivityEvent: Identifiable, Decodable {
         self.status = try container.decode(ActivityEventStatus.self, forKey: .status)
         self.content = try container.decode(ActivityViewContent.self, forKey: .content)
         self.daoImage = try container.decode(String.self, forKey: .daoImage)
-        
         switch type {
         case .vote:
-            self.meta = try container.decode(ActivityEventsVoteMeta.self, forKey: .meta)
+            self.meta = try container.decode(ActivityEventsVoteMeta?.self, forKey: .meta)
         case .discussion:
-            self.meta = try container.decode(ActivityEventsDiscussionMeta.self, forKey: .meta)
-        case .undefined:
-            self.meta = try container.decode(ActivityEventsVoteMeta.self, forKey: .meta)
+            self.meta = try container.decode(ActivityEventsDiscussionMeta?.self, forKey: .meta)
         }
+        
     }
 }
 
@@ -100,7 +98,6 @@ struct ActivityEventsDiscussionMeta: ActivityEventMetaInfo, Decodable {
 enum ActivityEventType: String, Decodable {
     case vote
     case discussion
-    case undefined
 }
 
 enum ActivityEventStatus: String, Decodable {

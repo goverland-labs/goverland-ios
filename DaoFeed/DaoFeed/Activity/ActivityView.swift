@@ -39,8 +39,7 @@ struct ActivityView: View {
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
             .refreshable {
-                data.nextPageURL = ""
-                data.events = []
+                data.reset()
                 data.getEvents(withFilter: filter)
             }
         }
