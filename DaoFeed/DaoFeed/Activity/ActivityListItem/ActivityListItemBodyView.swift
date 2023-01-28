@@ -56,6 +56,7 @@ struct ActivityListItemBodyView: View {
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
         ActivityListItemBodyView(event: ActivityEvent(
+            id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
                 image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
@@ -65,6 +66,6 @@ struct ListItemBody_Previews: PreviewProvider {
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: "",
-            meta: ["", "", ""]))
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

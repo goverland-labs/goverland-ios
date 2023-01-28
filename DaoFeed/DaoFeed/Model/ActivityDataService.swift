@@ -12,137 +12,63 @@ class ActivityDataService: ObservableObject {
     
     @Published var events: [ActivityEvent] = []
     static let data = ActivityDataService()
-    private var cashedEvents: [ActivityEvent] = []
-    var cancellables = Set<AnyCancellable>() // to store publishers
-
+    private var nextPageURL: URL?
+    private var cancellables = Set<AnyCancellable>()
+    
     private init() {
-        getEventsTestData()
-        cashedEvents = events
+        getEvents(withFilter: .all, fromStart: true)
     }
     
-    func filteredActivityItems(type: FilterType) {
-        switch type {
+    func hasNextPageURL() -> Bool {
+        return nextPageURL == nil ? false : true
+    }
+    
+    func getEvents(withFilter filter: FilterType, fromStart: Bool) {
+        if fromStart {
+            nextPageURL = nil
+            events = []
+        }
+
+        let url = getUrl(filter: filter)
+
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSZ"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: DispatchQueue.main)
+            .map(\.data)
+            .decode(type: ResponceDataForActivityEvents.self, decoder: decoder)
+            .sink { (completion) in
+            } receiveValue: { [weak self] (returnedData) in
+                self?.events.append(contentsOf: returnedData.result)
+                self?.nextPageURL = returnedData.next
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func getUrl(filter: FilterType) -> URL {
+        if nextPageURL != nil {
+            return nextPageURL!
+        }
+
+        switch filter {
         case .discussion:
-            self.events = cashedEvents.filter { $0.type == .discussion }
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/4134fd741c095adb381d53f49612c3c9f363ca39/ActivityEventsFilteredDiscussions.json")!
         case .vote:
-            self.events = cashedEvents.filter { $0.type == .vote }
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/d9c1fae17ed11b241d6db53d71b8253de8e9c118/ActivityEventsFilteredVotes.json")!
         case .all:
-            self.events = cashedEvents
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/16082a942ad530f37c8d300cb8c26c782df28ed1/ActivityEventsPage1.json")!
         }
     }
-    
-    
-    func refreshedEvents(withFilter filter: FilterType) {
-        events.removeAll()
-        getEventsTestData()
-        filteredActivityItems(type: filter)
-    }
-    
-//    func getEvents() {
-//        guard let url = URL(string: "add JSON url here") else { return }
-//
-//        URLSession.shared.dataTaskPublisher(for: url)
-//            //.subscribe(on: DispatchQueue.global(qos: .background))
-//            .receive(on: DispatchQueue.main)
-//            .tryMap { (data, responce) -> Data in
-//                guard let response = responce as? HTTPURLResponse,
-//                      responce.statusCode >= 200 && responce.statusCode < 300 else {
-//                    throw URLError(.badServerResponse)
-//                }
-//                return data
-//            }
-//            .decode(type: [ActivityEvent].self, decoder: JSONDecoder())
-//            .sink { (complition) in
-//                print("complition is : \(complition)")
-//            } receiveValue: { [weak self] (returnedEvent) in
-//                self?.events = returnedEvent
-//            }
-//            .store(in: &cancellables)
-//    }
-    
-    
-    func getEventsTestData() {
-        let eventVoteActiveVote = ActivityEvent(
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-                name: "kris.eth"),
-            date: Date(),
-            type: .vote,
-            status: .activeVote,
-            content: ActivityViewContent(
-                title: "UIP23 - DAO Operations Buget",
-                subtitle: "2 days left to vote via Snapshot",
-                warningSubtitle: nil),
-            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-            meta: ["239", "105%", ""])
-        
-        let eventDiscussionDiscussion = ActivityEvent(
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-                name: "uniman_ETH1f99999999999"),
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: ActivityViewContent(
-                title: "Deploy Uniswap V3 to Boba Layer 2 Network",
-                subtitle: "2 days left to vote vs snapshot",
-                warningSubtitle: nil),
-            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-            meta: ["239", "342", "12"])
-        
-        let eventVoteQueued = ActivityEvent(
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-                name: nil),
-            date: Date(),
-            type: .vote,
-            status: .queued,
-            content: ActivityViewContent(
-                title: "UIP19 - DAO Operations",
-                subtitle: "Snapshot voting ended 3 days ago",
-                warningSubtitle: "Waiting for execution"),
-            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-            meta: ["132", "124%", ""])
-    
-        let eventVoteExecuted = ActivityEvent(
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-                name: nil),
-            date: Date(),
-            type: .vote,
-            status: .executed,
-            content: ActivityViewContent(
-                title: "UIP18 - Fee mechanism",
-                subtitle: "Executed 1 day ago",
-                warningSubtitle: nil),
-            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-            meta: ["593", "121%", "voted"])
-        
-        let eventVoteFailed = ActivityEvent(
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-                name: nil),
-            date: Date(),
-            type: .vote,
-            status: .failed,
-            content: ActivityViewContent(
-                title: "UIP17 - Updated terms & conditions",
-                subtitle: "Failed 1 day ago: Quorum not reached",
-                warningSubtitle: nil),
-            daoImage: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
-            meta: ["22", "54%", "voted"])
-
-        events.append(eventVoteActiveVote)
-        events.append(eventDiscussionDiscussion)
-        events.append(eventVoteQueued)
-        events.append(eventDiscussionDiscussion)
-        events.append(eventVoteFailed)
-        events.append(eventVoteExecuted)
-        
-    }
 }
+
+fileprivate struct ResponceDataForActivityEvents: Decodable {
+    let next: URL?
+    let result: [ActivityEvent]
+}
+

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct User {
+struct User: Decodable {
     
     let address: String
     let ensName: String?

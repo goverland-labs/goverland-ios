@@ -18,38 +18,32 @@ struct ActivityView: View {
             
             ActivityFilterMenuView(filter: $filter)
             
-            List {
-                ForEach(data.events) { event in
+            List(0..<data.events.count, id: \.self) { index in
+                if index == data.events.count - 1 && data.hasNextPageURL() {
                     
-                    ActivityListItemView(event: event)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
-                        .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
-                        .padding(.top, 10)
+                    ActivityListItemView(event: data.events[index])
+                        .redacted(reason: .placeholder)
+                        .onAppear {
+                            data.getEvents(withFilter: filter, fromStart: false)
+                        }
+                } else {
+                    ActivityListItemView(event: data.events[index])
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
+                            .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
+                            .padding(.top, 10)
                 }
             }
             .listStyle(.plain)
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
             .refreshable {
-                do {
-                    // api will be called here
-                    // 3 sec delay for now to emetate
-                    try await Task.sleep(for: Duration.seconds(3))
-                        data.refreshedEvents(withFilter: filter)
-                } catch {
-                    // will handle api errors here
-                    
-                }
+                data.getEvents(withFilter: filter, fromStart: true)
             }
         }
         .background(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
     }
 }
-
-
-
-
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
