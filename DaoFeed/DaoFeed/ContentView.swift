@@ -12,8 +12,8 @@ struct ContentView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some View {
-        if !termsAccepted {
-            IntroView()
+        if termsAccepted {
+            IntroViewLoadingView()
         } else if !onboardingFinished {
             AddWalletView()
         } else {
