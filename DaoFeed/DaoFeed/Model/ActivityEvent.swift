@@ -59,9 +59,9 @@ struct ActivityEvent: Identifiable, Decodable {
         self.daoImage = try container.decode(String.self, forKey: .daoImage)
         switch type {
         case .vote:
-            self.meta = try container.decode(ActivityEventsVoteMeta?.self, forKey: .meta)
+            self.meta = try? container.decode(ActivityEventsVoteMeta.self, forKey: .meta)
         case .discussion:
-            self.meta = try container.decode(ActivityEventsDiscussionMeta?.self, forKey: .meta)
+            self.meta = try? container.decode(ActivityEventsDiscussionMeta.self, forKey: .meta)
         }
         
     }

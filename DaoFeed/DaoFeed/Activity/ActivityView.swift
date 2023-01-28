@@ -19,13 +19,12 @@ struct ActivityView: View {
             ActivityFilterMenuView(filter: $filter)
             
             List(0..<data.events.count, id: \.self) { index in
-                // need to add validation, that URL is valid (API valid and returning data)
                 if index == data.events.count - 1 && data.hasNextPageURL() {
                     
                     ActivityListItemView(event: data.events[index])
                         .redacted(reason: .placeholder)
                         .onAppear {
-                            data.getEvents(withFilter: filter)
+                            data.getEvents(withFilter: filter, fromStart: false)
                         }
                 } else {
                     ActivityListItemView(event: data.events[index])
@@ -39,8 +38,7 @@ struct ActivityView: View {
             .padding(.horizontal, 10)
             .scrollIndicators(.hidden)
             .refreshable {
-                data.reset()
-                data.getEvents(withFilter: filter)
+                data.getEvents(withFilter: filter, fromStart: true)
             }
         }
         .background(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))

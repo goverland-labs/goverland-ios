@@ -16,17 +16,21 @@ class ActivityDataService: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     private init() {
-        getEvents(withFilter: .all)
+        getEvents(withFilter: .all, fromStart: true)
     }
     
     func hasNextPageURL() -> Bool {
         return nextPageURL == nil ? false : true
     }
     
-    func getEvents(withFilter filter: FilterType) {
-        
-        guard let url = getUrl(filter: filter) else { return }
-        
+    func getEvents(withFilter filter: FilterType, fromStart: Bool) {
+        if fromStart {
+            nextPageURL = nil
+            events = []
+        }
+
+        let url = getUrl(filter: filter)
+
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSZ"
@@ -47,34 +51,23 @@ class ActivityDataService: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func getUrl(filter: FilterType) -> URL? {
-        var url: URL?
-
+    private func getUrl(filter: FilterType) -> URL {
         if nextPageURL != nil {
             return nextPageURL!
         }
 
         switch filter {
         case .discussion:
-            self.events = []
-            url = URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/4134fd741c095adb381d53f49612c3c9f363ca39/ActivityEventsFilteredDiscussions.json")
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/4134fd741c095adb381d53f49612c3c9f363ca39/ActivityEventsFilteredDiscussions.json")!
         case .vote:
-            self.events = []
-            url = URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/d9c1fae17ed11b241d6db53d71b8253de8e9c118/ActivityEventsFilteredVotes.json")
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/d9c1fae17ed11b241d6db53d71b8253de8e9c118/ActivityEventsFilteredVotes.json")!
         case .all:
-            url = URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/16082a942ad530f37c8d300cb8c26c782df28ed1/ActivityEventsPage1.json")
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/16082a942ad530f37c8d300cb8c26c782df28ed1/ActivityEventsPage1.json")!
         }
-        return url
-    }
-    
-    func reset() {
-        nextPageURL = nil
-        events = []
     }
 }
 
 fileprivate struct ResponceDataForActivityEvents: Decodable {
-    
     let next: URL?
     let result: [ActivityEvent]
 }
