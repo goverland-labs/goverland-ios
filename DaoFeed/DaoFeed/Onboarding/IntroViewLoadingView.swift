@@ -23,7 +23,7 @@ struct IntroViewLoadingView: View {
             .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blue)
+        .background(Color("LoadingViewColor"))
         .edgesIgnoringSafeArea(.all)
     }
 }
