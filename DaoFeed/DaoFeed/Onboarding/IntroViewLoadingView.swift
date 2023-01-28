@@ -8,23 +8,35 @@
 import SwiftUI
 
 struct IntroViewLoadingView: View {
+    
+    @State var isAnimationFinished = false
+    
     var body: some View {
-        VStack(spacing: 30) {
-            Image(systemName: "timer.circle")
-                .resizable()
-                .frame(width: 150, height: 150, alignment: .center)
-                .foregroundColor(.white.opacity(0.6))
-            HStack {
-                Text("DAO")
-                    .bold()
-                Text("TRACKER")
+        if isAnimationFinished {
+            IntroView()
+        } else {
+            VStack(spacing: 30) {
+                Image(systemName: "timer.circle")
+                    .resizable()
+                    .frame(width: 150, height: 150, alignment: .center)
+                    .foregroundColor(.white.opacity(0.6))
+                HStack {
+                    Text("DAO")
+                        .bold()
+                    Text("TRACKER")
+                }
+                .font(.title)
+                .foregroundColor(.white)
             }
-            .font(.title)
-            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("LoadingViewColor"))
+            .edgesIgnoringSafeArea(.all)
+            .onAppear() {
+                withAnimation(.easeIn(duration: 0.2).delay(1)) {
+                    isAnimationFinished = true
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color("LoadingViewColor"))
-        .edgesIgnoringSafeArea(.all)
     }
 }
 
