@@ -45,7 +45,11 @@ struct TermsView: View {
                 
                 HStack(alignment: .top, spacing: 10) {
                     BulletedListsDot()
-                    Text("Read more in Privacy Policy and Terms")
+                    Text("Read more in ") +
+                    Text("[Privacy Policy](https://google.com)")
+                        .underline() +
+                    Text(" and ") +
+                    Text("[Terms](https://google.com)").underline()
                 }
             }
             
