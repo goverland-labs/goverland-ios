@@ -11,7 +11,8 @@ import SwiftUI
 struct DaoFeedApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            SelectDAOsView()
         }
     }
 }

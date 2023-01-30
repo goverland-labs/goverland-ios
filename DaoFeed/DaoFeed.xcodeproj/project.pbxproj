@@ -26,6 +26,8 @@
 		BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */; };
 		BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20C2968904C00FB87AC /* ActivityEvent.swift */; };
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
+		BA352F00298824FD00F78958 /* SelectDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352EFF298824FD00F78958 /* SelectDAOsView.swift */; };
+		BA352F022988260900F78958 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F012988260900F78958 /* SearchBarView.swift */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
@@ -74,6 +76,8 @@
 		BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataService.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* ActivityEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEvent.swift; sourceTree = "<group>"; };
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BA352EFF298824FD00F78958 /* SelectDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDAOsView.swift; sourceTree = "<group>"; };
+		BA352F012988260900F78958 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
 				55D632B12950576C0073E04A /* Onboarding */,
+				BA352EFE298824D000F78958 /* DAOs Screen */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				55D632B529505BEB0073E04A /* Search */,
 				55D632B729505C070073E04A /* Settings */,
@@ -223,6 +228,15 @@
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA352EFE298824D000F78958 /* DAOs Screen */ = {
+			isa = PBXGroup;
+			children = (
+				BA352EFF298824FD00F78958 /* SelectDAOsView.swift */,
+				BA352F012988260900F78958 /* SearchBarView.swift */,
+			);
+			path = "DAOs Screen";
 			sourceTree = "<group>";
 		};
 		BAAA526D2953ABF9003177BC /* ActivityListItem */ = {
@@ -395,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA352F022988260900F78958 /* SearchBarView.swift in Sources */,
 				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
@@ -410,6 +425,7 @@
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
+				BA352F00298824FD00F78958 /* SelectDAOsView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* DaoFeedApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
