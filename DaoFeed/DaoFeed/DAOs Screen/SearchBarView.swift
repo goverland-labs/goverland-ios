@@ -22,21 +22,20 @@ struct SearchBarView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 TextField(
-                        "Search 6032 DAOs by name",
-                        text: $searchedText
-                    )
+                    "Search 6032 DAOs by name",
+                    text: $searchedText
+                )
             }
-            .padding(10)
+            .padding(8)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color("lightGrey"))
             ).padding(.horizontal, 20)
             
-            ScrollView {
-                
-                Text("Get Updates in your feed for the DAOs you select.")
-                    .padding()
-                
+            Text("Get Updates in your feed for the DAOs you select.")
+                .padding()
+            
+            ScrollView(.vertical) {
                 HStack {
                     Text("Featured DAOs")
                         .fontWeight(.semibold)
@@ -47,11 +46,11 @@ struct SearchBarView: View {
                 }
                 .padding()
                 
-                ScrollView (.horizontal, showsIndicators: false) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(0..<5) { i in
                             VStack {
-                                Image(systemName: "face.dashed.fill")
+                                Image("uniswap")
                                     .resizable()
                                     .frame(width: 90, height: 90)
                                     .foregroundColor(.gray).opacity(0.6)
@@ -73,7 +72,7 @@ struct SearchBarView: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 30)
+                .padding(.bottom, 20)
                 
                 HStack {
                     Text("Social")
@@ -89,7 +88,7 @@ struct SearchBarView: View {
                     HStack(spacing: 20) {
                         ForEach(0..<5) { i in
                             VStack {
-                                Image(systemName: "face.dashed.fill")
+                                Image("uniswap")
                                     .resizable()
                                     .frame(width: 90, height: 90)
                                     .foregroundColor(.gray).opacity(0.6)
@@ -97,7 +96,7 @@ struct SearchBarView: View {
                                     .fontWeight(.medium)
                                 Button("Follow", action: followButtonTapped)
                                     .frame(width: 110, height: 35, alignment: .center)
-                                    .foregroundColor(.white)
+                                    .tint(.white)
                                     .fontWeight(.medium)
                                     .background(.blue)
                                     .cornerRadius(2)
@@ -112,10 +111,19 @@ struct SearchBarView: View {
                 }
                 .padding(.horizontal)
             }
+            
+            Button("Continue", action: continueButtonTapped)
+                .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
+                .background(Color.blue)
+                .clipShape(Capsule())
+                .tint(.white)
+                .fontWeight(.bold)
+                .padding(.horizontal, 30)
         }
     }
     
     func followButtonTapped() {}
+    func continueButtonTapped() {}
 }
 
 
