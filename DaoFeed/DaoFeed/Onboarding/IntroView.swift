@@ -42,76 +42,47 @@ struct IntroView: View {
     }
 }
 
-extension View {
-    func getRect() -> CGRect {
-        return UIScreen.main.bounds
-    }
-}
-
 struct CarouselView: View {
     
     @Binding var intros: [IntroModel]
     @Binding var currentInde: Int
-    @State var index: Int = 0
-    @State var offSet: CGFloat = 0
+    @State private var index: Int = 0
     
     var body: some View {
-        TabView(selection: $index) {
-            ForEach(intros.indices, id: \.self) { i in
-                VStack {
-                    // magic to switch carousel dots
-                    // watching offset and calculate the index
-                    // to switch dots color accordingly
-                    if i == 0 {
-                        Color.clear.overlay(
-                            GeometryReader { proxy -> Color in
-                                let minX = proxy.frame(in: .global).minX
-                                DispatchQueue.main.async {
-                                    withAnimation(.default) {
-                                        self.offSet = -minX
-                                    }
-                                }
-                                return Color.clear
-                            }
-                        ).frame(width: 0, height: 0)
+        VStack {
+            TabView(selection: $index) {
+                ForEach(0..<intros.count, id: \.self) { index in
+                    VStack {
+                        Image(systemName: intros[index].image)
+                            .resizable()
+                            .frame(width: 120, height: 180, alignment: .center)
+                            .foregroundColor(.gray.opacity(0.6))
+                        Text(intros[index].title)
+                            .font(.title2)
+                            .bold()
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 50)
+                        Text(intros[index].description)
+                            .padding(.top, 5)
                     }
-                    
-                    Image(systemName: intros[i].image)
-                        .resizable()
-                        .frame(width: 120, height: 180, alignment: .center)
-                        .foregroundColor(.gray.opacity(0.6))
-                    Text(intros[i].title)
-                        .font(.title2)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 50)
-                    Text(intros[i].description)
-                        .padding(.top, 5)
-                }
-                .frame(maxWidth: .infinity, maxHeight: 400)
-                .padding(.horizontal, 40)
-            }
-        }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .overlay(alignment: .bottom) {
-            HStack(spacing: 15) {
-                ForEach(intros.indices, id: \.self) { index in
-                    Capsule()
-                        .fill(getIndex() == index ? .black : .gray)
-                        .frame(width: 9, height: 9)
+                    .frame(maxWidth: .infinity, maxHeight: 400)
+                    .padding(.horizontal, 40)
                 }
             }
-            .alignmentGuide(.bottom) {$0[.bottom]}
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            
+            HStack(spacing: 20) {
+                ForEach(0..<intros.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == self.index ? Color.black : Color.black.opacity(0.5))
+                        .frame(width: 8, height: 8)
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
-    private func getIndex() -> Int {
-        return Int(round(Double(offSet / UIScreen.main.bounds.width)))
     }
 }
 
-struct IntroModel: Identifiable {
+struct IntroModel: Identifiable, Hashable{
     let id: UUID
     let title: String
     let description: String
