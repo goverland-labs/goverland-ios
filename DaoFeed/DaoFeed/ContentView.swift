@@ -13,7 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         if termsAccepted {
-            IntroViewLoadingView()
+            IntroView()
         } else if !onboardingFinished {
             AddWalletView()
         } else {
