@@ -10,13 +10,12 @@ import SwiftUI
 struct IntroView: View {
     
     @State var termsViewIsPresented = false
-    @State var intros = IntroViewModel.data.intros
-    @State var currentIndex: Int = 0
+    @State var intros = IntroViewModel.data.getIntros()
 
     var body: some View {
         VStack {
             ScrollView(.init(), showsIndicators: false) {
-                CarouselView(intros: $intros, currentInde: $currentIndex)
+                CarouselView(intros: $intros)
             }
             .frame(height: 450)
             .padding(.top, 100)
@@ -45,7 +44,6 @@ struct IntroView: View {
 struct CarouselView: View {
     
     @Binding var intros: [IntroModel]
-    @Binding var currentInde: Int
     @State private var index: Int = 0
     
     var body: some View {
@@ -98,14 +96,10 @@ struct IntroModel: Identifiable, Hashable{
 
 class IntroViewModel: ObservableObject {
     
-    @Published var intros: [IntroModel] = []
+    private var intros: [IntroModel] = []
     static let data = IntroViewModel()
     
     private init() {
-        getIntros()
-    }
-    
-    func getIntros() {
         let intro1 = IntroModel.init(id: UUID(),
                                      title: "Follow important updates from your vorite DAOs",
                                      description: "Receive push notifications",
@@ -119,6 +113,10 @@ class IntroViewModel: ObservableObject {
                                      description: "Receive push notifications",
                                      image: "iphone.gen1")
         intros.append(contentsOf: [intro1, intro2, intro3])
+    }
+    
+    func getIntros() -> [IntroModel] {
+        return intros
     }
     
 }
