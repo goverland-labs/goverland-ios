@@ -28,6 +28,8 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F00298824FD00F78958 /* SelectDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352EFF298824FD00F78958 /* SelectDAOsView.swift */; };
 		BA352F022988260900F78958 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F012988260900F78958 /* SearchBarView.swift */; };
+		BA352F08298C154200F78958 /* SelectDAOsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F07298C154200F78958 /* SelectDAOsDataService.swift */; };
+		BA352F0A298C184D00F78958 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* DAO.swift */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
@@ -78,6 +80,8 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352EFF298824FD00F78958 /* SelectDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDAOsView.swift; sourceTree = "<group>"; };
 		BA352F012988260900F78958 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		BA352F07298C154200F78958 /* SelectDAOsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDAOsDataService.swift; sourceTree = "<group>"; };
+		BA352F09298C184D00F78958 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				BA2EA20329677F7C00FB87AC /* ActivityDataService.swift */,
+				BA352F07298C154200F78958 /* SelectDAOsDataService.swift */,
+				BA352F09298C184D00F78958 /* DAO.swift */,
 				BA2EA20C2968904C00FB87AC /* ActivityEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 			);
@@ -417,8 +423,10 @@
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
+				BA352F0A298C184D00F78958 /* DAO.swift in Sources */,
 				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
+				BA352F08298C154200F78958 /* SelectDAOsDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
