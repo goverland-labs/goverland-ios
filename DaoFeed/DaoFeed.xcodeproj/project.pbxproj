@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* ActivityView.swift */; };
@@ -29,6 +30,7 @@
 		BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352EFF298824FD00F78958 /* SelectDaoView.swift */; };
 		BA352F08298C154200F78958 /* DaoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F07298C154200F78958 /* DaoDataService.swift */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
+		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ActivityListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */; };
@@ -55,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		BA352EFF298824FD00F78958 /* SelectDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDaoView.swift; sourceTree = "<group>"; };
 		BA352F07298C154200F78958 /* DaoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDataService.swift; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
+		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ActivityListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
@@ -113,9 +117,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5508BBA72993FC93003E691A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */,
 				55D632B2295057880073E04A /* IntroView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
 				55D632C029505D340073E04A /* AddWalletView.swift */,
@@ -174,13 +187,14 @@
 		55F143DB294B1DDA00D00B73 /* DaoFeed */ = {
 			isa = PBXGroup;
 			children = (
-				55D632C229505DFF0073E04A /* AppTabView.swift */,
-				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55F143DC294B1DDA00D00B73 /* DaoFeedApp.swift */,
+				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
+				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
+				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				BA352EFE298824D000F78958 /* DAOs Screen */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
@@ -366,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
+				BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */,
 				55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +429,7 @@
 			files = (
 				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
+				5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
@@ -596,6 +612,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = IntroLoadingView.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -625,6 +642,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = IntroLoadingView.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
