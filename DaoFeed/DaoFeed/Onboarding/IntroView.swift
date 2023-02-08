@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct IntroView: View {
-    
     @State var termsViewIsPresented = false
-    @State var intros = IntroViewModel.data.getIntros()
 
     var body: some View {
         VStack {
-            ScrollView(.init(), showsIndicators: false) {
-                CarouselView(intros: $intros)
-            }
-            .frame(height: 450)
-            .padding(.top, 100)
+            CarouselView()
+                .frame(height: UIScreen.screenHeight * 2 / 3)
+                .padding(.top, UIScreen.screenHeight / 8)
             
             Spacer()
+
+            // TODO: move to UI component
             Button("Get Started") {
                 termsViewIsPresented = true
             }
@@ -41,46 +39,63 @@ struct IntroView: View {
     }
 }
 
-struct CarouselView: View {
-    
-    @Binding var intros: [IntroModel]
+fileprivate struct CarouselView: View {
     @State private var index: Int = 0
-    
+
+    let intros: [IntroModel] = [
+        IntroModel(id: UUID(),
+                   title: "Follow important updates from your vorite DAOs",
+                   description: "Receive push notifications",
+                   image: "apps.iphone"),
+        IntroModel(id: UUID(),
+                   title: "Follow important updates from your vorite DAOs",
+                   description: "Receive push notifications",
+                   image: "building.columns"),
+        IntroModel(id: UUID(),
+                   title: "Follow important updates from your vorite DAOs",
+                   description: "Receive push notifications",
+                   image: "iphone.gen1")
+    ]
+
     var body: some View {
-        VStack {
-            TabView(selection: $index) {
-                ForEach(0..<intros.count, id: \.self) { index in
-                    VStack {
-                        Image(systemName: intros[index].image)
-                            .resizable()
-                            .frame(width: 120, height: 180, alignment: .center)
-                            .foregroundColor(.gray.opacity(0.6))
-                        Text(intros[index].title)
-                            .font(.title2)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .padding(.top, 50)
-                        Text(intros[index].description)
-                            .padding(.top, 5)
+        GeometryReader { geometry in
+            VStack {
+                TabView(selection: $index) {
+                    ForEach(0..<intros.count, id: \.self) { index in
+                        VStack {
+                            Image(systemName: intros[index].image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: geometry.size.width / 2,
+                                       height: geometry.size.height / 2,
+                                       alignment: .center)
+                                .foregroundColor(.gray.opacity(0.6))
+                            Text(intros[index].title)
+                                .font(.title2)
+                                .bold()
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 50)
+                            Text(intros[index].description)
+                                .padding(.top, 5)
+                        }
+                        .padding(.horizontal, 40)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 400)
-                    .padding(.horizontal, 40)
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            
-            HStack(spacing: 20) {
-                ForEach(0..<intros.count, id: \.self) { index in
-                    Circle()
-                        .fill(index == self.index ? Color.black : Color.black.opacity(0.5))
-                        .frame(width: 8, height: 8)
+                .tabViewStyle(.page(indexDisplayMode: .never))
+
+                HStack(spacing: 20) {
+                    ForEach(0..<intros.count, id: \.self) { index in
+                        Circle()
+                            .fill(index == self.index ? Color.black : Color.black.opacity(0.5))
+                            .frame(width: 8, height: 8)
+                    }
                 }
             }
         }
     }
 }
 
-struct IntroModel: Identifiable, Hashable{
+fileprivate struct IntroModel: Identifiable, Hashable{
     let id: UUID
     let title: String
     let description: String
@@ -92,33 +107,6 @@ struct IntroModel: Identifiable, Hashable{
         self.description = description
         self.image = image
     }
-}
-
-class IntroViewModel: ObservableObject {
-    
-    private var intros: [IntroModel] = []
-    static let data = IntroViewModel()
-    
-    private init() {
-        let intro1 = IntroModel.init(id: UUID(),
-                                     title: "Follow important updates from your vorite DAOs",
-                                     description: "Receive push notifications",
-                                     image: "apps.iphone")
-        let intro2 = IntroModel.init(id: UUID(),
-                                     title: "Follow important updates from your vorite DAOs",
-                                     description: "Receive push notifications",
-                                     image: "building.columns")
-        let intro3 = IntroModel.init(id: UUID(),
-                                     title: "Follow important updates from your vorite DAOs",
-                                     description: "Receive push notifications",
-                                     image: "iphone.gen1")
-        intros.append(contentsOf: [intro1, intro2, intro3])
-    }
-    
-    func getIntros() -> [IntroModel] {
-        return intros
-    }
-    
 }
 
 struct IntroView_Previews: PreviewProvider {

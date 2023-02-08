@@ -12,7 +12,7 @@ struct ContentView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some View {
-        if termsAccepted {
+        if !termsAccepted {
             IntroView()
         } else if !onboardingFinished {
             AddWalletView()
