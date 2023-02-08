@@ -8,15 +8,16 @@
 import SwiftUI
 import Combine
 
-class SelectDAOsDataService: ObservableObject {
+class DaoDataService: ObservableObject {
     
-    @Published var daosGroups: [DAOsGroup] = []
-    static let data = SelectDAOsDataService()
+    @Published var daosGroups: [DaoGroup] = []
+    static let data = DaoDataService()
     private var nextPageURL: URL?
     private var cancellables = Set<AnyCancellable>()
+    private var allDao: [Dao] = []
     
     private init() {
-        getDAOs(fromStart: true)
+        getDaos(fromStart: true)
     }
     
     private func getUrl() -> URL {
@@ -26,7 +27,7 @@ class SelectDAOsDataService: ObservableObject {
         return URL(string: "https://gist.githubusercontent.com/JennyShalai/03105079e34e3821069dd0a98b58e223/raw/1c020ef19de9b4cea21eceee6c697a128686f2ef/SelectDAO.js")!
     }
     
-    func getDAOs(fromStart: Bool) {
+    func getDaos(fromStart: Bool) {
         if fromStart {
             nextPageURL = nil
             daosGroups = []
@@ -40,20 +41,27 @@ class SelectDAOsDataService: ObservableObject {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map(\.data)
-            .decode(type: [ResponceDataForSelectDAOs].self, decoder: decoder)
+            .decode(type: [ResponceDataForSelectDao].self, decoder: decoder)
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
                for data in returnedData {
-                   self?.daosGroups.append(DAOsGroup.init(id: UUID(), groupType: data.daosGroup, daos: data.daos))
+                   self?.daosGroups.append(DaoGroup.init(id: UUID(), groupType: data.daosGroup, daos: data.daos))
+                   for dao in data.daos {
+                       self?.allDao.append(dao)
+                   }
                 }
             }
             .store(in: &cancellables)
     }
     
+    func getFilteredDao(text: String) -> [Dao] {
+        return text.isEmpty ? allDao : allDao.filter { $0.name.localizedCaseInsensitiveContains(text)}
+    }
+    
 }
 
-fileprivate struct ResponceDataForSelectDAOs: Decodable {
-    let daosGroup: daosGroupType
+fileprivate struct ResponceDataForSelectDao: Decodable {
+    let daosGroup: DaoGroupType
     let next: URL?
-    let daos: [DAO]
+    let daos: [Dao]
 }

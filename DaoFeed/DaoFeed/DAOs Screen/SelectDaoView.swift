@@ -1,5 +1,5 @@
 //
-//  SelectDAOsView.swift
+//  SelectDaoView.swift
 //  DaoFeed
 //
 //  Created by Jenny Shalai on 2023-01-30.
@@ -8,45 +8,48 @@
 import SwiftUI
 import Kingfisher
 
-struct SelectDAOsView: View {
+struct SelectDaoView: View {
     
-    @StateObject private var data = SelectDAOsDataService.data
+    @StateObject private var data = DaoDataService.data
+    @State private var searchedText: String = ""
     
     var body: some View {
-        VStack{
-            Text("Select DAOs")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding()
-            
-            SearchBarView()
-            
-            Text("Get Updates in your feed for the DAOs you select.")
-                .padding()
-            ScrollView {
-                VStack {
-                    ForEach(0..<data.daosGroups.count, id: \.self) { index in
-                        VStack {
-                            DAOsGroupThreadView(daosGroup: data.daosGroups[index])
+        NavigationView {
+            VStack{
+                Text("Get Updates in your feed for the DAOs you select.")
+                    .padding()
+                ScrollView {
+                    VStack {
+                        ForEach(0..<data.daosGroups.count, id: \.self) { index in
+                            VStack {
+                                DaoGroupThreadView(daosGroup: data.daosGroups[index])
+                            }
                         }
                     }
                 }
+                Button("Continue", action: continueButtonTapped)
+                    .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
+                    .background(Color.blue)
+                    .clipShape(Capsule())
+                    .tint(.white)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 30)
             }
-            Button("Continue", action: continueButtonTapped)
-                .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
-                .background(Color.blue)
-                .clipShape(Capsule())
-                .tint(.white)
-                .fontWeight(.bold)
-                .padding(.horizontal, 30)
+            .searchable(text: $searchedText)
+            .navigationBarTitle("Select DAOs")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            
+            
         }
     }
+    
     func continueButtonTapped() {}
 }
 
-struct DAOsGroupThreadView: View {
+struct DaoGroupThreadView: View {
     
-    let daosGroup: DAOsGroup
+    let daosGroup: DaoGroup
     
     var body: some View {
             
@@ -111,6 +114,6 @@ fileprivate struct daoImageView: View {
 
 struct SelectDAOsView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDAOsView()
+        SelectDaoView()
     }
 }
