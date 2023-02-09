@@ -56,12 +56,7 @@ struct TermsView: View {
             Button("Get Started") {
                 termsAccepted = true
             }
-            .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
-            .background(Color.blue)
-            .clipShape(Capsule())
-            .tint(.white)
-            .fontWeight(.semibold)
-            .padding(.horizontal, 10)
+            .modifier(GhostActionButtons())
             
             Button("Accept without sharing data") {
                 termsAccepted = true

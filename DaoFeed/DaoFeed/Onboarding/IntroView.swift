@@ -22,12 +22,7 @@ struct IntroView: View {
             Button("Get Started") {
                 termsViewIsPresented = true
             }
-            .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
-            .background(Color.blue)
-            .clipShape(Capsule())
-            .tint(.white)
-            .fontWeight(.semibold)
-            .padding(.horizontal, 30)
+            .modifier(GhostActionButtons())
             .padding(.bottom, 50)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

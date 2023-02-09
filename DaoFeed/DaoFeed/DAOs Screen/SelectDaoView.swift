@@ -28,19 +28,11 @@ struct SelectDaoView: View {
                     }
                 }
                 Button("Continue", action: continueButtonTapped)
-                    .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
-                    .background(Color.blue)
-                    .clipShape(Capsule())
-                    .tint(.white)
-                    .fontWeight(.bold)
-                    .padding(.horizontal, 30)
+                    .modifier(GhostActionButtons())
             }
             .searchable(text: $searchedText)
             .navigationBarTitle("Select DAOs")
             .navigationBarTitleDisplayMode(.inline)
-            
-            
-            
         }
     }
     
