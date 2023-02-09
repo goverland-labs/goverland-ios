@@ -13,7 +13,13 @@ extension UIScreen {
    static let screenSize = UIScreen.main.bounds.size
 }
 
-struct GhostActionButtons: ViewModifier {
+extension View {
+    func ghostActionButtonStyle() -> some View {
+        modifier(GhostActionButton())
+    }
+}
+
+struct GhostActionButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)

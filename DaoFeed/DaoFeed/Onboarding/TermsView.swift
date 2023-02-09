@@ -56,7 +56,7 @@ struct TermsView: View {
             Button("Get Started") {
                 termsAccepted = true
             }
-            .modifier(GhostActionButtons())
+            .ghostActionButtonStyle()
             
             Button("Accept without sharing data") {
                 termsAccepted = true

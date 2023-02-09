@@ -28,7 +28,7 @@ struct SelectDaoView: View {
                     }
                 }
                 Button("Continue", action: continueButtonTapped)
-                    .modifier(GhostActionButtons())
+                    .ghostActionButtonStyle()
             }
             .searchable(text: $searchedText)
             .navigationBarTitle("Select DAOs")

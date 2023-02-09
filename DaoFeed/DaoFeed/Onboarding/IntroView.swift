@@ -22,7 +22,7 @@ struct IntroView: View {
             Button("Get Started") {
                 termsViewIsPresented = true
             }
-            .modifier(GhostActionButtons())
+            .ghostActionButtonStyle()
             .padding(.bottom, 50)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
