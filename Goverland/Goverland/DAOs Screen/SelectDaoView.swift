@@ -59,7 +59,6 @@ struct DaoGroupThreadView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(0..<daosGroup.daos.count, id: \.self) { index in
-//                    if index == daosGroup.daos.count - 1 && data.hasNextPageURL(forGroupType: daosGroup.groupType) {
                         VStack(spacing: 12) {
                             daoImageView(imageURL: daosGroup.daos[index].image)
                             Text(daosGroup.daos[index].name)
@@ -81,7 +80,6 @@ struct DaoGroupThreadView: View {
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color("lightGrey"), lineWidth: 1)
                         )
-//                    } 
                 }
             }
         }
