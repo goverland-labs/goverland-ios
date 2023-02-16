@@ -51,7 +51,6 @@ class DaoDataService: ObservableObject {
             .map(\.data)
             .decode(type: [ResponceDataForSelectDao].self, decoder: decoder)
             .sink { (completion) in
-                print(completion)
             } receiveValue: { [weak self] (returnedData) in
                for data in returnedData {
                    self?.paginationStorage[data.daosGroup] = data.next

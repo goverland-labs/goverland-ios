@@ -74,9 +74,7 @@ struct DaoGroupThread: View {
         .padding(.horizontal)
         .padding(.bottom, 20)
     }
-    
 }
-
 
 struct DaoGroupItemView: View {
     
@@ -129,7 +127,6 @@ fileprivate struct daoImageView: View {
             .frame(width: 90, height: 90)
             .cornerRadius(45)
     }
-    
 }
 
 struct SelectDAOsView_Previews: PreviewProvider {
