@@ -82,19 +82,14 @@ struct DaoGroupItemView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            daoImageView(imageURL: dao.image)
+            DaoImageView(imageURL: dao.image)
             Text(dao.name)
                 .fontWeight(.medium)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.8)
             Spacer()
-            Button("Follow", action: followAction)
-                .frame(width: 110, height: 35, alignment: .center)
-                .foregroundColor(.white)
-                .fontWeight(.medium)
-                .background(.blue)
-                .cornerRadius(2)
+            FollowButtonView()
         }
         .frame(width: 130, height: 200)
         .padding()
@@ -103,13 +98,10 @@ struct DaoGroupItemView: View {
                 .stroke(Color("lightGrey"), lineWidth: 1)
         )
     }
-    private func followAction() {
-        //change button color
-    }
 }
 
 
-fileprivate struct daoImageView: View {
+fileprivate struct DaoImageView: View {
     
     var imageURL: URL?
     
@@ -126,6 +118,31 @@ fileprivate struct daoImageView: View {
             .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 90, height: 90), mode: .aspectFill))
             .frame(width: 90, height: 90)
             .cornerRadius(45)
+    }
+}
+
+
+fileprivate struct FollowButtonView: View {
+    
+    @State private var didTap: Bool = false
+    
+    var body: some View {
+        Button(action: { followAction() }) {
+            Text(didTap ? "Following" : "Follow")
+            }
+            .frame(width: 110, height: 35, alignment: .center)
+            .foregroundColor(didTap ? .blue : .white)
+            .fontWeight(.medium)
+            .background(didTap ? Color("followButtonColorActive") : Color.blue)
+            .cornerRadius(5)
+    }
+    
+    private func followAction() {
+        if didTap {
+            didTap = false
+        } else {
+            didTap = true
+        }
     }
 }
 

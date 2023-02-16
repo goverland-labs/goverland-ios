@@ -37,6 +37,7 @@
 		BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */; };
 		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
+		BAF651AA299EAE2B00C78A8A /* DaoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		BAF651A4299D3FBE00C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651A5299D3FBE00C78A8A /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651A6299D3FBE00C78A8A /* GoverlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
+				BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */,
 			);
 			path = "DAOs Screen";
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
+				BAF651AA299EAE2B00C78A8A /* DaoDetailView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
