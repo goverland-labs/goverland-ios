@@ -38,6 +38,7 @@
 		BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */; };
 		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
 		BAF651AA299EAE2B00C78A8A /* DaoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */; };
+		BAF651AC299EBC5400C78A8A /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651AB299EBC5400C78A8A /* EnablePushNotificationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		BAF651A5299D3FBE00C78A8A /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651A6299D3FBE00C78A8A /* GoverlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDetailView.swift; sourceTree = "<group>"; };
+		BAF651AB299EBC5400C78A8A /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 			children = (
 				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
 				BAF651A9299EAE2B00C78A8A /* DaoDetailView.swift */,
+				BAF651AB299EBC5400C78A8A /* EnablePushNotificationsView.swift */,
 			);
 			path = "DAOs Screen";
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
+				BAF651AC299EBC5400C78A8A /* EnablePushNotificationsView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,

@@ -38,8 +38,10 @@ struct SelectDaoView: View {
                         }
                     }
                 }
-                Button("Continue", action: continueButtonTapped)
-                    .ghostActionButtonStyle()
+                NavigationLink(destination: EnablePushNotificationsView()) {
+                    Text("Continue")
+                        .ghostActionButtonStyle()
+                }
             }
             .searchable(text: $searchedText)
             .navigationBarTitle("Select DAOs")
