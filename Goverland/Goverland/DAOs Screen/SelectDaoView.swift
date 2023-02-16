@@ -33,7 +33,7 @@ struct SelectDaoView: View {
                                 }
                                 .padding()
                                 
-                                DaoGropThread(daoGroupType: key, daos: data.daoGroups[key]!)
+                                DaoGroupThread(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                             }
                         }
                     }
@@ -50,24 +50,23 @@ struct SelectDaoView: View {
     func continueButtonTapped() {}
 }
 
-struct DaoGropThread: View {
-    
+struct DaoGroupThread: View {
+    @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
-    var daos: [Dao]
-    @StateObject private var data = DaoDataService.data
+    var data: DaoDataService
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(0..<daos.count) { index in
-                    if index == daos.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
-                        DaoGroupItemView(dao: daos[index])
+                ForEach(0..<daoGroups[daoGroupType]!.count, id: \.self) { index in
+                    if index == daoGroups[daoGroupType]!.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
+                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getMoreDaos(inGroup: daoGroupType)
                             }
                     } else {
-                        DaoGroupItemView(dao: daos[index])
+                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
                     }
                 }
             }
