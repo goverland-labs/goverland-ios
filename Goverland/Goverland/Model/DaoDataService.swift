@@ -10,10 +10,13 @@ import Combine
 
 class DaoDataService: ObservableObject {
     
-    @Published var daosGroups: [DaoGroup] = []
+    @Published var daoGroups: [DaoGroupType: [Dao]] = [:]
     static let data = DaoDataService()
     private var cancellables = Set<AnyCancellable>()
     private var paginationStorage: [DaoGroupType: URL?] = [:]
+    var keys: [DaoGroupType] {
+        daoGroups.keys.sorted { $0.sortingNumber < $1.sortingNumber }
+    }
     
     private init() {
         getInitialDaos()
@@ -31,11 +34,13 @@ class DaoDataService: ObservableObject {
     }
     
     func hasNextPageURL(forGroupType groupType: DaoGroupType) -> Bool {
-        return paginationStorage[groupType] == nil ? false : true
+        if let nextPage = paginationStorage[groupType] {
+            return nextPage == nil ? false : true
+        }
+        return false
     }
     
     func getInitialDaos() {
-
         let decoder = JSONDecoder()
         
         URLSession
@@ -46,17 +51,17 @@ class DaoDataService: ObservableObject {
             .map(\.data)
             .decode(type: [ResponceDataForSelectDao].self, decoder: decoder)
             .sink { (completion) in
+                print(completion)
             } receiveValue: { [weak self] (returnedData) in
                for data in returnedData {
                    self?.paginationStorage[data.daosGroup] = data.next
-                   self?.daosGroups.append(DaoGroup.init(id: UUID(), groupType: data.daosGroup, daos: data.daos))
+                   self?.daoGroups[data.daosGroup] = data.daos
                 }
             }
             .store(in: &cancellables)
     }
     
     func getMoreDaos(inGroup group: DaoGroupType) {
-
         let decoder = JSONDecoder()
         guard let nextURl = getNextUrl(forGroupType: group) else { return }
         
@@ -66,15 +71,11 @@ class DaoDataService: ObservableObject {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map(\.data)
-            .decode(type: DaoGroup.self, decoder: decoder)
+            .decode(type: ResponceDataForSelectDao.self, decoder: decoder)
             .sink { (completion) in
-                print(completion)
             } receiveValue: { [weak self] (returnedData) in
-                print(returnedData)
-//               for data in returnedData {
-//                   self?.paginationStorage[data.daosGroup] = data.next
-//                   self?.daosGroups.append(DaoGroup.init(id: UUID(), groupType: data.daosGroup, daos: data.daos))
-//                }
+                self?.paginationStorage[returnedData.daosGroup] = returnedData.next
+                self?.daoGroups[returnedData.daosGroup]!.append(contentsOf: returnedData.daos)
             }
             .store(in: &cancellables)
     }
@@ -85,3 +86,4 @@ fileprivate struct ResponceDataForSelectDao: Decodable {
     let next: URL?
     let daos: [Dao]
 }
+

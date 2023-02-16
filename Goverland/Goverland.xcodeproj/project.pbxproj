@@ -66,14 +66,11 @@
 		55D632C029505D340073E04A /* AddWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWalletView.swift; sourceTree = "<group>"; };
 		55D632C229505DFF0073E04A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
-		55F143D9294B1DDA00D00B73 /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Goverland.app; path = "/Users/jenny/Documents/development/iOS/Goverland/Goverland/build/Debug-iphoneos/Goverland.app"; sourceTree = "<absolute>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		55F143E9294B1DDD00D00B73 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = GoverlandTests.xctest; path = "/Users/jenny/Documents/development/iOS/Goverland/Goverland/build/Debug-iphoneos/GoverlandTests.xctest"; sourceTree = "<absolute>"; };
 		55F143ED294B1DDD00D00B73 /* GoverlandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandTests.swift; sourceTree = "<group>"; };
-		55F143F3294B1DDD00D00B73 /* GoverlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = GoverlandUITests.xctest; path = "/Users/jenny/Documents/development/iOS/Goverland/Goverland/build/Debug-iphoneos/GoverlandUITests.xctest"; sourceTree = "<absolute>"; };
 		55F143F7294B1DDD00D00B73 /* GoverlandUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandUITests.swift; sourceTree = "<group>"; };
 		55F143F9294B1DDD00D00B73 /* GoverlandUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterMenuView.swift; sourceTree = "<group>"; };
@@ -88,6 +85,9 @@
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
+		BAF651A4299D3FBE00C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF651A5299D3FBE00C78A8A /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF651A6299D3FBE00C78A8A /* GoverlandUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +170,9 @@
 				55F143EC294B1DDD00D00B73 /* GoverlandTests */,
 				55F143F6294B1DDD00D00B73 /* GoverlandUITests */,
 				AEBDE4E97998B3E1655EF210 /* Frameworks */,
+				BAF651A4299D3FBE00C78A8A /* Goverland.app */,
+				BAF651A5299D3FBE00C78A8A /* GoverlandTests.xctest */,
+				BAF651A6299D3FBE00C78A8A /* GoverlandUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -279,7 +282,7 @@
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 			);
 			productName = DaoFeed;
-			productReference = 55F143D9294B1DDA00D00B73 /* Goverland.app */;
+			productReference = BAF651A4299D3FBE00C78A8A /* Goverland.app */;
 			productType = "com.apple.product-type.application";
 		};
 		55F143E8294B1DDD00D00B73 /* GoverlandTests */ = {
@@ -297,7 +300,7 @@
 			);
 			name = GoverlandTests;
 			productName = DaoFeedTests;
-			productReference = 55F143E9294B1DDD00D00B73 /* GoverlandTests.xctest */;
+			productReference = BAF651A5299D3FBE00C78A8A /* GoverlandTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		55F143F2294B1DDD00D00B73 /* GoverlandUITests */ = {
@@ -315,7 +318,7 @@
 			);
 			name = GoverlandUITests;
 			productName = DaoFeedUITests;
-			productReference = 55F143F3294B1DDD00D00B73 /* GoverlandUITests.xctest */;
+			productReference = BAF651A6299D3FBE00C78A8A /* GoverlandUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */

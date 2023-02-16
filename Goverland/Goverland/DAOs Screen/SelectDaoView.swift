@@ -14,15 +14,26 @@ struct SelectDaoView: View {
     @State private var searchedText: String = ""
     
     var body: some View {
+        
         NavigationView {
             VStack{
                 Text("Get Updates in your feed for the DAOs you select.")
                     .padding()
                 ScrollView {
                     VStack {
-                        ForEach(0..<data.daosGroups.count, id: \.self) { index in
+                        ForEach(data.keys, id: \.self) { key in
                             VStack {
-                                DaoGroupThreadView(daosGroup: data.daosGroups[index])
+                                HStack {
+                                    Text(key.name)
+                                        .fontWeight(.semibold)
+                                    Spacer()
+                                    Text("See all")
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.blue)
+                                }
+                                .padding()
+                                
+                                DaoGropThread(daoGroupType: key, daos: data.daoGroups[key]!)
                             }
                         }
                     }
@@ -39,52 +50,61 @@ struct SelectDaoView: View {
     func continueButtonTapped() {}
 }
 
-struct DaoGroupThreadView: View {
+struct DaoGropThread: View {
     
-    let daosGroup: DaoGroup
+    var daoGroupType: DaoGroupType
+    var daos: [Dao]
     @StateObject private var data = DaoDataService.data
     
     var body: some View {
-            
-        HStack {
-            Text(daosGroup.groupType.rawValue.capitalized)
-                .fontWeight(.semibold)
-            Spacer()
-            Text("See all")
-                .fontWeight(.medium)
-                .foregroundColor(.blue)
-        }
-        .padding()
-        
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(0..<daosGroup.daos.count, id: \.self) { index in
-                        VStack(spacing: 12) {
-                            daoImageView(imageURL: daosGroup.daos[index].image)
-                            Text(daosGroup.daos[index].name)
-                                .fontWeight(.medium)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.center)
-                                .minimumScaleFactor(0.8)
-                            Spacer()
-                            Button("Follow", action: followAction)
-                                .frame(width: 110, height: 35, alignment: .center)
-                                .foregroundColor(.white)
-                                .fontWeight(.medium)
-                                .background(.blue)
-                                .cornerRadius(2)
-                        }
-                        .frame(width: 130, height: 200)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color("lightGrey"), lineWidth: 1)
-                        )
+                ForEach(0..<daos.count) { index in
+                    if index == daos.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
+                        DaoGroupItemView(dao: daos[index])
+                            .redacted(reason: .placeholder)
+                            .onAppear {
+                                data.getMoreDaos(inGroup: daoGroupType)
+                            }
+                    } else {
+                        DaoGroupItemView(dao: daos[index])
+                    }
                 }
             }
         }
         .padding(.horizontal)
         .padding(.bottom, 20)
+    }
+    
+}
+
+
+struct DaoGroupItemView: View {
+    
+    var dao: Dao
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            daoImageView(imageURL: dao.image)
+            Text(dao.name)
+                .fontWeight(.medium)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.8)
+            Spacer()
+            Button("Follow", action: followAction)
+                .frame(width: 110, height: 35, alignment: .center)
+                .foregroundColor(.white)
+                .fontWeight(.medium)
+                .background(.blue)
+                .cornerRadius(2)
+        }
+        .frame(width: 130, height: 200)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(Color("lightGrey"), lineWidth: 1)
+        )
     }
     private func followAction() {
         //change button color
