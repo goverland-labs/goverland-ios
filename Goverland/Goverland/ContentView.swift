@@ -15,7 +15,7 @@ struct ContentView: View {
         if !termsAccepted {
             IntroView()
         } else if !onboardingFinished {
-            AddWalletView()
+            SelectDaoView()
         } else {
             AppTabView()
         }

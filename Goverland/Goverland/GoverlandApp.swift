@@ -11,8 +11,7 @@ import SwiftUI
 struct GoverlandApp: App {
     var body: some Scene {
         WindowGroup {
-            //ContentView()
-            SelectDaoView()
+            ContentView()
         }
     }
 }
