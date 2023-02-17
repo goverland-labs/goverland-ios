@@ -17,30 +17,42 @@ struct SelectDaoView: View {
         
         NavigationView {
             VStack{
-                Text("Get Updates in your feed for the DAOs you select.")
-                    .padding()
-                ScrollView {
-                    VStack {
-                        ForEach(data.keys, id: \.self) { key in
-                            VStack {
-                                HStack {
-                                    Text(key.name)
-                                        .fontWeight(.semibold)
-                                    Spacer()
-                                    Text("See all")
-                                        .fontWeight(.medium)
-                                        .foregroundColor(.blue)
+                if searchedText == ""{
+                    Text("Get Updates in your feed for the DAOs you select.")
+                        .padding()
+                    ScrollView {
+                        VStack {
+                            ForEach(data.keys, id: \.self) { key in
+                                VStack {
+                                    HStack {
+                                        Text(key.name)
+                                            .fontWeight(.semibold)
+                                        Spacer()
+                                        Text("See all")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.blue)
+                                    }
+                                    .padding()
+                                    
+                                    DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                                 }
-                                .padding()
-                                
-                                DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                             }
                         }
                     }
-                }
-                NavigationLink(destination: EnablePushNotificationsView()) {
-                    Text("Continue")
-                        .ghostActionButtonStyle()
+                    NavigationLink(destination: EnablePushNotificationsView()) {
+                        Text("Continue")
+                            .ghostActionButtonStyle()
+                    }
+                } else {
+                    List(data.daoGroups[.social]!) { dao in
+                        HStack {
+                            DaoImageInSearchView(imageURL: dao.image)
+                            Text(dao.name)
+                            Spacer()
+                            FollowButtonView()
+                        }
+                        .listRowSeparator(.hidden)
+                    }
                 }
             }
             .searchable(text: $searchedText)
@@ -121,6 +133,25 @@ fileprivate struct DaoImageView: View {
     }
 }
 
+fileprivate struct DaoImageInSearchView: View {
+    
+    var imageURL: URL?
+    
+    var body: some View {
+        KFImage(imageURL)
+            .placeholder {
+                Image(systemName: "circle.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .aspectRatio(contentMode: .fill)
+                    .foregroundColor(.gray)
+            }
+            .resizable()
+            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
+            .frame(width: 50, height: 50)
+            .cornerRadius(45)
+    }
+}
 
 fileprivate struct FollowButtonView: View {
     
