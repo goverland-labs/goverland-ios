@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct EnablePushNotificationsView: View {
+    @Setting(\.onboardingFinished) var onboardingFinished
+
     var body: some View {
+        Spacer()
         Text("Enable Push Notifications View")
+        Spacer()
+        Button("Finish onboarding") {
+            onboardingFinished = true
+        }.padding()
     }
 }
 

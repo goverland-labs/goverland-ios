@@ -9,13 +9,11 @@
 /* Begin PBXBuildFile section */
 		5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
-		555310ED299F732500AB7557 /* DaoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EB299F732500AB7557 /* DaoDetailView.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* ActivityView.swift */; };
 		55D632BB29505C600073E04A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632BA29505C600073E04A /* SearchView.swift */; };
 		55D632BF29505C800073E04A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632BE29505C800073E04A /* SettingsView.swift */; };
-		55D632C129505D340073E04A /* AddWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C029505D340073E04A /* AddWalletView.swift */; };
 		55D632C329505DFF0073E04A /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C229505DFF0073E04A /* AppTabView.swift */; };
 		55D632C52950CB4A0073E04A /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C42950CB4A0073E04A /* TermsView.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
@@ -42,13 +40,11 @@
 		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
 		555310E7299F723200AB7557 /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Goverland.app; path = "/Users/andrey/dev/Goverland/goverland-ios/Goverland/build/Debug-iphoneos/Goverland.app"; sourceTree = "<absolute>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
-		555310EB299F732500AB7557 /* DaoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaoDetailView.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		55D632BA29505C600073E04A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		55D632BE29505C800073E04A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		55D632C029505D340073E04A /* AddWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWalletView.swift; sourceTree = "<group>"; };
 		55D632C229505DFF0073E04A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
@@ -94,9 +90,10 @@
 			isa = PBXGroup;
 			children = (
 				BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */,
+				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 				55D632B2295057880073E04A /* IntroView.swift */,
+				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
-				55D632C029505D340073E04A /* AddWalletView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -147,7 +144,6 @@
 				55D632B429505BDE0073E04A /* Activity */,
 				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
-				BA352EFE298824D000F78958 /* DAOs Screen */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				55D632B529505BEB0073E04A /* Search */,
 				55D632B729505C070073E04A /* Settings */,
@@ -173,16 +169,6 @@
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		BA352EFE298824D000F78958 /* DAOs Screen */ = {
-			isa = PBXGroup;
-			children = (
-				555310EB299F732500AB7557 /* DaoDetailView.swift */,
-				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
-				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
-			);
-			path = "DAOs Screen";
 			sourceTree = "<group>";
 		};
 		BAAA526D2953ABF9003177BC /* ActivityListItem */ = {
@@ -296,7 +282,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D632C129505D340073E04A /* AddWalletView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
@@ -312,7 +297,6 @@
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
-				555310ED299F732500AB7557 /* DaoDetailView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,

@@ -33,7 +33,7 @@ struct SelectDaoView: View {
                                 }
                                 .padding()
                                 
-                                DaoGroupThread(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
+                                DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                             }
                         }
                     }
@@ -52,7 +52,7 @@ struct SelectDaoView: View {
     func continueButtonTapped() {}
 }
 
-struct DaoGroupThread: View {
+struct DaoGroupThreadView: View {
     @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
     var data: DaoDataService
@@ -129,22 +129,14 @@ fileprivate struct FollowButtonView: View {
     @State private var didTap: Bool = false
     
     var body: some View {
-        Button(action: { followAction() }) {
+        Button(action: { didTap.toggle() }) {
             Text(didTap ? "Following" : "Follow")
-            }
-            .frame(width: 110, height: 35, alignment: .center)
-            .foregroundColor(didTap ? .blue : .white)
-            .fontWeight(.medium)
-            .background(didTap ? Color("followButtonColorActive") : Color.blue)
-            .cornerRadius(5)
-    }
-    
-    private func followAction() {
-        if didTap {
-            didTap = false
-        } else {
-            didTap = true
         }
+        .frame(width: 110, height: 35, alignment: .center)
+        .foregroundColor(didTap ? .blue : .white)
+        .fontWeight(.medium)
+        .background(didTap ? Color("followButtonColorActive") : Color.blue)
+        .cornerRadius(5)
     }
 }
 
