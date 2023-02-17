@@ -48,11 +48,9 @@ struct SelectDaoView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
-    func continueButtonTapped() {}
 }
 
-struct DaoGroupThreadView: View {
+fileprivate struct DaoGroupThreadView: View {
     @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
     var data: DaoDataService
@@ -78,7 +76,7 @@ struct DaoGroupThreadView: View {
     }
 }
 
-struct DaoGroupItemView: View {
+fileprivate struct DaoGroupItemView: View {
     
     var dao: Dao
     
