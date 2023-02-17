@@ -153,7 +153,6 @@ fileprivate struct DaoImageInSearchView: View {
     }
 }
 
-
 fileprivate struct FollowButtonView: View {
     
     @State private var didTap: Bool = false
