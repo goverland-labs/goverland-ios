@@ -38,6 +38,7 @@ struct EnablePushNotificationsView: View {
                                 print(error)
                             }
                             // Enable or disable features based on the authorization.
+                            onboardingFinished = true
                         }
                     }
                     .ghostActionButtonStyle()
