@@ -38,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
-		555310E7299F723200AB7557 /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Goverland.app; path = "/Users/andrey/dev/Goverland/goverland-ios/Goverland/build/Debug-iphoneos/Goverland.app"; sourceTree = "<absolute>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
+		BAF651B0299FE84D00C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,9 +90,9 @@
 			isa = PBXGroup;
 			children = (
 				BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */,
-				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 				55D632B2295057880073E04A /* IntroView.swift */,
 				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
+				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
 			);
 			path = Onboarding;
@@ -129,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				55F143DB294B1DDA00D00B73 /* Goverland */,
+				BAF651B0299FE84D00C78A8A /* Goverland.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,7 +204,7 @@
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 			);
 			productName = DaoFeed;
-			productReference = 555310E7299F723200AB7557 /* Goverland.app */;
+			productReference = BAF651B0299FE84D00C78A8A /* Goverland.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
