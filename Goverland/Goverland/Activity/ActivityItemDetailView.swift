@@ -1,35 +1,33 @@
 //
-//  ActivityListItemView.swift
+//  ActivityItemDetailView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2022-12-28.
+//  Created by Jenny Shalai on 2023-02-18.
 //
 
 import SwiftUI
 
-struct ActivityListItemView: View {
+struct ActivityItemDetailView: View {
     
     var event: ActivityEvent
-    
     var body: some View {
-        
-        ZStack {
-            RoundedRectangle(cornerRadius: 5)
-                .fill(.white)
-                .padding(.horizontal, -12)
-            
-            VStack(spacing: 15) {
-                ActivityListItemHeaderView(event: event)
-                ActivityListItemBodyView(event: event)
-                ActivityListItemFooterView(event: event)
+        NavigationStack {
+            VStack(spacing: 30) {
+                ActivityDetailHeaderView()
+                ActivityDetailStatusRowView()
+                ActivityDetailSummaryView()
+                ActivityDetailForumView()
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Uniswap DAO")
+        .padding()
     }
 }
 
-struct ActivityListItemView_Previews: PreviewProvider {
+struct ActivityItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemView(event: ActivityEvent(
+        ActivityItemDetailView(event: ActivityEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -38,7 +36,7 @@ struct ActivityListItemView_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
             daoImage: "",
             meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }

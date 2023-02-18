@@ -47,7 +47,7 @@ struct ActivityFilterMenuView: View {
         }
         .padding(.leading, 15)
         .padding(.top, 30)
-        .background(Color(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)))
+        .background(Color("lightGrey"))
     }
        
 }
