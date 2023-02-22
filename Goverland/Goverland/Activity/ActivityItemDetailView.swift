@@ -12,15 +12,30 @@ struct ActivityItemDetailView: View {
     var event: ActivityEvent
     var body: some View {
         NavigationStack {
-            VStack(spacing: 30) {
+            VStack(spacing: 0) {
+                ActivityDetailDividerLineView()
+                    .padding(.bottom, 18)
                 ActivityDetailHeaderView()
+                    .padding(.bottom, 18)
                 ActivityDetailStatusRowView()
+                    .padding(.bottom, 25)
                 ActivityDetailSummaryView()
+                    .padding(.bottom, 40)
                 ActivityDetailForumView()
+                    .padding(.bottom, 30)
+                ActivityDetailDividerLineView()
+                    .padding(.bottom, 30)
+                ActivityTimelineView()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Uniswap DAO")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Uniswap DAO")
+                    .font(.system(size: 18))
+                    .fontWeight(.bold)
+                    }
+                }
         .padding()
     }
 }

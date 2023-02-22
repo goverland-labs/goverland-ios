@@ -15,40 +15,47 @@ struct ActivityDetailForumView: View {
                             name: "uniman_ETH1f99999999999")
     var body: some View {
         HStack {
-            KFImage(URL(string: user.image))
-                .placeholder {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(.gray)
-                }
-                .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text("View forum discussion")
-                    .fontWeight(.semibold)
-                    .foregroundColor(.blue)
+            Button(action: openDiscussionForum) {
+                KFImage(URL(string: user.image))
+                    .placeholder {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .aspectRatio(contentMode: .fill)
+                            .foregroundColor(.gray)
+                    }
+                    .resizable()
+                    .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 40, height: 40), mode: .aspectFill))
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(20)
                 
-                HStack(spacing: 3) {
-                    Image(systemName: "ellipsis.message.fill")
-                        .foregroundColor(.gray)
-                    Text("21")
-                    Text("comments")
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("View forum discussion")
+                        .fontWeight(.semibold)
+                        
                     
+                    HStack(spacing: 3) {
+                        Image(systemName: "ellipsis.message.fill")
+                            .foregroundColor(.gray)
+                        Text("21")
+                            .foregroundColor(.black)
+                        Text("comments")
+                            .foregroundColor(.black)
+                    }
                 }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.forward")
+                    .foregroundColor(.gray)
             }
-            
-            Spacer()
+            .padding(10)
+            .background(Color("lightGrey"))
+            .cornerRadius(10)
         }
-        .padding(15)
-        .background(Color("lightGrey"))
-        .cornerRadius(10)
-        
     }
+    
+    private func openDiscussionForum() {}
 }
 
 struct ActivityDetailForumView_Previews: PreviewProvider {

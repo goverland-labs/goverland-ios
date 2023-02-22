@@ -27,13 +27,13 @@ struct ActivityDetailHeaderView: View {
                 .resizable()
                 .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
                 .frame(width: 50, height: 50)
+                .cornerRadius(25)
             
             Text("Deplay Uniswap V3 on StarkNet")
                 .fontWeight(.semibold)
             
             Spacer()
         }
-        
     }
 }
 
