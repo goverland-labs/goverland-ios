@@ -118,7 +118,6 @@
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
 				BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
-				BAF651B229A159AF00C78A8A /* ActivityItemDetailView.swift */,
 				BAF651B429A172F000C78A8A /* ActivityDetail */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
 			);
@@ -201,6 +200,7 @@
 		BAF651B429A172F000C78A8A /* ActivityDetail */ = {
 			isa = PBXGroup;
 			children = (
+				BAF651B229A159AF00C78A8A /* ActivityItemDetailView.swift */,
 				BAF651B529A1734100C78A8A /* ActivityDetailHeaderView.swift */,
 				BAF651B729A175CA00C78A8A /* ActivityDetailStatusRowView.swift */,
 				BAF651B929A17DFF00C78A8A /* ActivityDetailSummaryView.swift */,

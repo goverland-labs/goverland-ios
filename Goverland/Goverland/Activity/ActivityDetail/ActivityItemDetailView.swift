@@ -8,35 +8,39 @@
 import SwiftUI
 
 struct ActivityItemDetailView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var event: ActivityEvent
+    
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                ActivityDetailDividerLineView()
-                    .padding(.bottom, 18)
-                ActivityDetailHeaderView()
-                    .padding(.bottom, 18)
-                ActivityDetailStatusRowView()
-                    .padding(.bottom, 25)
-                ActivityDetailSummaryView()
-                    .padding(.bottom, 40)
-                ActivityDetailForumView()
-                    .padding(.bottom, 30)
-                ActivityDetailDividerLineView()
-                    .padding(.bottom, 30)
-                ActivityTimelineView()
+        VStack(spacing: 0) {
+            ActivityDetailDividerLineView()
+                .padding(.bottom, 15)
+            ActivityDetailHeaderView()
+                .padding(.bottom, 15)
+            ActivityDetailStatusRowView()
+                .padding(.bottom, 25)
+            ActivityDetailSummaryView()
+                .padding(.bottom, 40)
+            ActivityDetailForumView()
+                .padding(.bottom, 30)
+            ActivityDetailDividerLineView()
+                .padding(.bottom, 30)
+            ActivityTimelineView()
+                .padding(.bottom, 20)
+        }
+        .padding(.horizontal)
+        .navigationTitle("Uniswap DAO")
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Uniswap DAO")
-                    .font(.system(size: 18))
-                    .fontWeight(.bold)
-                    }
-                }
-        .padding()
     }
 }
 
