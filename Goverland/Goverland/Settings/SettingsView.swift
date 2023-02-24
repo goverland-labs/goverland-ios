@@ -29,7 +29,7 @@ struct SettingsView: View {
                     NavigationLink("Advanced") {
                         AdvancedSettingView()
                     }
-                    LabeledContent("App version", value: "0.1.0 (2)")
+                    LabeledContent("App version", value: Bundle.main.releaseVersionNumber ?? "0.1.0")
                 }
             }
         }
