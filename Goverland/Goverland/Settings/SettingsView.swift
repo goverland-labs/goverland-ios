@@ -18,9 +18,10 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Contact Us")) {
-                    Text("Twitter")
-                    Text("Telegram")
-                    Text("Email")
+                    Button("Twitter", action: openTwitterApp)
+                    Button("Telegram", action: openTelegramApp)
+                    Button("Email", action: openMailApp)
+                    
                 }
                 
                 Section {
@@ -38,6 +39,32 @@ struct SettingsView: View {
             }
         }
     }
+}
+
+private func openTwitterApp() {
+    let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
+    let webURL = URL(string: "https://twitter.com/goverland_xyz")!
+    
+    if UIApplication.shared.canOpenURL(appURL as URL) {
+        UIApplication.shared.open(appURL)
+    } else {
+        UIApplication.shared.open(webURL)
+    }
+}
+
+private func openTelegramApp() {
+    let appURL = URL(string: "tg://resolve?domain=goverland_support")!
+    let webURL = NSURL(string: "https://t.me/goverland_support")!
+    
+    if UIApplication.shared.canOpenURL(appURL as URL) {
+        UIApplication.shared.open(appURL)
+    } else {
+        UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
+    }
+}
+
+private func openMailApp() {
+    
 }
 
 fileprivate struct AboutSettingView: View {
