@@ -14,11 +14,10 @@ struct ActivityListItemView: View {
     var body: some View {
         
         ZStack {
-            
             RoundedRectangle(cornerRadius: 5)
                 .fill(.white)
                 .padding(.horizontal, -12)
-
+            
             VStack(spacing: 15) {
                 ActivityListItemHeaderView(event: event)
                 ActivityListItemBodyView(event: event)
