@@ -24,7 +24,9 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Text("About")
+                    NavigationLink("About") {
+                        AboutSettingView()
+                    }
                     NavigationLink("Help us grow") {
                         HelpUsGrowSettingView()
                     }
@@ -37,6 +39,17 @@ struct SettingsView: View {
         }
     }
 }
+
+fileprivate struct AboutSettingView: View {
+    var body: some View {
+        List {
+            Text("[About us](http://goverland.xyz/about)")
+            Text("[Privacy Policy](http://goverland.xyz/privacy)")
+            Text("[Terms of Service](http://goverland.xyz/terms)")
+        }
+    }
+}
+
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
         Text("Help us grow")
