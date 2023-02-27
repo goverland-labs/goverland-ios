@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    Text("Followed DAOs")
+                    NavigationLink("Followed DAOs") {
+                        FollowedDaoView()
+                    }
                     Text("Notifications")
                     Text("Appearance")
                 }
@@ -47,7 +50,7 @@ struct SettingsView: View {
                     NavigationLink("Advanced") {
                         AdvancedSettingView()
                     }
-                    LabeledContent("App version", value: Bundle.main.releaseVersionNumber ?? "0.1.0")
+                    LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
         }
@@ -77,6 +80,50 @@ struct SettingsView: View {
 
     private func openMailApp() {
         
+    }
+}
+
+fileprivate struct FollowedDaoView: View {
+    @StateObject private var data = DaoDataService.data
+    var body: some View {
+        List {
+            ForEach(data.daoGroups[.social] ?? []) { dao in
+                HStack {
+                    KFImage(dao.image)
+                        .placeholder {
+                            Image(systemName: "circle.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .aspectRatio(contentMode: .fill)
+                                .foregroundColor(.gray)
+                        }
+                        .resizable()
+                        .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 30, height: 30), mode: .aspectFill))
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(15)
+                    
+                    Text(dao.name)
+                    Spacer()
+                    FollowingButtonView()
+                }
+            }
+        }
+    }
+}
+
+fileprivate struct FollowingButtonView: View {
+    
+    @State private var didTap: Bool = true
+    
+    var body: some View {
+        Button(action: { didTap.toggle() }) {
+            Text(didTap ? "Following" : "Follow")
+        }
+        .frame(width: 100, height: 30, alignment: .center)
+        .foregroundColor(didTap ? .blue : .white)
+        .fontWeight(.medium)
+        .background(didTap ? Color("followButtonColorActive") : Color.blue)
+        .cornerRadius(5)
     }
 }
 
