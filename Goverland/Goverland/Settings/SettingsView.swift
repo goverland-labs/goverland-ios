@@ -156,16 +156,14 @@ fileprivate struct HelpUsGrowSettingView: View {
 
 fileprivate struct AdvancedSettingView: View {
     var body: some View {
-        VStack {
-            Text("Would you like to reset the App?")
-                .fontWeight(.bold)
-            Text("this action will delete your local settings and closer the application")
-                .padding(20)
-            Button("RESET") {
-                SettingKeys.reset()
-                exit(0)
+        List {
+            Section(header: Text("Debug")) {
+                Button("RESET") {
+                    SettingKeys.reset()
+                    exit(0)
+                }
+                .accentColor(.black)
             }
-            .ghostActionButtonStyle()
         }
     }
 }
