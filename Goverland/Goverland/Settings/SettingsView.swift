@@ -18,11 +18,24 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Contact Us")) {
-                    Button("Twitter", action: openTwitterApp)
-                    Button("Telegram", action: openTelegramApp)
-                    Button("Email", action: openMailApp)
-                    
+                    HStack {
+                        Image(systemName: "bird.fill")
+                            .foregroundColor(.gray)
+                        Button("Twitter", action: openTwitterApp)
+                    }
+                    HStack {
+                        Image(systemName: "paperplane.circle")
+                            .foregroundColor(.gray)
+                        Button("Telegram", action: openTelegramApp)
+                    }
+                    HStack {
+                        Image(systemName: "m.square")
+                            .foregroundColor(.gray)
+                        Button("Email", action: openMailApp)
+                    }
                 }
+                .accentColor(.black)
+                
                 
                 Section {
                     NavigationLink("About") {
@@ -39,41 +52,52 @@ struct SettingsView: View {
             }
         }
     }
-}
-
-private func openTwitterApp() {
-    let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
-    let webURL = URL(string: "https://twitter.com/goverland_xyz")!
     
-    if UIApplication.shared.canOpenURL(appURL as URL) {
-        UIApplication.shared.open(appURL)
-    } else {
-        UIApplication.shared.open(webURL)
+    private func openTwitterApp() {
+        let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
+        let webURL = URL(string: "https://twitter.com/goverland_xyz")!
+        
+        if UIApplication.shared.canOpenURL(appURL as URL) {
+            UIApplication.shared.open(appURL)
+        } else {
+            UIApplication.shared.open(webURL)
+        }
     }
-}
 
-private func openTelegramApp() {
-    let appURL = URL(string: "tg://resolve?domain=goverland_support")!
-    let webURL = NSURL(string: "https://t.me/goverland_support")!
-    
-    if UIApplication.shared.canOpenURL(appURL as URL) {
-        UIApplication.shared.open(appURL)
-    } else {
-        UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
+    private func openTelegramApp() {
+        let appURL = URL(string: "tg://resolve?domain=goverland_support")!
+        let webURL = NSURL(string: "https://t.me/goverland_support")!
+        
+        if UIApplication.shared.canOpenURL(appURL as URL) {
+            UIApplication.shared.open(appURL)
+        } else {
+            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
+        }
     }
-}
 
-private func openMailApp() {
-    
+    private func openMailApp() {
+        
+    }
 }
 
 fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
-            Text("[About us](http://goverland.xyz/about)")
-            Text("[Privacy Policy](http://goverland.xyz/privacy)")
-            Text("[Terms of Service](http://goverland.xyz/terms)")
+            HStack {
+                Image(systemName: "heart.square.fill")
+                Text("[About us](http://goverland.xyz/about)")
+            }
+            HStack {
+                Image(systemName: "lock.fill")
+                Text("[Privacy Policy](http://goverland.xyz/privacy)")
+            }
+            HStack {
+                Image(systemName: "doc.badge.gearshape")
+                Text("[Terms of Service](http://goverland.xyz/terms)")
+            }
         }
+        .foregroundColor(.gray)
+        .accentColor(.black)
     }
 }
 
@@ -91,12 +115,10 @@ fileprivate struct AdvancedSettingView: View {
             Text("this action will delete your local settings and closer the application")
                 .padding(20)
             Button("RESET") {
-                SettingKeys().onboardingFinished = false
-                SettingKeys().termsAccepted = false
+                SettingKeys.reset()
                 exit(0)
             }
             .ghostActionButtonStyle()
-            
         }
     }
 }

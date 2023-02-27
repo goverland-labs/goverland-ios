@@ -11,6 +11,11 @@ import SwiftUI
 class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("onboardingFinished") var onboardingFinished = false
+    
+    static func reset() {
+        SettingKeys().onboardingFinished = false
+        SettingKeys().termsAccepted = false
+    }
 }
 
 @propertyWrapper
