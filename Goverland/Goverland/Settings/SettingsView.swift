@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct SettingsView: View {
+    
     var body: some View {
         NavigationStack {
             List {
@@ -24,22 +25,22 @@ struct SettingsView: View {
                 
                 Section(header: Text("Contact Us")) {
                     HStack {
-                        Image(systemName: "bird.fill")
-                            .foregroundColor(.gray)
+                        Image(systemName: "bird")
+                            .foregroundColor(.primary)
                         Button("Twitter", action: openTwitterApp)
                     }
                     HStack {
                         Image(systemName: "paperplane.circle")
-                            .foregroundColor(.gray)
+                            .foregroundColor(.primary)
                         Button("Telegram", action: openTelegramApp)
                     }
                     HStack {
                         Image(systemName: "m.square")
-                            .foregroundColor(.gray)
+                            .foregroundColor(.primary)
                         Button("Email", action: openMailApp)
                     }
                 }
-                .accentColor(.black)
+                .tint(.primary)
                 
                 
                 Section {
@@ -151,6 +152,7 @@ fileprivate struct AppearanceSettingView: View {
 }
 
 fileprivate struct AboutSettingView: View {
+    
     var body: some View {
         List {
             HStack {
@@ -167,7 +169,7 @@ fileprivate struct AboutSettingView: View {
             }
         }
         .foregroundColor(.gray)
-        .accentColor(.black)
+        .tint(.primary)
     }
 }
 
@@ -185,7 +187,7 @@ fileprivate struct AdvancedSettingView: View {
                     SettingKeys.reset()
                     exit(0)
                 }
-                .accentColor(.black)
+                .accentColor(.primary)
             }
         }
     }

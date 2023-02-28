@@ -39,3 +39,7 @@ extension Bundle {
         return infoDictionary?["CFBundleVersion"] as? String
     }
 }
+
+extension Color {
+    static let darkGray = Color(red: 0.261, green: 0.261, blue: 0.261)
+}

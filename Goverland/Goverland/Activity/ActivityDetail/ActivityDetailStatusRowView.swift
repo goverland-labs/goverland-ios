@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftDate
 
 struct ActivityDetailStatusRowView: View {
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack {
             HStack(spacing: 3) {
@@ -34,7 +35,7 @@ struct ActivityDetailStatusRowView: View {
             }
         }
         .padding(10)
-        .background(Color("lightGrey"))
+        .background(colorScheme == .light ? Color("lightGrey") : .darkGray)
         .cornerRadius(10)
     }
 }

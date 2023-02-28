@@ -120,8 +120,8 @@
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
 				BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
-				BAF651B429A172F000C78A8A /* ActivityDetail */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
+				BAF651B429A172F000C78A8A /* ActivityDetail */,
 			);
 			path = Activity;
 			sourceTree = "<group>";

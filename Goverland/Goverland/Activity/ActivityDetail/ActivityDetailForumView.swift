@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ActivityDetailForumView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     private let user = User(address: "String0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
                             image: "https://cdn.stamp.fyi/space/uniswap?s=164",
                             name: "uniman_ETH1f99999999999")
@@ -36,11 +36,11 @@ struct ActivityDetailForumView: View {
                     
                     HStack(spacing: 3) {
                         Image(systemName: "ellipsis.message.fill")
-                            .foregroundColor(.gray)
+                            .foregroundColor(colorScheme == .light ? .gray : .white)
                         Text("21")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .light ? .black : .white)
                         Text("comments")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .light ? .black : .white)
                     }
                 }
                 
@@ -50,7 +50,7 @@ struct ActivityDetailForumView: View {
                     .foregroundColor(.gray)
             }
             .padding(10)
-            .background(Color("lightGrey"))
+            .background(colorScheme == .light ? Color("lightGrey") : .darkGray)
             .cornerRadius(10)
         }
     }

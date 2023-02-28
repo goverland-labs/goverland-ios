@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ActivityListItemBodyView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     var event: ActivityEvent
     
     var body: some View {
@@ -24,7 +24,7 @@ struct ActivityListItemBodyView: View {
                     .lineLimit(2)
                 
                 Text(event.content.subtitle)
-                    .foregroundColor(.gray)
+                    .foregroundColor(colorScheme == .light ? .gray : .white)
                     .lineLimit(2)
                 
                 if let warning = event.content.warningSubtitle {
