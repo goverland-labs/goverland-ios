@@ -17,7 +17,9 @@ struct SettingsView: View {
                         FollowedDaoView()
                     }
                     Text("Notifications")
-                    Text("Appearance")
+                    NavigationLink("Appearance") {
+                        AppearanceSettingView()
+                    }
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -127,6 +129,27 @@ fileprivate struct FollowingButtonView: View {
     }
 }
 
+fileprivate struct AppearanceSettingView: View {
+    
+    @EnvironmentObject var colorSchemeManager: ColorSchemeManager
+    
+    var body: some View {
+        
+        VStack {
+            Picker("", selection: $colorSchemeManager.colorScheme) {
+                Text("Default").tag(ColorSchemeType.unspecified)
+                Text("Light").tag(ColorSchemeType.light)
+                Text("Dark").tag(ColorSchemeType.dark)
+            }
+            .pickerStyle(.segmented)
+            .padding()
+            
+            Spacer()
+        }
+        .navigationTitle("Color Scheme")
+    }
+}
+
 fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
@@ -171,5 +194,6 @@ fileprivate struct AdvancedSettingView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(ColorSchemeManager())
     }
 }

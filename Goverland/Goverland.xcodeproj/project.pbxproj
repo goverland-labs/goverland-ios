@@ -41,6 +41,7 @@
 		BAF651BC29A185AE00C78A8A /* ActivityDetailForumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BB29A185AE00C78A8A /* ActivityDetailForumView.swift */; };
 		BAF651BE29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */; };
 		BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */; };
+		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		BAF651BB29A185AE00C78A8A /* ActivityDetailForumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailForumView.swift; sourceTree = "<group>"; };
 		BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailDividerLineView.swift; sourceTree = "<group>"; };
 		BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimelineView.swift; sourceTree = "<group>"; };
+		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
+				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
@@ -324,6 +327,7 @@
 				BAF651B329A159AF00C78A8A /* ActivityItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
+				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* ActivityDetailStatusRowView.swift in Sources */,
