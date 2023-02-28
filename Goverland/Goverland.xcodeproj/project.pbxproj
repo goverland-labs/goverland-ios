@@ -34,6 +34,13 @@
 		BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */; };
 		BAAA52762954AC14003177BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BAAA52752954AC14003177BC /* Kingfisher */; };
+		BAF651B329A159AF00C78A8A /* ActivityItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B229A159AF00C78A8A /* ActivityItemDetailView.swift */; };
+		BAF651B629A1734100C78A8A /* ActivityDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B529A1734100C78A8A /* ActivityDetailHeaderView.swift */; };
+		BAF651B829A175CA00C78A8A /* ActivityDetailStatusRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B729A175CA00C78A8A /* ActivityDetailStatusRowView.swift */; };
+		BAF651BA29A17DFF00C78A8A /* ActivityDetailSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B929A17DFF00C78A8A /* ActivityDetailSummaryView.swift */; };
+		BAF651BC29A185AE00C78A8A /* ActivityDetailForumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BB29A185AE00C78A8A /* ActivityDetailForumView.swift */; };
+		BAF651BE29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */; };
+		BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +69,14 @@
 		BAAA526829538138003177BC /* ActivityListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ActivityListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ActivityListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemFooterView.swift; sourceTree = "<group>"; };
-		BAF651B0299FE84D00C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF651B229A159AF00C78A8A /* ActivityItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemDetailView.swift; sourceTree = "<group>"; };
+		BAF651B529A1734100C78A8A /* ActivityDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailHeaderView.swift; sourceTree = "<group>"; };
+		BAF651B729A175CA00C78A8A /* ActivityDetailStatusRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailStatusRowView.swift; sourceTree = "<group>"; };
+		BAF651B929A17DFF00C78A8A /* ActivityDetailSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailSummaryView.swift; sourceTree = "<group>"; };
+		BAF651BB29A185AE00C78A8A /* ActivityDetailForumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailForumView.swift; sourceTree = "<group>"; };
+		BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailDividerLineView.swift; sourceTree = "<group>"; };
+		BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimelineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +118,7 @@
 				55D632B829505C4F0073E04A /* ActivityView.swift */,
 				BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
+				BAF651B429A172F000C78A8A /* ActivityDetail */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
 			);
 			path = Activity;
@@ -129,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				55F143DB294B1DDA00D00B73 /* Goverland */,
-				BAF651B0299FE84D00C78A8A /* Goverland.app */,
+				BAF651B129A1580600C78A8A /* Goverland.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,6 +197,20 @@
 			path = ActivityListItem;
 			sourceTree = "<group>";
 		};
+		BAF651B429A172F000C78A8A /* ActivityDetail */ = {
+			isa = PBXGroup;
+			children = (
+				BAF651B229A159AF00C78A8A /* ActivityItemDetailView.swift */,
+				BAF651B529A1734100C78A8A /* ActivityDetailHeaderView.swift */,
+				BAF651B729A175CA00C78A8A /* ActivityDetailStatusRowView.swift */,
+				BAF651B929A17DFF00C78A8A /* ActivityDetailSummaryView.swift */,
+				BAF651BB29A185AE00C78A8A /* ActivityDetailForumView.swift */,
+				BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */,
+				BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */,
+			);
+			path = ActivityDetail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -204,7 +233,7 @@
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 			);
 			productName = DaoFeed;
-			productReference = BAF651B0299FE84D00C78A8A /* Goverland.app */;
+			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -283,27 +312,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAF651BE29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
+				BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BAF651B329A159AF00C78A8A /* ActivityItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
+				BAF651B829A175CA00C78A8A /* ActivityDetailStatusRowView.swift in Sources */,
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
+				BAF651BA29A17DFF00C78A8A /* ActivityDetailSummaryView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
+				BAF651BC29A185AE00C78A8A /* ActivityDetailForumView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
+				BAF651B629A1734100C78A8A /* ActivityDetailHeaderView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
