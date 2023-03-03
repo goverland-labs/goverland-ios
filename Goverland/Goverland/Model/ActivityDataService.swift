@@ -58,11 +58,11 @@ class ActivityDataService: ObservableObject {
 
         switch filter {
         case .discussion:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/4134fd741c095adb381d53f49612c3c9f363ca39/ActivityEventsFilteredDiscussions.json")!
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/12445d11757ca95b2706661f759fa84f93953439/ActivityEventsFilteredDiscussions.json")!
         case .vote:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/d9c1fae17ed11b241d6db53d71b8253de8e9c118/ActivityEventsFilteredVotes.json")!
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/b8af409985fc4ad24ea6c375086a1f0479c5f8d9/ActivityEventsFilteredVotes.json")!
         case .all:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/16082a942ad530f37c8d300cb8c26c782df28ed1/ActivityEventsPage1.json")!
+            return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/8aebe2f922b3b24e23934867fc67f8b4f3948917/ActivityEventsPage1.json")!
         }
     }
 }

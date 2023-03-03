@@ -70,7 +70,7 @@ struct TermsView: View {
 fileprivate struct BulletedListsDot: View {
     var body: some View {
         Circle()
-            .fill(.black)
+            .fill(.primary)
             .frame(width: 8, height: 8)
             .padding(.top, 6)
     }

@@ -24,7 +24,7 @@ struct ActivityListItemBodyView: View {
                     .lineLimit(2)
                 
                 Text(event.content.subtitle)
-                    .foregroundColor(colorScheme == .light ? .gray : .white)
+                    .foregroundColor(.gray)
                     .lineLimit(2)
                 
                 if let warning = event.content.warningSubtitle {
@@ -49,6 +49,7 @@ struct ActivityListItemBodyView: View {
                 .resizable()
                 .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
                 .frame(width: 50, height: 50)
+                .cornerRadius(25)
         }
     }
 }

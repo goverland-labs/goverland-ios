@@ -41,5 +41,5 @@ extension Bundle {
 }
 
 extension Color {
-    static let darkGray = Color(red: 0.261, green: 0.261, blue: 0.261)
+    static let darkGray = Color(red: 0.15, green: 0.15, blue: 0.15)
 }
