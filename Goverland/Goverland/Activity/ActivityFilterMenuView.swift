@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityFilterMenuView: View {
-    @Environment(\.colorScheme) var colorScheme
+
     @Binding var filter: FilterType
     
     var body: some View {
@@ -21,51 +21,35 @@ struct ActivityFilterMenuView: View {
                     self.filter = .all
                     ActivityDataService.data.getEvents(withFilter: .all, fromStart: true)
                 }) {
-                    if colorScheme == .dark {
-                        ActivityFilterMenuItem(menuItemName: "All")
-                            .background(Capsule().fill(filter == .all ? .white : .darkGray))
-                            .foregroundColor(filter == .all ? .black : .gray)
-                    } else {
-                        ActivityFilterMenuItem(menuItemName: "All")
-                            .background(Capsule().fill(filter == .all ? .black : .white))
-                            .foregroundColor(filter == .all ? .white : .black)
-                    }
+                    ActivityFilterMenuItem(menuItemName: "All")
+                        .background(Capsule().fill(filter == .all ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .all ? Color("white-black") : Color("black-gray"))
+                    
                 }
                 
                 Button(action: {
                     self.filter = .discussion
                     ActivityDataService.data.getEvents(withFilter: .discussion, fromStart: true)
                 }) {
-                    if colorScheme == .dark {
-                        ActivityFilterMenuItem(menuItemName: "Discussion")
-                            .background(Capsule().fill(filter == .discussion ? .white : .darkGray))
-                            .foregroundColor(filter == .discussion ? .black : .gray)
-                    } else {
-                        ActivityFilterMenuItem(menuItemName: "Discussion")
-                            .background(Capsule().fill(filter == .discussion ? .black : .white))
-                            .foregroundColor(filter == .discussion ? .white : .black)
-                    }
+                    ActivityFilterMenuItem(menuItemName: "Discussion")
+                        .background(Capsule().fill(filter == .discussion ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .discussion ? Color("white-black") : Color("black-gray"))
+                    
                 }
                 
                 Button(action: {
                     self.filter = .vote
                     ActivityDataService.data.getEvents(withFilter: .vote, fromStart: true)
                 }) {
-                    if colorScheme == .dark {
-                        ActivityFilterMenuItem(menuItemName: "Vote")
-                            .background(Capsule().fill(filter == .vote ? .white : .darkGray))
-                            .foregroundColor(filter == .vote ? .black : .gray)
-                    } else {
-                        ActivityFilterMenuItem(menuItemName: "Vote")
-                            .background(Capsule().fill(filter == .vote ? .black : .white))
-                            .foregroundColor(filter == .vote ? .white : .black)
-                    }
+                    ActivityFilterMenuItem(menuItemName: "Vote")
+                        .background(Capsule().fill(filter == .vote ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .vote ? Color("white-black") : Color("black-gray"))
                 }
             }
         }
         .padding(.leading, 15)
         .padding(.top, 30)
-        .background(Color("lightGrey"))
+        .background(Color("lightGray-black"))
     }
        
 }

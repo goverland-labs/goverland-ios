@@ -9,14 +9,12 @@ import SwiftUI
 
 struct ActivityListItemView: View {
     
-    @Environment(\.colorScheme) var colorScheme
     var event: ActivityEvent
-    
+
     var body: some View {
-        
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .fill(colorScheme == .light ? .white : .darkGray)
+                .fill(Color("white-darkGray"))
                 .padding(.horizontal, -12)
             
             VStack(spacing: 15) {

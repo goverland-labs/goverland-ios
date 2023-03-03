@@ -107,7 +107,7 @@ fileprivate struct DaoGroupItemView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 5)
-                .stroke(Color("lightGrey"), lineWidth: 1)
+                .stroke(Color("lightGray-darkGray"), lineWidth: 1)
         )
     }
 }

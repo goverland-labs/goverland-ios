@@ -121,7 +121,6 @@
 				BA2EA2002967610500FB87AC /* ActivityFilterMenuView.swift */,
 				BA57D219295CB35400DB1963 /* ActivityListItemView.swift */,
 				BAAA526D2953ABF9003177BC /* ActivityListItem */,
-				BAF651B429A172F000C78A8A /* ActivityDetail */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -161,6 +160,7 @@
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
+				BAF651B429A172F000C78A8A /* ActivityDetail */,
 				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,

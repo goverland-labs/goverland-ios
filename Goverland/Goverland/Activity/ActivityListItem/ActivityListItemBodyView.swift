@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ActivityListItemBodyView: View {
-    @Environment(\.colorScheme) var colorScheme
+    
     var event: ActivityEvent
     
     var body: some View {
