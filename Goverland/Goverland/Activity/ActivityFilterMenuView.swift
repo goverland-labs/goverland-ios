@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityFilterMenuView: View {
-    
+
     @Binding var filter: FilterType
     
     var body: some View {
@@ -22,8 +22,9 @@ struct ActivityFilterMenuView: View {
                     ActivityDataService.data.getEvents(withFilter: .all, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
-                        .background(Capsule().fill(filter == .all ? .black : .white))
-                        .foregroundColor(filter == .all ? .white : .black)
+                        .background(Capsule().fill(filter == .all ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .all ? Color("white-black") : Color("black-gray"))
+                    
                 }
                 
                 Button(action: {
@@ -31,8 +32,9 @@ struct ActivityFilterMenuView: View {
                     ActivityDataService.data.getEvents(withFilter: .discussion, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
-                        .background(Capsule().fill(filter == .discussion ? .black : .white))
-                        .foregroundColor(filter == .discussion ? .white : .black)
+                        .background(Capsule().fill(filter == .discussion ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .discussion ? Color("white-black") : Color("black-gray"))
+                    
                 }
                 
                 Button(action: {
@@ -40,14 +42,14 @@ struct ActivityFilterMenuView: View {
                     ActivityDataService.data.getEvents(withFilter: .vote, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Vote")
-                        .background(Capsule().fill(filter == .vote ? .black : .white))
-                        .foregroundColor(filter == .vote ? .white : .black)
+                        .background(Capsule().fill(filter == .vote ? .primary : Color("white-darkGray")))
+                        .foregroundColor(filter == .vote ? Color("white-black") : Color("black-gray"))
                 }
             }
         }
         .padding(.leading, 15)
         .padding(.top, 30)
-        .background(Color("lightGrey"))
+        .background(Color("lightGray-black"))
     }
        
 }

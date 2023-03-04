@@ -49,6 +49,7 @@ struct ActivityListItemBodyView: View {
                 .resizable()
                 .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
                 .frame(width: 50, height: 50)
+                .cornerRadius(25)
         }
     }
 }

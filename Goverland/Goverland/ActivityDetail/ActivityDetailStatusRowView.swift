@@ -34,7 +34,7 @@ struct ActivityDetailStatusRowView: View {
             }
         }
         .padding(10)
-        .background(Color("lightGrey"))
+        .background(Color("lightGray-darkGray"))
         .cornerRadius(10)
     }
 }

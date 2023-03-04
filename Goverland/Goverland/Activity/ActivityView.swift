@@ -29,7 +29,7 @@ struct ActivityView: View {
                             .listRowSeparator(.hidden)
                             .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                             .padding(.top, 10)
-                            .listRowBackground(Color("lightGrey"))
+                            .listRowBackground(Color("lightGray-black"))
                             .overlay(NavigationLink("", destination: ActivityItemDetailView(event: data.events[index])).opacity(0))
                     }
                 }
@@ -41,7 +41,7 @@ struct ActivityView: View {
                     data.getEvents(withFilter: filter, fromStart: true)
                 }
             }
-            .background(Color("lightGrey"))
+            .background(Color("lightGray-black"))
         }
     }
 }

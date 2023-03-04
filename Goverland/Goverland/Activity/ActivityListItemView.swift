@@ -10,12 +10,11 @@ import SwiftUI
 struct ActivityListItemView: View {
     
     var event: ActivityEvent
-    
+
     var body: some View {
-        
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .fill(.white)
+                .fill(Color("white-darkGray"))
                 .padding(.horizontal, -12)
             
             VStack(spacing: 15) {

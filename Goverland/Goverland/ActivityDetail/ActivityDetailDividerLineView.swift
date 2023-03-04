@@ -10,7 +10,7 @@ import SwiftUI
 struct ActivityDetailDividerLineView: View {
     var body: some View {
         Rectangle()
-            .fill(Color("lightGrey"))
+            .fill(Color("lightGray-darkGray"))
             .frame(maxWidth: .infinity, maxHeight: 1)
     }
 }
