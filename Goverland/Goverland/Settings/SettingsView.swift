@@ -17,7 +17,9 @@ struct SettingsView: View {
                     NavigationLink("Followed DAOs") {
                         FollowedDaoView()
                     }
-                    Text("Notifications")
+                    NavigationLink("Notifications") {
+                        PushNotificationsSettingView()
+                    }
                     NavigationLink("Appearance") {
                         AppearanceSettingView()
                     }
@@ -111,6 +113,17 @@ fileprivate struct FollowedDaoView: View {
                 }
             }
         }
+    }
+}
+
+fileprivate struct PushNotificationsSettingView: View {
+    @State private var isReceiveUpdates = false
+    var body: some View {
+        VStack {
+            Toggle("Receive updates from followed DAOs", isOn: $isReceiveUpdates)
+            Spacer()
+        }
+        .padding()
     }
 }
 
