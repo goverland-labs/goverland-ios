@@ -42,6 +42,7 @@
 		BAF651BE29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */; };
 		BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
+		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailDividerLineView.swift; sourceTree = "<group>"; };
 		BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimelineView.swift; sourceTree = "<group>"; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
+		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
+				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
+				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* ActivityDetailForumView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,

@@ -7,8 +7,11 @@
 
 import SwiftUI
 import Kingfisher
+import MessageUI
 
 struct SettingsView: View {
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State var isShowingMailView = false
     
     var body: some View {
         NavigationStack {
@@ -39,7 +42,11 @@ struct SettingsView: View {
                     HStack {
                         Image(systemName: "m.square")
                             .foregroundColor(.primary)
-                        Button("Email", action: openMailApp)
+                        Button("Email", action: { self.isShowingMailView.toggle() })
+                            .disabled(!MFMailComposeViewController.canSendMail())
+                            .sheet(isPresented: $isShowingMailView) {
+                                MailSendingView(result: self.$result)
+                            }
                     }
                 }
                 .tint(.primary)
@@ -81,10 +88,6 @@ struct SettingsView: View {
         } else {
             UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
         }
-    }
-
-    private func openMailApp() {
-        
     }
 }
 
