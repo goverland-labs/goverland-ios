@@ -16,8 +16,11 @@ struct ActivityItemDetailView: View {
         VStack(spacing: 0) {
             ActivityDetailDividerLineView()
                 .padding(.bottom, 15)
-            ActivityDetailHeaderView()
-                .padding(.bottom, 15)
+            NavigationLink(destination: DaoInfoScreenView()) {
+                ActivityDetailHeaderView()
+                    .padding(.bottom, 15)
+                    .foregroundColor(.primary)
+            }
             ActivityDetailStatusRowView()
                 .padding(.bottom, 25)
             ActivityDetailSummaryView()
