@@ -14,41 +14,55 @@ struct DaoInfoScreenControlsView: View {
     private let controls = ["Activity", "About"]
     
     var body: some View {
-        HStack {
-            HStack(spacing: 15) {
-                ForEach(controls, id: \.self) { control in
-                    VStack(spacing: 12) {
-                        Text(control)
-                            .fontWeight(.semibold)
-                            .foregroundColor(currentControl == control ? .primary : .gray)
-                        ZStack {
-                            if currentControl == control {
-                                Capsule(style: .continuous)
-                                    .foregroundColor(.blue)
-                            } else {
-                                Capsule(style: .continuous)
-                                    .foregroundColor(.clear)
+        VStack(spacing: 0) {
+            HStack(alignment: .bottom) {
+                HStack(spacing: 20) {
+                    ForEach(controls, id: \.self) { control in
+                        VStack(spacing: 12) {
+                            Text(control)
+                                .fontWeight(.semibold)
+                                .foregroundColor(currentControl == control ? .primary : .gray)
+                            ZStack {
+                                if currentControl == control {
+                                    Capsule(style: .continuous)
+                                        .foregroundColor(.blue)
+                                } else {
+                                    Capsule(style: .continuous)
+                                        .foregroundColor(.clear)
+                                }
+                            }.frame(width: 60, height: 2)
+                        }
+                        .onTapGesture {
+                            withAnimation {
+                                self.currentControl = control
                             }
-                        }.frame(width: 60, height: 2)
-                    }
-                    .onTapGesture {
-                        withAnimation {
-                            self.currentControl = control
                         }
                     }
                 }
-            }
-            .foregroundColor(.primary)
-            .fontWeight(.semibold)
-            
-            Spacer()
-            
-            VStack {
-                FollowingButtonView()
+                .foregroundColor(.primary)
+                .fontWeight(.semibold)
+                
                 Spacer()
+                
+                VStack {
+                    FollowingButtonView()
+                    Spacer()
+                }
+                .frame(height: 50)
+            }.padding(.horizontal)
+            
+            Capsule(style: .continuous)
+                .fill(.gray)
+                .frame(height: 1)
+            
+            ZStack {
+                
+                if currentControl == "Activity" {
+                    ActivityView()
+                }
             }
-            .frame(height: 60)
         }
+        
     }
 }
 

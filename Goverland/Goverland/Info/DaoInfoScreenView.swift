@@ -16,7 +16,6 @@ struct DaoInfoScreenView: View {
             DaoInfoScreenHeaderView()
                 .padding(.horizontal)
             DaoInfoScreenControlsView()
-                .padding(.horizontal)
             Spacer()
         }
         .navigationTitle("Uniswap DAO")
