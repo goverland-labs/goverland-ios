@@ -15,6 +15,8 @@ struct DaoInfoScreenView: View {
         VStack {
             DaoInfoScreenHeaderView()
                 .padding(.horizontal)
+            DaoInfoScreenControlsView()
+                .padding(.horizontal)
             Spacer()
         }
         .navigationTitle("Uniswap DAO")

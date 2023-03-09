@@ -27,26 +27,21 @@ struct DaoInfoScreenHeaderView: View {
                 .frame(width: 100, height: 100)
                 .cornerRadius(50)
             
-            Spacer()
-            
-            HStack(spacing: 10) {
+            HStack {
                 VStack {
                     Text("103")
-                        .font(.title3)
                         .fontWeight(.semibold)
                     Text("Proposales")
                 }
                 
                 VStack {
                     Text("342.9K")
-                        .font(.title3)
                         .fontWeight(.semibold)
                     Text("Holders")
                 }
                 
                 VStack {
                     Text("$2.8B")
-                        .font(.title3)
                         .fontWeight(.semibold)
                     Text("Treasury")
                 }
