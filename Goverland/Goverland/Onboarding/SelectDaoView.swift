@@ -133,7 +133,7 @@ fileprivate struct DaoImageView: View {
     }
 }
 
-fileprivate struct DaoImageInSearchView: View {
+struct DaoImageInSearchView: View {
     
     var imageURL: URL?
     
@@ -154,7 +154,7 @@ fileprivate struct DaoImageInSearchView: View {
 }
 
 
-fileprivate struct FollowButtonView: View {
+struct FollowButtonView: View {
     
     @State private var didTap: Bool = false
     
