@@ -9,9 +9,8 @@ import SwiftUI
 
 struct DaoInfoScreenControlsView: View {
     
-    
-    @State private var currentControl = "Activity"
-    private let controls = ["Activity", "About"]
+    @State private var currentControl: DaoInfoScreenControls = .activity
+    private let controls: [DaoInfoScreenControls] = [.activity, .about]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -19,7 +18,7 @@ struct DaoInfoScreenControlsView: View {
                 HStack(spacing: 20) {
                     ForEach(controls, id: \.self) { control in
                         VStack(spacing: 12) {
-                            Text(control)
+                            Text(control.rawValue.capitalized)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
                             ZStack {
@@ -45,7 +44,7 @@ struct DaoInfoScreenControlsView: View {
                 Spacer()
                 
                 VStack {
-                    FollowingButtonView()
+                    FollowButtonView(buttonWidth: 120, buttonHeight: 35)
                     Spacer()
                 }
                 .frame(height: 50)
@@ -56,30 +55,16 @@ struct DaoInfoScreenControlsView: View {
                 .frame(height: 1)
             
             ZStack {
-                
-                if currentControl == "Activity" {
+                if currentControl == .activity {
                     ActivityView()
                 }
             }
         }
-        
     }
 }
 
-fileprivate struct FollowingButtonView: View {
-    
-    @State private var didTap: Bool = true
-    
-    var body: some View {
-        Button(action: { didTap.toggle() }) {
-            Text(didTap ? "Following" : "Follow")
-        }
-        .frame(width: 120, height: 35, alignment: .center)
-        .foregroundColor(didTap ? .blue : .white)
-        .fontWeight(.medium)
-        .background(didTap ? Color("followButtonColorActive") : Color.blue)
-        .cornerRadius(3)
-    }
+fileprivate enum DaoInfoScreenControls: String {
+    case activity, about
 }
 
 struct DaoInfoScreenControlsView_Previews: PreviewProvider {

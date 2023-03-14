@@ -6,45 +6,18 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct DaoInfoScreenHeaderView: View {
     
-    private let user = User(address: "", image: "https://cdn.stamp.fyi/space/uniswap?s=164", name: "")
+    let event: ActivityEvent
     
     var body: some View {
         HStack {
-            KFImage(URL(string: user.image))
-                .placeholder {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(.purple)
-                }
-                .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 100, height: 100), mode: .aspectFit))
-                .frame(width: 100, height: 100)
-                .cornerRadius(50)
-            
+            DaoPictureView(daoImage: event.daoImage, imageSize: 100)
             HStack {
-                VStack {
-                    Text("103")
-                        .fontWeight(.semibold)
-                    Text("Proposales")
-                }
-                
-                VStack {
-                    Text("342.9K")
-                        .fontWeight(.semibold)
-                    Text("Holders")
-                }
-                
-                VStack {
-                    Text("$2.8B")
-                        .fontWeight(.semibold)
-                    Text("Treasury")
-                }
+                InfoBadgeView(value: "103", title: "Proposales")
+                InfoBadgeView(value: "342.9K", title: "Holders")
+                InfoBadgeView(value: "$2.8B", title: "Treasury")
             }
             .scaledToFill()
             .minimumScaleFactor(0.5)
@@ -53,8 +26,32 @@ struct DaoInfoScreenHeaderView: View {
     }
 }
 
+fileprivate struct InfoBadgeView: View {
+    let value: String
+    let title: String
+    var body: some View {
+        VStack {
+            Text(value)
+                .fontWeight(.semibold)
+            Text(title)
+        }
+    }
+    
+}
+
 struct DaoInfoScreenHeaderViewPreviews: PreviewProvider {
     static var previews: some View {
-        DaoInfoScreenHeaderView()
+        DaoInfoScreenHeaderView(event: ActivityEvent(
+            id: UUID(),
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: URL(string: ""),
+                name: "safe1.sche.eth"),
+            date: Date(),
+            type: .discussion,
+            status: .discussion,
+            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
+            daoImage: URL(string: ""),
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

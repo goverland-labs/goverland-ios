@@ -11,9 +11,9 @@ struct User: Decodable {
     
     let address: String
     let ensName: String?
-    let image: String
+    let image: URL?
     
-    init(address: String, image: String, name: String?) {
+    init(address: String, image: URL?, name: String?) {
         self.address = address
         self.ensName = name
         self.image = image
