@@ -10,8 +10,8 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var data = DaoDataService.data
     @State private var searchText = ""
-    private let controls = ["DAOs", "Discussions", "Votes"]
-    @State private var currentControl = "DAOs"
+    private let controls: [SearchViewControls] = [.DAOs, .Discussions, .Votes]
+    @State private var currentControl: SearchViewControls = .DAOs
     
     var body: some View {
         NavigationStack {
@@ -19,7 +19,7 @@ struct SearchView: View {
                 HStack {
                     ForEach(controls, id: \.self) { control in
                         VStack(spacing: 12) {
-                            Text(control)
+                            Text(control.rawValue)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
                             ZStack {
@@ -46,12 +46,7 @@ struct SearchView: View {
                     .fill(.gray)
                     .frame(height: 1)
                 
-                switch currentControl {
-                case "Discussions":
-                    SearchDiscussionBodyView()
-                case "Votes":
-                    SearchVoteBodyView()
-                default:
+                if searchText != "" {
                     List {
                         ForEach(filterDaoList(searchText: searchText)) { dao in
                             HStack {
@@ -63,11 +58,39 @@ struct SearchView: View {
                             .listRowSeparator(.hidden)
                         }
                     }
+                } else {
+                    switch currentControl {
+                    case .Discussions:
+                        SearchDiscussionBodyView()
+                    case .Votes:
+                        SearchVoteBodyView()
+                    default:
+                        ScrollView {
+                            VStack {
+                                ForEach(data.keys, id: \.self) { key in
+                                    VStack {
+                                        HStack {
+                                            Text(key.name)
+                                                .fontWeight(.semibold)
+                                            Spacer()
+                                            Text("See all")
+                                                .fontWeight(.medium)
+                                                .foregroundColor(.blue)
+                                        }
+                                        .padding()
+                                        
+                                        DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .searchable(text: $searchText, prompt: "Look for DAO")
         }
     }
+    
     
     private func getAllCashedDaos() -> [Dao] {
         var listDaos: [Dao] = []
@@ -114,6 +137,10 @@ fileprivate struct SearchVoteBodyView: View {
             ActivityDataService.data.getEvents(withFilter: .vote, fromStart: true)
         }
     }
+}
+
+fileprivate enum SearchViewControls: String {
+    case DAOs, Discussions, Votes
 }
 
 

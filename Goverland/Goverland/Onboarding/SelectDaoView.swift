@@ -62,7 +62,7 @@ struct SelectDaoView: View {
     }
 }
 
-fileprivate struct DaoGroupThreadView: View {
+struct DaoGroupThreadView: View {
     @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
     var data: DaoDataService
