@@ -16,7 +16,7 @@ struct ActivityEvent: Identifiable, Decodable {
     let type: ActivityEventType
     let status: ActivityEventStatus
     let content: ActivityViewContent
-    let daoImage: String
+    let daoImage: URL?
     let meta: ActivityEventMetaInfo?
     
     init(id: UUID,
@@ -25,7 +25,7 @@ struct ActivityEvent: Identifiable, Decodable {
          type: ActivityEventType,
          status: ActivityEventStatus,
          content: ActivityViewContent,
-         daoImage: String,
+         daoImage: URL?,
          meta: ActivityEventMetaInfo?) {
         self.id = id
         self.user = user
@@ -56,7 +56,7 @@ struct ActivityEvent: Identifiable, Decodable {
         self.type = try container.decode(ActivityEventType.self, forKey: .type)
         self.status = try container.decode(ActivityEventStatus.self, forKey: .status)
         self.content = try container.decode(ActivityViewContent.self, forKey: .content)
-        self.daoImage = try container.decode(String.self, forKey: .daoImage)
+        self.daoImage = try container.decode(URL.self, forKey: .daoImage)
         switch type {
         case .vote:
             self.meta = try? container.decode(ActivityEventsVoteMeta.self, forKey: .meta)

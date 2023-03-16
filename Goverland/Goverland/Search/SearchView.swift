@@ -50,10 +50,10 @@ struct SearchView: View {
                     ScrollView(showsIndicators: false) {
                         ForEach(filterDaoList(searchText: searchText)) { dao in
                             HStack {
-                                DaoImageInSearchView(imageURL: dao.image)
+                                DaoPictureView(daoImage: dao.image, imageSize: 50)
                                 Text(dao.name)
                                 Spacer()
-                                FollowButtonView()
+                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
                             }
                             .padding(5)
                             .listRowSeparator(.hidden)
