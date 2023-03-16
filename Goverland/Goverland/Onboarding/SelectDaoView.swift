@@ -20,7 +20,7 @@ struct SelectDaoView: View {
                 if searchedText == ""{
                     Text("Get Updates in your feed for the DAOs you select.")
                         .padding()
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(data.keys, id: \.self) { key in
                                 VStack {
@@ -44,14 +44,18 @@ struct SelectDaoView: View {
                             .ghostActionButtonStyle()
                     }
                 } else {
-                    List(data.daoGroups[.social]!) { dao in
-                        HStack {
-                            DaoImageInSearchView(imageURL: dao.image)
-                            Text(dao.name)
-                            Spacer()
-                            FollowButtonView()
+                    ScrollView(showsIndicators: false) {
+                        ForEach(data.daoGroups[.social]!) { dao in
+                            HStack {
+                                DaoImageInSearchView(imageURL: dao.image)
+                                Text(dao.name)
+                                Spacer()
+                                FollowButtonView()
+                            }
+                            .padding(5)
+                            .listRowSeparator(.hidden)
                         }
-                        .listRowSeparator(.hidden)
+                        .padding()
                     }
                 }
             }

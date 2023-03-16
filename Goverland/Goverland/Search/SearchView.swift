@@ -47,7 +47,7 @@ struct SearchView: View {
                     .frame(height: 1)
                 
                 if searchText != "" {
-                    List {
+                    ScrollView(showsIndicators: false) {
                         ForEach(filterDaoList(searchText: searchText)) { dao in
                             HStack {
                                 DaoImageInSearchView(imageURL: dao.image)
@@ -55,8 +55,10 @@ struct SearchView: View {
                                 Spacer()
                                 FollowButtonView()
                             }
+                            .padding(5)
                             .listRowSeparator(.hidden)
                         }
+                        .padding()
                     }
                 } else {
                     switch currentControl {
@@ -65,7 +67,7 @@ struct SearchView: View {
                     case .Votes:
                         SearchVoteBodyView()
                     default:
-                        ScrollView {
+                        ScrollView(showsIndicators: false) {
                             VStack {
                                 ForEach(data.keys, id: \.self) { key in
                                     VStack {
