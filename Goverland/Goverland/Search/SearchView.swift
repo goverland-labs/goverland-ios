@@ -10,8 +10,8 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var data = DaoDataService.data
     @State private var searchText = ""
-    private let controls: [SearchViewControls] = [.DAOs, .Discussions, .Votes]
-    @State private var currentControl: SearchViewControls = .DAOs
+    private let controls: [SearchViewControls] = SearchViewControls.all
+    @State private var currentControl: SearchViewControls = .daos
     
     var body: some View {
         NavigationStack {
@@ -19,7 +19,7 @@ struct SearchView: View {
                 HStack {
                     ForEach(controls, id: \.self) { control in
                         VStack(spacing: 12) {
-                            Text(control.rawValue)
+                            Text(control.localizedString)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
                             ZStack {
@@ -62,9 +62,9 @@ struct SearchView: View {
                     }
                 } else {
                     switch currentControl {
-                    case .Discussions:
+                    case .discussions:
                         SearchDiscussionBodyView()
-                    case .Votes:
+                    case .votes:
                         SearchVoteBodyView()
                     default:
                         ScrollView(showsIndicators: false) {
@@ -141,8 +141,18 @@ fileprivate struct SearchVoteBodyView: View {
     }
 }
 
-fileprivate enum SearchViewControls: String {
-    case DAOs, Discussions, Votes
+fileprivate enum SearchViewControls {
+    case daos, discussions, votes
+
+    static var all: [Self] { return [.daos, .discussions, .votes] }
+
+    var localizedString: String {
+        switch self {
+        case .daos: return "DAOs"
+        case .discussions: return "Discussions"
+        case .votes: return "Votes"
+        }
+    }
 }
 
 
