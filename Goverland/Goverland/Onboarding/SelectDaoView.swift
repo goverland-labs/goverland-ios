@@ -19,7 +19,7 @@ struct SelectDaoView: View {
                 if searchedText == ""{
                     Text("Get Updates in your feed for the DAOs you select.")
                         .padding()
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(data.keys, id: \.self) { key in
                                 VStack {
@@ -43,14 +43,18 @@ struct SelectDaoView: View {
                             .ghostActionButtonStyle()
                     }
                 } else {
-                    List(data.daoGroups[.social]!) { dao in
-                        HStack {
-                            DaoPictureView(daoImage: dao.image, imageSize: 50)
-                            Text(dao.name)
-                            Spacer()
-                            FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+                    ScrollView(showsIndicators: false) {
+                        ForEach(data.daoGroups[.social]!) { dao in
+                            HStack {
+                                DaoPictureView(daoImage: dao.image, imageSize: 50)
+                                Text(dao.name)
+                                Spacer()
+                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+                            }
+                            .padding(5)
+                            .listRowSeparator(.hidden)
                         }
-                        .listRowSeparator(.hidden)
+                        .padding()
                     }
                 }
             }
@@ -61,7 +65,7 @@ struct SelectDaoView: View {
     }
 }
 
-fileprivate struct DaoGroupThreadView: View {
+struct DaoGroupThreadView: View {
     @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
     var data: DaoDataService
