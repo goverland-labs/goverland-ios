@@ -12,6 +12,7 @@ import MessageUI
 struct SettingsView: View {
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var isShowingMailView = false
+    @State private var showEmailAlert = false
     
     var body: some View {
         NavigationStack {
@@ -42,11 +43,22 @@ struct SettingsView: View {
                     HStack {
                         Image(systemName: "m.square")
                             .foregroundColor(.primary)
-                        Button("Email", action: { self.isShowingMailView.toggle() })
-                            .disabled(!MFMailComposeViewController.canSendMail())
-                            .sheet(isPresented: $isShowingMailView) {
-                                MailSendingView(result: self.$result)
+                        Button("Email", action: {
+                            if !MFMailComposeViewController.canSendMail() {
+                                showEmailAlert = true
+                            } else {
+                                self.isShowingMailView.toggle()
                             }
+                        })
+                        .sheet(isPresented: $isShowingMailView) {
+                            MailSendingView(result: self.$result)
+                        }
+                        .alert(isPresented: $showEmailAlert) {
+                            Alert(
+                                title: Text("Our email address:"),
+                                message: Text("contact@goverland.xyz")
+                            )
+                        }
                     }
                 }
                 .tint(.primary)
