@@ -6,32 +6,16 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ActivityDetailHeaderView: View {
     
-    private let user = User(address: "String0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                            image: "https://cdn.stamp.fyi/space/uniswap?s=164",
-                            name: "uniman_ETH1f99999999999")
+    let event: ActivityEvent
     
     var body: some View {
         HStack(spacing: 12) {
-            KFImage(URL(string: user.image))
-                .placeholder {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(.gray)
-                }
-                .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
-            
+            DaoPictureView(daoImage: event.daoImage, imageSize: 50)
             Text("Deplay Uniswap V3 on StarkNet")
                 .fontWeight(.semibold)
-            
             Spacer()
         }
     }
@@ -39,6 +23,17 @@ struct ActivityDetailHeaderView: View {
 
 struct ActivityDetailHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailHeaderView()
+        ActivityDetailHeaderView(event: ActivityEvent(
+            id: UUID(),
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: URL(string: ""),
+                name: "safe1.sche.eth"),
+            date: Date(),
+            type: .discussion,
+            status: .discussion,
+            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
+            daoImage: URL(string: ""),
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

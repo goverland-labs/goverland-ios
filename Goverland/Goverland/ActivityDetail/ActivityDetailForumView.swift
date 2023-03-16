@@ -6,27 +6,13 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ActivityDetailForumView: View {
-    private let user = User(address: "String0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                            image: "https://cdn.stamp.fyi/space/uniswap?s=164",
-                            name: "uniman_ETH1f99999999999")
+    let event: ActivityEvent
     var body: some View {
         HStack {
             Button(action: openDiscussionForum) {
-                KFImage(URL(string: user.image))
-                    .placeholder {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .aspectRatio(contentMode: .fill)
-                            .foregroundColor(.gray)
-                    }
-                    .resizable()
-                    .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 40, height: 40), mode: .aspectFill))
-                    .frame(width: 40, height: 40)
-                    .cornerRadius(20)
+                DaoPictureView(daoImage: event.daoImage, imageSize: 40)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("View forum discussion")
@@ -59,6 +45,17 @@ struct ActivityDetailForumView: View {
 
 struct ActivityDetailForumView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailForumView()
+        ActivityDetailForumView(event: ActivityEvent(
+            id: UUID(),
+            user: User(
+                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
+                image: URL(string: ""),
+                name: "safe1.sche.eth"),
+            date: Date(),
+            type: .discussion,
+            status: .discussion,
+            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
+            daoImage: URL(string: ""),
+            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }
