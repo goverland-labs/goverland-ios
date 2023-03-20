@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "goverland-icon-300x300-black.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
