@@ -245,6 +245,8 @@
 				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
 			);
 			path = Analytics;
+            sourceTree = "<group>";
+        };
 		BAF651CA29B79E2200C78A8A /* Info */ = {
 			isa = PBXGroup;
 			children = (
