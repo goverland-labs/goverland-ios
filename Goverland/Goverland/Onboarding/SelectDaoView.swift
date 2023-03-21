@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct SelectDaoView: View {
     
@@ -20,7 +19,7 @@ struct SelectDaoView: View {
                 if searchedText == ""{
                     Text("Get Updates in your feed for the DAOs you select.")
                         .padding()
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(data.keys, id: \.self) { key in
                                 VStack {
@@ -44,14 +43,18 @@ struct SelectDaoView: View {
                             .ghostActionButtonStyle()
                     }
                 } else {
-                    List(data.daoGroups[.social]!) { dao in
-                        HStack {
-                            DaoImageInSearchView(imageURL: dao.image)
-                            Text(dao.name)
-                            Spacer()
-                            FollowButtonView()
+                    ScrollView(showsIndicators: false) {
+                        ForEach(data.daoGroups[.social]!) { dao in
+                            HStack {
+                                DaoPictureView(daoImage: dao.image, imageSize: 50)
+                                Text(dao.name)
+                                Spacer()
+                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+                            }
+                            .padding(5)
+                            .listRowSeparator(.hidden)
                         }
-                        .listRowSeparator(.hidden)
+                        .padding()
                     }
                 }
             }
@@ -62,7 +65,7 @@ struct SelectDaoView: View {
     }
 }
 
-fileprivate struct DaoGroupThreadView: View {
+struct DaoGroupThreadView: View {
     @Binding var daoGroups: [DaoGroupType: [Dao]]
     var daoGroupType: DaoGroupType
     var data: DaoDataService
@@ -94,79 +97,20 @@ fileprivate struct DaoGroupItemView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            DaoImageView(imageURL: dao.image)
+            DaoPictureView(daoImage: dao.image, imageSize: 90)
             Text(dao.name)
                 .fontWeight(.medium)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.8)
             Spacer()
-            FollowButtonView()
+            FollowButtonView(buttonWidth: 110, buttonHeight: 35)
         }
         .frame(width: 130, height: 200)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 5)
-                .stroke(Color("lightGray-darkGray"), lineWidth: 1)
-        )
-    }
-}
-
-
-fileprivate struct DaoImageView: View {
-    
-    var imageURL: URL?
-    
-    var body: some View {
-        KFImage(imageURL)
-            .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 90, height: 90)
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.gray)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 90, height: 90), mode: .aspectFill))
-            .frame(width: 90, height: 90)
-            .cornerRadius(45)
-    }
-}
-
-fileprivate struct DaoImageInSearchView: View {
-    
-    var imageURL: URL?
-    
-    var body: some View {
-        KFImage(imageURL)
-            .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.gray)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
-            .frame(width: 50, height: 50)
-            .cornerRadius(45)
-    }
-}
-
-
-fileprivate struct FollowButtonView: View {
-    
-    @State private var didTap: Bool = false
-    
-    var body: some View {
-        Button(action: { didTap.toggle() }) {
-            Text(didTap ? "Following" : "Follow")
-        }
-        .frame(width: 110, height: 35, alignment: .center)
-        .foregroundColor(didTap ? .blue : .white)
-        .fontWeight(.medium)
-        .background(didTap ? Color("followButtonColorActive") : Color.blue)
-        .cornerRadius(5)
+                .stroke(Color("lightGray-darkGray"), lineWidth: 1))
     }
 }
 

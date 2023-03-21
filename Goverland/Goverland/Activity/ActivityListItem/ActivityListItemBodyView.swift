@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ActivityListItemBodyView: View {
     
@@ -37,19 +36,8 @@ struct ActivityListItemBodyView: View {
             }
             
             Spacer()
-
-            KFImage(URL(string: event.daoImage))
-                .placeholder {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(.gray)
-                }
-                .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 50, height: 50), mode: .aspectFill))
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
+            
+            DaoPictureView(daoImage: event.daoImage, imageSize: 50)
         }
     }
 }
@@ -60,13 +48,13 @@ struct ListItemBody_Previews: PreviewProvider {
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: "https://cdn-icons-png.flaticon.com/512/17/17004.png?w=1060&t=st=1672407609~exp=1672408209~hmac=7cb92bf848bb316a8955c5f510ce50f48c6a9484fb3641fa70060c212c2a8e39",
+                image: URL(string: ""),
                 name: "safe1.sche.eth"),
             date: Date(),
             type: .discussion,
             status: .discussion,
             content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
-            daoImage: "",
+            daoImage: URL(string: ""),
             meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

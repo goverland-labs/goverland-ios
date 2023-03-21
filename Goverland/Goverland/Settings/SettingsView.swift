@@ -7,8 +7,12 @@
 
 import SwiftUI
 import Kingfisher
+import MessageUI
 
 struct SettingsView: View {
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State private var isShowingMailView = false
+    @State private var isShowingMailAlertView = false
     
     var body: some View {
         NavigationStack {
@@ -17,7 +21,9 @@ struct SettingsView: View {
                     NavigationLink("Followed DAOs") {
                         FollowedDaoView()
                     }
-                    Text("Notifications")
+                    NavigationLink("Notifications") {
+                        PushNotificationsSettingView()
+                    }
                     NavigationLink("Appearance") {
                         AppearanceSettingView()
                     }
@@ -37,7 +43,22 @@ struct SettingsView: View {
                     HStack {
                         Image(systemName: "m.square")
                             .foregroundColor(.primary)
-                        Button("Email", action: openMailApp)
+                        Button("Email", action: {
+                            if !MFMailComposeViewController.canSendMail() {
+                                isShowingMailAlertView.toggle()
+                            } else {
+                                isShowingMailView.toggle()
+                            }
+                        })
+                        .sheet(isPresented: $isShowingMailView) {
+                            MailSendingView(result: $result)
+                        }
+                        .alert(isPresented: $isShowingMailAlertView) {
+                            Alert(
+                                title: Text("Our email address:"),
+                                message: Text("contact@goverland.xyz")
+                            )
+                        }
                     }
                 }
                 .tint(.primary)
@@ -80,10 +101,6 @@ struct SettingsView: View {
             UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
         }
     }
-
-    private func openMailApp() {
-        
-    }
 }
 
 fileprivate struct FollowedDaoView: View {
@@ -111,6 +128,17 @@ fileprivate struct FollowedDaoView: View {
                 }
             }
         }
+    }
+}
+
+fileprivate struct PushNotificationsSettingView: View {
+    @State private var isReceiveUpdates = false
+    var body: some View {
+        VStack {
+            Toggle("Receive updates from followed DAOs", isOn: $isReceiveUpdates)
+            Spacer()
+        }
+        .padding()
     }
 }
 

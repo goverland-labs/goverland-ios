@@ -7,13 +7,10 @@
 
 import SwiftUI
 import SwiftDate
-import Kingfisher
 
 struct ActivityTimelineView: View {
     
-    private let user = User(address: "String0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                            image: "https://cdn.stamp.fyi/space/uniswap?s=164",
-                            name: "uniman0.eth")
+    let user: User
     
     var body: some View {
         VStack {
@@ -30,17 +27,8 @@ struct ActivityTimelineView: View {
                 Text("Discussion")
                     .foregroundColor(.blue)
                 Text("started by")
-                KFImage(URL(string: ""))
-                    .placeholder {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .frame(width: 15, height: 15)
-                            .aspectRatio(contentMode: .fill)
-                            .foregroundColor(.purple)
-                    }
-                    .resizable()
-                    .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 15, height: 15), mode: .aspectFit))
-                    .frame(width: 15, height: 15)
+                
+                UserPictureView(userImage: user.image, imageSize: 15)
                 
                 if let name = user.ensName {
                     Text(name)
@@ -59,6 +47,6 @@ struct ActivityTimelineView: View {
 
 struct ActivityTimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityTimelineView()
+        ActivityTimelineView(user: User(address: "", image: URL(string: ""), name: ""))
     }
 }

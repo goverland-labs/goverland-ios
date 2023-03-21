@@ -46,6 +46,11 @@
 		BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FE29C8C1F300C78A8A /* Tracker.swift */; };
 		BAF6520129C8C28C00C78A8A /* TrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520029C8C28C00C78A8A /* TrackingHandler.swift */; };
 		BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */; };
+		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
+		BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */; };
+		BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */; };
+		BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CF29B943E800C78A8A /* DaoInfoScreenControlsView.swift */; };
+		BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651D129C0F00000C78A8A /* UIComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +92,11 @@
 		BAF651FE29C8C1F300C78A8A /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		BAF6520029C8C28C00C78A8A /* TrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingHandler.swift; sourceTree = "<group>"; };
 		BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
+		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
+		BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenView.swift; sourceTree = "<group>"; };
+		BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenHeaderView.swift; sourceTree = "<group>"; };
+		BAF651CF29B943E800C78A8A /* DaoInfoScreenControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenControlsView.swift; sourceTree = "<group>"; };
+		BAF651D129C0F00000C78A8A /* UIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */,
+				BAF651D129C0F00000C78A8A /* UIComponents.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -145,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
+				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -169,6 +181,7 @@
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
 				BAF651B429A172F000C78A8A /* ActivityDetail */,
+				BAF651CA29B79E2200C78A8A /* Info */,
 				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
@@ -232,6 +245,14 @@
 				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
 			);
 			path = Analytics;
+		BAF651CA29B79E2200C78A8A /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */,
+				BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */,
+				BAF651CF29B943E800C78A8A /* DaoInfoScreenControlsView.swift */,
+			);
+			path = Info;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +373,7 @@
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BAAA526929538138003177BC /* ActivityListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* ActivityView.swift in Sources */,
+				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* ActivityDetailStatusRowView.swift in Sources */,
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
@@ -364,11 +386,15 @@
 				BA2EA20429677F7C00FB87AC /* ActivityDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ActivityListItemBodyView.swift in Sources */,
 				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
+				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* ActivityDetailForumView.swift in Sources */,
+				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BAF651B629A1734100C78A8A /* ActivityDetailHeaderView.swift in Sources */,
+				BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
+				BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
