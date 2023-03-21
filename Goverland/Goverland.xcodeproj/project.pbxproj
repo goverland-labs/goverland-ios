@@ -42,6 +42,10 @@
 		BAF651BE29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */; };
 		BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
+		BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */; };
+		BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FE29C8C1F300C78A8A /* Tracker.swift */; };
+		BAF6520129C8C28C00C78A8A /* TrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520029C8C28C00C78A8A /* TrackingHandler.swift */; };
+		BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +83,10 @@
 		BAF651BD29A67ABB00C78A8A /* ActivityDetailDividerLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailDividerLineView.swift; sourceTree = "<group>"; };
 		BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimelineView.swift; sourceTree = "<group>"; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
+		BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
+		BAF651FE29C8C1F300C78A8A /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		BAF6520029C8C28C00C78A8A /* TrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingHandler.swift; sourceTree = "<group>"; };
+		BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +174,7 @@
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				55D632B529505BEB0073E04A /* Search */,
 				55D632B729505C070073E04A /* Settings */,
+				BAF651FB29C8AFAF00C78A8A /* Analytics */,
 			);
 			path = Goverland;
 			sourceTree = "<group>";
@@ -212,6 +221,17 @@
 				BAF651BF29A67C1200C78A8A /* ActivityTimelineView.swift */,
 			);
 			path = ActivityDetail;
+			sourceTree = "<group>";
+		};
+		BAF651FB29C8AFAF00C78A8A /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				BAF651FE29C8C1F300C78A8A /* Tracker.swift */,
+				BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */,
+				BAF6520029C8C28C00C78A8A /* TrackingHandler.swift */,
+				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,8 +342,10 @@
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
+				BAF6520129C8C28C00C78A8A /* TrackingHandler.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				BAF651B329A159AF00C78A8A /* ActivityItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
@@ -334,6 +356,8 @@
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
 				BAF651BA29A17DFF00C78A8A /* ActivityDetailSummaryView.swift in Sources */,
+				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
+				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ActivityListItemView.swift in Sources */,
