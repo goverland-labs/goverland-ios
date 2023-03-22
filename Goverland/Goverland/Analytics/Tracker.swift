@@ -7,34 +7,43 @@
 
 import SwiftUI
 
+protocol TrackingHandler: AnyObject {
+    func track(event: String, parameters: [String: Any]?)
+}
+
 class Tracker {
-
-    fileprivate static var shared = Tracker()
+    fileprivate static let shared = Tracker()
     private var trackingHandlers = [TrackingHandler]()
+    @Setting(\.termsAccepted) var termsAccepted
 
-    func append(handler: TrackingHandler) {
+    fileprivate func append(handler: TrackingHandler) {
         guard !trackingHandlers.contains(where: { $0 === handler }) else { return }
         trackingHandlers.append(handler)
     }
 
-    func remove(handler: TrackingHandler) {
-        if let handlerIndex = trackingHandlers.firstIndex(where: { $0 === handler }) {
-            trackingHandlers.remove(at: handlerIndex)
+    fileprivate func track(event: Trackable, parameters: [String: Any]? = nil) {
+        if termsAccepted {
+            for handler in trackingHandlers {
+                handler.track(event: event.eventName, parameters: parameters)
+            }
         }
     }
 
-    func track(event: Trackable, parameters: [String: Any]? = nil, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
-        var joinedParameters = event.parameters ?? [:]
-        parameters?.forEach { joinedParameters[$0.key] = $0.value }
-        let trackedParameters: [String: Any]? = joinedParameters.isEmpty ? nil : joinedParameters
-        for handler in trackingHandlers {
-            handler.track(event: event.eventName, parameters: trackedParameters, file: file, line: line, function: function)
-        }
+    fileprivate func setTrackingEnabled(_ value: Bool) {
+        termsAccepted = value
+    }
+}
+
+extension Tracker {
+    static func track(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
+        Tracker.shared.track(event: event, parameters: parameters)
     }
 
-    func setTrackingEnabled(_ value: Bool) {
-        for handler in trackingHandlers {
-            handler.setTrackingEnabled(value)
-        }
+    static func append(handler: TrackingHandler) {
+        Tracker.shared.append(handler: handler)
+    }
+
+    static func setTrackingEnabled(_ value: Bool) {
+        Tracker.shared.setTrackingEnabled(value)
     }
 }

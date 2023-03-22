@@ -7,7 +7,15 @@
 
 import Foundation
 
+protocol Trackable {
+    var eventName: String { get }
+}
+
 enum TrackingEvent: String, Trackable {
-    case launch                                     = "screen_launch"
-    case launchTerms                                = "screen_launch_terms"
+    var eventName: String { rawValue }
+    
+    case avtivityView = "screen_activity_view"
+    case introView = "screen_intro_view"
+    case selectDaoView = "screen_select_dao_view"
+    case launchTerms = "screen_launch_terms"
 }

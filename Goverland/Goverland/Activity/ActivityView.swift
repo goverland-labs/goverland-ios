@@ -12,7 +12,7 @@ struct ActivityView: View {
     @State private var filter: FilterType = .all
     @StateObject private var data = ActivityDataService.data
 
-    var body: some View {        
+    var body: some View {
         NavigationStack {
             VStack {
                 ActivityFilterMenuView(filter: $filter)
@@ -42,6 +42,9 @@ struct ActivityView: View {
                 }
             }
             .background(Color("lightGray-black"))
+        }
+        .onAppear() {
+            Tracker.track(.avtivityView)
         }
     }
 }

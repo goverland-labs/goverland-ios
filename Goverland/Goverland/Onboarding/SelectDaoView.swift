@@ -111,6 +111,9 @@ fileprivate struct DaoGroupItemView: View {
         .background(
             RoundedRectangle(cornerRadius: 5)
                 .stroke(Color("lightGray-darkGray"), lineWidth: 1))
+        .onAppear() {
+            Tracker.track(.selectDaoView)
+        }
     }
 }
 

@@ -31,6 +31,9 @@ struct IntroView: View {
             TermsView(termsViewIsPresented: $termsViewIsPresented)
                 .presentationDetents([.medium, .large])
         }
+        .onAppear() {
+            Tracker.track(.introView)
+        }
     }
 }
 

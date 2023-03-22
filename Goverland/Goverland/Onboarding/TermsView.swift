@@ -59,7 +59,7 @@ struct TermsView: View {
             .ghostActionButtonStyle()
             
             Button("Accept without sharing data") {
-                termsAccepted = true
+                termsAccepted = false
             }
             .fontWeight(.medium)
             

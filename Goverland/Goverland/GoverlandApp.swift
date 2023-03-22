@@ -13,7 +13,7 @@ struct GoverlandApp: App {
     
     init() {
         #if DEV
-        print("DEV mode")
+        Tracker.append(handler: ConsoleTracker())
         #else
         print("PROD mode")
         #endif
