@@ -14,7 +14,7 @@ protocol TrackingHandler: AnyObject {
 class Tracker {
     fileprivate static let shared = Tracker()
     private var trackingHandlers = [TrackingHandler]()
-    @Setting(\.termsAccepted) var termsAccepted
+    @Setting(\.trackingAccepted) var trackingAccepted
 
     fileprivate func append(handler: TrackingHandler) {
         guard !trackingHandlers.contains(where: { $0 === handler }) else { return }
@@ -22,7 +22,7 @@ class Tracker {
     }
 
     fileprivate func track(event: Trackable, parameters: [String: Any]? = nil) {
-        if termsAccepted {
+        if trackingAccepted {
             for handler in trackingHandlers {
                 handler.track(event: event.eventName, parameters: parameters)
             }
@@ -30,7 +30,7 @@ class Tracker {
     }
 
     fileprivate func setTrackingEnabled(_ value: Bool) {
-        termsAccepted = value
+        trackingAccepted = value
     }
 }
 

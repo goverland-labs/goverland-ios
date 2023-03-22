@@ -11,10 +11,12 @@ import SwiftUI
 class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("onboardingFinished") var onboardingFinished = false
+    @AppStorage("trackingAccepted") var trackingAccepted = false
     
     static func reset() {
         SettingKeys().onboardingFinished = false
         SettingKeys().termsAccepted = false
+        SettingKeys().trackingAccepted = false
     }
 }
 

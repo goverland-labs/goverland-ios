@@ -208,6 +208,9 @@ fileprivate struct HelpUsGrowSettingView: View {
 }
 
 fileprivate struct AdvancedSettingView: View {
+    
+    @Setting(\.trackingAccepted) var trackingAccepted
+    @State private var isTrackActivity = false
     var body: some View {
         List {
             Section(header: Text("Debug")) {
@@ -216,7 +219,18 @@ fileprivate struct AdvancedSettingView: View {
                     exit(0)
                 }
                 .accentColor(.primary)
+                
+                Toggle(isOn: $isTrackActivity) {
+                        Text("Allow App to Track Activity")
+                }
+                .onChange(of: isTrackActivity) { isTrackerOn in
+                    trackingAccepted = isTrackerOn
+                    Tracker.setTrackingEnabled(isTrackerOn)
+                }
             }
+        }
+        .onAppear() {
+            isTrackActivity = trackingAccepted
         }
     }
 }

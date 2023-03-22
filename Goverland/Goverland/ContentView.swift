@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
     @Setting(\.onboardingFinished) var onboardingFinished
+    @Setting(\.trackingAccepted) var trackingAccepted
 
     var body: some View {
         if !termsAccepted {

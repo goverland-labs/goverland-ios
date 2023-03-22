@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TermsView: View {
     @Setting(\.termsAccepted) var termsAccepted
+    @Setting(\.trackingAccepted) var trackingAccepted
     @Binding var termsViewIsPresented: Bool
     
     var body: some View {
@@ -55,11 +56,13 @@ struct TermsView: View {
             
             Button("Get Started") {
                 termsAccepted = true
+                trackingAccepted = true
             }
             .ghostActionButtonStyle()
             
             Button("Accept without sharing data") {
-                termsAccepted = false
+                termsAccepted = true
+                trackingAccepted = false
             }
             .fontWeight(.medium)
             
