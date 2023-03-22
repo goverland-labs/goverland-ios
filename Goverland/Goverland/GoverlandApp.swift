@@ -14,12 +14,8 @@ struct GoverlandApp: App {
     init() {
         #if DEV
         print("DEV mode")
-        #elseif PROD
-        print("PROD mode")
-        #elseif DEBUG
-        print("DEBUG mode")
         #else
-        print("RELEASE mode")
+        print("PROD mode")
         #endif
     }
 
