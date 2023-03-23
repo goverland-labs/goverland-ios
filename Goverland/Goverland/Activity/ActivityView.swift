@@ -42,9 +42,7 @@ struct ActivityView: View {
             }
             .background(Color("lightGray-black"))
         }
-        .onAppear() {
-            Tracker.track(.avtivityView)
-        }
+        .onAppear() { Tracker.track(.activityView) }
     }
 }
 

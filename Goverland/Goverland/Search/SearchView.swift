@@ -85,8 +85,10 @@ struct SearchView: View {
                         .onAppear { Tracker.track(.searchDaoView) }
                     case .discussions:
                         SearchDiscussionBodyView()
+                            .onAppear { Tracker.track(.searchDiscussionView) }
                     case .votes:
                         SearchVoteBodyView()
+                            .onAppear { Tracker.track(.searchVoteView) }
                     }
                 }
             }

@@ -53,6 +53,7 @@ struct EnablePushNotificationsView: View {
                        height: geometry.size.height * 2 / 5,
                        alignment: .center)
             }
+            .onAppear() { Tracker.track(.enablePushNotificationsView) }
         }
     }
 }

@@ -9,14 +9,12 @@ import SwiftUI
 import Combine
 
 class ActivityDataService: ObservableObject {
-    
     @Published var events: [ActivityEvent] = []
     private var nextPageURL: URL?
     private var cancellables = Set<AnyCancellable>()
     
     init(filter: FilterType = .all) {
         getEvents(withFilter: filter, fromStart: true)
-        print("Initialized ActivityDataService")
     }
     
     func hasNextPageURL() -> Bool {

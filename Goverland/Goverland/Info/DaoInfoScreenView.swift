@@ -37,6 +37,7 @@ struct DaoInfoScreenView: View {
                 }
             }
         }
+        .onAppear() { Tracker.track(.daoInfoScreenView) }
     }
 }
 

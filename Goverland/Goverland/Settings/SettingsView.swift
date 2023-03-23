@@ -78,6 +78,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear() {Tracker.track(.settingsView) }
     }
     
     private func openTwitterApp() {
@@ -128,6 +129,7 @@ fileprivate struct FollowedDaoView: View {
                 }
             }
         }
+        .onAppear() {Tracker.track(.settingsFollowDaoView) }
     }
 }
 
@@ -139,6 +141,7 @@ fileprivate struct PushNotificationsSettingView: View {
             Spacer()
         }
         .padding()
+        .onAppear() {Tracker.track(.settingsPushNotificationsView) }
     }
 }
 
@@ -176,6 +179,7 @@ fileprivate struct AppearanceSettingView: View {
             Spacer()
         }
         .navigationTitle("Color Scheme")
+        .onAppear() {Tracker.track(.settingsAppearanceView) }
     }
 }
 
@@ -198,13 +202,16 @@ fileprivate struct AboutSettingView: View {
         }
         .foregroundColor(.gray)
         .tint(.primary)
+        .onAppear() {Tracker.track(.settingsAboutView) }
     }
 }
 
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
         Text("Help us grow")
+            .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
+        
 }
 
 fileprivate struct AdvancedSettingView: View {
@@ -230,6 +237,7 @@ fileprivate struct AdvancedSettingView: View {
         }
         .onAppear() {
             isTrackActivity = trackingAccepted
+            Tracker.track(.settingsAdvancedView)
         }
     }
 }

@@ -44,6 +44,7 @@ struct ActivityItemDetailView: View {
                 }
             }
         }
+        .onAppear() { Tracker.track(.activityDetailView) }
     }
 }
 

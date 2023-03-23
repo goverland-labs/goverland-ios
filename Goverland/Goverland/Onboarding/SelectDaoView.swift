@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct SelectDaoView: View {
-    
     @StateObject private var data = DaoDataService()
     @State private var searchedText: String = ""
     
     var body: some View {
-        
         NavigationView {
             VStack{
-                if searchedText == ""{
+                if searchedText == "" {
                     Text("Get Updates in your feed for the DAOs you select.")
                         .padding()
                     ScrollView(showsIndicators: false) {
@@ -38,6 +36,7 @@ struct SelectDaoView: View {
                             }
                         }
                     }
+                    .onAppear() { Tracker.track(.selectDaoView) }
                     NavigationLink(destination: EnablePushNotificationsView()) {
                         Text("Continue")
                             .ghostActionButtonStyle()
