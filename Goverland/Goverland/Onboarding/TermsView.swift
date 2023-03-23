@@ -62,7 +62,6 @@ struct TermsView: View {
             
             Button("Accept without sharing data") {
                 termsAccepted = true
-                trackingAccepted = false
             }
             .fontWeight(.medium)
             

@@ -104,7 +104,7 @@ struct SettingsView: View {
 }
 
 fileprivate struct FollowedDaoView: View {
-    @StateObject private var data = DaoDataService.data
+    @StateObject private var data = DaoDataService()
     var body: some View {
         List {
             ForEach(data.daoGroups[.social] ?? []) { dao in
@@ -208,7 +208,6 @@ fileprivate struct HelpUsGrowSettingView: View {
 }
 
 fileprivate struct AdvancedSettingView: View {
-    
     @Setting(\.trackingAccepted) var trackingAccepted
     @State private var isTrackActivity = false
     var body: some View {

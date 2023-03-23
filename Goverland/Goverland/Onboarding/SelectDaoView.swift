@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectDaoView: View {
     
-    @StateObject private var data = DaoDataService.data
+    @StateObject private var data = DaoDataService()
     @State private var searchedText: String = ""
     
     var body: some View {
@@ -111,9 +111,6 @@ fileprivate struct DaoGroupItemView: View {
         .background(
             RoundedRectangle(cornerRadius: 5)
                 .stroke(Color("lightGray-darkGray"), lineWidth: 1))
-        .onAppear() {
-            Tracker.track(.selectDaoView)
-        }
     }
 }
 

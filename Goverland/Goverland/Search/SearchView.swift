@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var data = DaoDataService.data
+    @StateObject private var data = DaoDataService()
     @State private var searchText = ""
     private let controls: [SearchViewControls] = SearchViewControls.all
     @State private var currentControl: SearchViewControls = .daos
@@ -62,11 +62,7 @@ struct SearchView: View {
                     }
                 } else {
                     switch currentControl {
-                    case .discussions:
-                        SearchDiscussionBodyView()
-                    case .votes:
-                        SearchVoteBodyView()
-                    default:
+                    case .daos:
                         ScrollView(showsIndicators: false) {
                             VStack {
                                 ForEach(data.keys, id: \.self) { key in
@@ -80,12 +76,17 @@ struct SearchView: View {
                                                 .foregroundColor(.blue)
                                         }
                                         .padding()
-                                        
+
                                         DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                                     }
                                 }
                             }
                         }
+                        .onAppear { Tracker.track(.searchDaoView) }
+                    case .discussions:
+                        SearchDiscussionBodyView()
+                    case .votes:
+                        SearchVoteBodyView()
                     }
                 }
             }
@@ -96,7 +97,6 @@ struct SearchView: View {
     
     private func getAllCashedDaos() -> [Dao] {
         var listDaos: [Dao] = []
-        let data = DaoDataService.data
         for (_, daos) in data.daoGroups {
             listDaos.insert(contentsOf: daos, at: listDaos.count)
         }
@@ -109,7 +109,7 @@ struct SearchView: View {
 }
 
 fileprivate struct SearchDiscussionBodyView: View {
-    @StateObject private var data = ActivityDataService.data
+    @StateObject private var data = ActivityDataService(filter: .discussion)
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
@@ -117,16 +117,12 @@ fileprivate struct SearchDiscussionBodyView: View {
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        }
-        
-        .onAppear() {
-            ActivityDataService.data.getEvents(withFilter: .discussion, fromStart: true)
         }
     }
 }
 
 fileprivate struct SearchVoteBodyView: View {
-    @StateObject private var data = ActivityDataService.data
+    @StateObject private var data = ActivityDataService(filter: .vote)
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
@@ -134,9 +130,6 @@ fileprivate struct SearchVoteBodyView: View {
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        }
-        .onAppear() {
-            ActivityDataService.data.getEvents(withFilter: .vote, fromStart: true)
         }
     }
 }
