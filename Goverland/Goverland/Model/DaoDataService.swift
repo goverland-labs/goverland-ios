@@ -11,15 +11,16 @@ import Combine
 class DaoDataService: ObservableObject {
     
     @Published var daoGroups: [DaoGroupType: [Dao]] = [:]
-    static let data = DaoDataService()
+
     private var cancellables = Set<AnyCancellable>()
     private var paginationStorage: [DaoGroupType: URL?] = [:]
     var keys: [DaoGroupType] {
         daoGroups.keys.sorted { $0.sortingNumber < $1.sortingNumber }
     }
     
-    private init() {
+    init() {
         getInitialDaos()
+        print("Initialised DaoDataService")
     }
     
     private func getUrl() -> URL {

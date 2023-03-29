@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ActivityView: View {
-    
     @State private var filter: FilterType = .all
-    @StateObject private var data = ActivityDataService.data
+    @StateObject private var data = ActivityDataService()
 
-    var body: some View {        
+    var body: some View {
         NavigationStack {
             VStack {
-                ActivityFilterMenuView(filter: $filter)
+                ActivityFilterMenuView(filter: $filter, data: data)
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
                         
@@ -43,6 +42,7 @@ struct ActivityView: View {
             }
             .background(Color("lightGray-black"))
         }
+        .onAppear() { Tracker.track(.activityView) }
     }
 }
 

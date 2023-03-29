@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ActivityFilterMenuView: View {
-
     @Binding var filter: FilterType
+    var data: ActivityDataService
     
     var body: some View {
         
@@ -19,7 +19,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .all
-                    ActivityDataService.data.getEvents(withFilter: .all, fromStart: true)
+                    data.getEvents(withFilter: .all, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "All")
                         .background(Capsule().fill(filter == .all ? .primary : Color("white-darkGray")))
@@ -29,7 +29,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .discussion
-                    ActivityDataService.data.getEvents(withFilter: .discussion, fromStart: true)
+                    data.getEvents(withFilter: .discussion, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Discussion")
                         .background(Capsule().fill(filter == .discussion ? .primary : Color("white-darkGray")))
@@ -39,7 +39,7 @@ struct ActivityFilterMenuView: View {
                 
                 Button(action: {
                     self.filter = .vote
-                    ActivityDataService.data.getEvents(withFilter: .vote, fromStart: true)
+                    data.getEvents(withFilter: .vote, fromStart: true)
                 }) {
                     ActivityFilterMenuItem(menuItemName: "Vote")
                         .background(Capsule().fill(filter == .vote ? .primary : Color("white-darkGray")))
@@ -70,6 +70,6 @@ fileprivate struct ActivityFilterMenuItem: View {
 
 struct ActivityFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityFilterMenuView(filter: .constant(.vote))
+        ActivityFilterMenuView(filter: .constant(.vote), data: ActivityDataService())
     }
 }

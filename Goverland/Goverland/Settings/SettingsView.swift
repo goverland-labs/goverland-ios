@@ -78,6 +78,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear() {Tracker.track(.settingsView) }
     }
     
     private func openTwitterApp() {
@@ -104,7 +105,7 @@ struct SettingsView: View {
 }
 
 fileprivate struct FollowedDaoView: View {
-    @StateObject private var data = DaoDataService.data
+    @StateObject private var data = DaoDataService()
     var body: some View {
         List {
             ForEach(data.daoGroups[.social] ?? []) { dao in
@@ -128,6 +129,7 @@ fileprivate struct FollowedDaoView: View {
                 }
             }
         }
+        .onAppear() {Tracker.track(.settingsFollowDaoView) }
     }
 }
 
@@ -139,6 +141,7 @@ fileprivate struct PushNotificationsSettingView: View {
             Spacer()
         }
         .padding()
+        .onAppear() {Tracker.track(.settingsPushNotificationsView) }
     }
 }
 
@@ -176,6 +179,7 @@ fileprivate struct AppearanceSettingView: View {
             Spacer()
         }
         .navigationTitle("Color Scheme")
+        .onAppear() {Tracker.track(.settingsAppearanceView) }
     }
 }
 
@@ -198,16 +202,21 @@ fileprivate struct AboutSettingView: View {
         }
         .foregroundColor(.gray)
         .tint(.primary)
+        .onAppear() {Tracker.track(.settingsAboutView) }
     }
 }
 
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
         Text("Help us grow")
+            .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
+        
 }
 
 fileprivate struct AdvancedSettingView: View {
+    @Setting(\.trackingAccepted) var trackingAccepted
+    @State private var isTrackActivity = false
     var body: some View {
         List {
             Section(header: Text("Debug")) {
@@ -216,7 +225,19 @@ fileprivate struct AdvancedSettingView: View {
                     exit(0)
                 }
                 .accentColor(.primary)
+                
+                Toggle(isOn: $isTrackActivity) {
+                        Text("Allow App to Track Activity")
+                }
+                .onChange(of: isTrackActivity) { isTrackerOn in
+                    trackingAccepted = isTrackerOn
+                    Tracker.setTrackingEnabled(isTrackerOn)
+                }
             }
+        }
+        .onAppear() {
+            isTrackActivity = trackingAccepted
+            Tracker.track(.settingsAdvancedView)
         }
     }
 }
