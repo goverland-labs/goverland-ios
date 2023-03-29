@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
+		55B202AE29D4271E00BE374D /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202AD29D4271E00BE374D /* ApiError.swift */; };
+		55B202B029D4277800BE374D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202AF29D4277800BE374D /* NetworkManager.swift */; };
+		55B202B429D42AF500BE374D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202B329D42AF500BE374D /* ErrorView.swift */; };
+		55B202B629D437FF00BE374D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202B529D437FF00BE374D /* Endpoint.swift */; };
+		55B202B829D43CFA00BE374D /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202B729D43CFA00BE374D /* ErrorViewModel.swift */; };
+		55B202BA29D43D3F00BE374D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B202B929D43D3F00BE374D /* APIService.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* ActivityView.swift */; };
@@ -55,6 +61,12 @@
 /* Begin PBXFileReference section */
 		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
+		55B202AD29D4271E00BE374D /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		55B202AF29D4277800BE374D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		55B202B329D42AF500BE374D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		55B202B529D437FF00BE374D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		55B202B729D43CFA00BE374D /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
+		55B202B929D43D3F00BE374D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -119,6 +131,19 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		55B202AC29D426D400BE374D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				55B202AD29D4271E00BE374D /* ApiError.swift */,
+				55B202AF29D4277800BE374D /* NetworkManager.swift */,
+				55B202B329D42AF500BE374D /* ErrorView.swift */,
+				55B202B729D43CFA00BE374D /* ErrorViewModel.swift */,
+				55B202B529D437FF00BE374D /* Endpoint.swift */,
+				55B202B929D43D3F00BE374D /* APIService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +201,7 @@
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
+				55B202AC29D426D400BE374D /* Networking */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				55D632B429505BDE0073E04A /* Activity */,
 				BAF651B429A172F000C78A8A /* ActivityDetail */,
@@ -362,10 +388,14 @@
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BAF651C029A67C1200C78A8A /* ActivityTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
+				55B202B629D437FF00BE374D /* Endpoint.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				55B202B829D43CFA00BE374D /* ErrorViewModel.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				BAF651B329A159AF00C78A8A /* ActivityItemDetailView.swift in Sources */,
+				55B202AE29D4271E00BE374D /* ApiError.swift in Sources */,
+				55B202B029D4277800BE374D /* NetworkManager.swift in Sources */,
 				BAAA52712953BB61003177BC /* ActivityListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
@@ -377,6 +407,8 @@
 				BA2EA2012967610500FB87AC /* ActivityFilterMenuView.swift in Sources */,
 				BAF651BA29A17DFF00C78A8A /* ActivityDetailSummaryView.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
+				55B202BA29D43D3F00BE374D /* APIService.swift in Sources */,
+				55B202B429D42AF500BE374D /* ErrorView.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* ActivityEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
@@ -523,7 +555,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
+				DEVELOPMENT_TEAM = VDVK9A6DE3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -538,7 +570,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.andrey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct GoverlandApp: App {
     @StateObject var colorSchemeManager = ColorSchemeManager()
-    
+
     init() {
         #if DEV
         Tracker.append(handler: ConsoleTracker())
