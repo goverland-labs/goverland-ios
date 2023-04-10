@@ -55,7 +55,7 @@ class ActivityDataService: ObservableObject {
         }
 
         switch filter {
-        case .discussion:
+        case .treasury:
             return URL(string: "https://gist.githubusercontent.com/JennyShalai/a0485a75242dfdc884ee5cb73a335724/raw/12445d11757ca95b2706661f759fa84f93953439/ActivityEventsFilteredDiscussions.json")!
         case .vote:
             return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/b8af409985fc4ad24ea6c375086a1f0479c5f8d9/ActivityEventsFilteredVotes.json")!

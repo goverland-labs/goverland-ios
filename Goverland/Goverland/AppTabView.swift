@@ -15,12 +15,10 @@ struct AppTabView: View {
                     .tabItem {
                         Image(systemName: "house.circle.fill")
                     }
-
                 SearchView()
                     .tabItem {
                         Image(systemName: "magnifyingglass.circle.fill")
                     }
-
                 SettingsView()
                     .tabItem {
                         Image(systemName: "gearshape.circle.fill")

@@ -111,7 +111,7 @@ struct SearchView: View {
 }
 
 fileprivate struct SearchDiscussionBodyView: View {
-    @StateObject private var data = ActivityDataService(filter: .discussion)
+    @StateObject private var data = ActivityDataService(filter: .vote)
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
