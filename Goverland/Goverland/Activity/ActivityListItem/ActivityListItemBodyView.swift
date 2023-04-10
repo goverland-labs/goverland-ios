@@ -18,17 +18,18 @@ struct ActivityListItemBodyView: View {
             VStack(alignment: .leading, spacing: 5) {
                 
                 Text(event.content.title)
+                    .foregroundColor(.goverlandInboxListItemTitleText)
                     .fontWeight(.bold)
                     .font(.system(size: 18))
                     .lineLimit(2)
                 
                 Text(event.content.subtitle)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.goverlandInboxListItemSubtitleText)
                     .lineLimit(2)
                 
                 if let warning = event.content.warningSubtitle {
                     Text(warning)
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.goverlandInboxListItemWarningText)
                         .lineLimit(2)
                 } else {
                     Text("")

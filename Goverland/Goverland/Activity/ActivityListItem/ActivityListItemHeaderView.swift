@@ -19,22 +19,22 @@ struct ActivityListItemHeaderView: View {
 
             ActivityListItemHeaderUserView(event: event)
 
-            Text(event.date.toRelative(since: DateInRegion()))
-                .foregroundColor(.gray)
+            ActivityListItemDateView(event: event)
 
             Spacer()
-
-            ActivityListItemStatusBubbleView(event: event)
+            
+            HStack {
+                ActivityListItemReadIndicatiorView(event: event)
+                ActivityListItemStatusBubbleView(event: event)
+            }
         }
     }
 }
 
 fileprivate struct ActivityListItemHeaderUserView: View {
-    
     var event: ActivityEvent
     
     var body: some View {
-        
         if let name = event.user.ensName {
             Text(name)
                 .fontWeight(.semibold)
@@ -48,8 +48,26 @@ fileprivate struct ActivityListItemHeaderUserView: View {
     }
 }
 
-fileprivate struct ActivityListItemStatusBubbleView: View {
+fileprivate struct ActivityListItemDateView: View {
+    var event: ActivityEvent
     
+    var body: some View {
+        Text(event.date.toRelative(since: DateInRegion()))
+            .foregroundColor(.gray)
+    }
+}
+
+fileprivate struct ActivityListItemReadIndicatiorView: View {
+    var event: ActivityEvent
+    
+    var body: some View {
+        Circle()
+            .fill(Color.goverlandInboxListItemReadIndicator)
+            .frame(width: 4, height: 4)
+    }
+}
+
+fileprivate struct ActivityListItemStatusBubbleView: View {
     var event: ActivityEvent
     
     var body: some View {
@@ -59,64 +77,70 @@ fileprivate struct ActivityListItemStatusBubbleView: View {
         case .discussion:
             ListItemBubbleView(
                 image: Image(systemName: "bubble.left.and.bubble.right"),
-                text: Text("DISCUSSION"),
+                text: Text("Discussion"),
+                textColor: .white,
                 backgroundColor: Color.gray)
         
         case .activeVote:
             ListItemBubbleView(
-                image: Image(systemName: "plus"),
-                text: Text("ACTIVE VOTE"),
-                backgroundColor: Color.blue)
+                image: Image(systemName: "bolt.fill"),
+                text: Text("Active Vote"),
+                textColor: .goverlandStatusPillActiveVoteText,
+                backgroundColor: .goverlandStatusPillActiveVoteBackground)
         
         case .executed:
             ListItemBubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text("EXECUTED"),
-                backgroundColor: Color.green)
+                text: Text("Executed"),
+                textColor: .goverlandStatusPillExecutedText,
+                backgroundColor: .goverlandStatusPillExecutedBackground)
         
         case .failed:
             ListItemBubbleView(
-                image: Image(systemName: "xmark"),
-                text: Text("FAILED"),
-                backgroundColor: Color.red)
+                image: Image(systemName: "bolt.slash.fill"),
+                text: Text("Failed"),
+                textColor: .goverlandStatusPillFailedText,
+                backgroundColor: .goverlandStatusPillFailedBackground)
         
         case .queued:
             ListItemBubbleView(
-                image: nil,
-                text: Text("QUEUED"),
-                backgroundColor: Color.yellow)
+                image: Image(systemName: "clock"),
+                text: Text("Queued"),
+                textColor: .goverlandStatusPillQueuedText,
+                backgroundColor: .goverlandStatusPillQueuedBackground)
             
         case .succeeded:
             ListItemBubbleView(
-                image: nil,
-                text: Text("SUCCEEDE"),
-                backgroundColor: Color.green)
+                image: Image(systemName: "checkmark"),
+                text: Text("Succeeded"),
+                textColor: .goverlandStatusPillSucceededText,
+                backgroundColor: .goverlandStatusPillSucceededBackground)
         
         case .defeated:
             ListItemBubbleView(
-                image: Image(systemName: ""),
-                text: Text("DEFEATED"),
-                backgroundColor: Color.pink)
+                image: Image(systemName: "xmark"),
+                text: Text("Defeated"),
+                textColor: .goverlandStatusPillDefeatedText,
+                backgroundColor: .goverlandStatusPillDefeatedBackground)
         }
     }
 }
 
 fileprivate struct ListItemBubbleView: View {
-    
     var image: Image?
     var text: Text
+    var textColor: Color
     var backgroundColor: Color
     
     var body: some View {
         HStack(spacing: 3) {
             image
                 .font(.system(size: 9))
-                .foregroundColor(.white)
-            
+                .foregroundColor(textColor)
             text
                 .font(.system(size: 12))
-                .foregroundColor(.white)
-                .fontWeight(.bold)
+                .foregroundColor(textColor)
+                .fontWeight(.none)
                 .minimumScaleFactor(0.1)
                 .lineLimit(1)
         }

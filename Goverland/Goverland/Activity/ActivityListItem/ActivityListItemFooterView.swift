@@ -34,7 +34,7 @@ fileprivate struct DiscussionFooterView: View {
     
     var body: some View {
         
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             
             Image(systemName: "text.bubble.fill")
                 .resizable()
@@ -45,7 +45,7 @@ fileprivate struct DiscussionFooterView: View {
             Text(String(meta.comments))
         }
         
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             
             Image(systemName: "eye.fill")
                 .resizable()
@@ -56,7 +56,7 @@ fileprivate struct DiscussionFooterView: View {
             Text(String(meta.views))
         }
         
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             
             Image(systemName: "person.2.fill")
                 .resizable()
@@ -75,9 +75,9 @@ fileprivate struct VoteFooterView: View {
     
     var body: some View {
         
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             
-            Image(systemName: "square.stack.3d.down.forward")
+            Image(systemName: "person.fill")
                 .resizable()
                 .frame(width: 15, height: 15)
                 .aspectRatio(contentMode: .fill)
@@ -86,14 +86,13 @@ fileprivate struct VoteFooterView: View {
             Text(String(meta.voters))
         }
         
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             
-            Image(systemName: "chart.bar.doc.horizontal.fill")
+            Image(systemName: "flag.checkered")
                 .resizable()
                 .frame(width: 15, height: 15)
                 .aspectRatio(contentMode: .fill)
-                .foregroundColor(.gray)
-                .rotationEffect(.degrees(-90))
+                .foregroundColor(.white)
             
             Text(meta.quorum)
             
@@ -123,17 +122,23 @@ fileprivate struct VoteFooterView: View {
 fileprivate struct ActivityListFooterMenu: View {
     var body: some View {
         
-        Menu {
+        HStack {
+            // TODO: add logic to indicate following or not
+            Image(systemName: "bell.slash.fill")
+                .foregroundColor(.gray)
             
-            Button("Share", action: performShare)
-            Button("Cancel", action: performCancel)
-            
-        } label: {
-            
-            Image(systemName: "ellipsis")
-                .foregroundColor(.black)
-            .fontWeight(.bold)
-            
+            Menu {
+                
+                Button("Share", action: performShare)
+                Button("Cancel", action: performCancel)
+                
+            } label: {
+                
+                Image(systemName: "ellipsis")
+                    .foregroundColor(.gray)
+                .fontWeight(.bold)
+                
+            }
         }
     }
     

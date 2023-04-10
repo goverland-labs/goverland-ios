@@ -20,7 +20,7 @@ struct ActivityFilterMenuView: View {
                     ZStack {
                         if filter == filterOption {
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(.green)
+                                .fill(Color.goverlandGreenPrimary)
                                 .frame(height: 40)
                                 .matchedGeometryEffect(id: "filter-background", in: namespace)
                         }
@@ -33,8 +33,9 @@ struct ActivityFilterMenuView: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             self.filter = filterOption
+                            data.getEvents(withFilter: filterOption, fromStart: true)
                         }
-                        data.getEvents(withFilter: filterOption, fromStart: true)
+                        
                     }
                         .padding([.leading, .trailing], 20)
                         

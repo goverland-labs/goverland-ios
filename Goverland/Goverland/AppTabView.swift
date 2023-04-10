@@ -25,7 +25,7 @@ struct AppTabView: View {
                     }
             }
         }
-        .accentColor(.white)
+        .accentColor(.goverlandGreenPrimary)
     }
 }
 
