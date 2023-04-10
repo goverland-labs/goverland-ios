@@ -1,5 +1,5 @@
 //
-//  ActivityListItemBodyView.swift
+//  InboxListItemBodyView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ActivityListItemBodyView: View {
+struct InboxListItemBodyView: View {
     
-    var event: ActivityEvent
+    var event: InboxEvent
     
     var body: some View {
         
@@ -45,7 +45,7 @@ struct ActivityListItemBodyView: View {
 
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemBodyView(event: ActivityEvent(
+        InboxListItemBodyView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -54,8 +54,8 @@ struct ListItemBody_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

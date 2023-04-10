@@ -1,5 +1,5 @@
 //
-//  ActivityEvent.swift
+//  InboxEvent.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-01-06.
@@ -8,25 +8,25 @@
 import SwiftUI
 import Combine
 
-struct ActivityEvent: Identifiable, Decodable {
+struct InboxEvent: Identifiable, Decodable {
     
     let id: UUID
     let user: User
     let date: Date
-    let type: ActivityEventType
-    let status: ActivityEventStatus
-    let content: ActivityViewContent
+    let type: InboxEventType
+    let status: InboxEventStatus
+    let content: InboxViewContent
     let daoImage: URL?
-    let meta: ActivityEventMetaInfo?
+    let meta: InboxEventMetaInfo?
     
     init(id: UUID,
          user: User,
          date: Date,
-         type: ActivityEventType,
-         status: ActivityEventStatus,
-         content: ActivityViewContent,
+         type: InboxEventType,
+         status: InboxEventStatus,
+         content: InboxViewContent,
          daoImage: URL?,
-         meta: ActivityEventMetaInfo?) {
+         meta: InboxEventMetaInfo?) {
         self.id = id
         self.user = user
         self.date = date
@@ -53,23 +53,23 @@ struct ActivityEvent: Identifiable, Decodable {
         self.id = try container.decode(UUID.self, forKey: .id)
         self.user = try container.decode(User.self, forKey: .user)
         self.date = try container.decode(Date.self, forKey: .date)
-        self.type = try container.decode(ActivityEventType.self, forKey: .type)
-        self.status = try container.decode(ActivityEventStatus.self, forKey: .status)
-        self.content = try container.decode(ActivityViewContent.self, forKey: .content)
+        self.type = try container.decode(InboxEventType.self, forKey: .type)
+        self.status = try container.decode(InboxEventStatus.self, forKey: .status)
+        self.content = try container.decode(InboxViewContent.self, forKey: .content)
         self.daoImage = try container.decode(URL.self, forKey: .daoImage)
         switch type {
         case .vote:
-            self.meta = try? container.decode(ActivityEventsVoteMeta.self, forKey: .meta)
+            self.meta = try? container.decode(InboxEventsVoteMeta.self, forKey: .meta)
         case .discussion:
-            self.meta = try? container.decode(ActivityEventsDiscussionMeta.self, forKey: .meta)
+            self.meta = try? container.decode(InboxEventsDiscussionMeta.self, forKey: .meta)
         }
         
     }
 }
 
-protocol ActivityEventMetaInfo {}
+protocol InboxEventMetaInfo {}
 
-struct ActivityEventsVoteMeta: ActivityEventMetaInfo, Decodable {
+struct InboxEventsVoteMeta: InboxEventMetaInfo, Decodable {
     
     let voters: Int
     let quorum: String
@@ -82,7 +82,7 @@ struct ActivityEventsVoteMeta: ActivityEventMetaInfo, Decodable {
     }
 }
 
-struct ActivityEventsDiscussionMeta: ActivityEventMetaInfo, Decodable {
+struct InboxEventsDiscussionMeta: InboxEventMetaInfo, Decodable {
     
     let comments: Int
     let views: Int
@@ -95,12 +95,12 @@ struct ActivityEventsDiscussionMeta: ActivityEventMetaInfo, Decodable {
     }
 }
 
-enum ActivityEventType: String, Decodable {
+enum InboxEventType: String, Decodable {
     case vote
     case discussion
 }
 
-enum ActivityEventStatus: String, Decodable {
+enum InboxEventStatus: String, Decodable {
     case discussion
     case activeVote
     case executed
@@ -133,7 +133,7 @@ enum FilterType: Int, Identifiable {
     }
 }
 
-struct ActivityViewContent: Decodable {
+struct InboxViewContent: Decodable {
     
     let title: String
     let subtitle: String

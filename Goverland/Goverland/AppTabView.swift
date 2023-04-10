@@ -11,7 +11,7 @@ struct AppTabView: View {
     var body: some View {
         TabView {
             Group {
-                ActivityView()
+                InboxView()
                     .tabItem {
                         Image(systemName: "house.circle.fill")
                     }

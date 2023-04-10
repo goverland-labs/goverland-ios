@@ -14,8 +14,8 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
     
-    case activityView = "activity_view"
-    case activityDetailView = "activity_detail_view"
+    case inboxView = "inbox_view"
+    case inboxDetailView = "inbox_detail_view"
     case daoInfoScreenView = "dao_info_screen_view"
     case enablePushNotificationsView = "enable_push_notifications_view"
     case introView = "intro_view"

@@ -1,5 +1,5 @@
 //
-//  ActivityListItemFooterView.swift
+//  InboxListItemFooterView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -7,30 +7,30 @@
 
 import SwiftUI
 
-struct ActivityListItemFooterView: View {
+struct InboxListItemFooterView: View {
     
-    var event: ActivityEvent
+    var event: InboxEvent
     
     var body: some View {
         
         HStack(spacing: 20) {
             
-            if let meta = event.meta as? ActivityEventsDiscussionMeta {
+            if let meta = event.meta as? InboxEventsDiscussionMeta {
                 DiscussionFooterView(meta: meta)
-            } else if let meta = event.meta as? ActivityEventsVoteMeta {
+            } else if let meta = event.meta as? InboxEventsVoteMeta {
                 VoteFooterView(meta: meta)
             } 
         
             Spacer()
             
-            ActivityListFooterMenu()
+            InboxListFooterMenu()
         }
     }
 }
 
 fileprivate struct DiscussionFooterView: View {
     
-    var meta: ActivityEventsDiscussionMeta
+    var meta: InboxEventsDiscussionMeta
     
     var body: some View {
         
@@ -71,7 +71,7 @@ fileprivate struct DiscussionFooterView: View {
 
 fileprivate struct VoteFooterView: View {
     
-    var meta: ActivityEventsVoteMeta
+    var meta: InboxEventsVoteMeta
     
     var body: some View {
         
@@ -119,7 +119,7 @@ fileprivate struct VoteFooterView: View {
     }
 }
 
-fileprivate struct ActivityListFooterMenu: View {
+fileprivate struct InboxListFooterMenu: View {
     var body: some View {
         
         HStack {
@@ -154,7 +154,7 @@ fileprivate struct ActivityListFooterMenu: View {
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemFooterView(event: ActivityEvent(
+        InboxListItemFooterView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -163,8 +163,8 @@ struct ListItemFooter_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

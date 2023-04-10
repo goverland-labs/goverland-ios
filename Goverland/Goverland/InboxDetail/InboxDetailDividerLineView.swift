@@ -1,5 +1,5 @@
 //
-//  ActivityDetailDividerLineView.swift
+//  InboxDetailDividerLineView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActivityDetailDividerLineView: View {
+struct InboxDetailDividerLineView: View {
     var body: some View {
         Rectangle()
             .fill(Color("lightGray-darkGray"))
@@ -15,8 +15,8 @@ struct ActivityDetailDividerLineView: View {
     }
 }
 
-struct ActivityDetailDividerLineView_Previews: PreviewProvider {
+struct InboxDetailDividerLineView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailDividerLineView()
+        InboxDetailDividerLineView()
     }
 }

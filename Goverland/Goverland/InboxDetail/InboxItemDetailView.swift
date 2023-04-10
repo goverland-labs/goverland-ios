@@ -1,5 +1,5 @@
 //
-//  ActivityItemDetailView.swift
+//  InboxItemDetailView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-18.
@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-struct ActivityItemDetailView: View {
+struct InboxItemDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    var event: ActivityEvent
+    var event: InboxEvent
     
     var body: some View {
         VStack(spacing: 0) {
-            ActivityDetailDividerLineView()
+            InboxDetailDividerLineView()
                 .padding(.bottom, 15)
             NavigationLink(destination: DaoInfoScreenView(event: event)) {
-                ActivityDetailHeaderView(event: event)
+                InboxDetailHeaderView(event: event)
                     .padding(.bottom, 15)
                     .foregroundColor(.primary)
             }
-            ActivityDetailStatusRowView()
+            InboxDetailStatusRowView()
                 .padding(.bottom, 25)
-            ActivityDetailSummaryView(user: event.user)
+            InboxDetailSummaryView(user: event.user)
                 .padding(.bottom, 40)
-            ActivityDetailForumView(event: event)
+            InboxDetailForumView(event: event)
                 .padding(.bottom, 30)
-            ActivityDetailDividerLineView()
+            InboxDetailDividerLineView()
                 .padding(.bottom, 30)
-            ActivityTimelineView(user: event.user)
+            InboxTimelineView(user: event.user)
                 .padding(.bottom, 20)
         }
         .padding(.horizontal)
@@ -44,13 +44,13 @@ struct ActivityItemDetailView: View {
                 }
             }
         }
-        .onAppear() { Tracker.track(.activityDetailView) }
+        .onAppear() { Tracker.track(.inboxDetailView) }
     }
 }
 
-struct ActivityItemDetailView_Previews: PreviewProvider {
+struct InboxItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityItemDetailView(event: ActivityEvent(
+        InboxItemDetailView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -59,8 +59,8 @@ struct ActivityItemDetailView_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
+            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
             daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

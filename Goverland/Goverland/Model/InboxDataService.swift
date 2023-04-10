@@ -1,5 +1,5 @@
 //
-//  ActivityDataService.swift
+//  InboxDataService.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-01-05.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Combine
 
-class ActivityDataService: ObservableObject {
-    @Published var events: [ActivityEvent] = []
+class InboxDataService: ObservableObject {
+    @Published var events: [InboxEvent] = []
     private var nextPageURL: URL?
     private var cancellables = Set<AnyCancellable>()
     
@@ -40,7 +40,7 @@ class ActivityDataService: ObservableObject {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map(\.data)
-            .decode(type: ResponceDataForActivityEvents.self, decoder: decoder)
+            .decode(type: ResponceDataForInboxEvents.self, decoder: decoder)
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
@@ -65,8 +65,8 @@ class ActivityDataService: ObservableObject {
     }
 }
 
-fileprivate struct ResponceDataForActivityEvents: Decodable {
+fileprivate struct ResponceDataForInboxEvents: Decodable {
     let next: URL?
-    let result: [ActivityEvent]
+    let result: [InboxEvent]
 }
 

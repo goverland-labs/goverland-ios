@@ -1,5 +1,5 @@
 //
-//  ActivityView.swift
+//  InboxView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-struct ActivityView: View {
+struct InboxView: View {
     @State private var filter: FilterType = .all
-    @StateObject private var data = ActivityDataService()
+    @StateObject private var data = InboxDataService()
 
     var body: some View {
         NavigationStack {
             VStack {
-                ActivityFilterMenuView(filter: $filter, data: data)
+                InboxFilterMenuView(filter: $filter, data: data)
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
                         
-                        ActivityListItemView(event: data.events[index])
+                        InboxListItemView(event: data.events[index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getEvents(withFilter: filter, fromStart: false)
                             }
                     } else {
-                        ActivityListItemView(event: data.events[index])
+                        InboxListItemView(event: data.events[index])
                             .listRowSeparator(.hidden)
                             .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                             .padding(.top, 10)
                             .listRowBackground(Color("lightGray-black"))
-                            .overlay(NavigationLink("", destination: ActivityItemDetailView(event: data.events[index])).opacity(0))
+                            .overlay(NavigationLink("", destination: InboxItemDetailView(event: data.events[index])).opacity(0))
                     }
                 }
                 .listStyle(.plain)
@@ -42,12 +42,12 @@ struct ActivityView: View {
             }
             .background(Color("lightGray-black"))
         }
-        .onAppear() { Tracker.track(.activityView) }
+        .onAppear() { Tracker.track(.inboxView) }
     }
 }
 
-struct ActivityView_Previews: PreviewProvider {
+struct InboxView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView()
+        InboxView()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ActivityTimelineView.swift
+//  InboxTimelineView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftDate
 
-struct ActivityTimelineView: View {
+struct InboxTimelineView: View {
     
     let user: User
     
@@ -45,8 +45,8 @@ struct ActivityTimelineView: View {
     }
 }
 
-struct ActivityTimelineView_Previews: PreviewProvider {
+struct InboxTimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityTimelineView(user: User(address: "", image: URL(string: ""), name: ""))
+        InboxTimelineView(user: User(address: "", image: URL(string: ""), name: ""))
     }
 }

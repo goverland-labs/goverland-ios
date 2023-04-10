@@ -1,5 +1,5 @@
 //
-//  ActivityDetailStatusRow.swift
+//  InboxDetailStatusRow.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-18.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftDate
 
-struct ActivityDetailStatusRowView: View {
+struct InboxDetailStatusRowView: View {
     var body: some View {
         HStack {
             HStack(spacing: 3) {
@@ -39,8 +39,8 @@ struct ActivityDetailStatusRowView: View {
     }
 }
 
-struct ActivityDetailStatusRow_Previews: PreviewProvider {
+struct InboxDetailStatusRow_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailStatusRowView()
+        InboxDetailStatusRowView()
     }
 }

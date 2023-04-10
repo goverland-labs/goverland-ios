@@ -1,5 +1,5 @@
 //
-//  ActivityListItemHeaderView.swift
+//  InboxListItemHeaderView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-21.
@@ -8,31 +8,31 @@
 import SwiftUI
 import SwiftDate
 
-struct ActivityListItemHeaderView: View {
+struct InboxListItemHeaderView: View {
     
-    var event: ActivityEvent
+    var event: InboxEvent
     
     var body: some View {
         
         HStack {
             UserPictureView(userImage: event.user.image, imageSize: 15)
 
-            ActivityListItemHeaderUserView(event: event)
+            InboxListItemHeaderUserView(event: event)
 
-            ActivityListItemDateView(event: event)
+            InboxListItemDateView(event: event)
 
             Spacer()
             
             HStack {
-                ActivityListItemReadIndicatiorView(event: event)
-                ActivityListItemStatusBubbleView(event: event)
+                InboxListItemReadIndicatiorView(event: event)
+                InboxListItemStatusBubbleView(event: event)
             }
         }
     }
 }
 
-fileprivate struct ActivityListItemHeaderUserView: View {
-    var event: ActivityEvent
+fileprivate struct InboxListItemHeaderUserView: View {
+    var event: InboxEvent
     
     var body: some View {
         if let name = event.user.ensName {
@@ -48,8 +48,8 @@ fileprivate struct ActivityListItemHeaderUserView: View {
     }
 }
 
-fileprivate struct ActivityListItemDateView: View {
-    var event: ActivityEvent
+fileprivate struct InboxListItemDateView: View {
+    var event: InboxEvent
     
     var body: some View {
         Text(event.date.toRelative(since: DateInRegion()))
@@ -57,8 +57,8 @@ fileprivate struct ActivityListItemDateView: View {
     }
 }
 
-fileprivate struct ActivityListItemReadIndicatiorView: View {
-    var event: ActivityEvent
+fileprivate struct InboxListItemReadIndicatiorView: View {
+    var event: InboxEvent
     
     var body: some View {
         Circle()
@@ -67,8 +67,8 @@ fileprivate struct ActivityListItemReadIndicatiorView: View {
     }
 }
 
-fileprivate struct ActivityListItemStatusBubbleView: View {
-    var event: ActivityEvent
+fileprivate struct InboxListItemStatusBubbleView: View {
+    var event: InboxEvent
     
     var body: some View {
         
@@ -152,7 +152,7 @@ fileprivate struct ListItemBubbleView: View {
 
 struct ListItemHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemHeaderView(event: ActivityEvent(
+        InboxListItemHeaderView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -161,8 +161,8 @@ struct ListItemHeader_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

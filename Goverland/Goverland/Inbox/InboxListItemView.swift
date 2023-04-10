@@ -1,5 +1,5 @@
 //
-//  ActivityListItemView.swift
+//  InboxListItemView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-28.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ActivityListItemView: View {
+struct InboxListItemView: View {
     
-    var event: ActivityEvent
+    var event: InboxEvent
 
     var body: some View {
         ZStack {
@@ -18,17 +18,17 @@ struct ActivityListItemView: View {
                 .padding(.horizontal, -12)
             
             VStack(spacing: 15) {
-                ActivityListItemHeaderView(event: event)
-                ActivityListItemBodyView(event: event)
-                ActivityListItemFooterView(event: event)
+                InboxListItemHeaderView(event: event)
+                InboxListItemBodyView(event: event)
+                InboxListItemFooterView(event: event)
             }
         }
     }
 }
 
-struct ActivityListItemView_Previews: PreviewProvider {
+struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityListItemView(event: ActivityEvent(
+        InboxListItemView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
@@ -37,8 +37,8 @@ struct ActivityListItemView_Previews: PreviewProvider {
             date: Date(),
             type: .discussion,
             status: .discussion,
-            content: ActivityViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
     }
 }

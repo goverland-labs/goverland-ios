@@ -1,5 +1,5 @@
 //
-//  ActivityDetailSummaryView.swift
+//  InboxDetailSummaryView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-18.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActivityDetailSummaryView: View {
+struct InboxDetailSummaryView: View {
     
     let user: User
     
@@ -42,8 +42,8 @@ struct ActivityDetailSummaryView: View {
     }
 }
 
-struct ActivityDetailSummaryView_Previews: PreviewProvider {
+struct InboxDetailSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityDetailSummaryView(user: User(address: "", image: URL(string: ""), name: ""))
+        InboxDetailSummaryView(user: User(address: "", image: URL(string: ""), name: ""))
     }
 }
