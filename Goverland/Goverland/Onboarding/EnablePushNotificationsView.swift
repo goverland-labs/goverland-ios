@@ -37,8 +37,9 @@ struct EnablePushNotificationsView: View {
                                 // Handle the error here.
                                 print(error)
                             }
-                            // Enable or disable features based on the authorization.
-                            onboardingFinished = true
+                            DispatchQueue.main.async {
+                                onboardingFinished = true
+                            }
                         }
                     }
                     .ghostActionButtonStyle()
