@@ -8,29 +8,29 @@
 import SwiftUI
 
 struct InboxListItemBodyView: View {
-    
     var event: InboxEvent
     
     var body: some View {
-        
         HStack {
-            
             VStack(alignment: .leading, spacing: 5) {
-                
                 Text(event.content.title)
                     .foregroundColor(.goverlandInboxListItemTitleText)
-                    .fontWeight(.bold)
-                    .font(.system(size: 18))
+                    .fontWeight(.semibold)
+                    .font(.system(size: 15))
                     .lineLimit(2)
                 
                 Text(event.content.subtitle)
                     .foregroundColor(.goverlandInboxListItemSubtitleText)
-                    .lineLimit(2)
+                    .fontWeight(.regular)
+                    .font(.system(size: 13))
+                    .lineLimit(1)
                 
                 if let warning = event.content.warningSubtitle {
                     Text(warning)
                         .foregroundColor(.goverlandInboxListItemWarningText)
-                        .lineLimit(2)
+                        .fontWeight(.regular)
+                        .font(.system(size: 13))
+                        .lineLimit(1)
                 } else {
                     Text("")
                 }
@@ -38,7 +38,7 @@ struct InboxListItemBodyView: View {
             
             Spacer()
             
-            DaoPictureView(daoImage: event.daoImage, imageSize: 50)
+            DaoPictureView(daoImage: event.daoImage, imageSize: 46)
         }
     }
 }

@@ -9,21 +9,19 @@ import SwiftUI
 import SwiftDate
 
 struct InboxListItemHeaderView: View {
-    
     var event: InboxEvent
     
     var body: some View {
-        
         HStack {
-            UserPictureView(userImage: event.user.image, imageSize: 15)
-
-            InboxListItemHeaderUserView(event: event)
-
-            InboxListItemDateView(event: event)
+            HStack(spacing: 6) {
+                UserPictureView(userImage: event.user.image, imageSize: 16)
+                InboxListItemHeaderUserView(event: event)
+                InboxListItemDateView(event: event)
+            }
 
             Spacer()
             
-            HStack {
+            HStack(spacing: 6) {
                 InboxListItemReadIndicatiorView(event: event)
                 InboxListItemStatusBubbleView(event: event)
             }
@@ -35,16 +33,19 @@ fileprivate struct InboxListItemHeaderUserView: View {
     var event: InboxEvent
     
     var body: some View {
-        if let name = event.user.ensName {
-            Text(name)
-                .fontWeight(.semibold)
-                .lineLimit(1)
-        } else {
-            Text(event.user.address)
-                .fontWeight(.semibold)
-                .lineLimit(1)
-                .truncationMode(.middle)
+        ZStack {
+            if let name = event.user.ensName {
+                Text(name)
+            } else {
+                Text(event.user.address)
+            }
         }
+        .font(.system(size: 13))
+        .minimumScaleFactor(0.9)
+        .lineLimit(1)
+        .fontWeight(.medium)
+        .foregroundColor(Color.goverlandInboxListItemUserName)
+        .truncationMode(.middle)
     }
 }
 
@@ -53,6 +54,10 @@ fileprivate struct InboxListItemDateView: View {
     
     var body: some View {
         Text(event.date.toRelative(since: DateInRegion()))
+            .font(.system(size: 13))
+            .minimumScaleFactor(0.9)
+            .lineLimit(1)
+            .fontWeight(.medium)
             .foregroundColor(.gray)
     }
 }
@@ -138,10 +143,10 @@ fileprivate struct ListItemBubbleView: View {
                 .font(.system(size: 9))
                 .foregroundColor(textColor)
             text
-                .font(.system(size: 12))
+                .font(.system(size: 9))
                 .foregroundColor(textColor)
                 .fontWeight(.semibold)
-                .minimumScaleFactor(0.1)
+                .minimumScaleFactor(0.9)
                 .lineLimit(1)
         }
         .padding([.leading, .trailing], 9)

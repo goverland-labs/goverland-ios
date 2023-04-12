@@ -32,10 +32,11 @@ struct InboxView: View {
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                        .padding(.horizontal, -15)
+                        .padding(.horizontal, -5)
                     }
                 }
             }
+            .background(Color.goverlandInboxContent)
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .navigationBarBackButtonHidden()
@@ -44,7 +45,7 @@ struct InboxView: View {
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
-                            .font(.system(size: 20))
+                            .font(.system(size: 18))
                             .bold()
                     }
                 }

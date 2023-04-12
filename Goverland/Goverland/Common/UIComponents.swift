@@ -79,10 +79,18 @@ extension Color {
         return Color(UIColor(red: 24/255, green: 24/255, blue: 24/255, alpha: 1.0))
     }
     
+    public static var goverlandInboxContent: Color {
+        return Color(UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1.0))
+    }
+    
     public static var goverlandInboxItemBackground: Color {
         return Color(UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0))
     }
 
+    public static var goverlandInboxListItemUserName: Color {
+        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
+    }
+    
     public static var goverlandStatusPillActiveVoteBackground: Color {
         return Color(UIColor(red: 172/255, green: 244/255, blue: 161/255, alpha: 1.0))
     }
@@ -106,6 +114,10 @@ extension Color {
     public static var goverlandStatusPillFailedBackground: Color {
         return Color(UIColor(red: 19/255, green: 26/255, blue: 21/255, alpha: 1.0))
     }
+    
+    public static var goverlandStatusPillVotedBackground: Color {
+        return Color(UIColor(red: 0/255, green: 83/255, blue: 35/255, alpha: 1.0))
+    }
 
     public static var goverlandStatusPillActiveVoteText: Color {
         return Color(UIColor(red: 0/255, green: 57/255, blue: 7/255, alpha: 1.0))
@@ -128,6 +140,10 @@ extension Color {
     }
     
     public static var goverlandStatusPillFailedText: Color {
+        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
+    }
+    
+    public static var goverlandStatusPillVotedText: Color {
         return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
     }
     
