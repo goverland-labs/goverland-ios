@@ -15,7 +15,8 @@ struct InboxView: View {
         NavigationStack {
             VStack(spacing: 10) {
                 InboxFilterMenuView(filter: $filter, data: data)
-                
+                    .padding(10)
+                    .background(Color.goverlandInboxHeader)
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
                         InboxListItemView(event: data.events[index])
@@ -27,9 +28,10 @@ struct InboxView: View {
                         ZStack {
                             NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
                             InboxListItemView(event: data.events[index])
-                                .listRowSeparator(.hidden)
                                 .padding(.bottom, 10)
                         }
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                         .padding(.horizontal, -15)
                     }
                 }
@@ -47,6 +49,7 @@ struct InboxView: View {
                     }
                 }
             }
+            .toolbarBackground(Color.goverlandInboxHeader, for: .navigationBar)
             .refreshable {
                 data.getEvents(withFilter: filter, fromStart: true)
             }

@@ -41,10 +41,7 @@ struct InboxFilterMenuView: View {
             }
             
         }
-        .padding(10)
-        .background(Color("lightGray-darkGray"))
     }
-       
 }
 
 

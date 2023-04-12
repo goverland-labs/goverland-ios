@@ -84,7 +84,7 @@ fileprivate struct InboxListItemStatusBubbleView: View {
         case .activeVote:
             ListItemBubbleView(
                 image: Image(systemName: "bolt.fill"),
-                text: Text("Active Vote"),
+                text: Text("Active vote"),
                 textColor: .goverlandStatusPillActiveVoteText,
                 backgroundColor: .goverlandStatusPillActiveVoteBackground)
         
@@ -140,7 +140,7 @@ fileprivate struct ListItemBubbleView: View {
             text
                 .font(.system(size: 12))
                 .foregroundColor(textColor)
-                .fontWeight(.none)
+                .fontWeight(.semibold)
                 .minimumScaleFactor(0.1)
                 .lineLimit(1)
         }

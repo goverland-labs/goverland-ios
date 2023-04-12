@@ -13,7 +13,7 @@ struct InboxListItemView: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 5)
+            RoundedRectangle(cornerRadius: 20)
                 .fill(Color.goverlandInboxItemBackground)
             
             VStack(spacing: 15) {
@@ -21,7 +21,8 @@ struct InboxListItemView: View {
                 InboxListItemBodyView(event: event)
                 InboxListItemFooterView(event: event)
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 8)
         }
     }
 }
