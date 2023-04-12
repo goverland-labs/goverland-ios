@@ -13,7 +13,6 @@ struct InboxFilterMenuView: View {
     var data: InboxDataService
     
     var body: some View {
-        
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
                 ForEach(FilterType.allFilters) { filterOption in
@@ -36,14 +35,13 @@ struct InboxFilterMenuView: View {
                         }
                         data.getEvents(withFilter: filterOption, fromStart: true)
                     }
-                    .padding([.leading, .trailing], 20)
+                    .padding([.leading, .trailing], 12)
                     
                 }
             }
+            
         }
-        .padding(.leading, 15)
-        .padding(.top, 60)
-        .padding(.bottom, 10)
+        .padding(10)
         .background(Color("lightGray-darkGray"))
     }
        

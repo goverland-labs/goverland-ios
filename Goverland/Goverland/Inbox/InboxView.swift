@@ -13,34 +13,43 @@ struct InboxView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(spacing: 10) {
                 InboxFilterMenuView(filter: $filter, data: data)
+                
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
-                        
                         InboxListItemView(event: data.events[index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getEvents(withFilter: filter, fromStart: false)
                             }
                     } else {
-                        InboxListItemView(event: data.events[index])
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
-                            .padding(.top, 10)
-                            .listRowBackground(Color("lightGray-black"))
-                            .overlay(NavigationLink("", destination: InboxItemDetailView(event: data.events[index])).opacity(0))
+                        ZStack {
+                            NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
+                            InboxListItemView(event: data.events[index])
+                                .listRowSeparator(.hidden)
+                                .padding(.bottom, 10)
+                        }
+                        .padding(.horizontal, -15)
                     }
                 }
-                .listStyle(.plain)
-                .scrollIndicators(.hidden)
-                .padding(.horizontal, 10)
-                .navigationBarBackButtonHidden()
-                .refreshable {
-                    data.getEvents(withFilter: filter, fromStart: true)
+            }
+            .listStyle(.plain)
+            .scrollIndicators(.hidden)
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Inbox")
+                            .font(.system(size: 20))
+                            .bold()
+                    }
                 }
             }
-            .background(Color("lightGray-black"))
+            .refreshable {
+                data.getEvents(withFilter: filter, fromStart: true)
+            }
         }
         .onAppear() { Tracker.track(.inboxView) }
     }

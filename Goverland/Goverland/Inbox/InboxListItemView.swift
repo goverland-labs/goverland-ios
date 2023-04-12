@@ -14,14 +14,14 @@ struct InboxListItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 5)
-                .fill(Color("white-darkGray"))
-                .padding(.horizontal, -12)
+                .fill(Color.goverlandInboxItemBackground)
             
             VStack(spacing: 15) {
                 InboxListItemHeaderView(event: event)
                 InboxListItemBodyView(event: event)
                 InboxListItemFooterView(event: event)
             }
+            .padding(.horizontal, 10)
         }
     }
 }
