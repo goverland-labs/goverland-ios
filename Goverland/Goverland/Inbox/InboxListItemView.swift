@@ -8,21 +8,29 @@
 import SwiftUI
 
 struct InboxListItemView: View {
-    
+    @State private var isRead = false
     var event: InboxEvent
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.goverlandInboxItemBackground)
+                .fill(isRead ? Color.black : Color.goverlandInboxItemBackground)
             
             VStack(spacing: 15) {
-                InboxListItemHeaderView(event: event)
+                InboxListItemHeaderView(isRead: $isRead, event: event)
                 InboxListItemBodyView(event: event)
                 InboxListItemFooterView(event: event)
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 8)
+            
+            if isRead {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.black).opacity(0.3)
+            }
+        }
+        .onTapGesture {
+            isRead.toggle()
         }
     }
 }
