@@ -13,7 +13,7 @@ struct InboxView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 10) {
+            VStack(spacing: 0) {
                 InboxFilterMenuView(filter: $filter, data: data)
                     .padding(10)
                     .background(Color.goverlandInboxHeader)
@@ -28,7 +28,7 @@ struct InboxView: View {
                         ZStack {
                             NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
                             InboxListItemView(event: data.events[index])
-                                .padding(.bottom, 10)
+                                .padding(.top, 10)
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
