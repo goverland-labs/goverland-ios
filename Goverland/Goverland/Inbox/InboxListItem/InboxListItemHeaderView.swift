@@ -37,10 +37,8 @@ fileprivate struct InboxListItemHeaderUserView: View {
         ZStack {
             if let name = event.user.ensName {
                 Text(name)
-                    .truncationMode(.tail)
             } else {
                 Text(event.user.address)
-                    .truncationMode(.middle)
             }
         }
         .font(.system(size: 13))
@@ -48,10 +46,7 @@ fileprivate struct InboxListItemHeaderUserView: View {
         .lineLimit(1)
         .fontWeight(.medium)
         .foregroundColor(Color.goverlandInboxListItemUserName)
-        // TODO: implement truncate logic to keep 4 first and 4 last chars
-        // frame restrictions won't work for bigger screens
-        .frame(width: 70)
-        
+        .truncationMode(.middle)
     }
 }
 
