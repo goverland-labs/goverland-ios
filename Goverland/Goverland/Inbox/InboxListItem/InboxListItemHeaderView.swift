@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftDate
 
 struct InboxListItemHeaderView: View {
-    @Binding var isRead: Bool
     var event: InboxEvent
     
     var body: some View {
@@ -23,7 +22,7 @@ struct InboxListItemHeaderView: View {
             Spacer()
             
             HStack(spacing: 6) {
-                InboxListItemReadIndicatiorView(isRead: $isRead, event: event)
+                InboxListItemReadIndicatiorView(event: event)
                 InboxListItemStatusBubbleView(event: event)
             }
         }
@@ -69,12 +68,11 @@ fileprivate struct InboxListItemDateView: View {
 }
 
 fileprivate struct InboxListItemReadIndicatiorView: View {
-    @Binding var isRead: Bool
     var event: InboxEvent
     
     var body: some View {
         Circle()
-            .fill(isRead ? Color.clear : Color.goverlandInboxListItemReadIndicator)
+            .fill(Color.goverlandInboxListItemReadIndicator)
             .frame(width: 4, height: 4)
     }
 }
@@ -164,7 +162,7 @@ fileprivate struct ListItemBubbleView: View {
 
 struct ListItemHeader_Previews: PreviewProvider {
     static var previews: some View {
-        InboxListItemHeaderView(isRead: .constant(true), event: InboxEvent(
+        InboxListItemHeaderView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",

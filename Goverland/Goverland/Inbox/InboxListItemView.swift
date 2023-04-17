@@ -14,23 +14,15 @@ struct InboxListItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(isRead ? Color.black : Color.goverlandInboxItemBackground)
+                .fill(Color.goverlandInboxItemBackground)
             
             VStack(spacing: 15) {
-                InboxListItemHeaderView(isRead: $isRead, event: event)
+                InboxListItemHeaderView(event: event)
                 InboxListItemBodyView(event: event)
                 InboxListItemFooterView(event: event)
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 8)
-            
-            if isRead {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.black).opacity(0.3)
-            }
-        }
-        .onTapGesture {
-            isRead.toggle()
         }
     }
 }
