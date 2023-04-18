@@ -70,51 +70,5 @@ struct UIComponents_Previews: PreviewProvider {
     }
 }
 
-extension Color {
-    static var primary = Color("Primary")
-    static var onPrimary = Color("On Primary")
-    static var primaryDim = Color("Primary Dim")
-    static var secondaryContainer = Color("Secondary Container")
-    static var onSecondaryContainer = Color("On Secondary Container")
 
-    static var danger = Color("Danger")
-    static var warning = Color("Warning")
-    static var success = Color("Success")
-    static var fail = Color("Fail")
-
-    static var textWhite = Color("Text White")
-    static var textWhite60 = Color("Text White 60%")
-    static var textWhite40 = Color("Text White 40%")
-    static var textWhite20 = Color("Text White 20%")
-
-    static var surface = Color("Surface")
-    static var surfaceBright = Color("Surface Bright")
-    static var container = Color("Container")
-    static var containerDim = Color("Container Dim")
-    static var containerBright = Color("Container Bright")
-    
-    
-    static var goverlandInboxHeaderBackground: Color { return .surfaceBright }
-    static var goverlandInboxContentBackground: Color { return .surface }
-    static var goverlandInboxItemBackground: Color { return .container }
-    static var goverlandInboxListItemUserName: Color { return .textWhite }
-    static var goverlandStatusPillActiveVoteBackground: Color { return .primary }
-    static var goverlandStatusPillQueuedBackground: Color { return .warning }
-    static var goverlandStatusPillSucceededBackground: Color { return .success }
-    static var goverlandStatusPillExecutedBackground: Color { return .success }
-    static var goverlandStatusPillDefeatedBackground: Color { return .danger }
-    static var goverlandStatusPillFailedBackground: Color { return .fail }
-    static var goverlandStatusPillVotedBackground: Color { return .success }
-    static var goverlandStatusPillActiveVoteText: Color { return .onPrimary }
-    static var goverlandStatusPillQueuedText: Color { return .textWhite }
-    static var goverlandStatusPillSucceededText: Color { return .textWhite }
-    static var goverlandStatusPillExecutedText: Color { return .textWhite }
-    static var goverlandStatusPillDefeatedText: Color { return .textWhite }
-    static var goverlandStatusPillFailedText: Color { return .textWhite }
-    static var goverlandStatusPillVotedText: Color { return .textWhite }
-    static var goverlandInboxListItemTitleText: Color { return .textWhite }
-    static var goverlandInboxListItemSubtitleText: Color { return .textWhite40 }
-    static var goverlandInboxListItemWarningText: Color { return .textWhite40 }
-    static var goverlandInboxListItemReadIndicator: Color { return .primary }
-}
 

@@ -46,7 +46,7 @@ fileprivate struct InboxListItemHeaderUserView: View {
         .minimumScaleFactor(0.9)
         .lineLimit(1)
         .fontWeight(.medium)
-        .foregroundColor(Color.goverlandInboxListItemUserName)
+        .foregroundColor(.textWhite)
         // TODO: implement truncate logic to keep 4 first and 4 last chars
         // frame restrictions won't work for bigger screens
         .frame(width: 70)
@@ -72,7 +72,7 @@ fileprivate struct InboxListItemReadIndicatiorView: View {
     
     var body: some View {
         Circle()
-            .fill(Color.goverlandInboxListItemReadIndicator)
+            .fill(.primary)
             .frame(width: 4, height: 4)
     }
 }
@@ -95,43 +95,43 @@ fileprivate struct InboxListItemStatusBubbleView: View {
             ListItemBubbleView(
                 image: Image(systemName: "bolt.fill"),
                 text: Text("Active vote"),
-                textColor: .goverlandStatusPillActiveVoteText,
-                backgroundColor: .goverlandStatusPillActiveVoteBackground)
+                textColor: .onPrimary,
+                backgroundColor: .primary)
         
         case .executed:
             ListItemBubbleView(
                 image: Image(systemName: "checkmark"),
                 text: Text("Executed"),
-                textColor: .goverlandStatusPillExecutedText,
-                backgroundColor: .goverlandStatusPillExecutedBackground)
+                textColor: .textWhite,
+                backgroundColor: .success)
         
         case .failed:
             ListItemBubbleView(
                 image: Image(systemName: "bolt.slash.fill"),
                 text: Text("Failed"),
-                textColor: .goverlandStatusPillFailedText,
-                backgroundColor: .goverlandStatusPillFailedBackground)
+                textColor: .textWhite,
+                backgroundColor: .fail)
         
         case .queued:
             ListItemBubbleView(
                 image: Image(systemName: "clock"),
                 text: Text("Queued"),
-                textColor: .goverlandStatusPillQueuedText,
-                backgroundColor: .goverlandStatusPillQueuedBackground)
+                textColor: .textWhite,
+                backgroundColor: .warning)
             
         case .succeeded:
             ListItemBubbleView(
                 image: Image(systemName: "checkmark"),
                 text: Text("Succeeded"),
-                textColor: .goverlandStatusPillSucceededText,
-                backgroundColor: .goverlandStatusPillSucceededBackground)
+                textColor: .textWhite,
+                backgroundColor: .success)
         
         case .defeated:
             ListItemBubbleView(
                 image: Image(systemName: "xmark"),
                 text: Text("Defeated"),
-                textColor: .goverlandStatusPillDefeatedText,
-                backgroundColor: .goverlandStatusPillDefeatedBackground)
+                textColor: .textWhite,
+                backgroundColor: .danger)
         }
     }
 }

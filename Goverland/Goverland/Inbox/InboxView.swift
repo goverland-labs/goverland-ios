@@ -16,7 +16,7 @@ struct InboxView: View {
             VStack(spacing: 0) {
                 InboxFilterMenuView(filter: $filter, data: data)
                     .padding(10)
-                    .background(Color.goverlandInboxHeaderBackground)
+                    .background(Color.surfaceBright)
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
                         InboxListItemView(event: data.events[index])
@@ -36,7 +36,7 @@ struct InboxView: View {
                     }
                 }
             }
-            .background(Color.goverlandInboxContentBackground)
+            .background(Color.surface)
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .navigationBarBackButtonHidden()
@@ -50,7 +50,7 @@ struct InboxView: View {
                     }
                 }
             }
-            .toolbarBackground(Color.goverlandInboxHeaderBackground, for: .navigationBar)
+            .toolbarBackground(Color.surfaceBright, for: .navigationBar)
             .refreshable {
                 data.getEvents(withFilter: filter, fromStart: true)
             }

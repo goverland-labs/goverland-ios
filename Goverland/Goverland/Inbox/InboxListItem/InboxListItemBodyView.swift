@@ -14,20 +14,20 @@ struct InboxListItemBodyView: View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 Text(event.content.title)
-                    .foregroundColor(.goverlandInboxListItemTitleText)
+                    .foregroundColor(.textWhite)
                     .fontWeight(.semibold)
                     .font(.system(size: 15))
                     .lineLimit(2)
                 
                 Text(event.content.subtitle)
-                    .foregroundColor(.goverlandInboxListItemSubtitleText)
+                    .foregroundColor(.textWhite40)
                     .fontWeight(.regular)
                     .font(.system(size: 13))
                     .lineLimit(1)
                 
                 if let warning = event.content.warningSubtitle {
                     Text(warning)
-                        .foregroundColor(.goverlandInboxListItemWarningText)
+                        .foregroundColor(.textWhite40)
                         .fontWeight(.regular)
                         .font(.system(size: 13))
                         .lineLimit(1)

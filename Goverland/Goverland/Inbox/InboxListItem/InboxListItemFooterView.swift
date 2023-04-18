@@ -92,17 +92,17 @@ fileprivate struct VoteFooterView: View {
                 HStack(spacing: 1) {
                     Image(systemName: "checkmark")
                         .font(.system(size: 9))
-                        .foregroundColor(Color.goverlandStatusPillVotedText)
+                        .foregroundColor(.textWhite)
                     
                     Text("voted")
                         .font(.system(size: 10))
-                        .foregroundColor(.goverlandStatusPillVotedText)
+                        .foregroundColor(.textWhite)
                         .fontWeight(.semibold)
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                 }
                 .padding(5)
-                .background(Capsule().fill(Color.goverlandStatusPillVotedBackground))
+                .background(Capsule().fill(Color.success))
             }
         }
     }

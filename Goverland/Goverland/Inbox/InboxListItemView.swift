@@ -14,7 +14,7 @@ struct InboxListItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.goverlandInboxItemBackground)
+                .fill(Color.container)
             
             VStack(spacing: 15) {
                 InboxListItemHeaderView(event: event)
