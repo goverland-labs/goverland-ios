@@ -24,9 +24,6 @@ struct SettingsView: View {
                     NavigationLink("Notifications") {
                         PushNotificationsSettingView()
                     }
-                    NavigationLink("Appearance") {
-                        AppearanceSettingView()
-                    }
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -158,28 +155,6 @@ fileprivate struct FollowingButtonView: View {
         .fontWeight(.medium)
         .background(didTap ? Color("followButtonColorActive") : Color.blue)
         .cornerRadius(5)
-    }
-}
-
-fileprivate struct AppearanceSettingView: View {
-    
-    @EnvironmentObject var colorSchemeManager: ColorSchemeManager
-    
-    var body: some View {
-        
-        VStack {
-            Picker("", selection: $colorSchemeManager.colorScheme) {
-                Text("Default").tag(ColorSchemeType.unspecified)
-                Text("Light").tag(ColorSchemeType.light)
-                Text("Dark").tag(ColorSchemeType.dark)
-            }
-            .pickerStyle(.segmented)
-            .padding()
-            
-            Spacer()
-        }
-        .navigationTitle("Color Scheme")
-        .onAppear() {Tracker.track(.settingsAppearanceView) }
     }
 }
 

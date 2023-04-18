@@ -20,7 +20,6 @@ class DaoDataService: ObservableObject {
     
     init() {
         getInitialDaos()
-        print("Initialised DaoDataService")
     }
     
     private func getUrl() -> URL {
