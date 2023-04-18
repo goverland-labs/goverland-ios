@@ -1,5 +1,5 @@
 //
-//  InboxListItemView.swift
+//  ProposalListItemView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InboxListItemView: View {
+struct ProposalListItemView: View {
     @State private var isRead = false
     var event: InboxEvent
 
@@ -17,7 +17,7 @@ struct InboxListItemView: View {
                 .fill(Color.container)
             
             VStack(spacing: 15) {
-                InboxListItemHeaderView(event: event)
+                ProposalListItemHeaderView(event: event)
                 InboxListItemBodyView(event: event)
                 InboxListItemFooterView(event: event)
             }
@@ -29,7 +29,7 @@ struct InboxListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxListItemView(event: InboxEvent(
+        ProposalListItemView(event: InboxEvent(
             id: UUID(),
             user: User(
                 address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",

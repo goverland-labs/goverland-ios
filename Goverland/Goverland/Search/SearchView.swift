@@ -115,7 +115,7 @@ fileprivate struct SearchDiscussionBodyView: View {
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
-            InboxListItemView(event: data.events[index])
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
@@ -128,7 +128,7 @@ fileprivate struct SearchVoteBodyView: View {
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
-            InboxListItemView(event: data.events[index])
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)

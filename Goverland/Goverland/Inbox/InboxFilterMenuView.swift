@@ -28,7 +28,7 @@ struct InboxFilterMenuView: View {
                             .padding(20)
                             .font(.system(size: 13))
                             .fontWeight(.semibold)
-                            .foregroundColor(filterOption == filter ? .black : .white)
+                            .foregroundColor(filterOption == filter ? .surfaceBright : .textWhite)
                     }
                     .onTapGesture {
                         withAnimation(.spring(response: 0.5)) {

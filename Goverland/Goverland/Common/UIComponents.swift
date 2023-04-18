@@ -27,24 +27,6 @@ struct DaoPictureView: View {
     }
 }
 
-struct UserPictureView: View {
-    let userImage: URL?
-    let imageSize: Int
-    var body: some View {
-        KFImage(userImage)
-            .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.purple)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize), mode: .aspectFit))
-            .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
-    }
-}
-
 struct FollowButtonView: View {
     @State private var didTap: Bool = false
     let buttonWidth: CGFloat
@@ -65,10 +47,6 @@ struct FollowButtonView: View {
 struct UIComponents_Previews: PreviewProvider {
     static var previews: some View {
         DaoPictureView(daoImage: URL(string: ""), imageSize: 50)
-        UserPictureView(userImage: URL(string: ""), imageSize: 15)
         FollowButtonView(buttonWidth: 150, buttonHeight: 35)
     }
 }
-
-
-

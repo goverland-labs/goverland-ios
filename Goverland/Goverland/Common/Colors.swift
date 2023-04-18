@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 18.04.23.
 //
 
-import Foundation
+import SwiftUI
 
 extension Color {
     static var primary = Color("Primary")

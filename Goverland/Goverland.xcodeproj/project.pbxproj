@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
+		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
+		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
+		5521D27729EF145300A09FD4 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* StatusView.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
@@ -30,9 +33,9 @@
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F08298C154200F78958 /* DaoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F07298C154200F78958 /* DaoDataService.swift */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
-		BA57D21A295CB35400DB1963 /* InboxListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* InboxListItemView.swift */; };
+		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
-		BAAA526929538138003177BC /* InboxListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* InboxListItemHeaderView.swift */; };
+		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
 		BAAA526F2953AC28003177BC /* InboxListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* InboxListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* InboxListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* InboxListItemFooterView.swift */; };
 		BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */; };
@@ -56,6 +59,9 @@
 /* Begin PBXFileReference section */
 		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
+		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
+		5521D27629EF145300A09FD4 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
@@ -76,8 +82,8 @@
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F07298C154200F78958 /* DaoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDataService.swift; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
-		BA57D219295CB35400DB1963 /* InboxListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemView.swift; sourceTree = "<group>"; };
-		BAAA526829538138003177BC /* InboxListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemHeaderView.swift; sourceTree = "<group>"; };
+		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
+		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* InboxListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* InboxListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemFooterView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +128,24 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				5521D27429EF137C00A09FD4 /* DateView.swift */,
+				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
+				5521D27629EF145300A09FD4 /* StatusView.swift */,
+				BAAA526D2953ABF9003177BC /* Inbox List Item */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		5521D27029EF0D0300A09FD4 /* Proposal List Item */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Proposal List Item";
+			sourceTree = "<group>";
+		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,8 +163,6 @@
 			children = (
 				55D632B829505C4F0073E04A /* InboxView.swift */,
 				BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */,
-				BA57D219295CB35400DB1963 /* InboxListItemView.swift */,
-				BAAA526D2953ABF9003177BC /* InboxListItem */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -180,6 +202,7 @@
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
+				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				55D632B429505BDE0073E04A /* Inbox */,
 				BAF651B429A172F000C78A8A /* InboxDetail */,
 				BAF651CA29B79E2200C78A8A /* Info */,
@@ -213,14 +236,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BAAA526D2953ABF9003177BC /* InboxListItem */ = {
+		BAAA526D2953ABF9003177BC /* Inbox List Item */ = {
 			isa = PBXGroup;
 			children = (
-				BAAA526829538138003177BC /* InboxListItemHeaderView.swift */,
+				5521D27029EF0D0300A09FD4 /* Proposal List Item */,
+				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
+				BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */,
 				BAAA526E2953AC28003177BC /* InboxListItemBodyView.swift */,
 				BAAA52702953BB61003177BC /* InboxListItemFooterView.swift */,
 			);
-			path = InboxListItem;
+			path = "Inbox List Item";
 			sourceTree = "<group>";
 		};
 		BAF651B429A172F000C78A8A /* InboxDetail */ = {
@@ -361,18 +386,20 @@
 				BAF651BE29A67ABB00C78A8A /* InboxDetailDividerLineView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */,
+				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BAF651C029A67C1200C78A8A /* InboxTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* InboxListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
-				BAAA526929538138003177BC /* InboxListItemHeaderView.swift in Sources */,
+				BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
@@ -383,11 +410,12 @@
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
-				BA57D21A295CB35400DB1963 /* InboxListItemView.swift in Sources */,
+				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* InboxListItemBodyView.swift in Sources */,
 				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
+				5521D27729EF145300A09FD4 /* StatusView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,

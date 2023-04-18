@@ -27,17 +27,8 @@ struct InboxTimelineView: View {
                 Text("Discussion")
                     .foregroundColor(.blue)
                 Text("started by")
-                
-                UserPictureView(userImage: user.image, imageSize: 15)
-                
-                if let name = user.ensName {
-                    Text(name)
-                        .lineLimit(1)
-                } else {
-                    Text(user.address)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
-                }
+
+                IdentityView(user: user)
             }
             .scaledToFit()
             .minimumScaleFactor(0.7)

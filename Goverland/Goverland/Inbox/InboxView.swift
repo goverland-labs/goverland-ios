@@ -19,7 +19,7 @@ struct InboxView: View {
                     .background(Color.surfaceBright)
                 List(0..<data.events.count, id: \.self) { index in
                     if index == data.events.count - 1 && data.hasNextPageURL() {
-                        InboxListItemView(event: data.events[index])
+                        ProposalListItemView(event: data.events[index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getEvents(withFilter: filter, fromStart: false)
@@ -27,7 +27,7 @@ struct InboxView: View {
                     } else {
                         ZStack {
                             NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
-                            InboxListItemView(event: data.events[index])
+                            ProposalListItemView(event: data.events[index])
                                 .padding(.top, 10)
                         }
                         .listRowSeparator(.hidden)
