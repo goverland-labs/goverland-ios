@@ -17,9 +17,9 @@ struct ProposalListItemView: View {
                 .fill(Color.container)
             
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(event: event)
-                InboxListItemBodyView(event: event)
-                InboxListItemFooterView(event: event)
+                ProposalListItemHeaderView(user: event.user, date: event.date, status: event.status)
+                ProposalListItemBodyView(content: event.content, daoImage: event.daoImage)
+                ProposalListItemFooterView(meta: event.meta)
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 8)
