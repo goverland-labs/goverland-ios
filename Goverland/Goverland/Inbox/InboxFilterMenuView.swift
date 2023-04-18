@@ -19,7 +19,7 @@ struct InboxFilterMenuView: View {
                     ZStack {
                         if filter == filterOption {
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.goverlandGreenPrimary)
+                                .fill(Color.primary)
                                 .frame(height: 40)
                                 .matchedGeometryEffect(id: "filter-background", in: namespace)
                         }

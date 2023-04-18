@@ -71,96 +71,47 @@ struct UIComponents_Previews: PreviewProvider {
 }
 
 extension Color {
-    public static var goverlandGreenPrimary: Color {
-        return Color(UIColor(red: 172/255, green: 244/255, blue: 161/255, alpha: 1.0))
-    }
+    public static var primary: Color { return Color(UIColor(red: 172/255, green: 244/255, blue: 161/255, alpha: 1.0)) }
+    public static var onPrimary: Color { return Color(UIColor(red: 0/255, green: 57/255, blue: 7/255, alpha: 1.0)) }
+    public static var primaryDim: Color { return Color(UIColor(red: 145/255, green: 216/255, blue: 136/255, alpha: 1.0)) }
+    public static var secondaryContainer: Color { return Color(UIColor(red: 57/255, green: 75/255, blue: 58/255, alpha: 1.0)) }
+    public static var onSecondaryContainer: Color { return Color(UIColor(red: 211/255, green: 232/255, blue: 209/255, alpha: 1.0)) }
+    public static var danger: Color { return Color(UIColor(red: 136/255, green: 15/255, blue: 7/255, alpha: 1.0)) }
+    public static var warning: Color { return Color(UIColor(red: 183/255, green: 121/255, blue: 0/255, alpha: 1.0)) }
+    public static var success: Color { return Color(UIColor(red: 36/255, green: 89/255, blue: 51/255, alpha: 1.0)) }
+    public static var fail: Color { return Color(UIColor(red: 19/255, green: 25/255, blue: 21/255, alpha: 1.0)) }
+    public static var textWhite: Color { return Color(UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1.0)) }
+    public static var textWhite60: Color { return Color(UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 0.6)) }
+    public static var textWhite40: Color { return Color(UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 0.4)) }
+    public static var textWhite20: Color { return Color(UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 0.2)) }
+    public static var surface: Color { return Color(UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1)) }
+    public static var surfaceBright: Color { return Color(UIColor(red: 24/255, green: 24/255, blue: 24/255, alpha: 1)) }
+    public static var container: Color { return Color(UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1)) }
+    public static var containerDim: Color { return Color(UIColor(red: 4/255, green: 4/255, blue: 4/255, alpha: 1))}
+    public static var containerBright: Color { return Color(UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1)) }
     
-    public static var goverlandInboxHeader: Color {
-        return Color(UIColor(red: 24/255, green: 24/255, blue: 24/255, alpha: 1.0))
-    }
     
-    public static var goverlandInboxContent: Color {
-        return Color(UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1.0))
-    }
-    
-    public static var goverlandInboxItemBackground: Color {
-        return Color(UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0))
-    }
-
-    public static var goverlandInboxListItemUserName: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillActiveVoteBackground: Color {
-        return Color(UIColor(red: 172/255, green: 244/255, blue: 161/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillQueuedBackground: Color {
-        return Color(UIColor(red: 183/255, green: 121/255, blue: 0/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillSucceededBackground: Color {
-        return Color(UIColor(red: 36/255, green: 89/255, blue: 51/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillExecutedBackground: Color {
-        return Color(UIColor(red: 36/255, green: 89/255, blue: 51/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillDefeatedBackground: Color {
-        return Color(UIColor(red: 136/255, green: 15/255, blue: 7/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillFailedBackground: Color {
-        return Color(UIColor(red: 19/255, green: 26/255, blue: 21/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillVotedBackground: Color {
-        return Color(UIColor(red: 0/255, green: 83/255, blue: 35/255, alpha: 1.0))
-    }
-
-    public static var goverlandStatusPillActiveVoteText: Color {
-        return Color(UIColor(red: 0/255, green: 57/255, blue: 7/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillQueuedText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillSucceededText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillExecutedText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillDefeatedText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillFailedText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandStatusPillVotedText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandInboxListItemTitleText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 1.0))
-    }
-    
-    public static var goverlandInboxListItemSubtitleText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 0.4))
-    }
-    
-    public static var goverlandInboxListItemWarningText: Color {
-        return Color(UIColor(red: 277/255, green: 277/255, blue: 277/255, alpha: 0.4))
-    }
-
-    public static var goverlandInboxListItemReadIndicator: Color {
-        return Color(UIColor(red: 172/255, green: 244/255, blue: 161/255, alpha: 1))
-    }
+    public static var goverlandInboxHeaderBackground: Color { return .surfaceBright }
+    public static var goverlandInboxContentBackground: Color { return .surface }
+    public static var goverlandInboxItemBackground: Color { return .container }
+    public static var goverlandInboxListItemUserName: Color { return .textWhite }
+    public static var goverlandStatusPillActiveVoteBackground: Color { return .primary }
+    public static var goverlandStatusPillQueuedBackground: Color { return .warning }
+    public static var goverlandStatusPillSucceededBackground: Color { return .success }
+    public static var goverlandStatusPillExecutedBackground: Color { return .success }
+    public static var goverlandStatusPillDefeatedBackground: Color { return .danger }
+    public static var goverlandStatusPillFailedBackground: Color { return .fail }
+    public static var goverlandStatusPillVotedBackground: Color { return .success }
+    public static var goverlandStatusPillActiveVoteText: Color { return .onPrimary }
+    public static var goverlandStatusPillQueuedText: Color { return .textWhite }
+    public static var goverlandStatusPillSucceededText: Color { return .textWhite }
+    public static var goverlandStatusPillExecutedText: Color { return .textWhite }
+    public static var goverlandStatusPillDefeatedText: Color { return .textWhite }
+    public static var goverlandStatusPillFailedText: Color { return .textWhite }
+    public static var goverlandStatusPillVotedText: Color { return .textWhite }
+    public static var goverlandInboxListItemTitleText: Color { return .textWhite }
+    public static var goverlandInboxListItemSubtitleText: Color { return .textWhite40 }
+    public static var goverlandInboxListItemWarningText: Color { return .textWhite40 }
+    public static var goverlandInboxListItemReadIndicator: Color { return .primary }
 }
 
