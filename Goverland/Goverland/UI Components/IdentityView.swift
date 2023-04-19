@@ -52,10 +52,8 @@ fileprivate struct UserNameView: View {
                     .truncationMode(.middle)
             }
         }
-        .font(.system(size: 13))
-        .minimumScaleFactor(0.9)
+        .font(.footnoteRegular)
         .lineLimit(1)
-        .fontWeight(.medium)
         .foregroundColor(.textWhite)
         .frame(width: 70)
     }

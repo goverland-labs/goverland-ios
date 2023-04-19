@@ -16,21 +16,18 @@ struct ProposalListItemBodyView: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(content.title)
                     .foregroundColor(.textWhite)
-                    .fontWeight(.semibold)
-                    .font(.system(size: 15))
+                    .font(.headlineSemibold)
                     .lineLimit(2)
                 
                 Text(content.subtitle)
                     .foregroundColor(.textWhite40)
-                    .fontWeight(.regular)
-                    .font(.system(size: 13))
+                    .font(.footnoteRegular)
                     .lineLimit(1)
                 
                 if let warning = content.warningSubtitle {
                     Text(warning)
                         .foregroundColor(.textWhite40)
-                        .fontWeight(.regular)
-                        .font(.system(size: 13))
+                        .font(.footnoteRegular)
                         .lineLimit(1)
                 } else {
                     Text("")

@@ -76,10 +76,8 @@ fileprivate struct BubbleView: View {
                 .font(.system(size: 9))
                 .foregroundColor(textColor)
             text
-                .font(.system(size: 9))
+                .font(.caption2Semibold)
                 .foregroundColor(textColor)
-                .fontWeight(.semibold)
-                .minimumScaleFactor(0.9)
                 .lineLimit(1)
         }
         .padding([.leading, .trailing], 9)
