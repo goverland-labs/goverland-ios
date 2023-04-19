@@ -61,7 +61,7 @@ struct SelectDaoView: View {
                 }
             }
             .padding(.horizontal, 15)
-            .searchable(text: $searchedText)
+            .searchable(text: $searchedText, prompt: "Search 6032 DAOs by name")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
