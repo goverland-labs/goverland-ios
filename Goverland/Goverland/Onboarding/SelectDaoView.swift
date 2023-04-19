@@ -74,13 +74,13 @@ struct DaoGroupThreadView: View {
             HStack(spacing: 20) {
                 ForEach(0..<daoGroups[daoGroupType]!.count, id: \.self) { index in
                     if index == daoGroups[daoGroupType]!.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
-                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
+                        DaoCardView(dao: daoGroups[daoGroupType]![index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getMoreDaos(inGroup: daoGroupType)
                             }
                     } else {
-                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
+                        DaoCardView(dao: daoGroups[daoGroupType]![index])
                     }
                 }
             }
@@ -90,26 +90,32 @@ struct DaoGroupThreadView: View {
     }
 }
 
-fileprivate struct DaoGroupItemView: View {
-    
+fileprivate struct DaoCardView: View {
     var dao: Dao
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack {
             DaoPictureView(daoImage: dao.image, imageSize: 90)
-            Text(dao.name)
-                .fontWeight(.medium)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .minimumScaleFactor(0.8)
+            VStack(spacing: 3) {
+                Text(dao.name)
+                    .fontWeight(.semibold)
+                    .font(.headline)
+                    .foregroundColor(.textWhite)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                Text("18.2K members")
+                    .font(.сaption2Regular)
+                    .foregroundColor(.textWhite60)
+            }
             Spacer()
             FollowButtonView(buttonWidth: 110, buttonHeight: 35)
         }
-        .frame(width: 130, height: 200)
-        .padding()
+        .frame(width: 140, height: 200)
+        .padding(.vertical, 30)
+        .padding(.horizontal, 10)
         .background(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color("lightGray-darkGray"), lineWidth: 1))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.container))
     }
 }
 

@@ -37,10 +37,11 @@ struct FollowButtonView: View {
             Text(didTap ? "Following" : "Follow")
         }
         .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-        .foregroundColor(didTap ? .blue : .white)
-        .fontWeight(.medium)
-        .background(didTap ? Color("followButtonColorActive") : Color.blue)
-        .cornerRadius(5)
+        .foregroundColor(didTap ? .onSecondaryContainer : .onPrimary)
+        .fontWeight(.semibold)
+        .font(.footnote)
+        .background(didTap ? Color.secondaryContainer : Color.primary)
+        .cornerRadius(buttonHeight / 2)
     }
 }
 
