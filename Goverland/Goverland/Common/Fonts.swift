@@ -21,6 +21,7 @@ extension Font {
     static let bodyRegular = Font.body.weight(.regular)
     static let bodySemibold = Font.body.weight(.semibold)
     static let headlineRegular = Font.headline.weight(.regular)
+    static let headlineSemibold = Font.headline.weight(.semibold)
     static let title3Regular = Font.title3.weight(.regular)
     static let title3Semibold = Font.title3.weight(.semibold)
     static let title2Regular = Font.title2.weight(.regular)

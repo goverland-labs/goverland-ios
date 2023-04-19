@@ -38,8 +38,7 @@ struct FollowButtonView: View {
         }
         .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
         .foregroundColor(didTap ? .onSecondaryContainer : .onPrimary)
-        .fontWeight(.semibold)
-        .font(.footnote)
+        .font(.footnoteSemibold)
         .background(didTap ? Color.secondaryContainer : Color.primary)
         .cornerRadius(buttonHeight / 2)
     }
