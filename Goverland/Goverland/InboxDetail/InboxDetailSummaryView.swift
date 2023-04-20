@@ -34,6 +34,6 @@ struct InboxDetailSummaryView: View {
 
 struct InboxDetailSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxDetailSummaryView(user: User(address: "", image: URL(string: ""), name: ""))
+        InboxDetailSummaryView(user: User.flipside)
     }
 }
