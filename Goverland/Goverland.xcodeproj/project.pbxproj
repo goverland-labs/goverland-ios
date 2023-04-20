@@ -25,6 +25,7 @@
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
+		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataService.swift */; };
@@ -76,6 +77,7 @@
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterMenuView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataService.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */,
 				BAF651D129C0F00000C78A8A /* UIComponents.swift */,
 				5521D26D29EF092900A09FD4 /* Colors.swift */,
+				BA1EAD6F29F053E9008D92E9 /* Fonts.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BAF651C029A67C1200C78A8A /* InboxTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
+				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,

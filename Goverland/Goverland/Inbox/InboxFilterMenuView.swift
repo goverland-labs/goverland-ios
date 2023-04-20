@@ -23,11 +23,9 @@ struct InboxFilterMenuView: View {
                                 .frame(height: 40)
                                 .matchedGeometryEffect(id: "filter-background", in: namespace)
                         }
-                        
                         Text(filterOption.localizedName)
                             .padding(20)
-                            .font(.system(size: 13))
-                            .fontWeight(.semibold)
+                            .font(.footnoteSemibold)
                             .foregroundColor(filterOption == filter ? .surfaceBright : .textWhite)
                     }
                     .onTapGesture {
@@ -37,10 +35,8 @@ struct InboxFilterMenuView: View {
                         data.getEvents(withFilter: filterOption, fromStart: true)
                     }
                     .padding([.leading, .trailing], 12)
-                    
                 }
             }
-            
         }
     }
 }

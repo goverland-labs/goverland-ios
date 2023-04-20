@@ -45,8 +45,7 @@ struct InboxView: View {
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
-                            .font(.system(size: 18))
-                            .bold()
+                            .font(.title3Semibold)
                     }
                 }
             }

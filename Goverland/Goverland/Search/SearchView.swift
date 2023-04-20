@@ -22,15 +22,9 @@ struct SearchView: View {
                             Text(control.localizedString)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
-                            ZStack {
-                                if currentControl == control {
-                                    Capsule(style: .continuous)
-                                        .foregroundColor(.blue)
-                                } else {
-                                    Capsule(style: .continuous)
-                                        .foregroundColor(.clear)
-                                }
-                            }.frame(width: 80, height: 2)
+                            Capsule(style: .continuous)
+                                .foregroundColor(currentControl == control ? .primaryDim : .clear)
+                                .frame(width: 80, height: 2)
                         }
                         .onTapGesture {
                             withAnimation {

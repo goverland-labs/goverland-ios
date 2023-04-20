@@ -13,10 +13,8 @@ struct DateView: View {
 
     var body: some View {
         Text(date.toRelative(since: DateInRegion()))
-            .font(.system(size: 13))
-            .minimumScaleFactor(0.9)
+            .font(.footnoteRegular)
             .lineLimit(1)
-            .fontWeight(.medium)
             .foregroundColor(.textWhite40)
     }
 }
