@@ -49,6 +49,7 @@ struct EnablePushNotificationsView: View {
                     }
                     .fontWeight(.semibold)
                     .padding(.bottom)
+                    .accentColor(.primaryDim)
                 }
                 .frame(width: geometry.size.width * 0.9,
                        height: geometry.size.height * 2 / 5,

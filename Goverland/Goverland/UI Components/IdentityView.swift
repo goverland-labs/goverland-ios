@@ -49,8 +49,7 @@ fileprivate struct UserNameView: View {
                 Text(user.address.short)
             }
         }
-        .font(.system(size: 13))
-        .minimumScaleFactor(0.9)
+        .font(.footnoteRegular)
         .lineLimit(1)
         .fontWeight(.medium)
         .foregroundColor(.textWhite)        

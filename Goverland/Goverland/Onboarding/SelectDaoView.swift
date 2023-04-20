@@ -13,33 +13,36 @@ struct SelectDaoView: View {
     
     var body: some View {
         NavigationView {
-            VStack{
+            VStack {
                 if searchedText == "" {
                     Text("Get Updates in your feed for the DAOs you select.")
-                        .padding()
+                        .font(.subheadlineRegular)
+                        .foregroundColor(.textWhite)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+    
                     ScrollView(showsIndicators: false) {
                         VStack {
                             ForEach(data.keys, id: \.self) { key in
-                                VStack {
+                                VStack(spacing: 8) {
                                     HStack {
                                         Text(key.name)
-                                            .fontWeight(.semibold)
+                                            .font(.subheadlineSemibold)
+                                            .foregroundColor(.textWhite)
                                         Spacer()
                                         Text("See all")
-                                            .fontWeight(.medium)
-                                            .foregroundColor(.blue)
+                                            .font(.subheadlineSemibold)
+                                            .foregroundColor(.primaryDim)
                                     }
-                                    .padding()
-                                    
+                                    .padding(.top, 20)
                                     DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
                                 }
                             }
                         }
                     }
-                    .onAppear() { Tracker.track(.selectDaoView) }
                     NavigationLink(destination: EnablePushNotificationsView()) {
                         Text("Continue")
                             .ghostActionButtonStyle()
+                            .padding(.vertical)
                     }
                 } else {
                     ScrollView(showsIndicators: false) {
@@ -57,9 +60,19 @@ struct SelectDaoView: View {
                     }
                 }
             }
-            .searchable(text: $searchedText)
-            .navigationBarTitle("Select DAOs")
+            .padding(.horizontal, 15)
+            .searchable(text: $searchedText, prompt: "Search 6032 DAOs by name")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Select DAOs")
+                            .font(.title3Semibold)
+                            .foregroundColor(Color.textWhite)
+                    }
+                }
+            }
+            .onAppear() { Tracker.track(.selectDaoView) }
         }
     }
 }
@@ -71,45 +84,50 @@ struct DaoGroupThreadView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 20) {
+            HStack(spacing: 12) {
                 ForEach(0..<daoGroups[daoGroupType]!.count, id: \.self) { index in
                     if index == daoGroups[daoGroupType]!.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
-                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
+                        DaoCardView(dao: daoGroups[daoGroupType]![index])
                             .redacted(reason: .placeholder)
                             .onAppear {
                                 data.getMoreDaos(inGroup: daoGroupType)
                             }
                     } else {
-                        DaoGroupItemView(dao: daoGroups[daoGroupType]![index])
+                        DaoCardView(dao: daoGroups[daoGroupType]![index])
                     }
                 }
             }
         }
-        .padding(.horizontal)
         .padding(.bottom, 20)
     }
 }
 
-fileprivate struct DaoGroupItemView: View {
-    
+fileprivate struct DaoCardView: View {
     var dao: Dao
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack {
             DaoPictureView(daoImage: dao.image, imageSize: 90)
-            Text(dao.name)
-                .fontWeight(.medium)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .minimumScaleFactor(0.8)
+            VStack(spacing: 3) {
+                Text(dao.name)
+                    .fontWeight(.semibold)
+                    .font(.headline)
+                    .foregroundColor(.textWhite)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                Text("18.2K members")
+                    .font(.сaption2Regular)
+                    .foregroundColor(.textWhite60)
+            }
             Spacer()
             FollowButtonView(buttonWidth: 110, buttonHeight: 35)
         }
         .frame(width: 130, height: 200)
-        .padding()
+        .padding(.vertical, 30)
+        .padding(.horizontal, 10)
         .background(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color("lightGray-darkGray"), lineWidth: 1))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.container))
     }
 }
 

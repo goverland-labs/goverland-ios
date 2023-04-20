@@ -71,21 +71,21 @@ fileprivate struct VoteFooterView: View {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
                     .foregroundColor(.gray)
-                    .font(.system(size: 10))
+                    .font(.footnoteRegular)
                 
                 Text(String(meta.voters))
                     .fontWeight(.medium)
-                    .font(.system(size: 13))
+                    .font(.footnoteRegular)
             }
             
             HStack(spacing: 5) {
                 Image(systemName: "flag.checkered")
                     .foregroundColor(.white)
-                    .font(.system(size: 10))
+                    .font(.footnoteRegular)
                 
                 Text(meta.quorum)
                     .fontWeight(.medium)
-                    .font(.system(size: 13))
+                    .font(.footnoteRegular)
             }
             
             if meta.voted {
@@ -95,10 +95,8 @@ fileprivate struct VoteFooterView: View {
                         .foregroundColor(.textWhite)
                     
                     Text("voted")
-                        .font(.system(size: 10))
+                        .font(.caption2Semibold)
                         .foregroundColor(.textWhite)
-                        .fontWeight(.semibold)
-                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                 }
                 .padding(5)
