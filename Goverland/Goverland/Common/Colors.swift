@@ -18,6 +18,7 @@ extension Color {
     static var warning = Color("Warning")
     static var success = Color("Success")
     static var fail = Color("Fail")
+    static var dangerText = Color("Danger Text")
 
     static var textWhite = Color("Text White")
     static var textWhite60 = Color("Text White 60%")

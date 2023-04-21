@@ -60,7 +60,9 @@ struct SelectDaoView: View {
                 }
             }
             .padding(.horizontal, 15)
-            .searchable(text: $searchedText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search 6032 DAOs by name") {}
+            .searchable(text: $searchedText,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: "Search 6032 DAOs by name")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
