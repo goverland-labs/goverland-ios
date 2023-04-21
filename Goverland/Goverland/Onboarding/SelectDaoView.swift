@@ -15,13 +15,12 @@ struct SelectDaoView: View {
         NavigationView {
             VStack {
                 if searchedText == "" {
-                    Text("Get Updates in your feed for the DAOs you select.")
-                        .font(.subheadlineRegular)
-                        .foregroundColor(.textWhite)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-    
                     ScrollView(showsIndicators: false) {
                         VStack {
+                            Text("Get Updates in your feed for the DAOs you select.")
+                                .font(.subheadlineRegular)
+                                .foregroundColor(.textWhite)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             ForEach(data.keys, id: \.self) { key in
                                 VStack(spacing: 8) {
                                     HStack {
@@ -61,7 +60,7 @@ struct SelectDaoView: View {
                 }
             }
             .padding(.horizontal, 15)
-            .searchable(text: $searchedText, prompt: "Search 6032 DAOs by name")
+            .searchable(text: $searchedText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search 6032 DAOs by name") {}
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
