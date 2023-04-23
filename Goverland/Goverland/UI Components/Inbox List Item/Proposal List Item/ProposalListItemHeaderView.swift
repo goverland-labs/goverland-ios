@@ -24,7 +24,7 @@ struct ProposalListItemHeaderView: View {
             
             HStack(spacing: 6) {
                 ReadIndicatiorView()
-                StatusView(status: status)
+                ProposalStatusView(status: status)
             }
         }
     }
@@ -33,7 +33,7 @@ struct ProposalListItemHeaderView: View {
 fileprivate struct ReadIndicatiorView: View {
     var body: some View {
         Circle()
-            .fill(.primary)
+            .fill(Color.primary)
             .frame(width: 4, height: 4)
     }
 }

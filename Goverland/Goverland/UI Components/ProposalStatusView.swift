@@ -1,5 +1,5 @@
 //
-//  StatusView.swift
+//  ProposalStatusView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 18.04.23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StatusView: View {
+struct ProposalStatusView: View {
     var status: InboxEventStatus
 
     var body: some View {

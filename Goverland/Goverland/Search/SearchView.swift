@@ -105,28 +105,28 @@ struct SearchView: View {
 }
 
 fileprivate struct SearchDiscussionBodyView: View {
-    @StateObject private var data = InboxDataService(filter: .vote)
+    @StateObject private var data = InboxDataService()
     
     var body: some View {
-        List(0..<data.events.count, id: \.self) { index in
-            ProposalListItemView(event: data.events[index])
+       // List(0..<data.events.count, id: \.self) { index in
+            ProposalListItemView()
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        }
+        //}
     }
 }
 
 fileprivate struct SearchVoteBodyView: View {
-    @StateObject private var data = InboxDataService(filter: .vote)
+    @StateObject private var data = InboxDataService()
     
     var body: some View {
-        List(0..<data.events.count, id: \.self) { index in
-            ProposalListItemView(event: data.events[index])
+        //List(0..<data.events.count, id: \.self) { index in
+            ProposalListItemView()
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        }
+        //}
     }
 }
 

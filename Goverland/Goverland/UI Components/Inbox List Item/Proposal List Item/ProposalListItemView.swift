@@ -8,38 +8,45 @@
 import SwiftUI
 
 struct ProposalListItemView: View {
-    @State private var isRead = false
-    var event: InboxEvent
+    @StateObject private var data = InboxDataService()
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container)
-            
-            VStack(spacing: 15) {
-                ProposalListItemHeaderView(user: event.user, date: event.date, status: event.status)
-                ProposalListItemBodyView(content: event.content, daoImage: event.daoImage)
-                ProposalListItemFooterView(meta: event.meta)
+        List(0..<data.events.count, id: \.self) { index in
+            if index == data.events.count - 1 && data.hasNextPageURL() {
+                EmptyView()
+                    .redacted(reason: .placeholder)
+                    .onAppear {
+                        data.getEvents(fromStart: false)
+                    }
+            } else {
+                ZStack {
+                    NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.container)
+                        VStack(spacing: 15) {
+                            ProposalListItemHeaderView(user: data.events[index].user, date: data.events[index].date, status: data.events[index].status)
+                            ProposalListItemBodyView(content: data.events[index].content, daoImage: data.events[index].daoImage)
+                            ProposalListItemFooterView(meta: data.events[index].meta)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 5)
+                    }
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+                .padding(.horizontal, -5)
+                .padding(.top, 10)
             }
-            .padding(.horizontal, 15)
-            .padding(.vertical, 8)
+        }
+        .refreshable {
+            data.getEvents(fromStart: true)
         }
     }
 }
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(event: InboxEvent(
-            id: UUID(),
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: URL(string: ""),
-                name: "safe1.sche.eth"),
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        ProposalListItemView()
     }
 }

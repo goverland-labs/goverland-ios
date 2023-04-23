@@ -1,34 +1,27 @@
 //
-//  InboxDataService.swift
+//  TreasuryDataService.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-01-05.
+//  Created by Jenny Shalai on 2023-04-23.
 //
 
 import SwiftUI
 import Combine
 
-class InboxDataService: ObservableObject {
-    @Published var events: [InboxEvent] = []
+class TreasuryDataService: ObservableObject {
+    @Published var events: [TreasuryEvent] = []
     private var nextPageURL: URL?
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        getEvents(fromStart: true)
+        getEvents()
     }
     
     func hasNextPageURL() -> Bool {
         return nextPageURL == nil ? false : true
     }
     
-    func getEvents(fromStart: Bool) {
-        if fromStart {
-            nextPageURL = nil
-            events = []
-        }
-
-        let url = getUrl()
-
+    func getEvents() {
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSZ"
@@ -36,11 +29,11 @@ class InboxDataService: ObservableObject {
         
         URLSession
             .shared
-            .dataTaskPublisher(for: url)
+            .dataTaskPublisher(for: getUrl())
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .map(\.data)
-            .decode(type: ResponceDataForInboxEvents.self, decoder: decoder)
+            .decode(type: ResponceDataForTreasuryEvents.self, decoder: decoder)
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
@@ -53,12 +46,13 @@ class InboxDataService: ObservableObject {
         if nextPageURL != nil {
             return nextPageURL!
         }
-        return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/8aebe2f922b3b24e23934867fc67f8b4f3948917/ActivityEventsPage1.json")!
+        
+        return URL(string: "https://gist.githubusercontent.com/JennyShalai/56c1e762d7090a66df9a5a4dbbf2d101/raw/4b75cdbc9fc095647042053d06b60e270a39631c/TreasuryEvents.json")!
     }
 }
 
-fileprivate struct ResponceDataForInboxEvents: Decodable {
+fileprivate struct ResponceDataForTreasuryEvents: Decodable {
     let next: URL?
-    let result: [InboxEvent]
+    let result: [TreasuryEvent]
 }
 
