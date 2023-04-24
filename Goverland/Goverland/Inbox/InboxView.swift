@@ -18,12 +18,11 @@ struct InboxView: View {
                     .padding(10)
                     .background(Color.surfaceBright)
                 List(0..<data.events.count, id: \.self) { index in
-
+                    let event = data.events[index]
                     if index == data.events.count - 1 && data.hasNextPageURL() {
-                        let event = data.events[index]
                         switch event.type {
                         case .vote:
-                            ProposalListItemView(event: data.events[index])
+                            ProposalListItemView(event: event)
                                 .redacted(reason: .placeholder)
                                 .onAppear {
                                     data.getEvents(withFilter: filter, fromStart: false)
@@ -36,12 +35,17 @@ struct InboxView: View {
                                     data.getEvents(withFilter: filter, fromStart: false)
                                 }
                         }
-
                     } else {
                         ZStack {
-                            NavigationLink(destination: InboxItemDetailView(event: data.events[index])) {}.opacity(0)
-                            ProposalListItemView(event: data.events[index])
-                                .padding(.top, 10)
+                            switch event.type {
+                            case .vote:
+                                NavigationLink(destination: InboxItemDetailView(event: event)) {}.opacity(0)
+                                ProposalListItemView(event: event)
+                                    .padding(.top, 10)
+                            case .treasury:
+                                TreasuryListItemView(event: event)
+                            }
+
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

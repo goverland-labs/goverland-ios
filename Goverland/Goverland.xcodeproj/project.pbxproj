@@ -224,6 +224,7 @@
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
+				55FD0B4329F719D40084B7DB /* Services */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				55D632B429505BDE0073E04A /* Inbox */,
 				BAF651B429A172F000C78A8A /* InboxDetail */,
@@ -246,6 +247,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		55FD0B4329F719D40084B7DB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
+				BA352F07298C154200F78958 /* DaoDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,8 +269,6 @@
 		BA2EA20229677F0800FB87AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
-				BA352F07298C154200F78958 /* DaoDataService.swift */,
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,

@@ -41,6 +41,10 @@ class InboxDataService: ObservableObject {
             .receive(on: DispatchQueue.main)
             .map(\.data)
             .decode(type: ResponceDataForInboxEvents.self, decoder: decoder)
+            .catch { (error) -> Just<ResponceDataForInboxEvents> in
+                    print("Decoding error: \(error)")
+                    return Just(ResponceDataForInboxEvents(next: nil, result: []))
+                }
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
@@ -54,14 +58,13 @@ class InboxDataService: ObservableObject {
             return nextPageURL!
         }
         switch filter {
-        case .treasury:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/56c1e762d7090a66df9a5a4dbbf2d101/raw/4b75cdbc9fc095647042053d06b60e270a39631c/TreasuryEvents.json")!
-        case .vote:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/bcddda13fa164e620de4d9a4ca4d70c4/raw/b8af409985fc4ad24ea6c375086a1f0479c5f8d9/ActivityEventsFilteredVotes.json")!
         case .all:
-            return URL(string: "https://gist.githubusercontent.com/JennyShalai/f835cece125e6bbb241edc99d8938ac2/raw/8aebe2f922b3b24e23934867fc67f8b4f3948917/ActivityEventsPage1.json")!
+            return URL(string: "https://gist.githubusercontent.com/sche/8a521a698dc73affc1f04c4e21d48572/raw/371ecea3fd5b6bbf541b8a779e5f42e9230601b0/votes1.json")!
+        case .vote:
+            return URL(string: "https://gist.githubusercontent.com/sche/584a6dad637c237f209327155de18b00/raw/8126415c7a716b6607b2991430f6a43b08b36feb/votes2.json")!
+        case .treasury:
+            return URL(string: "https://gist.githubusercontent.com/sche/8734cca923505a4236130754dfec3d09/raw/bb8fea49c535a55bfe4bd02e8b2235299d963cd0/treasury.json")!
         }
-
     }
 }
 

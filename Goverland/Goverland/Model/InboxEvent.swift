@@ -66,7 +66,7 @@ struct VoteEventData: EventData, Decodable {
     let content: VoteContent
     let meta: VoteMeta
 
-    enum EventStatus: Decodable {
+    enum EventStatus: String, Decodable {
         case activeVote
         case executed
         case failed
@@ -142,7 +142,7 @@ struct TreasuryEventData: EventData, Decodable {
         }
     }
 
-    enum EventStatus: Decodable {
+    enum EventStatus: String, Decodable {
         case sent
         case received
 
@@ -156,7 +156,7 @@ struct TreasuryEventData: EventData, Decodable {
         }
     }
 
-    enum TransactionStatus: Decodable {
+    enum TransactionStatus: String, Decodable {
         case failed
         case success
 
@@ -170,7 +170,7 @@ struct TreasuryEventData: EventData, Decodable {
         }
     }
 
-    enum TreasuryEventType: Decodable {
+    enum TreasuryEventType: String, Decodable {
         case native
         case erc20
         case nft
@@ -218,32 +218,4 @@ extension InboxEvent {
             type: .erc20,
             content: TreasuryEventData.TxContent(amount: "20K"))
     )
-}
-
-
-
-
-
-// TODO:  move
-enum FilterType: Int, Identifiable {
-    var id: Int { self.rawValue }
-    
-    case all = 0
-    case vote
-    case treasury
-    
-    static var allFilters: [FilterType] {
-        return [.all, .vote, .treasury]
-    }
-    
-    var localizedName: String {
-        switch self {
-        case .all:
-            return "All"
-        case .vote:
-            return "Vote"
-        case .treasury:
-            return "Treasury"
-        }
-    }
 }
