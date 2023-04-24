@@ -8,17 +8,10 @@
 import SwiftUI
 
 struct ProposalStatusView: View {
-    var status: InboxEventStatus
+    var status: VoteEventData.EventStatus
 
     var body: some View {
         switch status {
-        case .discussion:
-            BubbleView(
-                image: Image(systemName: "bubble.left.and.bubble.right"),
-                text: Text("Discussion"),
-                textColor: .white,
-                backgroundColor: Color.gray)
-
         case .activeVote:
             BubbleView(
                 image: Image(systemName: "bolt.fill"),

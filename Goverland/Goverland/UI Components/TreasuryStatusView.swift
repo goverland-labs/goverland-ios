@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct TreasuryStatusView: View {
-    let status: TreasuryEventStatus //sent, received
-    let transactionStatus: TreasuryEventTransactionStatus
+    let status: TreasuryEventData.EventStatus
+    let transactionStatus: TreasuryEventData.TransactionStatus
     
     var body: some View {
-        
         switch status {
         case .sent:
             HStack(spacing: 4) {

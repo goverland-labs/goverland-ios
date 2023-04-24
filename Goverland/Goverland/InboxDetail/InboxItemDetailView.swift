@@ -11,6 +11,10 @@ struct InboxItemDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var event: InboxEvent
+
+    var data: VoteEventData {
+        event.data as! VoteEventData
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,13 +27,13 @@ struct InboxItemDetailView: View {
             }
             InboxDetailStatusRowView()
                 .padding(.bottom, 25)
-            InboxDetailSummaryView(user: event.user)
+            InboxDetailSummaryView(user: data.user)
                 .padding(.bottom, 40)
             InboxDetailForumView(event: event)
                 .padding(.bottom, 30)
             InboxDetailDividerLineView()
                 .padding(.bottom, 30)
-            InboxTimelineView(user: event.user)
+            InboxTimelineView(user: data.user)
                 .padding(.bottom, 20)
         }
         .padding(.horizontal)
@@ -50,14 +54,6 @@ struct InboxItemDetailView: View {
 
 struct InboxItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxItemDetailView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        InboxItemDetailView(event: .vote1)
     }
 }

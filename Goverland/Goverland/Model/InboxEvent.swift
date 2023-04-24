@@ -8,93 +8,223 @@
 import SwiftUI
 import Combine
 
+enum EventType: String, Decodable {
+    case vote
+    case treasury
+}
+
 struct InboxEvent: Identifiable, Decodable {
     let id: UUID
-    let user: User
     let date: Date
-    let type: InboxEventType
-    let status: InboxEventStatus
-    let content: InboxViewContent
+    let type: EventType
     let daoImage: URL?
-    let meta: InboxEventMetaInfo?
+    let data: EventData
     
     init(id: UUID,
-         user: User,
          date: Date,
-         type: InboxEventType,
-         status: InboxEventStatus,
-         content: InboxViewContent,
+         type: EventType,
          daoImage: URL?,
-         meta: InboxEventMetaInfo?) {
+         data: EventData) {
         self.id = id
-        self.user = user
         self.date = date
         self.type = type
-        self.status = status
-        self.content = content
         self.daoImage = daoImage
-        self.meta = meta
+        self.data = data
     }
     
     enum CodingKeys: String, CodingKey {
         case id
-        case user
         case date
         case type
-        case status
-        case content
         case daoImage
-        case meta
+        case data
     }
     
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
-        self.user = try container.decode(User.self, forKey: .user)
         self.date = try container.decode(Date.self, forKey: .date)
-        self.type = try container.decode(InboxEventType.self, forKey: .type)
-        self.status = try container.decode(InboxEventStatus.self, forKey: .status)
-        self.content = try container.decode(InboxViewContent.self, forKey: .content)
+        self.type = try container.decode(EventType.self, forKey: .type)
         self.daoImage = try container.decode(URL.self, forKey: .daoImage)
+
         switch type {
         case .vote:
-            self.meta = try? container.decode(InboxEventsVoteMeta.self, forKey: .meta)
-        case .discussion:
-            self.meta = try? container.decode(InboxEventsDiscussionMeta.self, forKey: .meta)
+            self.data = try container.decode(VoteEventData.self, forKey: .data)
+        case .treasury:
+            self.data = try container.decode(TreasuryEventData.self, forKey: .data)
         }
-        
     }
 }
 
-protocol InboxEventMetaInfo {}
+protocol EventData {}
 
-struct InboxEventsVoteMeta: InboxEventMetaInfo, Decodable {
-    let voters: Int
-    let quorum: String
-    let voted: Bool
+// MARK: - Vote
+
+struct VoteEventData: EventData, Decodable {
+    let user: User
+    let status: EventStatus
+    let content: VoteContent
+    let meta: VoteMeta
+
+    enum EventStatus: Decodable {
+        case activeVote
+        case executed
+        case failed
+        case queued
+        case succeeded
+        case defeated
+        // TODO: add localizedName
+    }
+
+    struct VoteContent: Decodable {
+        let title: String
+        let subtitle: String
+        let warningSubtitle: String?
+    }
+
+    struct VoteMeta: Decodable {
+        let voters: Int
+        let quorum: String
+        let voted: Bool
+    }
 }
 
-struct InboxEventsDiscussionMeta: InboxEventMetaInfo, Decodable {
-    let comments: Int
-    let views: Int
-    let participants: Int
+
+// MARK: - Treasury
+
+protocol TreasuryEventTypedContent {}
+
+struct TreasuryEventData: EventData, Decodable {
+    let sender: User
+    let status: EventStatus
+    let transactionStatus: TransactionStatus
+    let image: URL?
+    let type: TreasuryEventType
+    let content: TreasuryEventTypedContent
+
+    fileprivate init(
+        sender: User,
+        status: EventStatus,
+        transactionStatus: TransactionStatus,
+        image: URL?,
+        type: TreasuryEventType,
+        content: TreasuryEventTypedContent) {
+            self.sender = sender
+            self.status = status
+            self.transactionStatus = transactionStatus
+            self.image = image
+            self.type = type
+            self.content = content
+    }
+
+    enum CodingKeys: CodingKey {
+        case sender
+        case status
+        case transactionStatus
+        case image
+        case type
+        case content
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.sender = try container.decode(User.self, forKey: .sender)
+        self.status = try container.decode(EventStatus.self, forKey: .status)
+        self.transactionStatus = try container.decode(TransactionStatus.self, forKey: .transactionStatus)
+        self.image = try container.decode(URL.self, forKey: .image)
+        self.type = try container.decode(TreasuryEventType.self, forKey: .type)
+
+        switch type {
+        case .native, .erc20:
+            self.content = try container.decode(TxContent.self, forKey: .content)
+        case .nft:
+            self.content = try container.decode(NFTContent.self, forKey: .content)
+        }
+    }
+
+    enum EventStatus: Decodable {
+        case sent
+        case received
+
+        var localizedName: String {
+            switch self {
+            case .sent:
+                return "Sent"
+            case .received:
+                return "Received"
+            }
+        }
+    }
+
+    enum TransactionStatus: Decodable {
+        case failed
+        case success
+
+        var localizedName: String {
+            switch self {
+            case .failed:
+                return "Failed"
+            case .success:
+                return "Success"
+            }
+        }
+    }
+
+    enum TreasuryEventType: Decodable {
+        case native
+        case erc20
+        case nft
+    }
+
+    struct TxContent: TreasuryEventTypedContent, Decodable {
+        let amount: String
+    }
+
+    struct NFTContent: TreasuryEventTypedContent, Decodable {
+        let user: User
+    }
 }
 
-enum InboxEventType: String, Decodable {
-    case vote
-    case discussion
+// MARK: - Mock data
+
+extension InboxEvent {
+    static let vote1 = InboxEvent(
+        id: UUID(),
+        date: .now,
+        type: .vote,
+        daoImage: URL(string: ""),
+        data: VoteEventData(
+            user: User.flipside,
+            status: .activeVote,
+            content: VoteEventData.VoteContent(
+                title: "Lets party!",
+                subtitle: "Who is in?",
+                warningSubtitle: "No party poopers please"),
+            meta: VoteEventData.VoteMeta(
+                voters: 53,
+                quorum: "120%",
+                voted: true)))
+
+    static let treasury1 = InboxEvent(
+        id: UUID(),
+        date: .now,
+        type: .treasury,
+        daoImage: URL(string: ""),
+        data: TreasuryEventData(
+            sender: User.flipside,
+            status: .received,
+            transactionStatus: .success,
+            image: URL(string: ""),
+            type: .erc20,
+            content: TreasuryEventData.TxContent(amount: "20K"))
+    )
 }
 
-enum InboxEventStatus: String, Decodable {
-    case discussion
-    case activeVote
-    case executed
-    case failed
-    case queued
-    case succeeded
-    case defeated
-}
 
+
+
+
+// TODO:  move
 enum FilterType: Int, Identifiable {
     var id: Int { self.rawValue }
     
@@ -116,10 +246,4 @@ enum FilterType: Int, Identifiable {
             return "Treasury"
         }
     }
-}
-
-struct InboxViewContent: Decodable {
-    let title: String
-    let subtitle: String
-    let warningSubtitle: String?
 }

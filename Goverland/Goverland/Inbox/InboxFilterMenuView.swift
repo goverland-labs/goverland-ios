@@ -10,6 +10,8 @@ import SwiftUI
 struct InboxFilterMenuView: View {
     @Binding var filter: FilterType
     @Namespace var namespace
+
+    let data: InboxDataService
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -31,6 +33,7 @@ struct InboxFilterMenuView: View {
                         withAnimation(.spring(response: 0.5)) {
                             self.filter = filterOption
                         }
+                        data.getEvents(withFilter: filterOption, fromStart: true)
                     }
                     .padding([.leading, .trailing], 12)
                 }
@@ -40,9 +43,8 @@ struct InboxFilterMenuView: View {
 }
 
 
-
 struct InboxFilterMenu_Previews: PreviewProvider {
     static var previews: some View {
-        InboxFilterMenuView(filter: .constant(.vote))
+        InboxFilterMenuView(filter: .constant(.vote), data: InboxDataService())
     }
 }

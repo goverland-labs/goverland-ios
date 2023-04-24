@@ -90,7 +90,6 @@ struct SearchView: View {
         }
     }
     
-    
     private func getAllCashedDaos() -> [Dao] {
         var listDaos: [Dao] = []
         for (_, daos) in data.daoGroups {
@@ -105,28 +104,28 @@ struct SearchView: View {
 }
 
 fileprivate struct SearchDiscussionBodyView: View {
-    @StateObject private var data = InboxDataService()
+    @StateObject private var data = InboxDataService(filter: .vote)
     
     var body: some View {
-       // List(0..<data.events.count, id: \.self) { index in
-            ProposalListItemView()
+        List(0..<data.events.count, id: \.self) { index in
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        //}
+        }
     }
 }
 
 fileprivate struct SearchVoteBodyView: View {
-    @StateObject private var data = InboxDataService()
+    @StateObject private var data = InboxDataService(filter: .vote)
     
     var body: some View {
-        //List(0..<data.events.count, id: \.self) { index in
-            ProposalListItemView()
+        List(0..<data.events.count, id: \.self) { index in
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
-        //}
+        }
     }
 }
 

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DaoInfoScreenHeaderView: View {
-    
     let event: InboxEvent
     
     var body: some View {
@@ -41,14 +40,6 @@ fileprivate struct InfoBadgeView: View {
 
 struct DaoInfoScreenHeaderViewPreviews: PreviewProvider {
     static var previews: some View {
-        DaoInfoScreenHeaderView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        DaoInfoScreenHeaderView(event: .vote1)
     }
 }

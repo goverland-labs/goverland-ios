@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct InboxDetailHeaderView: View {
-    
     let event: InboxEvent
     
     var body: some View {
@@ -23,14 +22,6 @@ struct InboxDetailHeaderView: View {
 
 struct InboxDetailHeader_Previews: PreviewProvider {
     static var previews: some View {
-        InboxDetailHeaderView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        InboxDetailHeaderView(event: InboxEvent.vote1)
     }
 }

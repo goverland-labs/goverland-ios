@@ -11,7 +11,7 @@ import SwiftDate
 struct ProposalListItemHeaderView: View {
     let user: User
     let date: Date
-    let status: InboxEventStatus
+    let status: VoteEventData.EventStatus
     
     var body: some View {
         HStack {
@@ -43,7 +43,7 @@ struct ListItemHeader_Previews: PreviewProvider {
         ProposalListItemHeaderView(
             user: User.flipside,
             date: Date(),
-            status: .discussion
+            status: .activeVote
         )
     }
 }

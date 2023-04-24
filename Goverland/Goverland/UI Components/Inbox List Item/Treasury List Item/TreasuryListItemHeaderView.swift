@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct TreasuryListItemHeaderView: View {
-    let event: TreasuryEvent
+    let event: InboxEvent
+
+    var data: TreasuryEventData {
+        event.data as! TreasuryEventData
+    }
     
     var body: some View {
         HStack {
             HStack(spacing: 6) {
-                IdentityView(user: event.sender)
+                IdentityView(user: data.sender)
                 DateView(date: event.date)
             }
             Spacer()
             HStack(spacing: 6) {
                 ReadIndicatior()
-                TreasuryStatusView(status: event.status, transactionStatus: event.transactionStatus)
+                TreasuryStatusView(status: data.status, transactionStatus: data.transactionStatus)
             }
         }
     }
@@ -35,6 +39,6 @@ fileprivate struct ReadIndicatior: View {
 
 struct TreasuryListItemHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        TreasuryListItemHeaderView(event: .init(id: UUID(), sender: .init(address: "", image: nil, name: ""), date: Date(), type: .nft, status: .received, transactionStatus: .failed, content: TreasuryEventsTXContent(amount: ""), image: nil))
+        TreasuryListItemHeaderView(event: .treasury1)
     }
 }

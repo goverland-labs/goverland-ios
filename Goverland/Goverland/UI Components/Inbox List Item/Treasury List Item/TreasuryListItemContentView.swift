@@ -8,30 +8,32 @@
 import SwiftUI
 
 struct TreasuryListItemContentView: View {
-    let event: TreasuryEvent
+    let data: TreasuryEventData
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                if let txContent = event.content as? TreasuryEventsTXContent {
-                    TreasuryEventsTXView(content: txContent)
-                } else if let nftContent = event.content as? TreasuryEventsNFTContent {
-                    TreasuryEventsNFTView(content: nftContent)
+                switch data.type {
+                case .erc20, .native:
+                    TreasuryEventsTXView(content: data.content as! TreasuryEventData.TxContent)
+                case .nft:
+                    TreasuryEventsNFTView(content: data.content as! TreasuryEventData.NFTContent)
                 }
                 
-                Text(event.transactionStatus.localizedName)
-                    .foregroundColor(event.transactionStatus == .success ? .primaryDim : .dangerText)
+                Text(data.transactionStatus.localizedName)
+                    .foregroundColor(data.transactionStatus == .success ? .primaryDim : .dangerText)
                     .font(.footnoteRegular)
                     .lineLimit(1)
             }
             Spacer()
-            DaoPictureView(daoImage: event.image, imageSize: 46)
+            // TODO: rename
+            DaoPictureView(daoImage: data.image, imageSize: 46)
         }
     }
 }
 
 struct TreasuryEventsTXView: View {
-    let content: TreasuryEventsTXContent
+    let content: TreasuryEventData.TxContent
     
     var body: some View {
         Text(content.amount)
@@ -42,7 +44,7 @@ struct TreasuryEventsTXView: View {
 }
 
 struct TreasuryEventsNFTView: View {
-    let content: TreasuryEventsNFTContent
+    let content: TreasuryEventData.NFTContent
     
     var body: some View {
         ZStack {
@@ -50,18 +52,11 @@ struct TreasuryEventsNFTView: View {
                 Text(name)
                     .truncationMode(.tail)
             } else {
-                Text(content.user.address)
-                    .truncationMode(.middle)
+                Text(content.user.address.short)
             }
         }
         .foregroundColor(.textWhite)
         .font(.headlineSemibold)
-        .lineLimit(2)
-    }
-}
-
-struct TreasuryListItemContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        TreasuryListItemContentView(event: .init(id: UUID(), sender: .init(address: "", image: nil, name: ""), date: Date(), type: .nft, status: .received, transactionStatus: .failed, content: TreasuryEventsTXContent(amount: ""), image: nil))
+        .lineLimit(1)
     }
 }
