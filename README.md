@@ -1,10 +1,10 @@
-# daofeed-ios
+# goverland-ios
 
-Convenient DAO updates tracker on iOS.
+**Follow your favorite DAOs and never miss updates!**
 
-# Configuration
+## Configuration
 
-## For contributors only
+### For contributors only
 Add a git hook that automatically adds the issue number mentioned in a branch name to a commit message.
 ```
 $> bin/bootstrap.sh
