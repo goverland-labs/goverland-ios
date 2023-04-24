@@ -13,6 +13,8 @@
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
 		5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* ProposalStatusView.swift */; };
 		5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */; };
+		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
+		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
@@ -71,6 +73,7 @@
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
 		5521D27629EF145300A09FD4 /* ProposalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalStatusView.swift; sourceTree = "<group>"; };
 		5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemFooterMenu.swift; sourceTree = "<group>"; };
+		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 			files = (
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
+				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +270,7 @@
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA1EAD7629F53999008D92E9 /* TreasuryEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
+				5533170129F16B290034AF66 /* Address.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 			packageProductDependencies = (
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 				BA27EA6029DE0F0F00AA5055 /* Kingfisher */,
+				553316FD29F162FF0034AF66 /* BlockiesSwift */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -366,6 +372,7 @@
 			packageReferences = (
 				BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -464,6 +471,7 @@
 				BA1EAD7529F5380F008D92E9 /* TreasuryDataService.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
+				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +683,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/goverland-labs/BlockiesSwift";
+			requirement = {
+				branch = "0.1.2-gnosis";
+				kind = branch;
+			};
+		};
 		BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -694,6 +710,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		553316FD29F162FF0034AF66 /* BlockiesSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
+			productName = BlockiesSwift;
+		};
 		BA27EA6029DE0F0F00AA5055 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */;

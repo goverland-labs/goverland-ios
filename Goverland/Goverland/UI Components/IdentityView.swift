@@ -13,32 +13,30 @@ struct IdentityView: View {
 
     var body: some View {
         HStack(spacing: 6) {
-            UserPictureView(userImage: user.image, imageSize: 16)
+            UserPictureView(user: user, imageSize: 16)
             UserNameView(user: user)
         }
     }
 }
 
 fileprivate struct UserPictureView: View {
-    let userImage: URL?
+    let user: User
     let imageSize: Int
     var body: some View {
-        KFImage(userImage)
+        KFImage(user.image)
             .placeholder {
+                user.image == nil ?
+                (user.address.blockie ?? Image(systemName: "circle.fill")) :
                 Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.purple)
             }
             .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize), mode: .aspectFit))
+            .aspectRatio(contentMode: .fit)
             .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
+            .clipShape(Circle())
+            .foregroundColor(.containerBright)
     }
 }
 
-// TODO: implement truncate logic to keep 4 first and 4 last chars
-// frame restrictions won't work for bigger screens
 fileprivate struct UserNameView: View {
     var user: User
 
@@ -48,13 +46,23 @@ fileprivate struct UserNameView: View {
                 Text(name)
                     .truncationMode(.tail)
             } else {
-                Text(user.address)
-                    .truncationMode(.middle)
+                Text(user.address.short)
             }
         }
         .font(.footnoteRegular)
         .lineLimit(1)
-        .foregroundColor(.textWhite)
-        .frame(width: 70)
+        .fontWeight(.medium)
+        .foregroundColor(.textWhite)        
+    }
+}
+
+struct Previews_IdentityView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack(alignment: .leading) {
+            IdentityView(user: User.test)
+            IdentityView(user: User.flipside)
+            IdentityView(user: User.aaveChan)
+        }
+        .background(Color.containerDim)
     }
 }

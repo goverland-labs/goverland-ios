@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct User: Decodable {
-    
-    let address: String
+    let address: Address
     let ensName: String?
     let image: URL?
-    
-    init(address: String, image: URL?, name: String?) {
-        self.address = address
-        self.ensName = name
-        self.image = image
+}
+
+extension User {
+    static var flipside: User {
+        User(address: Address("0x62a43123FE71f9764f26554b3F5017627996816a"),
+             ensName: "flipsidecrypto.eth",
+             image: nil)
+    }
+
+    static var aaveChan: User {
+        User(address: Address("0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4"),
+             ensName: "aavechan.eth",
+             image: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138"))
+    }
+
+    static var test: User {
+        User(address: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
+             ensName: nil,
+             image: nil)
     }
 }

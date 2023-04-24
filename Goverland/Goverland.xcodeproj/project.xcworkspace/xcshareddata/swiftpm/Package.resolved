@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "blockiesswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/goverland-labs/BlockiesSwift",
+      "state" : {
+        "branch" : "0.1.2-gnosis",
+        "revision" : "f97be34ba7e10ac9778ca45474bed34a77b29a47"
+      }
+    },
+    {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",

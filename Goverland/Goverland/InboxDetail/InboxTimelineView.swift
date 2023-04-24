@@ -38,6 +38,6 @@ struct InboxTimelineView: View {
 
 struct InboxTimelineView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxTimelineView(user: User(address: "", image: URL(string: ""), name: ""))
+        InboxTimelineView(user: User.flipside)
     }
 }
