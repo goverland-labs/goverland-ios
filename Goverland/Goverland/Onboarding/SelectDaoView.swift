@@ -47,7 +47,7 @@ struct SelectDaoView: View {
                     ScrollView(showsIndicators: false) {
                         ForEach(data.daoGroups[.social]!) { dao in
                             HStack {
-                                DaoPictureView(daoImage: dao.image, imageSize: 50)
+                                RoundPictureView(image: dao.image, imageSize: 50)
                                 Text(dao.name)
                                 Spacer()
                                 FollowButtonView(buttonWidth: 110, buttonHeight: 35)
@@ -108,7 +108,7 @@ fileprivate struct DaoCardView: View {
     
     var body: some View {
         VStack {
-            DaoPictureView(daoImage: dao.image, imageSize: 90)
+            RoundPictureView(image: dao.image, imageSize: 90)
             VStack(spacing: 3) {
                 Text(dao.name)
                     .fontWeight(.semibold)

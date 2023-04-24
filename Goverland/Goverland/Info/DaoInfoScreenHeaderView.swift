@@ -12,7 +12,7 @@ struct DaoInfoScreenHeaderView: View {
     
     var body: some View {
         HStack {
-            DaoPictureView(daoImage: event.daoImage, imageSize: 100)
+            RoundPictureView(image: event.daoImage, imageSize: 100)
             HStack {
                 InfoBadgeView(value: "103", title: "Proposales")
                 InfoBadgeView(value: "342.9K", title: "Holders")

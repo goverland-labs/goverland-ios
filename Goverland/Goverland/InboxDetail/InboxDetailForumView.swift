@@ -12,7 +12,7 @@ struct InboxDetailForumView: View {
     var body: some View {
         HStack {
             Button(action: openDiscussionForum) {
-                DaoPictureView(daoImage: event.daoImage, imageSize: 40)
+                RoundPictureView(image: event.daoImage, imageSize: 40)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("View forum discussion")

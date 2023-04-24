@@ -36,7 +36,7 @@ struct ProposalListItemBodyView: View {
             
             Spacer()
             
-            DaoPictureView(daoImage: daoImage, imageSize: 46)
+            RoundPictureView(image: daoImage, imageSize: 46)
         }
     }
 }

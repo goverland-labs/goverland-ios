@@ -12,7 +12,7 @@ struct InboxDetailHeaderView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            DaoPictureView(daoImage: event.daoImage, imageSize: 50)
+            RoundPictureView(image: event.daoImage, imageSize: 50)
             Text("Deplay Uniswap V3 on StarkNet")
                 .fontWeight(.semibold)
             Spacer()

@@ -15,42 +15,42 @@ struct ProposalStatusView: View {
         case .activeVote:
             BubbleView(
                 image: Image(systemName: "bolt.fill"),
-                text: Text("Active vote"),
+                text: Text(status.localizedName),
                 textColor: .onPrimary,
                 backgroundColor: .primary)
 
         case .executed:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text("Executed"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .failed:
             BubbleView(
                 image: Image(systemName: "bolt.slash.fill"),
-                text: Text("Failed"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .fail)
 
         case .queued:
             BubbleView(
                 image: Image(systemName: "clock"),
-                text: Text("Queued"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .warning)
 
         case .succeeded:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text("Succeeded"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .defeated:
             BubbleView(
                 image: Image(systemName: "xmark"),
-                text: Text("Defeated"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .danger)
         }

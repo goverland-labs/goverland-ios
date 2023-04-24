@@ -8,11 +8,11 @@
 import SwiftUI
 import Kingfisher
 
-struct DaoPictureView: View {
-    let daoImage: URL?
+struct RoundPictureView: View {
+    let image: URL?
     let imageSize: Int
     var body: some View {
-        KFImage(daoImage)
+        KFImage(image)
             .placeholder {
                 Image(systemName: "circle.fill")
                     .resizable()
@@ -46,7 +46,7 @@ struct FollowButtonView: View {
 
 struct UIComponents_Previews: PreviewProvider {
     static var previews: some View {
-        DaoPictureView(daoImage: URL(string: ""), imageSize: 50)
+        RoundPictureView(image: URL(string: ""), imageSize: 50)
         FollowButtonView(buttonWidth: 150, buttonHeight: 35)
     }
 }

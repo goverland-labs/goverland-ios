@@ -28,8 +28,7 @@ struct InboxView: View {
                                     data.getEvents(withFilter: filter, fromStart: false)
                                 }
                         case .treasury:
-                            // TODO: fix - use treasury view
-                            EmptyView()
+                            TreasuryListItemView(event: event)
                                 .redacted(reason: .placeholder)
                                 .onAppear {
                                     data.getEvents(withFilter: filter, fromStart: false)
@@ -45,7 +44,6 @@ struct InboxView: View {
                             case .treasury:
                                 TreasuryListItemView(event: event)
                             }
-
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

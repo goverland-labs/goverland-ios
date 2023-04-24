@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// TODO: rename to VoteListItemView
 struct ProposalListItemView: View {
     @State private var isRead = false
     let event: InboxEvent

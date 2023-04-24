@@ -26,8 +26,7 @@ struct TreasuryListItemContentView: View {
                     .lineLimit(1)
             }
             Spacer()
-            // TODO: rename
-            DaoPictureView(daoImage: data.image, imageSize: 46)
+            RoundPictureView(image: data.image, imageSize: 46)
         }
     }
 }

@@ -73,7 +73,17 @@ struct VoteEventData: EventData, Decodable {
         case queued
         case succeeded
         case defeated
-        // TODO: add localizedName
+
+        var localizedName: String {
+            switch self {
+            case .activeVote: return "Active vote"
+            case .executed: return "Executed"
+            case .failed: return "Failed"
+            case .queued: return "Queued"
+            case .succeeded: return "Succeeded"
+            case .defeated: return "Defeated"
+            }
+        }
     }
 
     struct VoteContent: Decodable {
