@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 
 struct InboxEvent: Identifiable, Decodable {
-    
     let id: UUID
     let user: User
     let date: Date
@@ -70,29 +69,15 @@ struct InboxEvent: Identifiable, Decodable {
 protocol InboxEventMetaInfo {}
 
 struct InboxEventsVoteMeta: InboxEventMetaInfo, Decodable {
-    
     let voters: Int
     let quorum: String
     let voted: Bool
-    
-    init(voters: Int, quorum: String, voted: Bool) {
-        self.voters = voters
-        self.quorum = quorum
-        self.voted = voted
-    }
 }
 
 struct InboxEventsDiscussionMeta: InboxEventMetaInfo, Decodable {
-    
     let comments: Int
     let views: Int
     let participants: Int
-    
-    init(comments: Int, views: Int, participants: Int) {
-        self.comments = comments
-        self.views = views
-        self.participants = participants
-    }
 }
 
 enum InboxEventType: String, Decodable {
@@ -134,14 +119,7 @@ enum FilterType: Int, Identifiable {
 }
 
 struct InboxViewContent: Decodable {
-    
     let title: String
     let subtitle: String
     let warningSubtitle: String?
-    
-    init(title: String, subtitle: String, warningSubtitle: String?) {
-        self.title = title
-        self.subtitle = subtitle
-        self.warningSubtitle = warningSubtitle
-    }
 }

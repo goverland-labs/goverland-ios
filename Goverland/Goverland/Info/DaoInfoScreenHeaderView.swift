@@ -43,10 +43,7 @@ struct DaoInfoScreenHeaderViewPreviews: PreviewProvider {
     static var previews: some View {
         DaoInfoScreenHeaderView(event: InboxEvent(
             id: UUID(),
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: URL(string: ""),
-                name: "safe1.sche.eth"),
+            user: User.flipside,
             date: Date(),
             type: .discussion,
             status: .discussion,
