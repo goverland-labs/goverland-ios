@@ -15,9 +15,9 @@ struct TreasuryListItemContentView: View {
             VStack(alignment: .leading, spacing: 5) {
                 switch data.type {
                 case .erc20, .native:
-                    TreasuryEventsTXView(content: data.content as! TreasuryEventData.TxContent)
+                    TreasuryEventTXView(content: data.content as! TreasuryEventData.TxContent)
                 case .nft:
-                    TreasuryEventsNFTView(content: data.content as! TreasuryEventData.NFTContent)
+                    TreasuryEventNFTView(content: data.content as! TreasuryEventData.NFTContent)
                 }
                 
                 Text(data.transactionStatus.localizedName)
@@ -31,7 +31,7 @@ struct TreasuryListItemContentView: View {
     }
 }
 
-struct TreasuryEventsTXView: View {
+fileprivate struct TreasuryEventTXView: View {
     let content: TreasuryEventData.TxContent
     
     var body: some View {
@@ -42,7 +42,7 @@ struct TreasuryEventsTXView: View {
     }
 }
 
-struct TreasuryEventsNFTView: View {
+fileprivate struct TreasuryEventNFTView: View {
     let content: TreasuryEventData.NFTContent
     
     var body: some View {

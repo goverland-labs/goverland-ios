@@ -24,12 +24,11 @@ struct TreasuryListItemView: View {
                 TreasuryListItemHeaderView(event: event)
                 TreasuryListItemContentView(data: data)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 15)
             .padding(.vertical, 5)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .padding(.horizontal, -5)
         .padding(.top, 10)
     }
 }
