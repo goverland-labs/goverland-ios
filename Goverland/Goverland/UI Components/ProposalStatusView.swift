@@ -1,5 +1,5 @@
 //
-//  StatusView.swift
+//  ProposalStatusView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 18.04.23.
@@ -7,57 +7,50 @@
 
 import SwiftUI
 
-struct StatusView: View {
-    var status: InboxEventStatus
+struct ProposalStatusView: View {
+    var status: VoteEventData.EventStatus
 
     var body: some View {
         switch status {
-        case .discussion:
-            BubbleView(
-                image: Image(systemName: "bubble.left.and.bubble.right"),
-                text: Text("Discussion"),
-                textColor: .white,
-                backgroundColor: Color.gray)
-
         case .activeVote:
             BubbleView(
                 image: Image(systemName: "bolt.fill"),
-                text: Text("Active vote"),
+                text: Text(status.localizedName),
                 textColor: .onPrimary,
                 backgroundColor: .primary)
 
         case .executed:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text("Executed"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .failed:
             BubbleView(
                 image: Image(systemName: "bolt.slash.fill"),
-                text: Text("Failed"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .fail)
 
         case .queued:
             BubbleView(
                 image: Image(systemName: "clock"),
-                text: Text("Queued"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .warning)
 
         case .succeeded:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text("Succeeded"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .defeated:
             BubbleView(
                 image: Image(systemName: "xmark"),
-                text: Text("Defeated"),
+                text: Text(status.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .danger)
         }

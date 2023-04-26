@@ -7,10 +7,34 @@
 
 import SwiftUI
 
+enum FilterType: Int, Identifiable {
+    var id: Int { self.rawValue }
+
+    case all = 0
+    case vote
+    case treasury
+
+    static var allFilters: [FilterType] {
+        return [.all, .vote, .treasury]
+    }
+
+    var localizedName: String {
+        switch self {
+        case .all:
+            return "All"
+        case .vote:
+            return "Vote"
+        case .treasury:
+            return "Treasury"
+        }
+    }
+}
+
 struct InboxFilterMenuView: View {
     @Binding var filter: FilterType
     @Namespace var namespace
-    var data: InboxDataService
+
+    let data: InboxDataService
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -40,7 +64,6 @@ struct InboxFilterMenuView: View {
         }
     }
 }
-
 
 
 struct InboxFilterMenu_Previews: PreviewProvider {

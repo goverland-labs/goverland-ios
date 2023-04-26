@@ -11,7 +11,7 @@ import SwiftDate
 struct ProposalListItemHeaderView: View {
     let user: User
     let date: Date
-    let status: InboxEventStatus
+    let status: VoteEventData.EventStatus
     
     var body: some View {
         HStack {
@@ -24,7 +24,7 @@ struct ProposalListItemHeaderView: View {
             
             HStack(spacing: 6) {
                 ReadIndicatiorView()
-                StatusView(status: status)
+                ProposalStatusView(status: status)
             }
         }
     }
@@ -33,7 +33,7 @@ struct ProposalListItemHeaderView: View {
 fileprivate struct ReadIndicatiorView: View {
     var body: some View {
         Circle()
-            .fill(.primary)
+            .fill(Color.primary)
             .frame(width: 4, height: 4)
     }
 }
@@ -43,7 +43,7 @@ struct ListItemHeader_Previews: PreviewProvider {
         ProposalListItemHeaderView(
             user: User.flipside,
             date: Date(),
-            status: .discussion
+            status: .activeVote
         )
     }
 }

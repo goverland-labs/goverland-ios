@@ -12,7 +12,7 @@ struct InboxDetailForumView: View {
     var body: some View {
         HStack {
             Button(action: openDiscussionForum) {
-                DaoPictureView(daoImage: event.daoImage, imageSize: 40)
+                RoundPictureView(image: event.daoImage, imageSize: 40)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("View forum discussion")
@@ -45,14 +45,6 @@ struct InboxDetailForumView: View {
 
 struct InboxDetailForumView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxDetailForumView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        InboxDetailForumView(event: InboxEvent.vote1)
     }
 }

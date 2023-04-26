@@ -11,7 +11,7 @@
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
-		5521D27729EF145300A09FD4 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* StatusView.swift */; };
+		5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* ProposalStatusView.swift */; };
 		5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
@@ -28,6 +28,10 @@
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
+		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
+		BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */; };
+		BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */; };
+		BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataService.swift */; };
@@ -65,7 +69,7 @@
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
-		5521D27629EF145300A09FD4 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		5521D27629EF145300A09FD4 /* ProposalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalStatusView.swift; sourceTree = "<group>"; };
 		5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemFooterMenu.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,10 @@
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
+		BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemHeaderView.swift; sourceTree = "<group>"; };
+		BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryStatusView.swift; sourceTree = "<group>"; };
+		BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemContentView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterMenuView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataService.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -142,7 +150,8 @@
 			children = (
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
-				5521D27629EF145300A09FD4 /* StatusView.swift */,
+				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
+				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 			);
 			path = "UI Components";
@@ -215,6 +224,7 @@
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
+				55FD0B4329F719D40084B7DB /* Services */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				55D632B429505BDE0073E04A /* Inbox */,
 				BAF651B429A172F000C78A8A /* InboxDetail */,
@@ -237,11 +247,28 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BA2EA20229677F0800FB87AC /* Model */ = {
+		55FD0B4329F719D40084B7DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
 				BA352F07298C154200F78958 /* DaoDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
+			isa = PBXGroup;
+			children = (
+				BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */,
+				BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */,
+				BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */,
+			);
+			path = "Treasury List Item";
+			sourceTree = "<group>";
+		};
+		BA2EA20229677F0800FB87AC /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
@@ -255,6 +282,7 @@
 			children = (
 				5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */,
 				5521D27029EF0D0300A09FD4 /* Proposal List Item */,
+				BA1EAD7129F32D0C008D92E9 /* Treasury List Item */,
 			);
 			path = "Inbox List Item";
 			sourceTree = "<group>";
@@ -420,6 +448,7 @@
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
 				BAF651BA29A17DFF00C78A8A /* InboxDetailSummaryView.swift in Sources */,
+				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
@@ -429,13 +458,16 @@
 				BAAA526F2953AC28003177BC /* ProposalListItemBodyView.swift in Sources */,
 				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
-				5521D27729EF145300A09FD4 /* StatusView.swift in Sources */,
+				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
+				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
+				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
+				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,

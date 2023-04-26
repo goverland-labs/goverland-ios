@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ProposalListItemView: View {
     @State private var isRead = false
-    var event: InboxEvent
+    let event: InboxEvent
+
+    var data: VoteEventData {
+        event.data as! VoteEventData
+    }
 
     var body: some View {
         ZStack {
@@ -17,9 +21,9 @@ struct ProposalListItemView: View {
                 .fill(Color.container)
             
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(user: event.user, date: event.date, status: event.status)
-                ProposalListItemBodyView(content: event.content, daoImage: event.daoImage)
-                ProposalListItemFooterView(meta: event.meta)
+                ProposalListItemHeaderView(user: data.user, date: event.date, status: data.status)
+                ProposalListItemBodyView(content: data.content, daoImage: event.daoImage)
+                ProposalListItemFooterView(meta: data.meta)
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 8)
@@ -29,14 +33,6 @@ struct ProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        ProposalListItemView(event: InboxEvent.vote1)
     }
 }

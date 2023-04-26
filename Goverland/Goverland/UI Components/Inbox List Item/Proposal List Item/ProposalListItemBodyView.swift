@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProposalListItemBodyView: View {
-    let content: InboxViewContent
+    let content: VoteEventData.VoteContent
     let daoImage: URL?
     
     var body: some View {
@@ -36,7 +36,7 @@ struct ProposalListItemBodyView: View {
             
             Spacer()
             
-            DaoPictureView(daoImage: daoImage, imageSize: 46)
+            RoundPictureView(image: daoImage, imageSize: 46)
         }
     }
 }
@@ -44,7 +44,7 @@ struct ProposalListItemBodyView: View {
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
         ProposalListItemBodyView(
-            content: InboxViewContent(title: "", subtitle: "", warningSubtitle: ""),
+            content: VoteEventData.VoteContent(title: "", subtitle: "", warningSubtitle: ""),
             daoImage: URL(string: "")
         )
     }

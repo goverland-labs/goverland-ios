@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DaoInfoScreenView: View {
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let event: InboxEvent
     
@@ -64,14 +63,6 @@ fileprivate struct EllipsisMenuView: View {
 
 struct DaoInfoScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        DaoInfoScreenView(event: InboxEvent(
-            id: UUID(),
-            user: User.flipside,
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: InboxViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: InboxEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        DaoInfoScreenView(event: InboxEvent.vote1)
     }
 }
