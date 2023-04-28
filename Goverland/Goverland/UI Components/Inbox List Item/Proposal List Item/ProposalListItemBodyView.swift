@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct ProposalListItemBodyView: View {
-    let content: VoteEventData.VoteContent
+    let data: VoteEventData
     let daoImage: URL?
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text(content.title)
+                Text(data.content.title)
                     .foregroundColor(.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
                 
-                Text(content.subtitle)
-                    .foregroundColor(.textWhite40)
+                Text(data.content.subtitle)
+                    .foregroundColor(data.status == .activeVote ? .primaryDim : .textWhite40)
                     .font(.footnoteRegular)
                     .lineLimit(1)
                 
-                if let warning = content.warningSubtitle {
+                if let warning = data.content.warningSubtitle {
                     Text(warning)
                         .foregroundColor(.textWhite40)
                         .font(.footnoteRegular)
@@ -44,7 +44,7 @@ struct ProposalListItemBodyView: View {
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
         ProposalListItemBodyView(
-            content: VoteEventData.VoteContent(title: "", subtitle: "", warningSubtitle: ""),
+            data: VoteEventData(user: User(address: .init(""), ensName: "", image: nil), status: .activeVote, content: .init(title: "", subtitle: "", warningSubtitle: ""), meta: .init(voters: 2, quorum: "", voted: true)),
             daoImage: URL(string: "")
         )
     }
