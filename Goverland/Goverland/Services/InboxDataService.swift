@@ -10,6 +10,7 @@ import Combine
 
 class InboxDataService: ObservableObject {
     @Published var events: [InboxEvent] = []
+    @Published var isLoadingData: Bool = false
     private var nextPageURL: URL?
     private var cancellables = Set<AnyCancellable>()
     
@@ -22,6 +23,7 @@ class InboxDataService: ObservableObject {
     }
     
     func getEvents(withFilter filter: FilterType, fromStart: Bool) {
+        isLoadingData = true
         if fromStart {
             nextPageURL = nil
             events = []
@@ -49,6 +51,7 @@ class InboxDataService: ObservableObject {
             } receiveValue: { [weak self] (returnedData) in
                 self?.events.append(contentsOf: returnedData.result)
                 self?.nextPageURL = returnedData.next
+                self?.isLoadingData = false
             }
             .store(in: &cancellables)
     }
