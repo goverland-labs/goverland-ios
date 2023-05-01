@@ -17,10 +17,10 @@ struct InboxView: View {
                 InboxFilterMenuView(filter: $filter, data: data)
                     .padding(10)
                     .background(Color.surfaceBright)
-                if data.isLoadingData {
+                if data.isLoadingData && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<5) { _ in
-                            ShimmerLoadingView()
+                            ShimmerLoadingItemView()
                                 .cornerRadius(20)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 8)
@@ -34,14 +34,18 @@ struct InboxView: View {
                         if index == data.events.count - 1 && data.hasNextPageURL() {
                             switch event.type {
                             case .vote:
-                                ProposalListItemView(event: event)
-                                    .redacted(reason: .placeholder)
+                                ShimmerLoadingItemView()
+                                    .cornerRadius(20)
+                                    .padding(.vertical, 8)
+                                    .frame(height: 180)
                                     .onAppear {
                                         data.getEvents(withFilter: filter, fromStart: false)
                                     }
                             case .treasury:
-                                TreasuryListItemView(event: event)
-                                    .redacted(reason: .placeholder)
+                                ShimmerLoadingItemView()
+                                    .cornerRadius(20)
+                                    .padding(.vertical, 8)
+                                    .frame(height: 180)
                                     .onAppear {
                                         data.getEvents(withFilter: filter, fromStart: false)
                                     }

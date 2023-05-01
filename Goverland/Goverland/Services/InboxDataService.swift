@@ -49,9 +49,11 @@ class InboxDataService: ObservableObject {
                 }
             .sink { (completion) in
             } receiveValue: { [weak self] (returnedData) in
-                self?.events.append(contentsOf: returnedData.result)
-                self?.nextPageURL = returnedData.next
-                self?.isLoadingData = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    self?.events.append(contentsOf: returnedData.result)
+                    self?.nextPageURL = returnedData.next
+                    self?.isLoadingData = false
+                }
             }
             .store(in: &cancellables)
     }

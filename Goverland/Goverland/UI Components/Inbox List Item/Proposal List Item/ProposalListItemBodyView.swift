@@ -44,7 +44,7 @@ struct ProposalListItemBodyView: View {
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
         ProposalListItemBodyView(
-            data: VoteEventData(user: User(address: .init(""), ensName: "", image: nil), status: .activeVote, content: .init(title: "", subtitle: "", warningSubtitle: ""), meta: .init(voters: 2, quorum: "", voted: true)),
+            data: InboxEvent.vote1.data as! VoteEventData,
             daoImage: URL(string: "")
         )
     }
