@@ -72,8 +72,8 @@ struct ShimmerLoadingItemView: View {
     }
 }
 
-struct ShimmerLoadingView_Previews: PreviewProvider {
+struct ShimmerLoadingItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ShimmerView()
+        ShimmerLoadingItemView()
     }
 }
