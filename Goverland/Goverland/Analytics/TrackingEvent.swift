@@ -31,4 +31,5 @@ enum TrackingEvent: String, Trackable {
     case settingsHelpUsGrowView = "settings_help_us_grow_view"
     case settingsPushNotificationsView = "settings_push_notifications_view"
     case settingsView = "settings_view"
+    case stapshotProposalView = "snapshot_proposal_detail_view"
 }

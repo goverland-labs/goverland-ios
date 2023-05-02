@@ -10,7 +10,7 @@ import SwiftUI
 struct InboxDetailDividerLineView: View {
     var body: some View {
         Rectangle()
-            .fill(Color("lightGray-darkGray"))
+            .fill(Color.gray)
             .frame(maxWidth: .infinity, maxHeight: 1)
     }
 }

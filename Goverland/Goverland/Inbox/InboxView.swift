@@ -38,7 +38,7 @@ struct InboxView: View {
                         ZStack {
                             switch event.type {
                             case .vote:
-                                NavigationLink(destination: InboxItemDetailView(event: event)) {}.opacity(0)
+                                NavigationLink(destination: SnapshotProposalView(event: event)) {}.opacity(0)
                                 ProposalListItemView(event: event)
                                     .padding(.top, 10)
                             case .treasury:
@@ -63,7 +63,6 @@ struct InboxView: View {
                         }
                     }
                 }
-                .toolbarBackground(Color.surfaceBright, for: .navigationBar)
                 .refreshable {
                     data.getEvents(withFilter: filter, fromStart: true)
                 }
