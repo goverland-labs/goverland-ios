@@ -61,6 +61,25 @@ struct SnapshotProposalView: View {
                                 .font(.title3Semibold)
                         }
                     }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            // follow action
+                        } label: {
+                            Image(systemName: "bell.fill")
+                                .foregroundColor(.textWhite40)
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button("Share", action: performShare)
+                            Button("to Snapshot", action: performOpenSnapshot)
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(.gray)
+                                .fontWeight(.bold)
+                                .frame(width: 20, height: 20)
+                        }
+                    }
                 }
                 .background(Color.surface)
                 .toolbarBackground(Color.surfaceBright, for: .navigationBar)
@@ -69,6 +88,10 @@ struct SnapshotProposalView: View {
             .background(Color.surfaceBright)
         }
     }
+    
+    private func performShare() {}
+    private func performOpenSnapshot() {}
+
 }
 
 struct SnapshotProposalView_Previews: PreviewProvider {
