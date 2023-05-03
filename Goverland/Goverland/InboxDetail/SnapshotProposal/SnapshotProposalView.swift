@@ -21,25 +21,25 @@ struct SnapshotProposalView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     NavigationLink(destination: DaoInfoScreenView(event: event)) {
-                        SnapshotProposaHeaderView()
+                        SnapshotProposalHeaderView()
                             .padding(.vertical, 20)
                             .foregroundColor(.primary)
                     }
                     SnapshotProposalCreatorIdentityView()
                         .padding(.bottom, 15)
-                    SnapshotProposaStatusBarView()
+                    SnapshotProposalStatusBarView()
                         .padding(.bottom, 20)
-                    SnapshotProposaDescriptionView()
+                    SnapshotProposalDescriptionView()
                         .padding(.bottom, 25)
                     HStack {
-                        Text("Off-Chain Мote")
+                        Text("Off-Chain Vote")
                             .font(.headlineSemibold)
                             .foregroundColor(.textWhite)
                         Spacer()
                     }
-                    SnapshotProposaVoteTabView()
+                    SnapshotProposalVoteTabView()
                         .padding(.bottom, 30)
-                    SnapshotProposaTimelineView()
+                    SnapshotProposalTimelineView()
                         .padding(.bottom, 20)
                 }
                 .padding(.horizontal)

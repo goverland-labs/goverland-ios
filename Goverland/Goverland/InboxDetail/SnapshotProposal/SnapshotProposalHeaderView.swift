@@ -1,5 +1,5 @@
 //
-//  SnapshotProposaHeaderView.swift
+//  SnapshotProposalHeaderView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-01.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SnapshotProposaHeaderView: View {
+struct SnapshotProposalHeaderView: View {
     var body: some View {
         Text("GIP-77 (part 1): Should the GnosisDAO add moderators to reduce spam")
             .font(.title3Semibold)
@@ -20,6 +20,6 @@ struct SnapshotProposaHeaderView: View {
 
 struct SnapshotProposaHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposaHeaderView()
+        SnapshotProposalHeaderView()
     }
 }

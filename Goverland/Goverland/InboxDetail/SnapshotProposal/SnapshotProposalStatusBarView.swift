@@ -1,5 +1,5 @@
 //
-//  SnapshotProposaStatusBarView.swift
+//  SnapshotProposalStatusBarView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-01.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct SnapshotProposaStatusBarView: View {
+struct SnapshotProposalStatusBarView: View {
     var body: some View {
         HStack {
             ProposalStatusView(status: .activeVote)
             Spacer()
             HStack {
-                DateView(date: .now)
+                DateView(date: Date(year: 2023, month: 05, day: 9, hour: 12, minute: 34))
                     .font(.footnoteRegular)
                     .foregroundColor(.primaryDim)
                 Text("left to vote via Snapshot")
@@ -29,6 +29,6 @@ struct SnapshotProposaStatusBarView: View {
 
 struct SnapshotProposaStatusBarView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposaStatusBarView()
+        SnapshotProposalStatusBarView()
     }
 }

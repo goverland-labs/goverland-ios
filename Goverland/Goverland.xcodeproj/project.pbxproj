@@ -42,12 +42,12 @@
 		BA352F08298C154200F78958 /* DaoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F07298C154200F78958 /* DaoDataService.swift */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
 		BA50AB322A0089A100EC2AA6 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */; };
-		BA50AB342A009BCA00EC2AA6 /* SnapshotProposaHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB332A009BCA00EC2AA6 /* SnapshotProposaHeaderView.swift */; };
+		BA50AB342A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */; };
 		BA50AB362A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */; };
-		BA50AB382A009CD800EC2AA6 /* SnapshotProposaStatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB372A009CD800EC2AA6 /* SnapshotProposaStatusBarView.swift */; };
-		BA50AB3A2A009CF100EC2AA6 /* SnapshotProposaDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB392A009CF100EC2AA6 /* SnapshotProposaDescriptionView.swift */; };
-		BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposaVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposaVoteTabView.swift */; };
-		BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposaTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposaTimelineView.swift */; };
+		BA50AB382A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */; };
+		BA50AB3A2A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */; };
+		BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */; };
+		BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
@@ -105,12 +105,12 @@
 		BA352F07298C154200F78958 /* DaoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDataService.swift; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
 		BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
-		BA50AB332A009BCA00EC2AA6 /* SnapshotProposaHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposaHeaderView.swift; sourceTree = "<group>"; };
+		BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalHeaderView.swift; sourceTree = "<group>"; };
 		BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalCreatorIdentityView.swift; sourceTree = "<group>"; };
-		BA50AB372A009CD800EC2AA6 /* SnapshotProposaStatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposaStatusBarView.swift; sourceTree = "<group>"; };
-		BA50AB392A009CF100EC2AA6 /* SnapshotProposaDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposaDescriptionView.swift; sourceTree = "<group>"; };
-		BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposaVoteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposaVoteTabView.swift; sourceTree = "<group>"; };
-		BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposaTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposaTimelineView.swift; sourceTree = "<group>"; };
+		BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalStatusBarView.swift; sourceTree = "<group>"; };
+		BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
+		BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
+		BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalTimelineView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemBodyView.swift; sourceTree = "<group>"; };
@@ -295,12 +295,12 @@
 			isa = PBXGroup;
 			children = (
 				BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */,
-				BA50AB332A009BCA00EC2AA6 /* SnapshotProposaHeaderView.swift */,
+				BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */,
 				BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */,
-				BA50AB372A009CD800EC2AA6 /* SnapshotProposaStatusBarView.swift */,
-				BA50AB392A009CF100EC2AA6 /* SnapshotProposaDescriptionView.swift */,
-				BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposaVoteTabView.swift */,
-				BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposaTimelineView.swift */,
+				BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */,
+				BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */,
+				BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */,
+				BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */,
 			);
 			path = SnapshotProposal;
 			sourceTree = "<group>";
@@ -467,19 +467,19 @@
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
-				BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposaTimelineView.swift in Sources */,
+				BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */,
 				BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
-				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposaVoteTabView.swift in Sources */,
+				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */,
 				BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
-				BA50AB342A009BCA00EC2AA6 /* SnapshotProposaHeaderView.swift in Sources */,
+				BA50AB342A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift in Sources */,
 				BAF651BA29A17DFF00C78A8A /* InboxDetailSummaryView.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
@@ -503,11 +503,11 @@
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */,
-				BA50AB382A009CD800EC2AA6 /* SnapshotProposaStatusBarView.swift in Sources */,
+				BA50AB382A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
-				BA50AB3A2A009CF100EC2AA6 /* SnapshotProposaDescriptionView.swift in Sources */,
+				BA50AB3A2A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
