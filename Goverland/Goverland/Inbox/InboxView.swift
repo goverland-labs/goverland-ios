@@ -64,22 +64,6 @@ struct InboxView: View {
                         data.getEvents(withFilter: filter, fromStart: true)
                     }
                 }
-                .background(Color.surface)
-                .listStyle(.plain)
-                .scrollIndicators(.hidden)
-                .navigationBarBackButtonHidden()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        VStack {
-                            Text("Inbox")
-                                .font(.title3Semibold)
-                        }
-                    }
-                }
-                .refreshable {
-                    data.getEvents(withFilter: filter, fromStart: true)
-                }
             }
             .onAppear() { Tracker.track(.inboxView) }
             .background(Color.surface)
