@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SnapshotProposalVoteTabView: View {
     var body: some View {
-        Text("")
+        BasicVotingView()
     }
 }
 

@@ -44,6 +44,30 @@ struct FollowButtonView: View {
     }
 }
 
+struct BasicVotingButtonView: View {
+    @State private var isChosed: Bool = false
+    let choice: String
+    var body: some View {
+        Button(action: { isChosed.toggle() }) {
+            HStack {
+                Spacer()
+                Text(choice)
+                    .padding()
+                    .foregroundColor(.onSecondaryContainer)
+                    .font(.footnoteSemibold)
+                Spacer()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+        .background(isChosed ? Color.secondaryContainer : Color.clear)
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.secondaryContainer, lineWidth: 1)
+        )
+    }
+}
+
 struct UIComponents_Previews: PreviewProvider {
     static var previews: some View {
         RoundPictureView(image: URL(string: ""), imageSize: 50)

@@ -18,7 +18,7 @@ struct SnapshotProposalView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     NavigationLink(destination: DaoInfoScreenView(event: event)) {
                         SnapshotProposalHeaderView()
@@ -37,6 +37,7 @@ struct SnapshotProposalView: View {
                             .foregroundColor(.textWhite)
                         Spacer()
                     }
+                    .padding(.bottom)
                     SnapshotProposalVoteTabView()
                         .padding(.bottom, 30)
                     SnapshotProposalTimelineView()
@@ -44,7 +45,6 @@ struct SnapshotProposalView: View {
                 }
                 .padding(.horizontal)
                 .navigationBarBackButtonHidden()
-                .scrollIndicators(.hidden)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
