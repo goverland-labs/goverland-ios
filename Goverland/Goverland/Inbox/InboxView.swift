@@ -32,13 +32,20 @@ struct InboxView: View {
                     List(0..<data.events.count, id: \.self) { index in
                         let event = data.events[index]
                         if index == data.events.count - 1 && data.hasNextPageURL() {
-                            ShimmerLoadingItemView()
-                                .cornerRadius(20)
-                                .padding(.vertical, 8)
-                                .frame(height: 180)
-                                .onAppear {
-                                    data.getEvents(withFilter: filter, fromStart: false)
-                                }
+                            ZStack {
+                                ShimmerLoadingItemView()
+                                    .cornerRadius(20)
+                                    .padding(.vertical, 5)
+                                    .padding(.horizontal, -5)
+                                    .frame(height: 180)
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 12.5) {
+                                            data.getEvents(withFilter: filter, fromStart: false)
+                                        }
+                                    }
+                            }
+                            .listRowBackground(Color.surface)
+                            .listRowSeparator(.hidden)
                         } else {
                             ZStack {
                                 switch event.type {
