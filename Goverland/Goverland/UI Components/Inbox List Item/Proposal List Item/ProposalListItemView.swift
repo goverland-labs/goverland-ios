@@ -22,7 +22,7 @@ struct ProposalListItemView: View {
             
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(user: data.user, date: event.date, status: data.status)
-                ProposalListItemBodyView(content: data.content, daoImage: event.daoImage)
+                ProposalListItemBodyView(data: data, daoImage: event.daoImage)
                 ProposalListItemFooterView(meta: data.meta)
             }
             .padding(.horizontal, 15)
