@@ -39,9 +39,7 @@ struct InboxView: View {
                                     .padding(.horizontal, -5)
                                     .frame(height: 180)
                                     .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 12.5) {
-                                            data.getEvents(withFilter: filter, fromStart: false)
-                                        }
+                                        data.getEvents(withFilter: filter, fromStart: false)
                                     }
                             }
                             .listRowBackground(Color.surface)
