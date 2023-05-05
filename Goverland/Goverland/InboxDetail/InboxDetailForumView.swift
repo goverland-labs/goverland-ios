@@ -35,7 +35,7 @@ struct InboxDetailForumView: View {
                     .foregroundColor(.gray)
             }
             .padding(10)
-            .background(Color("lightGray-darkGray"))
+            .background(Color.gray)
             .cornerRadius(10)
         }
     }

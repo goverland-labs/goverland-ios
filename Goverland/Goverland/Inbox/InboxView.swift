@@ -26,7 +26,6 @@ struct InboxView: View {
                                 .padding(.vertical, 8)
                                 .frame(height: 180)
                         }
-                        .padding(.top, 8)
                     }
                 } else {
                     List(0..<data.events.count, id: \.self) { index in
@@ -48,7 +47,7 @@ struct InboxView: View {
                             ZStack {
                                 switch event.type {
                                 case .vote:
-                                    NavigationLink(destination: InboxItemDetailView(event: event)) {}.opacity(0)
+                                    NavigationLink(destination: SnapshotProposalView(event: event)) {}.opacity(0)
                                     ProposalListItemView(event: event)
                                         .padding(.top, 10)
                                 case .treasury:

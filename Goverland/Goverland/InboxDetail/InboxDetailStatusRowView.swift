@@ -34,7 +34,7 @@ struct InboxDetailStatusRowView: View {
             }
         }
         .padding(10)
-        .background(Color("lightGray-darkGray"))
+        .background(Color.gray)
         .cornerRadius(10)
     }
 }

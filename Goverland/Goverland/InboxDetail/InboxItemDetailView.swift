@@ -48,7 +48,7 @@ struct InboxItemDetailView: View {
                 }
             }
         }
-        .onAppear() { Tracker.track(.inboxDetailView) }
+        .onAppear() { Tracker.track(.snapshotProposalView) }
     }
 }
 
