@@ -83,7 +83,7 @@ struct SnapshotProposalView: View {
                 }
                 .background(Color.surface)
                 .toolbarBackground(Color.surfaceBright, for: .navigationBar)
-                .onAppear() { Tracker.track(.stapshotProposalView) }
+                .onAppear() { Tracker.track(.snapshotProposalView) }
             }
             .background(Color.surfaceBright)
         }
