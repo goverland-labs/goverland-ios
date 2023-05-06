@@ -49,7 +49,7 @@
 		BA50AB3A2A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */; };
 		BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */; };
 		BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */; };
-		BA50AB402A04086900EC2AA6 /* BasicVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3F2A04086900EC2AA6 /* BasicVotingView.swift */; };
+		BA50AB402A04086900EC2AA6 /* SnapshotVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3F2A04086900EC2AA6 /* SnapshotVotingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
@@ -114,7 +114,7 @@
 		BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
 		BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalTimelineView.swift; sourceTree = "<group>"; };
-		BA50AB3F2A04086900EC2AA6 /* BasicVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicVotingView.swift; sourceTree = "<group>"; };
+		BA50AB3F2A04086900EC2AA6 /* SnapshotVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemBodyView.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
-				BA50AB3F2A04086900EC2AA6 /* BasicVotingView.swift */,
+				BA50AB3F2A04086900EC2AA6 /* SnapshotVotingView.swift */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 			);
 			path = "UI Components";
@@ -507,7 +507,7 @@
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
-				BA50AB402A04086900EC2AA6 /* BasicVotingView.swift in Sources */,
+				BA50AB402A04086900EC2AA6 /* SnapshotVotingView.swift in Sources */,
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */,

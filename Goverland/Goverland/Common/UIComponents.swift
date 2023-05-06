@@ -44,9 +44,9 @@ struct FollowButtonView: View {
     }
 }
 
-struct BasicVotingButtonView: View {
+struct SnapshotVotingButtonView: View {
     let choice: String
-    let isChosed: Bool
+    let isChosen: Bool
     let action: () -> Void
     
     var body: some View {
@@ -61,7 +61,7 @@ struct BasicVotingButtonView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-        .background(isChosed ? Color.secondaryContainer : Color.clear)
+        .background(isChosen ? Color.secondaryContainer : Color.clear)
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)

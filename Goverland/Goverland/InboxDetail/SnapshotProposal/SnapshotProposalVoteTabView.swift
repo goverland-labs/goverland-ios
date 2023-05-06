@@ -70,7 +70,7 @@ struct SnapshotProposalVoteTabView: View {
             
             switch chosenTab {
             case .vote:
-                BasicVotingView()
+                SnapshotVotingView()
             case .results:
                 Text("")
             case .voters:
