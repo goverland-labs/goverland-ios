@@ -8,12 +8,39 @@
 import SwiftUI
 
 struct BasicVotingView: View {
-    @State private var isChosed: Bool = false
+    @State var selectedChoiceIndex: Int?
+    private let choices = ["For", "Against", "Abstain"]
+    
     var body: some View {
         VStack {
-            BasicVotingButtonView(choice: "For")
-            BasicVotingButtonView(choice: "Against")
-            BasicVotingButtonView(choice: "Abstain")
+            ForEach(0..<choices.count, id: \.self) { index in
+                BasicVotingButtonView(choice: self.choices[index], isChosed: self.selectedChoiceIndex == index) {
+                    if self.selectedChoiceIndex == index {
+                        self.selectedChoiceIndex = nil
+                    } else {
+                        self.selectedChoiceIndex = index
+                    }
+                }
+                .disabled(selectedChoiceIndex != nil && selectedChoiceIndex != index)
+            }
+            
+            Button(action: {
+                print("submitting vote")
+            }) {
+                HStack {
+                    Spacer()
+                    Text("Vote")
+                    Spacer()
+                }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+                .foregroundColor(selectedChoiceIndex == nil ? .textWhite20 : .onPrimary)
+                .background(selectedChoiceIndex == nil ? Color.disabled12 : Color.primary)
+                .font(.footnoteSemibold)
+                .cornerRadius(20)
+            }
+            
+            .disabled(selectedChoiceIndex == nil)
         }
     }
 }

@@ -45,10 +45,12 @@ struct FollowButtonView: View {
 }
 
 struct BasicVotingButtonView: View {
-    @State private var isChosed: Bool = false
     let choice: String
+    let isChosed: Bool
+    let action: () -> Void
+    
     var body: some View {
-        Button(action: { isChosed.toggle() }) {
+        Button(action: action) {
             HStack {
                 Spacer()
                 Text(choice)

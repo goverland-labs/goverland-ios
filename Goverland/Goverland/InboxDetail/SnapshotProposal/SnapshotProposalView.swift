@@ -30,7 +30,7 @@ struct SnapshotProposalView: View {
                     SnapshotProposalStatusBarView()
                         .padding(.bottom, 20)
                     SnapshotProposalDescriptionView()
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 35)
                     HStack {
                         Text("Off-Chain Vote")
                             .font(.headlineSemibold)
