@@ -15,13 +15,10 @@ struct BasicVotingView: View {
         VStack {
             ForEach(0..<choices.count, id: \.self) { index in
                 BasicVotingButtonView(choice: self.choices[index], isChosed: self.selectedChoiceIndex == index) {
-                    if self.selectedChoiceIndex == index {
-                        self.selectedChoiceIndex = nil
-                    } else {
+                    if self.selectedChoiceIndex != index {
                         self.selectedChoiceIndex = index
                     }
                 }
-                .disabled(selectedChoiceIndex != nil && selectedChoiceIndex != index)
             }
             
             Button(action: {
@@ -39,7 +36,6 @@ struct BasicVotingView: View {
                 .font(.footnoteSemibold)
                 .cornerRadius(20)
             }
-            
             .disabled(selectedChoiceIndex == nil)
         }
     }
