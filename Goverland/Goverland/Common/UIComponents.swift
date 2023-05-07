@@ -45,7 +45,7 @@ struct FollowButtonView: View {
 }
 
 struct SnapshotVotingButtonView: View {
-    let choice: String
+    let choice: SnapshotVoteChoiceType
     let isChosen: Bool
     let action: () -> Void
     
@@ -53,7 +53,7 @@ struct SnapshotVotingButtonView: View {
         Button(action: action) {
             HStack {
                 Spacer()
-                Text(choice)
+                Text(choice.localizedName)
                     .padding()
                     .foregroundColor(.onSecondaryContainer)
                     .font(.footnoteSemibold)

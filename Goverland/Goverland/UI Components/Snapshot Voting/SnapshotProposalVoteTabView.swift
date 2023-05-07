@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum BasicVoteTabType: Int, Identifiable {
+enum SnapshotVoteTabType: Int, Identifiable {
     var id: Int { self.rawValue }
 
     case vote = 0
@@ -15,7 +15,7 @@ enum BasicVoteTabType: Int, Identifiable {
     case voters
     case info
 
-    static var allFilters: [BasicVoteTabType] {
+    static var allTabs: [SnapshotVoteTabType] {
         return [.vote, .results, .voters, .info]
     }
 
@@ -32,15 +32,39 @@ enum BasicVoteTabType: Int, Identifiable {
         }
     }
 }
+
+enum SnapshotVoteChoiceType: Int, Identifiable {
+    var id: Int { self.rawValue }
+    
+    case `for` = 0
+    case against
+    case abstain
+
+    static var allChoices: [SnapshotVoteChoiceType] {
+        return [.for, .against, .abstain]
+    }
+
+    var localizedName: String {
+        switch self {
+        case .for:
+            return "For"
+        case .against:
+            return "Against"
+        case .abstain:
+            return "Abstain"
+        }
+    }
+}
+
 struct SnapshotProposalVoteTabView: View {
-    @State var chosenTab: BasicVoteTabType = .vote
+    @State var chosenTab: SnapshotVoteTabType = .vote
     @Namespace var namespace
     
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
-                    ForEach(BasicVoteTabType.allFilters) { tab in
+                    ForEach(SnapshotVoteTabType.allTabs) { tab in
                         ZStack {
                             if chosenTab == tab {
                                 RoundedRectangle(cornerRadius: 20)
@@ -72,7 +96,7 @@ struct SnapshotProposalVoteTabView: View {
             case .vote:
                 SnapshotVotingView()
             case .results:
-                Text("")
+                SnapshotResultView()
             case .voters:
                 Text("")
             case .info:

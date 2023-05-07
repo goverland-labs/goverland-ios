@@ -9,14 +9,13 @@ import SwiftUI
 
 struct SnapshotVotingView: View {
     @State var selectedChoiceIndex: Int?
-    private let choices = ["For", "Against", "Abstain"]
     
     var body: some View {
         VStack {
-            ForEach(0..<choices.count, id: \.self) { index in
-                SnapshotVotingButtonView(choice: self.choices[index], isChosen: self.selectedChoiceIndex == index) {
-                    if self.selectedChoiceIndex != index {
-                        self.selectedChoiceIndex = index
+            ForEach(SnapshotVoteChoiceType.allChoices) { choice in
+                SnapshotVotingButtonView(choice: choice, isChosen: selectedChoiceIndex == choice.rawValue) {
+                    if selectedChoiceIndex != choice.rawValue {
+                        selectedChoiceIndex = choice.rawValue
                     }
                 }
             }
