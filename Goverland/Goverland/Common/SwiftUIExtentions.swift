@@ -17,17 +17,31 @@ extension View {
     func ghostActionButtonStyle() -> some View {
         modifier(GhostActionButton())
     }
+    
+    func ghostReadMoreButtonStyle() -> some View {
+        modifier(GhostReadMoreButton())
+    }
 }
 
 struct GhostActionButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
-            .background(Color.blue)
+            .background(Color.primary)
             .clipShape(Capsule())
-            .tint(.white)
-            .fontWeight(.bold)
-            .padding(.horizontal, 30)
+            .tint(.onPrimary)
+            .font(.headlineSemibold)
+    }
+}
+
+struct GhostReadMoreButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 100, height: 30, alignment: .center)
+            .background(Capsule(style: .circular)
+                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+            .tint(.onSecondaryContainer)
+            .font(.footnoteSemibold)
     }
 }
 

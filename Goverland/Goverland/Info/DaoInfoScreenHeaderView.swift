@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct DaoInfoScreenHeaderView: View {
-    
-    let event: ActivityEvent
+    let event: InboxEvent
     
     var body: some View {
         HStack {
-            DaoPictureView(daoImage: event.daoImage, imageSize: 100)
+            RoundPictureView(image: event.daoImage, imageSize: 100)
             HStack {
                 InfoBadgeView(value: "103", title: "Proposales")
                 InfoBadgeView(value: "342.9K", title: "Holders")
@@ -41,17 +40,6 @@ fileprivate struct InfoBadgeView: View {
 
 struct DaoInfoScreenHeaderViewPreviews: PreviewProvider {
     static var previews: some View {
-        DaoInfoScreenHeaderView(event: ActivityEvent(
-            id: UUID(),
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: URL(string: ""),
-                name: "safe1.sche.eth"),
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        DaoInfoScreenHeaderView(event: .vote1)
     }
 }

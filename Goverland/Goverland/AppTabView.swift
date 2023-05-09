@@ -10,21 +10,20 @@ import SwiftUI
 struct AppTabView: View {
     var body: some View {
         TabView {
-            ActivityView()
+            InboxView()
                 .tabItem {
-                    Label("Activity", systemImage: "list.dash.header.rectangle")
+                    Image(systemName: "house.circle.fill")
                 }
-
             SearchView()
                 .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
+                    Image(systemName: "magnifyingglass.circle.fill")
                 }
-
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "person.circle")
+                    Image(systemName: "gearshape.circle.fill")
                 }
         }
+        .accentColor(.primary)
     }
 }
 

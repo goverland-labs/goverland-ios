@@ -56,7 +56,7 @@ struct DaoInfoScreenControlsView: View {
             
             ZStack {
                 if currentControl == .activity {
-                    ActivityView()
+                    InboxView()
                 }
             }
         }

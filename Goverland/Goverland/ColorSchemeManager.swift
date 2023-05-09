@@ -9,11 +9,7 @@ import SwiftUI
 
 class ColorSchemeManager: ObservableObject {
     
-    @AppStorage("colorScheme") var colorScheme: ColorSchemeType = .unspecified {
-        didSet {
-            applyColorScheme()
-        }
-    }
+    @AppStorage("colorScheme") var colorScheme: ColorSchemeType = .dark
     
     var keyWindow : UIWindow? {
         guard let scene = UIApplication.shared.connectedScenes.first,

@@ -24,6 +24,7 @@ struct IntroView: View {
             }
             .ghostActionButtonStyle()
             .padding(.bottom, 50)
+            .padding(.horizontal)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()

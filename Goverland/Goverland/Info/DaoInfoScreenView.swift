@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct DaoInfoScreenView: View {
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    let event: ActivityEvent
+    let event: InboxEvent
     
     var body: some View {
         VStack {
@@ -64,17 +63,6 @@ fileprivate struct EllipsisMenuView: View {
 
 struct DaoInfoScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        DaoInfoScreenView(event: ActivityEvent(
-            id: UUID(),
-            user: User(
-                address: "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b",
-                image: URL(string: ""),
-                name: "safe1.sche.eth"),
-            date: Date(),
-            type: .discussion,
-            status: .discussion,
-            content: ActivityViewContent(title: "title", subtitle: "subtitle", warningSubtitle: "warningSubtitle"),
-            daoImage: URL(string: ""),
-            meta: ActivityEventsVoteMeta(voters: 1, quorum: "1", voted: true)))
+        DaoInfoScreenView(event: InboxEvent.vote1)
     }
 }

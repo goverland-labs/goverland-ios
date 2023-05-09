@@ -22,15 +22,9 @@ struct SearchView: View {
                             Text(control.localizedString)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
-                            ZStack {
-                                if currentControl == control {
-                                    Capsule(style: .continuous)
-                                        .foregroundColor(.blue)
-                                } else {
-                                    Capsule(style: .continuous)
-                                        .foregroundColor(.clear)
-                                }
-                            }.frame(width: 80, height: 2)
+                            Capsule(style: .continuous)
+                                .foregroundColor(currentControl == control ? .primaryDim : .clear)
+                                .frame(width: 80, height: 2)
                         }
                         .onTapGesture {
                             withAnimation {
@@ -50,7 +44,7 @@ struct SearchView: View {
                     ScrollView(showsIndicators: false) {
                         ForEach(filterDaoList(searchText: searchText)) { dao in
                             HStack {
-                                DaoPictureView(daoImage: dao.image, imageSize: 50)
+                                RoundPictureView(image: dao.image, imageSize: 50)
                                 Text(dao.name)
                                 Spacer()
                                 FollowButtonView(buttonWidth: 110, buttonHeight: 35)
@@ -96,7 +90,6 @@ struct SearchView: View {
         }
     }
     
-    
     private func getAllCashedDaos() -> [Dao] {
         var listDaos: [Dao] = []
         for (_, daos) in data.daoGroups {
@@ -111,11 +104,11 @@ struct SearchView: View {
 }
 
 fileprivate struct SearchDiscussionBodyView: View {
-    @StateObject private var data = ActivityDataService(filter: .discussion)
+    @StateObject private var data = InboxDataService(filter: .vote)
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
-            ActivityListItemView(event: data.events[index])
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)
@@ -124,11 +117,11 @@ fileprivate struct SearchDiscussionBodyView: View {
 }
 
 fileprivate struct SearchVoteBodyView: View {
-    @StateObject private var data = ActivityDataService(filter: .vote)
+    @StateObject private var data = InboxDataService(filter: .vote)
     
     var body: some View {
         List(0..<data.events.count, id: \.self) { index in
-            ActivityListItemView(event: data.events[index])
+            ProposalListItemView(event: data.events[index])
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .listRowBackground(Color.clear)

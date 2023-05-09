@@ -52,6 +52,7 @@ struct TermsView: View {
                     Text(" and ") +
                     Text("[Terms](https://google.com)").underline()
                 }
+                .accentColor(.primaryDim)
             }
             
             Button("Get Started") {
@@ -60,10 +61,12 @@ struct TermsView: View {
             }
             .ghostActionButtonStyle()
             
+            
             Button("Accept without sharing data") {
                 termsAccepted = true
             }
             .fontWeight(.medium)
+            .accentColor(.primaryDim)
             
         }.padding(.horizontal, 30)
     }
