@@ -44,14 +44,16 @@ struct FollowButtonView: View {
     }
 }
 
-struct BasicVotingButtonView: View {
-    @State private var isChosed: Bool = false
-    let choice: String
+struct SnapshotVotingButtonView: View {
+    let choice: SnapshotVoteChoiceType
+    let isChosen: Bool
+    let action: () -> Void
+    
     var body: some View {
-        Button(action: { isChosed.toggle() }) {
+        Button(action: action) {
             HStack {
                 Spacer()
-                Text(choice)
+                Text(choice.localizedName)
                     .padding()
                     .foregroundColor(.onSecondaryContainer)
                     .font(.footnoteSemibold)
@@ -59,7 +61,7 @@ struct BasicVotingButtonView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-        .background(isChosed ? Color.secondaryContainer : Color.clear)
+        .background(isChosen ? Color.secondaryContainer : Color.clear)
         .cornerRadius(20)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
