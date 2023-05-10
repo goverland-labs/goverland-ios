@@ -9,9 +9,11 @@ import SwiftUI
 
 struct FollowDaoListView: View {
     let dataSource: DaoDataSource
+    let title: String
 
-    init(category: DaoCategory? = nil) {
+    init(category: DaoCategory) {
         self.dataSource = DaoDataSource(category: category)
+        title = "\(category.name) DAOs"
     }
 
     var body: some View {
@@ -20,6 +22,8 @@ struct FollowDaoListView: View {
                 FollowDaoListItemView(dao: dao)
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(title)
     }
 }
 
@@ -39,6 +43,6 @@ fileprivate struct FollowDaoListItemView: View {
 
 struct FollowDaoListView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowDaoListView()
+        FollowDaoListView(category: .social)
     }
 }

@@ -12,7 +12,7 @@ struct SelectDaoView: View {
     @State private var searchedText: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 if searchedText == "" {
                     ScrollView(showsIndicators: false) {
@@ -28,7 +28,7 @@ struct SelectDaoView: View {
                                             .font(.subheadlineSemibold)
                                             .foregroundColor(.textWhite)
                                         Spacer()
-                                        Text("See all")
+                                        NavigationLink("See all", value: key)
                                             .font(.subheadlineSemibold)
                                             .foregroundColor(.primaryDim)
                                     }
@@ -38,14 +38,19 @@ struct SelectDaoView: View {
                             }
                         }
                     }
-                    NavigationLink(destination: EnablePushNotificationsView()) {
+                    NavigationLink {
+                        EnablePushNotificationsView()
+                    } label: {
                         Text("Continue")
                             .ghostActionButtonStyle()
                             .padding(.vertical)
                     }
                 } else {
-                    FollowDaoListView()                    
+                    FollowDaoListView(category: .social)
                 }
+            }
+            .navigationDestination(for: DaoCategory.self) { category in
+                FollowDaoListView(category: category)
             }
             .padding(.horizontal, 15)
             .searchable(text: $searchedText,
