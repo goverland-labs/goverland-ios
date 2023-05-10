@@ -15,11 +15,11 @@ struct Dao: Identifiable, Decodable {
 
 struct DaoGroup: Identifiable, Decodable {
     let id: UUID
-    let groupType: DaoGroupType
+    let groupType: DaoCategory
     let daos: [Dao]
 }
 
-enum DaoGroupType: String, Decodable, Identifiable {
+enum DaoCategory: String, Decodable, Identifiable {
     case social
     case `protocol`
     case investment
@@ -71,4 +71,16 @@ enum DaoGroupType: String, Decodable, Identifiable {
             return "Grant"
         }
     }
+}
+
+
+extension Dao {
+    static let gnosis = Dao(
+        id: UUID(),
+        name: "Gnosis DAO",
+        image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!)
+    static let aave = Dao(
+        id: UUID(),
+        name: "Aave",
+        image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"))
 }

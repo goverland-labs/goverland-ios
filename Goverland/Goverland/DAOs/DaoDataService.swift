@@ -9,11 +9,11 @@ import SwiftUI
 import Combine
 
 class DaoDataService: ObservableObject {
-    @Published var daoGroups: [DaoGroupType: [Dao]] = [:]
+    @Published var daoGroups: [DaoCategory: [Dao]] = [:]
     private var cancellables = Set<AnyCancellable>()
-    private var paginationStorage: [DaoGroupType: URL?] = [:]
+    private var paginationStorage: [DaoCategory: URL?] = [:]
     
-    var keys: [DaoGroupType] {
+    var keys: [DaoCategory] {
         daoGroups.keys.sorted { $0.sortingNumber < $1.sortingNumber }
     }
     
@@ -25,14 +25,14 @@ class DaoDataService: ObservableObject {
         return URL(string: "https://gist.githubusercontent.com/JennyShalai/03105079e34e3821069dd0a98b58e223/raw/2ccfa98857767607758b7f69adf5da3a65b77c1d/SelectDAO.js")!
     }
     
-    private func getNextUrl(forGroupType groupType: DaoGroupType) -> URL? {
+    private func getNextUrl(forGroupType groupType: DaoCategory) -> URL? {
         if let nextURL = paginationStorage[groupType] {
             return nextURL
         }
         return nil
     }
     
-    func hasNextPageURL(forGroupType groupType: DaoGroupType) -> Bool {
+    func hasNextPageURL(forGroupType groupType: DaoCategory) -> Bool {
         if let nextPage = paginationStorage[groupType] {
             return nextPage == nil ? false : true
         }
@@ -59,7 +59,7 @@ class DaoDataService: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func getMoreDaos(inGroup group: DaoGroupType) {
+    func getMoreDaos(inGroup group: DaoCategory) {
         let decoder = JSONDecoder()
         guard let nextURl = getNextUrl(forGroupType: group) else { return }
         
@@ -80,7 +80,7 @@ class DaoDataService: ObservableObject {
 }
 
 fileprivate struct ResponceDataForSelectDao: Decodable {
-    let daosGroup: DaoGroupType
+    let daosGroup: DaoCategory
     let next: URL?
     let daos: [Dao]
 }

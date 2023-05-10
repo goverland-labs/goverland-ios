@@ -44,19 +44,7 @@ struct SelectDaoView: View {
                             .padding(.vertical)
                     }
                 } else {
-                    ScrollView(showsIndicators: false) {
-                        ForEach(data.daoGroups[.social]!) { dao in
-                            HStack {
-                                RoundPictureView(image: dao.image, imageSize: 50)
-                                Text(dao.name)
-                                Spacer()
-                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
-                            }
-                            .padding(5)
-                            .listRowSeparator(.hidden)
-                        }
-                        .padding()
-                    }
+                    FollowDaoListView()                    
                 }
             }
             .padding(.horizontal, 15)
@@ -79,8 +67,8 @@ struct SelectDaoView: View {
 }
 
 struct DaoGroupThreadView: View {
-    @Binding var daoGroups: [DaoGroupType: [Dao]]
-    var daoGroupType: DaoGroupType
+    @Binding var daoGroups: [DaoCategory: [Dao]]
+    var daoGroupType: DaoCategory
     var data: DaoDataService
     
     var body: some View {

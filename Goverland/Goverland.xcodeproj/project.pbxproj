@@ -33,6 +33,8 @@
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
+		55FBE8102A0BC023000A9204 /* FollowDaoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBE80F2A0BC023000A9204 /* FollowDaoListView.swift */; };
+		55FBE8122A0BC105000A9204 /* DaoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBE8112A0BC105000A9204 /* DaoDataSource.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
 		BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */; };
@@ -106,6 +108,8 @@
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		55FBE80F2A0BC023000A9204 /* FollowDaoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDaoListView.swift; sourceTree = "<group>"; };
+		55FBE8112A0BC105000A9204 /* DaoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDataSource.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
 		BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -220,7 +224,6 @@
 			children = (
 				BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */,
 				55D632B2295057880073E04A /* IntroView.swift */,
-				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
 				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
 			);
@@ -232,6 +235,7 @@
 			children = (
 				55D632B829505C4F0073E04A /* InboxView.swift */,
 				BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */,
+				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -272,13 +276,13 @@
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				5597E7342A0A5C8800E2FAE4 /* Networking */,
-				55FD0B4329F719D40084B7DB /* Services */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				55D632B429505BDE0073E04A /* Inbox */,
 				BAF651B429A172F000C78A8A /* InboxDetail */,
 				BAF651CA29B79E2200C78A8A /* Info */,
 				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
+				55FBE80E2A0BBDFF000A9204 /* DAOs */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				55D632B529505BEB0073E04A /* Search */,
 				55D632B729505C070073E04A /* Settings */,
@@ -295,13 +299,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		55FD0B4329F719D40084B7DB /* Services */ = {
+		55FBE80E2A0BBDFF000A9204 /* DAOs */ = {
 			isa = PBXGroup;
 			children = (
-				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
+				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
 				BA352F07298C154200F78958 /* DaoDataService.swift */,
+				55FBE80F2A0BC023000A9204 /* FollowDaoListView.swift */,
+				55FBE8112A0BC105000A9204 /* DaoDataSource.swift */,
 			);
-			path = Services;
+			path = DAOs;
 			sourceTree = "<group>";
 		};
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
@@ -510,6 +516,7 @@
 				BA50AB362A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
+				55FBE8122A0BC105000A9204 /* DaoDataSource.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */,
@@ -544,6 +551,7 @@
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
+				55FBE8102A0BC023000A9204 /* FollowDaoListView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
