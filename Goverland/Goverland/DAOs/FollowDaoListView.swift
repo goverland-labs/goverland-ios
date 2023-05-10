@@ -7,13 +7,15 @@
 
 import SwiftUI
 
+// TODO: make FollowDaoListView as a reusable view without title
 struct FollowDaoListView: View {
-    let dataSource: DaoDataSource
+    @StateObject var dataSource = DaoDataSource()
     let title: String
+    let category: DaoCategory
 
     init(category: DaoCategory) {
-        self.dataSource = DaoDataSource(category: category)
-        title = "\(category.name) DAOs"
+        self.title = "\(category.name) DAOs"
+        self.category = category
     }
 
     var body: some View {
@@ -21,6 +23,9 @@ struct FollowDaoListView: View {
             ForEach(dataSource.daos) { dao in
                 FollowDaoListItemView(dao: dao)
             }
+        }
+        .onAppear {
+            dataSource.loadData(category: category)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(title)

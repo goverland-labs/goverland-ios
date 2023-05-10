@@ -6,13 +6,23 @@
 //
 
 import Foundation
+import Combine
 
-class DaoDataSource {
-    let category: DaoCategory?
-    var daos: [Dao]
+class DaoDataSource: ObservableObject {
+    @Published var daos: [Dao] = []
 
-    init(category: DaoCategory?) {
-        self.category = category
-        self.daos = [.aave, .gnosis]
+    private var total: Int?
+    private var page: Int?
+    private var cancellables = Set<AnyCancellable>()
+
+    func loadData(category: DaoCategory) {
+        APIService.daos(category: category)
+            .sink { errorCompletion in
+                // do nothing
+            } receiveValue: { (daos, headers) in
+                self.daos = daos
+                self.total = headers["x-total-count"] as? Int
+            }
+            .store(in: &cancellables)
     }
 }

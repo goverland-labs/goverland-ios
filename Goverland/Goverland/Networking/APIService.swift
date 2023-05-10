@@ -8,6 +8,8 @@
 import Combine
 import Foundation
 
+let DEFAULT_PAGINATION_COUNT = 20
+
 class APIService {
     let networkManager: NetworkManager
 
@@ -17,7 +19,7 @@ class APIService {
         self.networkManager = networkManager
     }
 
-    func request<T: APIEndpoint>(_ endpoint: T) -> AnyPublisher<T.ResponseType, APIError> {
+    func request<T: APIEndpoint>(_ endpoint: T) -> AnyPublisher<(T.ResponseType, HttpHeaders), APIError> {
         var components = URLComponents(url: endpoint.baseURL.appendingPathComponent(endpoint.path),
                                        resolvingAgainstBaseURL: false)!
         components.queryItems = endpoint.queryParameters
@@ -28,7 +30,10 @@ class APIService {
         request.allHTTPHeaderFields = endpoint.headers
 
         return networkManager.request(request)
-            .decode(type: T.ResponseType.self, decoder: JSONDecoder())
+            .tryMap { data, headers in
+                let object = try JSONDecoder().decode(T.ResponseType.self, from: data)
+                return (object, headers)
+            }
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
@@ -44,8 +49,21 @@ class APIService {
 }
 
 extension APIService {
-    static func healthCheck() -> AnyPublisher<HealthcheckEndpoint.ResponseType, APIError> {
-        let endpoint = HealthcheckEndpoint(queryParameters: [URLQueryItem(name: "value", value: "test")])
+    static func daos(offset: Int = 0,
+                     limit: Int = DEFAULT_PAGINATION_COUNT,
+                     category: DaoCategory? = nil,
+                     query: String? = nil) -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        if let category = category {
+            queryParameters.append(URLQueryItem(name: "category", value: category.rawValue))
+        }
+        if let query = query {
+            queryParameters.append(URLQueryItem(name: "query", value: query))
+        }
+        let endpoint = DaoListEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 }

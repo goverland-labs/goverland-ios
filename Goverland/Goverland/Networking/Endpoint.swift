@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias HttpHeaders = [String: Any]
+
 enum HttpMethod: String {
     case get = "GET"
     case post = "POST"
@@ -27,7 +29,7 @@ protocol APIEndpoint {
 
 extension APIEndpoint {
     var baseURL: URL {
-        return URL(string: "https://api.goverland.xyz")!
+        return URL(string: "https://inbox.staging.goverland.xyz")!
     }
 
     var headers: [String: String] {
@@ -35,17 +37,16 @@ extension APIEndpoint {
     }
 }
 
-struct Status: Decodable {
-    let status: String
-}
+// MARK: - Inbox service endpoints
 
-struct HealthcheckEndpoint: APIEndpoint {
-    typealias ResponseType = Status
+struct DaoListEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
 
-    var path: String = "v1/healthcheck"
+    var path: String = "dao"
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
-    var body: Data? = nil
+
+    var body: Data?
 
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
