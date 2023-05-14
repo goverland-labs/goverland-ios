@@ -52,3 +52,17 @@ struct DaoListEndpoint: APIEndpoint {
         self.queryParameters = queryParameters
     }
 }
+
+struct DaoCategotiesEndpoint: APIEndpoint {
+    typealias ResponseType = [String:[Dao]]
+    
+    var path: String = "dao/top"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+    
+    var body: Data?
+    
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}

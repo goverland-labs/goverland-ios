@@ -67,3 +67,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 }
+
+extension APIService {
+    static func categories() -> AnyPublisher<(DaoCategotiesEndpoint.ResponseType, HttpHeaders), APIError>{
+        let endpoint = DaoCategotiesEndpoint(queryParameters: nil)
+        return shared.request(endpoint)
+    }
+}
+

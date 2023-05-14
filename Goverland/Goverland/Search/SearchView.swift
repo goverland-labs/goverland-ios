@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var data = DaoDataService()
+    @StateObject private var data = DaoDataSource()
     @State private var searchText = ""
     private let controls: [SearchViewControls] = SearchViewControls.all
     @State private var currentControl: SearchViewControls = .daos
@@ -42,7 +42,7 @@ struct SearchView: View {
                 
                 if searchText != "" {
                     ScrollView(showsIndicators: false) {
-                        ForEach(filterDaoList(searchText: searchText)) { dao in
+                        ForEach(data.daos) { dao in
                             HStack {
                                 RoundPictureView(image: dao.image, imageSize: 50)
                                 Text(dao.name)
@@ -59,7 +59,7 @@ struct SearchView: View {
                     case .daos:
                         ScrollView(showsIndicators: false) {
                             VStack {
-                                ForEach(data.keys, id: \.self) { key in
+                                ForEach(data.caregories) { key in
                                     VStack {
                                         HStack {
                                             Text(key.name)
@@ -70,13 +70,15 @@ struct SearchView: View {
                                                 .foregroundColor(.blue)
                                         }
                                         .padding()
-
-                                        DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
+                                        DaoGroupThreadView(category: key)
                                     }
                                 }
                             }
                         }
-                        .onAppear { Tracker.track(.searchDaoView) }
+                        .onAppear {
+                            Tracker.track(.searchDaoView)
+                            data.loadCategories()
+                        }
                     case .discussions:
                         SearchDiscussionBodyView()
                             .onAppear { Tracker.track(.searchDiscussionView) }
@@ -88,18 +90,6 @@ struct SearchView: View {
             }
             .searchable(text: $searchText, prompt: "Look for DAO")
         }
-    }
-    
-    private func getAllCashedDaos() -> [Dao] {
-        var listDaos: [Dao] = []
-        for (_, daos) in data.daoGroups {
-            listDaos.insert(contentsOf: daos, at: listDaos.count)
-        }
-        return listDaos
-    }
-    
-    private func filterDaoList(searchText: String) -> [Dao] {
-        return searchText == "" ? getAllCashedDaos() : getAllCashedDaos().filter { $0.name.contains(searchText) }
     }
 }
 

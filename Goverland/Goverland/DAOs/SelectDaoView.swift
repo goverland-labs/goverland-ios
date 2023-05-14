@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SelectDaoView: View {
-    @StateObject private var data = DaoDataService()
     @State private var searchedText: String = ""
+    @StateObject private var data = DaoDataSource()
     
     var body: some View {
         NavigationStack {
@@ -21,19 +21,19 @@ struct SelectDaoView: View {
                                 .font(.subheadlineRegular)
                                 .foregroundColor(.textWhite)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            ForEach(data.keys, id: \.self) { key in
+                            ForEach(data.caregories) { category in
                                 VStack(spacing: 8) {
                                     HStack {
-                                        Text(key.name)
+                                        Text(category.name)
                                             .font(.subheadlineSemibold)
                                             .foregroundColor(.textWhite)
                                         Spacer()
-                                        NavigationLink("See all", value: key)
+                                        NavigationLink("See all", value: category)
                                             .font(.subheadlineSemibold)
                                             .foregroundColor(.primaryDim)
                                     }
                                     .padding(.top, 20)
-                                    DaoGroupThreadView(daoGroups: $data.daoGroups, daoGroupType: key, data: data)
+                                    DaoGroupThreadView(category: category)
                                 }
                             }
                         }
@@ -66,30 +66,26 @@ struct SelectDaoView: View {
                     }
                 }
             }
-            .onAppear() { Tracker.track(.selectDaoView) }
+            .onAppear() {
+                data.loadCategories()
+                Tracker.track(.selectDaoView)
+            }
         }
     }
 }
 
 struct DaoGroupThreadView: View {
-    @Binding var daoGroups: [DaoCategory: [Dao]]
-    var daoGroupType: DaoCategory
-    var data: DaoDataService
-    
+    @StateObject var data = DaoDataSource()
+    let category: DaoCategory
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                ForEach(0..<daoGroups[daoGroupType]!.count, id: \.self) { index in
-                    if index == daoGroups[daoGroupType]!.count - 1 && data.hasNextPageURL(forGroupType: daoGroupType) {
-                        DaoCardView(dao: daoGroups[daoGroupType]![index])
-                            .redacted(reason: .placeholder)
-                            .onAppear {
-                                data.getMoreDaos(inGroup: daoGroupType)
-                            }
-                    } else {
-                        DaoCardView(dao: daoGroups[daoGroupType]![index])
-                    }
+                ForEach(0..<data.daos.count, id: \.self) { index in
+                    DaoCardView(dao: data.daos[index])
                 }
+            }
+            .onAppear() {
+                data.loadData(category: category)
             }
         }
         .padding(.bottom, 20)
@@ -98,7 +94,6 @@ struct DaoGroupThreadView: View {
 
 fileprivate struct DaoCardView: View {
     var dao: Dao
-    
     var body: some View {
         VStack {
             RoundPictureView(image: dao.image, imageSize: 90)

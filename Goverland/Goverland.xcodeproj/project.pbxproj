@@ -47,7 +47,6 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352EFF298824FD00F78958 /* SelectDaoView.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
-		BA352F08298C154200F78958 /* DaoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F07298C154200F78958 /* DaoDataService.swift */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
 		BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */; };
 		BA50AB322A0089A100EC2AA6 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */; };
@@ -121,7 +120,6 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352EFF298824FD00F78958 /* SelectDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDaoView.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
-		BA352F07298C154200F78958 /* DaoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDataService.swift; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
 		BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerLoadingView.swift; sourceTree = "<group>"; };
 		BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 			isa = PBXGroup;
 			children = (
 				BA352EFF298824FD00F78958 /* SelectDaoView.swift */,
-				BA352F07298C154200F78958 /* DaoDataService.swift */,
 				55FBE80F2A0BC023000A9204 /* FollowDaoListView.swift */,
 				55FBE8112A0BC105000A9204 /* DaoDataSource.swift */,
 			);
@@ -529,7 +526,6 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
-				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,

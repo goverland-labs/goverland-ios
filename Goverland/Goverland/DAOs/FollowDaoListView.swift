@@ -26,6 +26,7 @@ struct FollowDaoListView: View {
         }
         .onAppear {
             dataSource.loadData(category: category)
+            Tracker.track(.followDaoListView)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(title)
