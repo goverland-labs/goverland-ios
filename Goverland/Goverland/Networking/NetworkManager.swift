@@ -32,7 +32,7 @@ class NetworkManager {
                 if let httpResponse = response as? HTTPURLResponse,
                     let headers = httpResponse.allHeaderFields as? HttpHeaders {
                     if httpResponse.statusCode == 404 {
-                        throw APIError.networkUnavailable
+                        throw APIError.notFound
                     } else if (500...599).contains(httpResponse.statusCode) {
                         throw APIError.serverError(statusCode: httpResponse.statusCode)
                     }
@@ -45,11 +45,8 @@ class NetworkManager {
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
                     return apiError
-                } else if (error as NSError).code == -1001 {
-                    return APIError.timeout
-                } else {
-                    return APIError.unknown
                 }
+                return APIError.system(description: error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }

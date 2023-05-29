@@ -16,8 +16,9 @@ struct ErrorView: View {
             VStack {
                 Text(errorMessage)
                     .padding()
-                    .background(Color.red)
-                    .foregroundColor(Color.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.containerBright)
+                    .foregroundColor(.textWhite)
                     .cornerRadius(8)
                     .onTapGesture {
                         withAnimation {
@@ -26,7 +27,7 @@ struct ErrorView: View {
                     }
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 8)
             .animation(.easeInOut, value: 1)
             .transition(.move(edge: .top))
         }

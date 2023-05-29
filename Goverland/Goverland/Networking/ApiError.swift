@@ -8,21 +8,21 @@
 import Foundation
 
 enum APIError: Error {
-    case unknown
-    case networkUnavailable
+    case notFound
     case serverError(statusCode: Int)
-    case timeout
+    case system(description: String)
+    case unknown
 
     var localizedDescription: String {
         switch self {
-        case .unknown:
-            return "An unknown error occurred. Please try again later."
-        case .networkUnavailable:
-            return "Network is not available. Please try again later."
+        case .notFound:
+            return "Content not found."
         case .serverError(let statusCode):
             return "Server error (\(statusCode)). Please try again later."
-        case .timeout:
-            return "The request took too long. Please try again later."
+        case .system(let description):
+            return description
+        case .unknown:
+            return "An unknown error occurred. Please try again later."
         }
     }
 }
