@@ -1,0 +1,221 @@
+{
+    "grant": [
+        {
+            "id": "aave.eth",
+            "created_at": "2023-05-11T10:30:09.006438571Z",
+            "updated_at": "2023-05-11T10:30:09.006445135Z",
+            "name": "Aave",
+            "about": "",
+            "avatar": "ipfs://QmRKgfxSiCU3EmkN52ZaxgKvDyPFUR5DdPvnKxwyLRncKS",
+            "terms": null,
+            "location": null,
+            "website": null,
+            "twitter": "AaveAave",
+            "github": "aave",
+            "coingecko": "aave",
+            "email": null,
+            "symbol": "AAVE",
+            "domain": "signal.aave.com",
+            "network": "1",
+            "categories": [
+                "protocol",
+                "grant"
+            ],
+            "treasures": [],
+            "admins": [
+                "0x8d07D225a769b7Af3A923481E1FdF49180e6A265",
+                "0xc8E0345596D7196941E61D3aB607E57Fe61F85E7",
+                "0x2357df661D0E56140dF30c3ad0b2B426fB4666e6",
+                "0x60C8dC4762b217b4A00FF1824111077f331B1FbF",
+                "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
+                "0x2D0D6A8553993a3E9eD1D86415358D1EDEfa82F1"
+            ],
+            "followers_count": 107460,
+            "proposals_count": 304
+        },
+        {
+            "id": "cakevote.eth",
+            "created_at": "2023-05-11T10:30:09.00649139Z",
+            "updated_at": "2023-05-11T10:30:09.006491613Z",
+            "name": "PancakeSwap",
+            "about": "",
+            "avatar": "ipfs://bafkreidd4kzjvr5hfbcazj5jqpvd5vz2lj467uhl2i3ejdllafnlx4itcy",
+            "terms": null,
+            "location": null,
+            "website": null,
+            "twitter": null,
+            "github": null,
+            "coingecko": null,
+            "email": null,
+            "symbol": "CAKEVOTE",
+            "domain": null,
+            "network": "56",
+            "categories": [
+                "grant"
+            ],
+            "treasures": [],
+            "admins": [
+                "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+                "0x4634fC1462B7974dB96B700E9aBe915f0884e60a"
+            ],
+            "followers_count": 78967,
+            "proposals_count": 2415
+        }
+    ],
+    "protocol": [
+        {
+            "id": "aave.eth",
+            "created_at": "2023-05-11T10:30:09.006438571Z",
+            "updated_at": "2023-05-11T10:30:09.006445135Z",
+            "name": "Aave",
+            "about": "",
+            "avatar": "ipfs://QmRKgfxSiCU3EmkN52ZaxgKvDyPFUR5DdPvnKxwyLRncKS",
+            "terms": null,
+            "location": null,
+            "website": null,
+            "twitter": "AaveAave",
+            "github": "aave",
+            "coingecko": "aave",
+            "email": null,
+            "symbol": "AAVE",
+            "domain": "signal.aave.com",
+            "network": "1",
+            "categories": [
+                "protocol",
+                "grant"
+            ],
+            "treasures": [],
+            "admins": [
+                "0x8d07D225a769b7Af3A923481E1FdF49180e6A265",
+                "0xc8E0345596D7196941E61D3aB607E57Fe61F85E7",
+                "0x2357df661D0E56140dF30c3ad0b2B426fB4666e6",
+                "0x60C8dC4762b217b4A00FF1824111077f331B1FbF",
+                "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
+                "0x2D0D6A8553993a3E9eD1D86415358D1EDEfa82F1"
+            ],
+            "followers_count": 107460,
+            "proposals_count": 304
+        },
+        {
+            "id": "gnosis.eth",
+            "created_at": "2023-05-11T10:30:09.006462728Z",
+            "updated_at": "2023-05-11T10:30:09.006462925Z",
+            "name": "GnosisDAO",
+            "about": "GnosisDAO transparently guides decisions on development, support, and governance of its GNO token ecosystem. Start your proposal here: https://forum.gnosis.io",
+            "avatar": "ipfs://QmVD5UHMZfvsuXJRdVcbnmrPgsUFjDjpSXAmfdv3W7MN42",
+            "terms": "ipfs://QmYMwQwmsDPTtt3ncu1CaZXyJgdYD4EMbn86oAxT3AVtye",
+            "location": "Ethereum",
+            "website": "https://gnosis.io",
+            "twitter": "gnosisdao",
+            "github": "gnosis",
+            "coingecko": "gnosis",
+            "email": null,
+            "symbol": "GNO",
+            "domain": null,
+            "network": "1",
+            "categories": [
+                "protocol"
+            ],
+            "treasures": [],
+            "admins": [],
+            "followers_count": 11900,
+            "proposals_count": 83
+        },
+        {
+            "id": "stgdao.eth",
+            "created_at": "2023-05-11T10:30:09.006483326Z",
+            "updated_at": "2023-05-11T10:30:09.006483556Z",
+            "name": "Stargate DAO",
+            "about": "",
+            "avatar": "ipfs://QmNStftrH92EKDXENSoxHgVneaV5jYyNoG5NKeRD88HUSY",
+            "terms": null,
+            "location": null,
+            "website": "https://stargate.finance/",
+            "twitter": "stargatefinance",
+            "github": "stargate-protocol",
+            "coingecko": "stargate-finance",
+            "email": null,
+            "symbol": "veSTG",
+            "domain": null,
+            "network": "1",
+            "categories": [
+                "protocol"
+            ],
+            "treasures": [
+                {
+                    "Name": "Stargate DAO",
+                    "Address": "0x65bb797c2B9830d891D87288F029ed8dACc19705",
+                    "Network": "1"
+                }
+            ],
+            "admins": [
+                "0xd0769582A855408602C202f3ABde33bF66af3A3A",
+                "0x0a66ad3CBF27De2F6252d166f38eA8e8245A8C41",
+                "0x9280208cbfFaE8F91c7D52c52ffe0Ec571Ad9e83"
+            ],
+            "followers_count": 370734,
+            "proposals_count": 49
+        },
+        {
+            "id": "arbitrumfoundation.eth",
+            "created_at": "2023-05-11T10:30:09.006490285Z",
+            "updated_at": "2023-05-11T10:30:09.006490473Z",
+            "name": "Arbitrum DAO",
+            "about": "The official snapshot space for the Arbitrum DAO",
+            "avatar": "ipfs://bafkreiejp7kjzjm4mlck45xcfup5lha7wrgqlyghvrtvpjpu5sfb6rl2ei",
+            "terms": null,
+            "location": null,
+            "website": "https://arbitrum.foundation",
+            "twitter": "arbitrum",
+            "github": null,
+            "coingecko": null,
+            "email": null,
+            "symbol": "ARB",
+            "domain": null,
+            "network": "42161",
+            "categories": [
+                "protocol"
+            ],
+            "treasures": [
+                {
+                    "Name": "Arbitrum DAO Treasury",
+                    "Address": "0xF3FC178157fb3c87548bAA86F9d24BA38E649B58",
+                    "Network": "42161"
+                }
+            ],
+            "admins": [],
+            "followers_count": 180202,
+            "proposals_count": 5
+        }
+    ],
+    "social": [
+        {
+            "id": "cakevote.eth",
+            "created_at": "2023-05-11T10:30:09.006472379Z",
+            "updated_at": "2023-05-11T10:30:09.006472598Z",
+            "name": "PancakeSwap",
+            "about": "",
+            "avatar": "ipfs://bafkreidd4kzjvr5hfbcazj5jqpvd5vz2lj467uhl2i3ejdllafnlx4itcy",
+            "terms": null,
+            "location": null,
+            "website": null,
+            "twitter": null,
+            "github": null,
+            "coingecko": null,
+            "email": null,
+            "symbol": "CAKEVOTE",
+            "domain": null,
+            "network": "56",
+            "categories": [
+                "social"
+            ],
+            "treasures": [],
+            "admins": [
+                "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+                "0x4634fC1462B7974dB96B700E9aBe915f0884e60a"
+            ],
+            "followers_count": 78965,
+            "proposals_count": 2415
+        }
+    ]
+}

@@ -11,6 +11,7 @@ enum APIError: Error {
     case unknown
     case networkUnavailable
     case serverError(statusCode: Int)
+    case timeout
 
     var localizedDescription: String {
         switch self {
@@ -20,6 +21,8 @@ enum APIError: Error {
             return "Network is not available. Please try again later."
         case .serverError(let statusCode):
             return "Server error (\(statusCode)). Please try again later."
+        case .timeout:
+            return "The request took too long. Please try again later."
         }
     }
 }

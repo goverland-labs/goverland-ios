@@ -41,6 +41,7 @@ class APIService {
                     return apiError
                 } else {
                     // Decoding error. Don't show error to user.
+                    // TODO: log into crashlytics
                     return APIError.unknown
                 }
             }
@@ -66,12 +67,9 @@ extension APIService {
         let endpoint = DaoListEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
-}
 
-extension APIService {
-    static func categories() -> AnyPublisher<(DaoCategotiesEndpoint.ResponseType, HttpHeaders), APIError>{
+    static func categories() -> AnyPublisher<(DaoCategotiesEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DaoCategotiesEndpoint(queryParameters: nil)
         return shared.request(endpoint)
     }
 }
-

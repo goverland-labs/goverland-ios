@@ -11,8 +11,14 @@ import Foundation
 class NetworkManager {
     private let session: URLSession
 
-    init(session: URLSession = .shared) {
-        self.session = session
+    init() {
+        let configuration = URLSessionConfiguration.default
+        #if DEV
+        configuration.timeoutIntervalForRequest = 3
+        #else
+        configuration.timeoutIntervalForRequest = 15
+        #endif
+        self.session = URLSession(configuration: configuration)
     }
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
@@ -39,6 +45,8 @@ class NetworkManager {
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
                     return apiError
+                } else if (error as NSError).code == -1001 {
+                    return APIError.timeout
                 } else {
                     return APIError.unknown
                 }

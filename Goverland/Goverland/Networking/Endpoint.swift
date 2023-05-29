@@ -54,8 +54,8 @@ struct DaoListEndpoint: APIEndpoint {
 }
 
 struct DaoCategotiesEndpoint: APIEndpoint {
-    typealias ResponseType = [String:[Dao]]
-    
+    typealias ResponseType = [String: [Dao]]
+
     var path: String = "dao/top"
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?

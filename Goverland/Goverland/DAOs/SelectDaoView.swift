@@ -68,12 +68,7 @@ struct SelectDaoView: View {
             }
             .onAppear() {
                 data.loadCategories()
-                Tracker.track(.selectDaoView)
-                Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
-                    if data.caregories.count == 0 {
-                        // handle timeout 
-                    }
-                }
+                Tracker.track(.selectDaoView)                
             }
         }
     }

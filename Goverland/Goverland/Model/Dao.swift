@@ -71,29 +71,31 @@ enum DaoCategory: String, Decodable, Identifiable {
     case collector
     case media
     case grant
-    
+
     var id: Self { self }
-    var sortingNumber: Int {
-        switch self {
-        case .social:
-            return 0
-        case .protocol:
-            return 1
-        case .investment:
-            return 2
-        case .creator:
-            return 3
-        case .service:
-            return 4
-        case .collector:
-            return 5
-        case .media:
-            return 6
-        case .grant:
-            return 7
-        }
-    }
-    
+
+    // TODO: remove if not needed after actual API integration
+//    var sortingNumber: Int {
+//        switch self {
+//        case .social:
+//            return 0
+//        case .protocol:
+//            return 1
+//        case .investment:
+//            return 2
+//        case .creator:
+//            return 3
+//        case .service:
+//            return 4
+//        case .collector:
+//            return 5
+//        case .media:
+//            return 6
+//        case .grant:
+//            return 7
+//        }
+//    }
+//
     var name: String {
         switch self {
         case .social:

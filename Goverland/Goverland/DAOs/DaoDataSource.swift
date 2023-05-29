@@ -31,7 +31,7 @@ class DaoDataSource: ObservableObject {
         APIService.categories()
             .sink { errorCompletion in
             } receiveValue: { (data, headers) in
-                self.caregories = data.keys.map{ DaoCategory(rawValue: $0)! }
+                self.caregories = data.keys.map { DaoCategory(rawValue: $0)! }
             }
             .store(in: &cancellables)
     }
