@@ -183,10 +183,6 @@ fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
             HStack {
-                Image(systemName: "heart.square.fill")
-                Text("[About us](http://goverland.xyz/about)")
-            }
-            HStack {
                 Image(systemName: "lock.fill")
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
             }
