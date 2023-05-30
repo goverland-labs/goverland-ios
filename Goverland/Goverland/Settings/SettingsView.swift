@@ -18,12 +18,8 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section {
-                    NavigationLink("Followed DAOs") {
-                        FollowedDaoView()
-                    }
-                    NavigationLink("Notifications") {
-                        PushNotificationsSettingView()
-                    }
+                    NavigationLink("Followed DAOs") { FollowedDaoView() }
+                    NavigationLink("Notifications") { PushNotificationsSettingView() }
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -63,20 +59,15 @@ struct SettingsView: View {
                 
                 
                 Section {
-                    NavigationLink("About") {
-                        AboutSettingView()
-                    }
-                    NavigationLink("Help us grow") {
-                        HelpUsGrowSettingView()
-                    }
-                    NavigationLink("Advanced") {
-                        AdvancedSettingView()
-                    }
+                    NavigationLink("About") { AboutSettingView() }
+                    NavigationLink("Help us grow") { HelpUsGrowSettingView() }
+                    NavigationLink("Partnership") { PartnershipSettingView() }
+                    NavigationLink("Advanced") { AdvancedSettingView() }
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
         }
-        .onAppear() {Tracker.track(.settingsView) }
+        .onAppear() { Tracker.track(.settingsView) }
     }
     
     private func openTwitterApp() {
@@ -197,10 +188,27 @@ fileprivate struct AboutSettingView: View {
     }
 }
 
+fileprivate struct PartnershipSettingView: View {
+    var body: some View {
+        List {
+            Text("[Partnership](http://www.goverland.xyz/partnership)")
+        }
+    }
+}
+
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
-        Text("Help us grow")
-            .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
+        List{
+            HStack {
+                Image(systemName: "star.bubble")
+                Text("Rate the App")
+            }
+            HStack {
+                Image(systemName: "shareplay")
+                Text("Share a tweet") //TODO: message, body and the image (after branding is done)
+            }
+        }
+        .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
         
 }
