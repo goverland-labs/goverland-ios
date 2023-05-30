@@ -8,6 +8,7 @@
 import SwiftUI
 import Kingfisher
 import MessageUI
+import StoreKit
 
 struct SettingsView: View {
     @State var result: Result<MFMailComposeResult, Error>? = nil
@@ -199,10 +200,17 @@ fileprivate struct PartnershipSettingView: View {
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
         List{
-            HStack {
-                Image(systemName: "star.bubble")
-                Text("Rate the App")
+            Button(action: {
+                if let scene = UIApplication.shared.windows.first?.windowScene {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            }) {
+                HStack {
+                    Image(systemName: "star.bubble")
+                    Text("Rate the App")
+                }
             }
+            
             HStack {
                 Image(systemName: "shareplay")
                 Text("Share a tweet") //TODO: message, body and the image (after branding is done)
