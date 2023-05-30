@@ -141,6 +141,16 @@ fileprivate struct FollowedDaoView: View {
                 }
             }
         }
+        .navigationTitle("Followed DAOs")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                // TODO: open Follow DAOs screen in a popover window.
+                // Closing this window should refresh the list of DAOs
+                NavigationLink(destination: EmptyView()) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
         .onAppear() {Tracker.track(.settingsFollowDaoView) }
     }
 }
@@ -232,7 +242,8 @@ fileprivate struct AdvancedSettingView: View {
                     exit(0)
                 }
                 .accentColor(.primary)
-                
+            }
+            Section(header: Text("Share anonymized data")) {
                 Toggle(isOn: $isTrackActivity) {
                         Text("Allow App to Track Activity")
                 }
