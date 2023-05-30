@@ -38,6 +38,11 @@ struct SettingsView: View {
                         Button("Telegram", action: openTelegramApp)
                     }
                     HStack {
+                        Image(systemName: "gamecontroller")
+                            .foregroundColor(.primary)
+                        Button("Discord", action: openDiscordApp)
+                    }
+                    HStack {
                         Image(systemName: "m.square")
                             .foregroundColor(.primary)
                         Button("Email", action: {
@@ -50,12 +55,8 @@ struct SettingsView: View {
                         .sheet(isPresented: $isShowingMailView) {
                             MailSendingView(result: $result)
                         }
-                        .alert(isPresented: $isShowingMailAlertView) {
-                            Alert(
-                                title: Text("Our email address:"),
-                                message: Text("contact@goverland.xyz")
-                            )
-                        }
+                        .alert(isPresented: $isShowingMailAlertView,
+                               content: GetSettingsEmailAddressAlert)
                     }
                 }
                 .tint(.primary)
@@ -98,6 +99,28 @@ struct SettingsView: View {
         } else {
             UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
         }
+    }
+    
+    private func openDiscordApp() {
+        guard let appURL = URL(string: "") else { return }
+        guard let webURL = NSURL(string: "") else { return }
+        
+        if UIApplication.shared.canOpenURL(appURL as URL) {
+            UIApplication.shared.open(appURL)
+        } else {
+            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
+    private func GetSettingsEmailAddressAlert() -> Alert {
+        Alert(
+            title: Text("Our email address:"),
+            message: Text("contact@goverland.xyz"),
+            primaryButton: .default(Text("Copy"), action: {
+                UIPasteboard.general.string = "contact@goverland.xyz"
+            }),
+            secondaryButton: .cancel()
+        )
     }
 }
 
@@ -143,9 +166,7 @@ fileprivate struct PushNotificationsSettingView: View {
 }
 
 fileprivate struct FollowingButtonView: View {
-    
     @State private var didTap: Bool = true
-    
     var body: some View {
         Button(action: { didTap.toggle() }) {
             Text(didTap ? "Following" : "Follow")
@@ -159,7 +180,6 @@ fileprivate struct FollowingButtonView: View {
 }
 
 fileprivate struct AboutSettingView: View {
-    
     var body: some View {
         List {
             HStack {
