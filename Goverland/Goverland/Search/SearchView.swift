@@ -14,82 +14,83 @@ struct SearchView: View {
     @State private var currentControl: SearchViewControls = .daos
     
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    ForEach(controls, id: \.self) { control in
-                        VStack(spacing: 12) {
-                            Text(control.localizedString)
-                                .fontWeight(.semibold)
-                                .foregroundColor(currentControl == control ? .primary : .gray)
-                            Capsule(style: .continuous)
-                                .foregroundColor(currentControl == control ? .primaryDim : .clear)
-                                .frame(width: 80, height: 2)
-                        }
-                        .onTapGesture {
-                            withAnimation {
-                                self.currentControl = control
-                            }
-                        }
-                    }
-                }
-                .fontWeight(.semibold)
-                .padding(.top)
-                
-                Capsule(style: .continuous)
-                    .fill(.gray)
-                    .frame(height: 1)
-                
-                if searchText != "" {
-                    ScrollView(showsIndicators: false) {
-                        ForEach(data.daos) { dao in
-                            HStack {
-                                RoundPictureView(image: dao.image, imageSize: 50)
-                                Text(dao.name)
-                                Spacer()
-                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
-                            }
-                            .padding(5)
-                            .listRowSeparator(.hidden)
-                        }
-                        .padding()
-                    }
-                } else {
-                    switch currentControl {
-                    case .daos:
-                        ScrollView(showsIndicators: false) {
-                            VStack {
-                                ForEach(data.caregories) { key in
-                                    VStack {
-                                        HStack {
-                                            Text(key.name)
-                                                .fontWeight(.semibold)
-                                            Spacer()
-                                            Text("See all")
-                                                .fontWeight(.medium)
-                                                .foregroundColor(.blue)
-                                        }
-                                        .padding()
-                                        DaoGroupThreadView(category: key)
-                                    }
-                                }
-                            }
-                        }
-                        .onAppear {
-                            Tracker.track(.searchDaoView)
-                            data.loadCategories()
-                        }
-                    case .discussions:
-                        SearchDiscussionBodyView()
-                            .onAppear { Tracker.track(.searchDiscussionView) }
-                    case .votes:
-                        SearchVoteBodyView()
-                            .onAppear { Tracker.track(.searchVoteView) }
-                    }
-                }
-            }
-            .searchable(text: $searchText, prompt: "Look for DAO")
-        }
+        Text("TODO")
+//        NavigationStack {
+//            VStack(alignment: .leading, spacing: 0) {
+//                HStack {
+//                    ForEach(controls, id: \.self) { control in
+//                        VStack(spacing: 12) {
+//                            Text(control.localizedString)
+//                                .fontWeight(.semibold)
+//                                .foregroundColor(currentControl == control ? .primary : .gray)
+//                            Capsule(style: .continuous)
+//                                .foregroundColor(currentControl == control ? .primaryDim : .clear)
+//                                .frame(width: 80, height: 2)
+//                        }
+//                        .onTapGesture {
+//                            withAnimation {
+//                                self.currentControl = control
+//                            }
+//                        }
+//                    }
+//                }
+//                .fontWeight(.semibold)
+//                .padding(.top)
+//
+//                Capsule(style: .continuous)
+//                    .fill(.gray)
+//                    .frame(height: 1)
+//
+//                if searchText != "" {
+//                    ScrollView(showsIndicators: false) {
+//                        ForEach(data.daos) { dao in
+//                            HStack {
+//                                RoundPictureView(image: dao.image, imageSize: 50)
+//                                Text(dao.name)
+//                                Spacer()
+//                                FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+//                            }
+//                            .padding(5)
+//                            .listRowSeparator(.hidden)
+//                        }
+//                        .padding()
+//                    }
+//                } else {
+//                    switch currentControl {
+//                    case .daos:
+//                        ScrollView(showsIndicators: false) {
+//                            VStack {
+//                                ForEach(data.caregories) { key in
+//                                    VStack {
+//                                        HStack {
+//                                            Text(key.name)
+//                                                .fontWeight(.semibold)
+//                                            Spacer()
+//                                            Text("See all")
+//                                                .fontWeight(.medium)
+//                                                .foregroundColor(.blue)
+//                                        }
+//                                        .padding()
+//                                        DaoGroupThreadView(category: key)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .onAppear {
+//                            Tracker.track(.searchDaoView)
+//                            data.loadCategories()
+//                        }
+//                    case .discussions:
+//                        SearchDiscussionBodyView()
+//                            .onAppear { Tracker.track(.searchDiscussionView) }
+//                    case .votes:
+//                        SearchVoteBodyView()
+//                            .onAppear { Tracker.track(.searchVoteView) }
+//                    }
+//                }
+//            }
+//            .searchable(text: $searchText, prompt: "Look for DAO")
+//        }
     }
 }
 

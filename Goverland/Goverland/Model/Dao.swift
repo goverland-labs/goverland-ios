@@ -74,28 +74,10 @@ enum DaoCategory: String, Decodable, Identifiable {
 
     var id: Self { self }
 
-    // TODO: remove if not needed after actual API integration
-//    var sortingNumber: Int {
-//        switch self {
-//        case .social:
-//            return 0
-//        case .protocol:
-//            return 1
-//        case .investment:
-//            return 2
-//        case .creator:
-//            return 3
-//        case .service:
-//            return 4
-//        case .collector:
-//            return 5
-//        case .media:
-//            return 6
-//        case .grant:
-//            return 7
-//        }
-//    }
-//
+    static var values: [DaoCategory] {[
+        .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
+    ]}
+
     var name: String {
         switch self {
         case .social:
@@ -116,6 +98,15 @@ enum DaoCategory: String, Decodable, Identifiable {
             return "Grant"
         }
     }
+}
+
+enum DaoSorting: String {
+    /// Default sorting displays "promoted" DAOs first, and then by voters amount desc.
+    case `default`
+    case votersDesc
+    case votersAsc
+    case proposalsDesc
+    case proposalsAsc
 }
 
 extension Dao {

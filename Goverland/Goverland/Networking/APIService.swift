@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-let DEFAULT_PAGINATION_COUNT = 20
+let DEFAULT_PAGINATION_COUNT = 10
 
 class APIService {
     let networkManager: NetworkManager
@@ -52,11 +52,13 @@ class APIService {
 extension APIService {
     static func daos(offset: Int = 0,
                      limit: Int = DEFAULT_PAGINATION_COUNT,
+                     sorting: DaoSorting = .default,
                      category: DaoCategory? = nil,
                      query: String? = nil) -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
+            URLQueryItem(name: "limit", value: "\(limit)"),
+            URLQueryItem(name: "sorting", value: "\(sorting)")
         ]
         if let category = category {
             queryParameters.append(URLQueryItem(name: "category", value: category.rawValue))
@@ -68,8 +70,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func categories() -> AnyPublisher<(DaoCategotiesEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoCategotiesEndpoint(queryParameters: nil)
+    static func topDaos() -> AnyPublisher<(TopDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = TopDaosEndpoint(queryParameters: nil)
         return shared.request(endpoint)
     }
 }
