@@ -16,7 +16,7 @@
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
-		557FD1262A25FEA000BDC5B0 /* TopDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* TopDaosDataSource.swift */; };
+		557FD1262A25FEA000BDC5B0 /* GroupDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupDaosDataSource.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */; };
 		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
@@ -91,7 +91,7 @@
 		5521D27829EF17C800A09FD4 /* InboxListItemFooterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxListItemFooterMenu.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
-		557FD1252A25FEA000BDC5B0 /* TopDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDaosDataSource.swift; sourceTree = "<group>"; };
+		557FD1252A25FEA000BDC5B0 /* GroupDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDaosDataSource.swift; sourceTree = "<group>"; };
 		5597E7352A0A5C8800E2FAE4 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		5597E7372A0A5C8800E2FAE4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 				BA352EFF298824FD00F78958 /* FollowDaoGroupView.swift */,
 				55FBE80F2A0BC023000A9204 /* FollowDaoListView.swift */,
 				55FBE8112A0BC105000A9204 /* DaoDataSource.swift */,
-				557FD1252A25FEA000BDC5B0 /* TopDaosDataSource.swift */,
+				557FD1252A25FEA000BDC5B0 /* GroupDaosDataSource.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -511,7 +511,7 @@
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BAF651C029A67C1200C78A8A /* InboxTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
-				557FD1262A25FEA000BDC5B0 /* TopDaosDataSource.swift in Sources */,
+				557FD1262A25FEA000BDC5B0 /* GroupDaosDataSource.swift in Sources */,
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				BA50AB362A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift in Sources */,

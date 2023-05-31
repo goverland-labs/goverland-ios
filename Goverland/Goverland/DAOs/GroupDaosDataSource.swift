@@ -1,5 +1,5 @@
 //
-//  TopDaosDataSource.swift
+//  GroupDaosDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 30.05.23.
@@ -8,10 +8,11 @@
 import Foundation
 import Combine
 
-class TopDaosDataSource: ObservableObject {
+class GroupDaosDataSource: ObservableObject {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
     @Published var failedToLoadInitially: Bool = false
     private var totalInCategory: [DaoCategory: Int] = [:]
+    // TODO: make proper handling
     private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
 
     private var cancellables = Set<AnyCancellable>()
@@ -78,5 +79,4 @@ class TopDaosDataSource: ObservableObject {
     private func offset(category: DaoCategory) -> Int {
         return categoryDaos[category]?.count ?? 0
     }
-
 }

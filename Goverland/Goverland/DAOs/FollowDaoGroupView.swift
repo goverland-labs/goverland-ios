@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FollowDaoGroupView: View {
     @State private var searchedText: String = ""
-    @StateObject private var dataSource = TopDaosDataSource()
+    @StateObject private var dataSource = GroupDaosDataSource()
     
     var body: some View {
         NavigationStack {
@@ -59,7 +59,7 @@ struct FollowDaoGroupView: View {
 }
 
 fileprivate struct GroupedView: View {
-    @ObservedObject var dataSource: TopDaosDataSource
+    @ObservedObject var dataSource: GroupDaosDataSource
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -89,7 +89,7 @@ fileprivate struct GroupedView: View {
 }
 
 fileprivate struct DaoGroupThreadView: View {
-    @ObservedObject var dataSource: TopDaosDataSource
+    @ObservedObject var dataSource: GroupDaosDataSource
     let category: DaoCategory
 
     var body: some View {
@@ -127,9 +127,6 @@ fileprivate struct DaoGroupThreadView: View {
             }
         }
         .padding(.bottom, 20)
-        .onAppear {
-            print("DRAWING DaoGroupThreadView")
-        }
     }
 }
 
