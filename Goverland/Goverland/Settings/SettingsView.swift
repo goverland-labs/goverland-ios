@@ -14,8 +14,12 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section {
-                    NavigationLink("Followed DAOs") { FollowedDaoView() }
-                    NavigationLink("Notifications") { PushNotificationsSettingView() }
+                    NavigationLink("Followed DAOs") {
+                        FollowDaoListView(category: .social)
+                    }
+                    NavigationLink("Notifications") {
+                        PushNotificationsSettingView()
+                    }
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -40,6 +44,7 @@ struct SettingsView: View {
     }
 }
 
+// do we need this?
 fileprivate struct FollowedDaoView: View {
     @StateObject private var data = DaoDataService()
     var body: some View {

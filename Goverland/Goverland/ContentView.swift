@@ -12,12 +12,16 @@ struct ContentView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some View {
-        if !termsAccepted {
-            IntroView()
-        } else if !onboardingFinished {
-            SelectDaoView()
-        } else {
-            AppTabView()
+        ZStack {
+            if !termsAccepted {
+                IntroView()
+            } else if !onboardingFinished {
+                FollowDaoGroupView()
+            } else {
+                AppTabView()
+            }
+
+            ErrorView()
         }
     }
 }
