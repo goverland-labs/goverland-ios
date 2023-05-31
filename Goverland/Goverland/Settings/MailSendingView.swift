@@ -9,7 +9,43 @@ import SwiftUI
 import UIKit
 import MessageUI
 
-struct MailSendingView: UIViewControllerRepresentable {
+struct MailSettingView: View {
+    @State private var isShowingMailView = false
+    @State private var isShowingMailAlertView = false
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "m.square")
+                .foregroundColor(.primary)
+            Button("Email", action: {
+                if !MFMailComposeViewController.canSendMail() {
+                    isShowingMailAlertView.toggle()
+                } else {
+                    isShowingMailView.toggle()
+                }
+            })
+            .sheet(isPresented: $isShowingMailView) {
+                MailSendingView(result: $result)
+            }
+            .alert(isPresented: $isShowingMailAlertView,
+                   content: GetSettingsEmailAddressAlert)
+        }
+    }
+    
+    private func GetSettingsEmailAddressAlert() -> Alert {
+        Alert(
+            title: Text("Our email address:"),
+            message: Text("contact@goverland.xyz"),
+            primaryButton: .default(Text("Copy"), action: {
+                UIPasteboard.general.string = "contact@goverland.xyz"
+            }),
+            secondaryButton: .cancel()
+        )
+    }
+}
+
+fileprivate struct MailSendingView: UIViewControllerRepresentable {
 
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?

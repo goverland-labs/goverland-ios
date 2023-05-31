@@ -7,14 +7,9 @@
 
 import SwiftUI
 import Kingfisher
-import MessageUI
 import StoreKit
 
-struct SettingsView: View {
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State private var isShowingMailView = false
-    @State private var isShowingMailAlertView = false
-    
+struct SettingsView: View {    
     var body: some View {
         NavigationStack {
             List {
@@ -24,37 +19,10 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Contact Us")) {
-                    HStack {
-                        Image(systemName: "bird")
-                            .foregroundColor(.primary)
-                        Button("Twitter", action: openTwitterApp)
-                    }
-                    HStack {
-                        Image(systemName: "paperplane.circle")
-                            .foregroundColor(.primary)
-                        Button("Telegram", action: openTelegramApp)
-                    }
-                    HStack {
-                        Image(systemName: "gamecontroller")
-                            .foregroundColor(.primary)
-                        Button("Discord", action: openDiscordApp)
-                    }
-                    HStack {
-                        Image(systemName: "m.square")
-                            .foregroundColor(.primary)
-                        Button("Email", action: {
-                            if !MFMailComposeViewController.canSendMail() {
-                                isShowingMailAlertView.toggle()
-                            } else {
-                                isShowingMailView.toggle()
-                            }
-                        })
-                        .sheet(isPresented: $isShowingMailView) {
-                            MailSendingView(result: $result)
-                        }
-                        .alert(isPresented: $isShowingMailAlertView,
-                               content: GetSettingsEmailAddressAlert)
-                    }
+                    TwitterSettingsView()
+                    TelegramSettingsView()
+                    DiscordSettingsView()
+                    MailSettingView()
                 }
                 .tint(.primary)
                 
@@ -69,50 +37,6 @@ struct SettingsView: View {
             }
         }
         .onAppear() { Tracker.track(.settingsView) }
-    }
-    
-    private func openTwitterApp() {
-        let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
-        let webURL = URL(string: "https://twitter.com/goverland_xyz")!
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL)
-        }
-    }
-
-    private func openTelegramApp() {
-        let appURL = URL(string: "tg://resolve?domain=goverland_support")!
-        let webURL = NSURL(string: "https://t.me/goverland_support")!
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func openDiscordApp() {
-        guard let appURL = URL(string: "") else { return }
-        guard let webURL = NSURL(string: "") else { return }
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func GetSettingsEmailAddressAlert() -> Alert {
-        Alert(
-            title: Text("Our email address:"),
-            message: Text("contact@goverland.xyz"),
-            primaryButton: .default(Text("Copy"), action: {
-                UIPasteboard.general.string = "contact@goverland.xyz"
-            }),
-            secondaryButton: .cancel()
-        )
     }
 }
 
