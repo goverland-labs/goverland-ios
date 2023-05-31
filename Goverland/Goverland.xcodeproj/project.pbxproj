@@ -533,12 +533,9 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
-<<<<<<< HEAD
 				BA352F08298C154200F78958 /* DaoDataService.swift in Sources */,
 				BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */,
-=======
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
->>>>>>> main
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				BA50AB342A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift in Sources */,
