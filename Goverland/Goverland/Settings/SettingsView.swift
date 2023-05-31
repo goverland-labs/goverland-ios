@@ -19,7 +19,7 @@ struct SettingsView: View {
             List {
                 Section {
                     NavigationLink("Followed DAOs") {
-                        FollowedDaoView()
+                        FollowDaoListView(category: .social)
                     }
                     NavigationLink("Notifications") {
                         PushNotificationsSettingView()
@@ -98,35 +98,6 @@ struct SettingsView: View {
         } else {
             UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
         }
-    }
-}
-
-fileprivate struct FollowedDaoView: View {
-    @StateObject private var data = DaoDataService()
-    var body: some View {
-        List {
-            ForEach(data.daoGroups[.social] ?? []) { dao in
-                HStack {
-                    KFImage(dao.image)
-                        .placeholder {
-                            Image(systemName: "circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .aspectRatio(contentMode: .fill)
-                                .foregroundColor(.gray)
-                        }
-                        .resizable()
-                        .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 30, height: 30), mode: .aspectFill))
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(15)
-                    
-                    Text(dao.name)
-                    Spacer()
-                    FollowingButtonView()
-                }
-            }
-        }
-        .onAppear() {Tracker.track(.settingsFollowDaoView) }
     }
 }
 
