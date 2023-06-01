@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SnapshotResultView: View {
     private let votersData: [Double] = [45.0, 8.5, 2.7]
-    private let percentageData: [Double] = [80, 15, 5.5]
+    private let percentageData: [Double] = [80, 15, 5]
     
     var body: some View {
         VStack {

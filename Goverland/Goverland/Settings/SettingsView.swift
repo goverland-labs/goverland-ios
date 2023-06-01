@@ -7,13 +7,9 @@
 
 import SwiftUI
 import Kingfisher
-import MessageUI
+import StoreKit
 
-struct SettingsView: View {
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State private var isShowingMailView = false
-    @State private var isShowingMailAlertView = false
-    
+struct SettingsView: View {    
     var body: some View {
         NavigationStack {
             List {
@@ -27,77 +23,24 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Contact Us")) {
-                    HStack {
-                        Image(systemName: "bird")
-                            .foregroundColor(.primary)
-                        Button("Twitter", action: openTwitterApp)
-                    }
-                    HStack {
-                        Image(systemName: "paperplane.circle")
-                            .foregroundColor(.primary)
-                        Button("Telegram", action: openTelegramApp)
-                    }
-                    HStack {
-                        Image(systemName: "m.square")
-                            .foregroundColor(.primary)
-                        Button("Email", action: {
-                            if !MFMailComposeViewController.canSendMail() {
-                                isShowingMailAlertView.toggle()
-                            } else {
-                                isShowingMailView.toggle()
-                            }
-                        })
-                        .sheet(isPresented: $isShowingMailView) {
-                            MailSendingView(result: $result)
-                        }
-                        .alert(isPresented: $isShowingMailAlertView) {
-                            Alert(
-                                title: Text("Our email address:"),
-                                message: Text("contact@goverland.xyz")
-                            )
-                        }
-                    }
+                    TwitterSettingsView()
+                    TelegramSettingsView()
+                    DiscordSettingsView()
+                    MailSettingView()
                 }
                 .tint(.primary)
                 
                 
                 Section {
-                    NavigationLink("About") {
-                        AboutSettingView()
-                    }
-                    NavigationLink("Help us grow") {
-                        HelpUsGrowSettingView()
-                    }
-                    NavigationLink("Advanced") {
-                        AdvancedSettingView()
-                    }
+                    NavigationLink("About") { AboutSettingView() }
+                    NavigationLink("Help us grow") { HelpUsGrowSettingView() }
+                    NavigationLink("Partnership") { PartnershipSettingView() }
+                    NavigationLink("Advanced") { AdvancedSettingView() }
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
         }
-        .onAppear() {Tracker.track(.settingsView) }
-    }
-    
-    private func openTwitterApp() {
-        let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
-        let webURL = URL(string: "https://twitter.com/goverland_xyz")!
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL)
-        }
-    }
-
-    private func openTelegramApp() {
-        let appURL = URL(string: "tg://resolve?domain=goverland_support")!
-        let webURL = NSURL(string: "https://t.me/goverland_support")!
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
-        }
+        .onAppear() { Tracker.track(.settingsView) }
     }
 }
 
@@ -114,9 +57,7 @@ fileprivate struct PushNotificationsSettingView: View {
 }
 
 fileprivate struct FollowingButtonView: View {
-    
     @State private var didTap: Bool = true
-    
     var body: some View {
         Button(action: { didTap.toggle() }) {
             Text(didTap ? "Following" : "Follow")
@@ -130,13 +71,8 @@ fileprivate struct FollowingButtonView: View {
 }
 
 fileprivate struct AboutSettingView: View {
-    
     var body: some View {
         List {
-            HStack {
-                Image(systemName: "heart.square.fill")
-                Text("[About us](http://goverland.xyz/about)")
-            }
             HStack {
                 Image(systemName: "lock.fill")
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
@@ -152,10 +88,34 @@ fileprivate struct AboutSettingView: View {
     }
 }
 
+fileprivate struct PartnershipSettingView: View {
+    var body: some View {
+        List {
+            Text("[Partnership](http://www.goverland.xyz/partnership)")
+        }
+    }
+}
+
 fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
-        Text("Help us grow")
-            .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
+        List{
+            Button(action: {
+                if let scene = UIApplication.shared.windows.first?.windowScene {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            }) {
+                HStack {
+                    Image(systemName: "star.bubble")
+                    Text("Rate the App")
+                }
+            }
+            
+            HStack {
+                Image(systemName: "shareplay")
+                Text("Share a tweet") //TODO: message, body and the image (after branding is done)
+            }
+        }
+        .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
         
 }
@@ -171,7 +131,8 @@ fileprivate struct AdvancedSettingView: View {
                     exit(0)
                 }
                 .accentColor(.primary)
-                
+            }
+            Section(header: Text("Share anonymized data")) {
                 Toggle(isOn: $isTrackActivity) {
                         Text("Allow App to Track Activity")
                 }

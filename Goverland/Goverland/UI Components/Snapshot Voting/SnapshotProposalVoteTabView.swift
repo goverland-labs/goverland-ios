@@ -98,7 +98,7 @@ struct SnapshotProposalVoteTabView: View {
             case .results:
                 SnapshotResultView()
             case .voters:
-                Text("")
+                SnapshotVotersView()
             case .info:
                 Text("")
             }
