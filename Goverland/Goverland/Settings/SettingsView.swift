@@ -44,46 +44,6 @@ struct SettingsView: View {
     }
 }
 
-// do we need this?
-fileprivate struct FollowedDaoView: View {
-    @StateObject private var data = DaoDataService()
-    var body: some View {
-        List {
-            ForEach(data.daoGroups[.social] ?? []) { dao in
-                HStack {
-                    KFImage(dao.image)
-                        .placeholder {
-                            Image(systemName: "circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .aspectRatio(contentMode: .fill)
-                                .foregroundColor(.gray)
-                        }
-                        .resizable()
-                        .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: 30, height: 30), mode: .aspectFill))
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(15)
-                    
-                    Text(dao.name)
-                    Spacer()
-                    FollowingButtonView()
-                }
-            }
-        }
-        .navigationTitle("Followed DAOs")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                // TODO: open Follow DAOs screen in a popover window.
-                // Closing this window should refresh the list of DAOs
-                NavigationLink(destination: EmptyView()) {
-                    Image(systemName: "plus")
-                }
-            }
-        }
-        .onAppear() {Tracker.track(.settingsFollowDaoView) }
-    }
-}
-
 fileprivate struct PushNotificationsSettingView: View {
     @State private var isReceiveUpdates = false
     var body: some View {
