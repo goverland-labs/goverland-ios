@@ -8,13 +8,16 @@ counter = 0
 def request(flow: http.HTTPFlow) -> None:
     global counter
     counter += 1
+    time.sleep(2)
     if counter % 2 == 0:
-        flow.response = http.Response.make(
-            404,
-            json.dumps(""),  # (optional) content
-            {"Content-Type": "application/json"},  # (optional) headers
-        )
-    # time.sleep(5)
+        time.sleep(3)
+    # if counter % 2 == 0:
+    #     flow.response = http.Response.make(
+    #         404,
+    #         json.dumps(""),  # (optional) content
+    #         {"Content-Type": "application/json"},  # (optional) headers
+    #     )
+
     return
     # if flow.request.pretty_url.startswith(
     #     "https://inbox.staging.goverland.xyz/dao/top"

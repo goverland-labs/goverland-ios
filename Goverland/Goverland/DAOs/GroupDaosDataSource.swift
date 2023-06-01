@@ -8,22 +8,25 @@
 import Foundation
 import Combine
 
-class GroupDaosDataSource: ObservableObject {
+class GroupDaosDataSource: ObservableObject, Refreshable {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
     @Published var failedToLoadInitially: Bool = false
+    @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
     private var totalInCategory: [DaoCategory: Int] = [:]
-    // TODO: make proper handling
-    private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
-
     private var cancellables = Set<AnyCancellable>()
 
-    func loadInitialData() {
+    func refresh() {
         categoryDaos = [:]
         failedToLoadInitially = false
-        totalInCategory = [:]
         failedToLoadInCategory = [:]
+        totalInCategory = [:]
+        cancellables = Set<AnyCancellable>()
 
-        APIService.topDaos()
+        loadInitialData()
+    }
+
+    private func loadInitialData() {
+        APIService.daoGrouped()
             .sink { [unowned self] completion in
                 switch completion {
                 case .finished: break
@@ -62,6 +65,11 @@ class GroupDaosDataSource: ObservableObject {
                 totalInCategory[category] = total
             }
             .store(in: &cancellables)
+    }
+
+    func retryLoadMore(category: DaoCategory) {
+        // This will trigger view update cycle that will trigger `loadMore` function
+        self.failedToLoadInCategory[category] = false
     }
 
     func hasMore(category: DaoCategory) -> Bool {

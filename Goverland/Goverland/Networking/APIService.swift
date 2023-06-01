@@ -70,8 +70,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func topDaos() -> AnyPublisher<(TopDaosEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = TopDaosEndpoint(queryParameters: nil)
+    static func daoGrouped() -> AnyPublisher<(DaoGroupedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoGroupedEndpoint(queryParameters: nil)
         return shared.request(endpoint)
     }
 }

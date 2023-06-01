@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FollowDaoGroupView: View {
+struct FollowGroupDaosView: View {
     @State private var searchedText: String = ""
     @StateObject private var dataSource = GroupDaosDataSource()
     
@@ -17,23 +17,24 @@ struct FollowDaoGroupView: View {
                 if searchedText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedView(dataSource: dataSource)
+                        NavigationLink {
+                            EnablePushNotificationsView()
+                        } label: {
+                            // TODO: make button disabled logic
+                            Text("Continue")
+                                .ghostActionButtonStyle()
+                                .padding(.vertical)
+                        }
                     } else {
-                        InitialLoadingFailedView()
-                    }
-                    NavigationLink {
-                        EnablePushNotificationsView()
-                    } label: {
-                        Text("Continue")
-                            .ghostActionButtonStyle()
-                            .padding(.vertical)
+                        RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
                     // TODO: implement search logic
-                    FollowDaoListView(category: .social)
+                    FollowCategoryDaosListView(category: .social)
                 }
             }
             .navigationDestination(for: DaoCategory.self) { category in
-                FollowDaoListView(category: category)
+                FollowCategoryDaosListView(category: category)
             }
             .padding(.horizontal, 15)
             .searchable(text: $searchedText,
@@ -51,7 +52,7 @@ struct FollowDaoGroupView: View {
                 }
             }
             .onAppear() {
-                dataSource.loadInitialData()
+                dataSource.refresh()
                 Tracker.track(.selectDaoView)                
             }
         }
@@ -94,11 +95,10 @@ fileprivate struct DaoGroupThreadView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
+            LazyHStack(spacing: 12) {
                 if dataSource.categoryDaos[category] == nil { // initial loading
-                    // TODO: shimmering view
                     ForEach(0..<3) { _ in
-                        Circle().foregroundColor(.yellow)
+                        ShimmerDaoCardView()
                     }
                 } else {
                     let count = dataSource.categoryDaos[category]!.count
@@ -106,18 +106,12 @@ fileprivate struct DaoGroupThreadView: View {
                         let dao = dataSource.categoryDaos[category]![index]
                         if index == count - 1 && dataSource.hasMore(category: category) {
                             if !dataSource.failedToLoad(category: category) { // try to paginate
-                                // TODO: shimmering view
-                                ShimmerLoadingItemView()
-                                    .cornerRadius(20)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 8)
-                                    .frame(height: 90)
-                                    .onAppear {                                        
+                                ShimmerDaoCardView()
+                                    .onAppear {
                                         dataSource.loadMore(category: category)
                                     }
-                            } else { // display retry pagination view
-                                // TODO: implement retry loading view
-                                Circle().foregroundColor(.gray)
+                            } else { // retry pagination
+                                RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
                             DaoCardView(dao: dao)
@@ -159,15 +153,23 @@ fileprivate struct DaoCardView: View {
     }
 }
 
-fileprivate struct InitialLoadingFailedView: View {
+// TODO: implement design
+fileprivate struct RetryLoadMoreCardView: View {
+    let dataSource: GroupDaosDataSource
+    let category: DaoCategory
+
     var body: some View {
-        // TODO: implement
-        Text("INITIAL LOADING FAILED")
+        Button("Load more") {
+            dataSource.retryLoadMore(category: category)
+        }
+        .frame(width: 130)
     }
 }
 
+
+
 struct SelectDAOsView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowDaoGroupView()
+        FollowGroupDaosView()
     }
 }
