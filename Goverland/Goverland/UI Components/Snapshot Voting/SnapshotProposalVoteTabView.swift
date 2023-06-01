@@ -39,6 +39,7 @@ enum SnapshotVoteChoiceType: Int, Identifiable {
     case `for` = 0
     case against
     case abstain
+    case quorum
 
     static var allChoices: [SnapshotVoteChoiceType] {
         return [.for, .against, .abstain]
@@ -52,6 +53,8 @@ enum SnapshotVoteChoiceType: Int, Identifiable {
             return "Against"
         case .abstain:
             return "Abstain"
+        case .quorum:
+            return "Quorum"
         }
     }
 }
