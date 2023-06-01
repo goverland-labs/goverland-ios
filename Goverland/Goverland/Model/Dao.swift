@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Dao: Identifiable, Decodable {
+struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let ensName: String
     let name: String

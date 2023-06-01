@@ -53,3 +53,13 @@ extension Bundle {
         return infoDictionary?["CFBundleVersion"] as? String
     }
 }
+
+extension Array where Element: Equatable {
+    mutating func appendUnique(contentsOf newElements: [Element]) {
+        for element in newElements {
+            if !contains(element) {
+                append(element)
+            }
+        }
+    }
+}

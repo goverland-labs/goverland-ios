@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */; };
+		5508BBA92993FCDA003E691A /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508BBA82993FCDA003E691A /* Extentions.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -84,7 +84,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtentions.swift; sourceTree = "<group>"; };
+		5508BBA82993FCDA003E691A /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		5508BBA72993FC93003E691A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5508BBA82993FCDA003E691A /* SwiftUIExtentions.swift */,
+				5508BBA82993FCDA003E691A /* Extentions.swift */,
 				BAF651D129C0F00000C78A8A /* UIComponents.swift */,
 				5521D26D29EF092900A09FD4 /* Colors.swift */,
 				BA1EAD6F29F053E9008D92E9 /* Fonts.swift */,
@@ -507,7 +507,7 @@
 			files = (
 				BAF651BE29A67ABB00C78A8A /* InboxDetailDividerLineView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
-				5508BBA92993FCDA003E691A /* SwiftUIExtentions.swift in Sources */,
+				5508BBA92993FCDA003E691A /* Extentions.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
 				55651FD12A28B89A00269E8D /* RetryInitialLoadingView.swift in Sources */,

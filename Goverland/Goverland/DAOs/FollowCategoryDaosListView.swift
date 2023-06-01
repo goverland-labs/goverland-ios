@@ -43,6 +43,9 @@ struct DaosListView: View {
                             if index == dataSource.daos.count - 1 && dataSource.hasMore() {
                                 if !dataSource.failedToLoadMore { // try to paginate
                                     ShimmerDaoListItemView()
+                                        .onAppear {
+                                            dataSource.loadMore()
+                                        }
                                 } else { // retry pagination
                                     RetryLoadMoreView(dataSource: dataSource)
                                 }

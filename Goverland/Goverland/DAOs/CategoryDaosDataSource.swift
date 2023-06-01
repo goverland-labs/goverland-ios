@@ -54,7 +54,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [unowned self] result, headers in
                 self.failedToLoadMore = false
-                self.daos.append(contentsOf: result)
+                self.daos.appendUnique(contentsOf: result)
                 self.total = self.getTotal(from: headers)
             }
             .store(in: &cancellables)

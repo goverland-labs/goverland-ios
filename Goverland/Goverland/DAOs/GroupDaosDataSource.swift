@@ -52,7 +52,7 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
                 self.failedToLoadInCategory[category] = false
 
                 if categoryDaos[category] != nil {
-                    self.categoryDaos[category]!.append(contentsOf: result)
+                    self.categoryDaos[category]!.appendUnique(contentsOf: result)
                 } else {
                     self.categoryDaos[category] = result
                 }

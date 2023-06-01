@@ -8,7 +8,11 @@
 import Combine
 import Foundation
 
+#if DEV
 let DEFAULT_PAGINATION_COUNT = 10
+#else
+let DEFAULT_PAGINATION_COUNT = 20
+#endif
 
 class APIService {
     let networkManager: NetworkManager
