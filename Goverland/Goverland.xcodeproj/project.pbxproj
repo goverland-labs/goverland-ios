@@ -64,6 +64,9 @@
 		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
 		BAAA526F2953AC28003177BC /* ProposalListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ProposalListItemFooterView.swift */; };
+		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
+		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
+		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */; };
 		BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B529A1734100C78A8A /* InboxDetailHeaderView.swift */; };
 		BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B729A175CA00C78A8A /* InboxDetailStatusRowView.swift */; };
@@ -137,6 +140,9 @@
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ProposalListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemFooterView.swift; sourceTree = "<group>"; };
+		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
+		BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSettingsView.swift; sourceTree = "<group>"; };
+		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxItemDetailView.swift; sourceTree = "<group>"; };
 		BAF651B529A1734100C78A8A /* InboxDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -252,6 +258,9 @@
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
+				BAD5225D2A279A950097068F /* TwitterSettingsView.swift */,
+				BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */,
+				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 			);
 			path = Settings;
@@ -528,6 +537,7 @@
 				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */,
 				BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
+				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
@@ -544,12 +554,15 @@
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */,
 				BAAA526F2953AC28003177BC /* ProposalListItemBodyView.swift in Sources */,
+				BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */,
+				BA352F00298824FD00F78958 /* SelectDaoView.swift in Sources */,
 				BA352F00298824FD00F78958 /* FollowDaoGroupView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */,
+				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				55FBE8102A0BC023000A9204 /* FollowDaoListView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
