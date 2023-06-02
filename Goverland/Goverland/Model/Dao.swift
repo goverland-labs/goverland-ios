@@ -56,12 +56,6 @@ struct Dao: Identifiable, Decodable, Equatable {
     }
 }
 
-struct DaoGroup: Identifiable, Decodable {
-    let id: UUID
-    let groupType: DaoCategory
-    let daos: [Dao]
-}
-
 enum DaoCategory: String, Decodable, Identifiable {
     case social
     case `protocol`
