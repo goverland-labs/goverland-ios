@@ -39,7 +39,7 @@ struct SnapshotProposalView: View {
                     }
                     .padding(.bottom)
                     SnapshotProposalVoteTabView()
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 35)
                     SnapshotProposalTimelineView()
                         .padding(.bottom, 20)
                 }

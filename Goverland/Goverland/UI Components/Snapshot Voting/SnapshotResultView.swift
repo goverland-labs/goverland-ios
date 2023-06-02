@@ -20,6 +20,7 @@ struct SnapshotResultView: View {
                                             choicePercentage: percentageData[index])
                     .padding(.bottom, 30)
             }
+            
             SnapshotVotingResultBarView(choice: .quorum,
                                         votersCount: 54,
                                         choicePercentage: 76)
