@@ -17,8 +17,18 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
     private var total: Int?
     private var cancellables = Set<AnyCancellable>()
 
+    @Published var searchText = ""
+    @Published var searchResultDaos: [Dao] = []
+    @Published var nothingFound: Bool = false
+    private var searchCancellable: AnyCancellable?
+
     init(category: DaoCategory) {
         self.category = category
+        searchCancellable = $searchText
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                self?.performSearch(searchText)
+            }
     }
 
     func refresh() {
@@ -28,34 +38,56 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
         total = nil
         cancellables = Set<AnyCancellable>()
 
+        searchText = ""
+        searchResultDaos = []
+        nothingFound = false
+        // do not clear searchCancellable
+
         loadInitialData()
     }
 
     private func loadInitialData() {
         APIService.daos(category: category)
-            .sink { [unowned self] completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self.failedToLoadInitialData = true
+                case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [unowned self] daos, headers in
-                self.daos = daos
-                self.total = getTotal(from: headers)
+            } receiveValue: { [weak self] daos, headers in
+                self?.daos = daos
+                self?.total = self?.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
 
     func loadMore() {
         APIService.daos(offset: daos.count, category: category)
-            .sink { [unowned self] completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self.failedToLoadMore = true
+                case .failure(_): self?.failedToLoadMore = true
                 }
-            } receiveValue: { [unowned self] result, headers in
-                self.failedToLoadMore = false
-                self.daos.appendUnique(contentsOf: result)
-                self.total = self.getTotal(from: headers)
+            } receiveValue: { [weak self] result, headers in
+                self?.failedToLoadMore = false
+                self?.daos.appendUnique(contentsOf: result)
+                self?.total = self?.getTotal(from: headers)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func performSearch(_ searchText: String) {
+        nothingFound = false
+        guard searchText != "" else { return }
+
+        APIService.daos(category: category, query: searchText)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.nothingFound = true
+                }
+            } receiveValue: { [weak self] result, headers in
+                self?.nothingFound = result.isEmpty
+                self?.searchResultDaos = result
             }
             .store(in: &cancellables)
     }

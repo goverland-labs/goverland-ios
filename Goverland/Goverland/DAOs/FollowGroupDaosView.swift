@@ -41,6 +41,7 @@ struct FollowGroupDaosView: View {
                         prompt: "Search 6032 DAOs by name")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // TODO: why not .navigationTitle?
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Select DAOs")
