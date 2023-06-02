@@ -7,41 +7,41 @@
 
 import SwiftUI
 
-struct FollowDaoGroupView: View {
-    @State private var searchedText: String = ""
+struct FollowGroupDaosView: View {
     @StateObject private var dataSource = GroupDaosDataSource()
     
     var body: some View {
         NavigationStack {
             VStack {
-                if searchedText == "" {
+                if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedView(dataSource: dataSource)
+                        NavigationLink {
+                            EnablePushNotificationsView()
+                        } label: {
+                            // TODO: make button disabled logic
+                            Text("Continue")
+                                .ghostActionButtonStyle()
+                                .padding(.vertical)
+                        }
                     } else {
-                        InitialLoadingFailedView()
-                    }
-                    NavigationLink {
-                        EnablePushNotificationsView()
-                    } label: {
-                        Text("Continue")
-                            .ghostActionButtonStyle()
-                            .padding(.vertical)
+                        RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    // TODO: implement search logic
-                    FollowDaoListView(category: .social)
+                    DaosSearchListView(dataSource: dataSource)
                 }
             }
             .navigationDestination(for: DaoCategory.self) { category in
-                FollowDaoListView(category: category)
+                FollowCategoryDaosListView(category: category)
             }
             .padding(.horizontal, 15)
-            .searchable(text: $searchedText,
+            .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         // TODO: make dao/top return total count of DAOs
                         prompt: "Search 6032 DAOs by name")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // TODO: why not .navigationTitle?
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Select DAOs")
@@ -51,7 +51,7 @@ struct FollowDaoGroupView: View {
                 }
             }
             .onAppear() {
-                dataSource.loadInitialData()
+                dataSource.refresh()
                 Tracker.track(.selectDaoView)                
             }
         }
@@ -94,11 +94,10 @@ fileprivate struct DaoGroupThreadView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
+            LazyHStack(spacing: 12) {
                 if dataSource.categoryDaos[category] == nil { // initial loading
-                    // TODO: shimmering view
                     ForEach(0..<3) { _ in
-                        Circle().foregroundColor(.yellow)
+                        ShimmerDaoCardView()
                     }
                 } else {
                     let count = dataSource.categoryDaos[category]!.count
@@ -106,18 +105,12 @@ fileprivate struct DaoGroupThreadView: View {
                         let dao = dataSource.categoryDaos[category]![index]
                         if index == count - 1 && dataSource.hasMore(category: category) {
                             if !dataSource.failedToLoad(category: category) { // try to paginate
-                                // TODO: shimmering view
-                                ShimmerLoadingItemView()
-                                    .cornerRadius(20)
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 8)
-                                    .frame(height: 90)
-                                    .onAppear {                                        
+                                ShimmerDaoCardView()
+                                    .onAppear {
                                         dataSource.loadMore(category: category)
                                     }
-                            } else { // display retry pagination view
-                                // TODO: implement retry loading view
-                                Circle().foregroundColor(.gray)
+                            } else { // retry pagination
+                                RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
                             DaoCardView(dao: dao)
@@ -127,6 +120,28 @@ fileprivate struct DaoGroupThreadView: View {
             }
         }
         .padding(.bottom, 20)
+    }
+}
+
+fileprivate struct DaosSearchListView: View {
+    @ObservedObject var dataSource: GroupDaosDataSource
+
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 12) {
+                if dataSource.nothingFound {
+                    Text("Nothing found")
+                } else if dataSource.searchResultDaos.isEmpty { // initial searching
+                    ForEach(0..<3) { _ in
+                        ShimmerDaoListItemView()
+                    }
+                } else {
+                    ForEach(dataSource.searchResultDaos) { dao in
+                        FollowDaoListItemView(dao: dao)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -159,15 +174,23 @@ fileprivate struct DaoCardView: View {
     }
 }
 
-fileprivate struct InitialLoadingFailedView: View {
+// TODO: implement design
+fileprivate struct RetryLoadMoreCardView: View {
+    let dataSource: GroupDaosDataSource
+    let category: DaoCategory
+
     var body: some View {
-        // TODO: implement
-        Text("INITIAL LOADING FAILED")
+        Button("Load more") {
+            dataSource.retryLoadMore(category: category)
+        }
+        .frame(width: 130)
     }
 }
 
+
+
 struct SelectDAOsView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowDaoGroupView()
+        FollowGroupDaosView()
     }
 }

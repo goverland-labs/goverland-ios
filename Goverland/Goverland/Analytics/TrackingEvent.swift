@@ -17,7 +17,7 @@ enum TrackingEvent: String, Trackable {
     case inboxView = "inbox_view"
     case daoInfoScreenView = "dao_info_screen_view"
     case enablePushNotificationsView = "enable_push_notifications_view"
-    case followDaoListView = "follow_dao_list_view"
+    case followCategoryDaosView = "follow_category_daos_view"
     case introView = "intro_view"
     case launchTerms = "launch_terms"
     case searchDaoView = "search_dao_view"

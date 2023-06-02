@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var data = DaoDataSource()
+    @StateObject private var data = CategoryDaosDataSource(category: .social)
     @State private var searchText = ""
     private let controls: [SearchViewControls] = SearchViewControls.all
     @State private var currentControl: SearchViewControls = .daos

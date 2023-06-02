@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Dao: Identifiable, Decodable {
+struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let ensName: String
     let name: String
@@ -54,12 +54,6 @@ struct Dao: Identifiable, Decodable {
             self.proposals = 10
         }
     }
-}
-
-struct DaoGroup: Identifiable, Decodable {
-    let id: UUID
-    let groupType: DaoCategory
-    let daos: [Dao]
 }
 
 enum DaoCategory: String, Decodable, Identifiable {
