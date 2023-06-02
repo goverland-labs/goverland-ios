@@ -15,9 +15,15 @@ struct SnapshotResultView: View {
         VStack {
             ForEach(SnapshotVoteChoiceType.allChoices) { choice in
                 let index = choice.rawValue
-                SnapshotVotingResultBarView(choice: choice, votersCount: votersData[index], choicePercentage: percentageData[index])
+                SnapshotVotingResultBarView(choice: choice,
+                                            votersCount: votersData[index],
+                                            choicePercentage: percentageData[index])
                     .padding(.bottom, 30)
             }
+            
+            SnapshotVotingResultBarView(choice: .quorum,
+                                        votersCount: 54,
+                                        choicePercentage: 76)
         }
     }
 }
@@ -37,9 +43,15 @@ fileprivate struct SnapshotVotingResultBarView: View {
                     Spacer()
                     // TODO: converter to present rounded number with "K" needed here
                     // TODO: converter for %
-                    Text(String(votersCount) + "K Voters " + String(choicePercentage) + "%")
-                        .font(.footnoteSemibold)
-                        .foregroundColor(.textWhite)
+                    if choice == .quorum {
+                        Text(String(votersCount) + "K / " + String(choicePercentage) + "K")
+                            .font(.footnoteSemibold)
+                            .foregroundColor(.textWhite)
+                    } else {
+                        Text(String(votersCount) + "K Voters " + String(choicePercentage) + "%")
+                            .font(.footnoteSemibold)
+                            .foregroundColor(.textWhite)
+                    }
                 }
                 
                 ZStack(alignment: .leading) {

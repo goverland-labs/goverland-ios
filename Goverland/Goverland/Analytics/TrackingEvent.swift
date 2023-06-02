@@ -15,7 +15,6 @@ enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
     
     case inboxView = "inbox_view"
-    case inboxDetailView = "inbox_detail_view"
     case daoInfoScreenView = "dao_info_screen_view"
     case enablePushNotificationsView = "enable_push_notifications_view"
     case followCategoryDaosView = "follow_category_daos_view"

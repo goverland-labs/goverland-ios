@@ -39,6 +39,12 @@
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
+		BA09B3092A2A3B6600223049 /* SnapshotProposalStatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3032A2A3B6600223049 /* SnapshotProposalStatusBarView.swift */; };
+		BA09B30A2A2A3B6600223049 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3042A2A3B6600223049 /* SnapshotProposalDescriptionView.swift */; };
+		BA09B30B2A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3052A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift */; };
+		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
+		BA09B30D2A2A3B6600223049 /* SnapshotProposalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3072A2A3B6600223049 /* SnapshotProposalHeaderView.swift */; };
+		BA09B30E2A2A3B6600223049 /* SnapshotProposalTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3082A2A3B6600223049 /* SnapshotProposalTimelineView.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
 		BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */; };
@@ -52,13 +58,7 @@
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
 		BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */; };
-		BA50AB322A0089A100EC2AA6 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */; };
-		BA50AB342A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */; };
-		BA50AB362A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */; };
-		BA50AB382A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */; };
-		BA50AB3A2A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */; };
 		BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */; };
-		BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */; };
 		BA50AB402A04086900EC2AA6 /* SnapshotVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3F2A04086900EC2AA6 /* SnapshotVotingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
@@ -70,13 +70,6 @@
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
-		BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */; };
-		BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B529A1734100C78A8A /* InboxDetailHeaderView.swift */; };
-		BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B729A175CA00C78A8A /* InboxDetailStatusRowView.swift */; };
-		BAF651BA29A17DFF00C78A8A /* InboxDetailSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651B929A17DFF00C78A8A /* InboxDetailSummaryView.swift */; };
-		BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BB29A185AE00C78A8A /* InboxDetailForumView.swift */; };
-		BAF651BE29A67ABB00C78A8A /* InboxDetailDividerLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BD29A67ABB00C78A8A /* InboxDetailDividerLineView.swift */; };
-		BAF651C029A67C1200C78A8A /* InboxTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651BF29A67C1200C78A8A /* InboxTimelineView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */; };
@@ -120,6 +113,12 @@
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA09B3032A2A3B6600223049 /* SnapshotProposalStatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalStatusBarView.swift; sourceTree = "<group>"; };
+		BA09B3042A2A3B6600223049 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
+		BA09B3052A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalCreatorIdentityView.swift; sourceTree = "<group>"; };
+		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
+		BA09B3072A2A3B6600223049 /* SnapshotProposalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalHeaderView.swift; sourceTree = "<group>"; };
+		BA09B3082A2A3B6600223049 /* SnapshotProposalTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalTimelineView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
 		BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -132,13 +131,7 @@
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
 		BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerLoadingView.swift; sourceTree = "<group>"; };
-		BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
-		BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalHeaderView.swift; sourceTree = "<group>"; };
-		BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalCreatorIdentityView.swift; sourceTree = "<group>"; };
-		BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalStatusBarView.swift; sourceTree = "<group>"; };
-		BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
-		BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalTimelineView.swift; sourceTree = "<group>"; };
 		BA50AB3F2A04086900EC2AA6 /* SnapshotVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotResultView.swift; sourceTree = "<group>"; };
@@ -150,13 +143,6 @@
 		BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxItemDetailView.swift; sourceTree = "<group>"; };
-		BAF651B529A1734100C78A8A /* InboxDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailHeaderView.swift; sourceTree = "<group>"; };
-		BAF651B729A175CA00C78A8A /* InboxDetailStatusRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailStatusRowView.swift; sourceTree = "<group>"; };
-		BAF651B929A17DFF00C78A8A /* InboxDetailSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailSummaryView.swift; sourceTree = "<group>"; };
-		BAF651BB29A185AE00C78A8A /* InboxDetailForumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailForumView.swift; sourceTree = "<group>"; };
-		BAF651BD29A67ABB00C78A8A /* InboxDetailDividerLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailDividerLineView.swift; sourceTree = "<group>"; };
-		BAF651BF29A67C1200C78A8A /* InboxTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTimelineView.swift; sourceTree = "<group>"; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
 		BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenView.swift; sourceTree = "<group>"; };
@@ -294,11 +280,11 @@
 				5597E7342A0A5C8800E2FAE4 /* Networking */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				55D632B429505BDE0073E04A /* Inbox */,
-				BAF651B429A172F000C78A8A /* InboxDetail */,
 				BAF651CA29B79E2200C78A8A /* Info */,
 				5508BBA72993FC93003E691A /* Common */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55FBE80E2A0BBDFF000A9204 /* DAOs */,
+				BA09B3022A2A3B6600223049 /* SnapshotProposal */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				55D632B529505BEB0073E04A /* Search */,
 				55D632B729505C070073E04A /* Settings */,
@@ -327,6 +313,19 @@
 			path = DAOs;
 			sourceTree = "<group>";
 		};
+		BA09B3022A2A3B6600223049 /* SnapshotProposal */ = {
+			isa = PBXGroup;
+			children = (
+				BA09B3032A2A3B6600223049 /* SnapshotProposalStatusBarView.swift */,
+				BA09B3042A2A3B6600223049 /* SnapshotProposalDescriptionView.swift */,
+				BA09B3052A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift */,
+				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
+				BA09B3072A2A3B6600223049 /* SnapshotProposalHeaderView.swift */,
+				BA09B3082A2A3B6600223049 /* SnapshotProposalTimelineView.swift */,
+			);
+			path = SnapshotProposal;
+			sourceTree = "<group>";
+		};
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,19 +347,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BA50AB302A00892800EC2AA6 /* SnapshotProposal */ = {
-			isa = PBXGroup;
-			children = (
-				BA50AB312A0089A100EC2AA6 /* SnapshotProposalView.swift */,
-				BA50AB332A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift */,
-				BA50AB352A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift */,
-				BA50AB372A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift */,
-				BA50AB392A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift */,
-				BA50AB3D2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift */,
-			);
-			path = SnapshotProposal;
-			sourceTree = "<group>";
-		};
 		BAA8ED7E2A06FF4500316BFD /* Snapshot Voting */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,21 +366,6 @@
 				BA1EAD7129F32D0C008D92E9 /* Treasury List Item */,
 			);
 			path = "Inbox List Item";
-			sourceTree = "<group>";
-		};
-		BAF651B429A172F000C78A8A /* InboxDetail */ = {
-			isa = PBXGroup;
-			children = (
-				BAF651B229A159AF00C78A8A /* InboxItemDetailView.swift */,
-				BAF651B529A1734100C78A8A /* InboxDetailHeaderView.swift */,
-				BAF651B729A175CA00C78A8A /* InboxDetailStatusRowView.swift */,
-				BAF651B929A17DFF00C78A8A /* InboxDetailSummaryView.swift */,
-				BAF651BB29A185AE00C78A8A /* InboxDetailForumView.swift */,
-				BAF651BD29A67ABB00C78A8A /* InboxDetailDividerLineView.swift */,
-				BAF651BF29A67C1200C78A8A /* InboxTimelineView.swift */,
-				BA50AB302A00892800EC2AA6 /* SnapshotProposal */,
-			);
-			path = InboxDetail;
 			sourceTree = "<group>";
 		};
 		BAF651CA29B79E2200C78A8A /* Info */ = {
@@ -520,24 +491,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAF651BE29A67ABB00C78A8A /* InboxDetailDividerLineView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
-				BAF651C029A67C1200C78A8A /* InboxTimelineView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				557FD1262A25FEA000BDC5B0 /* GroupDaosDataSource.swift in Sources */,
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
-				BA50AB362A009CA000EC2AA6 /* SnapshotProposalCreatorIdentityView.swift in Sources */,
+				BA09B30E2A2A3B6600223049 /* SnapshotProposalTimelineView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
-				BA50AB3E2A009D2A00EC2AA6 /* SnapshotProposalTimelineView.swift in Sources */,
-				BAF651B329A159AF00C78A8A /* InboxItemDetailView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
@@ -546,21 +513,18 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
-				BAF651B829A175CA00C78A8A /* InboxDetailStatusRowView.swift in Sources */,
+				BA09B30B2A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* FollowGroupDaosView.swift in Sources */,
 				BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */,
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
-				BA50AB342A009BCA00EC2AA6 /* SnapshotProposalHeaderView.swift in Sources */,
-				BAF651BA29A17DFF00C78A8A /* InboxDetailSummaryView.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				55B8B8E32A29DC240086D42F /* FollowDaoListItemView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
-				BA50AB322A0089A100EC2AA6 /* SnapshotProposalView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */,
@@ -572,27 +536,27 @@
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
+				BA09B30A2A2A3B6600223049 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
-				BAF651BC29A185AE00C78A8A /* InboxDetailForumView.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
+				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
+				BA09B30D2A2A3B6600223049 /* SnapshotProposalHeaderView.swift in Sources */,
 				BA50AB402A04086900EC2AA6 /* SnapshotVotingView.swift in Sources */,
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
-				BAF651B629A1734100C78A8A /* InboxDetailHeaderView.swift in Sources */,
 				5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */,
-				BA50AB382A009CD800EC2AA6 /* SnapshotProposalStatusBarView.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
-				BA50AB3A2A009CF100EC2AA6 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */,
+				BA09B3092A2A3B6600223049 /* SnapshotProposalStatusBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
