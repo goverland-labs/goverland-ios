@@ -17,8 +17,8 @@ struct ErrorView: View {
                 Text(errorMessage)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.containerBright)
-                    .foregroundColor(.textWhite)
+                    .background(Color.textWhite)
+                    .foregroundColor(Color.container)
                     .cornerRadius(8)
                     .onTapGesture {
                         withAnimation {

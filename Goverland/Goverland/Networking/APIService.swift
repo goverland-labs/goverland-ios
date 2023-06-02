@@ -8,7 +8,11 @@
 import Combine
 import Foundation
 
+#if DEV
 let DEFAULT_PAGINATION_COUNT = 10
+#else
+let DEFAULT_PAGINATION_COUNT = 20
+#endif
 
 class APIService {
     let networkManager: NetworkManager
@@ -70,8 +74,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func topDaos() -> AnyPublisher<(TopDaosEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = TopDaosEndpoint(queryParameters: nil)
+    static func daoGrouped() -> AnyPublisher<(DaoGroupedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoGroupedEndpoint(queryParameters: nil)
         return shared.request(endpoint)
     }
 }

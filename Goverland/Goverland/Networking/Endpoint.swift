@@ -53,7 +53,7 @@ struct DaoListEndpoint: APIEndpoint {
     }
 }
 
-struct TopDaosEndpoint: APIEndpoint {
+struct DaoGroupedEndpoint: APIEndpoint {
     typealias ResponseType = [String: [Dao]]
 
     var path: String = "dao/top"
