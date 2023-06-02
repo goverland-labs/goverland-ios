@@ -27,7 +27,7 @@ struct FollowCategoryDaosListView: View {
     }
 }
 
-struct DaosListView: View {
+fileprivate struct DaosListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
 
     var body: some View {
@@ -59,21 +59,6 @@ struct DaosListView: View {
         } else {
             RetryInitialLoadingView(dataSource: dataSource)
         }
-    }
-}
-
-fileprivate struct FollowDaoListItemView: View {
-    let dao: Dao
-
-    var body: some View {
-        HStack {
-            RoundPictureView(image: dao.image, imageSize: 50)
-            Text(dao.name)
-            Spacer()
-            FollowButtonView(buttonWidth: 110, buttonHeight: 35)
-        }
-        .padding(5)
-        .listRowSeparator(.hidden)
     }
 }
 

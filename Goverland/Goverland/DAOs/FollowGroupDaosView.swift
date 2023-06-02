@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct FollowGroupDaosView: View {
-    @State private var searchedText: String = ""
     @StateObject private var dataSource = GroupDaosDataSource()
     
     var body: some View {
         NavigationStack {
             VStack {
-                if searchedText == "" {
+                if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedView(dataSource: dataSource)
                         NavigationLink {
@@ -29,15 +28,14 @@ struct FollowGroupDaosView: View {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    // TODO: implement search logic
-                    FollowCategoryDaosListView(category: .social)
+                    DaosSearchListView(dataSource: dataSource)
                 }
             }
             .navigationDestination(for: DaoCategory.self) { category in
                 FollowCategoryDaosListView(category: category)
             }
             .padding(.horizontal, 15)
-            .searchable(text: $searchedText,
+            .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         // TODO: make dao/top return total count of DAOs
                         prompt: "Search 6032 DAOs by name")
@@ -121,6 +119,28 @@ fileprivate struct DaoGroupThreadView: View {
             }
         }
         .padding(.bottom, 20)
+    }
+}
+
+fileprivate struct DaosSearchListView: View {
+    @ObservedObject var dataSource: GroupDaosDataSource
+
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 12) {
+                if dataSource.nothingFound {
+                    Text("Nothing found")
+                } else if dataSource.searchResultDaos.isEmpty { // initial searching
+                    ForEach(0..<3) { _ in
+                        ShimmerDaoListItemView()
+                    }
+                } else {
+                    ForEach(dataSource.searchResultDaos) { dao in
+                        FollowDaoListItemView(dao: dao)
+                    }
+                }
+            }
+        }
     }
 }
 

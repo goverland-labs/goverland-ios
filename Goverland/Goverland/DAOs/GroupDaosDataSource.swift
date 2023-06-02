@@ -15,6 +15,19 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
     private var totalInCategory: [DaoCategory: Int] = [:]
     private var cancellables = Set<AnyCancellable>()
 
+    @Published var searchText = ""
+    @Published var searchResultDaos: [Dao] = []
+    @Published var nothingFound: Bool = false
+    private var searchCancellable: AnyCancellable?
+
+    init() {
+        searchCancellable = $searchText
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                self?.performSearch(searchText)
+            }
+    }
+
     func refresh() {
         categoryDaos = [:]
         failedToLoadInitially = false
@@ -22,20 +35,25 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
         totalInCategory = [:]
         cancellables = Set<AnyCancellable>()
 
+        searchText = ""
+        searchResultDaos = []
+        nothingFound = false
+        // do not clear searchCancellable
+
         loadInitialData()
     }
 
     private func loadInitialData() {
         APIService.daoGrouped()
-            .sink { [unowned self] completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self.failedToLoadInitially = true
+                case .failure(_): self?.failedToLoadInitially = true
                 }
-            } receiveValue: { [unowned self] result, headers in
+            } receiveValue: { [weak self] result, headers in
                 result.forEach { (key: String, value: [Dao]) in
                     let category = DaoCategory(rawValue: key)!
-                    self.categoryDaos[category] = value
+                    self?.categoryDaos[category] = value
                 }
             }
             .store(in: &cancellables)
@@ -43,18 +61,18 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
 
     func loadMore(category: DaoCategory) {
         APIService.daos(offset: offset(category: category), category: category)
-            .sink { [unowned self] completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self.failedToLoadInCategory[category] = true
+                case .failure(_): self?.failedToLoadInCategory[category] = true
                 }
-            } receiveValue: { [unowned self] result, headers in
-                self.failedToLoadInCategory[category] = false
+            } receiveValue: { [weak self] result, headers in
+                self?.failedToLoadInCategory[category] = false
 
-                if categoryDaos[category] != nil {
-                    self.categoryDaos[category]!.appendUnique(contentsOf: result)
+                if self?.categoryDaos[category] != nil {
+                    self?.categoryDaos[category]!.appendUnique(contentsOf: result)
                 } else {
-                    self.categoryDaos[category] = result
+                    self?.categoryDaos[category] = result
                 }
 
                 guard let totalStr = headers["x-total-count"] as? String,
@@ -62,7 +80,24 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
                     // TODO: log in crashlytics
                     return
                 }
-                totalInCategory[category] = total
+                self?.totalInCategory[category] = total
+            }
+            .store(in: &cancellables)
+    }
+
+    private func performSearch(_ searchText: String) {
+        nothingFound = false
+        guard searchText != "" else { return }
+
+        APIService.daos(query: searchText)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.nothingFound = true
+                }
+            } receiveValue: { [weak self] result, headers in
+                self?.nothingFound = result.isEmpty
+                self?.searchResultDaos = result
             }
             .store(in: &cancellables)
     }
