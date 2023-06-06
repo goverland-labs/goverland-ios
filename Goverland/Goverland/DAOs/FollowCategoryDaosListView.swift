@@ -70,7 +70,7 @@ fileprivate struct DaosListView: View {
     }
 }
 
-fileprivate struct DaosSearchListView: View {
+struct DaosSearchListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
 
     var body: some View {

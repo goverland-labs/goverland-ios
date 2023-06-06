@@ -13,9 +13,7 @@ struct TermsView: View {
     @Binding var termsViewIsPresented: Bool
     
     var body: some View {
-        
         VStack(spacing: 30) {
-           
             HStack {
                 Spacer()
                 Button {

@@ -1,64 +1,13 @@
 //
-//  FollowDaoGroupView.swift
+//  DaosGroupedByCategoryView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-01-30.
+//  Created by Jenny Shalai on 2023-06-05.
 //
 
 import SwiftUI
 
-struct FollowGroupDaosView: View {
-    @StateObject private var dataSource = GroupDaosDataSource()
-    
-    var body: some View {
-        NavigationStack {
-            VStack {
-                if dataSource.searchText == "" {
-                    if !dataSource.failedToLoadInitially {
-                        GroupedView(dataSource: dataSource)
-                        NavigationLink {
-                            EnablePushNotificationsView()
-                        } label: {
-                            // TODO: make button disabled logic
-                            Text("Continue")
-                                .ghostActionButtonStyle()
-                                .padding(.vertical)
-                        }
-                    } else {
-                        RetryInitialLoadingView(dataSource: dataSource)
-                    }
-                } else {
-                    DaosSearchListView(dataSource: dataSource)
-                }
-            }
-            .navigationDestination(for: DaoCategory.self) { category in
-                FollowCategoryDaosListView(category: category)
-            }
-            .padding(.horizontal, 15)
-            .searchable(text: $dataSource.searchText,
-                        placement: .navigationBarDrawer(displayMode: .always),
-                        // TODO: make dao/top return total count of DAOs
-                        prompt: "Search 6032 DAOs by name")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                // TODO: why not .navigationTitle?
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Select DAOs")
-                            .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
-                    }
-                }
-            }
-            .onAppear() {
-                dataSource.refresh()
-                Tracker.track(.selectDaoView)                
-            }
-        }
-    }
-}
-
-fileprivate struct GroupedView: View {
+struct DaosGroupedByCategoryView: View {
     @ObservedObject var dataSource: GroupDaosDataSource
 
     var body: some View {
@@ -80,7 +29,7 @@ fileprivate struct GroupedView: View {
                                 .foregroundColor(.primaryDim)
                         }
                         .padding(.top, 20)
-                        DaoGroupThreadView(dataSource: dataSource, category: category)
+                        DaoThreadForCategoryView(dataSource: dataSource, category: category)
                     }
                 }
             }
@@ -88,7 +37,7 @@ fileprivate struct GroupedView: View {
     }
 }
 
-fileprivate struct DaoGroupThreadView: View {
+fileprivate struct DaoThreadForCategoryView: View {
     @ObservedObject var dataSource: GroupDaosDataSource
     let category: DaoCategory
 
@@ -120,28 +69,6 @@ fileprivate struct DaoGroupThreadView: View {
             }
         }
         .padding(.bottom, 20)
-    }
-}
-
-fileprivate struct DaosSearchListView: View {
-    @ObservedObject var dataSource: GroupDaosDataSource
-
-    var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 12) {
-                if dataSource.nothingFound {
-                    Text("Nothing found")
-                } else if dataSource.searchResultDaos.isEmpty { // initial searching
-                    ForEach(0..<3) { _ in
-                        ShimmerDaoListItemView()
-                    }
-                } else {
-                    ForEach(dataSource.searchResultDaos) { dao in
-                        FollowDaoListItemView(dao: dao)
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -187,10 +114,8 @@ fileprivate struct RetryLoadMoreCardView: View {
     }
 }
 
-
-
-struct SelectDAOsView_Previews: PreviewProvider {
+struct DaosGroupedByCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowGroupDaosView()
+        DaosGroupedByCategoryView(dataSource: GroupDaosDataSource())
     }
 }
