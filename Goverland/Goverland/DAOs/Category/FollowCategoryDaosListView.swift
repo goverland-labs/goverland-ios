@@ -10,6 +10,13 @@ import SwiftUI
 struct FollowCategoryDaosListView: View {
     @StateObject var dataSource: CategoryDaosDataSource
     let title: String
+    
+    private var searchPrompt: String {
+        if let totalForCategory = dataSource.total.map(String.init) {
+            return "Search \(totalForCategory) DAOs by name"
+        }
+        return ""
+    }
 
     init(category: DaoCategory) {
         title = "\(category.name) DAOs"
@@ -22,8 +29,7 @@ struct FollowCategoryDaosListView: View {
             .navigationTitle(title)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
-                        // TODO: make dao/top return total count of DAOs
-                        prompt: "Search 876 DAOs by name")
+                        prompt: searchPrompt)
             .onAppear {
                 Tracker.track(.followCategoryDaosView)
                 dataSource.refresh()

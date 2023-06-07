@@ -15,7 +15,7 @@ struct SearchView: View {
     private var searchPrompt: String {
         // TODO: make aware of selected control
         if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search \(totalDaos) DAOs by name"
+            return "Search \(currentControl.localizedString) by name"
         }
         return ""
     }
@@ -27,7 +27,7 @@ struct SearchView: View {
                 HStack {
                     ForEach(controls, id: \.self) { control in
                         VStack(spacing: 12) {
-                            Text(control.localizedString)
+                            Text(control.localizedString.capitalized)
                                 .fontWeight(.semibold)
                                 .foregroundColor(currentControl == control ? .primary : .gray)
                             Capsule(style: .continuous)
@@ -55,8 +55,7 @@ struct SearchView: View {
                         case .daos:
                             GroupedDaosView(dataSource: dataSource)
                         case .proposals:
-                            EmptyView()
-                                .onAppear { Tracker.track(.searchProposalView) }
+                            SearchProposalView()
                         }
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
@@ -99,7 +98,7 @@ fileprivate enum SearchViewControls {
     var localizedString: String {
         switch self {
         case .daos: return "DAOs"
-        case .proposals: return "Proposals"
+        case .proposals: return "proposals"
         }
     }
 }

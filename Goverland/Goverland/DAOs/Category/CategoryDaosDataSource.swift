@@ -14,7 +14,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
     @Published var daos: [Dao] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
-    private var total: Int?
+    private(set) var total: Int?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""

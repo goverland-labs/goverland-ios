@@ -60,6 +60,7 @@ struct OnboardingFollowDaosView: View {
                 Tracker.track(.selectDaoView)                
             }
         }
+        .accentColor(.primary)
     }
 }
 
