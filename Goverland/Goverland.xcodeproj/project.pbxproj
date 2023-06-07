@@ -253,25 +253,25 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		55D632B429505BDE0073E04A /* Inbox */ = {
+		55D632B429505BDE0073E04A /* Inbox Tab */ = {
 			isa = PBXGroup;
 			children = (
 				55D632B829505C4F0073E04A /* InboxView.swift */,
 				BA2EA2002967610500FB87AC /* InboxFilterMenuView.swift */,
 				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
 			);
-			path = Inbox;
+			path = "Inbox Tab";
 			sourceTree = "<group>";
 		};
-		55D632B529505BEB0073E04A /* Search */ = {
+		55D632B529505BEB0073E04A /* Search Tab */ = {
 			isa = PBXGroup;
 			children = (
 				55D632BA29505C600073E04A /* SearchView.swift */,
 			);
-			path = Search;
+			path = "Search Tab";
 			sourceTree = "<group>";
 		};
-		55D632B729505C070073E04A /* Settings */ = {
+		55D632B729505C070073E04A /* Settings Tab */ = {
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
@@ -280,7 +280,7 @@
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 			);
-			path = Settings;
+			path = "Settings Tab";
 			sourceTree = "<group>";
 		};
 		55F143D0294B1DDA00D00B73 = {
@@ -300,18 +300,17 @@
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
+				55D632B12950576C0073E04A /* Onboarding */,
+				55D632B429505BDE0073E04A /* Inbox Tab */,
+				55D632B529505BEB0073E04A /* Search Tab */,
+				55D632B729505C070073E04A /* Settings Tab */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				5597E7342A0A5C8800E2FAE4 /* Networking */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
-				55D632B429505BDE0073E04A /* Inbox */,
-				BAF651CA29B79E2200C78A8A /* Info */,
 				5508BBA72993FC93003E691A /* Common */,
-				55D632B12950576C0073E04A /* Onboarding */,
 				55FBE80E2A0BBDFF000A9204 /* DAOs */,
 				BA09B3022A2A3B6600223049 /* SnapshotProposal */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
-				55D632B529505BEB0073E04A /* Search */,
-				55D632B729505C070073E04A /* Settings */,
 				BAF651FB29C8AFAF00C78A8A /* Analytics */,
 			);
 			path = Goverland;
@@ -328,6 +327,7 @@
 		55FBE80E2A0BBDFF000A9204 /* DAOs */ = {
 			isa = PBXGroup;
 			children = (
+				BAF651CA29B79E2200C78A8A /* Info */,
 				557C9D672A30ECED001C4DEA /* Grouped */,
 				557C9D682A30ED4E001C4DEA /* Category */,
 				55B8B8E22A29DC240086D42F /* FollowDaoListItemView.swift */,

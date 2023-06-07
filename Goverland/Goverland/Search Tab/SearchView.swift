@@ -62,7 +62,7 @@ struct SearchView: View {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    //DaosSearchListView(dataSource: dataSource)
+                    DaosSearchListView(dataSource: dataSource)
                 }
             }
             .navigationDestination(for: DaoCategory.self) { category in
