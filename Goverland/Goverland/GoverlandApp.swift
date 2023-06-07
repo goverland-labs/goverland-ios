@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct GoverlandApp: App {
     @StateObject var colorSchemeManager = ColorSchemeManager()
+    @StateObject var tokenData = AuthDataSource()
 
     init() {
         #if DEV
@@ -25,6 +26,9 @@ struct GoverlandApp: App {
                 .environmentObject(colorSchemeManager)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
+                    if tokenData.isEmpty {
+                        tokenData.getToken()
+                    }
                 }
         }
     }
