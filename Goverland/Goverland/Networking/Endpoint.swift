@@ -54,7 +54,12 @@ struct DaoListEndpoint: APIEndpoint {
 }
 
 struct DaoGroupedEndpoint: APIEndpoint {
-    typealias ResponseType = [String: [Dao]]
+    typealias ResponseType = [String: GroupedDaos]
+
+    struct GroupedDaos: Decodable {
+        let count: Int
+        let list: [Dao]
+    }
 
     var path: String = "dao/top"
     var method: HttpMethod = .get

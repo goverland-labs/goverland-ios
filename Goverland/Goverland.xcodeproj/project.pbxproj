@@ -190,7 +190,6 @@
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
-				BA5D8D3C2A2E62D900F76DB3 /* DaosGroupedByCategoryView.swift */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 				BAA8ED7E2A06FF4500316BFD /* Snapshot Voting */,
 			);
@@ -312,6 +311,7 @@
 				552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */,
 				557FD1252A25FEA000BDC5B0 /* GroupDaosDataSource.swift */,
 				55B8B8E22A29DC240086D42F /* FollowDaoListItemView.swift */,
+				BA5D8D3C2A2E62D900F76DB3 /* DaosGroupedByCategoryView.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";

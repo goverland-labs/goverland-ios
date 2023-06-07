@@ -15,6 +15,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
+                // TODO: move to a subview
                 HStack {
                     ForEach(controls, id: \.self) { control in
                         VStack(spacing: 12) {

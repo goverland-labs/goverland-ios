@@ -13,6 +13,7 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitially: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
     private var totalInCategory: [DaoCategory: Int] = [:]
+    private var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""
@@ -33,6 +34,7 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
         failedToLoadInitially = false
         failedToLoadInCategory = [:]
         totalInCategory = [:]
+        totalDaos = nil
         cancellables = Set<AnyCancellable>()
 
         searchText = ""
@@ -51,10 +53,17 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitially = true
                 }
             } receiveValue: { [weak self] result, headers in
-                result.forEach { (key: String, value: [Dao]) in
+                result.forEach { (key: String, value: DaoGroupedEndpoint.GroupedDaos) in
                     let category = DaoCategory(rawValue: key)!
-                    self?.categoryDaos[category] = value
+                    self?.categoryDaos[category] = value.list
+                    self?.totalInCategory[category] = value.count
                 }
+                guard let totalStr = headers["x-total-count"] as? String,
+                    let total = Int(totalStr) else {
+                    // TODO: log in crashlytics
+                    return
+                }
+                self?.totalDaos = total
             }
             .store(in: &cancellables)
     }
