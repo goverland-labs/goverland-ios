@@ -9,12 +9,23 @@ import SwiftUI
 
 struct FollowDaosView: View {
     @StateObject private var dataSource = GroupDaosDataSource()
+
+    private var searchPrompt: String {
+        if let totalDaos = dataSource.totalDaos.map(String.init) {
+            return "Search \(totalDaos) DAOs by name"
+        }
+        return ""
+    }
     
     var body: some View {
         NavigationStack {
             VStack {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
+                        Text("Get Updates for the DAOs you select.")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.textWhite)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         DaosGroupedByCategoryView(dataSource: dataSource)
                         NavigationLink {
                             EnablePushNotificationsView()
@@ -37,8 +48,7 @@ struct FollowDaosView: View {
             .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
-                        // TODO: make dao/top return total count of DAOs
-                        prompt: "Search 6032 DAOs by name")
+                        prompt: searchPrompt)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

@@ -11,6 +11,14 @@ struct SearchView: View {
     @StateObject private var dataSource = GroupDaosDataSource()
     @State private var currentControl: SearchViewControls = .daos
     private let controls: [SearchViewControls] = SearchViewControls.all
+
+    private var searchPrompt: String {
+        // TODO: make aware of selected control
+        if let totalDaos = dataSource.totalDaos.map(String.init) {
+            return "Search \(totalDaos) DAOs by name"
+        }
+        return ""
+    }
     
     var body: some View {
         NavigationStack {
@@ -63,8 +71,7 @@ struct SearchView: View {
             .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
-                        // TODO: make dao/top return total count of DAOs
-                        prompt: "Search 6032 DAOs by name")
+                        prompt: searchPrompt)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

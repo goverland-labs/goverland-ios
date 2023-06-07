@@ -12,8 +12,8 @@ class GroupDaosDataSource: ObservableObject, Refreshable {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
     @Published var failedToLoadInitially: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
-    private var totalInCategory: [DaoCategory: Int] = [:]
-    private var totalDaos: Int?
+    private(set) var totalInCategory: [DaoCategory: Int] = [:]
+    private(set) var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""

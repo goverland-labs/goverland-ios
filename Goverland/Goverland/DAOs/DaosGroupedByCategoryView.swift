@@ -13,14 +13,11 @@ struct DaosGroupedByCategoryView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                Text("Get Updates in your feed for the DAOs you select.")
-                    .font(.subheadlineRegular)
-                    .foregroundColor(.textWhite)
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
-                            Text(category.name)
+                            let total = dataSource.totalInCategory[category] ?? 0
+                            Text(total != 0 ? "\(category.name) (\(total))" : category.name)
                                 .font(.subheadlineSemibold)
                                 .foregroundColor(.textWhite)
                             Spacer()
