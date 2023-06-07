@@ -1,5 +1,5 @@
 //
-//  GroupDaosDataSource.swift
+//  GroupedDaosDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 30.05.23.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class GroupDaosDataSource: ObservableObject, Refreshable {
+class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
     @Published var failedToLoadInitially: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]

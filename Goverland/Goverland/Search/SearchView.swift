@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var dataSource = GroupDaosDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource()
     @State private var currentControl: SearchViewControls = .daos
     private let controls: [SearchViewControls] = SearchViewControls.all
 
@@ -53,7 +53,7 @@ struct SearchView: View {
                     if !dataSource.failedToLoadInitially {
                         switch currentControl {
                         case .daos:
-                            DaosGroupedByCategoryView(dataSource: dataSource)
+                            GroupedDaosView(dataSource: dataSource)
                         case .proposals:
                             EmptyView()
                                 .onAppear { Tracker.track(.searchProposalView) }

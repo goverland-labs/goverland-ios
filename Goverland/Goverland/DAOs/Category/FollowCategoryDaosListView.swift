@@ -65,12 +65,14 @@ fileprivate struct DaosListView: View {
                 RetryInitialLoadingView(dataSource: dataSource)
             }
         } else {
-            DaosSearchListView(dataSource: dataSource)
+            CategoryDaosSearchListView(dataSource: dataSource)
         }
     }
 }
 
-struct DaosSearchListView: View {
+/// Mimics DaosSearchListView, intentionally separate to avoid inheritance issues.
+/// Protocols aren't suitable for this case.
+fileprivate struct CategoryDaosSearchListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
 
     var body: some View {

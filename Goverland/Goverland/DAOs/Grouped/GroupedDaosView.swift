@@ -1,5 +1,5 @@
 //
-//  DaosGroupedByCategoryView.swift
+//  GroupedDaosView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-05.
@@ -7,12 +7,24 @@
 
 import SwiftUI
 
-struct DaosGroupedByCategoryView: View {
-    @ObservedObject var dataSource: GroupDaosDataSource
+struct GroupedDaosView: View {
+    @ObservedObject var dataSource: GroupedDaosDataSource
+    let displayCallToAction: Bool
+
+    init(dataSource: GroupedDaosDataSource, displayCallToAction: Bool = false) {
+        self.dataSource = dataSource
+        self.displayCallToAction = displayCallToAction
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
+                if displayCallToAction {
+                    Text("Get Updates for the DAOs you select.")
+                        .font(.subheadlineRegular)
+                        .foregroundColor(.textWhite)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
@@ -35,7 +47,7 @@ struct DaosGroupedByCategoryView: View {
 }
 
 fileprivate struct DaoThreadForCategoryView: View {
-    @ObservedObject var dataSource: GroupDaosDataSource
+    @ObservedObject var dataSource: GroupedDaosDataSource
     let category: DaoCategory
 
     var body: some View {
@@ -100,7 +112,7 @@ fileprivate struct DaoCardView: View {
 
 // TODO: implement design
 fileprivate struct RetryLoadMoreCardView: View {
-    let dataSource: GroupDaosDataSource
+    let dataSource: GroupedDaosDataSource
     let category: DaoCategory
 
     var body: some View {
@@ -113,6 +125,6 @@ fileprivate struct RetryLoadMoreCardView: View {
 
 struct DaosGroupedByCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        DaosGroupedByCategoryView(dataSource: GroupDaosDataSource())
+        GroupedDaosView(dataSource: GroupedDaosDataSource())
     }
 }
