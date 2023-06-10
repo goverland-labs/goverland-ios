@@ -12,14 +12,15 @@ class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("onboardingFinished") var onboardingFinished = false
     @AppStorage("trackingAccepted") var trackingAccepted = false
-    @AppStorage("authToken") var token = ""
+    @AppStorage("authToken") var authToken = ""
 
     static var shared = SettingKeys()
     
     static func reset() {
-        SettingKeys().onboardingFinished = false
-        SettingKeys().termsAccepted = false
-        SettingKeys().trackingAccepted = false
+        SettingKeys.shared.onboardingFinished = false
+        SettingKeys.shared.termsAccepted = false
+        SettingKeys.shared.trackingAccepted = false
+        SettingKeys.shared.authToken = ""
     }
 }
 
