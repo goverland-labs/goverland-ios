@@ -54,6 +54,12 @@ class APIService {
 }
 
 extension APIService {
+    
+    static func token() -> AnyPublisher<(String, HttpHeaders), APIError> {
+        let endpoint = AuthTokenEndpoint(queryParameters: nil)
+        return shared.request(endpoint)
+    }
+    
     static func daos(offset: Int = 0,
                      limit: Int = DEFAULT_PAGINATION_COUNT,
                      sorting: DaoSorting = .default,

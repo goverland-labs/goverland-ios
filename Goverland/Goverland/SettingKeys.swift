@@ -12,6 +12,7 @@ class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("onboardingFinished") var onboardingFinished = false
     @AppStorage("trackingAccepted") var trackingAccepted = false
+    @AppStorage("authToken") var token = ""
 
     static var shared = SettingKeys()
     

@@ -37,6 +37,22 @@ extension APIEndpoint {
     }
 }
 
+// MARK: - Auth service endpoints
+struct AuthTokenEndpoint: APIEndpoint {
+    typealias ResponseType = String
+
+    var path: String = "??"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+
 // MARK: - Inbox service endpoints
 
 struct DaoListEndpoint: APIEndpoint {
@@ -54,7 +70,12 @@ struct DaoListEndpoint: APIEndpoint {
 }
 
 struct DaoGroupedEndpoint: APIEndpoint {
-    typealias ResponseType = [String: [Dao]]
+    typealias ResponseType = [String: GroupedDaos]
+
+    struct GroupedDaos: Decodable {
+        let count: Int
+        let list: [Dao]
+    }
 
     var path: String = "dao/top"
     var method: HttpMethod = .get

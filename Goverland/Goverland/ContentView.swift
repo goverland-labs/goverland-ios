@@ -16,7 +16,7 @@ struct ContentView: View {
             if !termsAccepted {
                 IntroView()
             } else if !onboardingFinished {
-                FollowGroupDaosView()
+                OnboardingFollowDaosView()
             } else {
                 AppTabView()
             }
