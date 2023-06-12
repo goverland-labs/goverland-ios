@@ -56,20 +56,6 @@ fileprivate struct PushNotificationsSettingView: View {
     }
 }
 
-fileprivate struct FollowingButtonView: View {
-    @State private var didTap: Bool = true
-    var body: some View {
-        Button(action: { didTap.toggle() }) {
-            Text(didTap ? "Following" : "Follow")
-        }
-        .frame(width: 100, height: 30, alignment: .center)
-        .foregroundColor(didTap ? .blue : .white)
-        .fontWeight(.medium)
-        .background(didTap ? Color("followButtonColorActive") : Color.blue)
-        .cornerRadius(5)
-    }
-}
-
 fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
