@@ -65,6 +65,8 @@
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
 		BA6B964B2A31056300851826 /* SearchProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* SearchProposalView.swift */; };
+		BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96502A376C7700851826 /* FollowButtonView.swift */; };
+		BA6B96532A376CEF00851826 /* FollowedDaoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -142,6 +144,8 @@
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
 		BA6B964A2A31056300851826 /* SearchProposalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProposalView.swift; sourceTree = "<group>"; };
+		BA6B96502A376C7700851826 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonView.swift; sourceTree = "<group>"; };
+		BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaoDataSource.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
+				BA6B964F2A376C4500851826 /* Follow Button */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 				BAA8ED7E2A06FF4500316BFD /* Snapshot Voting */,
 			);
@@ -375,6 +380,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BA6B964F2A376C4500851826 /* Follow Button */ = {
+			isa = PBXGroup;
+			children = (
+				BA6B96502A376C7700851826 /* FollowButtonView.swift */,
+				BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */,
+			);
+			path = "Follow Button";
+			sourceTree = "<group>";
+		};
 		BAA8ED7E2A06FF4500316BFD /* Snapshot Voting */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +545,7 @@
 				BA09B30E2A2A3B6600223049 /* SnapshotProposalTimelineView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
+				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */,
@@ -567,6 +582,7 @@
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				BA09B30A2A2A3B6600223049 /* SnapshotProposalDescriptionView.swift in Sources */,
+				BA6B96532A376CEF00851826 /* FollowedDaoDataSource.swift in Sources */,
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,

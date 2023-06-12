@@ -30,6 +30,9 @@ class AuthManager {
                 }
             } receiveValue: { response, headers in
                 SettingKeys.shared.authToken = response.sessionId
+                print("-----------------")
+                print(response.sessionId)
+                print("-----------------")
             }
             .store(in: &cancellables)
     }

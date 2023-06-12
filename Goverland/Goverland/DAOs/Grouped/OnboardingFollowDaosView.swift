@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingFollowDaosView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
+    @StateObject private var followedDaoDataSource = FollowedDaoDataSource()
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {
@@ -57,6 +58,7 @@ struct OnboardingFollowDaosView: View {
             }
             .onAppear() {
                 dataSource.refresh()
+                followedDaoDataSource.loadFollowedDaosData()
                 Tracker.track(.selectDaoView)                
             }
         }
