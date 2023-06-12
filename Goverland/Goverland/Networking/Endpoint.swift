@@ -17,14 +17,14 @@ enum HttpMethod: String {
 }
 
 protocol APIEndpoint {
+    associatedtype ResponseType: Decodable
+
     var baseURL: URL { get }
     var path: String { get }
     var method: HttpMethod { get }
     var headers: [String: String] { get }
     var queryParameters: [URLQueryItem]? { get }
     var body: Data? { get }
-
-    associatedtype ResponseType: Decodable
 }
 
 extension APIEndpoint {
@@ -33,27 +33,37 @@ extension APIEndpoint {
     }
 
     var headers: [String: String] {
-        return ["Content-Type": "application/json"]
+        var headers = ["Content-Type": "application/json"]
+        if !SettingKeys.shared.authToken.isEmpty {
+            headers["Authorization"] = SettingKeys.shared.authToken
+        }
+        return headers
     }
 }
 
-// MARK: - Auth service endpoints
-struct AuthTokenEndpoint: APIEndpoint {
-    typealias ResponseType = String
+// MARK: - Inbox service endpoints
 
-    var path: String = "??"
-    var method: HttpMethod = .get
+struct AuthTokenEndpoint: APIEndpoint {
+    typealias ResponseType = AuthTokenResponse
+
+    struct AuthTokenResponse: Decodable {
+        let sessionId: String
+
+        enum CodingKeys: String, CodingKey {
+            case sessionId = "session_id"
+        }
+    }
+
+    var path: String = "auth/guest"
+    var method: HttpMethod = .post
     var queryParameters: [URLQueryItem]?
 
     var body: Data?
 
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
+    init(deviceId: String) {
+        self.body = try! JSONEncoder().encode(["device_id": deviceId])
     }
 }
-
-
-// MARK: - Inbox service endpoints
 
 struct DaoListEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]

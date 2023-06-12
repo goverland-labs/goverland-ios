@@ -23,7 +23,7 @@ class APIService {
         self.networkManager = networkManager
     }
 
-    func request<T: APIEndpoint>(_ endpoint: T) -> AnyPublisher<(T.ResponseType, HttpHeaders), APIError> {
+    func request<T: APIEndpoint>(_ endpoint: T, defaultErrorDisplay: Bool = true) -> AnyPublisher<(T.ResponseType, HttpHeaders), APIError> {
         var components = URLComponents(url: endpoint.baseURL.appendingPathComponent(endpoint.path),
                                        resolvingAgainstBaseURL: false)!
         components.queryItems = endpoint.queryParameters
@@ -41,7 +41,12 @@ class APIService {
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
-                    ErrorViewModel.shared.setErrorMessage(apiError.localizedDescription)
+                    if case .notAuthorized = apiError {
+                        AuthManager.shared.updateToken()
+                    }
+                    if defaultErrorDisplay {
+                        ErrorViewModel.shared.setErrorMessage(apiError.localizedDescription)
+                    }
                     return apiError
                 } else {
                     // Decoding error. Don't show error to user.
@@ -54,10 +59,9 @@ class APIService {
 }
 
 extension APIService {
-    
-    static func token() -> AnyPublisher<(String, HttpHeaders), APIError> {
-        let endpoint = AuthTokenEndpoint(queryParameters: nil)
-        return shared.request(endpoint)
+    static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = AuthTokenEndpoint(deviceId: deviceId)
+        return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
     
     static func daos(offset: Int = 0,

@@ -25,13 +25,15 @@ class NetworkManager {
         #if DEV
         print(urlRequest.description)
         #endif
-        
+
         return session
             .dataTaskPublisher(for: urlRequest)
             .tryMap { data, response in
                 if let httpResponse = response as? HTTPURLResponse,
                     let headers = httpResponse.allHeaderFields as? HttpHeaders {
-                    if httpResponse.statusCode == 404 {
+                    if httpResponse.statusCode == 401 {
+                        throw APIError.notAuthorized
+                    } else if httpResponse.statusCode == 404 {
                         throw APIError.notFound
                     } else if (500...599).contains(httpResponse.statusCode) {
                         throw APIError.serverError(statusCode: httpResponse.statusCode)

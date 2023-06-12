@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct GoverlandApp: App {
     @StateObject var colorSchemeManager = ColorSchemeManager()
-    @StateObject var tokenData = AuthDataSource()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
         #if DEV
@@ -26,10 +26,15 @@ struct GoverlandApp: App {
                 .environmentObject(colorSchemeManager)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
-                    if tokenData.isEmpty {
-                        tokenData.getToken()
-                    }
                 }
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions
+                     launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        AuthManager.shared.updateToken()
+        return true
     }
 }
