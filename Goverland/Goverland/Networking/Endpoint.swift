@@ -98,11 +98,11 @@ struct DaoGroupedEndpoint: APIEndpoint {
     }
 }
 
-struct FollowedDaoListEndpoint: APIEndpoint {
+struct StartFollowDaoEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]
 
     var path: String = "subscriptions"
-    var method: HttpMethod = .get
+    var method: HttpMethod = .post
     var queryParameters: [URLQueryItem]?
 
     var body: Data?

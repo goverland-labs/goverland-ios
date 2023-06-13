@@ -8,25 +8,29 @@
 import SwiftUI
 
 struct FollowButtonView: View {
-    @State private var didTap: Bool = false
-    let buttonWidth: CGFloat
-    let buttonHeight: CGFloat
-    
+    @State var isSubscribed: Bool
+    let daoID: UUID
+    let buttonWidth: CGFloat = 110
+    let buttonHeight: CGFloat = 35
+
     var body: some View {
-        Button(action: { didTap.toggle() }) {
-            Text(didTap ? "Following" : "Follow")
+        Button(action: { isSubscribed.toggle()
+            // call datasource (for POST and DELETE)
+            // shimmer while change status
+        }) {
+            
+            Text(isSubscribed ? "Following" : "Follow")
         }
         .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-        .foregroundColor(didTap ? .onSecondaryContainer : .onPrimary)
+        .foregroundColor(isSubscribed ? .onSecondaryContainer : .onPrimary)
         .font(.footnoteSemibold)
-        .background(didTap ? Color.secondaryContainer : Color.primary)
+        .background(isSubscribed ? Color.secondaryContainer : Color.primary)
         .cornerRadius(buttonHeight / 2)
     }
 }
 
 struct FollowButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowButtonView(buttonWidth: 100,
-                         buttonHeight: 30)
+        FollowButtonView(isSubscribed: true, daoID: UUID())
     }
 }

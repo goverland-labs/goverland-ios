@@ -13,13 +13,15 @@ struct Dao: Identifiable, Decodable, Equatable {
     let name: String
     let image: URL?
     let proposals: Int
+    let subscriptionMeta: SubscriptionMeta?
 
-    init(id: UUID, ensName: String, name: String, image: URL?, proposals: Int) {
+    init(id: UUID, ensName: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
         self.id = id
         self.ensName = ensName
         self.name = name
         self.image = image
         self.proposals = proposals
+        self.subscriptionMeta = subscriptionMeta
     }
 
     enum CodingKeys: String, CodingKey {
@@ -27,6 +29,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case name
         case image
         case proposals = "proposals_count"
+        case subscriptionMeta = "subscription_info"
     }
 
     // TODO: finilize once API is ready
@@ -53,6 +56,8 @@ struct Dao: Identifiable, Decodable, Equatable {
         } catch {
             self.proposals = 10
         }
+        
+        self.subscriptionMeta = try container.decode(SubscriptionMeta?.self, forKey: .subscriptionMeta)
     }
 }
 
@@ -109,11 +114,13 @@ extension Dao {
         ensName: "gnosis.eth",
         name: "Gnosis DAO",
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
-        proposals: 100)
+        proposals: 100,
+        subscriptionMeta: nil)
     static let aave = Dao(
         id: UUID(),
         ensName: "aave.eth",
         name: "Aave",
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
-        proposals: 150)
+        proposals: 150,
+        subscriptionMeta: nil)
 }

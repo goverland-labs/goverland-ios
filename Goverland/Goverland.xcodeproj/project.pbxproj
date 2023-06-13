@@ -66,7 +66,8 @@
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
 		BA6B964B2A31056300851826 /* SearchProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* SearchProposalView.swift */; };
 		BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96502A376C7700851826 /* FollowButtonView.swift */; };
-		BA6B96532A376CEF00851826 /* FollowedDaoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */; };
+		BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */; };
+		BA6B96552A38B87300851826 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96542A38B87300851826 /* Subscription.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -145,7 +146,8 @@
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
 		BA6B964A2A31056300851826 /* SearchProposalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProposalView.swift; sourceTree = "<group>"; };
 		BA6B96502A376C7700851826 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonView.swift; sourceTree = "<group>"; };
-		BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaoDataSource.swift; sourceTree = "<group>"; };
+		BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonDataSource.swift; sourceTree = "<group>"; };
+		BA6B96542A38B87300851826 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 				5533170129F16B290034AF66 /* Address.swift */,
+				BA6B96542A38B87300851826 /* Subscription.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,7 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6B96502A376C7700851826 /* FollowButtonView.swift */,
-				BA6B96522A376CEF00851826 /* FollowedDaoDataSource.swift */,
+				BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */,
 			);
 			path = "Follow Button";
 			sourceTree = "<group>";
@@ -582,9 +585,10 @@
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				BA09B30A2A2A3B6600223049 /* SnapshotProposalDescriptionView.swift in Sources */,
-				BA6B96532A376CEF00851826 /* FollowedDaoDataSource.swift in Sources */,
+				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
+				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,

@@ -99,7 +99,7 @@ fileprivate struct DaoCardView: View {
                     .foregroundColor(.textWhite60)
             }
             Spacer()
-            FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+            FollowButtonView(isSubscribed: dao.subscriptionMeta != nil, daoID: dao.id)
         }
         .frame(width: 130, height: 200)
         .padding(.vertical, 30)

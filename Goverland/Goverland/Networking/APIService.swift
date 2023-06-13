@@ -89,8 +89,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func getFollowedDaoList() -> AnyPublisher<(FollowedDaoListEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = FollowedDaoListEndpoint(queryParameters: nil)
-        return shared.request(endpoint)
+    static func startFollowDao() {
+        var queryParameters = [
+            URLQueryItem(name: "Content-Type", value: "application/json")]
+        var endpoint = StartFollowDaoEndpoint(queryParameters: queryParameters)
+        endpoint.method = .post
+        endpoint.body = Data()
     }
 }
