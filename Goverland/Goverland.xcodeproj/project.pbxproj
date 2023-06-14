@@ -23,6 +23,7 @@
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
 		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
+		5586BB8B2A39F0C000A6E316 /* FollowDAOListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* FollowDAOListItem.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */; };
 		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
@@ -103,6 +104,7 @@
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
 		5586BB882A34C75500A6E316 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		5586BB8A2A39F0C000A6E316 /* FollowDAOListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDAOListItem.swift; sourceTree = "<group>"; };
 		5597E7352A0A5C8800E2FAE4 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		5597E7372A0A5C8800E2FAE4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				BAF651CA29B79E2200C78A8A /* Info */,
 				557C9D672A30ECED001C4DEA /* Grouped */,
 				557C9D682A30ED4E001C4DEA /* Category */,
+				5586BB8A2A39F0C000A6E316 /* FollowDAOListItem.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */,
+				5586BB8B2A39F0C000A6E316 /* FollowDAOListItem.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */,
