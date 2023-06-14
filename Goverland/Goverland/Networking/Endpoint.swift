@@ -43,6 +43,7 @@ extension APIEndpoint {
 
 struct IgnoredResponse: Decodable {
     init(from decoder: Decoder) throws {}
+    init() {}
 }
 
 // MARK: - Inbox service endpoints

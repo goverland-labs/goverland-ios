@@ -42,6 +42,10 @@ class APIService {
 
         return networkManager.request(request)
             .tryMap { [unowned self] data, headers in
+                guard T.ResponseType.self != IgnoredResponse.self else {
+                    let response = IgnoredResponse()
+                    return (response as! T.ResponseType, headers)
+                }
                 let object = try self.decoder.decode(T.ResponseType.self, from: data)
                 return (object, headers)
             }
