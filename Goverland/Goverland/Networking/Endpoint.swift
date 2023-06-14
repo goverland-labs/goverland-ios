@@ -57,6 +57,10 @@ struct AuthTokenEndpoint: APIEndpoint {
     var path: String = "auth/guest"
     var method: HttpMethod = .post
     var queryParameters: [URLQueryItem]?
+    var headers: [String: String] {
+        // do not set authorization header in this request
+        return ["Content-Type": "application/json"]
+    }
 
     var body: Data?
 
