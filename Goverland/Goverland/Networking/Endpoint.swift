@@ -41,6 +41,10 @@ extension APIEndpoint {
     }
 }
 
+struct IgnoredResponse: Decodable {
+    init(from decoder: Decoder) throws {}
+}
+
 // MARK: - Inbox service endpoints
 
 struct AuthTokenEndpoint: APIEndpoint {
@@ -103,7 +107,7 @@ struct DaoGroupedEndpoint: APIEndpoint {
 }
 
 struct FollowDaoEndpoint: APIEndpoint {
-    typealias ResponseType = Dao
+    typealias ResponseType = Subscription
 
     var path: String = "subscriptions"
     var method: HttpMethod = .post
@@ -112,17 +116,16 @@ struct FollowDaoEndpoint: APIEndpoint {
     var body: Data?
     
     init(daoID: UUID) {
-        self.body = try! JSONEncoder().encode(["dao": daoID.uuidString.lowercased()])
+        self.body = try! JSONEncoder().encode(["dao": daoID])
     }
 }
 
 struct UnfollowDaoEndpoint: APIEndpoint {
-    typealias ResponseType = Empty
+    typealias ResponseType = IgnoredResponse
 
-    struct Empty: Decodable {}
     let daoID: UUID
 
-    var path: String { "subscriptions/\(daoID.uuidString.lowercased())" }
+    var path: String { "subscriptions/\(daoID)" }
     var method: HttpMethod = .delete
     var queryParameters: [URLQueryItem]?
 

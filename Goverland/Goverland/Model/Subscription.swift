@@ -11,6 +11,12 @@ struct Subscription: Decodable {
     let id: UUID
     let createdAt: Date
     let dao: Dao
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case createdAt = "created_at"
+        case dao
+    }
 }
 
 struct SubscriptionMeta: Decodable, Equatable {
