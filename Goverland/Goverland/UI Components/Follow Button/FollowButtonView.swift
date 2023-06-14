@@ -10,26 +10,21 @@ import SwiftUI
 struct FollowButtonView: View {
     @StateObject private var dataSource = FollowButtonDataSource()
     @State var isSubscribed: Bool
-    @State var isUpdating: Bool = true
     let daoID: UUID
     let buttonWidth: CGFloat = 110
     let buttonHeight: CGFloat = 35
 
     var body: some View {
-        if isUpdating {
+        if dataSource.isUpdating {
             ShimmerFollowButtonView()
-                .onAppear {
-                    if isSubscribed {
-                        //DELETE API call
-                        isUpdating = false
-                    } else {
-                        dataSource.followDao(id: daoID)
-                        isUpdating = false
-                    }
-                }
         } else {
             Button(action: {
-                isUpdating = true
+                if isSubscribed {
+                    dataSource.unfollowDao(id: daoID)
+                } else {
+                    dataSource.followDao(id: daoID)
+                }
+                isSubscribed.toggle()
             }) {
                 Text(isSubscribed ? "Following" : "Follow")
             }

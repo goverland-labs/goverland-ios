@@ -111,3 +111,17 @@ struct FollowDaoEndpoint: APIEndpoint {
         self.body = try! JSONEncoder().encode(["dao": followDaoID])
     }
 }
+
+struct UnfollowDaoEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    var path: String = "subscriptions"
+    var method: HttpMethod = .delete
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+    
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}

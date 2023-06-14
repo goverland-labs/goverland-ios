@@ -93,4 +93,11 @@ extension APIService {
         let endpoint = FollowDaoEndpoint(followDaoID: id)
         return shared.request(endpoint)
     }
+    
+    static func unfollowDao(id: UUID) -> AnyPublisher<(UnfollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [URLQueryItem(name: ":", value: "\(id)")]
+        let endpoint = UnfollowDaoEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+    
 }
