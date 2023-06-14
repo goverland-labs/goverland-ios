@@ -98,7 +98,7 @@ struct DaoGroupedEndpoint: APIEndpoint {
     }
 }
 
-struct StartFollowDaoEndpoint: APIEndpoint {
+struct FollowDaoEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]
 
     var path: String = "subscriptions"
@@ -106,8 +106,8 @@ struct StartFollowDaoEndpoint: APIEndpoint {
     var queryParameters: [URLQueryItem]?
 
     var body: Data?
-
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
+    
+    init(followDaoID: UUID) {
+        self.body = try! JSONEncoder().encode(["dao": followDaoID])
     }
 }

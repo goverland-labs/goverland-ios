@@ -9,12 +9,22 @@ import Foundation
 import Combine
 
 class FollowButtonDataSource: ObservableObject {
-    @Published var followedDaos: [Dao] = []
-    @Published var noFollowedDaoFound: Bool = false
-    @Published var failToStartFollowing: Bool = false
     
-    private(set) var totalFollowedDaos: Int?
     private var cancellables = Set<AnyCancellable>()
-    
+    var failToFollow: Bool = false
 
+    
+    func followDao(id: UUID) {
+        APIService.followDao(id: id)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failToFollow = true
+                }
+            } receiveValue: { response, headers in
+                print("------")
+                print(response)
+            }
+            .store(in: &cancellables)
+    }
 }
