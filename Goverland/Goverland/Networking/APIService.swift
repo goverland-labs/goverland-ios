@@ -16,11 +16,18 @@ let DEFAULT_PAGINATION_COUNT = 20
 
 class APIService {
     let networkManager: NetworkManager
+    let decoder: JSONDecoder
 
     static let shared = APIService()
 
     private init(networkManager: NetworkManager = NetworkManager()) {
         self.networkManager = networkManager
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        self.decoder = decoder
     }
 
     func request<T: APIEndpoint>(_ endpoint: T, defaultErrorDisplay: Bool = true) -> AnyPublisher<(T.ResponseType, HttpHeaders), APIError> {
@@ -34,8 +41,8 @@ class APIService {
         request.allHTTPHeaderFields = endpoint.headers
 
         return networkManager.request(request)
-            .tryMap { data, headers in
-                let object = try JSONDecoder().decode(T.ResponseType.self, from: data)
+            .tryMap { [unowned self] data, headers in
+                let object = try self.decoder.decode(T.ResponseType.self, from: data)
                 return (object, headers)
             }
             .receive(on: DispatchQueue.main)
@@ -90,14 +97,12 @@ extension APIService {
     }
     
     static func followDao(id: UUID) -> AnyPublisher<(FollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = FollowDaoEndpoint(followDaoID: id)
+        let endpoint = FollowDaoEndpoint(daoID: id)
         return shared.request(endpoint)
     }
     
     static func unfollowDao(id: UUID) -> AnyPublisher<(UnfollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [URLQueryItem(name: ":", value: "\(id)")]
-        let endpoint = UnfollowDaoEndpoint(queryParameters: queryParameters)
+        let endpoint = UnfollowDaoEndpoint(daoID: id)
         return shared.request(endpoint)
     }
-    
 }

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource()
-    @StateObject private var followedDaoDataSource = FollowButtonDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource()    
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {

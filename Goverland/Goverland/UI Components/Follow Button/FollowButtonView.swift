@@ -8,30 +8,31 @@
 import SwiftUI
 
 struct FollowButtonView: View {
-    @StateObject private var dataSource = FollowButtonDataSource()
-    @State var isSubscribed: Bool
-    let daoID: UUID
-    let buttonWidth: CGFloat = 110
-    let buttonHeight: CGFloat = 35
+    @StateObject private var dataSource: FollowButtonDataSource
+    let buttonWidth: CGFloat
+    let buttonHeight: CGFloat
+
+    init(isFollowing: Bool, daoID: UUID, buttonWidth: CGFloat = 110, buttonHeight: CGFloat = 35) {
+        self.buttonWidth = buttonWidth
+        self.buttonHeight = buttonHeight
+        let dataSource = FollowButtonDataSource(isFollowing: isFollowing, daoID: daoID)
+        _dataSource = StateObject(wrappedValue: dataSource)
+
+    }
 
     var body: some View {
         if dataSource.isUpdating {
             ShimmerFollowButtonView()
         } else {
             Button(action: {
-                if isSubscribed {
-                    dataSource.unfollowDao(id: daoID)
-                } else {
-                    dataSource.followDao(id: daoID)
-                }
-                isSubscribed.toggle()
+                dataSource.toggle()
             }) {
-                Text(isSubscribed ? "Following" : "Follow")
+                Text(dataSource.isFollowing ? "Following" : "Follow")
             }
             .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-            .foregroundColor(isSubscribed ? .onSecondaryContainer : .onPrimary)
+            .foregroundColor(dataSource.isFollowing ? .onSecondaryContainer : .onPrimary)
             .font(.footnoteSemibold)
-            .background(isSubscribed ? Color.secondaryContainer : Color.primary)
+            .background(dataSource.isFollowing ? Color.secondaryContainer : Color.primary)
             .cornerRadius(buttonHeight / 2)
         }
     }
@@ -49,6 +50,6 @@ struct ShimmerFollowButtonView: View {
 
 struct FollowButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowButtonView(isSubscribed: true, daoID: UUID())
+        FollowButtonView(isFollowing: true, daoID: UUID())
     }
 }

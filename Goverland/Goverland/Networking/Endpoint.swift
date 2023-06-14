@@ -103,7 +103,7 @@ struct DaoGroupedEndpoint: APIEndpoint {
 }
 
 struct FollowDaoEndpoint: APIEndpoint {
-    typealias ResponseType = [Dao]
+    typealias ResponseType = Dao
 
     var path: String = "subscriptions"
     var method: HttpMethod = .post
@@ -111,21 +111,24 @@ struct FollowDaoEndpoint: APIEndpoint {
 
     var body: Data?
     
-    init(followDaoID: UUID) {
-        self.body = try! JSONEncoder().encode(["dao": followDaoID])
+    init(daoID: UUID) {
+        self.body = try! JSONEncoder().encode(["dao": daoID.uuidString.lowercased()])
     }
 }
 
 struct UnfollowDaoEndpoint: APIEndpoint {
-    typealias ResponseType = [Dao]
+    typealias ResponseType = Empty
 
-    var path: String = "subscriptions"
+    struct Empty: Decodable {}
+    let daoID: UUID
+
+    var path: String { "subscriptions/\(daoID.uuidString.lowercased())" }
     var method: HttpMethod = .delete
     var queryParameters: [URLQueryItem]?
 
     var body: Data?
     
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
+    init(daoID: UUID) {
+        self.daoID = daoID
     }
 }
