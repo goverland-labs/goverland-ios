@@ -121,18 +121,18 @@ struct FollowDaoEndpoint: APIEndpoint {
     }
 }
 
-struct UnfollowDaoEndpoint: APIEndpoint {
+struct DeleteSubscriptionEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
-    let daoID: UUID
+    let subscriptionID: UUID
 
-    var path: String { "subscriptions/\(daoID)" }
+    var path: String { "subscriptions/\(subscriptionID)" }
     var method: HttpMethod = .delete
     var queryParameters: [URLQueryItem]?
 
     var body: Data?
     
-    init(daoID: UUID) {
-        self.daoID = daoID
+    init(subscriptionID: UUID) {
+        self.subscriptionID = subscriptionID
     }
 }

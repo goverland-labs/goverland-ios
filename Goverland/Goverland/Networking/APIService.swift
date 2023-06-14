@@ -105,8 +105,8 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func unfollowDao(id: UUID) -> AnyPublisher<(UnfollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = UnfollowDaoEndpoint(daoID: id)
+    static func deleteSubscription(id: UUID) -> AnyPublisher<(DeleteSubscriptionEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DeleteSubscriptionEndpoint(subscriptionID: id)
         return shared.request(endpoint)
     }
 }

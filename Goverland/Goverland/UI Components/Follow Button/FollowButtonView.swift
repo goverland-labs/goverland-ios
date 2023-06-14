@@ -11,13 +11,13 @@ struct FollowButtonView: View {
     @StateObject private var dataSource: FollowButtonDataSource
     let buttonWidth: CGFloat
     let buttonHeight: CGFloat
+    var isFollowing: Bool { dataSource.subscriptionID != nil }
 
-    init(isFollowing: Bool, daoID: UUID, buttonWidth: CGFloat = 110, buttonHeight: CGFloat = 35) {
+    init(daoID: UUID, subscriptionID: UUID?, buttonWidth: CGFloat = 110, buttonHeight: CGFloat = 35) {
         self.buttonWidth = buttonWidth
         self.buttonHeight = buttonHeight
-        let dataSource = FollowButtonDataSource(isFollowing: isFollowing, daoID: daoID)
+        let dataSource = FollowButtonDataSource(daoID: daoID, subscriptionID: subscriptionID)
         _dataSource = StateObject(wrappedValue: dataSource)
-
     }
 
     var body: some View {
@@ -27,12 +27,12 @@ struct FollowButtonView: View {
             Button(action: {
                 dataSource.toggle()
             }) {
-                Text(dataSource.isFollowing ? "Following" : "Follow")
+                Text(isFollowing ? "Following" : "Follow")
             }
             .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-            .foregroundColor(dataSource.isFollowing ? .onSecondaryContainer : .onPrimary)
+            .foregroundColor(isFollowing ? .onSecondaryContainer : .onPrimary)
             .font(.footnoteSemibold)
-            .background(dataSource.isFollowing ? Color.secondaryContainer : Color.primary)
+            .background(isFollowing ? Color.secondaryContainer : Color.primary)
             .cornerRadius(buttonHeight / 2)
         }
     }
@@ -50,6 +50,6 @@ struct ShimmerFollowButtonView: View {
 
 struct FollowButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowButtonView(isFollowing: true, daoID: UUID())
+        FollowButtonView(daoID: UUID(), subscriptionID: UUID())
     }
 }
