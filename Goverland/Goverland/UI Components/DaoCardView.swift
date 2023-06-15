@@ -13,6 +13,8 @@ struct DaoCardView: View {
     var body: some View {
         VStack {
             RoundPictureView(image: dao.image, imageSize: 90)
+                .padding(.top, 17)
+            
             VStack(spacing: 3) {
                 Text(dao.name)
                     .font(.headlineSemibold)
@@ -23,12 +25,13 @@ struct DaoCardView: View {
                     .font(.сaption2Regular)
                     .foregroundColor(.textWhite60)
             }
+            .padding(.horizontal, 12)
+
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
+                .padding(.bottom, 20)
         }
-        .frame(width: 130, height: 200)
-        .padding(.vertical, 30)
-        .padding(.horizontal, 10)
+        .frame(width: 140, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))
@@ -41,34 +44,34 @@ struct ShimmerDaoCardView: View {
             ShimmerView()
                 .frame(width: 90, height: 90)
                 .cornerRadius(45)
+                .padding(.top, 17)
 
             VStack(spacing: 3) {
                 ShimmerView()
-                    .frame(width: 70, height: 20)
+                    .frame(width: 60, height: 20)
                     .cornerRadius(10)
                 ShimmerView()
-                    .frame(width: 50, height: 16)
+                    .frame(width: 80, height: 16)
                     .cornerRadius(8)
             }
-            Spacer()
-            ShimmerView()
-                .frame(width: 110, height: 35)
-                .cornerRadius(17)
+            .padding(.horizontal, 12)
 
+            Spacer()
+            ShimmerFollowButtonView()
+                .padding(.bottom, 20)
         }
-        .frame(width: 130, height: 200)
-        .padding(.vertical, 30)
-        .padding(.horizontal, 10)
+        .frame(width: 140, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))
-
     }
 }
 
 struct DaoCardView_Previews: PreviewProvider {
     static var previews: some View {
-        DaoCardView(dao: .aave)
-        ShimmerDaoCardView()
+        VStack {
+            DaoCardView(dao: .aave)
+            ShimmerDaoCardView()
+        }
     }
 }
