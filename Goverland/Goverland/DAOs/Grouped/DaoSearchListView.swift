@@ -21,7 +21,7 @@ struct DaosSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        FollowDaoListItemView(dao: dao)
+                        DaoListItemView(dao: dao)
                     }
                 }
             }

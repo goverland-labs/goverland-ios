@@ -61,7 +61,7 @@ fileprivate struct DaosListView: View {
                                         RetryLoadMoreView(dataSource: dataSource)
                                     }
                                 } else {
-                                    FollowDaoListItemView(dao: dataSource.daos[index])
+                                    DaoListItemView(dao: dataSource.daos[index])
                                 }
                             }
                         }
@@ -92,7 +92,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        FollowDaoListItemView(dao: dao)
+                        DaoListItemView(dao: dao)
                     }
                 }
             }

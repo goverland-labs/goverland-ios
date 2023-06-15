@@ -13,7 +13,7 @@ struct FollowButtonView: View {
     let buttonHeight: CGFloat
     var isFollowing: Bool { dataSource.subscriptionID != nil }
 
-    init(daoID: UUID, subscriptionID: UUID?, buttonWidth: CGFloat = 110, buttonHeight: CGFloat = 35) {
+    init(daoID: UUID, subscriptionID: UUID?, buttonWidth: CGFloat = 100, buttonHeight: CGFloat = 32) {
         self.buttonWidth = buttonWidth
         self.buttonHeight = buttonHeight
         let dataSource = FollowButtonDataSource(daoID: daoID, subscriptionID: subscriptionID)
@@ -39,11 +39,19 @@ struct FollowButtonView: View {
 }
 
 struct ShimmerFollowButtonView: View {
+    let buttonWidth: CGFloat
+    let buttonHeight: CGFloat
+
+    init(buttonWidth: CGFloat = 100, buttonHeight: CGFloat = 32) {
+        self.buttonWidth = buttonWidth
+        self.buttonHeight = buttonHeight
+    }
+
     var body: some View {
         VStack {
             ShimmerView()
-                .frame(width: 110, height: 35)
-                .cornerRadius(17)
+                .frame(width: buttonWidth, height: buttonHeight)
+                .cornerRadius(buttonHeight / 2)
         }
     }
 }

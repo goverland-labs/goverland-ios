@@ -15,8 +15,7 @@ struct DaoCardView: View {
             RoundPictureView(image: dao.image, imageSize: 90)
             VStack(spacing: 3) {
                 Text(dao.name)
-                    .fontWeight(.semibold)
-                    .font(.headline)
+                    .font(.headlineSemibold)
                     .foregroundColor(.textWhite)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)

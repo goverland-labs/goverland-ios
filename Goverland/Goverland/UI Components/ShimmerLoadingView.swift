@@ -72,24 +72,6 @@ struct ShimmerLoadingItemView: View {
     }
 }
 
-struct ShimmerDaoListItemView: View {
-    var body: some View {
-        HStack {
-            ShimmerView()
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
-            ShimmerView()
-                .frame(width: 150, height: 26)
-                .cornerRadius(13)
-            Spacer()
-            ShimmerView()
-                .frame(width: 110, height: 35)
-                .cornerRadius(17)
-        }
-        .padding(5)
-    }
-}
-
 struct ShimmerLoadingItemView_Previews: PreviewProvider {
     static var previews: some View {
         ShimmerLoadingItemView()
