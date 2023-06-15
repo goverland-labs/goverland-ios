@@ -16,11 +16,18 @@ let DEFAULT_PAGINATION_COUNT = 20
 
 class APIService {
     let networkManager: NetworkManager
+    let decoder: JSONDecoder
 
     static let shared = APIService()
 
     private init(networkManager: NetworkManager = NetworkManager()) {
         self.networkManager = networkManager
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        self.decoder = decoder
     }
 
     func request<T: APIEndpoint>(_ endpoint: T, defaultErrorDisplay: Bool = true) -> AnyPublisher<(T.ResponseType, HttpHeaders), APIError> {
@@ -34,8 +41,12 @@ class APIService {
         request.allHTTPHeaderFields = endpoint.headers
 
         return networkManager.request(request)
-            .tryMap { data, headers in
-                let object = try JSONDecoder().decode(T.ResponseType.self, from: data)
+            .tryMap { [unowned self] data, headers in
+                guard T.ResponseType.self != IgnoredResponse.self else {
+                    let response = IgnoredResponse()
+                    return (response as! T.ResponseType, headers)
+                }
+                let object = try self.decoder.decode(T.ResponseType.self, from: data)
                 return (object, headers)
             }
             .receive(on: DispatchQueue.main)
@@ -86,6 +97,16 @@ extension APIService {
 
     static func daoGrouped() -> AnyPublisher<(DaoGroupedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DaoGroupedEndpoint(queryParameters: nil)
+        return shared.request(endpoint)
+    }
+    
+    static func followDao(id: UUID) -> AnyPublisher<(FollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = FollowDaoEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func deleteSubscription(id: UUID) -> AnyPublisher<(DeleteSubscriptionEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DeleteSubscriptionEndpoint(subscriptionID: id)
         return shared.request(endpoint)
     }
 }

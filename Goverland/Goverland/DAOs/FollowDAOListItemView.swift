@@ -15,7 +15,7 @@ struct FollowDaoListItemView: View {
             RoundPictureView(image: dao.image, imageSize: 50)
             Text(dao.name)
             Spacer()
-            FollowButtonView(buttonWidth: 110, buttonHeight: 35)
+            FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
         }
         .padding(5)
         .listRowSeparator(.hidden)

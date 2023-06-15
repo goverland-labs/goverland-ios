@@ -44,7 +44,7 @@ struct DaoInfoScreenControlsView: View {
                 Spacer()
                 
                 VStack {
-                    FollowButtonView(buttonWidth: 120, buttonHeight: 35)
+                    //FollowButtonView(isSubscribed: dao.subscriptionMeta != nil, daoID: dao.id)
                     Spacer()
                 }
                 .frame(height: 50)

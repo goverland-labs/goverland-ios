@@ -9,35 +9,44 @@ import SwiftUI
 
 struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
-    let ensName: String
+    let alias: String
     let name: String
     let image: URL?
     let proposals: Int
+    let subscriptionMeta: SubscriptionMeta?
 
-    init(id: UUID, ensName: String, name: String, image: URL?, proposals: Int) {
+    init(id: UUID, alias: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
         self.id = id
-        self.ensName = ensName
+        self.alias = alias
         self.name = name
         self.image = image
         self.proposals = proposals
+        self.subscriptionMeta = subscriptionMeta
     }
 
     enum CodingKeys: String, CodingKey {
-        case ensName = "id"
+        case id
+        case alias
         case name
-        case image
+        case image = "avatar"
         case proposals = "proposals_count"
+        case subscriptionMeta = "subscription_info"
     }
 
-    // TODO: finilize once API is ready
+    // TODO: finilize once API is ready and we don't use gists anymore
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = UUID()
 
         do {
-            self.ensName = try container.decode(String.self, forKey: .ensName)
+            self.id = try container.decode(UUID.self, forKey: .id)
         } catch {
-            self.ensName = "test.eth"
+            self.id = UUID()
+        }
+
+        do {
+            self.alias = try container.decode(String.self, forKey: .alias)
+        } catch {
+            self.alias = "test.eth"
         }
 
         self.name = try container.decode(String.self, forKey: .name)
@@ -53,6 +62,8 @@ struct Dao: Identifiable, Decodable, Equatable {
         } catch {
             self.proposals = 10
         }
+        
+        self.subscriptionMeta = try container.decode(SubscriptionMeta?.self, forKey: .subscriptionMeta)
     }
 }
 
@@ -106,14 +117,16 @@ enum DaoSorting: String {
 extension Dao {
     static let gnosis = Dao(
         id: UUID(),
-        ensName: "gnosis.eth",
+        alias: "gnosis.eth",
         name: "Gnosis DAO",
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
-        proposals: 100)
+        proposals: 100,
+        subscriptionMeta: nil)
     static let aave = Dao(
         id: UUID(),
-        ensName: "aave.eth",
+        alias: "aave.eth",
         name: "Aave",
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
-        proposals: 150)
+        proposals: 150,
+        subscriptionMeta: nil)
 }

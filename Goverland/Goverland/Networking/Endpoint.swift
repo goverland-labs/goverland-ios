@@ -41,6 +41,11 @@ extension APIEndpoint {
     }
 }
 
+struct IgnoredResponse: Decodable {
+    init(from decoder: Decoder) throws {}
+    init() {}
+}
+
 // MARK: - Inbox service endpoints
 
 struct AuthTokenEndpoint: APIEndpoint {
@@ -57,6 +62,10 @@ struct AuthTokenEndpoint: APIEndpoint {
     var path: String = "auth/guest"
     var method: HttpMethod = .post
     var queryParameters: [URLQueryItem]?
+    var headers: [String: String] {
+        // do not set authorization header in this request
+        return ["Content-Type": "application/json"]
+    }
 
     var body: Data?
 
@@ -95,5 +104,35 @@ struct DaoGroupedEndpoint: APIEndpoint {
     
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
+    }
+}
+
+struct FollowDaoEndpoint: APIEndpoint {
+    typealias ResponseType = Subscription
+
+    var path: String = "subscriptions"
+    var method: HttpMethod = .post
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+    
+    init(daoID: UUID) {
+        self.body = try! JSONEncoder().encode(["dao": daoID])
+    }
+}
+
+struct DeleteSubscriptionEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let subscriptionID: UUID
+
+    var path: String { "subscriptions/\(subscriptionID)" }
+    var method: HttpMethod = .delete
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+    
+    init(subscriptionID: UUID) {
+        self.subscriptionID = subscriptionID
     }
 }
