@@ -20,7 +20,7 @@ struct GroupedDaosView: View {
         ScrollView(showsIndicators: false) {
             VStack {
                 if displayCallToAction {
-                    Text("Get Updates for the DAOs you select.")
+                    Text("Receive updates for the DAOs you select.")
                         .font(.subheadlineRegular)
                         .foregroundColor(.textWhite)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,35 +78,6 @@ fileprivate struct DaoThreadForCategoryView: View {
             }
         }
         .padding(.bottom, 20)
-    }
-}
-
-fileprivate struct DaoCardView: View {
-    let dao: Dao
-
-    var body: some View {
-        VStack {
-            RoundPictureView(image: dao.image, imageSize: 90)
-            VStack(spacing: 3) {
-                Text(dao.name)
-                    .fontWeight(.semibold)
-                    .font(.headline)
-                    .foregroundColor(.textWhite)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                Text("18.2K members")
-                    .font(.сaption2Regular)
-                    .foregroundColor(.textWhite60)
-            }
-            Spacer()
-            FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
-        }
-        .frame(width: 130, height: 200)
-        .padding(.vertical, 30)
-        .padding(.horizontal, 10)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container))
     }
 }
 

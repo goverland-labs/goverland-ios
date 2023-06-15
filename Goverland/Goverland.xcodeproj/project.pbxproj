@@ -24,6 +24,7 @@
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
 		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
 		5586BB8B2A39F0C000A6E316 /* FollowDAOListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* FollowDAOListItemView.swift */; };
+		5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */; };
 		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
@@ -105,6 +106,7 @@
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
 		5586BB882A34C75500A6E316 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5586BB8A2A39F0C000A6E316 /* FollowDAOListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDAOListItemView.swift; sourceTree = "<group>"; };
+		5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoCardView.swift; sourceTree = "<group>"; };
 		5597E7352A0A5C8800E2FAE4 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		5597E7372A0A5C8800E2FAE4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
+				5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */,
 				BA6B964F2A376C4500851826 /* Follow Button */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 				BAA8ED7E2A06FF4500316BFD /* Snapshot Voting */,
@@ -583,6 +586,7 @@
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
+				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				BA09B30A2A2A3B6600223049 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,

@@ -12,7 +12,7 @@ struct OnboardingFollowDaosView: View {
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search \(totalDaos) DAOs by name"
+            return "Search for \(totalDaos) DAOs by name"
         }
         return ""
     }
@@ -49,7 +49,7 @@ struct OnboardingFollowDaosView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Select DAOs")
+                        Text("Follow DAOs")
                             .font(.title3Semibold)
                             .foregroundColor(Color.textWhite)
                     }
