@@ -34,18 +34,19 @@ struct ShimmerDaoListItemView: View {
                 .frame(width: 150, height: 26)
                 .cornerRadius(13)
             Spacer()
-            ShimmerView()
-                .frame(width: 110, height: 35)
-                .cornerRadius(17)
+            ShimmerFollowButtonView()
         }
-        .padding(5)
+        .padding(12)
+        .listRowSeparator(.hidden)
     }
 }
 
 struct FollowDAOListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        DaoListItemView(dao: .aave)
-        ShimmerDaoListItemView()
+        VStack {
+            DaoListItemView(dao: .aave)
+            ShimmerDaoListItemView()
+        }
     }
 }
 
