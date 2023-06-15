@@ -41,7 +41,7 @@ struct ShimmerDaoListItemView: View {
     }
 }
 
-struct FollowDAOListItemView_Previews: PreviewProvider {
+struct DapListItemView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             DaoListItemView(dao: .aave)
