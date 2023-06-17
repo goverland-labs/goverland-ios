@@ -62,7 +62,10 @@ struct InboxView: View {
                     }
                 }
             }
-            .onAppear() { Tracker.track(.inboxView) }
+            .onAppear() {
+                data.refresh(withFilter: .all)
+                Tracker.track(.inboxView)
+            }
             .background(Color.surface)
             .listStyle(.plain)
             .scrollIndicators(.hidden)

@@ -8,21 +8,21 @@
 import Foundation
 import SwiftDate
 
-
+//TODO: fix dates
 struct Proposal: Decodable {
     let id: String
     let ipfs: String
     let author: Address
-    let created: Date
+    let created: Date = .now - 5.days
     let type: String
     let title: String
     let body: [ProposalBody]
     let discussion: URL?
     let choices: [String]
-    let votingStart: Date
-    let votingEnd: Date
+    let votingStart: Date = .now - 1.days
+    let votingEnd: Date = .now + 2.days
     let quorum: Int
-    let snapshot: Int
+    let snapshot: String
     let state: State
     let link: URL
     let scores: [Double]
@@ -64,14 +64,14 @@ struct Proposal: Decodable {
         case id
         case ipfs
         case author
-        case created
+//        case created
         case type
         case title
         case body
         case discussion
         case choices
-        case votingStart = "voting_start"
-        case votingEnd = "voting_end"
+//        case votingStart = "voting_start"
+//        case votingEnd = "voting_end"
         case quorum
         case snapshot
         case state
@@ -90,7 +90,7 @@ extension Proposal {
         id: "0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         ipfs: "bafkreihkovc6tgarlxlxciigo7225kegbsdyipkjzlx62qmuibgrfqkts4",
         author: Address("0xd281F988242C900d67fF2aafABe683B8004Ee778"),
-        created: .now - 5.days,
+//        created: .now - 5.days,
         type: "weighted",
         title: "Schedule all Act 1 Parcel Surveys (re-rolls)",
         body: [
@@ -99,10 +99,10 @@ extension Proposal {
         ],
         discussion: URL(string: "https://discord.com/channels/732491344970383370/1111329507987701871/1111329507987701871")!,
         choices: ["Yes. Schedule all survey rolls.", "No. Don't schedule them."],
-        votingStart: .now + 1.days,
-        votingEnd: .now + 5.days,
+//        votingStart: .now + 1.days,
+//        votingEnd: .now + 5.days,
         quorum: 0,
-        snapshot: 43600919,
+        snapshot: "43600919",
         state: .active,
         link: URL(string: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02")!,
         scores: [1742479.9190794732, 626486.0352702027],

@@ -13,13 +13,8 @@ extension Proposal: EventData {}
 
 // TODO: rework, WIP
 enum Event: String, Decodable {
-    case proposalCreated
-    case proposalUpdated
-
-    enum CodingKeys: String, CodingKey {
-        case proposalCreated = "proposal_created"
-        case proposalUpdated = "proposal_updated"
-    }
+    case proposalCreated = "proposal.created"
+    case proposalUpdated = "proposal.updated"
 
     var isProposal: Bool {
         true
@@ -56,18 +51,36 @@ struct InboxEvent: Identifiable, Decodable {
         case event
         case proposal
     }
-    
+
+    // TODO: fix
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = try container.decode(UUID.self, forKey: .id)
-        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
-        self.readAt = try container.decode(Date?.self, forKey: .readAt)
-        self.event = try? container.decode(Event?.self, forKey: .event)
+
+        self.createdAt = .now - 5.days
+        self.updatedAt = .now - 3.days
+        self.readAt = nil
+
+//        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+//        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+//        self.readAt = try container.decode(Date?.self, forKey: .readAt)
+        do {
+            self.event = try container.decodeIfPresent(Event.self, forKey: .event)
+        } catch {
+            print(error)
+            // TODO: log
+            self.event = nil
+        }
+
         if let event = event {
-            print("Event: \(event)")
-            self.eventData = try container.decode(Proposal?.self, forKey: .proposal)
+            do {
+                self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
+            } catch {
+                // TODO: log
+                print(error)
+                self.eventData = nil
+            }
         } else {
             self.eventData = nil
         }

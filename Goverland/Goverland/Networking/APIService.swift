@@ -110,8 +110,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func events() -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = InboxEventsEndpoint()
+    static func inboxEvents(offset: Int = 0,
+                            limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 }
