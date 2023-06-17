@@ -23,7 +23,7 @@ struct Proposal: Decodable {
     let votingEnd: Date
     let quorum: Int
     let snapshot: Int
-    let state: String
+    let state: State
     let link: URL
     let scores: [Double]
     let scoresTotal: Double
@@ -37,6 +37,26 @@ struct Proposal: Decodable {
         enum BodyType: String, Decodable {
             case markdown
             case html
+        }
+    }
+
+    enum State: String, Decodable {
+        case active
+        case executed
+        case failed
+        case queued
+        case succeeded
+        case defeated
+
+        var localizedName: String {
+            switch self {
+            case .active: return "Active vote"
+            case .executed: return "Executed"
+            case .failed: return "Failed"
+            case .queued: return "Queued"
+            case .succeeded: return "Succeeded"
+            case .defeated: return "Defeated"
+            }
         }
     }
 
@@ -63,6 +83,8 @@ struct Proposal: Decodable {
     }
 }
 
+// MARK: - Mock data
+
 extension Proposal {
     static let aaveTest = Proposal(
         id: "0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
@@ -81,7 +103,7 @@ extension Proposal {
         votingEnd: .now + 5.days,
         quorum: 0,
         snapshot: 43600919,
-        state: "active",
+        state: .active,
         link: URL(string: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02")!,
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
