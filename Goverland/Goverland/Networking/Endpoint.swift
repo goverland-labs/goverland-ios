@@ -107,6 +107,24 @@ struct DaoGroupedEndpoint: APIEndpoint {
     }
 }
 
+struct DaoFollowedEndpoint: APIEndpoint {
+    typealias ResponseType = [FollowedDaos]
+    
+    struct FollowedDaos: Decodable {
+        let dao: Dao
+    }
+
+    var path: String = "subscriptions"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+    
+    var body: Data?
+    
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 struct FollowDaoEndpoint: APIEndpoint {
     typealias ResponseType = Subscription
 

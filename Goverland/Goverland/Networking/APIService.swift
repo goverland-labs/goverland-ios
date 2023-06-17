@@ -100,6 +100,23 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func daoFollowed(offset: Int = 0,
+                            limit: Int = 1000,
+                            sorting: DaoSorting = .default,
+                            category: DaoCategory? = nil,
+                            query: String? = nil) -> AnyPublisher<(DaoFollowedEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)"),
+            URLQueryItem(name: "sorting", value: "\(sorting)")
+        ]
+        if let query = query {
+            queryParameters.append(URLQueryItem(name: "query", value: query))
+        }
+        let endpoint = DaoFollowedEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+    
     static func followDao(id: UUID) -> AnyPublisher<(FollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = FollowDaoEndpoint(daoID: id)
         return shared.request(endpoint)
