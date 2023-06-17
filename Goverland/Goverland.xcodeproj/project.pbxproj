@@ -204,7 +204,6 @@
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
-				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
 				5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */,
 				5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */,
@@ -369,6 +368,7 @@
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
 			isa = PBXGroup;
 			children = (
+				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */,
 				BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */,
 				BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */,

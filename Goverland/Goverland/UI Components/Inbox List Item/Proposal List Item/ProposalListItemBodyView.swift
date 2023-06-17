@@ -8,44 +8,42 @@
 import SwiftUI
 
 struct ProposalListItemBodyView: View {
-    let data: VoteEventData
-    let daoImage: URL?
+    let proposal: Proposal
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text(data.content.title)
+                Text(proposal.title)
                     .foregroundColor(.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-                
-                Text(data.content.subtitle)
-                    .foregroundColor(data.status == .activeVote ? .primaryDim : .textWhite40)
+
+                // TODO: implement
+                Text("Finishes in 3 days")
+                    .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
                     .font(.footnoteRegular)
                     .lineLimit(1)
-                
-                if let warning = data.content.warningSubtitle {
-                    Text(warning)
-                        .foregroundColor(.textWhite40)
-                        .font(.footnoteRegular)
-                        .lineLimit(1)
-                } else {
-                    Text("")
-                }
+
+                // TODO: fix
+//                if let warning = data.content.warningSubtitle {
+//                    Text(warning)
+//                        .foregroundColor(.textWhite40)
+//                        .font(.footnoteRegular)
+//                        .lineLimit(1)
+//                } else {
+//                    Text("")
+//                }
             }
             
             Spacer()
             
-            RoundPictureView(image: daoImage, imageSize: 46)
+            RoundPictureView(image: proposal.dao.image, imageSize: 46)
         }
     }
 }
 
 struct ListItemBody_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemBodyView(
-            data: InboxEvent.vote1.data as! VoteEventData,
-            daoImage: URL(string: "")
-        )
+        ProposalListItemBodyView(proposal: .aaveTest)
     }
 }

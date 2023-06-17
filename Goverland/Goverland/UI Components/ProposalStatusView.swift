@@ -8,49 +8,49 @@
 import SwiftUI
 
 struct ProposalStatusView: View {
-    var status: VoteEventData.EventStatus
+    var state: Proposal.State
 
     var body: some View {
-        switch status {
-        case .activeVote:
+        switch state {
+        case .active:
             BubbleView(
                 image: Image(systemName: "bolt.fill"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .onPrimary,
                 backgroundColor: .primary)
 
         case .executed:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .failed:
             BubbleView(
                 image: Image(systemName: "bolt.slash.fill"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .fail)
 
         case .queued:
             BubbleView(
                 image: Image(systemName: "clock"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .warning)
 
         case .succeeded:
             BubbleView(
                 image: Image(systemName: "checkmark"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
 
         case .defeated:
             BubbleView(
                 image: Image(systemName: "xmark"),
-                text: Text(status.localizedName),
+                text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .danger)
         }
