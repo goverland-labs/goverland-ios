@@ -10,6 +10,7 @@ import Combine
 
 class InboxDataService: ObservableObject {
     @Published var events: [InboxEvent] = []
+    @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     private var cancellables = Set<AnyCancellable>()
@@ -18,6 +19,7 @@ class InboxDataService: ObservableObject {
 
     func refresh(withFilter filter: FilterType) {
         events = []
+        isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false
 
@@ -26,6 +28,14 @@ class InboxDataService: ObservableObject {
 
     private func loadInitialData(filter: FilterType) {
 
+    }
+
+    func hasMore() -> Bool {
+        return false
+    }
+
+    func loadMore() {
+        
     }
 }
     

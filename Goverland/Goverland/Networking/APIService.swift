@@ -109,4 +109,9 @@ extension APIService {
         let endpoint = DeleteSubscriptionEndpoint(subscriptionID: id)
         return shared.request(endpoint)
     }
+
+    static func events() -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = InboxEventsEndpoint()
+        return shared.request(endpoint)
+    }
 }

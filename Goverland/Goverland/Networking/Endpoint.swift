@@ -136,3 +136,17 @@ struct DeleteSubscriptionEndpoint: APIEndpoint {
         self.subscriptionID = subscriptionID
     }
 }
+
+struct InboxEventsEndpoint: APIEndpoint {
+    typealias ResponseType = [InboxEvent]
+
+    var path: String = "feed"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
