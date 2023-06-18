@@ -21,15 +21,12 @@ struct FollowDaosListView: View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
                 if dataSource.searchText == "" {
-                    
                     if !dataSource.failedToLoadInitialData {
                         ListFollowedDaosView(dataSource: dataSource)
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
-                        
                     }
-                    
-                } else {} // { DaosSearchListView(dataSource: dataSource) }
+                } else {}
                 
             }
             .navigationDestination(for: DaoCategory.self) { category in
@@ -51,7 +48,7 @@ struct FollowDaosListView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                //Tracker.track(.selectDaoView)
+                Tracker.track(.followListDaoView)
             }
         }
     }

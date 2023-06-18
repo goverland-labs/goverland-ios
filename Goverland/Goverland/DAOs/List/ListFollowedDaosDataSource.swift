@@ -52,7 +52,7 @@ class ListFollowedDaosDataSource: ObservableObject, Refreshable {
                 result.forEach { followedDao in
                     self?.daos.append(followedDao.dao)
                 }
-                
+                self?.total = self?.getTotal(from: headers)
                 
                 guard let totalStr = headers["x-total-count"] as? String,
                     let total = Int(totalStr) else {
@@ -62,22 +62,6 @@ class ListFollowedDaosDataSource: ObservableObject, Refreshable {
                 self?.total = total
             }
             .store(in: &cancellables)
-        
-        
-        
-//            .sink { [weak self] completion in
-//                print("==============")
-//                print(completion)
-//                print("==============")
-//                switch completion {
-//                case .finished: break
-//                case .failure(_): self?.failedToLoadInitialData = true
-//                }
-//            } receiveValue: { [weak self] daos, headers in
-//                self?.daos = daos
-//                self?.total = self?.getTotal(from: headers)
-//            }
-//            .store(in: &cancellables)
     }
 
     private func performSearch(_ searchText: String) {
