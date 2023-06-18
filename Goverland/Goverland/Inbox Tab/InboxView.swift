@@ -17,9 +17,11 @@ struct InboxView: View {
                 InboxFilterMenuView(filter: $filter, data: data)
                     .padding(10)
                     .background(Color.surfaceBright)
-                if data.isLoadingData && data.events.count == 0 {
+
+                if data.isLoading && data.events.count == 0 {
                     ScrollView {
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<3) { _ in
+                            // TODO: move and style inside
                             ShimmerLoadingItemView()
                                 .cornerRadius(20)
                                 .padding(.horizontal, 15)
@@ -30,7 +32,7 @@ struct InboxView: View {
                 } else {
                     List(0..<data.events.count, id: \.self) { index in
                         let event = data.events[index]
-                        if index == data.events.count - 1 && data.hasNextPageURL() {
+                        if index == data.events.count - 1 && data.hasMore() {
                             ZStack {
                                 ShimmerLoadingItemView()
                                     .cornerRadius(20)
@@ -38,34 +40,32 @@ struct InboxView: View {
                                     .padding(.horizontal, -5)
                                     .frame(height: 180)
                                     .onAppear {
-                                        data.getEvents(withFilter: filter, fromStart: false)
+                                        data.loadMore()
                                     }
                             }
                             .listRowBackground(Color.surface)
                             .listRowSeparator(.hidden)
                         } else {
+                            let proposal = event.eventData! as! Proposal
                             ZStack {
-                                switch event.type {
-                                case .vote:
-                                    NavigationLink(destination: SnapshotProposalView(event: event)) {}.opacity(0)
-                                    ProposalListItemView(event: event)
-                                        .padding(.top, 10)
-                                case .treasury:
-                                    TreasuryListItemView(event: event)
-                                }
+                                NavigationLink(destination: SnapshotProposalView(proposal: proposal)) {}.opacity(0)
+                                ProposalListItemView(proposal: proposal)
+                                    .padding(.top, 10)
                             }
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .padding(.horizontal, -5)
                         }
-                        
                     }
                     .refreshable {
-                        data.getEvents(withFilter: filter, fromStart: true)
+                        data.refresh(withFilter: filter)
                     }
                 }
             }
-            .onAppear() { Tracker.track(.inboxView) }
+            .onAppear() {
+                data.refresh(withFilter: .all)
+                Tracker.track(.inboxView)
+            }
             .background(Color.surface)
             .listStyle(.plain)
             .scrollIndicators(.hidden)

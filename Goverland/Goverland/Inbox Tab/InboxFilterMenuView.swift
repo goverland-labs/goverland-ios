@@ -56,7 +56,7 @@ struct InboxFilterMenuView: View {
                         withAnimation(.spring(response: 0.5)) {
                             self.filter = filterOption
                         }
-                        data.getEvents(withFilter: filterOption, fromStart: true)
+                        data.refresh(withFilter: filterOption)
                     }
                     .padding([.leading, .trailing], 12)
                 }

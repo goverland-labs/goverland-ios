@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProposalListItemFooterView: View {
-    let meta: VoteEventData.VoteMeta
+    let proposal: Proposal
     
     var body: some View {
         HStack(spacing: 20) {
-            VoteFooterView(meta: meta)
+            VoteFooterView(votes: proposal.votes, quorum: proposal.quorum)
             Spacer()
             InboxListItemFooterMenu()
         }
@@ -20,7 +20,8 @@ struct ProposalListItemFooterView: View {
 }
 
 fileprivate struct VoteFooterView: View {
-    var meta: VoteEventData.VoteMeta
+    let votes: Int
+    let quorum: Int
     
     var body: some View {
         HStack(spacing: 10) {
@@ -29,7 +30,7 @@ fileprivate struct VoteFooterView: View {
                     .foregroundColor(.gray)
                     .font(.footnoteRegular)
                 
-                Text(String(meta.voters))
+                Text(String(votes))
                     .fontWeight(.medium)
                     .font(.footnoteRegular)
             }
@@ -39,24 +40,9 @@ fileprivate struct VoteFooterView: View {
                     .foregroundColor(.white)
                     .font(.footnoteRegular)
                 
-                Text(meta.quorum)
+                Text(String(quorum))
                     .fontWeight(.medium)
                     .font(.footnoteRegular)
-            }
-            
-            if meta.voted {
-                HStack(spacing: 1) {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 9))
-                        .foregroundColor(.textWhite)
-                    
-                    Text("voted")
-                        .font(.caption2Semibold)
-                        .foregroundColor(.textWhite)
-                        .lineLimit(1)
-                }
-                .padding(5)
-                .background(Capsule().fill(Color.success))
             }
         }
     }
@@ -64,7 +50,6 @@ fileprivate struct VoteFooterView: View {
 
 struct ListItemFooter_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemFooterView(
-            meta: VoteEventData.VoteMeta(voters: 1, quorum: "1", voted: true))
+        ProposalListItemFooterView(proposal: .aaveTest)
     }
 }

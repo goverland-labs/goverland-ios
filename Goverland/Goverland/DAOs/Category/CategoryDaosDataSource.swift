@@ -55,7 +55,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] daos, headers in
                 self?.daos = daos
-                self?.total = self?.getTotal(from: headers)
+                self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
@@ -70,7 +70,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] result, headers in
                 self?.failedToLoadMore = false
                 self?.daos.appendUnique(contentsOf: result)
-                self?.total = self?.getTotal(from: headers)
+                self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
@@ -95,15 +95,6 @@ class CategoryDaosDataSource: ObservableObject, Refreshable {
     func retryLoadMore() {
         // This will trigger view update cycle that will trigger `loadMore` function
         self.failedToLoadMore = false
-    }
-
-    private func getTotal(from headers: HttpHeaders) -> Int? {
-        guard let totalStr = headers["x-total-count"] as? String,
-            let total = Int(totalStr) else {
-            // TODO: log in crashlytics
-            return nil
-        }
-        return total
     }
 
     func hasMore() -> Bool {

@@ -58,12 +58,8 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                     self?.categoryDaos[category] = value.list
                     self?.totalInCategory[category] = value.count
                 }
-                guard let totalStr = headers["x-total-count"] as? String,
-                    let total = Int(totalStr) else {
-                    // TODO: log in crashlytics
-                    return
-                }
-                self?.totalDaos = total
+
+                self?.totalDaos = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
@@ -84,12 +80,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                     self?.categoryDaos[category] = result
                 }
 
-                guard let totalStr = headers["x-total-count"] as? String,
-                    let total = Int(totalStr) else {
-                    // TODO: log in crashlytics
-                    return
-                }
-                self?.totalInCategory[category] = total
+                self?.totalInCategory[category] = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }

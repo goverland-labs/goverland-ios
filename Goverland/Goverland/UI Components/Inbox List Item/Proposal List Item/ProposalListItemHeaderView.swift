@@ -9,22 +9,26 @@ import SwiftUI
 import SwiftDate
 
 struct ProposalListItemHeaderView: View {
-    let user: User
-    let date: Date
-    let status: VoteEventData.EventStatus
+    let proposal: Proposal
+
+    // TODO: change on backend
+    var user: User {
+        User(address: proposal.author, ensName: nil, image: nil)
+    }
     
     var body: some View {
         HStack {
             HStack(spacing: 6) {
                 IdentityView(user: user)
-                DateView(date: date)
+                DateView(date: proposal.created)
             }
 
             Spacer()
-            
+
+            // TODO: implement
             HStack(spacing: 6) {
                 ReadIndicatiorView()
-                ProposalStatusView(status: status)
+                ProposalStatusView(state: proposal.state)
             }
         }
     }
@@ -40,10 +44,6 @@ fileprivate struct ReadIndicatiorView: View {
 
 struct ListItemHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemHeaderView(
-            user: User.flipside,
-            date: Date(),
-            status: .activeVote
-        )
+        ProposalListItemHeaderView(proposal: .aaveTest)
     }
 }
