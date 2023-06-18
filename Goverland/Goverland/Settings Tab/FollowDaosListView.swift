@@ -22,8 +22,12 @@ struct FollowDaosListView: View {
             VStack(alignment: .leading, spacing: 0) {
                 if dataSource.searchText == "" {
                     
-                    if !dataSource.failedToLoadInitialData { ListFollowedDaosView(dataSource: dataSource)
-                    } else { RetryInitialLoadingView(dataSource: dataSource) }
+                    if !dataSource.failedToLoadInitialData {
+                        ListFollowedDaosView(dataSource: dataSource)
+                    } else {
+                        RetryInitialLoadingView(dataSource: dataSource)
+                        
+                    }
                     
                 } else {} // { DaosSearchListView(dataSource: dataSource) }
                 

@@ -108,9 +108,9 @@ struct DaoGroupedEndpoint: APIEndpoint {
 }
 
 struct DaoFollowedEndpoint: APIEndpoint {
-    typealias ResponseType = [FollowedDaos]
+    typealias ResponseType = [FollowedDao]
     
-    struct FollowedDaos: Decodable {
+    struct FollowedDao: Decodable {
         let dao: Dao
     }
 

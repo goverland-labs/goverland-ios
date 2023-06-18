@@ -49,9 +49,9 @@ class ListFollowedDaosDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] result, headers in
-//                result.forEach { dao in
-//                    print(dao)
-//                }
+                result.forEach { followedDao in
+                    self?.daos.append(followedDao.dao)
+                }
                 
                 
                 guard let totalStr = headers["x-total-count"] as? String,
