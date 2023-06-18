@@ -111,6 +111,8 @@ struct DaoFollowedEndpoint: APIEndpoint {
     typealias ResponseType = [FollowedDao]
     
     struct FollowedDao: Decodable {
+        let id: UUID
+        let created_at: Date
         let dao: Dao
     }
 

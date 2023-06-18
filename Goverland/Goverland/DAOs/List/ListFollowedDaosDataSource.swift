@@ -50,7 +50,9 @@ class ListFollowedDaosDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] result, headers in
                 result.forEach { followedDao in
-                    self?.daos.append(followedDao.dao)
+                    var dao = followedDao.dao
+                    dao.subscriptionMeta = SubscriptionMeta(id: followedDao.id, createdAt: followedDao.created_at)
+                    self?.daos.append(dao)
                 }
                 self?.total = self?.getTotal(from: headers)
                 

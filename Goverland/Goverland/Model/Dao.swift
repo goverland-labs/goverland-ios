@@ -13,7 +13,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let name: String
     let image: URL?
     let proposals: Int
-    let subscriptionMeta: SubscriptionMeta?
+    var subscriptionMeta: SubscriptionMeta?
 
     init(id: UUID, alias: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
         self.id = id
