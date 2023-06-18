@@ -26,11 +26,9 @@ struct FollowDaosListView: View {
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
-                } else {}
-                
-            }
-            .navigationDestination(for: DaoCategory.self) { category in
-                FollowCategoryDaosListView(category: category)
+                } else {
+                    FollowedDaosSearchListView(dataSource: dataSource)
+                }
             }
             .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
@@ -49,6 +47,28 @@ struct FollowDaosListView: View {
             .onAppear() {
                 dataSource.refresh()
                 Tracker.track(.followListDaoView)
+            }
+        }
+    }
+}
+
+private struct FollowedDaosSearchListView: View {
+    @ObservedObject var dataSource: ListFollowedDaosDataSource
+
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 12) {
+                if dataSource.nothingFound {
+                    Text("Nothing found")
+                } else if dataSource.searchResultDaos.isEmpty { // initial searching
+                    ForEach(0..<3) { _ in
+                        ShimmerDaoListItemView()
+                    }
+                } else {
+                    ForEach(dataSource.searchResultDaos) { dao in
+                        DaoListItemView(dao: dao)
+                    }
+                }
             }
         }
     }

@@ -12,9 +12,13 @@ struct ListFollowedDaosView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 12) {
-                ForEach(dataSource.daos) { dao in
-                    DaoListItemView(dao: dao)
+            if dataSource.daos.isEmpty {
+                Text("No followed Daos, use search to find and subscribe")
+            } else {
+                VStack(spacing: 12) {
+                    ForEach(dataSource.daos) { dao in
+                        DaoListItemView(dao: dao)
+                    }
                 }
             }
         }
