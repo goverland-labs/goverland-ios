@@ -13,7 +13,11 @@ struct ListFollowedDaosView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             if dataSource.daos.isEmpty {
-                Text("No followed Daos, use search to find and subscribe")
+                Text("")
+                    .onAppear() {
+                        ErrorViewModel.shared.setErrorMessage("You are not currently following any DAO. Please perform a search to subscribe.")
+                    }
+                
             } else {
                 VStack(spacing: 12) {
                     ForEach(dataSource.daos) { dao in
