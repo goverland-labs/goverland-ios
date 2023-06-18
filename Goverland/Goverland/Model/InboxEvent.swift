@@ -5,193 +5,85 @@
 //  Created by Jenny Shalai on 2023-01-06.
 //
 
-import SwiftUI
-import Combine
+import Foundation
+import SwiftDate
 
-enum EventType: String, Decodable {
-    case vote
-    case treasury
+protocol EventData {}
+extension Proposal: EventData {}
+
+// TODO: rework, WIP
+enum Event: String, Decodable {
+    case proposalCreated = "proposal.created"
+    case proposalUpdated = "proposal.updated"
+
+    var isProposal: Bool {
+        true
+    }
 }
 
 struct InboxEvent: Identifiable, Decodable {
     let id: UUID
-    let date: Date
-    let type: EventType
-    let daoImage: URL?
-    let data: EventData
+    let createdAt: Date
+    let updatedAt: Date
+    let readAt: Date?
+    let event: Event?
+    let eventData: EventData?
     
     init(id: UUID,
-         date: Date,
-         type: EventType,
-         daoImage: URL?,
-         data: EventData) {
+         createdAt: Date,
+         updatedAt: Date,
+         readAt: Date?,
+         event: Event?,
+         eventData: EventData?) {
         self.id = id
-        self.date = date
-        self.type = type
-        self.daoImage = daoImage
-        self.data = data
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.readAt = readAt
+        self.event = event
+        self.eventData = eventData
     }
     
     enum CodingKeys: String, CodingKey {
         case id
-        case date
-        case type
-        case daoImage
-        case data
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case readAt = "read_at"
+        case event
+        case proposal
     }
-    
+
+    // TODO: fix
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
+
         self.id = try container.decode(UUID.self, forKey: .id)
-        self.date = try container.decode(Date.self, forKey: .date)
-        self.type = try container.decode(EventType.self, forKey: .type)
-        self.daoImage = try container.decode(URL.self, forKey: .daoImage)
 
-        switch type {
-        case .vote:
-            self.data = try container.decode(VoteEventData.self, forKey: .data)
-        case .treasury:
-            self.data = try container.decode(TreasuryEventData.self, forKey: .data)
+        self.createdAt = .now - 5.days
+        self.updatedAt = .now - 3.days
+        self.readAt = nil
+
+//        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+//        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+//        self.readAt = try container.decode(Date?.self, forKey: .readAt)
+        do {
+            self.event = try container.decodeIfPresent(Event.self, forKey: .event)
+        } catch {
+            print(error)
+            // TODO: log
+            self.event = nil
         }
-    }
-}
 
-protocol EventData {}
-
-// MARK: - Vote
-
-struct VoteEventData: EventData, Decodable {
-    let user: User
-    let status: EventStatus
-    let content: VoteContent
-    let meta: VoteMeta
-
-    enum EventStatus: String, Decodable {
-        case activeVote
-        case executed
-        case failed
-        case queued
-        case succeeded
-        case defeated
-
-        var localizedName: String {
-            switch self {
-            case .activeVote: return "Active vote"
-            case .executed: return "Executed"
-            case .failed: return "Failed"
-            case .queued: return "Queued"
-            case .succeeded: return "Succeeded"
-            case .defeated: return "Defeated"
+        if let event = event {
+            do {
+                self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
+            } catch {
+                // TODO: log
+                print(error)
+                self.eventData = nil
             }
+        } else {
+            self.eventData = nil
         }
-    }
-
-    struct VoteContent: Decodable {
-        let title: String
-        let subtitle: String
-        let warningSubtitle: String?
-    }
-
-    struct VoteMeta: Decodable {
-        let voters: Int
-        let quorum: String
-        let voted: Bool
-    }
-}
-
-
-// MARK: - Treasury
-
-protocol TreasuryEventTypedContent {}
-
-struct TreasuryEventData: EventData, Decodable {
-    let sender: User
-    let status: EventStatus
-    let transactionStatus: TransactionStatus
-    let image: URL?
-    let type: TreasuryEventType
-    let content: TreasuryEventTypedContent
-
-    fileprivate init(
-        sender: User,
-        status: EventStatus,
-        transactionStatus: TransactionStatus,
-        image: URL?,
-        type: TreasuryEventType,
-        content: TreasuryEventTypedContent) {
-            self.sender = sender
-            self.status = status
-            self.transactionStatus = transactionStatus
-            self.image = image
-            self.type = type
-            self.content = content
-    }
-
-    enum CodingKeys: CodingKey {
-        case sender
-        case status
-        case transactionStatus
-        case image
-        case type
-        case content
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sender = try container.decode(User.self, forKey: .sender)
-        self.status = try container.decode(EventStatus.self, forKey: .status)
-        self.transactionStatus = try container.decode(TransactionStatus.self, forKey: .transactionStatus)
-        self.image = try container.decode(URL.self, forKey: .image)
-        self.type = try container.decode(TreasuryEventType.self, forKey: .type)
-
-        switch type {
-        case .native, .erc20:
-            self.content = try container.decode(TxContent.self, forKey: .content)
-        case .nft:
-            self.content = try container.decode(NFTContent.self, forKey: .content)
-        }
-    }
-
-    enum EventStatus: String, Decodable {
-        case sent
-        case received
-
-        var localizedName: String {
-            switch self {
-            case .sent:
-                return "Sent"
-            case .received:
-                return "Received"
-            }
-        }
-    }
-
-    enum TransactionStatus: String, Decodable {
-        case failed
-        case success
-
-        var localizedName: String {
-            switch self {
-            case .failed:
-                return "Failed"
-            case .success:
-                return "Success"
-            }
-        }
-    }
-
-    enum TreasuryEventType: String, Decodable {
-        case native
-        case erc20
-        case nft
-    }
-
-    struct TxContent: TreasuryEventTypedContent, Decodable {
-        let amount: String
-    }
-
-    struct NFTContent: TreasuryEventTypedContent, Decodable {
-        let user: User
     }
 }
 
@@ -199,33 +91,10 @@ struct TreasuryEventData: EventData, Decodable {
 
 extension InboxEvent {
     static let vote1 = InboxEvent(
-        id: UUID(),
-        date: .now,
-        type: .vote,
-        daoImage: URL(string: ""),
-        data: VoteEventData(
-            user: User.flipside,
-            status: .activeVote,
-            content: VoteEventData.VoteContent(
-                title: "Lets party!",
-                subtitle: "Who is in?",
-                warningSubtitle: "No party poopers please"),
-            meta: VoteEventData.VoteMeta(
-                voters: 53,
-                quorum: "120%",
-                voted: true)))
-
-    static let treasury1 = InboxEvent(
-        id: UUID(),
-        date: .now,
-        type: .treasury,
-        daoImage: URL(string: ""),
-        data: TreasuryEventData(
-            sender: User.flipside,
-            status: .received,
-            transactionStatus: .success,
-            image: URL(string: ""),
-            type: .erc20,
-            content: TreasuryEventData.TxContent(amount: "20K"))
-    )
+        id: UUID(uuidString: "d4a04089-a6b4-448f-b85d-37c7e975cbd9")!,
+        createdAt: .now - 5.days,
+        updatedAt: .now - 3.days,
+        readAt: nil,
+        event: .proposalCreated,
+        eventData: Proposal.aaveTest)
 }

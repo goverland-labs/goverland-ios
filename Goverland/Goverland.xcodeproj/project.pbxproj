@@ -20,11 +20,13 @@
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
+		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
 		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
 		5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */; };
 		5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */; };
+		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */; };
 		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
@@ -102,11 +104,13 @@
 		552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryInitialLoadingView.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
+		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
 		5586BB882A34C75500A6E316 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoListItemView.swift; sourceTree = "<group>"; };
 		5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoCardView.swift; sourceTree = "<group>"; };
+		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		5597E7352A0A5C8800E2FAE4 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		5597E7372A0A5C8800E2FAE4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				BAF651D129C0F00000C78A8A /* UIComponents.swift */,
 				5521D26D29EF092900A09FD4 /* Colors.swift */,
 				BA1EAD6F29F053E9008D92E9 /* Fonts.swift */,
+				557177E82A3E3E1B0026B12A /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -202,7 +207,6 @@
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
-				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
 				5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */,
 				5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */,
@@ -367,6 +371,7 @@
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
 			isa = PBXGroup;
 			children = (
+				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
 				BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */,
 				BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */,
 				BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */,
@@ -378,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				BA352F09298C184D00F78958 /* Dao.swift */,
+				559025002A3DF6BE001B1770 /* Proposal.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 				5533170129F16B290034AF66 /* Address.swift */,
@@ -565,6 +571,7 @@
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BA09B30B2A2A3B6600223049 /* SnapshotProposalCreatorIdentityView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
+				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */,
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* InboxFilterMenuView.swift in Sources */,
@@ -593,6 +600,7 @@
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
+				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,

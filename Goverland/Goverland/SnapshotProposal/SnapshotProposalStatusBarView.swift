@@ -10,7 +10,7 @@ import SwiftUI
 struct SnapshotProposalStatusBarView: View {
     var body: some View {
         HStack {
-            ProposalStatusView(status: .activeVote)
+            ProposalStatusView(state: .active)
             Spacer()
             HStack {
                 DateView(date: Date(year: 2023, month: 05, day: 9, hour: 12, minute: 34))

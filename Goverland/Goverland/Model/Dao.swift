@@ -63,7 +63,7 @@ struct Dao: Identifiable, Decodable, Equatable {
             self.proposals = 10
         }
         
-        self.subscriptionMeta = try container.decode(SubscriptionMeta?.self, forKey: .subscriptionMeta)
+        self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
     }
 }
 
