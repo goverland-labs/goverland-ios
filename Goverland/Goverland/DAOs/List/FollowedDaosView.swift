@@ -1,5 +1,5 @@
 //
-//  ListFollowedDaosView.swift
+//  FollowedDaosView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-17.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ListFollowedDaosView: View {
-    @ObservedObject var dataSource: ListFollowedDaosDataSource
+struct FollowedDaosView: View {
+    @ObservedObject var dataSource: FollowedDaosDataSource
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -31,6 +31,6 @@ struct ListFollowedDaosView: View {
 
 struct ListDaosView_Previews: PreviewProvider {
     static var previews: some View {
-        ListFollowedDaosView(dataSource: ListFollowedDaosDataSource())
+        FollowedDaosView(dataSource: FollowedDaosDataSource())
     }
 }

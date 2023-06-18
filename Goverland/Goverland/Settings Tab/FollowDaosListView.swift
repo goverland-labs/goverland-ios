@@ -8,21 +8,14 @@
 import SwiftUI
 
 struct FollowDaosListView: View {
-    @StateObject private var dataSource = ListFollowedDaosDataSource()
-
-    private var searchPrompt: String {
-        if let totalDaos = dataSource.total.map(String.init) {
-            return "Search in \(totalDaos)"
-        }
-        return ""
-    }
+    @StateObject private var dataSource = FollowedDaosDataSource()
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitialData {
-                        ListFollowedDaosView(dataSource: dataSource)
+                        FollowedDaosView(dataSource: dataSource)
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
@@ -33,7 +26,7 @@ struct FollowDaosListView: View {
             .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
-                        prompt: searchPrompt)
+                        prompt: "")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -53,7 +46,7 @@ struct FollowDaosListView: View {
 }
 
 private struct FollowedDaosSearchListView: View {
-    @ObservedObject var dataSource: ListFollowedDaosDataSource
+    @ObservedObject var dataSource: FollowedDaosDataSource
 
     var body: some View {
         ScrollView(showsIndicators: false) {
