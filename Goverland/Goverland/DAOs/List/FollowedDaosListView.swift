@@ -13,7 +13,9 @@ struct FollowedDaosListView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
-                if !dataSource.failedToLoadInitialData {
+                if dataSource.failedToLoadInitialData {
+                    RetryInitialLoadingView(dataSource: dataSource)
+                } else {
                     if dataSource.daos.isEmpty {
                         EmptyView()
                             .onAppear() {
@@ -23,13 +25,11 @@ struct FollowedDaosListView: View {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
                                ForEach(dataSource.daos) { dao in
-                                   DaoListItemView(dao: dao)
+                                   DaoListItemView(dao: dao) // TODO: Navigation to DaoInfoScreenView
                                }
                             }
                         }
                     }
-                } else {
-                    RetryInitialLoadingView(dataSource: dataSource)
                 }
             }
             .padding(.horizontal, 15)
