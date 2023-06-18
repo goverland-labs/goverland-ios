@@ -81,8 +81,7 @@
 		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */; };
-		BADB99D22A3DFDCE0098C0D3 /* FollowedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D12A3DFDCE0098C0D3 /* FollowedDaosView.swift */; };
-		BADB99D42A3DFF620098C0D3 /* FollowDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* FollowDaosListView.swift */; };
+		BADB99D42A3DFF620098C0D3 /* FollowedDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoScreenView.swift */; };
@@ -166,8 +165,7 @@
 		BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosDataSource.swift; sourceTree = "<group>"; };
-		BADB99D12A3DFDCE0098C0D3 /* FollowedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosView.swift; sourceTree = "<group>"; };
-		BADB99D32A3DFF620098C0D3 /* FollowDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDaosListView.swift; sourceTree = "<group>"; };
+		BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosListView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
-				BADB99D32A3DFF620098C0D3 /* FollowDaosListView.swift */,
 				BAD5225D2A279A950097068F /* TwitterSettingsView.swift */,
 				BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
@@ -434,7 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */,
-				BADB99D12A3DFDCE0098C0D3 /* FollowedDaosView.swift */,
+				BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -565,7 +562,6 @@
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
-				BADB99D22A3DFDCE0098C0D3 /* FollowedDaosView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
@@ -623,7 +619,7 @@
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
-				BADB99D42A3DFF620098C0D3 /* FollowDaosListView.swift in Sources */,
+				BADB99D42A3DFF620098C0D3 /* FollowedDaosListView.swift in Sources */,
 				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
