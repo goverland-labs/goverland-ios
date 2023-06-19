@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
+    @State private var showFollowDaos = false
     
     var body: some View {
         NavigationStack {
@@ -17,10 +18,7 @@ struct SubscriptionsView: View {
                     RetryInitialLoadingView(dataSource: dataSource)
                 } else {
                     if dataSource.subscriptions.isEmpty {
-                        EmptyView()
-                            .onAppear() {
-                                ErrorViewModel.shared.setErrorMessage("You don’t follow any DAO at the moment.")
-                            }
+                        NoSubscriptionsView(showFollowDaos: $showFollowDaos)
                     } else {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
@@ -47,9 +45,27 @@ struct SubscriptionsView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showFollowDaos, onDismiss: {
+                showFollowDaos = false
+            }, content: {
+                AddSubscriptionView()
+            })
             .onAppear() {
                 dataSource.refresh()
                 Tracker.track(.followedDaosListView)
+            }
+        }
+    }
+}
+
+fileprivate struct NoSubscriptionsView: View {
+    @Binding var showFollowDaos: Bool
+
+    var body: some View {
+        VStack {
+            Text("You don’t follow any DAO at the moment.")
+            Button("Follow a DAO") {
+                showFollowDaos = true
             }
         }
     }
