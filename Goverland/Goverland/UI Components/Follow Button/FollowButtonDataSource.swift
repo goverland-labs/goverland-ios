@@ -31,7 +31,7 @@ class FollowButtonDataSource: ObservableObject {
     
     private func followDao() {
         isUpdating = true
-        APIService.followDao(id: daoID)
+        APIService.createSubscription(id: daoID)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

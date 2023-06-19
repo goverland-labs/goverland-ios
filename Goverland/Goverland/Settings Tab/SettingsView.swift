@@ -15,7 +15,7 @@ struct SettingsView: View {
             List {
                 Section {
                     NavigationLink("Followed DAOs") {
-                        FollowedDaosListView()
+                        SubscriptionsView()
                     }
                     NavigationLink("Notifications") {
                         PushNotificationsSettingView()

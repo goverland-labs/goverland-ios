@@ -1,5 +1,5 @@
 //
-//  FollowedDaosListView.swift
+//  SubscriptionsView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-17.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct FollowedDaosListView: View {
-    @StateObject private var dataSource = FollowedDaosDataSource()
+struct SubscriptionsView: View {
+    @StateObject private var dataSource = SubscriptionsDataSource()
     
     var body: some View {
         NavigationStack {
@@ -16,7 +16,7 @@ struct FollowedDaosListView: View {
                 if dataSource.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: dataSource)
                 } else {
-                    if dataSource.daos.isEmpty {
+                    if dataSource.subscriptions.isEmpty {
                         EmptyView()
                             .onAppear() {
                                 ErrorViewModel.shared.setErrorMessage("You don’t follow any DAO at the moment.")
@@ -24,9 +24,13 @@ struct FollowedDaosListView: View {
                     } else {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
-                               ForEach(dataSource.daos) { dao in
-                                   DaoListItemView(dao: dao) // TODO: Navigation to DaoInfoScreenView
-                               }
+                                // TODO: Navigation to DaoInfoScreenView
+                                ForEach(dataSource.subscriptions) { subscription in
+                                    DaoListItemView(
+                                        dao: subscription.dao,
+                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                           createdAt: subscription.createdAt))
+                                }
                             }
                         }
                     }
@@ -53,6 +57,6 @@ struct FollowedDaosListView: View {
 
 struct FollowDaosListView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowedDaosListView()
+        SubscriptionsView()
     }
 }

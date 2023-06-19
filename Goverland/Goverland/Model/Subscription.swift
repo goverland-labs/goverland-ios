@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Subscription: Decodable {
+struct Subscription: Decodable, Identifiable {
     let id: UUID
     let createdAt: Date
     let dao: Dao

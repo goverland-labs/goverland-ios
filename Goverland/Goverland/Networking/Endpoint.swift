@@ -107,24 +107,8 @@ struct DaoGroupedEndpoint: APIEndpoint {
     }
 }
 
-struct FollowedDaosEndpoint: APIEndpoint {
-    typealias ResponseType = [FollowedDao]
-    
-    struct FollowedDao: Decodable {
-        let id: UUID
-        let createdAt: Date
-        let dao: Dao
-        
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case createdAt = "created_at"
-            case dao
-        }
-        
-        var subscriptionMeta: SubscriptionMeta {
-            return SubscriptionMeta(id: id, createdAt: createdAt)
-        }
-    }
+struct SubscriptionsEndpoint: APIEndpoint {
+    typealias ResponseType = [Subscription]
 
     var path: String = "subscriptions"
     var method: HttpMethod = .get
@@ -137,7 +121,7 @@ struct FollowedDaosEndpoint: APIEndpoint {
     }
 }
 
-struct FollowDaoEndpoint: APIEndpoint {
+struct CreateSubscriptionEndpoint: APIEndpoint {
     typealias ResponseType = Subscription
 
     var path: String = "subscriptions"
