@@ -107,7 +107,21 @@ struct DaoGroupedEndpoint: APIEndpoint {
     }
 }
 
-struct FollowDaoEndpoint: APIEndpoint {
+struct SubscriptionsEndpoint: APIEndpoint {
+    typealias ResponseType = [Subscription]
+
+    var path: String = "subscriptions"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+    
+    var body: Data?
+    
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+struct CreateSubscriptionEndpoint: APIEndpoint {
     typealias ResponseType = Subscription
 
     var path: String = "subscriptions"

@@ -22,11 +22,8 @@ class APIService {
 
     private init(networkManager: NetworkManager = NetworkManager()) {
         self.networkManager = networkManager
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(formatter)
+        decoder.dateDecodingStrategy = .iso8601
         self.decoder = decoder
     }
 
@@ -62,6 +59,9 @@ class APIService {
                 } else {
                     // Decoding error. Don't show error to user.
                     // TODO: log into crashlytics
+                    #if DEV
+                    print(error)
+                    #endif
                     return APIError.unknown
                 }
             }
@@ -100,8 +100,20 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func followDao(id: UUID) -> AnyPublisher<(FollowDaoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = FollowDaoEndpoint(daoID: id)
+    static func subscriptions(offset: Int = 0,
+                            limit: Int = 1000,
+                            sorting: DaoSorting = .default) -> AnyPublisher<(SubscriptionsEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)"),
+            URLQueryItem(name: "sorting", value: "\(sorting)")
+        ]
+        let endpoint = SubscriptionsEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+    
+    static func createSubscription(id: UUID) -> AnyPublisher<(CreateSubscriptionEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = CreateSubscriptionEndpoint(daoID: id)
         return shared.request(endpoint)
     }
     

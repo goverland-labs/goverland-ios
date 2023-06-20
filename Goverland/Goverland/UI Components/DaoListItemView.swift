@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DaoListItemView: View {
     let dao: Dao
+    let subscriptionMeta: SubscriptionMeta?
 
     var body: some View {
         HStack {
@@ -17,7 +18,7 @@ struct DaoListItemView: View {
                 .font(.headlineSemibold)
                 .foregroundColor(.textWhite)
             Spacer()
-            FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
+            FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id)
         }
         .padding(12)
         .listRowSeparator(.hidden)
@@ -44,7 +45,7 @@ struct ShimmerDaoListItemView: View {
 struct DapListItemView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoListItemView(dao: .aave)
+            DaoListItemView(dao: .aave, subscriptionMeta: nil)
             ShimmerDaoListItemView()
         }
     }

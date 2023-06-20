@@ -94,7 +94,7 @@ fileprivate struct RetryLoadMoreCardView: View {
     }
 }
 
-struct DaosGroupedByCategoryView_Previews: PreviewProvider {
+struct GroupedDaosView_Previews: PreviewProvider {
     static var previews: some View {
         GroupedDaosView(dataSource: GroupedDaosDataSource())
     }
