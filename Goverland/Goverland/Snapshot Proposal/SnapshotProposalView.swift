@@ -13,7 +13,6 @@ struct SnapshotProposalView: View {
     let proposal: Proposal
     
     var body: some View {
-        Spacer()
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -41,23 +40,9 @@ struct SnapshotProposalView: View {
                         .padding(.bottom, 20)
                 }
                 .padding(.horizontal)
-                .navigationBarBackButtonHidden()
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(proposal.dao.name)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            self.presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.textWhite)
-                        }
-                    }
-                    ToolbarItem(placement: .principal) {
-                        VStack {
-                            Text("GnosisDAO")
-                                .font(.title3Semibold)
-                        }
-                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             // follow action
@@ -69,7 +54,7 @@ struct SnapshotProposalView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button("Share", action: performShare)
-                            Button("to Snapshot", action: performOpenSnapshot)
+                            Button("Open on Snapshot", action: performOpenSnapshot)
                         } label: {
                             Image(systemName: "ellipsis")
                                 .foregroundColor(.gray)
@@ -79,7 +64,6 @@ struct SnapshotProposalView: View {
                     }
                 }
                 .background(Color.surface)
-                .toolbarBackground(Color.surfaceBright, for: .navigationBar)
                 .onAppear() { Tracker.track(.snapshotProposalView) }
             }
             .background(Color.surfaceBright)
