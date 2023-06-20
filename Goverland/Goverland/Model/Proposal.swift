@@ -20,7 +20,7 @@ struct Proposal: Decodable {
     let discussion: URL?
     let choices: [String]
     let votingStart: Date = .now - 1.days
-    let votingEnd: Date = .now + 2.days
+    let votingEnd: Date = .now + 10.days
     let quorum: Int
     let snapshot: String
     let state: State

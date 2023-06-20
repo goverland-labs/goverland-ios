@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
+import SwiftDate
 
+
+// TODO: add pull-to-refresh logic
 struct SnapshotProposalView: View {
     let proposal: Proposal
 
@@ -24,7 +27,7 @@ struct SnapshotProposalView: View {
                     SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.user)
                         .padding(.bottom, 15)
 
-                    SnapshotProposalStatusBarView()
+                    SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
                         .padding(.bottom, 20)
 
                     SnapshotProposalDescriptionView()
@@ -125,17 +128,21 @@ fileprivate struct SnapshotProposalCreatorView: View {
 }
 
 fileprivate struct SnapshotProposalStatusBarView: View {
+    let state: Proposal.State
+    let votingEnd: Date
+
     var body: some View {
         HStack {
-            ProposalStatusView(state: .active)
+            ProposalStatusView(state: state)
             Spacer()
-            HStack {
-                DateView(date: Date(year: 2023, month: 05, day: 9, hour: 12, minute: 34))
-                    .font(.footnoteRegular)
-                    .foregroundColor(.primaryDim)
-                Text("left to vote via Snapshot")
+            HStack(spacing: 0) {
+                Text("Vote finishes ")
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
+                DateView(date: votingEnd,
+                         style: .numeric,
+                         font: .footnoteRegular,
+                         color: .textWhite)
             }
         }
         .padding(10)
