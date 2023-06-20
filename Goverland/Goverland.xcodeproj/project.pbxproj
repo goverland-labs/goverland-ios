@@ -336,7 +336,7 @@
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				5508BBA72993FC93003E691A /* Common */,
 				55FBE80E2A0BBDFF000A9204 /* DAOs */,
-				BA09B3022A2A3B6600223049 /* SnapshotProposal */,
+				BA09B3022A2A3B6600223049 /* Snapshot Proposal */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				BAF651FB29C8AFAF00C78A8A /* Analytics */,
 			);
@@ -362,7 +362,7 @@
 			path = DAOs;
 			sourceTree = "<group>";
 		};
-		BA09B3022A2A3B6600223049 /* SnapshotProposal */ = {
+		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
 			isa = PBXGroup;
 			children = (
 				BA09B3032A2A3B6600223049 /* SnapshotProposalStatusBarView.swift */,
@@ -372,7 +372,7 @@
 				BA09B3072A2A3B6600223049 /* SnapshotProposalHeaderView.swift */,
 				BA09B3082A2A3B6600223049 /* SnapshotProposalTimelineView.swift */,
 			);
-			path = SnapshotProposal;
+			path = "Snapshot Proposal";
 			sourceTree = "<group>";
 		};
 		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {

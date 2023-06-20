@@ -101,8 +101,8 @@ extension APIService {
     }
     
     static func subscriptions(offset: Int = 0,
-                            limit: Int = 1000,
-                            sorting: DaoSorting = .default) -> AnyPublisher<(SubscriptionsEndpoint.ResponseType, HttpHeaders), APIError> {
+                              limit: Int = 1000,
+                              sorting: DaoSorting = .default) -> AnyPublisher<(SubscriptionsEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)"),
@@ -129,6 +129,11 @@ extension APIService {
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func proposal(id: UUID) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalEndpoint(proposalID: id)
         return shared.request(endpoint)
     }
 }

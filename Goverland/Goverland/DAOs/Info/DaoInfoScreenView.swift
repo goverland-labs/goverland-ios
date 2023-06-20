@@ -6,11 +6,19 @@
 //
 
 import SwiftUI
+
+
+struct DaoInfoScreenView: View {
+    var body: some View {
+        Text("DAO Info View")
+    }
+}
+
 //
 //struct DaoInfoScreenView: View {
 //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 //    let event: InboxEvent
-//    
+//
 //    var body: some View {
 //        VStack {
 //            DaoInfoScreenHeaderView(event: event)
@@ -41,9 +49,9 @@ import SwiftUI
 //}
 //
 //fileprivate struct FollowBellButtonView: View {
-//    
+//
 //    @State private var didBellTap: Bool = false
-//    
+//
 //    var body: some View {
 //        Button {
 //            didBellTap.toggle()
