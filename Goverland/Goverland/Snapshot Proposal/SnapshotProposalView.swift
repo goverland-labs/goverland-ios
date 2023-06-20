@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct SnapshotProposalView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     let proposal: Proposal
+
+    @State private var showDaoInfoView = false
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    NavigationLink(destination: DaoInfoScreenView()) {
-                        SnapshotProposalHeaderView()
-                            .padding(.vertical, 20)
-                            .foregroundColor(.primary)
-                    }
+                    SnapshotProposalHeaderView(title: proposal.title)
+                        .gesture(TapGesture().onEnded { _ in
+                            self.showDaoInfoView = true
+                        })
+
                     SnapshotProposalCreatorIdentityView()
                         .padding(.bottom, 15)
+
                     SnapshotProposalStatusBarView()
                         .padding(.bottom, 20)
+
                     SnapshotProposalDescriptionView()
                         .padding(.bottom, 35)
+
                     HStack {
                         Text("Off-Chain Vote")
                             .font(.headlineSemibold)
@@ -34,8 +37,10 @@ struct SnapshotProposalView: View {
                         Spacer()
                     }
                     .padding(.bottom)
+
                     SnapshotProposalVoteTabView()
                         .padding(.bottom, 35)
+
                     SnapshotProposalTimelineView()
                         .padding(.bottom, 20)
                 }
@@ -65,6 +70,9 @@ struct SnapshotProposalView: View {
                 }
                 .background(Color.surface)
                 .onAppear() { Tracker.track(.snapshotProposalView) }
+                .popover(isPresented: $showDaoInfoView) {
+                    DaoInfoView()
+                }
             }
             .background(Color.surfaceBright)
         }
@@ -73,6 +81,22 @@ struct SnapshotProposalView: View {
     private func performShare() {}
     private func performOpenSnapshot() {}
 }
+
+fileprivate struct SnapshotProposalHeaderView: View {
+    let title: String
+
+    var body: some View {
+        Text(title)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 20)
+            .font(.title3Semibold)
+            .foregroundColor(.textWhite)
+            .lineLimit(3)
+            .multilineTextAlignment(.leading)
+            .minimumScaleFactor(0.7)
+    }
+}
+
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
