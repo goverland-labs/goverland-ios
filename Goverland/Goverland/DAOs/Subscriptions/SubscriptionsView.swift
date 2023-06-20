@@ -64,10 +64,13 @@ fileprivate struct NoSubscriptionsView: View {
     var body: some View {
         VStack {
             Text("You don’t follow any DAO at the moment.")
-            Button("Follow a DAO") {
-                showFollowDaos = true
+                .padding(.bottom, 50)
+            Button(action: { showFollowDaos = true }) {
+                Text("Follow DAO")
+                    .ghostActionButtonStyle()
             }
         }
+        .padding()
     }
 }
 
