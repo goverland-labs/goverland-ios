@@ -21,7 +21,7 @@ struct SnapshotProposalView: View {
                             self.showDaoInfoView = true
                         })
 
-                    SnapshotProposalCreatorIdentityView()
+                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.user)
                         .padding(.bottom, 15)
 
                     SnapshotProposalStatusBarView()
@@ -94,6 +94,105 @@ fileprivate struct SnapshotProposalHeaderView: View {
             .lineLimit(3)
             .multilineTextAlignment(.leading)
             .minimumScaleFactor(0.7)
+    }
+}
+
+fileprivate struct SnapshotProposalCreatorView: View {
+    let dao: Dao
+    let creator: User
+
+    var body: some View {
+        HStack(spacing: 5) {
+            // DAO identity view
+            HStack(spacing: 6) {
+                RoundPictureView(image: dao.image, imageSize: 16)
+                Text(dao.name)
+                    .font(.footnoteRegular)
+                    .lineLimit(1)
+                    .fontWeight(.medium)
+                    .foregroundColor(.textWhite)
+
+            }
+            Text("by")
+                .font(.footnoteSemibold)
+                .foregroundColor(.textWhite60)
+            IdentityView(user: creator)
+                .font(.footnoteSemibold)
+                .foregroundColor(.textWhite)
+            Spacer()
+        }
+    }
+}
+
+fileprivate struct SnapshotProposalStatusBarView: View {
+    var body: some View {
+        HStack {
+            ProposalStatusView(state: .active)
+            Spacer()
+            HStack {
+                DateView(date: Date(year: 2023, month: 05, day: 9, hour: 12, minute: 34))
+                    .font(.footnoteRegular)
+                    .foregroundColor(.primaryDim)
+                Text("left to vote via Snapshot")
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite)
+            }
+        }
+        .padding(10)
+        .background(Color.containerBright)
+        .cornerRadius(20)
+    }
+}
+
+fileprivate struct SnapshotProposalDescriptionView: View {
+    var body: some View {
+        VStack {
+            Text("GIP-77 proposed to both add improved delegation to the Gnosis DAO and to take measures to reduce spam in the GnosisDAO snapshot space. While implementation for the former is still underway, a recent update to Snapshot now allows spaces to define moderators who are able to hide spam proposals without having admin control over other sensitive settings in the Snapshot")
+                .font(.bodyRegular)
+                .foregroundColor(.textWhite)
+                .overlay(ShadowOverlay(), alignment: .bottom)
+
+            Button("Read more") {
+                print("reading")
+            }
+            .ghostReadMoreButtonStyle()
+        }
+    }
+
+    struct ShadowOverlay: View {
+        var body: some View {
+            Rectangle().fill(
+                LinearGradient(colors: [.clear, .surface.opacity(0.8)],
+                               startPoint: .top,
+                               endPoint: .bottom))
+            .frame(height: 50)
+        }
+    }
+}
+
+fileprivate struct SnapshotProposalTimelineView: View {
+    private let testDates = [Date.now]
+    private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Timeline")
+                .font(.headlineSemibold)
+                .foregroundColor(.textWhite)
+
+            ForEach(0..<2) { i in
+                HStack(spacing: 2) {
+                    //DateView(date: Date("Nov 5, 2022") ?? Date.now)
+                    Text("Nov 5, 2022 - ")
+                    Text(testEvents[i])
+                    IdentityView(user: .test)
+                }
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
+            }
+        }
     }
 }
 

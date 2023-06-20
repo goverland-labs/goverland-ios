@@ -30,6 +30,11 @@ struct Proposal: Decodable {
     let votes: Int
     let dao: Dao
 
+    // TODO: remove when backend is ready
+    var user: User {
+        User(address: author, ensName: nil, image: nil)
+    }
+
     struct ProposalBody: Decodable {
         let type: BodyType
         let body: String
