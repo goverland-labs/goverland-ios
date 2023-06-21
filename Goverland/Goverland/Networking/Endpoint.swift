@@ -164,3 +164,19 @@ struct InboxEventsEndpoint: APIEndpoint {
         self.queryParameters = queryParameters
     }
 }
+
+struct ProposalEndpoint: APIEndpoint {
+    typealias ResponseType = Proposal
+
+    let proposalID: UUID
+
+    var path: String { "proposals/\(proposalID)" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(proposalID: UUID) {
+        self.proposalID = proposalID
+    }
+}

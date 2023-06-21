@@ -9,12 +9,15 @@ import SwiftUI
 import SwiftDate
 
 struct DateView: View {
-    var date: Date
+    let date: Date
+    let style: RelativeDateTimeFormatter.DateTimeStyle
+    let font: Font
+    let color: Color
 
     var body: some View {
-        Text(date.toRelative(since: DateInRegion()))
-            .font(.footnoteRegular)
+        Text(date.toRelative(since: DateInRegion(), dateTimeStyle: style))
+            .font(font)
             .lineLimit(1)
-            .foregroundColor(.textWhite40)
+            .foregroundColor(color)
     }
 }

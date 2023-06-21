@@ -10,17 +10,15 @@ import SwiftDate
 
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
-
-    // TODO: change on backend
-    var user: User {
-        User(address: proposal.author, ensName: nil, image: nil)
-    }
     
     var body: some View {
         HStack {
             HStack(spacing: 6) {
-                IdentityView(user: user)
-                DateView(date: proposal.created)
+                IdentityView(user: proposal.user)
+                DateView(date: proposal.created,
+                         style: .named,
+                         font: .footnoteRegular,
+                         color: .textWhite40)
             }
 
             Spacer()
