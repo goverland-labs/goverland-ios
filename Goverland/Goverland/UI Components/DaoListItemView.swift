@@ -11,20 +11,14 @@ struct DaoListItemView: View {
     let dao: Dao
     let subscriptionMeta: SubscriptionMeta?
 
-    // TODO: remove NavigationLink here
     var body: some View {
         HStack {
-            NavigationLink(value: dao) {
-                RoundPictureView(image: dao.image, imageSize: 50)
-                Text(dao.name)
-                    .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
-                Spacer()
-                FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id)
-            }
-        }
-        .navigationDestination(for: Dao.self) { dao in
-            DaoInfoView(daoID: dao.id)
+            RoundPictureView(image: dao.image, imageSize: 50)
+            Text(dao.name)
+                .font(.headlineSemibold)
+                .foregroundColor(.textWhite)
+            Spacer()
+            FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id)
         }
         .padding(12)
         .listRowSeparator(.hidden)

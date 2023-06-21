@@ -10,7 +10,7 @@ import SwiftUI
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
     @State private var showFollowDaos = false
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if dataSource.isLoading {
@@ -30,10 +30,14 @@ struct SubscriptionsView: View {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
                                 ForEach(dataSource.subscriptions) { subscription in
-                                    DaoListItemView(
-                                        dao: subscription.dao,
-                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                           createdAt: subscription.createdAt))
+                                    NavigationLink {
+                                        DaoInfoView(daoID: subscription.dao.id)
+                                    } label: {
+                                        DaoListItemView(
+                                            dao: subscription.dao,
+                                            subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                               createdAt: subscription.createdAt))
+                                    }
                                 }
                             }
                         }
@@ -75,7 +79,7 @@ struct SubscriptionsView: View {
 
 fileprivate struct NoSubscriptionsView: View {
     @Binding var showFollowDaos: Bool
-
+    
     var body: some View {
         VStack {
             Text("You don’t follow any DAO at the moment.")
