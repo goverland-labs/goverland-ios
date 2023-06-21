@@ -7,19 +7,13 @@
 
 import SwiftUI
 
-struct Dao: Identifiable, Decodable, Equatable, Hashable {
+struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let alias: String
     let name: String
     let image: URL?
     let proposals: Int
     let subscriptionMeta: SubscriptionMeta?
-
-    func hash(into hasher: inout Hasher) {
-        var hasher = Hasher()
-        hasher.combine(id.uuidString)
-        let hashValue = hasher.finalize()
-    }
 
     init(id: UUID, alias: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
         self.id = id
