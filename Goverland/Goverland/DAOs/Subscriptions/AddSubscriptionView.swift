@@ -36,7 +36,7 @@ struct AddSubscriptionView: View {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Image(systemName: "xmark") // Add your close button icon here
+                    Image(systemName: "xmark")
                 }
             }
             ToolbarItem(placement: .principal) {
