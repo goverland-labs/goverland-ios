@@ -74,7 +74,7 @@ struct SnapshotProposalView: View {
                 .background(Color.surface)
                 .onAppear() { Tracker.track(.snapshotProposalView) }
                 .popover(isPresented: $showDaoInfoView) {
-                    DaoInfoView()
+                    DaoInfoView(daoID: proposal.dao.id)
                 }
             }
             .background(Color.surfaceBright)

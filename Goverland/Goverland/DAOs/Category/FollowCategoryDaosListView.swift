@@ -62,7 +62,7 @@ fileprivate struct DaosListView: View {
                                     }
                                 } else {
                                     let dao = dataSource.daos[index]
-                                    DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta, onDaoImageTap: nil)
+                                    DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta)
                                 }
                             }
                         }
@@ -93,7 +93,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta, onDaoImageTap: nil)
+                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta)
                     }
                 }
             }

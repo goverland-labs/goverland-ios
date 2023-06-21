@@ -10,15 +10,10 @@ import SwiftUI
 struct DaoListItemView: View {
     let dao: Dao
     let subscriptionMeta: SubscriptionMeta?
-    let onDaoImageTap: (() -> Void)?
 
     var body: some View {
         HStack {
             RoundPictureView(image: dao.image, imageSize: 50)
-                .onTapGesture {
-                    print("DID TAP")
-                    onDaoImageTap?()
-                }
             Text(dao.name)
                 .font(.headlineSemibold)
                 .foregroundColor(.textWhite)
@@ -50,7 +45,7 @@ struct ShimmerDaoListItemView: View {
 struct DapListItemView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoListItemView(dao: .aave, subscriptionMeta: nil, onDaoImageTap: nil)
+            DaoListItemView(dao: .aave, subscriptionMeta: nil)
             ShimmerDaoListItemView()
         }
     }

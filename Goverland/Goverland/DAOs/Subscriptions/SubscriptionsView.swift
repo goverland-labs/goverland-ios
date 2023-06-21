@@ -10,36 +10,31 @@ import SwiftUI
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
     @State private var showFollowDaos = false
-    @State private var navPath = NavigationPath()
-    
+
     var body: some View {
-        NavigationStack(path: $navPath) {
-            VStack(alignment: .leading, spacing: 0) {
-                if dataSource.isLoading {
-                    VStack(spacing: 12) {
-                        ForEach(0..<3, id: \.self) { _ in
-                            ShimmerDaoListItemView()
-                        }
-                        Spacer()
+        VStack(alignment: .leading, spacing: 0) {
+            if dataSource.isLoading {
+                VStack(spacing: 12) {
+                    ForEach(0..<3, id: \.self) { _ in
+                        ShimmerDaoListItemView()
                     }
+                    Spacer()
+                }
+            } else {
+                if dataSource.failedToLoadInitialData {
+                    RetryInitialLoadingView(dataSource: dataSource)
                 } else {
-                    if dataSource.failedToLoadInitialData {
-                        RetryInitialLoadingView(dataSource: dataSource)
+                    if dataSource.subscriptions.isEmpty {
+                        NoSubscriptionsView(showFollowDaos: $showFollowDaos)
                     } else {
-                        if dataSource.subscriptions.isEmpty {
-                            NoSubscriptionsView(showFollowDaos: $showFollowDaos)
-                        } else {
-                            ScrollView(showsIndicators: false) {
-                                VStack(spacing: 12) {
-                                    ForEach(dataSource.subscriptions) { subscription in
+                        ScrollView(showsIndicators: false) {
+                            VStack(spacing: 12) {
+                                ForEach(dataSource.subscriptions) { subscription in
+                                    NavigationLink(value: subscription.dao) {
                                         DaoListItemView(
                                             dao: subscription.dao,
                                             subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                               createdAt: subscription.createdAt),
-                                            onDaoImageTap: {
-                                                navPath.append(subscription.dao.id)
-                                            }
-                                        )
+                                                                               createdAt: subscription.createdAt))
                                     }
                                 }
                             }
@@ -47,38 +42,37 @@ struct SubscriptionsView: View {
                     }
                 }
             }
-            .navigationDestination(for: UUID.self) { daoId in
-                // TODO: Navigation to DaoInfoView (after merging Andrey's open PR)
+        }
+        .navigationDestination(for: Dao.self) { dao in
+            DaoInfoView(daoID: dao.id)
+        }
+        .padding(.horizontal, 15)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Followed DAOs")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showFollowDaos = true
+                }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showFollowDaos, content: {
+            NavigationStack {
                 AddSubscriptionView()
             }
-            .padding(.horizontal, 15)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Followed DAOs")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showFollowDaos = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            .sheet(isPresented: $showFollowDaos, content: {
-                NavigationStack {
-                    AddSubscriptionView()
-                }
-            })
-            .refreshable {
+        })
+        .refreshable {
+            dataSource.refresh()
+        }
+        .onAppear() {
+            dataSource.refresh()
+            Tracker.track(.followedDaosListView)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
+            if showFollowDaos {
                 dataSource.refresh()
-            }
-            .onAppear() {
-                dataSource.refresh()
-                Tracker.track(.followedDaosListView)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-                if showFollowDaos {
-                    dataSource.refresh()
-                }
             }
         }
     }
