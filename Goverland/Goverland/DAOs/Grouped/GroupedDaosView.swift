@@ -43,6 +43,9 @@ struct GroupedDaosView: View {
                 }
             }
         }
+        .navigationDestination(for: DaoCategory.self) { category in
+            FollowCategoryDaosListView(category: category)
+        }
     }
 }
 

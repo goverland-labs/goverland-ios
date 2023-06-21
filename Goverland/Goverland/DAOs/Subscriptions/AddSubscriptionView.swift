@@ -12,35 +12,38 @@ struct AddSubscriptionView: View {
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search DAOs by name"
+            return "Search \(totalDaos) DAOs by name"
         }
         return ""
     }
 
     var body: some View {
         NavigationStack {
-            if dataSource.searchText == "" {
-                if !dataSource.failedToLoadInitially {
-                    GroupedDaosView(dataSource: dataSource)
+            VStack {
+                // TODO: add Close button to the left
+                if dataSource.searchText == "" {
+                    if !dataSource.failedToLoadInitially {
+                        GroupedDaosView(dataSource: dataSource)
+                    } else {
+                        RetryInitialLoadingView(dataSource: dataSource)
+                    }
                 } else {
-                    RetryInitialLoadingView(dataSource: dataSource)
+                    DaosSearchListView(dataSource: dataSource)
                 }
-            } else {
-                DaosSearchListView(dataSource: dataSource)
             }
         }
-        .navigationTitle("Follow DAOs")
-        // TODO: add Close button to the left
         .navigationDestination(for: DaoCategory.self) { category in
             FollowCategoryDaosListView(category: category)
         }
+        .padding(.horizontal, 20)
         .searchable(text: $dataSource.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
         .onAppear() {
             dataSource.refresh()
-            // TODO: add tracking
+            Tracker.track(.addSubscriptionView)
         }
+        .accentColor(.primary)
     }
 }
 

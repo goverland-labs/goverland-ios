@@ -14,20 +14,27 @@ struct SubscriptionsView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
-                if dataSource.failedToLoadInitialData {
-                    RetryInitialLoadingView(dataSource: dataSource)
+                if dataSource.isLoading {
+                    VStack {
+                        ShimmerDaoListItemView()
+                        Spacer()
+                    }
                 } else {
-                    if dataSource.subscriptions.isEmpty {
-                        NoSubscriptionsView(showFollowDaos: $showFollowDaos)
+                    if dataSource.failedToLoadInitialData {
+                        RetryInitialLoadingView(dataSource: dataSource)
                     } else {
-                        ScrollView(showsIndicators: false) {
-                            VStack(spacing: 12) {
-                                // TODO: Navigation to DaoInfoScreenView
-                                ForEach(dataSource.subscriptions) { subscription in
-                                    DaoListItemView(
-                                        dao: subscription.dao,
-                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                           createdAt: subscription.createdAt))
+                        if dataSource.subscriptions.isEmpty {
+                            NoSubscriptionsView(showFollowDaos: $showFollowDaos)
+                        } else {
+                            ScrollView(showsIndicators: false) {
+                                VStack(spacing: 12) {
+                                    // TODO: Navigation to DaoInfoScreenView
+                                    ForEach(dataSource.subscriptions) { subscription in
+                                        DaoListItemView(
+                                            dao: subscription.dao,
+                                            subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                               createdAt: subscription.createdAt))
+                                    }
                                 }
                             }
                         }
@@ -46,6 +53,7 @@ struct SubscriptionsView: View {
                 }
             }
             .sheet(isPresented: $showFollowDaos, onDismiss: {
+                dataSource.refresh()
                 showFollowDaos = false
             }, content: {
                 AddSubscriptionView()
