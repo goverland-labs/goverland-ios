@@ -30,21 +30,16 @@ struct SubscriptionsView: View {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
                                 ForEach(dataSource.subscriptions) { subscription in
-                                    NavigationLink(value: subscription.dao) {
-                                        DaoListItemView(
-                                            dao: subscription.dao,
-                                            subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                               createdAt: subscription.createdAt))
-                                    }
+                                    DaoListItemView(
+                                        dao: subscription.dao,
+                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                           createdAt: subscription.createdAt))
                                 }
                             }
                         }
                     }
                 }
             }
-        }
-        .navigationDestination(for: Dao.self) { dao in
-            DaoInfoView(daoID: dao.id)
         }
         .padding(.horizontal, 15)
         .navigationBarTitleDisplayMode(.inline)
