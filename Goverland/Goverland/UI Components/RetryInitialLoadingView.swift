@@ -16,9 +16,11 @@ struct RetryInitialLoadingView: View {
     let dataSource: Refreshable
 
     var body: some View {
-        Text("Sorry, we couldn’t load the data. Please try again.")
-        Button("Try again") {
-            dataSource.refresh()
+        VStack(alignment: .center) {
+            Text("Sorry, we couldn’t load the data. Please try again.")
+            Button("Try again") {
+                dataSource.refresh()
+            }
         }
     }
 }

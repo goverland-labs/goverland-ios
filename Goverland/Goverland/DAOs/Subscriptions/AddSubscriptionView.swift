@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddSubscriptionView: View {
+    @Environment(\.presentationMode) private var presentationMode
     @StateObject private var dataSource = GroupedDaosDataSource()
 
     private var searchPrompt: String {
@@ -18,22 +19,33 @@ struct AddSubscriptionView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                // TODO: add Close button to the left
-                if dataSource.searchText == "" {
-                    if !dataSource.failedToLoadInitially {
-                        GroupedDaosView(dataSource: dataSource)
-                    } else {
-                        RetryInitialLoadingView(dataSource: dataSource)
-                    }
+        VStack {
+            if dataSource.searchText == "" {
+                if !dataSource.failedToLoadInitially {
+                    GroupedDaosView(dataSource: dataSource)
                 } else {
-                    DaosSearchListView(dataSource: dataSource)
+                    RetryInitialLoadingView(dataSource: dataSource)
                 }
+            } else {
+                DaosSearchListView(dataSource: dataSource)
             }
         }
-        .navigationDestination(for: DaoCategory.self) { category in
-            FollowCategoryDaosListView(category: category)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark") // Add your close button icon here
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Follow DAOs")
+                        .font(.title3Semibold)
+                        .foregroundColor(Color.textWhite)
+                }
+            }
         }
         .padding(.horizontal, 20)
         .searchable(text: $dataSource.searchText,

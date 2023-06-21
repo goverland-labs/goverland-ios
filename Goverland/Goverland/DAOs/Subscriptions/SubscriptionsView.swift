@@ -15,8 +15,10 @@ struct SubscriptionsView: View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
                 if dataSource.isLoading {
-                    VStack {
-                        ShimmerDaoListItemView()
+                    VStack(spacing: 12) {
+                        ForEach(0..<3, id: \.self) { _ in
+                            ShimmerDaoListItemView()
+                        }
                         Spacer()
                     }
                 } else {
@@ -43,24 +45,23 @@ struct SubscriptionsView: View {
             }
             .padding(.horizontal, 15)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Followed DAOs")
-                            .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
-                    }
+            .navigationTitle("Followed DAOs")
+            .sheet(isPresented: $showFollowDaos, content: {
+                NavigationView {
+                    AddSubscriptionView()
                 }
-            }
-            .sheet(isPresented: $showFollowDaos, onDismiss: {
-                dataSource.refresh()
-                showFollowDaos = false
-            }, content: {
-                AddSubscriptionView()
             })
+            .refreshable {
+                dataSource.refresh()
+            }
             .onAppear() {
                 dataSource.refresh()
                 Tracker.track(.followedDaosListView)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
+                if showFollowDaos {
+                    dataSource.refresh()
+                }
             }
         }
     }
@@ -74,7 +75,7 @@ fileprivate struct NoSubscriptionsView: View {
             Text("You don’t follow any DAO at the moment.")
                 .padding(.bottom, 50)
             Button(action: { showFollowDaos = true }) {
-                Text("Follow DAO")
+                Text("Follow a DAO")
                     .ghostActionButtonStyle()
             }
         }
