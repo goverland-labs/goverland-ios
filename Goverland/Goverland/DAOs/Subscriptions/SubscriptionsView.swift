@@ -10,9 +10,10 @@ import SwiftUI
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
     @State private var showFollowDaos = false
+    @State private var navPath = NavigationPath()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navPath) {
             VStack(alignment: .leading, spacing: 0) {
                 if dataSource.isLoading {
                     VStack(spacing: 12) {
@@ -30,12 +31,15 @@ struct SubscriptionsView: View {
                         } else {
                             ScrollView(showsIndicators: false) {
                                 VStack(spacing: 12) {
-                                    // TODO: Navigation to DaoInfoScreenView
                                     ForEach(dataSource.subscriptions) { subscription in
                                         DaoListItemView(
                                             dao: subscription.dao,
                                             subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                               createdAt: subscription.createdAt))
+                                                                               createdAt: subscription.createdAt),
+                                            onDaoImageTap: {
+                                                navPath.append(subscription.dao.id)
+                                            }
+                                        )
                                     }
                                 }
                             }
@@ -43,11 +47,24 @@ struct SubscriptionsView: View {
                     }
                 }
             }
+            .navigationDestination(for: UUID.self) { daoId in
+                // TODO: Navigation to DaoInfoView (after merging Andrey's open PR)
+                AddSubscriptionView()
+            }
             .padding(.horizontal, 15)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Followed DAOs")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showFollowDaos = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
             .sheet(isPresented: $showFollowDaos, content: {
-                NavigationView {
+                NavigationStack {
                     AddSubscriptionView()
                 }
             })
