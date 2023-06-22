@@ -14,7 +14,7 @@ struct ProposalListItemHeaderView: View {
     var body: some View {
         HStack {
             HStack(spacing: 6) {
-                IdentityView(user: proposal.user)
+                IdentityView(user: proposal.author)
                 DateView(date: proposal.created,
                          style: .named,
                          font: .footnoteRegular,
