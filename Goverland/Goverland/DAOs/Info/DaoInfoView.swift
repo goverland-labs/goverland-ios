@@ -9,8 +9,12 @@ import SwiftUI
 
 
 struct DaoInfoView: View {
+    let daoID: UUID
+
     var body: some View {
-        Text("DAO Info View")
+        VStack {
+            Text("DAO Info View: \(daoID)")
+        }
     }
 }
 

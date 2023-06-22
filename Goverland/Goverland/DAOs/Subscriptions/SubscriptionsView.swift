@@ -12,8 +12,15 @@ struct SubscriptionsView: View {
     @State private var showFollowDaos = false
     
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
+            if dataSource.isLoading {
+                VStack(spacing: 12) {
+                    ForEach(0..<3, id: \.self) { _ in
+                        ShimmerDaoListItemView()
+                    }
+                    Spacer()
+                }
+            } else {
                 if dataSource.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: dataSource)
                 } else {
@@ -22,37 +29,49 @@ struct SubscriptionsView: View {
                     } else {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
-                                // TODO: Navigation to DaoInfoScreenView
                                 ForEach(dataSource.subscriptions) { subscription in
-                                    DaoListItemView(
-                                        dao: subscription.dao,
-                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                           createdAt: subscription.createdAt))
+                                    NavigationLink {
+                                        DaoInfoView(daoID: subscription.dao.id)
+                                    } label: {
+                                        DaoListItemView(
+                                            dao: subscription.dao,
+                                            subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                               createdAt: subscription.createdAt))
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            .padding(.horizontal, 15)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Followed DAOs")
-                            .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
-                    }
+        }
+        .padding(.horizontal, 15)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Followed DAOs")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showFollowDaos = true
+                }) {
+                    Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $showFollowDaos, onDismiss: {
-                showFollowDaos = false
-            }, content: {
+        }
+        .sheet(isPresented: $showFollowDaos, content: {
+            NavigationStack {
                 AddSubscriptionView()
-            })
-            .onAppear() {
+            }
+        })
+        .refreshable {
+            dataSource.refresh()
+        }
+        .onAppear() {
+            dataSource.refresh()
+            Tracker.track(.followedDaosListView)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
+            if showFollowDaos {
                 dataSource.refresh()
-                Tracker.track(.followedDaosListView)
             }
         }
     }
@@ -60,13 +79,13 @@ struct SubscriptionsView: View {
 
 fileprivate struct NoSubscriptionsView: View {
     @Binding var showFollowDaos: Bool
-
+    
     var body: some View {
         VStack {
             Text("You don’t follow any DAO at the moment.")
                 .padding(.bottom, 50)
             Button(action: { showFollowDaos = true }) {
-                Text("Follow DAO")
+                Text("Follow a DAO")
                     .ghostActionButtonStyle()
             }
         }

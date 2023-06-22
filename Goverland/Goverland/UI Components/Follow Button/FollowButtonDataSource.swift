@@ -38,8 +38,10 @@ class FollowButtonDataSource: ObservableObject {
                 case .failure(_): self?.isUpdating = false
                 }
             } receiveValue: { [weak self] subscription, headers in
-                self?.isUpdating = false
-                self?.subscriptionID = subscription.id
+                guard let `self` = self else { return }
+                self.isUpdating = false
+                self.subscriptionID = subscription.id
+                NotificationCenter.default.post(name: .subscriptionDidToggle, object: nil)
             }
             .store(in: &cancellables)
     }
@@ -53,8 +55,10 @@ class FollowButtonDataSource: ObservableObject {
                 case .failure(_): self?.isUpdating = false
                 }
             } receiveValue: { [weak self] response, headers in
-                self?.isUpdating = false
-                self?.subscriptionID = nil
+                guard let `self` = self else { return }
+                self.isUpdating = false
+                self.subscriptionID = nil
+                NotificationCenter.default.post(name: .subscriptionDidToggle, object: nil)
             }
             .store(in: &cancellables)
     }

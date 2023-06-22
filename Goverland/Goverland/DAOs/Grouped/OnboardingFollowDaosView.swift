@@ -38,9 +38,6 @@ struct OnboardingFollowDaosView: View {
                     DaosSearchListView(dataSource: dataSource)
                 }
             }
-            .navigationDestination(for: DaoCategory.self) { category in
-                FollowCategoryDaosListView(category: category)
-            }
             .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct GoverlandApp: App {
-    @StateObject var colorSchemeManager = ColorSchemeManager()
+    @StateObject private var colorSchemeManager = ColorSchemeManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {

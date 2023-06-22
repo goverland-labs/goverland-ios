@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct AddSubscriptionView: View {
+    @Environment(\.presentationMode) private var presentationMode
     @StateObject private var dataSource = GroupedDaosDataSource()
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search DAOs by name"
+            return "Search \(totalDaos) DAOs by name"
         }
         return ""
     }
 
     var body: some View {
-        NavigationStack {
+        VStack {
             if dataSource.searchText == "" {
                 if !dataSource.failedToLoadInitially {
                     GroupedDaosView(dataSource: dataSource)
@@ -29,18 +30,32 @@ struct AddSubscriptionView: View {
                 DaosSearchListView(dataSource: dataSource)
             }
         }
-        .navigationTitle("Follow DAOs")
-        // TODO: add Close button to the left
-        .navigationDestination(for: DaoCategory.self) { category in
-            FollowCategoryDaosListView(category: category)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Follow DAOs")
+                        .font(.title3Semibold)
+                        .foregroundColor(Color.textWhite)
+                }
+            }
         }
+        .padding(.horizontal, 20)
         .searchable(text: $dataSource.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
         .onAppear() {
             dataSource.refresh()
-            // TODO: add tracking
+            Tracker.track(.addSubscriptionView)
         }
+        .accentColor(.primary)
     }
 }
 

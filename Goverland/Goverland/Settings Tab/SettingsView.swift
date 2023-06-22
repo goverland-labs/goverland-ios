@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 import StoreKit
 
-struct SettingsView: View {    
+struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
