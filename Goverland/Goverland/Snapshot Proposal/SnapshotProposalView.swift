@@ -30,7 +30,7 @@ struct SnapshotProposalView: View {
                     SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
                         .padding(.bottom, 20)
 
-                    SnapshotProposalDescriptionView()
+                    SnapshotProposalDescriptionView(proposalBody: proposal.body)
                         .padding(.bottom, 35)
 
                     HStack {
@@ -152,17 +152,61 @@ fileprivate struct SnapshotProposalStatusBarView: View {
 }
 
 fileprivate struct SnapshotProposalDescriptionView: View {
+    let proposalBody: [Proposal.ProposalBody]
+
+    var markdownDescription: String {
+        // we always expect to have a markdown text
+        proposalBody.first { $0.type == .markdown }!.body
+    }
+
+    var limit: Int {
+        // might be adjusted for different screens
+        return 10
+    }
+
+    @State private var isExpanded = false
+    @State private var canBeExpanded = false
+
     var body: some View {
         VStack {
-            Text("GIP-77 proposed to both add improved delegation to the Gnosis DAO and to take measures to reduce spam in the GnosisDAO snapshot space. While implementation for the former is still underway, a recent update to Snapshot now allows spaces to define moderators who are able to hide spam proposals without having admin control over other sensitive settings in the Snapshot")
+            Text(markdownDescription)
+                .lineLimit(isExpanded ? nil : limit)
                 .font(.bodyRegular)
                 .foregroundColor(.textWhite)
-                .overlay(ShadowOverlay(), alignment: .bottom)
+                .background {
+                    // kudos to https://stackoverflow.com/questions/75237993/how-do-i-know-whether-i-reached-the-text-linelimit-limit-in-swiftui/75352076#75352076
 
-            Button("Read more") {
-                print("reading")
+                    // Pick the first child view that fits vertically
+                    ViewThatFits(in: .vertical) {
+                        // This Text has no line limit, so if it's is larger than the
+                        // "outer" Text, ViewThatFits will pick the next view
+                        Text(markdownDescription)
+                            .hidden()
+                        // Color expands to fill the background, so will always be picked
+                        // if the text above is too large
+                        Color.clear
+                            .onAppear {
+                                canBeExpanded = true
+                            }
+                    }
+                }
+                .overlay(
+                    Group {
+                        if !isExpanded && canBeExpanded {
+                            ShadowOverlay()
+                        }
+                    },
+                    alignment: .bottom)
+
+
+            if canBeExpanded {
+                Button(isExpanded ? "Show Less" : "Show More") {
+                    withAnimation {
+                        isExpanded.toggle()
+                    }
+                }
+                .ghostReadMoreButtonStyle()
             }
-            .ghostReadMoreButtonStyle()
         }
     }
 
