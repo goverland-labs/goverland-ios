@@ -24,7 +24,7 @@ struct SnapshotProposalView: View {
                             self.showDaoInfoView = true
                         })
 
-                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.user)
+                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                         .padding(.bottom, 15)
 
                     SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
@@ -151,76 +151,6 @@ fileprivate struct SnapshotProposalStatusBarView: View {
     }
 }
 
-fileprivate struct SnapshotProposalDescriptionView: View {
-    let proposalBody: [Proposal.ProposalBody]
-
-    var markdownDescription: String {
-        // we always expect to have a markdown text
-        proposalBody.first { $0.type == .markdown }!.body
-    }
-
-    var limit: Int {
-        // might be adjusted for different screens
-        return 10
-    }
-
-    @State private var isExpanded = false
-    @State private var canBeExpanded = false
-
-    var body: some View {
-        VStack {
-            Text(markdownDescription)
-                .lineLimit(isExpanded ? nil : limit)
-                .font(.bodyRegular)
-                .foregroundColor(.textWhite)
-                .background {
-                    // kudos to https://stackoverflow.com/questions/75237993/how-do-i-know-whether-i-reached-the-text-linelimit-limit-in-swiftui/75352076#75352076
-
-                    // Pick the first child view that fits vertically
-                    ViewThatFits(in: .vertical) {
-                        // This Text has no line limit, so if it's is larger than the
-                        // "outer" Text, ViewThatFits will pick the next view
-                        Text(markdownDescription)
-                            .hidden()
-                        // Color expands to fill the background, so will always be picked
-                        // if the text above is too large
-                        Color.clear
-                            .onAppear {
-                                canBeExpanded = true
-                            }
-                    }
-                }
-                .overlay(
-                    Group {
-                        if !isExpanded && canBeExpanded {
-                            ShadowOverlay()
-                        }
-                    },
-                    alignment: .bottom)
-
-
-            if canBeExpanded {
-                Button(isExpanded ? "Show Less" : "Show More") {
-                    withAnimation {
-                        isExpanded.toggle()
-                    }
-                }
-                .ghostReadMoreButtonStyle()
-            }
-        }
-    }
-
-    struct ShadowOverlay: View {
-        var body: some View {
-            Rectangle().fill(
-                LinearGradient(colors: [.clear, .surface.opacity(0.8)],
-                               startPoint: .top,
-                               endPoint: .bottom))
-            .frame(height: 50)
-        }
-    }
-}
-
 fileprivate struct SnapshotProposalTimelineView: View {
     private let testDates = [Date.now]
     private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
@@ -246,7 +176,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
         }
     }
 }
-
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
