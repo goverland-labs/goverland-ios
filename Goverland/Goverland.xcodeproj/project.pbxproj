@@ -73,6 +73,7 @@
 		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
 		BAAA526F2953AC28003177BC /* ProposalListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ProposalListItemFooterView.swift */; };
+		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
@@ -178,6 +179,7 @@
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
+				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +467,7 @@
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 				BA27EA6029DE0F0F00AA5055 /* Kingfisher */,
 				553316FD29F162FF0034AF66 /* BlockiesSwift */,
+				BAB4B91E2A44864100D24110 /* Lottie */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -498,6 +501,7 @@
 				BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -855,6 +859,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -872,6 +884,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */;
 			productName = SwiftDate;
+		};
+		BAB4B91E2A44864100D24110 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
