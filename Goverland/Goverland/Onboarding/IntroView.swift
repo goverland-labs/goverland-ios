@@ -12,7 +12,11 @@ struct IntroView: View {
 
     var body: some View {
         VStack {
-            CarouselView()
+//            CarouselView()
+//                .frame(height: UIScreen.screenHeight * 2 / 3)
+//                .padding(.top, UIScreen.screenHeight / 8)
+            
+            LottieView()
                 .frame(height: UIScreen.screenHeight * 2 / 3)
                 .padding(.top, UIScreen.screenHeight / 8)
             
