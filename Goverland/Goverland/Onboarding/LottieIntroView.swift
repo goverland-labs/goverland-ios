@@ -1,5 +1,5 @@
 //
-//  LottieView.swift
+//  LottieIntroView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-22.
@@ -9,10 +9,10 @@ import Lottie
 import SwiftUI
 import UIKit
 
-struct LottieView: UIViewRepresentable {
+struct LottieIntroView: UIViewRepresentable {
     typealias UIViewType = UIView
     
-    func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
+    func makeUIView(context: UIViewRepresentableContext<LottieIntroView>) -> UIView {
         let view = UIView(frame: .zero)
         
         let animationView = LottieAnimationView()
@@ -31,7 +31,7 @@ struct LottieView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieIntroView>) {
         // do nothing
     }
     
