@@ -42,12 +42,12 @@
 		55D632C329505DFF0073E04A /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C229505DFF0073E04A /* AppTabView.swift */; };
 		55D632C52950CB4A0073E04A /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C42950CB4A0073E04A /* TermsView.swift */; };
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
+		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
+		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
-		55F47B8D2A44FE6E004BBE82 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55F47B8C2A44FE6E004BBE82 /* MarkdownUI */; };
-		55F47B8F2A44FE9B004BBE82 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F47B8E2A44FE9B004BBE82 /* SnapshotProposalDescriptionView.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
@@ -76,6 +76,8 @@
 		BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */; };
 		BAAA526F2953AC28003177BC /* ProposalListItemBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */; };
 		BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA52702953BB61003177BC /* ProposalListItemFooterView.swift */; };
+		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
+		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
@@ -127,11 +129,11 @@
 		55D632C229505DFF0073E04A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		55F47B8E2A44FE9B004BBE82 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
 		BAAA526E2953AC28003177BC /* ProposalListItemBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemBodyView.swift; sourceTree = "<group>"; };
 		BAAA52702953BB61003177BC /* ProposalListItemFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemFooterView.swift; sourceTree = "<group>"; };
+		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
@@ -183,7 +186,8 @@
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
-				55F47B8D2A44FE6E004BBE82 /* MarkdownUI in Frameworks */,
+				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
+				55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +276,7 @@
 				55D632B2295057880073E04A /* IntroView.swift */,
 				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
+				BAB4B9202A4487B400D24110 /* LottieIntroView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -362,8 +367,8 @@
 		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
 			isa = PBXGroup;
 			children = (
+				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
-				55F47B8E2A44FE9B004BBE82 /* SnapshotProposalDescriptionView.swift */,
 			);
 			path = "Snapshot Proposal";
 			sourceTree = "<group>";
@@ -473,7 +478,8 @@
 				BAA6C2F3295CF5E000C848D8 /* SwiftDate */,
 				BA27EA6029DE0F0F00AA5055 /* Kingfisher */,
 				553316FD29F162FF0034AF66 /* BlockiesSwift */,
-				55F47B8C2A44FE6E004BBE82 /* MarkdownUI */,
+				BAB4B91E2A44864100D24110 /* Lottie */,
+				55DDE8C12A46367F006DA335 /* MarkdownUI */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -507,7 +513,8 @@
 				BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
-				55F47B8B2A44FE6E004BBE82 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+				BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -580,6 +587,7 @@
 				BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
+				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
@@ -608,11 +616,11 @@
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
+				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAA8ED802A06FF8900316BFD /* SnapshotResultView.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
-				55F47B8F2A44FE9B004BBE82 /* SnapshotProposalDescriptionView.swift in Sources */,
 				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
@@ -762,6 +770,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
 				ENABLE_PREVIEWS = YES;
@@ -794,6 +803,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
 				ENABLE_PREVIEWS = YES;
@@ -851,7 +861,7 @@
 				kind = branch;
 			};
 		};
-		55F47B8B2A44FE6E004BBE82 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+		55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
 			requirement = {
@@ -875,6 +885,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -883,9 +901,9 @@
 			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
 			productName = BlockiesSwift;
 		};
-		55F47B8C2A44FE6E004BBE82 /* MarkdownUI */ = {
+		55DDE8C12A46367F006DA335 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55F47B8B2A44FE6E004BBE82 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			package = 55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
 			productName = MarkdownUI;
 		};
 		BA27EA6029DE0F0F00AA5055 /* Kingfisher */ = {
@@ -897,6 +915,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */;
 			productName = SwiftDate;
+		};
+		BAB4B91E2A44864100D24110 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
