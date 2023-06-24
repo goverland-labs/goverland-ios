@@ -77,6 +77,9 @@
 		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
 		BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */; };
+		BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9432A47522300D24110 /* Chillax-Medium.otf */; };
+		BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */; };
+		BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9482A47522300D24110 /* Chillax-Bold.otf */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
@@ -161,6 +164,9 @@
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Regular.otf"; sourceTree = "<group>"; };
 		BAB4B9422A4749A300D24110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BAB4B9432A47522300D24110 /* Chillax-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Medium.otf"; sourceTree = "<group>"; };
+		BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Semibold.otf"; sourceTree = "<group>"; };
+		BAB4B9482A47522300D24110 /* Chillax-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Bold.otf"; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD5225F2A279AF50097068F /* TelegramSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
@@ -430,6 +436,9 @@
 			isa = PBXGroup;
 			children = (
 				BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */,
+				BAB4B9482A47522300D24110 /* Chillax-Bold.otf */,
+				BAB4B9432A47522300D24110 /* Chillax-Medium.otf */,
+				BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */,
 				BA1EAD6F29F053E9008D92E9 /* Fonts.swift */,
 			);
 			path = Font;
@@ -536,10 +545,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */,
 				BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */,
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
+				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
 				BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */,
 				55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */,
+				BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

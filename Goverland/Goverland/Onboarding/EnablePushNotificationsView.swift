@@ -8,54 +8,85 @@
 import SwiftUI
 
 struct EnablePushNotificationsView: View {
-    @Setting(\.onboardingFinished) var onboardingFinished
-    
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
+            PushNotificationBackgroundView()
             VStack {
-                Image("pushNotifications")
-                    .resizable()
-                    .aspectRatio(CGSize(width: 1548, height: 460), contentMode: .fit)
-                    .frame(width: geometry.size.width,
-                           height: geometry.size.height * 3 / 5,
-                           alignment: .center)
-                
-                VStack(spacing: 20) {
-                    Text("Never miss an update")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    
-                    Text("Get push notifications about new proposales, votes, treasury movements, your delegates, activity, and more.")
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(8)
-                        .padding(.bottom)
-                    
-                    Button("Enable notifications") {
-                        let center = UNUserNotificationCenter.current()
-                        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                            if let error = error {
-                                // Handle the error here.
-                                print(error)
-                            }
-                            DispatchQueue.main.async {
-                                onboardingFinished = true
-                            }
-                        }
+                PushNotificationHeaderView()
+                Spacer()
+                PushNotificationFooterControlsView()
+            }
+            .navigationBarBackButtonHidden(true)
+            .padding(.horizontal)
+            .onAppear() { Tracker.track(.enablePushNotificationsView) }
+        }
+    }
+}
+
+fileprivate struct PushNotificationBackgroundView: View {
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(.clear)
+                .frame(width: 220, height: 220)
+                .background(Color.primaryDim)
+                .cornerRadius(110)
+                .blur(radius: 100)
+            
+            Image("PushNotificationImage")
+        }
+    }
+}
+
+fileprivate struct PushNotificationFooterControlsView: View {
+    @Setting(\.onboardingFinished) var onboardingFinished
+    var body: some View {
+        VStack(spacing: 20) {
+            Button("Enable notifications") {
+                let center = UNUserNotificationCenter.current()
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if let error = error {
+                        // Handle the error here.
+                        print(error)
                     }
-                    .ghostActionButtonStyle()
-                    
-                    Button("No, thanks") {
+                    DispatchQueue.main.async {
                         onboardingFinished = true
                     }
-                    .fontWeight(.semibold)
-                    .padding(.bottom)
-                    .accentColor(.primaryDim)
                 }
-                .frame(width: geometry.size.width * 0.9,
-                       height: geometry.size.height * 2 / 5,
-                       alignment: .center)
             }
-            .onAppear() { Tracker.track(.enablePushNotificationsView) }
+            .ghostActionButtonStyle()
+            
+            Button("No, thanks") {
+                onboardingFinished = true
+            }
+            .fontWeight(.semibold)
+            .padding(.bottom)
+            .accentColor(.secondaryContainer)
+        }
+    }
+}
+
+fileprivate struct PushNotificationHeaderView: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading, spacing: -15) {
+                    Text("Never miss")
+                        .foregroundColor(.textWhite)
+                    Text("an update")
+                        .foregroundColor(.primaryDim)
+                }
+                .font(.chillaxMedium(size: 46))
+                .kerning(-2.5)
+                
+                Spacer()
+            }
+            
+            Text("Get push notifications about new proposals, votes, treasury movements, your delegates' activity, and more")
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+                .foregroundColor(.textWhite)
+                .font(.chillaxRegular(size: 17))
         }
     }
 }

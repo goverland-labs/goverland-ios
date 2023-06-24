@@ -61,9 +61,6 @@ struct OnboardingFollowDaosView: View {
     }
 }
 
-
-
-
 struct SelectDAOsView_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingFollowDaosView()
