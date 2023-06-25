@@ -24,13 +24,13 @@ struct SnapshotProposalView: View {
                             self.showDaoInfoView = true
                         })
 
-                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.user)
+                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                         .padding(.bottom, 15)
 
                     SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
                         .padding(.bottom, 20)
 
-                    SnapshotProposalDescriptionView()
+                    SnapshotProposalDescriptionView(proposalBody: proposal.body)
                         .padding(.bottom, 35)
 
                     HStack {
@@ -151,32 +151,6 @@ fileprivate struct SnapshotProposalStatusBarView: View {
     }
 }
 
-fileprivate struct SnapshotProposalDescriptionView: View {
-    var body: some View {
-        VStack {
-            Text("GIP-77 proposed to both add improved delegation to the Gnosis DAO and to take measures to reduce spam in the GnosisDAO snapshot space. While implementation for the former is still underway, a recent update to Snapshot now allows spaces to define moderators who are able to hide spam proposals without having admin control over other sensitive settings in the Snapshot")
-                .font(.bodyRegular)
-                .foregroundColor(.textWhite)
-                .overlay(ShadowOverlay(), alignment: .bottom)
-
-            Button("Read more") {
-                print("reading")
-            }
-            .ghostReadMoreButtonStyle()
-        }
-    }
-
-    struct ShadowOverlay: View {
-        var body: some View {
-            Rectangle().fill(
-                LinearGradient(colors: [.clear, .surface.opacity(0.8)],
-                               startPoint: .top,
-                               endPoint: .bottom))
-            .frame(height: 50)
-        }
-    }
-}
-
 fileprivate struct SnapshotProposalTimelineView: View {
     private let testDates = [Date.now]
     private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
@@ -202,7 +176,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
         }
     }
 }
-
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
