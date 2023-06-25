@@ -13,7 +13,7 @@ struct SnapshotResultView: View {
     
     var body: some View {
         VStack {
-            ForEach(SnapshotVoteChoiceType.allChoices) { choice in
+            ForEach(SnapshotBasicVotingView.ChoiceType.allChoices) { choice in
                 let index = choice.rawValue
                 SnapshotVotingResultBarView(choice: choice,
                                             votersCount: votersData[index],
@@ -21,7 +21,7 @@ struct SnapshotResultView: View {
                     .padding(.bottom, 30)
             }
             
-            SnapshotVotingResultBarView(choice: .quorum,
+            SnapshotVotingResultBarView(choice: .for,
                                         votersCount: 54,
                                         choicePercentage: 76)
         }
@@ -29,7 +29,7 @@ struct SnapshotResultView: View {
 }
 
 fileprivate struct SnapshotVotingResultBarView: View {
-    let choice: SnapshotVoteChoiceType
+    let choice: SnapshotBasicVotingView.ChoiceType
     let votersCount: Double
     let choicePercentage: Double
     
@@ -43,7 +43,7 @@ fileprivate struct SnapshotVotingResultBarView: View {
                     Spacer()
                     // TODO: converter to present rounded number with "K" needed here
                     // TODO: converter for %
-                    if choice == .quorum {
+                    if choice == .for {
                         Text(String(votersCount) + "K / " + String(choicePercentage) + "K")
                             .font(.footnoteSemibold)
                             .foregroundColor(.textWhite)
