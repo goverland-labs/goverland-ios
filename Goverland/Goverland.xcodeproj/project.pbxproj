@@ -248,7 +248,6 @@
 		557C9D672A30ECED001C4DEA /* Grouped */ = {
 			isa = PBXGroup;
 			children = (
-				552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */,
 				557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */,
 				BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */,
 				557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */,
@@ -282,10 +281,11 @@
 			isa = PBXGroup;
 			children = (
 				BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */,
-				55D632B2295057880073E04A /* IntroView.swift */,
-				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
-				55D632C42950CB4A0073E04A /* TermsView.swift */,
 				BAB4B9202A4487B400D24110 /* LottieIntroView.swift */,
+				55D632B2295057880073E04A /* IntroView.swift */,
+				55D632C42950CB4A0073E04A /* TermsView.swift */,
+				552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */,
+				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";

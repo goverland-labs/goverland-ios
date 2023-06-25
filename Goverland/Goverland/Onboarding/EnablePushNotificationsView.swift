@@ -42,7 +42,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
     var body: some View {
         VStack(spacing: 20) {
-            Button("Enable notifications") {
+            Button(action: {
                 let center = UNUserNotificationCenter.current()
                 center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                     if let error = error {
@@ -52,6 +52,12 @@ fileprivate struct PushNotificationFooterControlsView: View {
                     DispatchQueue.main.async {
                         onboardingFinished = true
                     }
+                }
+            }) {
+                HStack {
+                    Spacer()
+                    Text("Enable notifications")
+                    Spacer()
                 }
             }
             .ghostActionButtonStyle()
