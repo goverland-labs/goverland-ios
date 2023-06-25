@@ -30,4 +30,20 @@ extension Font {
     static let titleSemibold = Font.title.weight(.semibold)
     static let largeTitleRegular = Font.largeTitle.weight(.regular)
     static let largeTitleSemibold = Font.largeTitle.weight(.semibold)
+    
+    static func chillaxRegular(size: CGFloat) -> Font {
+        return Font.custom("Chillax-Regular", size: size)
+    }
+    
+    static func chillaxMedium(size: CGFloat) -> Font {
+        return Font.custom("Chillax-Medium", size: size)
+    }
+    
+    static func chillaxSemibold(size: CGFloat) -> Font {
+        return Font.custom("Chillax-Semibold", size: size)
+    }
+    
+    static func chillaxBold(size: CGFloat) -> Font {
+        return Font.custom("Chillax-Bold", size: size)
+    }
 }

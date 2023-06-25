@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct AppTabView: View {
+    @State private var selectedTab = 1
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             InboxView()
                 .tabItem {
-                    Image(systemName: "house.circle.fill")
+                    Image(selectedTab == 1 ? "inbox-active" : "inbox")
                 }
+                .tag(1)
             SearchView()
                 .tabItem {
-                    Image(systemName: "magnifyingglass.circle.fill")
+                    Image(selectedTab == 2 ? "search-active" : "search")
                 }
+                .tag(2)
             SettingsView()
                 .tabItem {
-                    Image(systemName: "gearshape.circle.fill")
+                    Image(selectedTab == 3 ? "settings-active" : "settings")
                 }
+                .tag(3)
         }
         .accentColor(.primary)
     }
