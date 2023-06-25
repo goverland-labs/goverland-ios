@@ -12,18 +12,31 @@ struct DaoInfoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @StateObject var dataSource: DaoInfoDataSource
 
+    // TODO: manually test this initializer. We don't need it yet, but it should work with the related code
     init(daoID: UUID) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoID: daoID))
+    }
+
+    init(dao: Dao) {
+        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(dao: dao))
     }
     
     var body: some View {
         VStack {
-            DaoInfoScreenHeaderView(dao: dataSource.dao)
-                .padding(.horizontal)
-            DaoInfoScreenControlsView(dao: dataSource.dao)
-            Spacer()
+            if dataSource.isLoading {
+                // TODO: make shimmer view similar to DAO info header view once the design is ready
+                ShimmerLoadingItemView()
+                Spacer()
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource)
+            } else {
+                DaoInfoScreenHeaderView(dao: dataSource.dao!)
+                    .padding(.horizontal)
+                DaoInfoScreenControlsView(dao: dataSource.dao!)
+                Spacer()
+            }
         }
-        .navigationTitle(dataSource.dao.name)
+        .navigationTitle(dataSource.dao?.name ?? "")
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -41,9 +54,7 @@ struct DaoInfoView: View {
                 }
             }
         }
-        .onAppear() { Tracker.track(.daoInfoScreenView)
-            dataSource.loadInitialData()
-        }
+        .onAppear() { Tracker.track(.daoInfoScreenView) }
     }
 }
 
