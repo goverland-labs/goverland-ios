@@ -332,13 +332,13 @@
 		55F143DB294B1DDA00D00B73 /* Goverland */ = {
 			isa = PBXGroup;
 			children = (
-				BAB4B9422A4749A300D24110 /* Info.plist */,
 				55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */,
 				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				5586BB882A34C75500A6E316 /* AuthManager.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
+				BAB4B9422A4749A300D24110 /* Info.plist */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
