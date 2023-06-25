@@ -23,9 +23,9 @@ fileprivate struct UserPictureView: View {
     let user: User
     let imageSize: Int
     var body: some View {
-        KFImage(user.image)
+        KFImage(user.avatar)
             .placeholder {
-                user.image == nil ?
+                user.avatar == nil ?
                 (user.address.blockie ?? Image(systemName: "circle.fill")) :
                 Image(systemName: "circle.fill")
             }
@@ -42,7 +42,7 @@ fileprivate struct UserNameView: View {
 
     var body: some View {
         ZStack {
-            if let name = user.ensName {
+            if let name = user.resolvedName {
                 Text(name)
                     .truncationMode(.tail)
             } else {

@@ -42,6 +42,8 @@
 		55D632C329505DFF0073E04A /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C229505DFF0073E04A /* AppTabView.swift */; };
 		55D632C52950CB4A0073E04A /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C42950CB4A0073E04A /* TermsView.swift */; };
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
+		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
+		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
@@ -131,6 +133,7 @@
 		55D632C229505DFF0073E04A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
+				55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,13 +332,13 @@
 		55F143DB294B1DDA00D00B73 /* Goverland */ = {
 			isa = PBXGroup;
 			children = (
-				BAB4B9422A4749A300D24110 /* Info.plist */,
 				55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */,
 				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				5586BB882A34C75500A6E316 /* AuthManager.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
+				BAB4B9422A4749A300D24110 /* Info.plist */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
@@ -373,6 +377,7 @@
 		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
 			isa = PBXGroup;
 			children = (
+				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
 			);
 			path = "Snapshot Proposal";
@@ -496,6 +501,7 @@
 				BA27EA6029DE0F0F00AA5055 /* Kingfisher */,
 				553316FD29F162FF0034AF66 /* BlockiesSwift */,
 				BAB4B91E2A44864100D24110 /* Lottie */,
+				55DDE8C12A46367F006DA335 /* MarkdownUI */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -530,6 +536,7 @@
 				BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
 				BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -606,6 +613,7 @@
 				BAAA526929538138003177BC /* ProposalListItemHeaderView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
+				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
@@ -881,6 +889,14 @@
 				kind = branch;
 			};
 		};
+		55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		BA27EA5F29DE0F0F00AA5055 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -912,6 +928,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
 			productName = BlockiesSwift;
+		};
+		55DDE8C12A46367F006DA335 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
 		};
 		BA27EA6029DE0F0F00AA5055 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
