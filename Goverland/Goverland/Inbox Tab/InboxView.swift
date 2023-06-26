@@ -67,7 +67,6 @@ struct InboxView: View {
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

@@ -28,7 +28,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                Section(header: Text("Goverland")) {
                     NavigationLink("Followed DAOs") {
                         SubscriptionsView(activeSheet: $activeSheet)
                     }
@@ -45,7 +45,6 @@ struct SettingsView: View {
                 }
                 .tint(.primary)
                 
-                
                 Section {
                     NavigationLink("About") { AboutSettingView() }
                     NavigationLink("Help us grow") { HelpUsGrowSettingView() }
@@ -55,6 +54,7 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .onReceive(NotificationCenter.default.publisher(for: .didSelectShowDaoInfo)) { notification in
             if let dao = notification.object as? Dao {
