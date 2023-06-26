@@ -30,8 +30,9 @@ struct SubscriptionsView: View {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
                                 ForEach(dataSource.subscriptions) { subscription in
+                                    // TODO: show in a popover wrapped into nav view
                                     NavigationLink {
-                                        DaoInfoView(daoID: subscription.dao.id)
+                                        DaoInfoView(dao: subscription.dao)
                                     } label: {
                                         DaoListItemView(
                                             dao: subscription.dao,
@@ -61,6 +62,7 @@ struct SubscriptionsView: View {
             NavigationStack {
                 AddSubscriptionView()
             }
+            .accentColor(.primary)
         })
         .refreshable {
             dataSource.refresh()

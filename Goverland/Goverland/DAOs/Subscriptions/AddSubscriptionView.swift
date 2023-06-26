@@ -37,6 +37,7 @@ struct AddSubscriptionView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
+                        .foregroundColor(.primary)
                 }
             }
             ToolbarItem(placement: .principal) {
@@ -55,7 +56,6 @@ struct AddSubscriptionView: View {
             dataSource.refresh()
             Tracker.track(.addSubscriptionView)
         }
-        .accentColor(.primary)
     }
 }
 

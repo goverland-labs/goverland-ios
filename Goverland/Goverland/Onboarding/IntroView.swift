@@ -18,8 +18,14 @@ struct IntroView: View {
                 Spacer()
                 
                 // TODO: move to UI component
-                Button("Get Started") {
+                Button(action: {
                     termsViewIsPresented = true
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Get Started")
+                        Spacer()
+                    }
                 }
                 .ghostActionButtonStyle()
                 .padding(.bottom, getPadding())
