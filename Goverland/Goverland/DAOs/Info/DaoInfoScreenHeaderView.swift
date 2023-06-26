@@ -14,7 +14,7 @@ struct DaoInfoScreenHeaderView: View {
         HStack {
             RoundPictureView(image: dao.image, imageSize: 100)
             HStack {
-                InfoBadgeView(value: "103", title: "Proposales")
+                InfoBadgeView(value: "103", title: "Proposals")
                 InfoBadgeView(value: "342.9K", title: "Holders")
                 InfoBadgeView(value: "$2.8B", title: "Treasury")
             }

@@ -32,6 +32,7 @@ struct DaoInfoView: View {
             } else {
                 DaoInfoScreenHeaderView(dao: dataSource.dao!)
                     .padding(.horizontal)
+                    .padding(.bottom)
                 DaoInfoScreenControlsView(dao: dataSource.dao!)
                 Spacer()
             }
@@ -43,11 +44,11 @@ struct DaoInfoView: View {
                 Button {
                     self.presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Image(systemName: "chevron.left")
+                    Image(systemName: "xmark.circle.fill")
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                FollowBellButtonView()
+                //FollowBellButtonView()
                 NavigationLink(destination: EllipsisMenuView()) {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.blue)

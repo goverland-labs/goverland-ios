@@ -39,17 +39,10 @@ struct DaoInfoScreenControlsView: View {
                         }
                     }
                 }
-                //.foregroundColor(.primary)
                 .fontWeight(.semibold)
-                
                 Spacer()
-                
-                VStack {
-                    //FollowButtonView(isSubscribed: dao.subscriptionMeta != nil, daoID: dao.id)
-                    Spacer()
-                }
-                .frame(height: 50)
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal)
             
             Capsule(style: .continuous)
                 .fill(.gray)
