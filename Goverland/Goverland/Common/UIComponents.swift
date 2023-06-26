@@ -10,21 +10,19 @@ import Kingfisher
 
 struct RoundPictureView: View {
     let image: URL?
-    let imageSize: Int
+    let imageSize: CGFloat
     var body: some View {
         KFImage(image)
             .placeholder {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(.gray)
+                ShimmerView()
+                    .frame(width: imageSize, height: imageSize)
+                    .cornerRadius(imageSize / 2)
             }
             .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: CGFloat(imageSize), height: CGFloat(imageSize)),
+            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize),
                                                  mode: .aspectFill))
-            .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
-            .cornerRadius(CGFloat(imageSize / 2))
+            .frame(width: imageSize, height: imageSize)
+            .cornerRadius(imageSize / 2)
     }
 }
 

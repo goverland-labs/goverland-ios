@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource()    
+    @StateObject private var dataSource = GroupedDaosDataSource()
 
     private var searchPrompt: String {
         if let totalDaos = dataSource.totalDaos.map(String.init) {
@@ -23,6 +23,7 @@ struct OnboardingFollowDaosView: View {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedDaosView(dataSource: dataSource, displayCallToAction: true)
+
                         NavigationLink {
                             EnablePushNotificationsView()
                         } label: {
@@ -42,7 +43,6 @@ struct OnboardingFollowDaosView: View {
                     DaosSearchListView(dataSource: dataSource)
                 }
             }
-            .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
@@ -56,9 +56,12 @@ struct OnboardingFollowDaosView: View {
                     }
                 }
             }
+            .refreshable {
+                dataSource.refresh()
+            }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.selectDaoView)                
+                Tracker.track(.selectDaoView)
             }
         }
         .accentColor(.primary)

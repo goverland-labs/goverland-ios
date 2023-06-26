@@ -24,6 +24,7 @@ struct GroupedDaosView: View {
                         .font(.subheadlineRegular)
                         .foregroundColor(.textWhite)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(16)
                 }
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
@@ -37,8 +38,13 @@ struct GroupedDaosView: View {
                                 .font(.subheadlineSemibold)
                                 .foregroundColor(.primaryDim)
                         }
-                        .padding(.top, 20)
+                        .padding(.top, 16)
+                        .padding(.horizontal, 16)
+
                         DaoThreadForCategoryView(dataSource: dataSource, category: category)
+                            .padding(.leading, 8)
+                            .padding(.top, 8)
+                            .padding(.bottom, 16)
                     }
                 }
             }
@@ -80,11 +86,9 @@ fileprivate struct DaoThreadForCategoryView: View {
                 }
             }
         }
-        .padding(.bottom, 20)
     }
 }
 
-// TODO: implement design
 fileprivate struct RetryLoadMoreCardView: View {
     let dataSource: GroupedDaosDataSource
     let category: DaoCategory
