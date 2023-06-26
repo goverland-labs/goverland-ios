@@ -30,6 +30,9 @@ struct AddSubscriptionView: View {
                 DaosSearchListView(dataSource: dataSource)
             }
         }
+        .searchable(text: $dataSource.searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: searchPrompt)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -48,10 +51,6 @@ struct AddSubscriptionView: View {
                 }
             }
         }
-        .padding(.horizontal, 20)
-        .searchable(text: $dataSource.searchText,
-                    placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: searchPrompt)
         .onAppear() {
             dataSource.refresh()
             Tracker.track(.addSubscriptionView)

@@ -21,6 +21,8 @@ struct DaoCardView: View {
                     .foregroundColor(.textWhite)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
+
+                // TODO: decide what we display here
                 Text("18.2K members")
                     .font(.сaption2Regular)
                     .foregroundColor(.textWhite60)

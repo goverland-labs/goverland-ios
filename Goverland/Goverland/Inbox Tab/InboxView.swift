@@ -14,10 +14,9 @@ struct InboxView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                InboxFilterMenuView(filter: $filter, data: data)
-                    .padding(10)
-                    .background(Color.surfaceBright)
-
+//                InboxFilterMenuView(filter: $filter, data: data)
+//                    .padding(10)
+//                    .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<3) { _ in
@@ -50,7 +49,7 @@ struct InboxView: View {
                             ZStack {
                                 NavigationLink(destination: SnapshotProposalView(proposal: proposal)) {}.opacity(0)
                                 ProposalListItemView(proposal: proposal)
-                                    .padding(.top, 10)
+                                    .padding(.bottom, 10)
                             }
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
@@ -66,10 +65,8 @@ struct InboxView: View {
                 data.refresh(withFilter: .all)
                 Tracker.track(.inboxView)
             }
-            .background(Color.surface)
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

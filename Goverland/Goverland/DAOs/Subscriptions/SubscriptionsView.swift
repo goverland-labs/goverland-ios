@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
-    @State private var showFollowDaos = false
-    
+
+    @Binding var activeSheet: SettingsActiveSheet?
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if dataSource.isLoading {
@@ -25,19 +26,18 @@ struct SubscriptionsView: View {
                     RetryInitialLoadingView(dataSource: dataSource)
                 } else {
                     if dataSource.subscriptions.isEmpty {
-                        NoSubscriptionsView(showFollowDaos: $showFollowDaos)
+                        NoSubscriptionsView(activeSheet: $activeSheet)
                     } else {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 12) {
                                 ForEach(dataSource.subscriptions) { subscription in
-                                    // TODO: show in a popover wrapped into nav view
-                                    NavigationLink {
-                                        DaoInfoView(dao: subscription.dao)
-                                    } label: {
-                                        DaoListItemView(
-                                            dao: subscription.dao,
-                                            subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                               createdAt: subscription.createdAt))
+                                    DaoListItemView(
+                                        dao: subscription.dao,
+                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
+                                                                           createdAt: subscription.createdAt)
+                                    )
+                                    .onTapGesture {
+                                        NotificationCenter.default.post(name: .didSelectShowDaoInfo, object: subscription.dao)
                                     }
                                 }
                             }
@@ -52,18 +52,12 @@ struct SubscriptionsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    showFollowDaos = true
+                    activeSheet = .followDaos
                 }) {
                     Image(systemName: "plus")
                 }
             }
         }
-        .sheet(isPresented: $showFollowDaos, content: {
-            NavigationStack {
-                AddSubscriptionView()
-            }
-            .accentColor(.primary)
-        })
         .refreshable {
             dataSource.refresh()
         }
@@ -72,7 +66,8 @@ struct SubscriptionsView: View {
             Tracker.track(.followedDaosListView)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            if showFollowDaos {
+            // refresh if some popover sheet is presented
+            if activeSheet != nil {
                 dataSource.refresh()
             }
         }
@@ -80,13 +75,15 @@ struct SubscriptionsView: View {
 }
 
 fileprivate struct NoSubscriptionsView: View {
-    @Binding var showFollowDaos: Bool
+    @Binding var activeSheet: SettingsActiveSheet?
     
     var body: some View {
         VStack {
             Text("You don’t follow any DAO at the moment.")
                 .padding(.bottom, 50)
-            Button(action: { showFollowDaos = true }) {
+            Button(action: {
+                activeSheet = .followDaos
+            }) {
                 Text("Follow a DAO")
                     .ghostActionButtonStyle()
             }
@@ -97,6 +94,6 @@ fileprivate struct NoSubscriptionsView: View {
 
 struct FollowDaosListView_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionsView()
+        SubscriptionsView(activeSheet: .constant(nil))
     }
 }
