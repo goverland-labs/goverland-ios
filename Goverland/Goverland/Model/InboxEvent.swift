@@ -11,10 +11,15 @@ import SwiftDate
 protocol EventData {}
 extension Proposal: EventData {}
 
-// TODO: rework, WIP
+// TODO: rework, rename with backend team
 enum Event: String, Decodable {
     case proposalCreated = "proposal.created"
     case proposalUpdated = "proposal.updated"
+    case proposalUpdatedState = "proposal.updated.state"
+    case proposalVotingStarted = "proposal.voting.started"
+    case proposalVotingReachedQuorum = "proposal.voting.reached"
+    case proposalVoringFinishesSoon = "proposal.voting.coming"
+    case proposalVotingEnded = "proposal.voting.ended"
 
     var isProposal: Bool {
         true
@@ -52,19 +57,13 @@ struct InboxEvent: Identifiable, Decodable {
         case proposal
     }
 
-    // TODO: fix
+    // TODO: finalize once API is ready
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
-
         self.id = try container.decode(UUID.self, forKey: .id)
-
-        self.createdAt = .now - 5.days
-        self.updatedAt = .now - 3.days
-        self.readAt = nil
-
-//        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
-//        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
-//        self.readAt = try container.decode(Date?.self, forKey: .readAt)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.readAt = try container.decodeIfPresent(Date.self, forKey: .readAt)
         do {
             self.event = try container.decodeIfPresent(Event.self, forKey: .event)
         } catch {
@@ -72,7 +71,6 @@ struct InboxEvent: Identifiable, Decodable {
             // TODO: log
             self.event = nil
         }
-
         if let event = event {
             do {
                 self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)

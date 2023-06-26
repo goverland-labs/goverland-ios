@@ -12,7 +12,7 @@ struct DaoCardView: View {
 
     var body: some View {
         VStack {
-            RoundPictureView(image: dao.image, imageSize: 90)
+            RoundPictureView(image: dao.avatar, imageSize: 90)
                 .padding(.top, 17)
             
             VStack(spacing: 3) {

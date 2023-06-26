@@ -110,7 +110,7 @@ fileprivate struct SnapshotProposalCreatorView: View {
         HStack(spacing: 5) {
             // DAO identity view
             HStack(spacing: 6) {
-                RoundPictureView(image: dao.image, imageSize: 16)
+                RoundPictureView(image: dao.avatar, imageSize: 16)
                 Text(dao.name)
                     .font(.footnoteRegular)
                     .lineLimit(1)

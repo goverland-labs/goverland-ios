@@ -13,7 +13,7 @@ struct DaoListItemView: View {
 
     var body: some View {
         HStack {
-            RoundPictureView(image: dao.image, imageSize: 50)
+            RoundPictureView(image: dao.avatar, imageSize: 50)
             Text(dao.name)
                 .font(.headlineSemibold)
                 .foregroundColor(.textWhite)
