@@ -53,9 +53,15 @@ struct TermsView: View {
                 .accentColor(.primaryDim)
             }
             
-            Button("Get Started") {
+            Button(action: {
                 termsAccepted = true
                 trackingAccepted = true
+            }) {
+                HStack {
+                    Spacer()
+                    Text("Get Started")
+                    Spacer()
+                }
             }
             .ghostActionButtonStyle()
             
