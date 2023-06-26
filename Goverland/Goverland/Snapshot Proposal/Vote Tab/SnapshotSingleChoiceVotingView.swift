@@ -1,45 +1,22 @@
 //
-//  SnapshotVotingView.swift
+//  SnapshotSingleChoiceVotingView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-05-04.
+//  Created by Jenny Shalai on 2023-06-26.
 //
 
 import SwiftUI
 
-
-struct SnapshotBasicVotingView: View {
+struct SnapshotSingleChoiceVotingView: View {
     @State var selectedChoiceIndex: Int?
-
-    enum ChoiceType: Int, Identifiable {
-        var id: Int { self.rawValue }
-
-        case `for` = 0
-        case against
-        case abstain
-
-        static var allChoices: [ChoiceType] {
-            return [.for, .against, .abstain]
-        }
-
-        var localizedName: String {
-            switch self {
-            case .for:
-                return "For"
-            case .against:
-                return "Against"
-            case .abstain:
-                return "Abstain"
-            }
-        }
-    }
-    
+    let proposal: Proposal
     var body: some View {
         VStack {
-            ForEach(ChoiceType.allChoices) { choice in
-                SnapshotBasicVotingButtonView(choice: choice, isSelected: selectedChoiceIndex == choice.rawValue) {
-                    if selectedChoiceIndex != choice.rawValue {
-                        selectedChoiceIndex = choice.rawValue
+            let choices = proposal.choices
+            ForEach(choices.indices, id: \.self) { index in
+                SnapshotSingleChoiceVotingButtonView(choice: choices[index], isSelected: selectedChoiceIndex == index) {
+                    if selectedChoiceIndex != index {
+                        selectedChoiceIndex = index
                     }
                 }
             }
@@ -64,9 +41,9 @@ struct SnapshotBasicVotingView: View {
         }
     }
 }
- 
-fileprivate struct SnapshotBasicVotingButtonView: View {
-    let choice: SnapshotBasicVotingView.ChoiceType
+
+fileprivate struct SnapshotSingleChoiceVotingButtonView: View {
+    let choice: String
     let isSelected: Bool
     let action: () -> Void
 
@@ -74,7 +51,7 @@ fileprivate struct SnapshotBasicVotingButtonView: View {
         Button(action: action) {
             HStack {
                 Spacer()
-                Text(choice.localizedName)
+                Text(choice)
                     .padding()
                     .foregroundColor(.onSecondaryContainer)
                     .font(.footnoteSemibold)
@@ -91,8 +68,8 @@ fileprivate struct SnapshotBasicVotingButtonView: View {
     }
 }
 
-struct BasicVotingView_Previews: PreviewProvider {
+struct SnapshotSingleChoiceVotingView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotBasicVotingView()
+        SnapshotSingleChoiceVotingView(proposal: .aaveTest)
     }
 }
