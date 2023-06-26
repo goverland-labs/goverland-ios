@@ -14,7 +14,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let avatar: URL?
     let proposals: Int
     let subscriptionMeta: SubscriptionMeta?
-
+    
     init(id: UUID, alias: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
         self.id = id
         self.alias = alias
@@ -23,7 +23,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.proposals = proposals
         self.subscriptionMeta = subscriptionMeta
     }
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case alias
@@ -32,13 +32,13 @@ struct Dao: Identifiable, Decodable, Equatable {
         case proposals = "proposals_count"
         case subscriptionMeta = "subscription_info"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
         self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
-        self.avatar = try container.decodeIfPresent(URL.self, forKey: .avatar)
+        self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
     }
@@ -53,13 +53,13 @@ enum DaoCategory: String, Decodable, Identifiable {
     case collector
     case media
     case grant
-
+    
     var id: Self { self }
-
+    
     static var values: [DaoCategory] {[
         .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
     ]}
-
+    
     var name: String {
         switch self {
         case .social:

@@ -52,6 +52,9 @@ struct AddSubscriptionView: View {
         .searchable(text: $dataSource.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
+        .refreshable {
+            dataSource.refresh()
+        }
         .onAppear() {
             dataSource.refresh()
             Tracker.track(.addSubscriptionView)
