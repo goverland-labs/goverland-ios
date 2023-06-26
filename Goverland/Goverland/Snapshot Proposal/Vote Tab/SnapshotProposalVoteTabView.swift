@@ -34,6 +34,8 @@ enum SnapshotVoteTabType: Int, Identifiable {
 }
 
 struct SnapshotProposalVoteTabView: View {
+    let proposal: Proposal
+
     @State var chosenTab: SnapshotVoteTabType = .vote
     @Namespace var namespace
     
@@ -71,7 +73,11 @@ struct SnapshotProposalVoteTabView: View {
             
             switch chosenTab {
             case .vote:
-                SnapshotBasicVotingView()
+                // TODO: implement views for every vote type
+                switch proposal.type {
+                case .basic: SnapshotBasicVotingView()
+                default: SnapshotBasicVotingView()
+                }
             case .results:
                 SnapshotResultView()
             case .voters:
@@ -85,6 +91,6 @@ struct SnapshotProposalVoteTabView: View {
 
 struct SnapshotProposaVoteTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalVoteTabView()
+        SnapshotProposalVoteTabView(proposal: .aaveTest)
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftDate
 
 
-// TODO: add pull-to-refresh logic
+// TODO: add pull-to-refresh logic, add initializer from object and from proposal id
 struct SnapshotProposalView: View {
     let proposal: Proposal
 
@@ -20,11 +20,11 @@ struct SnapshotProposalView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     SnapshotProposalHeaderView(title: proposal.title)
+                    
+                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                         .gesture(TapGesture().onEnded { _ in
                             self.showDaoInfoView = true
                         })
-
-                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                         .padding(.bottom, 15)
 
                     SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
@@ -41,7 +41,7 @@ struct SnapshotProposalView: View {
                     }
                     .padding(.bottom)
 
-                    SnapshotProposalVoteTabView()
+                    SnapshotProposalVoteTabView(proposal: proposal)
                         .padding(.bottom, 35)
 
                     SnapshotProposalTimelineView()

@@ -43,7 +43,7 @@ struct SnapshotBasicVotingView: View {
                     }
                 }
             }
-            
+            // TODO: make a separate button component
             Button(action: {
                 // TODO: show dialogue
                 print("submitting vote")
