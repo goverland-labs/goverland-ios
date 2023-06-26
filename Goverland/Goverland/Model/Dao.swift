@@ -11,7 +11,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let alias: String
     let name: String
-    let image: URL?
+    let avatar: URL?
     let proposals: Int
     let subscriptionMeta: SubscriptionMeta?
 
@@ -19,7 +19,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.id = id
         self.alias = alias
         self.name = name
-        self.image = image
+        self.avatar = image
         self.proposals = proposals
         self.subscriptionMeta = subscriptionMeta
     }
@@ -28,41 +28,18 @@ struct Dao: Identifiable, Decodable, Equatable {
         case id
         case alias
         case name
-        case image = "avatar"
+        case avatar
         case proposals = "proposals_count"
         case subscriptionMeta = "subscription_info"
     }
 
-    // TODO: finilize once API is ready and we don't use gists anymore
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        do {
-            self.id = try container.decode(UUID.self, forKey: .id)
-        } catch {
-            self.id = UUID()
-        }
-
-        do {
-            self.alias = try container.decode(String.self, forKey: .alias)
-        } catch {
-            self.alias = "test.eth"
-        }
-
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
-
-        do {
-            self.image = try container.decode(URL.self, forKey: .image)
-        } catch {
-            self.image = URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!
-        }
-
-        do {
-            self.proposals = try container.decode(Int.self, forKey: .proposals)
-        } catch {
-            self.proposals = 10
-        }
-        
+        self.avatar = try container.decodeIfPresent(URL.self, forKey: .avatar)
+        self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
     }
 }

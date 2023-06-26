@@ -33,33 +33,9 @@ enum SnapshotVoteTabType: Int, Identifiable {
     }
 }
 
-enum SnapshotVoteChoiceType: Int, Identifiable {
-    var id: Int { self.rawValue }
-    
-    case `for` = 0
-    case against
-    case abstain
-    case quorum
-
-    static var allChoices: [SnapshotVoteChoiceType] {
-        return [.for, .against, .abstain]
-    }
-
-    var localizedName: String {
-        switch self {
-        case .for:
-            return "For"
-        case .against:
-            return "Against"
-        case .abstain:
-            return "Abstain"
-        case .quorum:
-            return "Quorum"
-        }
-    }
-}
-
 struct SnapshotProposalVoteTabView: View {
+    let proposal: Proposal
+
     @State var chosenTab: SnapshotVoteTabType = .vote
     @Namespace var namespace
     
@@ -97,7 +73,11 @@ struct SnapshotProposalVoteTabView: View {
             
             switch chosenTab {
             case .vote:
-                SnapshotVotingView()
+                // TODO: implement views for every vote type
+                switch proposal.type {
+                case .basic: SnapshotBasicVotingView()
+                default: SnapshotBasicVotingView()
+                }
             case .results:
                 SnapshotResultView()
             case .voters:
@@ -111,6 +91,6 @@ struct SnapshotProposalVoteTabView: View {
 
 struct SnapshotProposaVoteTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalVoteTabView()
+        SnapshotProposalVoteTabView(proposal: .aaveTest)
     }
 }

@@ -28,32 +28,6 @@ struct RoundPictureView: View {
     }
 }
 
-struct SnapshotVotingButtonView: View {
-    let choice: SnapshotVoteChoiceType
-    let isChosen: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            HStack {
-                Spacer()
-                Text(choice.localizedName)
-                    .padding()
-                    .foregroundColor(.onSecondaryContainer)
-                    .font(.footnoteSemibold)
-                Spacer()
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-        .background(isChosen ? Color.secondaryContainer : Color.clear)
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.secondaryContainer, lineWidth: 1)
-        )
-    }
-}
-
 struct UIComponents_Previews: PreviewProvider {
     static var previews: some View {
         RoundPictureView(image: URL(string: ""), imageSize: 50)

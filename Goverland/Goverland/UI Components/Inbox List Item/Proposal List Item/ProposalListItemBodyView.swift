@@ -37,7 +37,7 @@ struct ProposalListItemBodyView: View {
             
             Spacer()
             
-            RoundPictureView(image: proposal.dao.image, imageSize: 46)
+            RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
         }
     }
 }
