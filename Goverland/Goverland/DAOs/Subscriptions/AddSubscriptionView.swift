@@ -30,6 +30,9 @@ struct AddSubscriptionView: View {
                 DaosSearchListView(dataSource: dataSource)
             }
         }
+        .searchable(text: $dataSource.searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: searchPrompt)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -47,13 +50,6 @@ struct AddSubscriptionView: View {
                         .foregroundColor(Color.textWhite)
                 }
             }
-        }
-        .padding(.horizontal, 20)
-        .searchable(text: $dataSource.searchText,
-                    placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: searchPrompt)
-        .refreshable {
-            dataSource.refresh()
         }
         .onAppear() {
             dataSource.refresh()
