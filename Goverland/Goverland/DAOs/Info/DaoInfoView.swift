@@ -44,14 +44,14 @@ struct DaoInfoView: View {
                 Button {
                     self.presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle.fill")
+                    Image(systemName: "xmark")
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 //FollowBellButtonView()
                 NavigationLink(destination: EllipsisMenuView()) {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.blue)
+                        .foregroundColor(.primary)
                 }
             }
         }

@@ -62,6 +62,7 @@ struct SubscriptionsView: View {
             NavigationStack {
                 AddSubscriptionView()
             }
+            .accentColor(.primary)
         })
         .refreshable {
             dataSource.refresh()
