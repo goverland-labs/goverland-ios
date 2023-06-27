@@ -74,6 +74,7 @@
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA8451522A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */; };
 		BA8451542A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */; };
+		BA8451562A4B660C0088A6E6 /* SnapshotProposalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotBasicVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -167,6 +168,7 @@
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotSingleChoiceVotingView.swift; sourceTree = "<group>"; };
 		BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotSingleChoiceVotingResultView.swift; sourceTree = "<group>"; };
+		BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalInfoView.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */,
 				BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */,
 				BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */,
+				BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */,
 			);
 			path = "Vote Tab";
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
+				BA8451562A4B660C0088A6E6 /* SnapshotProposalInfoView.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				BA50AB402A04086900EC2AA6 /* SnapshotBasicVotingView.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,

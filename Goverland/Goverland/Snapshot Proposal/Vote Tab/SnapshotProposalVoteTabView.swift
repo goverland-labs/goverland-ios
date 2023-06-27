@@ -88,7 +88,7 @@ struct SnapshotProposalVoteTabView: View {
             case .voters:
                 SnapshotVotersView()
             case .info:
-                Text("")
+                SnapshotProposalInfoView(proposal: proposal)
             }
         }
     }

@@ -24,6 +24,7 @@ struct Proposal: Decodable {
     let quorum: Int
     let snapshot: String
     let state: State
+    //let strategies: [String]
     let link: URL
     let scores: [Double]
     let scoresTotal: Double
@@ -84,6 +85,7 @@ struct Proposal: Decodable {
         case quorum
         case snapshot
         case state
+       // case strategies
         case link
         case scores
         case scoresTotal = "scores_total"
@@ -113,6 +115,7 @@ extension Proposal {
         quorum: 0,
         snapshot: "43600919",
         state: .active,
+        //strategies: [],
         link: URL(string: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02")!,
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
