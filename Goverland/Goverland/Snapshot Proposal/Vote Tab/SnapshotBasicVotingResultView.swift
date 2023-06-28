@@ -1,5 +1,5 @@
 //
-//  SnapshotResultView.swift
+//  SnapshotBasicVotingResultView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-06.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SnapshotResultView: View {
+struct SnapshotBasicVotingResultView: View {
     private let votersData: [Double] = [45.0, 8.5, 2.7]
     private let percentageData: [Double] = [80, 15, 5]
     
@@ -69,6 +69,6 @@ fileprivate struct SnapshotVotingResultBarView: View {
 
 struct SnapshotResultView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotResultView()
+        SnapshotBasicVotingResultView()
     }
 }

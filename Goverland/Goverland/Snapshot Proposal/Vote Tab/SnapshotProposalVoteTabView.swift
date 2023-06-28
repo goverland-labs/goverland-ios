@@ -76,14 +76,19 @@ struct SnapshotProposalVoteTabView: View {
                 // TODO: implement views for every vote type
                 switch proposal.type {
                 case .basic: SnapshotBasicVotingView()
+                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal)
                 default: SnapshotBasicVotingView()
                 }
             case .results:
-                SnapshotResultView()
+                switch proposal.type {
+                case .basic: SnapshotBasicVotingResultView()
+                case .singleChoice: SnapshotSingleChoiceVotingResultView(proposal: proposal)
+                default: SnapshotBasicVotingResultView()
+                }
             case .voters:
                 SnapshotVotersView()
             case .info:
-                Text("")
+                SnapshotProposalInfoView(proposal: proposal)
             }
         }
     }
