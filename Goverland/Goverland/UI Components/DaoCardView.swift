@@ -10,6 +10,13 @@ import SwiftUI
 struct DaoCardView: View {
     let dao: Dao
 
+    var members: String {
+        if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
+            return "\(members) members"
+        }
+        return ""
+    }
+
     var body: some View {
         VStack {
             RoundPictureView(image: dao.avatar, imageSize: 90)
@@ -22,8 +29,7 @@ struct DaoCardView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
 
-                // TODO: decide what we display here
-                Text("18.2K members")
+                Text("\(members)")
                     .font(.сaption2Regular)
                     .foregroundColor(.textWhite60)
             }

@@ -13,14 +13,22 @@ struct Dao: Identifiable, Decodable, Equatable {
     let name: String
     let avatar: URL?
     let proposals: Int
+    let members: Int
     let subscriptionMeta: SubscriptionMeta?
     
-    init(id: UUID, alias: String, name: String, image: URL?, proposals: Int, subscriptionMeta: SubscriptionMeta?) {
+    init(id: UUID,
+         alias: String,
+         name: String,
+         image: URL?,
+         proposals: Int,
+         members: Int,
+         subscriptionMeta: SubscriptionMeta?) {
         self.id = id
         self.alias = alias
         self.name = name
         self.avatar = image
         self.proposals = proposals
+        self.members = members
         self.subscriptionMeta = subscriptionMeta
     }
     
@@ -30,6 +38,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case name
         case avatar
         case proposals = "proposals_count"
+        case members = "followers_count"
         case subscriptionMeta = "subscription_info"
     }
     
@@ -40,6 +49,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.name = try container.decode(String.self, forKey: .name)
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
         self.proposals = try container.decode(Int.self, forKey: .proposals)
+        self.members = try container.decode(Int.self, forKey: .members)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
     }
 }
@@ -98,6 +108,7 @@ extension Dao {
         name: "Gnosis DAO",
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
         proposals: 100,
+        members: 4567,
         subscriptionMeta: nil)
     static let aave = Dao(
         id: UUID(),
@@ -105,5 +116,6 @@ extension Dao {
         name: "Aave",
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
         proposals: 150,
+        members: 45678,
         subscriptionMeta: nil)
 }

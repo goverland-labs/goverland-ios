@@ -59,11 +59,11 @@ extension MetricSuffix: Comparable {
 }
 
 class MetricNumberFormatter: NumberFormatter {
-    var delimiter: String = " "
+    var delimiter: String = ""
     var decimals: Int = 2
     var localizationDictionary: [MetricSuffix: String] = MetricSuffix.latinSuffixes
 
-    public func stringWithMetricPrefix(from number: NSNumber) -> String? {
+    public func stringWithMetric(from number: NSNumber) -> String? {
         let numberAsDouble = number.doubleValue
         guard !numberAsDouble.isNaN else { return nil }
         let suffix: MetricSuffix
@@ -92,5 +92,53 @@ class MetricNumberFormatter: NumberFormatter {
     }
 }
 
+extension MetricNumberFormatter {
+    func stringWithMetric(from number: Double) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
 
+    func stringWithMetric(from number: Float) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: Int) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: Int64) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: Int32) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: Int16) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: Int8) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: UInt) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: UInt64) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: UInt32) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: UInt16) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+
+    func stringWithMetric(from number: UInt8) -> String? {
+        return stringWithMetric(from: NSNumber(value: number))
+    }
+}
 
