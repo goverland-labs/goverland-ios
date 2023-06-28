@@ -76,6 +76,7 @@
 		BA8451542A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */; };
 		BA8451562A4B660C0088A6E6 /* SnapshotProposalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */; };
 		BA8451582A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451572A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift */; };
+		BA84515A2A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451592A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotBasicVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -171,6 +172,7 @@
 		BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotSingleChoiceVotingResultView.swift; sourceTree = "<group>"; };
 		BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalInfoView.swift; sourceTree = "<group>"; };
 		BA8451572A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotApprovalVotingView.swift; sourceTree = "<group>"; };
+		BA8451592A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotApprovalVotingResultView.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAAA526829538138003177BC /* ProposalListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */,
 				BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */,
 				BA8451572A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift */,
+				BA8451592A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift */,
 				BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */,
 				BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */,
 			);
@@ -611,6 +614,7 @@
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
+				BA84515A2A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
