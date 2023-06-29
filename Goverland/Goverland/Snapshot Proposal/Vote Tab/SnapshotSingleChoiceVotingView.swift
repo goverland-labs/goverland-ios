@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct SnapshotSingleChoiceVotingView: View {
-    @State var selectedChoiceIndex: Int?
     let proposal: Proposal
+    let onSubmittingVote: (_ index: Int) -> ()
+
+    var body: some View {
+        ChoicesView(choices: proposal.choices) { index in
+            onSubmittingVote(index)
+        }
+    }
+}
+
+struct ChoicesView: View {
+    @State var selectedChoiceIndex: Int?
+    let choices: [String]
+    let onSubmittingVote: (_ index: Int) -> ()
+
     var body: some View {
         VStack {
-            let choices = proposal.choices
             ForEach(choices.indices, id: \.self) { index in
                 SnapshotSingleChoiceVotingButtonView(choice: choices[index], isSelected: selectedChoiceIndex == index) {
                     if selectedChoiceIndex != index {
@@ -22,8 +34,7 @@ struct SnapshotSingleChoiceVotingView: View {
             }
             // TODO: make a separate button component
             Button(action: {
-                // TODO: show dialogue
-                print("submitting vote")
+                onSubmittingVote(selectedChoiceIndex!)
             }) {
                 HStack {
                     Spacer()
@@ -70,6 +81,6 @@ fileprivate struct SnapshotSingleChoiceVotingButtonView: View {
 
 struct SnapshotSingleChoiceVotingView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotSingleChoiceVotingView(proposal: .aaveTest)
+        SnapshotSingleChoiceVotingView(proposal: .aaveTest, onSubmittingVote: { _ in })
     }
 }

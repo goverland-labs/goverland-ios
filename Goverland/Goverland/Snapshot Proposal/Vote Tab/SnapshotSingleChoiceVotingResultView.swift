@@ -11,11 +11,22 @@ struct SnapshotSingleChoiceVotingResultView: View {
     let proposal: Proposal
     
     var body: some View {
+        ChoicesResultView(choices: proposal.choices,
+                          scores: proposal.scores,
+                          scoresTotal: proposal.scoresTotal)
+    }
+}
+
+struct ChoicesResultView: View {
+    let choices: [String]
+    let scores: [Double]
+    let scoresTotal: Double
+
+    var body: some View {
         VStack {
-            let choices = proposal.choices
             ForEach(choices.indices, id: \.self) { index in
-                let score = proposal.scores[index]
-                let totalScore = proposal.scoresTotal
+                let score = scores[index]
+                let totalScore = scoresTotal
                 SnapshotSingleChoiceVotingResultBarView(choice: choices[index],
                                                         score: score,
                                                         totalScore: totalScore)
