@@ -40,7 +40,7 @@ struct PrimaryButtonView: View {
     init(_ text: String,
          maxWidth: CGFloat = 400,
          maxHeight: CGFloat = 54) {
-        self.text = text        
+        self.text = text
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
     }
@@ -56,23 +56,6 @@ struct PrimaryButtonView: View {
         .clipShape(Capsule())
         .tint(.onPrimary)
         .font(.headlineSemibold)
-    }
-}
-
-struct GhostReadMoreButton: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(width: 100, height: 30, alignment: .center)
-            .background(Capsule(style: .circular)
-                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-            .tint(.onSecondaryContainer)
-            .font(.footnoteSemibold)
-    }
-}
-
-extension View {
-    func ghostReadMoreButtonStyle() -> some View {
-        modifier(GhostReadMoreButton())
     }
 }
 

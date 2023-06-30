@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct SnapshotApprovalVotingView: View {
-    @State var selectedChoicesIndex: Set<Int> = []
+    @State var selectedChoicesIndex: Set<Int> = [] {
+        didSet {
+            disabled = selectedChoicesIndex == []
+        }
+    }
+    @State var disabled: Bool = true
+
     let proposal: Proposal
     var body: some View {
         VStack {
@@ -22,24 +28,10 @@ struct SnapshotApprovalVotingView: View {
                     }
                 }
             }
-            // TODO: make a separate button component
-            Button(action: {
-                // TODO: show dialogue
+
+            VoteButton(disabled: $disabled) {
                 print("submitting vote")
-            }) {
-                HStack {
-                    Spacer()
-                    Text("Vote")
-                    Spacer()
-                }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-                .foregroundColor(selectedChoicesIndex == [] ? .textWhite20 : .onPrimary)
-                .background(selectedChoicesIndex == [] ? Color.disabled12 : Color.primary)
-                .font(.footnoteSemibold)
-                .cornerRadius(20)
             }
-            .disabled(selectedChoicesIndex == [])
         }
     }
 }

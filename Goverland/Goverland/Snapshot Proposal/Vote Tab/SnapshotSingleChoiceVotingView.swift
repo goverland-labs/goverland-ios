@@ -19,7 +19,13 @@ struct SnapshotSingleChoiceVotingView: View {
 }
 
 struct ChoicesView: View {
-    @State var selectedChoiceIndex: Int?
+    @State var selectedChoiceIndex: Int? {
+        didSet {
+            disabled = selectedChoiceIndex == nil
+        }
+    }
+    @State var disabled: Bool = true
+
     let choices: [String]
     let onSubmittingVote: (_ index: Int) -> ()
 
@@ -32,23 +38,10 @@ struct ChoicesView: View {
                     }
                 }
             }
-            // TODO: make a separate button component
-            Button(action: {
+
+            VoteButton(disabled: $disabled) {
                 onSubmittingVote(selectedChoiceIndex!)
-            }) {
-                HStack {
-                    Spacer()
-                    Text("Vote")
-                    Spacer()
-                }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-                .foregroundColor(selectedChoiceIndex == nil ? .textWhite20 : .onPrimary)
-                .background(selectedChoiceIndex == nil ? Color.disabled12 : Color.primary)
-                .font(.footnoteSemibold)
-                .cornerRadius(20)
             }
-            .disabled(selectedChoiceIndex == nil)
         }
     }
 }
