@@ -11,11 +11,22 @@ struct SnapshotSingleChoiceVotingResultView: View {
     let proposal: Proposal
     
     var body: some View {
+        ChoicesResultView(choices: proposal.choices,
+                          scores: proposal.scores,
+                          scoresTotal: proposal.scoresTotal)
+    }
+}
+
+struct ChoicesResultView: View {
+    let choices: [String]
+    let scores: [Double]
+    let scoresTotal: Double
+
+    var body: some View {
         VStack {
-            let choices = proposal.choices
             ForEach(choices.indices, id: \.self) { index in
-                let score = proposal.scores[index]
-                let totalScore = proposal.scoresTotal
+                let score = scores[index]
+                let totalScore = scoresTotal
                 SnapshotSingleChoiceVotingResultBarView(choice: choices[index],
                                                         score: score,
                                                         totalScore: totalScore)
@@ -37,10 +48,8 @@ fileprivate struct SnapshotSingleChoiceVotingResultBarView: View {
                     Text(choice)
                         .font(.footnoteSemibold)
                         .foregroundColor(.onSecondaryContainer)
-                    Spacer()
-                    // TODO: converter to present rounded number with "K" needed here
-                    // TODO: converter for %
-                    Text(String(score) + " / " + String(score/totalScore * 100))
+                    Spacer()                    
+                    Text(Utils.formattedNumber(score) + " | " + Utils.percentage(of: score, in: totalScore))
                         .font(.footnoteSemibold)
                         .foregroundColor(.textWhite)
                 }
