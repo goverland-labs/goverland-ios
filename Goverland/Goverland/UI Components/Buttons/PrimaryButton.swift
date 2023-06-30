@@ -10,37 +10,52 @@ import SwiftUI
 struct PrimaryButton: View {
     let text: String
     let action: () -> Void
-    let maxWidth: CGFloat = 400
-    let maxHeight: CGFloat = 54
+    let maxWidth: CGFloat
+    let maxHeight: CGFloat
 
+    init(_ text: String,
+         action: @escaping () -> Void,
+         maxWidth: CGFloat = 400,
+         maxHeight: CGFloat = 54) {
+        self.text = text
+        self.action = action
+        self.maxWidth = maxWidth
+        self.maxHeight = maxHeight
+    }
 
     var body: some View {
         Button(action: {
             action()
         }) {
-            HStack {
-                Spacer()
-                Text(text)
-                Spacer()
-            }
+            PrimaryButtonView(text, maxWidth: maxWidth, maxHeight: maxHeight)
+        }
+    }
+}
+
+struct PrimaryButtonView: View {
+    let text: String
+    let maxWidth: CGFloat
+    let maxHeight: CGFloat
+
+    init(_ text: String,
+         maxWidth: CGFloat = 400,
+         maxHeight: CGFloat = 54) {
+        self.text = text        
+        self.maxWidth = maxWidth
+        self.maxHeight = maxHeight
+    }
+
+    var body: some View {
+        HStack {
+            Spacer()
+            Text(text)
+            Spacer()
         }
         .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
         .background(Color.primary)
         .clipShape(Capsule())
         .tint(.onPrimary)
         .font(.headlineSemibold)
-    }
-}
-
-
-struct GhostActionButton: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity, maxHeight: 60, alignment: .center)
-            .background(Color.primary)
-            .clipShape(Capsule())
-            .tint(.onPrimary)
-            .font(.headlineSemibold)
     }
 }
 
@@ -56,10 +71,6 @@ struct GhostReadMoreButton: ViewModifier {
 }
 
 extension View {
-    func ghostActionButtonStyle() -> some View {
-        modifier(GhostActionButton())
-    }
-
     func ghostReadMoreButtonStyle() -> some View {
         modifier(GhostReadMoreButton())
     }
@@ -67,6 +78,6 @@ extension View {
 
 struct PrimaryButton_Previews: PreviewProvider {
     static var previews: some View {
-        PrimaryButton(text: "Primary Button", action: {})
+        PrimaryButton("Primary Button", action: {})
     }
 }

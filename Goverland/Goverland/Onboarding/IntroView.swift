@@ -16,7 +16,7 @@ struct IntroView: View {
             
             VStack {
                 Spacer()
-                PrimaryButton(text: "Get Started") {
+                PrimaryButton("Get Started") {
                     termsViewIsPresented = true
                 }
                 .padding(.bottom, getPadding())
