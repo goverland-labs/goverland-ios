@@ -40,7 +40,7 @@ fileprivate struct SnapshotWeightedVotingResultBarView: View {
                     Spacer()
                     // TODO: converter to present rounded number with "K" needed here
                     // TODO: converter for %
-                    Text(String(score) + " SHOT " + String(score/totalScore * 100) + "%")
+                    Text(String(Int(score)) + " SHOT " + String(Int(score/totalScore * 100)) + "%")
                         .font(.footnoteSemibold)
                         .foregroundColor(.textWhite)
                 }

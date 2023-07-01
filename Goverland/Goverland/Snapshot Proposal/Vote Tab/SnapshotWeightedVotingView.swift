@@ -17,7 +17,7 @@ struct SnapshotWeightedVotingView: View {
     var body: some View {
         VStack {
             ForEach(viewModel.proposal.choices, id: \.self) { choice in
-                HStack {
+                HStack(spacing: 0) {
                     Text(choice)
                         .padding()
                         .foregroundColor(.onSecondaryContainer)
@@ -28,7 +28,7 @@ struct SnapshotWeightedVotingView: View {
                             viewModel.decreaseVotingPower(for: choice)
                         }) {
                             Image(systemName: "minus")
-                                .frame(width: 45)
+                                .frame(width: 40)
                                 .padding(.vertical)
                         }
                         Text("\(viewModel.choicesPower[choice]!)")
@@ -37,7 +37,7 @@ struct SnapshotWeightedVotingView: View {
                             viewModel.increaseVotingPower(for: choice)
                         }) {
                             Image(systemName: "plus")
-                                .frame(width: 45)
+                                .frame(width: 40)
                                 .padding(.vertical)
                         }
                     }
