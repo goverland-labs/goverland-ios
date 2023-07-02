@@ -1,13 +1,13 @@
 //
-//  SnapshotApprovalVotingResultView.swift
+//  SnapshotWeightedVotingResultView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-06-28.
+//  Created by Jenny Shalai on 2023-07-01.
 //
 
 import SwiftUI
 
-struct SnapshotApprovalVotingResultView: View {
+struct SnapshotWeightedVotingResultView: View {
     let proposal: Proposal
     
     var body: some View {
@@ -16,7 +16,7 @@ struct SnapshotApprovalVotingResultView: View {
             ForEach(choices.indices, id: \.self) { index in
                 let score = proposal.scores[index]
                 let totalScore = proposal.scoresTotal
-                SnapshotApprovalVotingResultBarView(choice: choices[index],
+                SnapshotWeightedVotingResultBarView(choice: choices[index],
                                                     score: score,
                                                     totalScore: totalScore)
                 .padding(.bottom, 30)
@@ -25,7 +25,7 @@ struct SnapshotApprovalVotingResultView: View {
     }
 }
 
-fileprivate struct SnapshotApprovalVotingResultBarView: View {
+fileprivate struct SnapshotWeightedVotingResultBarView: View {
     let choice: String
     let score: Double
     let totalScore: Double
@@ -40,7 +40,7 @@ fileprivate struct SnapshotApprovalVotingResultBarView: View {
                     Spacer()
                     // TODO: converter to present rounded number with "K" needed here
                     // TODO: converter for %
-                    Text(String(score) + " / " + String(score/totalScore * 100))
+                    Text(Utils.formattedNumber(score) + " | " + Utils.percentage(of: score, in: totalScore))
                         .font(.footnoteSemibold)
                         .foregroundColor(.textWhite)
                 }
@@ -58,8 +58,8 @@ fileprivate struct SnapshotApprovalVotingResultBarView: View {
     }
 }
 
-struct SnapshotApprovalVotingResultView_Previews: PreviewProvider {
+struct SnapshotWeightedVotingResultView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotApprovalVotingResultView(proposal: .aaveTest)
+        SnapshotWeightedVotingResultView(proposal: .aaveTest)
     }
 }
