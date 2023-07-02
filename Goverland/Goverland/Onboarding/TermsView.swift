@@ -13,7 +13,7 @@ struct TermsView: View {
     @Binding var termsViewIsPresented: Bool
     
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 24) {
             HStack {
                 Spacer()
                 Button {
@@ -27,28 +27,28 @@ struct TermsView: View {
                 }
             }
             
-            Text("Terms Of Use and Privacy Policy")
+            Text("Understanding Our Practices")
                 .fontWeight(.bold)
                 .font(.title3)
             
             VStack(alignment: .leading) {
-                HStack(alignment: .top, spacing: 10) {
+                HStack(alignment: .top, spacing: 8) {
                     BulletedListsDot()
-                    Text("We collect anonymized app usage data and crash reports to ensure the quality of our app.")
+                    Text("To ensure the quality of our app, we collect anonymized app usage data and crash reports.")
                 }
                 
-                HStack(alignment: .top, spacing: 10) {
+                HStack(alignment: .top, spacing: 8) {
                     BulletedListsDot()
-                    Text("We do not collect demographic data such as age or gander")
+                    Text("We respect your privacy: demographic data such as age or gender are not collected.")
                 }
                 
-                HStack(alignment: .top, spacing: 10) {
+                HStack(alignment: .top, spacing: 8) {
                     BulletedListsDot()
-                    Text("Read more in ") +
-                    Text("[Privacy Policy](https://google.com)")
+                    Text("Learn more in our ") +
+                    Text("[Privacy Policy](https://www.goverland.xyz/privacy)")
                         .underline() +
                     Text(" and ") +
-                    Text("[Terms](https://google.com)").underline()
+                    Text("[Terms of Service](https://www.goverland.xyz/terms).").underline()
                 }
                 .accentColor(.primaryDim)
             }
@@ -64,7 +64,8 @@ struct TermsView: View {
             .fontWeight(.medium)
             .accentColor(.primaryDim)
             
-        }.padding(.horizontal, 30)
+        }
+        .padding(.horizontal, 16)
     }
 }
 

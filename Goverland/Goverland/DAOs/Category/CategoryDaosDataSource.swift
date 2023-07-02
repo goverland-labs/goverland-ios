@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class CategoryDaosDataSource: ObservableObject, Refreshable {
+class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
     private let category: DaoCategory
 
     @Published var daos: [Dao] = []

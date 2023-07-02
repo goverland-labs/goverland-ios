@@ -56,7 +56,7 @@ struct OnboardingFollowDaosView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.selectDaoView)
+                Tracker.track(.onboardingFollowDaos)
             }
         }
         .accentColor(.primary)

@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchProposalView: View {
     var body: some View {
         VStack {
-            Text("")
+            Text("TODO: Suggested Proposals")
             Spacer()
         }
         .onAppear { Tracker.track(.searchProposalView) }

@@ -18,7 +18,7 @@ struct EnablePushNotificationsView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.enablePushNotificationsView) }
+            .onAppear() { Tracker.track(.onbaordingPushNotifications) }
         }
     }
 }
@@ -33,7 +33,7 @@ fileprivate struct PushNotificationBackgroundView: View {
                 .cornerRadius(110)
                 .blur(radius: 100)
             
-            Image("PushNotificationImage")
+            Image("push-notifications-placeholder")
         }
     }
 }
@@ -44,6 +44,8 @@ fileprivate struct PushNotificationFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Enable notifications") {
+                Tracker.track(.onboardingYesNotifications)
+
                 let center = UNUserNotificationCenter.current()
                 center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                     if let error = error {
@@ -57,6 +59,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
             }
             
             Button("No, thanks") {
+                Tracker.track(.onboardingNoNotifications)
                 onboardingFinished = true
             }
             .fontWeight(.semibold)

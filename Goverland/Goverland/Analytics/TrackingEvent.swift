@@ -13,18 +13,24 @@ protocol Trackable {
 
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
-    
+
+    case onboardingFollowDaos = "screen_onboarding_follow_daos"
+    case searchDaos = "screen_search_daos"
+    case onbaordingPushNotifications = "screen_onboarding_push_notifications"
+    case onboardingYesNotifications = "onboarding_yes_notifications"
+    case onboardingNoNotifications = "onboarding_no_notifications"
+
+    // LEGACY. Remove iteratively
     case addSubscriptionView = "add_subscription_view"
     case inboxView = "inbox_view"
     case daoInfoScreenView = "dao_info_screen_view"
-    case enablePushNotificationsView = "enable_push_notifications_view"
+
     case followCategoryDaosView = "follow_category_daos_view"
     case followedDaosListView = "followed_daos_view"
     case introView = "intro_view"
     case launchTerms = "launch_terms"
     case searchDaoView = "search_dao_view"
     case searchProposalView = "search_proposal_view"
-    case selectDaoView = "select_dao_view"
     case settingsAboutView = "settings_about_view"
     case settingsAdvancedView = "settings_advanced_view"
     case settingsAppearanceView = "settings_appearance_view"

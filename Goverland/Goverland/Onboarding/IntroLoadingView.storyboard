@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,17 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goverland" translatesAutoresizingMaskIntoConstraints="NO" id="7by-fu-RWg" userLabel="goverland">
-                                <rect key="frame" x="136.66666666666666" y="378.66666666666669" width="119.99999999999997" height="120"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goverland-logo-round" translatesAutoresizingMaskIntoConstraints="NO" id="7by-fu-RWg" userLabel="goverland">
+                                <rect key="frame" x="90" y="332" width="213" height="213"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="0aq-ja-07F"/>
-                                    <constraint firstAttribute="width" constant="120" id="4rN-rq-vfy"/>
+                                    <constraint firstAttribute="width" secondItem="7by-fu-RWg" secondAttribute="height" multiplier="1:1" id="61S-fr-2ab"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="7by-fu-RWg" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1:4" id="9j7-9i-e3g"/>
                             <constraint firstItem="7by-fu-RWg" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" id="Ne1-Fh-5Tn"/>
                             <constraint firstItem="7by-fu-RWg" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="cKe-ir-Ty5"/>
                         </constraints>
@@ -38,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="goverland" width="405" height="405"/>
+        <image name="goverland-logo-round" width="135" height="135"/>
     </resources>
 </document>

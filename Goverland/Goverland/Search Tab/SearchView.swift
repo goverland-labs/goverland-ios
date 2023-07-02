@@ -7,51 +7,46 @@
 
 import SwiftUI
 
+enum SearchFilter: Int, FilterOptions {
+    case daos = 0
+    case proposals
+
+    var localizedName: String {
+        switch self {
+        case .daos:
+            return "Daos"
+        case .proposals:
+            return "Proposals"
+        }
+    }
+}
+
 struct SearchView: View {
+    @State private var filter: SearchFilter = .daos
     @StateObject private var dataSource = GroupedDaosDataSource()
-    @State private var currentControl: SearchViewControls = .daos
-    private let controls: [SearchViewControls] = SearchViewControls.all
 
     private var searchPrompt: String {
         // TODO: make aware of selected control
         if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search \(currentControl.localizedString) by name"
+            return "Search \(filter.localizedName) by name"
         }
         return ""
     }
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                // TODO: move to a subview
-                HStack {
-                    ForEach(controls, id: \.self) { control in
-                        VStack(spacing: 12) {
-                            Text(control.localizedString.capitalized)
-                                .fontWeight(.semibold)
-                                .foregroundColor(currentControl == control ? .primary : .gray)
-                            Capsule(style: .continuous)
-                                .foregroundColor(currentControl == control ? .primaryDim : .clear)
-                                .frame(width: 80, height: 2)
-                        }
-                        .onTapGesture {
-                            withAnimation {
-                                self.currentControl = control
-                            }
-                        }
+            VStack {
+                FilterButtonsView<SearchFilter>(filter: $filter) { newValue in
+                    switch newValue {
+                    case .daos: dataSource.refresh()
+                    case .proposals: break
                     }
                 }
-                .fontWeight(.semibold)
-                .padding(.top)
-                
-                Capsule(style: .continuous)
-                    .fill(.gray)
-                    .frame(height: 1)
-                    .padding(.bottom)
+                .padding(.bottom, 4)
                 
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
-                        switch currentControl {
+                        switch filter {
                         case .daos:
                             GroupedDaosView(dataSource: dataSource)
                         case .proposals:
@@ -64,7 +59,6 @@ struct SearchView: View {
                     DaosSearchListView(dataSource: dataSource)
                 }
             }
-            .padding(.horizontal, 15)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
@@ -72,7 +66,7 @@ struct SearchView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Search DAOs")
+                        Text("Search")
                             .font(.title3Semibold)
                             .foregroundColor(Color.textWhite)
                     }
@@ -80,26 +74,11 @@ struct SearchView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.selectDaoView)
+                Tracker.track(.searchDaos)
             }
         }
     }
 }
-                    
-
-fileprivate enum SearchViewControls {
-    case daos, proposals
-    
-    static var all: [Self] { return [.daos, .proposals] }
-    
-    var localizedString: String {
-        switch self {
-        case .daos: return "DAOs"
-        case .proposals: return "proposals"
-        }
-    }
-}
-
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {

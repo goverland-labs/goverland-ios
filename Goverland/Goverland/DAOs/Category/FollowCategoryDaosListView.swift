@@ -58,7 +58,7 @@ fileprivate struct DaosListView: View {
                                                 dataSource.loadMore()
                                             }
                                     } else { // retry pagination
-                                        RetryLoadMoreView(dataSource: dataSource)
+                                        RetryLoadMoreListItemView(dataSource: dataSource)
                                     }
                                 } else {
                                     let dao = dataSource.daos[index]
@@ -97,17 +97,6 @@ fileprivate struct CategoryDaosSearchListView: View {
                     }
                 }
             }
-        }
-    }
-}
-
-// TODO: implement design
-fileprivate struct RetryLoadMoreView: View {
-    let dataSource: CategoryDaosDataSource
-
-    var body: some View {
-        Button("Load more") {
-            dataSource.retryLoadMore()
         }
     }
 }

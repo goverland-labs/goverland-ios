@@ -15,16 +15,21 @@ struct AppTabView: View {
                 .tabItem {
                     Image(selectedTab == 1 ? "inbox-active" : "inbox")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
                 .tag(1)
+
             SearchView()
                 .tabItem {
                     Image(selectedTab == 2 ? "search-active" : "search")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
                 .tag(2)
+
             SettingsView()
                 .tabItem {
                     Image(selectedTab == 3 ? "settings-active" : "settings")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
                 .tag(3)
         }
         .accentColor(.primary)
