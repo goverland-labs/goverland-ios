@@ -9,10 +9,11 @@ import SwiftUI
 
 struct IntroView: View {
     @State var termsViewIsPresented = false
+    @StateObject private var orientationManager = DeviceOrientationManager()
     
     var body: some View {
         ZStack {
-            LottieIntroView()
+            LottieIntroView().id(orientationManager.currentOrientation)
             
             VStack {
                 Spacer()

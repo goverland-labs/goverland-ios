@@ -11,13 +11,16 @@ import UIKit
 
 struct LottieIntroView: UIViewRepresentable {
     typealias UIViewType = UIView
-    
+
     func makeUIView(context: UIViewRepresentableContext<LottieIntroView>) -> UIView {
         let view = UIView(frame: .zero)
-        
+
         let animationView = LottieAnimationView()
         animationView.animation = LottieAnimation.named("main-intro")
-        animationView.contentMode = .scaleAspectFill
+
+        let mode = UIDevice.current.orientation.isPortrait ? UIView.ContentMode.scaleAspectFill : .scaleAspectFit
+        animationView.contentMode = mode
+
         animationView.loopMode = .loop
         animationView.play()
         view.addSubview(animationView)
@@ -30,7 +33,7 @@ struct LottieIntroView: UIViewRepresentable {
 
         return view
     }
-    
+
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieIntroView>) {
         // do nothing
     }

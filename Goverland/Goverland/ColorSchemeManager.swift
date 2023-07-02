@@ -8,7 +8,6 @@
 import SwiftUI
 
 class ColorSchemeManager: ObservableObject {
-    
     @AppStorage("colorScheme") var colorScheme: ColorSchemeType = .dark
     
     var keyWindow : UIWindow? {
