@@ -31,13 +31,13 @@ struct FilterButtonsView<T: FilterOptions>: View {
                 ForEach(T.allValues) { filterOption in
                     ZStack {
                         if filter.id == filterOption.id {
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 18)
                                 .fill(Color.primary)
-                                .frame(height: 40)
+                                .frame(height: 36)
                                 .matchedGeometryEffect(id: "filter-background", in: namespace)
                         }
                         Text(filterOption.localizedName)
-                            .padding(20)
+                            .padding(16)
                             .font(.footnoteSemibold)
                             .foregroundColor(filterOption.id == filter.id ? .surfaceBright : .textWhite)
                     }
@@ -53,22 +53,3 @@ struct FilterButtonsView<T: FilterOptions>: View {
         }
     }
 }
-
-
-//enum SearchFilter: Int, CaseIterable {
-//    typealias Enum = Self
-//
-//    case daos = 0
-//    case proposals
-//
-//    var id: Int { self.rawValue }
-//
-//    var localizedName: String {
-//        switch self {
-//        case .daos:
-//            return "Daos"
-//        case .proposals:
-//            return "Proposals"
-//        }
-//    }
-//}
