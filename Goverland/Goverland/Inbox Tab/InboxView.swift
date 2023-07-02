@@ -7,16 +7,36 @@
 
 import SwiftUI
 
+enum InboxFilter: Int, FilterOptions {
+    case all = 0
+    case vote
+    case treasury
+
+    var localizedName: String {
+        switch self {
+        case .all:
+            return "All"
+        case .vote:
+            return "Vote"
+        case .treasury:
+            return "Treasury"
+        }
+    }
+}
+
 struct InboxView: View {
-    @State private var filter: FilterType = .all
+    @State private var filter: InboxFilter = .all
     @StateObject private var data = InboxDataService()
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-//                InboxFilterMenuView(filter: $filter, data: data)
-//                    .padding(10)
-//                    .background(Color.surfaceBright)
+                // TODO: enable once backend is ready
+//                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
+//                    data.refresh(withFilter: newValue)
+//                }
+//                .padding(10)
+//                .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<3) { _ in
@@ -77,12 +97,6 @@ struct InboxView: View {
                 }
             }
             .toolbarBackground(Color.surfaceBright, for: .navigationBar)
-        }
-    }
-    
-    struct InboxView_Previews: PreviewProvider {
-        static var previews: some View {
-            InboxView()
         }
     }
 }

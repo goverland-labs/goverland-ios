@@ -18,7 +18,7 @@ class InboxDataService: ObservableObject {
     private var total: Int?
     private var totalSkipped: Int?
 
-    func refresh(withFilter filter: FilterType) {
+    func refresh(withFilter filter: InboxFilter) {
         events = []
         isLoading = false
         failedToLoadInitialData = false
@@ -29,7 +29,7 @@ class InboxDataService: ObservableObject {
         loadInitialData(filter: .all)
     }
 
-    private func loadInitialData(filter: FilterType) {
+    private func loadInitialData(filter: InboxFilter) {
         isLoading = true
         APIService.inboxEvents()
             .sink { [weak self] completion in
