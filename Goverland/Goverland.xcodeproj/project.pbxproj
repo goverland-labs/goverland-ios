@@ -61,7 +61,7 @@
 		BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
-		BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataService.swift */; };
+		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
 		BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20C2968904C00FB87AC /* InboxEvent.swift */; };
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
@@ -170,7 +170,7 @@
 		BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryStatusView.swift; sourceTree = "<group>"; };
 		BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemContentView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
-		BA2EA20329677F7C00FB87AC /* InboxDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataService.swift; sourceTree = "<group>"; };
+		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				55D632B829505C4F0073E04A /* InboxView.swift */,
-				BA2EA20329677F7C00FB87AC /* InboxDataService.swift */,
+				BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */,
 			);
 			path = "Inbox Tab";
 			sourceTree = "<group>";
@@ -724,7 +724,7 @@
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
 				BA6B964B2A31056300851826 /* SearchProposalView.swift in Sources */,
 				BA8451582A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift in Sources */,
-				BA2EA20429677F7C00FB87AC /* InboxDataService.swift in Sources */,
+				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAD522602A279AF50097068F /* TelegramSettingsView.swift in Sources */,

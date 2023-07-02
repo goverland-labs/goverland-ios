@@ -26,7 +26,7 @@ enum InboxFilter: Int, FilterOptions {
 
 struct InboxView: View {
     @State private var filter: InboxFilter = .all
-    @StateObject private var data = InboxDataService()
+    @StateObject private var data = InboxDataSource()
     
     var body: some View {
         NavigationStack {
@@ -66,6 +66,14 @@ struct InboxView: View {
                             ZStack {
                                 NavigationLink(destination: SnapshotProposalView(proposal: proposal)) {}.opacity(0)
                                 ProposalListItemView(proposal: proposal)
+                                    .swipeActions(allowsFullSwipe: false) {
+                                        Button {
+                                            data.archive(proposal: proposal)
+                                        } label: {
+                                            Label("Archive", systemImage: "trash")
+                                        }
+                                        .tint(.clear)
+                                    }
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))

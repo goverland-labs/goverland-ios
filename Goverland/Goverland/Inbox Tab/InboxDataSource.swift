@@ -1,5 +1,5 @@
 //
-//  InboxDataService.swift
+//  InboxDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-01-05.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class InboxDataService: ObservableObject, Paginatable {
+class InboxDataSource: ObservableObject, Paginatable {
     @Published var events: [InboxEvent] = []
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
@@ -73,5 +73,9 @@ class InboxDataService: ObservableObject, Paginatable {
     func retryLoadMore() {
         // This will trigger view update cycle that will trigger `loadMore` function
         self.failedToLoadMore = false
+    }
+
+    func archive(proposal: Proposal) {
+        // TODO: implement
     }
 }
