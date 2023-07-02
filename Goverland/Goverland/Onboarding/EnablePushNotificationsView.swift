@@ -33,7 +33,7 @@ fileprivate struct PushNotificationBackgroundView: View {
                 .cornerRadius(110)
                 .blur(radius: 100)
             
-            Image("PushNotificationImage")
+            Image("push-notifications-placeholder")
         }
     }
 }
