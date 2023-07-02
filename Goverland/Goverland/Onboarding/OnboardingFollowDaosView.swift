@@ -28,12 +28,7 @@ struct OnboardingFollowDaosView: View {
                             EnablePushNotificationsView()
                         } label: {
                             // TODO: make button disabled logic
-                            HStack {
-                                Spacer()
-                                Text("Continue")
-                                Spacer()
-                            }
-                            .ghostActionButtonStyle()
+                            PrimaryButtonView("Continue")
                             .padding(.vertical)
                         }
                     } else {

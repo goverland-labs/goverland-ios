@@ -16,23 +16,13 @@ struct IntroView: View {
             
             VStack {
                 Spacer()
-                
-                // TODO: move to UI component
-                Button(action: {
+                PrimaryButton("Get Started") {
                     termsViewIsPresented = true
-                }) {
-                    HStack {
-                        Spacer()
-                        Text("Get Started")
-                        Spacer()
-                    }
                 }
-                .ghostActionButtonStyle()
                 .padding(.bottom, getPadding())
                 .padding(.horizontal)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
         .sheet(isPresented: $termsViewIsPresented) {
             TermsView(termsViewIsPresented: $termsViewIsPresented)
@@ -43,11 +33,11 @@ struct IntroView: View {
 }
 
 fileprivate func getPadding() -> CGFloat {
-    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height <= 667.0 {
-        // iPhone SE
-        return 10
+    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.screenHeight <= 667.0 {
+        // iPhone SE or smaller
+        return 20
     } else {
-        return 50
+        return 40
     }
 }
 

@@ -52,19 +52,11 @@ struct TermsView: View {
                 }
                 .accentColor(.primaryDim)
             }
-            
-            Button(action: {
+
+            PrimaryButton("Get Started") {
                 termsAccepted = true
                 trackingAccepted = true
-            }) {
-                HStack {
-                    Spacer()
-                    Text("Get Started")
-                    Spacer()
-                }
             }
-            .ghostActionButtonStyle()
-            
             
             Button("Accept without sharing data") {
                 termsAccepted = true
