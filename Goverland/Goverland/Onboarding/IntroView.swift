@@ -28,8 +28,7 @@ struct IntroView: View {
         .sheet(isPresented: $termsViewIsPresented) {
             TermsView(termsViewIsPresented: $termsViewIsPresented)
                 .presentationDetents([.medium, .large])
-        }
-        .onAppear() { Tracker.track(.introView) }
+        }        
     }
 }
 

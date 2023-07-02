@@ -20,7 +20,7 @@ struct DaoCardView: View {
     var body: some View {
         VStack {
             RoundPictureView(image: dao.avatar, imageSize: 90)
-                .padding(.top, 17)
+                .padding(.top, 18)
             
             VStack(spacing: 3) {
                 Text(dao.name)
@@ -37,9 +37,9 @@ struct DaoCardView: View {
 
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
-                .padding(.bottom, 20)
+                .padding(.bottom, 18)
         }
-        .frame(width: 140, height: 215)
+        .frame(width: 162, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))

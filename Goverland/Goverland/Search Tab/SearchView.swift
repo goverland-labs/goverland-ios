@@ -80,7 +80,7 @@ struct SearchView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.selectDaoView)
+                Tracker.track(.searchDaos)
             }
         }
     }
