@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class InboxDataService: ObservableObject {
+class InboxDataService: ObservableObject, Paginatable {
     @Published var events: [InboxEvent] = []
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
@@ -68,5 +68,10 @@ class InboxDataService: ObservableObject {
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
+    }
+
+    func retryLoadMore() {
+        // This will trigger view update cycle that will trigger `loadMore` function
+        self.failedToLoadMore = false
     }
 }

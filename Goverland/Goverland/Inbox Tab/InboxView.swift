@@ -39,41 +39,36 @@ struct InboxView: View {
 //                .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
-                        ForEach(0..<3) { _ in
-                            // TODO: move and style inside
-                            ShimmerLoadingItemView()
-                                .cornerRadius(20)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 8)
-                                .frame(height: 180)
+                        ForEach(0..<5) { _ in
+                            ShimmerProposalListItemView()
+                                .padding(.horizontal, 16)
                         }
                     }
+                    .padding(.top, 4)
                 } else {
                     List(0..<data.events.count, id: \.self) { index in
                         let event = data.events[index]
                         if index == data.events.count - 1 && data.hasMore() {
                             ZStack {
-                                ShimmerLoadingItemView()
-                                    .cornerRadius(20)
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, -5)
-                                    .frame(height: 180)
-                                    .onAppear {
-                                        data.loadMore()
-                                    }
+                                if !data.failedToLoadMore {
+                                    ShimmerProposalListItemView()
+                                        .onAppear {
+                                            data.loadMore()
+                                        }
+                                } else {
+                                    RetryLoadMoreListItemView(dataSource: data)
+                                }
                             }
-                            .listRowBackground(Color.surface)
                             .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 0, trailing: 16))
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ZStack {
                                 NavigationLink(destination: SnapshotProposalView(proposal: proposal)) {}.opacity(0)
                                 ProposalListItemView(proposal: proposal)
-                                    .padding(.bottom, 10)
                             }
                             .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .padding(.horizontal, -5)
+                            .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
                         }
                     }
                     .refreshable {
