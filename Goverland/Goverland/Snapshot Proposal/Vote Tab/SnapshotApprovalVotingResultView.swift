@@ -17,8 +17,8 @@ struct SnapshotApprovalVotingResultView: View {
                 let score = proposal.scores[index]
                 let totalScore = proposal.scoresTotal
                 SnapshotApprovalVotingResultBarView(choice: choices[index],
-                                                        score: score,
-                                                        totalScore: totalScore)
+                                                    score: score,
+                                                    totalScore: totalScore)
                 .padding(.bottom, 30)
             }
         }

@@ -17,8 +17,8 @@ struct SnapshotWeightedVotingResultView: View {
                 let score = proposal.scores[index]
                 let totalScore = proposal.scoresTotal
                 SnapshotWeightedVotingResultBarView(choice: choices[index],
-                                                        score: score,
-                                                        totalScore: totalScore)
+                                                    score: score,
+                                                    totalScore: totalScore)
                 .padding(.bottom, 30)
             }
         }
@@ -40,7 +40,7 @@ fileprivate struct SnapshotWeightedVotingResultBarView: View {
                     Spacer()
                     // TODO: converter to present rounded number with "K" needed here
                     // TODO: converter for %
-                    Text(String(Int(score)) + " SHOT " + String(Int(score/totalScore * 100)) + "%")
+                    Text(Utils.formattedNumber(score) + " | " + Utils.percentage(of: score, in: totalScore))
                         .font(.footnoteSemibold)
                         .foregroundColor(.textWhite)
                 }

@@ -41,8 +41,8 @@ struct SnapshotWeightedVotingView: View {
                                 .padding(.vertical)
                         }
                     }
-                    Text("\(viewModel.prosentage(for: choice))%")
-                        .frame(width: 50)
+                    Text(viewModel.prosentage(for: choice))
+                        .frame(width: 55)
                 }
                 .padding(.trailing)
                 .foregroundColor(.onSecondaryContainer)
@@ -66,7 +66,6 @@ class SnapshotWeightedVotinViewModel: ObservableObject {
     
     init(proposal: Proposal) {
         self.proposal = proposal
-        self.totalPower = 5 //proposal.votingPower
         for choice in proposal.choices {
             self.choicesPower[choice] = 0
         }
@@ -75,20 +74,17 @@ class SnapshotWeightedVotinViewModel: ObservableObject {
     func decreaseVotingPower(for choice: String) {
         if choicesPower[choice]! > 0 {
             choicesPower[choice]! -= 1
-            totalPower += 1
-        }
-    }
-    
-    func increaseVotingPower(for choice: String) {
-        if totalPower > 0 {
-            choicesPower[choice]! += 1
             totalPower -= 1
         }
     }
     
-    func prosentage(for choice: String) -> Int {
-        // return choicesPower[choice] / proposal.votingPower * 100 //When API is done
-        return Int(Double(choicesPower[choice]!) / 5 * 100) // for now this fix
+    func increaseVotingPower(for choice: String) {
+        choicesPower[choice]! += 1
+        totalPower += 1
+    }
+    
+    func prosentage(for choice: String) -> String {
+        return totalPower == 0 ? "0" : Utils.percentage(of: Double(choicesPower[choice]!), in: Double(totalPower))
     }
 }
 

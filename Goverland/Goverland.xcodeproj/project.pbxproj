@@ -756,11 +756,8 @@
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
-<<<<<<< HEAD
 				BA84515C2A4F59400088A6E6 /* SnapshotWeightedVotingView.swift in Sources */,
-=======
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
->>>>>>> main
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
