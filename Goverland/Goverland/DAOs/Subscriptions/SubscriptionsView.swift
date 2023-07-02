@@ -81,11 +81,8 @@ fileprivate struct NoSubscriptionsView: View {
         VStack {
             Text("You don’t follow any DAO at the moment.")
                 .padding(.bottom, 50)
-            Button(action: {
+            PrimaryButton("Follow a DAO") {
                 activeSheet = .followDaos
-            }) {
-                Text("Follow a DAO")
-                    .ghostActionButtonStyle()
             }
         }
         .padding()

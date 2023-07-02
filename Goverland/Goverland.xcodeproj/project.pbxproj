@@ -30,6 +30,8 @@
 		5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */; };
 		5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */; };
 		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
+		5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */; };
+		5596F1522A4F549F00BD55C7 /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F1512A4F549F00BD55C7 /* VoteButton.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */; };
 		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
@@ -103,7 +105,7 @@
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
 		BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */; };
 		BAF651D029B943E800C78A8A /* DaoInfoScreenControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CF29B943E800C78A8A /* DaoInfoScreenControlsView.swift */; };
-		BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651D129C0F00000C78A8A /* UIComponents.swift */; };
+		BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651D129C0F00000C78A8A /* RoundPictureView.swift */; };
 		BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */; };
 		BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FE29C8C1F300C78A8A /* Tracker.swift */; };
 		BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */; };
@@ -143,6 +145,8 @@
 		5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoListItemView.swift; sourceTree = "<group>"; };
 		5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoCardView.swift; sourceTree = "<group>"; };
 		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
+		5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		5596F1512A4F549F00BD55C7 /* VoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
 		5597E7352A0A5C8800E2FAE4 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		5597E7362A0A5C8800E2FAE4 /* ErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		5597E7372A0A5C8800E2FAE4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -214,7 +218,7 @@
 		BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoView.swift; sourceTree = "<group>"; };
 		BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenHeaderView.swift; sourceTree = "<group>"; };
 		BAF651CF29B943E800C78A8A /* DaoInfoScreenControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoScreenControlsView.swift; sourceTree = "<group>"; };
-		BAF651D129C0F00000C78A8A /* UIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
+		BAF651D129C0F00000C78A8A /* RoundPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPictureView.swift; sourceTree = "<group>"; };
 		BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		BAF651FE29C8C1F300C78A8A /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
@@ -249,7 +253,6 @@
 				BAB4B93F2A47490800D24110 /* Font */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
 				552885972A28EB1900ED2BCD /* Extentions.swift */,
-				BAF651D129C0F00000C78A8A /* UIComponents.swift */,
 				5521D26D29EF092900A09FD4 /* Colors.swift */,
 				557177E82A3E3E1B0026B12A /* Utils.swift */,
 				55D68FDE2A43251900A22657 /* Notifications.swift */,
@@ -263,12 +266,13 @@
 			children = (
 				552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
+				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */,
 				5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */,
 				5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */,
-				BA6B964F2A376C4500851826 /* Follow Button */,
+				5596F14C2A4F494000BD55C7 /* Buttons */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 			);
 			path = "UI Components";
@@ -310,6 +314,15 @@
 				552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		5596F14C2A4F494000BD55C7 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				BA6B964F2A376C4500851826 /* Follow Button */,
+				5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		5597E7342A0A5C8800E2FAE4 /* Networking */ = {
@@ -481,6 +494,7 @@
 				BA84515D2A505BC40088A6E6 /* SnapshotWeightedVotingResultView.swift */,
 				BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */,
 				BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */,
+				5596F1512A4F549F00BD55C7 /* VoteButton.swift */,
 			);
 			path = "Vote Tab";
 			sourceTree = "<group>";
@@ -707,6 +721,7 @@
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				BAAA52712953BB61003177BC /* ProposalListItemFooterView.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
+				5596F1522A4F549F00BD55C7 /* VoteButton.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */,
@@ -741,7 +756,11 @@
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
+<<<<<<< HEAD
 				BA84515C2A4F59400088A6E6 /* SnapshotWeightedVotingView.swift in Sources */,
+=======
+				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
+>>>>>>> main
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
@@ -759,7 +778,7 @@
 				BA8451522A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift in Sources */,
 				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
 				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
-				BAF651D229C0F00000C78A8A /* UIComponents.swift in Sources */,
+				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
@@ -1050,7 +1069,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
+				DEVELOPMENT_TEAM = VDVK9A6DE3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
@@ -1084,7 +1103,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
+				DEVELOPMENT_TEAM = VDVK9A6DE3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
