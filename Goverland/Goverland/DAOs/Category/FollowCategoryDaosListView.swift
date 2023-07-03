@@ -10,6 +10,8 @@ import SwiftUI
 struct FollowCategoryDaosListView: View {
     @StateObject var dataSource: CategoryDaosDataSource
     let title: String
+    let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
     
     private var searchPrompt: String {
         if let totalForCategory = dataSource.total.map(String.init) {
@@ -18,13 +20,19 @@ struct FollowCategoryDaosListView: View {
         return ""
     }
 
-    init(category: DaoCategory) {
+    init(category: DaoCategory,
+         onFollowToggleFromList: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil) {
         title = "\(category.name) DAOs"
         _dataSource = StateObject(wrappedValue: CategoryDaosDataSource(category: category))
+        self.onFollowToggleFromList = onFollowToggleFromList
+        self.onFollowToggleFromSearch = onFollowToggleFromSearch
     }
 
     var body: some View {
-        DaosListView(dataSource: dataSource)
+        DaosListView(dataSource: dataSource,
+                     onFollowToggleFromList: onFollowToggleFromList,
+                     onFollowToggleFromSearch: onFollowToggleFromSearch)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(title)
             .searchable(text: $dataSource.searchText,
@@ -39,6 +47,8 @@ struct FollowCategoryDaosListView: View {
 
 fileprivate struct DaosListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
+    let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         if dataSource.searchText == "" {
@@ -62,7 +72,9 @@ fileprivate struct DaosListView: View {
                                     }
                                 } else {
                                     let dao = dataSource.daos[index]
-                                    DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta)
+                                    DaoListItemView(dao: dao,
+                                                    subscriptionMeta: dao.subscriptionMeta,
+                                                    onFollowToggle: onFollowToggleFromList)
                                 }
                             }
                         }
@@ -72,7 +84,7 @@ fileprivate struct DaosListView: View {
                 RetryInitialLoadingView(dataSource: dataSource)
             }
         } else {
-            CategoryDaosSearchListView(dataSource: dataSource)
+            CategoryDaosSearchListView(dataSource: dataSource, onFollowToggle: onFollowToggleFromSearch)
         }
     }
 }
@@ -81,6 +93,7 @@ fileprivate struct DaosListView: View {
 /// Protocols aren't suitable for this case.
 fileprivate struct CategoryDaosSearchListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -93,7 +106,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta)
+                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta, onFollowToggle: onFollowToggle)
                     }
                 }
             }

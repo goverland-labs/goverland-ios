@@ -22,7 +22,11 @@ struct OnboardingFollowDaosView: View {
             VStack {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
-                        GroupedDaosView(dataSource: dataSource, displayCallToAction: true)
+                        GroupedDaosView(dataSource: dataSource,
+                                        callToAction: "Receive updates for the DAOs you select.",
+                                        onFollowToggleFromCard: { if $0 { Tracker.track(.onboardingFollowFromCard) } },
+                                        onFollowToggleFromCategoryList: { if $0 { Tracker.track(.onboardingFollowFromCtgList) } },
+                                        onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.onboardingFollowFromCtgSearch) } })
 
                         NavigationLink {
                             EnablePushNotificationsView()
@@ -35,7 +39,11 @@ struct OnboardingFollowDaosView: View {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    DaosSearchListView(dataSource: dataSource)
+                    DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                        if didFollow {
+                            Tracker.track(.onboardingFollowFromSearch)
+                        }
+                    })
                 }
             }
             .searchable(text: $dataSource.searchText,
