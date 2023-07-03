@@ -1,5 +1,5 @@
 //
-//  SnapshotWeightedVotingResultView.swift
+//  SnapshotWeightedQuadraticVotingResultView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-07-01.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SnapshotWeightedVotingResultView: View {
+struct SnapshotWeightedQuadraticVotingResultView: View {
     let proposal: Proposal
     
     var body: some View {
@@ -60,6 +60,6 @@ fileprivate struct SnapshotWeightedVotingResultBarView: View {
 
 struct SnapshotWeightedVotingResultView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotWeightedVotingResultView(proposal: .aaveTest)
+        SnapshotWeightedQuadraticVotingResultView(proposal: .aaveTest)
     }
 }
