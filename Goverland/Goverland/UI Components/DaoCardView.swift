@@ -9,6 +9,11 @@ import SwiftUI
 
 struct DaoCardView: View {
     let dao: Dao
+    @Environment(\.presentationMode) private var presentationMode
+
+    private var backgroundColor: Color {
+        presentationMode.wrappedValue.isPresented ? .containerBright : .container
+    }
 
     var members: String {
         if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
@@ -42,7 +47,7 @@ struct DaoCardView: View {
         .frame(width: 162, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container))
+                .fill(backgroundColor))
     }
 }
 
