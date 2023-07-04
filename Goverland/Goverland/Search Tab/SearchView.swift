@@ -26,11 +26,15 @@ struct SearchView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
 
     private var searchPrompt: String {
-        // TODO: make aware of selected control
-        if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search \(filter.localizedName) by name"
+        switch filter {
+        case .daos:
+            if let _ = dataSource.totalDaos.map(String.init) {
+                return "Search DAOs by name"
+            }
+            return ""
+        case .proposals:
+            return ""
         }
-        return ""
     }
     
     var body: some View {
@@ -45,18 +49,27 @@ struct SearchView: View {
                 .padding(.bottom, 4)
                 
                 if dataSource.searchText == "" {
-                    if !dataSource.failedToLoadInitially {
-                        switch filter {
-                        case .daos:
-                            GroupedDaosView(dataSource: dataSource)
-                        case .proposals:
-                            SearchProposalView()
+                    switch filter {
+                    case .daos:
+                        if !dataSource.failedToLoadInitially {
+                            GroupedDaosView(dataSource: dataSource,
+                                            onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
+                                            onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
+                                            onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } })
+                        } else {
+                            RetryInitialLoadingView(dataSource: dataSource)
                         }
-                    } else {
-                        RetryInitialLoadingView(dataSource: dataSource)
+                    case .proposals:
+                        SearchProposalView()
                     }
+
                 } else {
-                    DaosSearchListView(dataSource: dataSource)
+                    switch filter {
+                    case .daos: DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                        Tracker.track(.searchDaosFollowFromSearch)
+                    })
+                    case .proposals: SearchProposalView()
+                    }
                 }
             }
             .searchable(text: $dataSource.searchText,

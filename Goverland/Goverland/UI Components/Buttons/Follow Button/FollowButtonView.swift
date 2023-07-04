@@ -13,10 +13,16 @@ struct FollowButtonView: View {
     let buttonHeight: CGFloat
     var isFollowing: Bool { dataSource.subscriptionID != nil }
 
-    init(daoID: UUID, subscriptionID: UUID?, buttonWidth: CGFloat = 100, buttonHeight: CGFloat = 32) {
+    init(daoID: UUID,
+         subscriptionID: UUID?,
+         onFollowToggle: ((_ didFollow: Bool) -> Void)?,
+         buttonWidth: CGFloat = 100,
+         buttonHeight: CGFloat = 32) {
         self.buttonWidth = buttonWidth
         self.buttonHeight = buttonHeight
-        let dataSource = FollowButtonDataSource(daoID: daoID, subscriptionID: subscriptionID)
+        let dataSource = FollowButtonDataSource(daoID: daoID,
+                                                subscriptionID: subscriptionID,
+                                                onFollowToggle: onFollowToggle)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -58,6 +64,6 @@ struct ShimmerFollowButtonView: View {
 
 struct FollowButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowButtonView(daoID: UUID(), subscriptionID: UUID())
+        FollowButtonView(daoID: UUID(), subscriptionID: UUID(), onFollowToggle: nil)
     }
 }

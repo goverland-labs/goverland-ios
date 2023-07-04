@@ -9,18 +9,29 @@ import SwiftUI
 
 struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
-    let displayCallToAction: Bool
 
-    init(dataSource: GroupedDaosDataSource, displayCallToAction: Bool = false) {
+    let callToAction: String?
+    let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
+
+    init(dataSource: GroupedDaosDataSource,
+         callToAction: String? = nil,
+         onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil) {
         self.dataSource = dataSource
-        self.displayCallToAction = displayCallToAction
+        self.callToAction = callToAction
+        self.onFollowToggleFromCard = onFollowToggleFromCard
+        self.onFollowToggleFromCategoryList = onFollowToggleFromCategoryList
+        self.onFollowToggleFromCategorySearch = onFollowToggleFromCategorySearch
     }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack {
-                if displayCallToAction {
-                    Text("Receive updates for the DAOs you select.")
+            VStack {                
+                if let callToAction = callToAction {
+                    Text(callToAction)
                         .font(.subheadlineRegular)
                         .foregroundColor(.textWhite)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -41,7 +52,9 @@ struct GroupedDaosView: View {
                         .padding(.top, 16)
                         .padding(.horizontal, 16)
 
-                        DaoThreadForCategoryView(dataSource: dataSource, category: category)
+                        DaoThreadForCategoryView(dataSource: dataSource,
+                                                 category: category,
+                                                 onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
                             .padding(.top, 8)
                             .padding(.bottom, 16)
@@ -50,7 +63,10 @@ struct GroupedDaosView: View {
             }
         }
         .navigationDestination(for: DaoCategory.self) { category in
-            FollowCategoryDaosListView(category: category)
+            FollowCategoryDaosListView(category: category,
+                                       onFollowToggleFromList: onFollowToggleFromCategoryList,
+                                       onFollowToggleFromSearch: onFollowToggleFromCategorySearch
+            )
         }
     }
 }
@@ -58,6 +74,7 @@ struct GroupedDaosView: View {
 fileprivate struct DaoThreadForCategoryView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
     let category: DaoCategory
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -80,7 +97,7 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao)
+                            DaoCardView(dao: dao, onFollowToggle: onFollowToggle)
                         }
                     }
                 }

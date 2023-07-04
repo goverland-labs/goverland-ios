@@ -33,8 +33,10 @@ struct SubscriptionsView: View {
                                 ForEach(dataSource.subscriptions) { subscription in
                                     DaoListItemView(
                                         dao: subscription.dao,
-                                        subscriptionMeta: SubscriptionMeta(id: subscription.id,
-                                                                           createdAt: subscription.createdAt)
+                                        subscriptionMeta: SubscriptionMeta(id: subscription.id, createdAt: subscription.createdAt),
+                                        onFollowToggle: { didFollow in
+                                            Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
+                                        }
                                     )
                                     .onTapGesture {
                                         NotificationCenter.default.post(name: .didSelectShowDaoInfo, object: subscription.dao)
@@ -63,7 +65,7 @@ struct SubscriptionsView: View {
         }
         .onAppear() {
             dataSource.refresh()
-            Tracker.track(.followedDaosListView)
+            Tracker.track(.screenFollowedDaos)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
             // refresh if some popover sheet is presented
