@@ -27,6 +27,10 @@ struct SnapshotRankedChoiceVotingView: View {
                     }
                 }
             }
+
+            if !selectedChoicesIndex.isEmpty{
+                Spacer().frame(height: 20)
+            }
             
             ForEach(choices.indices, id: \.self) { index in
                 if !selectedChoicesIndex.contains(index) {
