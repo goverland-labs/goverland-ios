@@ -216,7 +216,8 @@ struct ProposalVotesEndpoint: APIEndpoint {
     
     var body: Data?
     
-    init(proposalID: UUID) {
+    init(proposalID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
         self.proposalID = proposalID
     }
 }

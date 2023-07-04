@@ -141,4 +141,17 @@ extension APIService {
         let endpoint = ProposalEndpoint(proposalID: id)
         return shared.request(endpoint)
     }
+    
+    static func voters(proposalID: UUID,
+                       offset: Int = 0,
+                       limit: Int = DEFAULT_PAGINATION_COUNT,
+                       query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        
+        let endpoint = ProposalVotesEndpoint(proposalID: proposalID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 }
