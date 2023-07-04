@@ -83,6 +83,7 @@ struct SnapshotProposalVoteTabView: View {
                 }
                 case .approval: SnapshotApprovalVotingView(proposal: proposal)
                 case .weighted : SnapshotWeightedVotingView(proposal: proposal)
+                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal)
                 default: SnapshotBasicVotingView { _ in }
                 }
             case .results:
@@ -91,6 +92,7 @@ struct SnapshotProposalVoteTabView: View {
                 case .singleChoice: SnapshotSingleChoiceVotingResultView(proposal: proposal)
                 case .approval: SnapshotApprovalVotingResultView(proposal: proposal)
                 case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
+                case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
                 default: SnapshotBasicVotingResultView(proposal: proposal)
                 }
             case .voters:
