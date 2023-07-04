@@ -52,6 +52,18 @@ struct DaoCardView: View {
     }
 }
 
+struct RetryLoadMoreCardView: View {
+    let dataSource: GroupedDaosDataSource
+    let category: DaoCategory
+
+    var body: some View {
+        Button("Load more") {
+            dataSource.retryLoadMore(category: category)
+        }
+        .frame(width: 130)
+    }
+}
+
 struct ShimmerDaoCardView: View {
     var body: some View {
         VStack {

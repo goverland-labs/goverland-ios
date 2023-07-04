@@ -80,7 +80,7 @@ fileprivate struct DaoThreadForCategoryView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 if dataSource.categoryDaos[category] == nil { // initial loading
-                    ForEach(0..<3) { _ in
+                    ForEach(0..<5) { _ in
                         ShimmerDaoCardView()
                     }
                 } else {
@@ -103,18 +103,6 @@ fileprivate struct DaoThreadForCategoryView: View {
                 }
             }
         }
-    }
-}
-
-fileprivate struct RetryLoadMoreCardView: View {
-    let dataSource: GroupedDaosDataSource
-    let category: DaoCategory
-
-    var body: some View {
-        Button("Load more") {
-            dataSource.retryLoadMore(category: category)
-        }
-        .frame(width: 130)
     }
 }
 
