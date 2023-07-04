@@ -196,3 +196,27 @@ struct ProposalEndpoint: APIEndpoint {
         self.proposalID = proposalID
     }
 }
+
+struct ProposalVotesEndpoint: APIEndpoint {
+    typealias ResponseType = Voters
+    
+    struct Voters: Decodable {
+        let id: UUID
+
+        enum CodingKeys: String, CodingKey {
+            case id = "id"
+        }
+    }
+
+    let proposalID: UUID
+    
+    var path: String { "proposals/\(proposalID)/votes" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+    
+    var body: Data?
+    
+    init(proposalID: UUID) {
+        self.proposalID = proposalID
+    }
+}
