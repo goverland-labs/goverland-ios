@@ -28,8 +28,8 @@ struct SearchView: View {
     private var searchPrompt: String {
         switch filter {
         case .daos:
-            if let _ = dataSource.totalDaos.map(String.init) {
-                return "Search DAOs by name"
+            if let total = dataSource.totalDaos.map(String.init) {
+                return "Search for \(total) DAOs by name"
             }
             return ""
         case .proposals:

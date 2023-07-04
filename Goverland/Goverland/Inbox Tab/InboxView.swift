@@ -41,7 +41,7 @@ struct InboxView: View {
                     ScrollView {
                         ForEach(0..<5) { _ in
                             ShimmerProposalListItemView()
-                                .padding(.horizontal, 16)
+                                .padding(.horizontal, 12)
                         }
                     }
                     .padding(.top, 4)
@@ -60,7 +60,7 @@ struct InboxView: View {
                                 }
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 0, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
@@ -77,7 +77,7 @@ struct InboxView: View {
                                     }
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
                         }
                     }

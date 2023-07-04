@@ -14,8 +14,8 @@ struct FollowCategoryDaosListView: View {
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
     
     private var searchPrompt: String {
-        if let totalForCategory = dataSource.total.map(String.init) {
-            return "Search \(totalForCategory) DAOs by name"
+        if let total = dataSource.total.map(String.init) {
+            return "Search for \(total) DAOs by name"
         }
         return ""
     }
@@ -100,6 +100,9 @@ fileprivate struct CategoryDaosSearchListView: View {
             VStack(spacing: 12) {
                 if dataSource.nothingFound {
                     Text("Nothing found")
+                        .font(.body)
+                        .foregroundColor(.textWhite)
+                        .padding(.top, 16)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
                     ForEach(0..<3) { _ in
                         ShimmerDaoListItemView()

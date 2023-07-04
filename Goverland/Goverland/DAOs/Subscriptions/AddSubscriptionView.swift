@@ -12,8 +12,8 @@ struct AddSubscriptionView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
 
     private var searchPrompt: String {
-        if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search \(totalDaos) DAOs by name"
+        if let total = dataSource.totalDaos.map(String.init) {
+            return "Search for \(total) DAOs by name"
         }
         return ""
     }
