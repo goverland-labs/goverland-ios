@@ -16,6 +16,7 @@ struct DaosSearchListView: View {
             VStack(spacing: 12) {
                 if dataSource.nothingFound {
                     Text("Nothing found")
+                        .font(.body)
                         .foregroundColor(.textWhite)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
                     ForEach(0..<3) { _ in

@@ -16,7 +16,7 @@ struct DaoCardView: View {
         presentationMode.wrappedValue.isPresented ? .containerBright : .container
     }
 
-    var members: String {
+    private var members: String {
         if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
             return "\(members) members"
         }

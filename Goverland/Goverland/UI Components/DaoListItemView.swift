@@ -12,12 +12,24 @@ struct DaoListItemView: View {
     let subscriptionMeta: SubscriptionMeta?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
+    private var members: String {
+        if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
+            return "\(members) members"
+        }
+        return ""
+    }
+
     var body: some View {
         HStack {
             RoundPictureView(image: dao.avatar, imageSize: 50)
-            Text(dao.name)
-                .font(.headlineSemibold)
-                .foregroundColor(.textWhite)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(dao.name)
+                    .font(.headlineRegular)
+                    .foregroundColor(.textWhite)
+                Text(members)
+                    .font(.caption2)
+                    .foregroundColor(.textWhite60)
+            }
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id, onFollowToggle: onFollowToggle)
         }
@@ -32,9 +44,15 @@ struct ShimmerDaoListItemView: View {
             ShimmerView()
                 .frame(width: 50, height: 50)
                 .cornerRadius(25)
-            ShimmerView()
-                .frame(width: 150, height: 26)
-                .cornerRadius(13)
+            VStack(alignment: .leading, spacing: 4) {
+                ShimmerView()
+                    .frame(width: 150, height: 18)
+                    .cornerRadius(9)
+                ShimmerView()
+                    .frame(width: 100, height: 12)
+                    .cornerRadius(6)
+            }
+
             Spacer()
             ShimmerFollowButtonView()
         }
