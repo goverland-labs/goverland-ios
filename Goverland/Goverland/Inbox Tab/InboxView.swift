@@ -61,6 +61,7 @@ struct InboxView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 0, trailing: 16))
+                            .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ZStack {
@@ -77,6 +78,7 @@ struct InboxView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                            .listRowBackground(Color.clear)
                         }
                     }
                     .refreshable {

@@ -9,6 +9,12 @@ import SwiftUI
 
 struct DaoCardView: View {
     let dao: Dao
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
+    @Environment(\.presentationMode) private var presentationMode
+
+    private var backgroundColor: Color {
+        presentationMode.wrappedValue.isPresented ? .containerBright : .container
+    }
 
     var members: String {
         if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
@@ -36,13 +42,13 @@ struct DaoCardView: View {
             .padding(.horizontal, 12)
 
             Spacer()
-            FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id)
+            FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
                 .padding(.bottom, 18)
         }
         .frame(width: 162, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container))
+                .fill(backgroundColor))
     }
 }
 
@@ -78,7 +84,7 @@ struct ShimmerDaoCardView: View {
 struct DaoCardView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoCardView(dao: .aave)
+            DaoCardView(dao: .aave, onFollowToggle: nil)
             ShimmerDaoCardView()
         }
     }

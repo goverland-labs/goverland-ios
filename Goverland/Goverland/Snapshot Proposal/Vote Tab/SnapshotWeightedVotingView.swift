@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SnapshotWeightedVotingView: View {
     @StateObject var viewModel: SnapshotWeightedVotinViewModel
-     
+    @State var isDisabled: Bool = true
+    
     init(proposal: Proposal) {
         _viewModel = StateObject(wrappedValue: SnapshotWeightedVotinViewModel(proposal: proposal))
     }
@@ -26,6 +27,7 @@ struct SnapshotWeightedVotingView: View {
                     HStack(spacing: 0) {
                         Button(action: {
                             viewModel.decreaseVotingPower(for: choice)
+                            isDisabled = viewModel.totalPower == 0
                         }) {
                             Image(systemName: "minus")
                                 .frame(width: 40)
@@ -35,6 +37,7 @@ struct SnapshotWeightedVotingView: View {
                             .frame(width: 20)
                         Button(action: {
                             viewModel.increaseVotingPower(for: choice)
+                            isDisabled = viewModel.totalPower == 0
                         }) {
                             Image(systemName: "plus")
                                 .frame(width: 40)
@@ -55,13 +58,17 @@ struct SnapshotWeightedVotingView: View {
                         .stroke(Color.secondaryContainer, lineWidth: 1)
                 )
             }
+            
+            VoteButton(disabled: $isDisabled) {
+                print("submitting vote")
+            }
         }
     }
 }
 
 class SnapshotWeightedVotinViewModel: ObservableObject {
     let proposal: Proposal
-    private var totalPower: Int = 0
+    var totalPower: Int = 0
     @Published var choicesPower: [String: Int] = [:]
     
     init(proposal: Proposal) {

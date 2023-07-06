@@ -22,12 +22,19 @@ struct AddSubscriptionView: View {
         VStack {
             if dataSource.searchText == "" {
                 if !dataSource.failedToLoadInitially {
-                    GroupedDaosView(dataSource: dataSource)
+                    GroupedDaosView(dataSource: dataSource,
+                                    onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
+                                    onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
+                                    onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.followedAddFollowFromCtgSearch) } })
                 } else {
                     RetryInitialLoadingView(dataSource: dataSource)
                 }
             } else {
-                DaosSearchListView(dataSource: dataSource)
+                DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                    if didFollow {
+                        Tracker.track(.followedAddFollowFromSearch)
+                    }
+                })
             }
         }
         .searchable(text: $dataSource.searchText,
@@ -53,7 +60,7 @@ struct AddSubscriptionView: View {
         }
         .onAppear() {
             dataSource.refresh()
-            Tracker.track(.addSubscriptionView)
+            Tracker.track(.followedDaosAdd)
         }
     }
 }
