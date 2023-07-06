@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -120,6 +121,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				5586BB882A34C75500A6E316 /* AuthManager.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
+				55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */,
 				5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
@@ -723,6 +726,7 @@
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
+				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
