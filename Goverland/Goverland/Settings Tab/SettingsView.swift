@@ -39,7 +39,6 @@ struct SettingsView: View {
                 
                 Section(header: Text("Contact Us")) {
                     TwitterSettingsView()
-                    TelegramSettingsView()
                     DiscordSettingsView()
                     MailSettingView()
                 }
@@ -79,11 +78,9 @@ struct SettingsView: View {
 fileprivate struct PushNotificationsSettingView: View {
     @State private var isReceiveUpdates = false
     var body: some View {
-        VStack {
-            Toggle("Receive updates from followed DAOs", isOn: $isReceiveUpdates)
-            Spacer()
+        List {
+            Toggle("Receive updates from DAOs", isOn: $isReceiveUpdates)
         }
-        .padding()
         .onAppear() {Tracker.track(.settingsPushNotificationsView) }
     }
 }
@@ -92,16 +89,19 @@ fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
             HStack {
-                Image(systemName: "lock.fill")
+                Image("privacy-policy")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
             }
             HStack {
-                Image(systemName: "doc.badge.gearshape")
+                Image("term-service")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("[Terms of Service](http://goverland.xyz/terms)")
             }
         }
-        .foregroundColor(.gray)
-        .tint(.primary)
+        .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsAboutView) }
     }
 }
@@ -123,16 +123,21 @@ fileprivate struct HelpUsGrowSettingView: View {
                 }
             }) {
                 HStack {
-                    Image(systemName: "star.bubble")
+                    Image("rate-app")
+                        .foregroundColor(.primary)
+                        .frame(width: 30)
                     Text("Rate the App")
                 }
             }
             
             HStack {
-                Image(systemName: "shareplay")
+                Image("share-tweet")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("Share a tweet") //TODO: message, body and the image (after branding is done)
             }
         }
+        .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
         
