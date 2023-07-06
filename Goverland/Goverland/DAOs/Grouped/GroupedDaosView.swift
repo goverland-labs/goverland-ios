@@ -11,26 +11,44 @@ struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
 
     let callToAction: String?
-    let onDaoImageTap: ((Dao) -> Void)?
+
+    let onSelectDaoFromGroup: ((Dao) -> Void)?
+    let onSelectDaoFromCategoryList: ((Dao) -> Void)?
+    let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
+
     let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
-    let onCategoryListAppear: (() -> Void)?
     let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
 
+    let onCategoryListAppear: (() -> Void)?
+
     init(dataSource: GroupedDaosDataSource,
+
          callToAction: String? = nil,
-         onDaoImageTap: ((Dao) -> Void)? = nil,
+
+         onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
+         onSelectDaoFromCategoryList: ((Dao) -> Void)? = nil,
+         onSelectDaoFromCategorySearch: ((Dao) -> Void)? = nil,
+
          onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)? = nil,
-         onCategoryListAppear: (() -> Void)? = nil,
          onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)? = nil,
-         onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil) {
+         onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil,
+
+         onCategoryListAppear: (() -> Void)? = nil
+    ) {
         self.dataSource = dataSource
+
         self.callToAction = callToAction
-        self.onDaoImageTap = onDaoImageTap
+
+        self.onSelectDaoFromGroup = onSelectDaoFromGroup
+        self.onSelectDaoFromCategoryList = onSelectDaoFromCategoryList
+        self.onSelectDaoFromCategorySearch = onSelectDaoFromCategorySearch
+
         self.onFollowToggleFromCard = onFollowToggleFromCard
-        self.onCategoryListAppear = onCategoryListAppear
         self.onFollowToggleFromCategoryList = onFollowToggleFromCategoryList
         self.onFollowToggleFromCategorySearch = onFollowToggleFromCategorySearch
+
+        self.onCategoryListAppear = onCategoryListAppear
     }
 
     var body: some View {
@@ -60,7 +78,7 @@ struct GroupedDaosView: View {
 
                         DaoThreadForCategoryView(dataSource: dataSource,
                                                  category: category,
-                                                 onDaoImageTap: onDaoImageTap,
+                                                 onSelectDao: onSelectDaoFromGroup,
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
                             .padding(.top, 8)
@@ -71,11 +89,11 @@ struct GroupedDaosView: View {
         }
         .navigationDestination(for: DaoCategory.self) { category in
             FollowCategoryDaosListView(category: category,
-                                       onCategoryListAppear: onCategoryListAppear,
-                                       onRowTap: onDaoImageTap,
+                                       onSelectDaoFromList: onSelectDaoFromCategoryList,
+                                       onSelectDaoFromSearch: onSelectDaoFromCategorySearch,
                                        onFollowToggleFromList: onFollowToggleFromCategoryList,
-                                       onFollowToggleFromSearch: onFollowToggleFromCategorySearch
-            )
+                                       onFollowToggleFromSearch: onFollowToggleFromCategorySearch,
+                                       onCategoryListAppear: onCategoryListAppear)
         }
     }
 }
@@ -83,7 +101,7 @@ struct GroupedDaosView: View {
 fileprivate struct DaoThreadForCategoryView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
     let category: DaoCategory
-    let onDaoImageTap: ((Dao) -> Void)?
+    let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
@@ -107,7 +125,9 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao, onDaoImageTap: onDaoImageTap, onFollowToggle: onFollowToggle)
+                            DaoCardView(dao: dao,                                        
+                                        onSelectDao: onSelectDao,
+                                        onFollowToggle: onFollowToggle)
                         }
                     }
                 }

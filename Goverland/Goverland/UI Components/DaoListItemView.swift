@@ -10,6 +10,7 @@ import SwiftUI
 struct DaoListItemView: View {
     let dao: Dao
     let subscriptionMeta: SubscriptionMeta?
+    let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     private var members: String {
@@ -35,6 +36,9 @@ struct DaoListItemView: View {
         }
         .padding(12)
         .listRowSeparator(.hidden)
+        .onTapGesture {
+            onSelectDao?(dao)
+        }
     }
 }
 
@@ -64,7 +68,10 @@ struct ShimmerDaoListItemView: View {
 struct DapListItemView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoListItemView(dao: .aave, subscriptionMeta: nil, onFollowToggle: nil)
+            DaoListItemView(dao: .aave,
+                            subscriptionMeta: nil,
+                            onSelectDao: nil,
+                            onFollowToggle: nil)
             ShimmerDaoListItemView()
         }
     }

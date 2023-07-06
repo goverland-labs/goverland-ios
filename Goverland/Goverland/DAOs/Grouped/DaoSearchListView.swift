@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DaosSearchListView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
+    let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((Bool) -> Void)?
 
     var body: some View {
@@ -25,7 +26,10 @@ struct DaosSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta, onFollowToggle: onFollowToggle)
+                        DaoListItemView(dao: dao,
+                                        subscriptionMeta: dao.subscriptionMeta,
+                                        onSelectDao: onSelectDao,
+                                        onFollowToggle: onFollowToggle)
                     }
                 }
             }

@@ -24,6 +24,7 @@ enum SearchFilter: Int, FilterOptions {
 struct SearchView: View {
     @State private var filter: SearchFilter = .daos
     @StateObject private var dataSource = GroupedDaosDataSource()
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     private var searchPrompt: String {
         switch filter {
@@ -53,10 +54,16 @@ struct SearchView: View {
                     case .daos:
                         if !dataSource.failedToLoadInitially {
                             GroupedDaosView(dataSource: dataSource,
+
+                                            onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                            onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
+                                            onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
+
                                             onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
-                                            onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) },
                                             onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
-                                            onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } })
+                                            onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } },
+
+                                            onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
                         } else {
                             RetryInitialLoadingView(dataSource: dataSource)
                         }
@@ -66,7 +73,12 @@ struct SearchView: View {
 
                 } else {
                     switch filter {
-                    case .daos: DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                    case .daos: DaosSearchListView(dataSource: dataSource,
+                                                   onSelectDao: { dao in
+                        activeSheetManger.activeSheet = .daoInfo(dao)
+                        Tracker.track(.searchDaosOpenDaoFromSearch)
+                    },
+                                                   onFollowToggle: { didFollow in
                         Tracker.track(.searchDaosFollowFromSearch)
                     })
                     case .proposals: SearchProposalView()

@@ -33,13 +33,14 @@ struct SubscriptionsView: View {
                                     DaoListItemView(
                                         dao: subscription.dao,
                                         subscriptionMeta: SubscriptionMeta(id: subscription.id, createdAt: subscription.createdAt),
+                                        onSelectDao: { dao in
+                                            activeSheetManager.activeSheet = .daoInfo(subscription.dao)
+                                            Tracker.track(.followedDaosOpenDao)
+                                        },
                                         onFollowToggle: { didFollow in
                                             Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
                                         }
                                     )
-                                    .onTapGesture {
-                                        activeSheetManager.activeSheet = .daoInfo(subscription.dao)                                        
-                                    }
                                 }
                             }
                         }

@@ -26,16 +26,26 @@ struct AddSubscriptionView: View {
             if dataSource.searchText == "" {
                 if !dataSource.failedToLoadInitially {
                     GroupedDaosView(dataSource: dataSource,
-                                    onDaoImageTap: { dao in activeSheetManger.activeSheet = .daoInfo(dao) },
+
+                                    onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
+                                    onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
+                                    onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
+
                                     onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
-                                    onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) },
                                     onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
-                                    onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.followedAddFollowFromCtgSearch) } })
+                                    onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.followedAddFollowFromCtgSearch) } },
+
+                                    onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) })
                 } else {
                     RetryInitialLoadingView(dataSource: dataSource)
                 }
             } else {
-                DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                DaosSearchListView(dataSource: dataSource,
+                                   onSelectDao: { dao in
+                    activeSheetManger.activeSheet = .daoInfo(dao)
+                    Tracker.track(.followedAddOpenDaoFromSearch)
+                },
+                                   onFollowToggle: { didFollow in
                     if didFollow {
                         Tracker.track(.followedAddFollowFromSearch)
                     }
