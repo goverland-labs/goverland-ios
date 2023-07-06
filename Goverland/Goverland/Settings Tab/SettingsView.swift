@@ -141,14 +141,6 @@ fileprivate struct HelpUsGrowSettingView: View {
     }
 }
 
-fileprivate struct PartnershipSettingView: View {
-    var body: some View {
-        List {
-            Text("[Partnership](http://www.goverland.xyz/partnership)")
-        }
-    }
-}
-
 fileprivate struct AdvancedSettingView: View {
     @Setting(\.trackingAccepted) var trackingAccepted
     @State private var isTrackActivity = false
