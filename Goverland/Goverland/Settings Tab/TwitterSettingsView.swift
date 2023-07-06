@@ -14,7 +14,11 @@ struct TwitterSettingsView: View {
                 .foregroundColor(.primary)
                 .frame(width: 30)
             Button("Twitter", action: openTwitterApp)
+            Spacer()
+            Image(systemName: "arrow.up.right")
+                .foregroundColor(.textWhite40)
         }
+        .accentColor(.textWhite)
     }
     
     private func openTwitterApp() {

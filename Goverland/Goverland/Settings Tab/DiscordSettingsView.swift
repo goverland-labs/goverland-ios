@@ -14,7 +14,11 @@ struct DiscordSettingsView: View {
                 .foregroundColor(.primary)
                 .frame(width: 30)
             Button("Discord", action: openDiscordApp)
+            Spacer()
+            Image(systemName: "arrow.up.right")
+                .foregroundColor(.textWhite40)
         }
+        .accentColor(.textWhite)
     }
     
     private func openDiscordApp() {

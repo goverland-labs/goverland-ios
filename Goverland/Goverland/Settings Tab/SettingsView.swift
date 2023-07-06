@@ -29,12 +29,8 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs") {
-                        SubscriptionsView(activeSheet: $activeSheet)
-                    }
-                    NavigationLink("Notifications") {
-                        PushNotificationsSettingView()
-                    }
+                    NavigationLink("Followed DAOs") { SubscriptionsView(activeSheet: $activeSheet) }
+                    NavigationLink("Notifications") { PushNotificationsSettingView() }
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -42,7 +38,6 @@ struct SettingsView: View {
                     DiscordSettingsView()
                     MailSettingView()
                 }
-                .tint(.primary)
                 
                 Section {
                     NavigationLink("About") { AboutSettingView() }
@@ -93,24 +88,22 @@ fileprivate struct AboutSettingView: View {
                     .foregroundColor(.primary)
                     .frame(width: 30)
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .foregroundColor(.textWhite40)
             }
             HStack {
                 Image("term-service")
                     .foregroundColor(.primary)
                     .frame(width: 30)
                 Text("[Terms of Service](http://goverland.xyz/terms)")
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .foregroundColor(.textWhite40)
             }
         }
         .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsAboutView) }
-    }
-}
-
-fileprivate struct PartnershipSettingView: View {
-    var body: some View {
-        List {
-            Text("[Partnership](http://www.goverland.xyz/partnership)")
-        }
     }
 }
 
@@ -127,6 +120,9 @@ fileprivate struct HelpUsGrowSettingView: View {
                         .foregroundColor(.primary)
                         .frame(width: 30)
                     Text("Rate the App")
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .foregroundColor(.textWhite40)
                 }
             }
             
@@ -135,12 +131,22 @@ fileprivate struct HelpUsGrowSettingView: View {
                     .foregroundColor(.primary)
                     .frame(width: 30)
                 Text("Share a tweet") //TODO: message, body and the image (after branding is done)
+                Spacer()
+                Image(systemName: "square.and.arrow.up")
+                    .foregroundColor(.textWhite40)
             }
         }
         .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
-        
+}
+
+fileprivate struct PartnershipSettingView: View {
+    var body: some View {
+        List {
+            Text("[Partnership](http://www.goverland.xyz/partnership)")
+        }
+    }
 }
 
 fileprivate struct AdvancedSettingView: View {

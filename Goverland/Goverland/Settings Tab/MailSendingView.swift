@@ -31,7 +31,13 @@ struct MailSettingView: View {
             }
             .alert(isPresented: $isShowingMailAlertView,
                    content: GetSettingsEmailAddressAlert)
+            
+            Spacer()
+            Image(systemName: "arrow.up.right")
+                .foregroundColor(.textWhite40)
+            
         }
+        .accentColor(.textWhite)
     }
     
     private func GetSettingsEmailAddressAlert() -> Alert {
