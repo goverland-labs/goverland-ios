@@ -25,6 +25,7 @@ struct OnboardingFollowDaosView: View {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
                                         onFollowToggleFromCard: { if $0 { Tracker.track(.onboardingFollowFromCard) } },
+                                        onCategoryListAppear: { Tracker.track(.screenOnboardingCategoryDaos) },
                                         onFollowToggleFromCategoryList: { if $0 { Tracker.track(.onboardingFollowFromCtgList) } },
                                         onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.onboardingFollowFromCtgSearch) } })
 
@@ -64,7 +65,7 @@ struct OnboardingFollowDaosView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.onboardingFollowDaos)
+                Tracker.track(.screenOnboardingFollowDaos)
             }
         }
         .accentColor(.primary)

@@ -12,17 +12,20 @@ struct GroupedDaosView: View {
 
     let callToAction: String?
     let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
+    let onCategoryListAppear: (() -> Void)?
     let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
 
     init(dataSource: GroupedDaosDataSource,
          callToAction: String? = nil,
          onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)? = nil,
+         onCategoryListAppear: (() -> Void)? = nil,
          onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)? = nil,
          onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil) {
         self.dataSource = dataSource
         self.callToAction = callToAction
         self.onFollowToggleFromCard = onFollowToggleFromCard
+        self.onCategoryListAppear = onCategoryListAppear
         self.onFollowToggleFromCategoryList = onFollowToggleFromCategoryList
         self.onFollowToggleFromCategorySearch = onFollowToggleFromCategorySearch
     }
@@ -64,6 +67,7 @@ struct GroupedDaosView: View {
         }
         .navigationDestination(for: DaoCategory.self) { category in
             FollowCategoryDaosListView(category: category,
+                                       onCategoryListAppear: onCategoryListAppear,
                                        onFollowToggleFromList: onFollowToggleFromCategoryList,
                                        onFollowToggleFromSearch: onFollowToggleFromCategorySearch
             )

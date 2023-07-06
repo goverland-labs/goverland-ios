@@ -24,6 +24,7 @@ struct AddSubscriptionView: View {
                 if !dataSource.failedToLoadInitially {
                     GroupedDaosView(dataSource: dataSource,
                                     onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
+                                    onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) },
                                     onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
                                     onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.followedAddFollowFromCtgSearch) } })
                 } else {
@@ -60,7 +61,7 @@ struct AddSubscriptionView: View {
         }
         .onAppear() {
             dataSource.refresh()
-            Tracker.track(.followedDaosAdd)
+            Tracker.track(.screenFollowedDaosAdd)
         }
     }
 }

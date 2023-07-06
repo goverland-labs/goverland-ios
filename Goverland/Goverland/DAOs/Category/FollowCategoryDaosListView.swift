@@ -10,6 +10,7 @@ import SwiftUI
 struct FollowCategoryDaosListView: View {
     @StateObject var dataSource: CategoryDaosDataSource
     let title: String
+    let onCategoryListAppear: (() -> Void)?
     let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
     
@@ -21,10 +22,12 @@ struct FollowCategoryDaosListView: View {
     }
 
     init(category: DaoCategory,
+         onCategoryListAppear: (() -> Void)? = nil,
          onFollowToggleFromList: ((_ didFollow: Bool) -> Void)? = nil,
          onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil) {
         title = "\(category.name) DAOs"
         _dataSource = StateObject(wrappedValue: CategoryDaosDataSource(category: category))
+        self.onCategoryListAppear = onCategoryListAppear
         self.onFollowToggleFromList = onFollowToggleFromList
         self.onFollowToggleFromSearch = onFollowToggleFromSearch
     }
@@ -39,8 +42,8 @@ struct FollowCategoryDaosListView: View {
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .onAppear {
-                Tracker.track(.followCategoryDaosView)
                 dataSource.refresh()
+                onCategoryListAppear?()
             }
     }
 }

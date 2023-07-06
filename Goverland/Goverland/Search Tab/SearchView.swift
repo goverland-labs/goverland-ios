@@ -54,6 +54,7 @@ struct SearchView: View {
                         if !dataSource.failedToLoadInitially {
                             GroupedDaosView(dataSource: dataSource,
                                             onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
+                                            onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) },
                                             onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
                                             onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } })
                         } else {
@@ -87,7 +88,7 @@ struct SearchView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.searchDaos)
+                Tracker.track(.screenSearchDaos)
             }
         }
     }
