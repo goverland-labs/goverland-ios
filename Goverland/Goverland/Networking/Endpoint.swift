@@ -198,9 +198,9 @@ struct ProposalEndpoint: APIEndpoint {
 }
 
 struct ProposalVotesEndpoint: APIEndpoint {
-    typealias ResponseType = Voters
+    typealias ResponseType = [Votes]
     
-    struct Voters: Decodable {
+    struct Votes: Decodable {
         let id: UUID
 
         enum CodingKeys: String, CodingKey {
