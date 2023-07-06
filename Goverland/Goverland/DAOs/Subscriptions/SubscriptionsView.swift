@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubscriptionsView: View {
     @StateObject private var dataSource = SubscriptionsDataSource()
-    @EnvironmentObject var activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -76,7 +76,7 @@ struct SubscriptionsView: View {
 }
 
 fileprivate struct NoSubscriptionsView: View {
-    @EnvironmentObject var activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
         VStack {

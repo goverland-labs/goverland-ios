@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+/// This view is always presented in a popover
 struct AddSubscriptionView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var dataSource = GroupedDaosDataSource()
+    /// This view should have own active sheet manager as it is already presented in a popover
+    @StateObject private var activeSheetManger = ActiveSheetManager()
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -23,6 +26,7 @@ struct AddSubscriptionView: View {
             if dataSource.searchText == "" {
                 if !dataSource.failedToLoadInitially {
                     GroupedDaosView(dataSource: dataSource,
+                                    onDaoImageTap: { dao in activeSheetManger.activeSheet = .daoInfo(dao) },
                                     onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
                                     onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) },
                                     onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
@@ -62,6 +66,18 @@ struct AddSubscriptionView: View {
         .onAppear() {
             dataSource.refresh()
             Tracker.track(.screenFollowedDaosAdd)
+        }
+        .sheet(item: $activeSheetManger.activeSheet) { item in
+            NavigationStack {
+                switch item {
+                case .daoInfo(let dao):
+                    DaoInfoView(dao: dao)
+                default:
+                    // should not happen
+                    EmptyView()
+                }
+            }
+            .accentColor(.primary)
         }
     }
 }

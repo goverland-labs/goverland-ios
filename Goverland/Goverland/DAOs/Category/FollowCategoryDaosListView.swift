@@ -10,6 +10,7 @@ import SwiftUI
 struct FollowCategoryDaosListView: View {
     @StateObject var dataSource: CategoryDaosDataSource
     let title: String
+    let onRowTap: ((Dao) -> Void)?
     let onCategoryListAppear: (() -> Void)?
     let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
@@ -23,17 +24,20 @@ struct FollowCategoryDaosListView: View {
 
     init(category: DaoCategory,
          onCategoryListAppear: (() -> Void)? = nil,
+         onRowTap: ((Dao) -> Void)? = nil,
          onFollowToggleFromList: ((_ didFollow: Bool) -> Void)? = nil,
          onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil) {
         title = "\(category.name) DAOs"
         _dataSource = StateObject(wrappedValue: CategoryDaosDataSource(category: category))
         self.onCategoryListAppear = onCategoryListAppear
+        self.onRowTap = onRowTap
         self.onFollowToggleFromList = onFollowToggleFromList
         self.onFollowToggleFromSearch = onFollowToggleFromSearch
     }
 
     var body: some View {
         DaosListView(dataSource: dataSource,
+                     onRowTap: onRowTap,
                      onFollowToggleFromList: onFollowToggleFromList,
                      onFollowToggleFromSearch: onFollowToggleFromSearch)
             .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +54,7 @@ struct FollowCategoryDaosListView: View {
 
 fileprivate struct DaosListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
+    let onRowTap: ((Dao) -> Void)?
     let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
 
@@ -59,7 +64,7 @@ fileprivate struct DaosListView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         if dataSource.daos.isEmpty { // initial loading
-                            ForEach(0..<3) { _ in
+                            ForEach(0..<5) { _ in
                                 ShimmerDaoListItemView()
                             }
                         } else {
@@ -78,6 +83,9 @@ fileprivate struct DaosListView: View {
                                     DaoListItemView(dao: dao,
                                                     subscriptionMeta: dao.subscriptionMeta,
                                                     onFollowToggle: onFollowToggleFromList)
+                                    .onTapGesture {
+                                        onRowTap?(dao)
+                                    }
                                 }
                             }
                         }

@@ -11,6 +11,7 @@ struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
 
     let callToAction: String?
+    let onDaoImageTap: ((Dao) -> Void)?
     let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
     let onCategoryListAppear: (() -> Void)?
     let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
@@ -18,12 +19,14 @@ struct GroupedDaosView: View {
 
     init(dataSource: GroupedDaosDataSource,
          callToAction: String? = nil,
+         onDaoImageTap: ((Dao) -> Void)? = nil,
          onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)? = nil,
          onCategoryListAppear: (() -> Void)? = nil,
          onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)? = nil,
          onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil) {
         self.dataSource = dataSource
         self.callToAction = callToAction
+        self.onDaoImageTap = onDaoImageTap
         self.onFollowToggleFromCard = onFollowToggleFromCard
         self.onCategoryListAppear = onCategoryListAppear
         self.onFollowToggleFromCategoryList = onFollowToggleFromCategoryList
@@ -57,6 +60,7 @@ struct GroupedDaosView: View {
 
                         DaoThreadForCategoryView(dataSource: dataSource,
                                                  category: category,
+                                                 onDaoImageTap: onDaoImageTap,
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
                             .padding(.top, 8)
@@ -68,6 +72,7 @@ struct GroupedDaosView: View {
         .navigationDestination(for: DaoCategory.self) { category in
             FollowCategoryDaosListView(category: category,
                                        onCategoryListAppear: onCategoryListAppear,
+                                       onRowTap: onDaoImageTap,
                                        onFollowToggleFromList: onFollowToggleFromCategoryList,
                                        onFollowToggleFromSearch: onFollowToggleFromCategorySearch
             )
@@ -78,6 +83,7 @@ struct GroupedDaosView: View {
 fileprivate struct DaoThreadForCategoryView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
     let category: DaoCategory
+    let onDaoImageTap: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
@@ -101,7 +107,7 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao, onFollowToggle: onFollowToggle)
+                            DaoCardView(dao: dao, onDaoImageTap: onDaoImageTap, onFollowToggle: onFollowToggle)
                         }
                     }
                 }

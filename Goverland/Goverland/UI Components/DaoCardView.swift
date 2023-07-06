@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DaoCardView: View {
     let dao: Dao
+    let onDaoImageTap: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
     @Environment(\.presentationMode) private var presentationMode
 
@@ -27,6 +28,9 @@ struct DaoCardView: View {
         VStack {
             RoundPictureView(image: dao.avatar, imageSize: 90)
                 .padding(.top, 18)
+                .onTapGesture {
+                    onDaoImageTap?(dao)
+                }
             
             VStack(spacing: 3) {
                 Text(dao.name)
@@ -96,7 +100,7 @@ struct ShimmerDaoCardView: View {
 struct DaoCardView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoCardView(dao: .aave, onFollowToggle: nil)
+            DaoCardView(dao: .aave, onDaoImageTap: nil, onFollowToggle: nil)
             ShimmerDaoCardView()
         }
     }
