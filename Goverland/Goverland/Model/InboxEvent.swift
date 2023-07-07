@@ -9,21 +9,31 @@ import Foundation
 import SwiftDate
 
 protocol EventData {}
+
 extension Proposal: EventData {}
 
-// TODO: rework, rename with backend team
+struct TimelineEvent: Decodable {
+    let createdAt: Date
+    let event: Event
+
+    enum CodingKeys: String, CodingKey {
+        case createdAt = "created_at"
+        case event
+    }
+}
+
 enum Event: String, Decodable {
+    case daoCreated = "dao.created"
+
     case proposalCreated = "proposal.created"
     case proposalUpdated = "proposal.updated"
     case proposalUpdatedState = "proposal.updated.state"
+    case proposalVotingStartsSoon = "proposal.voting.starts_soon"
     case proposalVotingStarted = "proposal.voting.started"
-    case proposalVotingReachedQuorum = "proposal.voting.reached"
+    case proposalVotingReachedQuorum = "proposal.voting.quorum_reached"
     case proposalVoringFinishesSoon = "proposal.voting.coming"
+    case proposalVotingEndsSoon = "proposal.voting.ends_soon"
     case proposalVotingEnded = "proposal.voting.ended"
-
-    var isProposal: Bool {
-        true
-    }
 }
 
 struct InboxEvent: Identifiable, Decodable {
@@ -31,21 +41,21 @@ struct InboxEvent: Identifiable, Decodable {
     let createdAt: Date
     let updatedAt: Date
     let readAt: Date?
-    let event: Event?
     let eventData: EventData?
+    let timeline: [TimelineEvent]
     
     init(id: UUID,
          createdAt: Date,
          updatedAt: Date,
          readAt: Date?,
-         event: Event?,
-         eventData: EventData?) {
+         eventData: EventData?,
+         timeline: [TimelineEvent]) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.readAt = readAt
-        self.event = event
         self.eventData = eventData
+        self.timeline = timeline
     }
     
     enum CodingKeys: String, CodingKey {
@@ -53,8 +63,8 @@ struct InboxEvent: Identifiable, Decodable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case readAt = "read_at"
-        case event
         case proposal
+        case timeline
     }
 
     // TODO: finalize once API is ready
@@ -64,24 +74,16 @@ struct InboxEvent: Identifiable, Decodable {
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.readAt = try container.decodeIfPresent(Date.self, forKey: .readAt)
+
         do {
-            self.event = try container.decodeIfPresent(Event.self, forKey: .event)
+            self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
         } catch {
-            print(error)
             // TODO: log
-            self.event = nil
-        }
-        if let event = event {
-            do {
-                self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
-            } catch {
-                // TODO: log
-                print(error)
-                self.eventData = nil
-            }
-        } else {
+            print(error)
             self.eventData = nil
         }
+
+        self.timeline = try container.decode([TimelineEvent].self, forKey: .timeline)
     }
 }
 
@@ -93,6 +95,6 @@ extension InboxEvent {
         createdAt: .now - 5.days,
         updatedAt: .now - 3.days,
         readAt: nil,
-        event: .proposalCreated,
-        eventData: Proposal.aaveTest)
+        eventData: Proposal.aaveTest,
+        timeline: [])
 }
