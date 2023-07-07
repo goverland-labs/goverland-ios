@@ -81,7 +81,7 @@ fileprivate struct NoSubscriptionsView: View {
     
     var body: some View {
         VStack(spacing: 40) {
-            Image("settings-follow-dao-background")
+            Image("looped-line")
             Text("You don’t follow any DAO at the moment.")
             PrimaryButton("Follow a DAO") {
                 activeSheetManager.activeSheet = .followDaos
