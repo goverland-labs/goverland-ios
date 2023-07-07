@@ -88,7 +88,7 @@ struct InboxView: View {
             }
             .onAppear() {
                 data.refresh(withFilter: .all)
-                Tracker.track(.inboxView)
+                Tracker.track(.screenInbox)
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)

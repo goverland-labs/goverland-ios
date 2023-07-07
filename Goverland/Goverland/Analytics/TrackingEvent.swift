@@ -28,7 +28,7 @@ enum TrackingEvent: String, Trackable {
 
 
     // MARK: - Inbox
-
+    case screenInbox = "screen_inbox"
 
     // MARK: - DAO Info
 
@@ -88,10 +88,7 @@ enum TrackingEvent: String, Trackable {
 
 
     // LEGACY. Remove iteratively
-    case inboxView = "inbox_view"
     case daoInfoScreenView = "dao_info_screen_view"
-
     case searchProposalView = "search_proposal_view"
-
     case snapshotProposalView = "snapshot_proposal_detail_view"
 }
