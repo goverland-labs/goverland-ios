@@ -80,9 +80,9 @@ fileprivate struct NoSubscriptionsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
-        VStack {
+        VStack(spacing: 40) {
+            Image("looped-line")
             Text("You don’t follow any DAO at the moment.")
-                .padding(.bottom, 50)
             PrimaryButton("Follow a DAO") {
                 activeSheetManager.activeSheet = .followDaos
             }

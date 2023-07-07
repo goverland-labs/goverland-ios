@@ -10,10 +10,15 @@ import SwiftUI
 struct TwitterSettingsView: View {
     var body: some View {
         HStack {
-            Image(systemName: "bird")
+            Image("twitter")
                 .foregroundColor(.primary)
+                .frame(width: 30)
             Button("Twitter", action: openTwitterApp)
+            Spacer()
+            Image(systemName: "arrow.up.right")
+                .foregroundColor(.textWhite40)
         }
+        .accentColor(.textWhite)
     }
     
     private func openTwitterApp() {

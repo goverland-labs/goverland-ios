@@ -15,21 +15,15 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs") {
-                        SubscriptionsView()
-                    }
-                    NavigationLink("Notifications") {
-                        PushNotificationsSettingView()
-                    }
+                    NavigationLink("Followed DAOs") { SubscriptionsView() }
+                    NavigationLink("Notifications") { PushNotificationsSettingView() }
                 }
                 
                 Section(header: Text("Contact Us")) {
                     TwitterSettingsView()
-                    TelegramSettingsView()
                     DiscordSettingsView()
                     MailSettingView()
                 }
-                .tint(.primary)
                 
                 Section {
                     NavigationLink("About") { AboutSettingView() }
@@ -49,11 +43,9 @@ struct SettingsView: View {
 fileprivate struct PushNotificationsSettingView: View {
     @State private var isReceiveUpdates = false
     var body: some View {
-        VStack {
-            Toggle("Receive updates from followed DAOs", isOn: $isReceiveUpdates)
-            Spacer()
+        List {
+            Toggle("Receive updates from DAOs", isOn: $isReceiveUpdates)
         }
-        .padding()
         .onAppear() {Tracker.track(.settingsPushNotificationsView) }
     }
 }
@@ -62,25 +54,26 @@ fileprivate struct AboutSettingView: View {
     var body: some View {
         List {
             HStack {
-                Image(systemName: "lock.fill")
+                Image("privacy-policy")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .foregroundColor(.textWhite40)
             }
             HStack {
-                Image(systemName: "doc.badge.gearshape")
+                Image("term-service")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("[Terms of Service](http://goverland.xyz/terms)")
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .foregroundColor(.textWhite40)
             }
         }
-        .foregroundColor(.gray)
-        .tint(.primary)
+        .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsAboutView) }
-    }
-}
-
-fileprivate struct PartnershipSettingView: View {
-    var body: some View {
-        List {
-            Text("[Partnership](http://www.goverland.xyz/partnership)")
-        }
     }
 }
 
@@ -93,19 +86,29 @@ fileprivate struct HelpUsGrowSettingView: View {
                 }
             }) {
                 HStack {
-                    Image(systemName: "star.bubble")
+                    Image("rate-app")
+                        .foregroundColor(.primary)
+                        .frame(width: 30)
                     Text("Rate the App")
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .foregroundColor(.textWhite40)
                 }
             }
             
             HStack {
-                Image(systemName: "shareplay")
+                Image("share-tweet")
+                    .foregroundColor(.primary)
+                    .frame(width: 30)
                 Text("Share a tweet") //TODO: message, body and the image (after branding is done)
+                Spacer()
+                Image(systemName: "square.and.arrow.up")
+                    .foregroundColor(.textWhite40)
             }
         }
+        .accentColor(.textWhite)
         .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
     }
-        
 }
 
 fileprivate struct AdvancedSettingView: View {
