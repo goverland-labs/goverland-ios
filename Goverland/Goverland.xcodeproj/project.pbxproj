@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
+		55143B562A585AC8003103B1 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B552A585AC8003103B1 /* Vote.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -124,6 +125,7 @@
 
 /* Begin PBXFileReference section */
 		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
+		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 				5533170129F16B290034AF66 /* Address.swift */,
+				55143B552A585AC8003103B1 /* Vote.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 			);
 			path = Model;
@@ -777,6 +780,7 @@
 				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
 				BA8451562A4B660C0088A6E6 /* SnapshotProposalInfoView.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
+				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
 				BA50AB402A04086900EC2AA6 /* SnapshotBasicVotingView.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
@@ -1078,7 +1082,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.andrey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1112,7 +1116,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jenny.xyz.goverland.ios.jenny;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.andrey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
