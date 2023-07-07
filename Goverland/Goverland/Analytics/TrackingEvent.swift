@@ -42,6 +42,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Followed DAOs
     case screenFollowedDaos = "screen_followed_daos"
+    case screenFollowedDaosEmpty = "screen_followed_daos_empty"
     case followedDaosUnfollow = "followed_daos_unfollow"
     case followedDaosRefollow = "followed_daos_refollow"
     case followedDaosOpenDao = "followed_daos_open_dao"
