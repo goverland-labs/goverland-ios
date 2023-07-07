@@ -22,6 +22,8 @@ struct DiscordSettingsView: View {
     }
     
     private func openDiscordApp() {
+        // TODO: implement
+
         guard let appURL = URL(string: "") else { return }
         guard let webURL = NSURL(string: "") else { return }
         
@@ -30,6 +32,8 @@ struct DiscordSettingsView: View {
         } else {
             UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
         }
+
+        Tracker.track(.settingsOpenDiscord)
     }
 }
 

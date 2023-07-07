@@ -30,6 +30,8 @@ struct TwitterSettingsView: View {
         } else {
             UIApplication.shared.open(webURL)
         }
+
+        Tracker.track(.settingsOpenTwitter)
     }
 }
 

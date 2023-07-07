@@ -25,12 +25,13 @@ struct MailSettingView: View {
                 } else {
                     isShowingMailView.toggle()
                 }
+                Tracker.track(.settingsOpenEmail)
             })
             .sheet(isPresented: $isShowingMailView) {
                 MailSendingView(result: $result)
             }
             .alert(isPresented: $isShowingMailAlertView,
-                   content: GetSettingsEmailAddressAlert)
+                   content: getSettingsEmailAddressAlert)
             
             Spacer()
             Image(systemName: "arrow.up.right")
@@ -40,7 +41,7 @@ struct MailSettingView: View {
         .accentColor(.textWhite)
     }
     
-    private func GetSettingsEmailAddressAlert() -> Alert {
+    private func getSettingsEmailAddressAlert() -> Alert {
         Alert(
             title: Text("Our email address:"),
             message: Text("contact@goverland.xyz"),
@@ -53,12 +54,10 @@ struct MailSettingView: View {
 }
 
 fileprivate struct MailSendingView: UIViewControllerRepresentable {
-
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
 
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-
         @Binding var presentation: PresentationMode
         @Binding var result: Result<MFMailComposeResult, Error>?
 
