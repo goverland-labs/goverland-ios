@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppTabView: View {
     @State private var selectedTab = 1
+    
     var body: some View {
         TabView(selection: $selectedTab) {
             InboxView()

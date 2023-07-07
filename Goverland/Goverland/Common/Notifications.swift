@@ -8,6 +8,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")
-    static let didSelectShowDaoInfo = Notification.Name("DidSelectShowDaoInfo")
+    static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")    
 }

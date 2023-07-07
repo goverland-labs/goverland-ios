@@ -82,7 +82,8 @@ struct SnapshotProposalVoteTabView: View {
                     print("Selected option # \(index + 1)")
                 }
                 case .approval: SnapshotApprovalVotingView(proposal: proposal)
-                case .weighted: SnapshotWeightedVotingView(proposal: proposal)
+                case .weighted : SnapshotWeightedVotingView(proposal: proposal)
+                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingView(proposal: proposal)
                 default: SnapshotBasicVotingView { _ in }
                 }
@@ -91,7 +92,8 @@ struct SnapshotProposalVoteTabView: View {
                 case .basic: SnapshotBasicVotingResultView(proposal: proposal)
                 case .singleChoice: SnapshotSingleChoiceVotingResultView(proposal: proposal)
                 case .approval: SnapshotApprovalVotingResultView(proposal: proposal)
-                case .weighted: SnapshotWeightedVotingResultView(proposal: proposal)
+                case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
+                case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
                 default: SnapshotBasicVotingResultView(proposal: proposal)
                 }

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource()    
 
     private var searchPrompt: String {
-        if let totalDaos = dataSource.totalDaos.map(String.init) {
-            return "Search for \(totalDaos) DAOs by name"
+        if let total = dataSource.totalDaos.map(String.init) {
+            return "Search for \(total) DAOs by name"
         }
         return ""
     }
@@ -24,22 +24,31 @@ struct OnboardingFollowDaosView: View {
                     if !dataSource.failedToLoadInitially {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
+
+                                        onSelectDaoFromGroup: nil,
+                                        onSelectDaoFromCategoryList: nil,
+                                        onSelectDaoFromCategorySearch: nil,
+
                                         onFollowToggleFromCard: { if $0 { Tracker.track(.onboardingFollowFromCard) } },
                                         onFollowToggleFromCategoryList: { if $0 { Tracker.track(.onboardingFollowFromCtgList) } },
-                                        onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.onboardingFollowFromCtgSearch) } })
+                                        onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.onboardingFollowFromCtgSearch) } },
+
+                                        onCategoryListAppear: { Tracker.track(.screenOnboardingCategoryDaos) })
 
                         NavigationLink {
                             EnablePushNotificationsView()
                         } label: {
                             // TODO: make button disabled logic
                             PrimaryButtonView("Continue")
-                            .padding(.vertical)
+                                .padding(.vertical)
                         }
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    DaosSearchListView(dataSource: dataSource, onFollowToggle: { didFollow in
+                    DaosSearchListView(dataSource: dataSource,
+                                       onSelectDao: nil,
+                                       onFollowToggle: { didFollow in
                         if didFollow {
                             Tracker.track(.onboardingFollowFromSearch)
                         }
@@ -64,7 +73,7 @@ struct OnboardingFollowDaosView: View {
             }
             .onAppear() {
                 dataSource.refresh()
-                Tracker.track(.onboardingFollowDaos)
+                Tracker.track(.screenOnboardingFollowDaos)
             }
         }
         .accentColor(.primary)
