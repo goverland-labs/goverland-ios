@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
     @Setting(\.onboardingFinished) var onboardingFinished
-    
+
     var body: some View {
         if !termsAccepted {
             IntroView()

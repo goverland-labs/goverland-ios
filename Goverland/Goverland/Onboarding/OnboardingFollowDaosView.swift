@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource()    
+    @StateObject private var dataSource = GroupedDaosDataSource()
+    @State private var path = NavigationPath()
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -18,7 +19,7 @@ struct OnboardingFollowDaosView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
@@ -35,12 +36,13 @@ struct OnboardingFollowDaosView: View {
 
                                         onCategoryListAppear: { Tracker.track(.screenOnboardingCategoryDaos) })
 
-                        NavigationLink {
+
+                        PrimaryButton("Continue", isEnabled: dataSource.subscriptionsCount > 0) {
+                            path.append("EnablePushNotificationsView")
+                        }
+                        .padding()
+                        .navigationDestination(for: String.self) { _ in
                             EnablePushNotificationsView()
-                        } label: {
-                            // TODO: make button disabled logic
-                            PrimaryButtonView("Continue")
-                                .padding(.vertical)
                         }
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)

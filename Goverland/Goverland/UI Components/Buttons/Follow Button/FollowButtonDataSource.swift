@@ -44,7 +44,7 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = subscription.id
                 self.onFollowToggle?(true)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: nil)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, object: true)
             }
             .store(in: &cancellables)
     }
@@ -62,7 +62,7 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = nil
                 self.onFollowToggle?(false)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: nil)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, object: false)
             }
             .store(in: &cancellables)
     }
