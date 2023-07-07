@@ -27,9 +27,12 @@ enum InboxFilter: Int, FilterOptions {
 struct InboxView: View {
     @State private var filter: InboxFilter = .all
     @StateObject private var data = InboxDataSource()
+
+    @State private var eventIndex: Int?
+    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
     var body: some View {
-        NavigationStack {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
                 // TODO: enable once backend is ready
 //                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
@@ -46,7 +49,7 @@ struct InboxView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    List(0..<data.events.count, id: \.self) { index in
+                    List(0..<data.events.count, id: \.self, selection: $eventIndex) { index in
                         let event = data.events[index]
                         if index == data.events.count - 1 && data.hasMore() {
                             ZStack {
@@ -64,18 +67,15 @@ struct InboxView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
-                            ZStack {
-                                NavigationLink(destination: SnapshotProposalView(proposal: proposal)) {}.opacity(0)
-                                ProposalListItemView(proposal: proposal)
-                                    .swipeActions(allowsFullSwipe: false) {
-                                        Button {
-                                            data.archive(proposal: proposal)
-                                        } label: {
-                                            Label("Archive", systemImage: "trash")
-                                        }
-                                        .tint(.clear)
+                            ProposalListItemView(proposal: proposal)
+                                .swipeActions(allowsFullSwipe: false) {
+                                    Button {
+                                        data.archive(proposal: proposal)
+                                    } label: {
+                                        Label("Archive", systemImage: "trash")
                                     }
-                            }
+                                    .tint(.clear)
+                                }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
@@ -86,22 +86,29 @@ struct InboxView: View {
                     }
                 }
             }
-            .onAppear() {
-                data.refresh(withFilter: .all)
-                Tracker.track(.screenInbox)
-            }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Inbox")
-                            .font(.title3Semibold)
-                    }
+        }  detail: {
+            if let index = eventIndex, data.events.count > index,
+                let proposal = data.events[index].eventData as? Proposal {
+                SnapshotProposalView(proposal: proposal)
+            } else {
+                EmptyView()
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Inbox")
+                        .font(.title3Semibold)
                 }
             }
-            .toolbarBackground(Color.surfaceBright, for: .navigationBar)
+        }
+        .toolbarBackground(Color.surfaceBright, for: .navigationBar)
+        .onAppear() {
+            data.refresh(withFilter: .all)
+            Tracker.track(.screenInbox)
         }
     }
 }
