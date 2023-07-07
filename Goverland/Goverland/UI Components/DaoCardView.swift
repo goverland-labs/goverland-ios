@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DaoCardView: View {
     let dao: Dao
+    let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
     @Environment(\.presentationMode) private var presentationMode
 
@@ -16,7 +17,7 @@ struct DaoCardView: View {
         presentationMode.wrappedValue.isPresented ? .containerBright : .container
     }
 
-    var members: String {
+    private var members: String {
         if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
             return "\(members) members"
         }
@@ -27,6 +28,9 @@ struct DaoCardView: View {
         VStack {
             RoundPictureView(image: dao.avatar, imageSize: 90)
                 .padding(.top, 18)
+                .onTapGesture {
+                    onSelectDao?(dao)
+                }
             
             VStack(spacing: 3) {
                 Text(dao.name)
@@ -49,6 +53,18 @@ struct DaoCardView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
+    }
+}
+
+struct RetryLoadMoreCardView: View {
+    let dataSource: GroupedDaosDataSource
+    let category: DaoCategory
+
+    var body: some View {
+        Button("Load more") {
+            dataSource.retryLoadMore(category: category)
+        }
+        .frame(width: 130)
     }
 }
 
@@ -84,7 +100,9 @@ struct ShimmerDaoCardView: View {
 struct DaoCardView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DaoCardView(dao: .aave, onFollowToggle: nil)
+            DaoCardView(dao: .aave,
+                        onSelectDao: nil,
+                        onFollowToggle: nil)
             ShimmerDaoCardView()
         }
     }

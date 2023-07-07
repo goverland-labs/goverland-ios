@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -16,7 +17,7 @@
 		552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */; };
 		552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */; };
 		552885982A28EB1900ED2BCD /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885972A28EB1900ED2BCD /* Extentions.swift */; };
-		5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */; };
+		5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
@@ -122,6 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -131,7 +133,7 @@
 		552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDaosDataSource.swift; sourceTree = "<group>"; };
 		552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowCategoryDaosListView.swift; sourceTree = "<group>"; };
 		552885972A28EB1900ED2BCD /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
-		552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryInitialLoadingView.swift; sourceTree = "<group>"; };
+		552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryLoadingViews.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
@@ -264,7 +266,7 @@
 		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
-				552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */,
+				552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
@@ -389,6 +391,7 @@
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
 				5586BB882A34C75500A6E316 /* AuthManager.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
+				55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */,
 				5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
@@ -731,6 +734,7 @@
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
+				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
@@ -749,7 +753,7 @@
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				BA84515C2A4F59400088A6E6 /* SnapshotWeightedVotingView.swift in Sources */,
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
-				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
+				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
@@ -1058,7 +1062,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
+				DEVELOPMENT_TEAM = VDVK9A6DE3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
@@ -1092,7 +1096,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = 9Q9UL4VRUP;
+				DEVELOPMENT_TEAM = VDVK9A6DE3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
