@@ -10,27 +10,48 @@ import SwiftUI
 struct FollowCategoryDaosListView: View {
     @StateObject var dataSource: CategoryDaosDataSource
     let title: String
+
+    let onSelectDaoFromList: ((Dao) -> Void)?
+    let onSelectDaoFromSearch: ((Dao) -> Void)?
+
     let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
+
+    let onCategoryListAppear: (() -> Void)?
     
     private var searchPrompt: String {
-        if let totalForCategory = dataSource.total.map(String.init) {
-            return "Search \(totalForCategory) DAOs by name"
+        if let total = dataSource.total.map(String.init) {
+            return "Search for \(total) DAOs by name"
         }
         return ""
     }
 
     init(category: DaoCategory,
+
+         onSelectDaoFromList: ((Dao) -> Void)? = nil,
+         onSelectDaoFromSearch: ((Dao) -> Void)? = nil,
+
          onFollowToggleFromList: ((_ didFollow: Bool) -> Void)? = nil,
-         onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil) {
+         onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil,
+
+         onCategoryListAppear: (() -> Void)? = nil
+    ) {
         title = "\(category.name) DAOs"
         _dataSource = StateObject(wrappedValue: CategoryDaosDataSource(category: category))
+
+        self.onSelectDaoFromList = onSelectDaoFromList
+        self.onSelectDaoFromSearch = onSelectDaoFromSearch
+
         self.onFollowToggleFromList = onFollowToggleFromList
         self.onFollowToggleFromSearch = onFollowToggleFromSearch
+
+        self.onCategoryListAppear = onCategoryListAppear
     }
 
     var body: some View {
         DaosListView(dataSource: dataSource,
+                     onSelectDaoFromList: onSelectDaoFromList,
+                     onSelectDaoFromSearch: onSelectDaoFromSearch,
                      onFollowToggleFromList: onFollowToggleFromList,
                      onFollowToggleFromSearch: onFollowToggleFromSearch)
             .navigationBarTitleDisplayMode(.inline)
@@ -39,14 +60,18 @@ struct FollowCategoryDaosListView: View {
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .onAppear {
-                Tracker.track(.followCategoryDaosView)
                 dataSource.refresh()
+                onCategoryListAppear?()
             }
     }
 }
 
 fileprivate struct DaosListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
+
+    let onSelectDaoFromList: ((Dao) -> Void)?
+    let onSelectDaoFromSearch: ((Dao) -> Void)?
+
     let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
     let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
 
@@ -56,7 +81,7 @@ fileprivate struct DaosListView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         if dataSource.daos.isEmpty { // initial loading
-                            ForEach(0..<3) { _ in
+                            ForEach(0..<5) { _ in
                                 ShimmerDaoListItemView()
                             }
                         } else {
@@ -74,6 +99,7 @@ fileprivate struct DaosListView: View {
                                     let dao = dataSource.daos[index]
                                     DaoListItemView(dao: dao,
                                                     subscriptionMeta: dao.subscriptionMeta,
+                                                    onSelectDao: onSelectDaoFromList,
                                                     onFollowToggle: onFollowToggleFromList)
                                 }
                             }
@@ -84,7 +110,9 @@ fileprivate struct DaosListView: View {
                 RetryInitialLoadingView(dataSource: dataSource)
             }
         } else {
-            CategoryDaosSearchListView(dataSource: dataSource, onFollowToggle: onFollowToggleFromSearch)
+            CategoryDaosSearchListView(dataSource: dataSource,
+                                       onSelectDao: onSelectDaoFromSearch,
+                                       onFollowToggle: onFollowToggleFromSearch)
         }
     }
 }
@@ -93,6 +121,7 @@ fileprivate struct DaosListView: View {
 /// Protocols aren't suitable for this case.
 fileprivate struct CategoryDaosSearchListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
+    let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
@@ -100,13 +129,19 @@ fileprivate struct CategoryDaosSearchListView: View {
             VStack(spacing: 12) {
                 if dataSource.nothingFound {
                     Text("Nothing found")
+                        .font(.body)
+                        .foregroundColor(.textWhite)
+                        .padding(.top, 16)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
                     ForEach(0..<3) { _ in
                         ShimmerDaoListItemView()
                     }
                 } else {
                     ForEach(dataSource.searchResultDaos) { dao in
-                        DaoListItemView(dao: dao, subscriptionMeta: dao.subscriptionMeta, onFollowToggle: onFollowToggle)
+                        DaoListItemView(dao: dao,
+                                        subscriptionMeta: dao.subscriptionMeta,
+                                        onSelectDao: onSelectDao,
+                                        onFollowToggle: onFollowToggle)
                     }
                 }
             }

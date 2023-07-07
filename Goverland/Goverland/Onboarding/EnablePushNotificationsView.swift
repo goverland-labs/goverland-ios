@@ -18,7 +18,7 @@ struct EnablePushNotificationsView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.onbaordingPushNotifications) }
+            .onAppear() { Tracker.track(.screenOnbaordingPushNotifications) }
         }
     }
 }

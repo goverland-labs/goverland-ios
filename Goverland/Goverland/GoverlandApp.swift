@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
+    @StateObject private var activeSheetManger = ActiveSheetManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
@@ -24,8 +25,20 @@ struct GoverlandApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
+                .environmentObject(activeSheetManger)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
+                }
+                .sheet(item: $activeSheetManger.activeSheet) { item in
+                    NavigationStack {
+                        switch item {
+                        case .daoInfo(let dao):
+                            DaoInfoView(dao: dao)
+                        case .followDaos:
+                            AddSubscriptionView() 
+                        }
+                    }
+                    .accentColor(.primary)
                 }
         }
     }

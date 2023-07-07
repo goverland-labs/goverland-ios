@@ -9,27 +9,13 @@ import SwiftUI
 import Kingfisher
 import StoreKit
 
-enum SettingsActiveSheet: Identifiable {
-    case followDaos, daoInfo(Dao)
-
-    var id: Int {
-        switch self {
-        case .followDaos:
-            return 0
-        case .daoInfo:
-            return 1
-        }
-    }
-}
 
 struct SettingsView: View {
-    @State private var activeSheet: SettingsActiveSheet?
-
     var body: some View {
         NavigationStack {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs") { SubscriptionsView(activeSheet: $activeSheet) }
+                    NavigationLink("Followed DAOs") { SubscriptionsView() }
                     NavigationLink("Notifications") { PushNotificationsSettingView() }
                 }
                 
@@ -49,22 +35,6 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .didSelectShowDaoInfo)) { notification in
-            if let dao = notification.object as? Dao {
-                activeSheet = .daoInfo(dao)
-            }
-        }
-        .sheet(item: $activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .followDaos:
-                    AddSubscriptionView()
-                case .daoInfo(let dao):
-                    DaoInfoView(dao: dao)
-                }
-            }
-            .accentColor(.primary)
         }
         .onAppear() { Tracker.track(.settingsView) }
     }
