@@ -10,18 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
     @Setting(\.onboardingFinished) var onboardingFinished
-
+    
     var body: some View {
-        ZStack {
-            if !termsAccepted {
-                IntroView()
-            } else if !onboardingFinished {
-                OnboardingFollowDaosView()
-            } else {
-                AppTabView()
-            }
-
-            ErrorView()
+        if !termsAccepted {
+            IntroView()
+        } else if !onboardingFinished {
+            OnboardingFollowDaosView()
+        } else {
+            AppTabView()
         }
     }
 }
