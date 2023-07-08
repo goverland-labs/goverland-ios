@@ -7,10 +7,24 @@
 
 import SwiftUI
 
+enum DaoInfoFilter: Int, FilterOptions {
+    case activity = 0
+    case about
+
+    var localizedName: String {
+        switch self {
+        case .activity:
+            return "Activity"
+        case .about:
+            return "About"
+        }
+    }
+}
 
 struct DaoInfoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @StateObject var dataSource: DaoInfoDataSource
+    @State private var filter: DaoInfoFilter = .activity
 
     var dao: Dao { dataSource.dao! }
 
@@ -31,11 +45,24 @@ struct DaoInfoView: View {
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else {
-                DaoInfoScreenHeaderView(dao: dao)
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                DaoInfoScreenControlsView(dao: dao)
-                Spacer()
+                VStack {
+                    DaoInfoScreenHeaderView(dao: dao)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+                    
+                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { newValue in
+                        switch newValue {
+                        case .activity: dataSource.refresh()
+                        case .about: break
+                        }
+                    }
+                    .padding(.bottom, 4)
+                    
+                    switch filter {
+                    case .activity: InboxView()
+                    case .about: DaoInfoAboutDaoView(dao: dao)
+                    }
+                }
             }
         }
         .navigationTitle(dataSource.dao?.name ?? "DAO")
