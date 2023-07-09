@@ -49,7 +49,7 @@ class NotificationsManager {
         // verify that token is there and user enabled notifications
         guard let token = Messaging.messaging().fcmToken, SettingKeys.shared.notificationsEnabled else { return }
         
-        APIService.enableNotifications(token)
+        APIService.enableNotifications(token, defaultErrorDisplay: false)
             .retry(3)
             .sink { completion in
                 switch completion {

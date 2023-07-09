@@ -67,6 +67,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         logInfo("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         completionHandler(.noData)
     }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // It should not be called because Firebase should swizzle this method
+        logInfo("[WARNING] Called didRegisterForRemoteNotificationsWithDeviceToken")
+        Messaging.messaging().apnsToken = deviceToken
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

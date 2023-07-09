@@ -161,9 +161,9 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func enableNotifications(_ token: String) -> AnyPublisher<(EnableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func enableNotifications(_ token: String, defaultErrorDisplay: Bool) -> AnyPublisher<(EnableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = EnableNotificationsEndpoint(token: token)
-        return shared.request(endpoint)
+        return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
 
     static func disableNotifications() -> AnyPublisher<(DisableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
