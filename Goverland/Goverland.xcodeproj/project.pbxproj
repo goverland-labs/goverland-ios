@@ -42,9 +42,9 @@
 		5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7392A0A5C8800E2FAE4 /* ErrorView.swift */; };
 		5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */; };
 		55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4212A5AC28700A894AD /* NotificationsManager.swift */; };
-		55B7B4242A5AC8C600A894AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4232A5AC8C600A894AD /* GoogleService-Info.plist */; };
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
+		55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* InboxView.swift */; };
@@ -162,7 +162,6 @@
 		5597E7392A0A5C8800E2FAE4 /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		55B7B4232A5AC8C600A894AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
@@ -244,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */,
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
@@ -338,6 +338,13 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		55B7B42A2A5ACD6400A894AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +395,7 @@
 				BAF651B129A1580600C78A8A /* Goverland.app */,
 				554301212A4C897C00029BC3 /* GoverlandTests */,
 				557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */,
+				55B7B42A2A5ACD6400A894AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -404,7 +412,6 @@
 				55B7B4212A5AC28700A894AD /* NotificationsManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
-				55B7B4232A5AC8C600A894AD /* GoogleService-Info.plist */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
@@ -601,6 +608,7 @@
 				55DDE8C12A46367F006DA335 /* MarkdownUI */,
 				55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */,
 				55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */,
+				55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -665,7 +673,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */,
-				55B7B4242A5AC8C600A894AD /* GoogleService-Info.plist in Resources */,
 				BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */,
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
 				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
@@ -1238,6 +1245,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		55DDE8C12A46367F006DA335 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
