@@ -11,17 +11,20 @@ struct DaoInfoScreenHeaderView: View {
     let dao: Dao
     
     var body: some View {
-        HStack {
+        HStack(spacing: 40) {
             RoundPictureView(image: dao.avatar, imageSize: 100)
-            Spacer()
-            HStack {
-                InfoBadgeView(value: "103", title: "Proposals")
-                InfoBadgeView(value: "342.9K", title: "Holders")
-                InfoBadgeView(value: "$2.8B", title: "Treasury")
+            
+            VStack(spacing: 20) {
+                HStack {
+                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.proposals)))", title: "Proposals")
+                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.members)))" , title: "Members")
+                }
+                .scaledToFill()
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                
+                FollowButtonView(daoID: dao.id, subscriptionID: nil, onFollowToggle: nil)
             }
-            .scaledToFill()
-            .minimumScaleFactor(0.5)
-            .lineLimit(1)
         }
     }
 }
@@ -32,8 +35,11 @@ fileprivate struct InfoBadgeView: View {
     var body: some View {
         VStack {
             Text(value)
-                .fontWeight(.semibold)
+                .font(.calloutSemibold)
+                .foregroundColor(.textWhite)
             Text(title)
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite60)
         }
     }
     

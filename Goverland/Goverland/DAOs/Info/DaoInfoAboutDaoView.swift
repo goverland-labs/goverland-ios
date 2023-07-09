@@ -12,8 +12,11 @@ struct DaoInfoAboutDaoView: View {
     
     var body: some View {
         VStack {
-            Text("Dao Info About Dao View")
-            Text("dao name is \(dao.name)")
+            VStack {
+                Text("Dao Info About Dao View")
+                Text("dao name is \(dao.name)")
+            }
+            Spacer()
         }
     }
 }
