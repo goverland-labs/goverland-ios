@@ -57,7 +57,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AuthManager.shared.updateToken()
         FirebaseApp.configure()
-        NotificationsManager.setUpMessaging(delegate: self)
+        NotificationsManager.shared.setUpMessaging(delegate: self)
         return true
     }
 
@@ -89,6 +89,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        // TODO: handle
+        logInfo("FCM Token: \(fcmToken ?? "unknown")")
+        // Try to notify backend. It will make a check that notifications are enabled by user.
+        NotificationsManager.shared.enableNotifications()
     }
 }

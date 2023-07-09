@@ -228,3 +228,41 @@ struct ProposalVotesEndpoint: APIEndpoint {
         self.proposalID = proposalID
     }
 }
+
+struct NotificationsSettingsEndpoint: APIEndpoint {
+    typealias ResponseType = NotificationsSettings
+
+    var path: String = "notifications/settings"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+struct EnableNotificationsEndpoint: APIEndpoint {
+    typealias ResponseType = NotificationsSettings
+
+    var path: String = "notifications/settings"
+    var method: HttpMethod = .post
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(token: String) {
+        self.body = try! JSONEncoder().encode(["token": token])
+    }
+}
+
+struct DisableNotificationsEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "notifications/settings"
+    var method: HttpMethod = .delete
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+}

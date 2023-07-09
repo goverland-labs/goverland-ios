@@ -40,16 +40,18 @@ fileprivate struct PushNotificationBackgroundView: View {
 
 fileprivate struct PushNotificationFooterControlsView: View {
     @Setting(\.onboardingFinished) var onboardingFinished
+    @Setting(\.notificationsEnabled) var notificationsEnabled
 
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Enable notifications") {
                 Tracker.track(.onboardingYesNotifications)
-                NotificationsManager.requestUserPermissionAndRegister {
+                NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
+                        notificationsEnabled = granted
                         onboardingFinished = true
                     }
-                }                
+                }
             }
             
             Button("No, thanks") {

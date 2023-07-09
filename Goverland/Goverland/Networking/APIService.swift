@@ -108,7 +108,7 @@ extension APIService {
     static func subscriptions(offset: Int = 0,
                               limit: Int = 1000,
                               sorting: DaoSorting = .default) -> AnyPublisher<(SubscriptionsEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)"),
             URLQueryItem(name: "sorting", value: "\(sorting)")
@@ -129,7 +129,7 @@ extension APIService {
 
     static func inboxEvents(offset: Int = 0,
                             limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
@@ -146,12 +146,28 @@ extension APIService {
                        offset: Int = 0,
                        limit: Int = DEFAULT_PAGINATION_COUNT,
                        query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         
         let endpoint = ProposalVotesEndpoint(proposalID: proposalID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    // TODO: atm this is not used. We will use it once we have granular notifications control
+    static func notificationsSettings() -> AnyPublisher<(NotificationsSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = NotificationsSettingsEndpoint()
+        return shared.request(endpoint)
+    }
+
+    static func enableNotifications(_ token: String) -> AnyPublisher<(EnableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = EnableNotificationsEndpoint(token: token)
+        return shared.request(endpoint)
+    }
+
+    static func disableNotifications() -> AnyPublisher<(DisableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DisableNotificationsEndpoint()
         return shared.request(endpoint)
     }
 }
