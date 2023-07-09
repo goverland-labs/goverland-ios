@@ -29,4 +29,12 @@ class NotificationsManager {
             completion()
         }
     }
+
+    static func verifyGlobalNotificationSettingsEnabled(completion: @escaping (_ enabled: Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                completion(settings.authorizationStatus == .authorized)
+            }
+        }
+    }
 }
