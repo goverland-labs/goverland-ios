@@ -57,6 +57,7 @@ struct Proposal: Decodable {
         case queued
         case succeeded
         case defeated
+        case closed
 
         var localizedName: String {
             switch self {
@@ -66,6 +67,7 @@ struct Proposal: Decodable {
             case .queued: return "Queued"
             case .succeeded: return "Succeeded"
             case .defeated: return "Defeated"
+            case .closed: return "Closed"
             }
         }
     }

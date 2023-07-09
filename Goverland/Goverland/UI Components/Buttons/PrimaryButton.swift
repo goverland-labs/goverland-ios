@@ -9,53 +9,40 @@ import SwiftUI
 
 struct PrimaryButton: View {
     let text: String
-    let action: () -> Void
     let maxWidth: CGFloat
     let maxHeight: CGFloat
+    let isEnabled: Bool
+    let action: () -> Void
 
     init(_ text: String,
-         action: @escaping () -> Void,
          maxWidth: CGFloat = 400,
-         maxHeight: CGFloat = 54) {
+         maxHeight: CGFloat = 54,
+         isEnabled: Bool = true,
+         action: @escaping () -> Void) {
         self.text = text
         self.action = action
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
+        self.isEnabled = isEnabled
     }
 
     var body: some View {
         Button(action: {
             action()
         }) {
-            PrimaryButtonView(text, maxWidth: maxWidth, maxHeight: maxHeight)
+            HStack {
+                Spacer()
+                Text(text)
+                Spacer()
+            }
+            .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
+            .background(Color.primary)
+            .clipShape(Capsule())
+            .tint(.onPrimary)
+            .font(.headlineSemibold)
+            .opacity(isEnabled ? 1.0 : 0.3)
         }
-    }
-}
-
-struct PrimaryButtonView: View {
-    let text: String
-    let maxWidth: CGFloat
-    let maxHeight: CGFloat
-
-    init(_ text: String,
-         maxWidth: CGFloat = 400,
-         maxHeight: CGFloat = 54) {
-        self.text = text
-        self.maxWidth = maxWidth
-        self.maxHeight = maxHeight
-    }
-
-    var body: some View {
-        HStack {
-            Spacer()
-            Text(text)
-            Spacer()
-        }
-        .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
-        .background(Color.primary)
-        .clipShape(Capsule())
-        .tint(.onPrimary)
-        .font(.headlineSemibold)
+        .disabled(!isEnabled)
     }
 }
 

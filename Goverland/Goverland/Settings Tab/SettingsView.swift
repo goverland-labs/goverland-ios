@@ -36,17 +36,25 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .onAppear() { Tracker.track(.settingsView) }
+        .onAppear() { Tracker.track(.screenSettings) }
     }
 }
 
 fileprivate struct PushNotificationsSettingView: View {
-    @State private var isReceiveUpdates = false
+    @State private var notificationsEnabled = false
+
     var body: some View {
         List {
-            Toggle("Receive updates from DAOs", isOn: $isReceiveUpdates)
+            Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
         }
-        .onAppear() {Tracker.track(.settingsPushNotificationsView) }
+        .onChange(of: notificationsEnabled) { enabled in
+            if enabled {
+                Tracker.track(.settingsEnableGlbNotifications)
+            } else {
+                Tracker.track(.settingsDisableGlbNotifications)
+            }
+        }
+        .onAppear() { Tracker.track(.screenNotifications) }
     }
 }
 
@@ -72,8 +80,19 @@ fileprivate struct AboutSettingView: View {
                     .foregroundColor(.textWhite40)
             }
         }
+        .environment(\.openURL, OpenURLAction { url in
+            UIApplication.shared.open(url)
+
+            switch url.absoluteString {
+            case "http://goverland.xyz/privacy": Tracker.track(.settingsOpenPrivacyPolicy)
+            case "http://goverland.xyz/terms": Tracker.track(.settingsOpenTerms)
+            default: break
+            }
+            
+            return .handled
+        })
         .accentColor(.textWhite)
-        .onAppear() {Tracker.track(.settingsAboutView) }
+        .onAppear() { Tracker.track(.screenAbout) }
     }
 }
 
@@ -81,9 +100,10 @@ fileprivate struct HelpUsGrowSettingView: View {
     var body: some View {
         List{
             Button(action: {
-                if let scene = UIApplication.shared.windows.first?.windowScene {
+                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     SKStoreReviewController.requestReview(in: scene)
                 }
+                Tracker.track(.settingsRateTheApp)
             }) {
                 HStack {
                     Image("rate-app")
@@ -100,20 +120,21 @@ fileprivate struct HelpUsGrowSettingView: View {
                 Image("share-tweet")
                     .foregroundColor(.primary)
                     .frame(width: 30)
-                Text("Share a tweet") //TODO: message, body and the image (after branding is done)
+                Text("Share a tweet")
+                //TODO: Impl + tracking: message, body and the image (after branding is done)
                 Spacer()
                 Image(systemName: "square.and.arrow.up")
                     .foregroundColor(.textWhite40)
             }
         }
         .accentColor(.textWhite)
-        .onAppear() {Tracker.track(.settingsHelpUsGrowView) }
+        .onAppear() { Tracker.track(.screenHelpUsGrow) }
     }
 }
 
 fileprivate struct AdvancedSettingView: View {
-    @Setting(\.trackingAccepted) var trackingAccepted
-    @State private var isTrackActivity = false
+    @State private var accepted = false
+
     var body: some View {
         List {
             Section(header: Text("Debug")) {
@@ -124,18 +145,20 @@ fileprivate struct AdvancedSettingView: View {
                 .accentColor(.primary)
             }
             Section(header: Text("Share anonymized data")) {
-                Toggle(isOn: $isTrackActivity) {
-                        Text("Allow App to Track Activity")
-                }
-                .onChange(of: isTrackActivity) { isTrackerOn in
-                    trackingAccepted = isTrackerOn
-                    Tracker.setTrackingEnabled(isTrackerOn)
+                Toggle(isOn: $accepted) {
+                    Text("Allow App to Track Activity")
                 }
             }
         }
+        .onChange(of: accepted) { accepted in
+            if !accepted {
+                Tracker.track(.settingsDisableTracking)
+            }
+            Tracker.setTrackingEnabled(accepted)
+        }
         .onAppear() {
-            isTrackActivity = trackingAccepted
-            Tracker.track(.settingsAdvancedView)
+            accepted = SettingKeys.shared.trackingAccepted
+            Tracker.track(.screenAdvancedSettings)
         }
     }
 }

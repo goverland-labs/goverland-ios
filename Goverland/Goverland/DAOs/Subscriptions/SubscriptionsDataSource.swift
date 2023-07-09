@@ -11,7 +11,7 @@ import Combine
 class SubscriptionsDataSource: ObservableObject, Refreshable {
     @Published var subscriptions: [Subscription] = []
     @Published var failedToLoadInitialData = false
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
     func refresh() {

@@ -80,14 +80,26 @@ fileprivate struct NoSubscriptionsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
-        VStack(spacing: 40) {
-            Image("looped-line")
-            Text("You don’t follow any DAO at the moment.")
-            PrimaryButton("Follow a DAO") {
-                activeSheetManager.activeSheet = .followDaos
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 24) {
+                Spacer()
+                Image("looped-line")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width / 2)
+                Text("You don’t follow any DAO at the moment.")
+                    .font(.callout)
+                    .foregroundColor(.textWhite)
+                PrimaryButton("Follow a DAO") {
+                    activeSheetManager.activeSheet = .followDaos
+                }
+                Spacer()
+            }
+            .padding([.horizontal, .bottom], 16)
+            .onAppear {
+                Tracker.track(.screenFollowedDaosEmpty)
             }
         }
-        .padding()
     }
 }
 

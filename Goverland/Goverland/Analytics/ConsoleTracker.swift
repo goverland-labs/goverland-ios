@@ -12,7 +12,6 @@ final class ConsoleTracker: TrackingHandler {
     let logger = Logger()
 
     func track(event: String, parameters: [String: Any]?) {
-
         let parametersString = parameters != nil ? (", parameters: " + String(describing: parameters!)) : ""
         logger.log("[TRACKING] event: \(event) \(parametersString)")
     }

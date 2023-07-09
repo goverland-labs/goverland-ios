@@ -21,12 +21,15 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published var nothingFound: Bool = false
     private var searchCancellable: AnyCancellable?
 
+    @Published var subscriptionsCount: Int = 0
+
     init() {
         searchCancellable = $searchText
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .sink { [weak self] searchText in
                 self?.performSearch(searchText)
             }
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
     }
 
     func refresh() {
@@ -46,6 +49,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
+        subscriptionsCount = 0
         APIService.daoGrouped()
             .sink { [weak self] completion in
                 switch completion {
@@ -57,6 +61,10 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                     let category = DaoCategory(rawValue: key)!
                     self?.categoryDaos[category] = value.list
                     self?.totalInCategory[category] = value.count
+
+                    if let subscriptionsCount = value.subscriptionsCount, subscriptionsCount > 0 {
+                        self?.subscriptionsCount += subscriptionsCount
+                    }
                 }
 
                 self?.totalDaos = Utils.getTotal(from: headers)
@@ -121,5 +129,14 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     private func offset(category: DaoCategory) -> Int {
         return categoryDaos[category]?.count ?? 0
+    }
+
+    @objc private func subscriptionDidToggle(_ notification: Notification) {
+        guard let subscribed = notification.object as? Bool else { return }
+        if subscribed {
+            subscriptionsCount += 1
+        } else {
+            subscriptionsCount -= 1
+        }
     }
 }

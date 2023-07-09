@@ -47,7 +47,7 @@ struct ProposalStatusView: View {
                 textColor: .textWhite,
                 backgroundColor: .success)
 
-        case .defeated:
+        case .defeated, .closed:
             BubbleView(
                 image: Image(systemName: "xmark"),
                 text: Text(state.localizedName),

@@ -93,7 +93,14 @@ struct DaoGroupedEndpoint: APIEndpoint {
 
     struct GroupedDaos: Decodable {
         let count: Int
+        let subscriptionsCount: Int?
         let list: [Dao]
+
+        enum CodingKeys: String, CodingKey {
+            case count
+            case subscriptionsCount = "subscriptions_count"
+            case list
+        }
     }
 
     var path: String = "dao/top"

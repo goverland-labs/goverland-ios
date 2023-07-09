@@ -26,6 +26,12 @@ enum TrackingEvent: String, Trackable {
     case onboardingYesNotifications = "onboarding_yes_notifications"
     case onboardingNoNotifications = "onboarding_no_notifications"
 
+
+    // MARK: - Inbox
+    case screenInbox = "screen_inbox"
+
+    // MARK: - DAO Info
+
     // MARK: - Search
     case screenSearchDaos = "screen_search_daos"
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
@@ -42,6 +48,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Followed DAOs
     case screenFollowedDaos = "screen_followed_daos"
+    case screenFollowedDaosEmpty = "screen_followed_daos_empty"
     case followedDaosUnfollow = "followed_daos_unfollow"
     case followedDaosRefollow = "followed_daos_refollow"
     case followedDaosOpenDao = "followed_daos_open_dao"
@@ -59,18 +66,29 @@ enum TrackingEvent: String, Trackable {
     case followedAddOpenDaoFromCtgList = "followed_add_open_dao_from_ctg_list"
     case followedAddOpenDaoFromCtgSearch = "followed_add_open_dao_from_ctg_search"
 
+    // MARK: - Settings
+    case screenSettings = "screen_settings"
+    case settingsOpenTwitter = "settings_open_twitter"
+    case settingsOpenDiscord = "settings_open_discord"
+    case settingsOpenEmail = "settings_open_email"
+
+    case screenNotifications = "screen_notifications"
+    case settingsEnableGlbNotifications = "settings_enable_glb_notifications"
+    case settingsDisableGlbNotifications = "settings_disable_glb_notifications"
+
+    case screenAbout = "screen_about"
+    case settingsOpenPrivacyPolicy = "settings_open_privacy_policy"
+    case settingsOpenTerms = "settings_open_terms"
+
+    case screenHelpUsGrow = "screen_help_us_grow"
+    case settingsRateTheApp = "settings_rate_the_app"
+
+    case screenAdvancedSettings = "screen_advanced_settings"
+    case settingsDisableTracking = "settings_disable_tracking"
+
 
     // LEGACY. Remove iteratively
-    case inboxView = "inbox_view"
     case daoInfoScreenView = "dao_info_screen_view"
-    case introView = "intro_view"
-    case launchTerms = "launch_terms"
     case searchProposalView = "search_proposal_view"
-    case settingsAboutView = "settings_about_view"
-    case settingsAdvancedView = "settings_advanced_view"
-    case settingsAppearanceView = "settings_appearance_view"
-    case settingsHelpUsGrowView = "settings_help_us_grow_view"
-    case settingsPushNotificationsView = "settings_push_notifications_view"
-    case settingsView = "settings_view"
     case snapshotProposalView = "snapshot_proposal_detail_view"
 }
