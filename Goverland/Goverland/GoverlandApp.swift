@@ -60,6 +60,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         NotificationsManager.setUpMessaging(delegate: self)
         return true
     }
+
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        logInfo("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
+        completionHandler(.noData)
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
