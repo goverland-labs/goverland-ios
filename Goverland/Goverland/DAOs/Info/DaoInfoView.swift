@@ -45,23 +45,21 @@ struct DaoInfoView: View {
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else {
-                VStack {
-                    DaoInfoScreenHeaderView(dao: dao)
-                        .padding(.horizontal)
-                        .padding(.bottom)
-                    
-                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { newValue in
-                        switch newValue {
-                        case .activity: dataSource.refresh()
-                        case .about: break
-                        }
+                DaoInfoScreenHeaderView(dao: dao)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+
+                FilterButtonsView<DaoInfoFilter>(filter: $filter) { newValue in
+                    switch newValue {
+                    case .activity: dataSource.refresh()
+                    case .about: break
                     }
-                    .padding(.bottom, 4)
-                    
-                    switch filter {
-                    case .activity: DaoInfoEventsView(dao: dao)
-                    case .about: DaoInfoAboutDaoView(dao: dao)
-                    }
+                }
+                .padding(.bottom, 4)
+
+                switch filter {
+                case .activity: DaoInfoEventsView(dao: dao)
+                case .about: DaoInfoAboutDaoView(dao: dao)
                 }
             }
         }
@@ -77,37 +75,24 @@ struct DaoInfoView: View {
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                //FollowBellButtonView()
-                NavigationLink(destination: EllipsisMenuView()) {
+                Menu {
+                    Button("Share", action: performShare)
+                    Button("Cancel", action: performCancel)
+                } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(height: 20)
                 }
+
             }
         }
         .onAppear() { Tracker.track(.daoInfoScreenView) }
     }
+
+    private func performShare() {}
+    private func performCancel() {}
 }
-
-fileprivate struct FollowBellButtonView: View {
-
-    @State private var didBellTap: Bool = false
-
-    var body: some View {
-        Button {
-            didBellTap.toggle()
-        } label: {
-            Image(systemName: didBellTap ? "bell.fill" : "bell")
-                .foregroundColor(.blue)
-        }
-    }
-}
-
-fileprivate struct EllipsisMenuView: View {
-    var body: some View {
-        Text("Ellipsis Menu View")
-    }
-}
-
 
 struct DaoInfoView_Previews: PreviewProvider {
     static var previews: some View {

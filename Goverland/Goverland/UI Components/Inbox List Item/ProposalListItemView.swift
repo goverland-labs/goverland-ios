@@ -166,10 +166,8 @@ fileprivate struct InboxListItemFooterMenu: View {
     }
 
     private func performShare() {}
-
     private func performCancel() {}
 }
-
 
 struct ShimmerProposalListItemView: View {
     var body: some View {

@@ -25,12 +25,6 @@ struct DaoInfoEventsView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
-                // TODO: enable once backend is ready
-                //                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
-                //                    data.refresh(withFilter: newValue)
-                //                }
-                //                .padding(10)
-                //                .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<5) { _ in
@@ -81,7 +75,6 @@ struct DaoInfoEventsView: View {
                 EmptyView()
             }
         }
-        .toolbarBackground(Color.surfaceBright, for: .navigationBar)
         .onAppear() {
             data.refresh(withFilter: .all)
             // TODO: proper tracking

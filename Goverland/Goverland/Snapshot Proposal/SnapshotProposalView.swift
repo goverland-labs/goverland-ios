@@ -17,65 +17,59 @@ struct SnapshotProposalView: View {
     @State private var showDaoInfoView = false
     
     var body: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    SnapshotProposalHeaderView(title: proposal.title)
-                    
-                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
-                        .gesture(TapGesture().onEnded { _ in
-                            if allowShowingDaoInfo {
-                                self.showDaoInfoView = true
-                            }
-                        })
-                        .padding(.bottom, 15)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                SnapshotProposalHeaderView(title: proposal.title)
 
-                    SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
-                        .padding(.bottom, 20)
-
-                    SnapshotProposalDescriptionView(proposalBody: proposal.body)
-                        .padding(.bottom, 35)
-
-                    HStack {
-                        Text("Off-Chain Vote")
-                            .font(.headlineSemibold)
-                            .foregroundColor(.textWhite)
-                        Spacer()
-                    }
-                    .padding(.bottom)
-
-                    SnapshotProposalVoteTabView(proposal: proposal)
-                        .padding(.bottom, 35)
-
-                    SnapshotProposalTimelineView()
-                        .padding(.bottom, 20)
-                }
-                .padding(.horizontal)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(navigationTitle)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button("Share", action: performShare)
-                            Button("Open on Snapshot", action: performOpenSnapshot)
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundColor(.primary)
-                                .fontWeight(.bold)
-                                .frame(width: 20, height: 20)
+                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
+                    .gesture(TapGesture().onEnded { _ in
+                        if allowShowingDaoInfo {
+                            self.showDaoInfoView = true
                         }
-                    }
+                    })
+                    .padding(.bottom, 15)
+
+                SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
+                    .padding(.bottom, 20)
+
+                SnapshotProposalDescriptionView(proposalBody: proposal.body)
+                    .padding(.bottom, 35)
+
+                HStack {
+                    Text("Off-Chain Vote")
+                        .font(.headlineSemibold)
+                        .foregroundColor(.textWhite)
+                    Spacer()
                 }
-                .onAppear() { Tracker.track(.snapshotProposalView) }
-                .popover(isPresented: $showDaoInfoView) {
-                    NavigationStack {
-                        DaoInfoView(dao: proposal.dao)
+                .padding(.bottom)
+
+                SnapshotProposalVoteTabView(proposal: proposal)
+                    .padding(.bottom, 35)
+
+                SnapshotProposalTimelineView()
+                    .padding(.bottom, 20)
+            }
+            .padding(.horizontal)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(navigationTitle)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Share", action: performShare)
+                        Button("Open on Snapshot", action: performOpenSnapshot)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.primary)
+                            .fontWeight(.bold)
+                            .frame(width: 20, height: 20)
                     }
-                    .accentColor(.primary)
                 }
             }
+            .onAppear() { Tracker.track(.snapshotProposalView) }
+            .popover(isPresented: $showDaoInfoView) {
+                DaoInfoView(dao: proposal.dao)
+            }
         }
-        .accentColor(.primary)
     }
     
     private func performShare() {}

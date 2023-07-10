@@ -90,6 +90,15 @@ struct InboxView: View {
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Inbox")
+                            .font(.title3Semibold)
+                    }
+                }
+            }
         }  detail: {
             if let index = selectedEventIndex, data.events.count > index,
                let proposal = data.events[index].eventData as? Proposal {
@@ -106,16 +115,6 @@ struct InboxView: View {
                 data.markRead(eventID: event.id)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Inbox")
-                        .font(.title3Semibold)
-                }
-            }
-        }
-        .toolbarBackground(Color.surfaceBright, for: .navigationBar)
         .onAppear() {
             data.refresh(withFilter: .all)
             Tracker.track(.screenInbox)
