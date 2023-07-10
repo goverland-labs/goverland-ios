@@ -240,6 +240,19 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkEventArchivedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/archive" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
 // MARK: - Notifications
 
 struct NotificationsSettingsEndpoint: APIEndpoint {

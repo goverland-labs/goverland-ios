@@ -181,6 +181,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func markEventArchived(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkEventArchivedEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+
     // MARK: - Notifications
 
     // TODO: atm this is not used. We will use it once we have granular notifications control

@@ -94,6 +94,26 @@ class InboxDataSource: ObservableObject, Paginatable {
     }
 
     func archive(eventID: UUID) {
-        // TODO: implement
+        APIService.markEventArchived(eventID: eventID)
+            .retry(3)
+            .sink { [weak self] competion in
+                switch competion {
+                case .finished: break
+                case .failure(_):
+                    // do nothing, error will be displayed to user if any
+
+                    // TODO: remove one backend is ready
+                    guard let `self` = self else { return }
+                    if let index = self.events.firstIndex(where: { $0.id == eventID }) {
+                        self.events.remove(at: index)
+                    }
+                }
+            } receiveValue: { [weak self] _, _ in
+                guard let `self` = self else { return }
+                if let index = self.events.firstIndex(where: { $0.id == eventID }) {
+                    self.events.remove(at: index)
+                }
+            }
+            .store(in: &cancellables)
     }
 }
