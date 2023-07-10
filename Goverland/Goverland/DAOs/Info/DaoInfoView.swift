@@ -51,7 +51,7 @@ struct DaoInfoView: View {
 
                 FilterButtonsView<DaoInfoFilter>(filter: $filter) { newValue in
                     switch newValue {
-                    case .activity: dataSource.refresh()
+                    case .activity: break
                     case .about: break
                     }
                 }
