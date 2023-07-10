@@ -14,6 +14,7 @@ struct SnapshotRankedChoiceVotingView: View {
         }
     }
     @State var disabled: Bool = true
+    @State var warningViewIsPresented = false
     let proposal: Proposal
         
     var body: some View {
@@ -42,7 +43,13 @@ struct SnapshotRankedChoiceVotingView: View {
                 }
             }
             
-            VoteButton(disabled: $disabled) {}
+            VoteButton(disabled: $disabled) {
+                warningViewIsPresented = true
+            }
+        }
+        .sheet(isPresented: $warningViewIsPresented) {
+            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
+                .presentationDetents([.medium, .large])
         }
     }
 }

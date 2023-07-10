@@ -188,6 +188,20 @@ struct InboxEventsEndpoint: APIEndpoint {
     }
 }
 
+struct ProposalsListEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "proposals"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    var body: Data?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 struct ProposalEndpoint: APIEndpoint {
     typealias ResponseType = Proposal
 

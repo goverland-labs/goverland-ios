@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "proposal-vote-popup-background.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

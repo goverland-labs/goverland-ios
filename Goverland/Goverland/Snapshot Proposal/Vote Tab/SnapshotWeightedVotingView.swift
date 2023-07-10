@@ -10,6 +10,7 @@ import SwiftUI
 struct SnapshotWeightedVotingView: View {
     @StateObject var viewModel: SnapshotWeightedVotinViewModel
     @State var isDisabled: Bool = true
+    @State var warningViewIsPresented = false
     
     init(proposal: Proposal) {
         _viewModel = StateObject(wrappedValue: SnapshotWeightedVotinViewModel(proposal: proposal))
@@ -60,8 +61,12 @@ struct SnapshotWeightedVotingView: View {
             }
             
             VoteButton(disabled: $isDisabled) {
-                print("submitting vote")
+                warningViewIsPresented = true
             }
+        }
+        .sheet(isPresented: $warningViewIsPresented) {
+            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
+                .presentationDetents([.medium, .large])
         }
     }
 }

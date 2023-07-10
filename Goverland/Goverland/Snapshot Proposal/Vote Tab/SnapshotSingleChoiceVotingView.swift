@@ -25,6 +25,7 @@ struct ChoicesView: View {
         }
     }
     @State var disabled: Bool = true
+    @State var warningViewIsPresented = false
 
     let choices: [String]
     let onSubmittingVote: (_ index: Int) -> ()
@@ -41,7 +42,12 @@ struct ChoicesView: View {
 
             VoteButton(disabled: $disabled) {
                 onSubmittingVote(selectedChoiceIndex!)
+                warningViewIsPresented = true
             }
+        }
+        .sheet(isPresented: $warningViewIsPresented) {
+            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
+                .presentationDetents([.medium, .large])
         }
     }
 }
