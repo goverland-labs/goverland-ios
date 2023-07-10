@@ -136,12 +136,16 @@ extension APIService {
 
     // MARK: - Proposals
     
-    static func proposalsList(offset: Int = 0,
-                              limit: Int = 150) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func proposals(offset: Int = 0,
+                          limit: Int = DEFAULT_PAGINATION_COUNT,
+                          query: String? = nil) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
+        if let query = query {
+            queryParameters.append(URLQueryItem(name: "query", value: query))
+        }
         let endpoint = ProposalsListEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }

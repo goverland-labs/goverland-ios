@@ -37,7 +37,19 @@ struct SearchView: View {
             }
             return ""
         case .proposals:
+            if let total = proposalDataSource.totalProposals.map(String.init) {
+                return "Search for \(total) proposals by name"
+            }
             return ""
+        }
+    }
+
+    private var searchText: Binding<String> {
+        switch filter {
+        case .daos:
+            return $daoDataSource.searchText
+        case .proposals:
+            return $proposalDataSource.searchText
         }
     }
     
@@ -46,13 +58,13 @@ struct SearchView: View {
             VStack {
                 FilterButtonsView<SearchFilter>(filter: $filter) { newValue in
                     switch newValue {
-                    case .daos: daoDataSource.refresh()
+                    case .daos: break
                     case .proposals: break
                     }
                 }
                 .padding(.bottom, 4)
                 
-                if daoDataSource.searchText == "" {
+                if searchText.wrappedValue == "" {
                     switch filter {
                     case .daos:
                         if !daoDataSource.failedToLoadInitially {
@@ -79,7 +91,6 @@ struct SearchView: View {
 
                 } else {
                     // Searching by text
-
                     switch filter {
                     case .daos:
                         DaosSearchListView(dataSource: daoDataSource,
@@ -98,7 +109,7 @@ struct SearchView: View {
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: true, navigationTitle: proposal.dao.name)
             }
-            .searchable(text: $daoDataSource.searchText,
+            .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .navigationBarTitleDisplayMode(.inline)

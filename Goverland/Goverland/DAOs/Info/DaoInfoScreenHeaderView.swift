@@ -23,7 +23,7 @@ struct DaoInfoScreenHeaderView: View {
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
                 
-                FollowButtonView(daoID: dao.id, subscriptionID: nil, onFollowToggle: nil)
+                FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: nil)
             }
         }
     }
