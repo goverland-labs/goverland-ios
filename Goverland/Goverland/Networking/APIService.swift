@@ -136,6 +136,17 @@ extension APIService {
         let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
+    
+    static func proposalsList(offset: Int = 0,
+                              limit: Int = 120, //TODO: 121 proposal has "Link" as icons in URL - fix Proposal decoder
+                              sorting: DaoSorting = .default) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = ProposalsListEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     static func proposal(id: UUID) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = ProposalEndpoint(proposalID: id)

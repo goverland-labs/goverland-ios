@@ -53,6 +53,12 @@ struct ProposalStatusView: View {
                 text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .danger)
+        case .pending: // TODO: new status! we did not have it in design but we have it in backedn MOCS
+            BubbleView(
+                image: Image(systemName: "xmark"),
+                text: Text(state.localizedName),
+                textColor: .textWhite,
+                backgroundColor: .danger)
         }
     }
 }
