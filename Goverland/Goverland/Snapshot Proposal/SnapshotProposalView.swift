@@ -8,10 +8,11 @@
 import SwiftUI
 import SwiftDate
 
-
 // TODO: add pull-to-refresh logic, add initializer from object and from proposal id
 struct SnapshotProposalView: View {
     let proposal: Proposal
+    let allowShowingDaoInfo: Bool
+    let navigationTitle: String
 
     @State private var showDaoInfoView = false
     
@@ -23,7 +24,9 @@ struct SnapshotProposalView: View {
                     
                     SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                         .gesture(TapGesture().onEnded { _ in
-                            self.showDaoInfoView = true
+                            if allowShowingDaoInfo {
+                                self.showDaoInfoView = true
+                            }
                         })
                         .padding(.bottom, 15)
 
@@ -49,38 +52,30 @@ struct SnapshotProposalView: View {
                 }
                 .padding(.horizontal)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(proposal.dao.name)
+                .navigationTitle(navigationTitle)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            // follow action
-                        } label: {
-                            Image(systemName: "bell.fill")
-                                .foregroundColor(.textWhite40)
-                        }
-                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button("Share", action: performShare)
                             Button("Open on Snapshot", action: performOpenSnapshot)
                         } label: {
                             Image(systemName: "ellipsis")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.primary)
                                 .fontWeight(.bold)
                                 .frame(width: 20, height: 20)
                         }
                     }
                 }
-                .background(Color.surface)
                 .onAppear() { Tracker.track(.snapshotProposalView) }
                 .popover(isPresented: $showDaoInfoView) {
                     NavigationStack {
                         DaoInfoView(dao: proposal.dao)
                     }
+                    .accentColor(.primary)
                 }
             }
-            .background(Color.surfaceBright)
         }
+        .accentColor(.primary)
     }
     
     private func performShare() {}
@@ -181,6 +176,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest)
+        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
     }
 }

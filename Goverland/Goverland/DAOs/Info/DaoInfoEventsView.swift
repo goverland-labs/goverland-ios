@@ -59,7 +59,7 @@ struct DaoInfoEventsView: View {
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isRead: event.readAt != nil,
+                                                 isRead: true,
                                                  isSelected: selectedEventIndex == index)
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
@@ -76,7 +76,7 @@ struct DaoInfoEventsView: View {
         }  detail: {
             if let index = selectedEventIndex, data.events.count > index,
                let proposal = data.events[index].eventData as? Proposal {
-                SnapshotProposalView(proposal: proposal)
+                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
             } else {
                 EmptyView()
             }
