@@ -6,6 +6,18 @@
 //
 
 import Foundation
+import OSLog
+
+fileprivate let logger = Logger()
+
+func logInfo(_ message: String) {
+    logger.info("\(message)")
+}
+
+func logError(_ error: Error) {
+    // TODO: log in crashlytics
+    logger.error("\(error.localizedDescription)")
+}
 
 enum Utils {
     static func getTotal(from headers: HttpHeaders) -> Int? {

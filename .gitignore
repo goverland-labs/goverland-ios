@@ -95,3 +95,6 @@ iOSInjectionProject/
 
 # Python
 __pycache__
+
+# Firebase
+GoogleService-Info*
