@@ -35,11 +35,11 @@ struct InboxView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
                 // TODO: enable once backend is ready
-//                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
-//                    data.refresh(withFilter: newValue)
-//                }
-//                .padding(10)
-//                .background(Color.surfaceBright)
+                //                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
+                //                    data.refresh(withFilter: newValue)
+                //                }
+                //                .padding(10)
+                //                .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<5) { _ in
@@ -67,15 +67,17 @@ struct InboxView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
-                            ProposalListItemView(proposal: proposal)
-                                .swipeActions(allowsFullSwipe: false) {
-                                    Button {
-                                        data.archive(eventID: event.id)
-                                    } label: {
-                                        Label("Archive", systemImage: "trash")
-                                    }
-                                    .tint(.clear)
+                            ProposalListItemView(proposal: proposal,
+                                                 isRead: event.readAt != nil,
+                                                 isSelected: selectedEventIndex == index)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    data.archive(eventID: event.id)
+                                } label: {
+                                    Label("Archive", systemImage: "trash")
                                 }
+                                .tint(.clear)
+                            }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
@@ -90,7 +92,7 @@ struct InboxView: View {
             .scrollIndicators(.hidden)
         }  detail: {
             if let index = selectedEventIndex, data.events.count > index,
-                let proposal = data.events[index].eventData as? Proposal {
+               let proposal = data.events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
             } else {
                 EmptyView()

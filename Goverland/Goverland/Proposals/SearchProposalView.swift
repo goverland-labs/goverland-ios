@@ -25,7 +25,7 @@ struct SearchProposalView: View {
                 // TODO: open proposal detail (info)
                 ScrollView {
                     ForEach(dataSource.proposalsList.indices, id: \.self) { i in
-                        ProposalListItemView(proposal: dataSource.proposalsList[i])
+                        ProposalListItemView(proposal: dataSource.proposalsList[i], isRead: true, isSelected: false)
                     }
                 }
                 .listRowSeparator(.hidden)
