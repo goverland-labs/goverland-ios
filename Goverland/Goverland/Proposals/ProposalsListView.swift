@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct SearchProposalView: View {
+struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
+    @Binding var path: NavigationPath
+
     var body: some View {
         VStack(spacing: 0) {
-            if dataSource.isLoading && dataSource.proposalsList.count == 0 {
+            if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ScrollView {
                     ForEach(0..<5) { _ in
                         ShimmerProposalListItemView()
@@ -23,14 +25,17 @@ struct SearchProposalView: View {
                 // TODO: pagination
                 // TODO: shimmer when loading more data
                 // TODO: open proposal detail (info)
-                ScrollView {
-                    ForEach(dataSource.proposalsList.indices, id: \.self) { i in
-                        ProposalListItemView(proposal: dataSource.proposalsList[i], isRead: true, isSelected: false)
-                    }
+
+                List(0..<dataSource.proposals.count, id: \.self) { index in
+                    let proposal = dataSource.proposals[index]
+                    ProposalListItemView(proposal: proposal, isRead: true, isSelected: false)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                        .listRowBackground(Color.clear)
+                        .onTapGesture {
+                            path.append(proposal)
+                        }
                 }
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
-                .listRowBackground(Color.clear)
             }
         }
         .listStyle(.plain)
@@ -44,6 +49,6 @@ struct SearchProposalView: View {
 
 struct SearchProposalView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchProposalView(dataSource: ProposalDataSource())
+        ProposalsListView(dataSource: ProposalDataSource(), path: .constant(NavigationPath()))
     }
 }

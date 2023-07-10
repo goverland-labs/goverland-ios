@@ -23,6 +23,8 @@ enum SearchFilter: Int, FilterOptions {
 
 struct SearchView: View {
     @State private var filter: SearchFilter = .daos
+    @State private var path = NavigationPath()
+
     @StateObject private var daoDataSource = GroupedDaosDataSource()
     @StateObject private var proposalDataSource = ProposalDataSource()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -40,7 +42,7 @@ struct SearchView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
                 FilterButtonsView<SearchFilter>(filter: $filter) { newValue in
                     switch newValue {
@@ -68,22 +70,33 @@ struct SearchView: View {
                             RetryInitialLoadingView(dataSource: daoDataSource)
                         }
                     case .proposals:
-                        SearchProposalView(dataSource: proposalDataSource)
+                        if !proposalDataSource.failedToLoadInitialData {
+                            ProposalsListView(dataSource: proposalDataSource, path: $path)
+                        } else {
+                            RetryInitialLoadingView(dataSource: proposalDataSource)
+                        }
                     }
 
                 } else {
+                    // Searching by text
+
                     switch filter {
-                    case .daos: DaosSearchListView(dataSource: daoDataSource,
-                                                   onSelectDao: { dao in
-                        activeSheetManger.activeSheet = .daoInfo(dao)
-                        Tracker.track(.searchDaosOpenDaoFromSearch)
-                    },
-                                                   onFollowToggle: { didFollow in
-                        Tracker.track(.searchDaosFollowFromSearch)
-                    })
-                    case .proposals: SearchProposalView(dataSource: proposalDataSource)
+                    case .daos:
+                        DaosSearchListView(dataSource: daoDataSource,
+                                           onSelectDao: { dao in
+                            activeSheetManger.activeSheet = .daoInfo(dao)
+                            Tracker.track(.searchDaosOpenDaoFromSearch)
+                        },
+                                           onFollowToggle: { didFollow in
+                            Tracker.track(.searchDaosFollowFromSearch)
+                        })
+                    case .proposals:
+                        ProposalsListView(dataSource: proposalDataSource, path: $path)
                     }
                 }
+            }
+            .navigationDestination(for: Proposal.self) { proposal in
+                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: true, navigationTitle: proposal.dao.name)
             }
             .searchable(text: $daoDataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

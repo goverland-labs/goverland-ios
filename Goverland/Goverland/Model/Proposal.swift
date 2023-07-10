@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDate
 
-struct Proposal: Decodable {
+struct Proposal: Decodable, Hashable {
     let id: String
     let ipfs: String
     let author: User
@@ -55,24 +55,24 @@ struct Proposal: Decodable {
 
     enum State: String, Decodable {
         case active
-        case executed
+        case closed
         case failed
-        case queued
         case succeeded
         case defeated
-        case closed
+        case queued
         case pending
+        case executed
 
         var localizedName: String {
             switch self {
             case .active: return "Active vote"
-            case .executed: return "Executed"
+            case .closed: return "Closed"
             case .failed: return "Failed"
-            case .queued: return "Queued"
             case .succeeded: return "Succeeded"
             case .defeated: return "Defeated"
-            case .closed: return "Closed"
+            case .queued: return "Queued"
             case .pending: return "Pending"
+            case .executed: return "Executed"
             }
         }
     }
@@ -98,6 +98,14 @@ struct Proposal: Decodable {
         case scoresTotal = "scores_total"
         case votes
         case dao
+    }
+
+    static func == (lhs: Proposal, rhs: Proposal) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 

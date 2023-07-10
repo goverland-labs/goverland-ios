@@ -9,20 +9,17 @@ import SwiftUI
 import Combine
 
 class ProposalDataSource: ObservableObject, Refreshable {
-    @Published var proposalsList: [Proposal] = []
+    @Published var proposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
-        refresh()
-    }
-
     func refresh() {
-        proposalsList = []
+        proposals = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
+        
         loadInitialData()
     }
 
@@ -36,7 +33,7 @@ class ProposalDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] proposals, headers in
-                self?.proposalsList = proposals
+                self?.proposals = proposals
             }
             .store(in: &cancellables)
     }
