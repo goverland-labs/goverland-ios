@@ -1,45 +1,30 @@
 //
-//  InboxView.swift
+//  DaoInfoEventsView.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 19.12.22.
+//  Created by Andrey Scherbovich on 10.07.23.
 //
 
 import SwiftUI
 
-enum InboxFilter: Int, FilterOptions {
-    case all = 0
-    case vote
-    case treasury
-
-    var localizedName: String {
-        switch self {
-        case .all:
-            return "All"
-        case .vote:
-            return "Vote"
-        case .treasury:
-            return "Treasury"
-        }
-    }
-}
-
-struct InboxView: View {
+struct DaoInfoEventsView: View {
     @State private var filter: InboxFilter = .all
-    @StateObject private var data = InboxDataSource()
+    @StateObject private var data: DaoInfoEventsDataSource
 
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    
+
+    let dao: Dao
+
+    init(dao: Dao) {
+        let dataSource = DaoInfoEventsDataSource(daoID: dao.id)
+        _data = StateObject(wrappedValue: dataSource)
+        self.dao = dao
+    }
+
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
-                // TODO: enable once backend is ready
-                //                FilterButtonsView<InboxFilter>(filter: $filter) { newValue in
-                //                    data.refresh(withFilter: newValue)
-                //                }
-                //                .padding(10)
-                //                .background(Color.surfaceBright)
                 if data.isLoading && data.events.count == 0 {
                     ScrollView {
                         ForEach(0..<5) { _ in
@@ -68,16 +53,8 @@ struct InboxView: View {
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isRead: event.readAt != nil,
+                                                 isRead: true,
                                                  isSelected: selectedEventIndex == index)
-                            .swipeActions(allowsFullSwipe: false) {
-                                Button {
-                                    data.archive(eventID: event.id)
-                                } label: {
-                                    Label("Archive", systemImage: "trash")
-                                }
-                                .tint(.clear)
-                            }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
@@ -90,34 +67,24 @@ struct InboxView: View {
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Inbox")
-                            .font(.title3Semibold)
-                    }
-                }
-            }
         }  detail: {
             if let index = selectedEventIndex, data.events.count > index,
                let proposal = data.events[index].eventData as? Proposal {
-                SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true,
-                                     navigationTitle: proposal.dao.name)
+                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
             } else {
                 EmptyView()
             }
         }
-        .onChange(of: selectedEventIndex) { newValue in
-            if let index = selectedEventIndex, data.events.count > index {
-                let event = data.events[index]
-                data.markRead(eventID: event.id)
-            }
-        }
         .onAppear() {
             data.refresh(withFilter: .all)
-            Tracker.track(.screenInbox)
+            // TODO: proper tracking
+            //Tracker.track(.screenInbox)
         }
+    }
+}
+
+struct DaoInfoEventsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DaoInfoEventsView(dao: .aave)
     }
 }

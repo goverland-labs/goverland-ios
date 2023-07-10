@@ -23,6 +23,8 @@ enum SearchFilter: Int, FilterOptions {
 
 struct SearchView: View {
     @State private var filter: SearchFilter = .daos
+    @State private var path = NavigationPath()
+
     @StateObject private var daoDataSource = GroupedDaosDataSource()
     @StateObject private var proposalDataSource = ProposalDataSource()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -35,22 +37,34 @@ struct SearchView: View {
             }
             return ""
         case .proposals:
+            if let total = proposalDataSource.totalProposals.map(String.init) {
+                return "Search for \(total) proposals by name"
+            }
             return ""
+        }
+    }
+
+    private var searchText: Binding<String> {
+        switch filter {
+        case .daos:
+            return $daoDataSource.searchText
+        case .proposals:
+            return $proposalDataSource.searchText
         }
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
                 FilterButtonsView<SearchFilter>(filter: $filter) { newValue in
                     switch newValue {
-                    case .daos: daoDataSource.refresh()
+                    case .daos: break
                     case .proposals: break
                     }
                 }
                 .padding(.bottom, 4)
                 
-                if daoDataSource.searchText == "" {
+                if searchText.wrappedValue == "" {
                     switch filter {
                     case .daos:
                         if !daoDataSource.failedToLoadInitially {
@@ -68,24 +82,34 @@ struct SearchView: View {
                             RetryInitialLoadingView(dataSource: daoDataSource)
                         }
                     case .proposals:
-                        SearchProposalView(dataSource: proposalDataSource)
+                        if !proposalDataSource.failedToLoadInitialData {
+                            ProposalsListView(dataSource: proposalDataSource, path: $path)
+                        } else {
+                            RetryInitialLoadingView(dataSource: proposalDataSource)
+                        }
                     }
 
                 } else {
+                    // Searching by text
                     switch filter {
-                    case .daos: DaosSearchListView(dataSource: daoDataSource,
-                                                   onSelectDao: { dao in
-                        activeSheetManger.activeSheet = .daoInfo(dao)
-                        Tracker.track(.searchDaosOpenDaoFromSearch)
-                    },
-                                                   onFollowToggle: { didFollow in
-                        Tracker.track(.searchDaosFollowFromSearch)
-                    })
-                    case .proposals: SearchProposalView(dataSource: proposalDataSource)
+                    case .daos:
+                        DaosSearchListView(dataSource: daoDataSource,
+                                           onSelectDao: { dao in
+                            activeSheetManger.activeSheet = .daoInfo(dao)
+                            Tracker.track(.searchDaosOpenDaoFromSearch)
+                        },
+                                           onFollowToggle: { didFollow in
+                            Tracker.track(.searchDaosFollowFromSearch)
+                        })
+                    case .proposals:
+                        ProposalsListView(dataSource: proposalDataSource, path: $path)
                     }
                 }
             }
-            .searchable(text: $daoDataSource.searchText,
+            .navigationDestination(for: Proposal.self) { proposal in
+                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: true, navigationTitle: proposal.dao.name)
+            }
+            .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .navigationBarTitleDisplayMode(.inline)

@@ -40,7 +40,8 @@ struct InboxEvent: Identifiable, Decodable {
     let id: UUID
     let createdAt: Date
     let updatedAt: Date
-    let readAt: Date?
+    // we change it manually not to reload all data
+    var readAt: Date?
     let eventData: EventData?
     let timeline: [TimelineEvent]
     

@@ -8,79 +8,65 @@
 import SwiftUI
 import SwiftDate
 
-
 // TODO: add pull-to-refresh logic, add initializer from object and from proposal id
 struct SnapshotProposalView: View {
     let proposal: Proposal
+    let allowShowingDaoInfo: Bool
+    let navigationTitle: String
 
-    @State private var showDaoInfoView = false
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    SnapshotProposalHeaderView(title: proposal.title)
-                    
-                    SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
-                        .gesture(TapGesture().onEnded { _ in
-                            self.showDaoInfoView = true
-                        })
-                        .padding(.bottom, 15)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                SnapshotProposalHeaderView(title: proposal.title)
 
-                    SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
-                        .padding(.bottom, 20)
-
-                    SnapshotProposalDescriptionView(proposalBody: proposal.body)
-                        .padding(.bottom, 35)
-
-                    HStack {
-                        Text("Off-Chain Vote")
-                            .font(.headlineSemibold)
-                            .foregroundColor(.textWhite)
-                        Spacer()
-                    }
-                    .padding(.bottom)
-
-                    SnapshotProposalVoteTabView(proposal: proposal)
-                        .padding(.bottom, 35)
-
-                    SnapshotProposalTimelineView()
-                        .padding(.bottom, 20)
-                }
-                .padding(.horizontal)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(proposal.dao.name)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            // follow action
-                        } label: {
-                            Image(systemName: "bell.fill")
-                                .foregroundColor(.textWhite40)
+                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
+                    .gesture(TapGesture().onEnded { _ in
+                        if allowShowingDaoInfo {
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button("Share", action: performShare)
-                            Button("Open on Snapshot", action: performOpenSnapshot)
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundColor(.gray)
-                                .fontWeight(.bold)
-                                .frame(width: 20, height: 20)
-                        }
-                    }
+                    })
+                    .padding(.bottom, 15)
+
+                SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
+                    .padding(.bottom, 20)
+
+                SnapshotProposalDescriptionView(proposalBody: proposal.body)
+                    .padding(.bottom, 35)
+
+                HStack {
+                    Text("Off-Chain Vote")
+                        .font(.headlineSemibold)
+                        .foregroundColor(.textWhite)
+                    Spacer()
                 }
-                .background(Color.surface)
-                .onAppear() { Tracker.track(.snapshotProposalView) }
-                .popover(isPresented: $showDaoInfoView) {
-                    NavigationStack {
-                        DaoInfoView(dao: proposal.dao)
-                    }
+                .padding(.bottom)
+
+                SnapshotProposalVoteTabView(proposal: proposal)
+                    .padding(.bottom, 35)
+
+                SnapshotProposalTimelineView()
+                    .padding(.bottom, 20)
+            }
+            .padding(.horizontal)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(navigationTitle)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button("Share", action: performShare)
+                    Button("Open on Snapshot", action: performOpenSnapshot)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(width: 20, height: 20)
                 }
             }
-            .background(Color.surfaceBright)
         }
+        .onAppear() { Tracker.track(.snapshotProposalView) }
     }
     
     private func performShare() {}
@@ -181,6 +167,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest)
+        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
     }
 }

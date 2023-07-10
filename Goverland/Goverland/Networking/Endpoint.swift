@@ -39,6 +39,9 @@ extension APIEndpoint {
         }
         return headers
     }
+
+    var body: Data? { nil }
+    var queryParameters: [URLQueryItem]? { nil }
 }
 
 struct IgnoredResponse: Decodable {
@@ -46,7 +49,7 @@ struct IgnoredResponse: Decodable {
     init() {}
 }
 
-// MARK: - Inbox service endpoints
+// MARK: - Auth
 
 struct AuthTokenEndpoint: APIEndpoint {
     typealias ResponseType = AuthTokenResponse
@@ -61,7 +64,6 @@ struct AuthTokenEndpoint: APIEndpoint {
 
     var path: String = "auth/guest"
     var method: HttpMethod = .post
-    var queryParameters: [URLQueryItem]?
     var headers: [String: String] {
         // do not set authorization header in this request
         return ["Content-Type": "application/json"]
@@ -74,14 +76,14 @@ struct AuthTokenEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - DAOs
+
 struct DaoListEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]
 
     var path: String = "dao"
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
-
-    var body: Data?
 
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
@@ -105,13 +107,6 @@ struct DaoGroupedEndpoint: APIEndpoint {
 
     var path: String = "dao/top"
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-    
-    var body: Data?
-    
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
-    }
 }
 
 struct DaoInfoEndpoint: APIEndpoint {
@@ -121,14 +116,13 @@ struct DaoInfoEndpoint: APIEndpoint {
     
     var path: String { "dao/\(daoID)" }
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-    
-    var body: Data?
 
     init(daoID: UUID) {
         self.daoID = daoID
     }
 }
+
+// MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
     typealias ResponseType = [Subscription]
@@ -149,8 +143,6 @@ struct CreateSubscriptionEndpoint: APIEndpoint {
 
     var path: String = "subscriptions"
     var method: HttpMethod = .post
-    var queryParameters: [URLQueryItem]?
-
     var body: Data?
     
     init(daoID: UUID) {
@@ -165,28 +157,13 @@ struct DeleteSubscriptionEndpoint: APIEndpoint {
 
     var path: String { "subscriptions/\(subscriptionID)" }
     var method: HttpMethod = .delete
-    var queryParameters: [URLQueryItem]?
-
-    var body: Data?
     
     init(subscriptionID: UUID) {
         self.subscriptionID = subscriptionID
     }
 }
 
-struct InboxEventsEndpoint: APIEndpoint {
-    typealias ResponseType = [InboxEvent]
-
-    var path: String = "feed"
-    var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-
-    var body: Data?
-
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
-    }
-}
+// MARK: - Proposals
 
 struct ProposalsListEndpoint: APIEndpoint {
     typealias ResponseType = [Proposal]
@@ -194,8 +171,6 @@ struct ProposalsListEndpoint: APIEndpoint {
     var path: String = "proposals"
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
-
-    var body: Data?
 
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
@@ -209,9 +184,6 @@ struct ProposalEndpoint: APIEndpoint {
 
     var path: String { "proposals/\(proposalID)" }
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-
-    var body: Data?
 
     init(proposalID: UUID) {
         self.proposalID = proposalID
@@ -234,27 +206,75 @@ struct ProposalVotesEndpoint: APIEndpoint {
     var path: String { "proposals/\(proposalID)/votes" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
-    
-    var body: Data?
-    
+
     init(proposalID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
         self.proposalID = proposalID
     }
 }
 
+// MARK: - Feed
+
+struct InboxEventsEndpoint: APIEndpoint {
+    typealias ResponseType = [InboxEvent]
+
+    var path: String = "feed"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+struct DaoEventsEndpoint: APIEndpoint {
+    typealias ResponseType = [InboxEvent]
+
+    let daoID: UUID
+
+    var path: String { "feed" } // "daos/\(daoID)/feed"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
+    }
+}
+
+struct MarkEventReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/mark-as-read" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+struct MarkEventArchivedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/archive" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+// MARK: - Notifications
+
 struct NotificationsSettingsEndpoint: APIEndpoint {
     typealias ResponseType = NotificationsSettings
 
     var path: String = "notifications/settings"
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-
-    var body: Data?
-
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
-    }
 }
 
 struct EnableNotificationsEndpoint: APIEndpoint {
@@ -262,8 +282,6 @@ struct EnableNotificationsEndpoint: APIEndpoint {
 
     var path: String = "notifications/settings"
     var method: HttpMethod = .post
-    var queryParameters: [URLQueryItem]?
-
     var body: Data?
 
     init(token: String) {
@@ -276,7 +294,4 @@ struct DisableNotificationsEndpoint: APIEndpoint {
 
     var path: String = "notifications/settings"
     var method: HttpMethod = .delete
-    var queryParameters: [URLQueryItem]?
-
-    var body: Data?
 }

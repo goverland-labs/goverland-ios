@@ -8,16 +8,30 @@
 import SwiftUI
 
 struct ProposalListItemView: View {
-    @State private var isRead = false
     let proposal: Proposal
+    let isRead: Bool
+    let isSelected: Bool
+
+    @Environment(\.presentationMode) private var presentationMode
+
+    private var backgroundColor: Color {
+        if isSelected {
+            return .textWhite20
+        }
+        // if in a popover or on iPads, make it lighter
+        if presentationMode.wrappedValue.isPresented || UIDevice.current.userInterfaceIdiom == .pad {
+            return .containerBright
+        }
+        return .container
+    }
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container)
+                .fill(backgroundColor)
             
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal)
+                ProposalListItemHeaderView(proposal: proposal, isRead: isRead)
                 ProposalListItemBodyView(proposal: proposal)
                 ProposalListItemFooterView(proposal: proposal)
             }
@@ -28,6 +42,7 @@ struct ProposalListItemView: View {
 
 fileprivate struct ProposalListItemHeaderView: View {
     let proposal: Proposal
+    let isRead: Bool
 
     var body: some View {
         HStack {
@@ -41,9 +56,10 @@ fileprivate struct ProposalListItemHeaderView: View {
 
             Spacer()
 
-            // TODO: implement
             HStack(spacing: 6) {
-                ReadIndicatiorView()
+                if !isRead {
+                    ReadIndicatiorView()
+                }
                 ProposalStatusView(state: proposal.state)
             }
         }
@@ -76,14 +92,14 @@ fileprivate struct ProposalListItemBodyView: View {
                     .lineLimit(1)
 
                 // TODO: fix
-//                if let warning = data.content.warningSubtitle {
-//                    Text(warning)
-//                        .foregroundColor(.textWhite40)
-//                        .font(.footnoteRegular)
-//                        .lineLimit(1)
-//                } else {
-//                    Text("")
-//                }
+                //                if let warning = data.content.warningSubtitle {
+                //                    Text(warning)
+                //                        .foregroundColor(.textWhite40)
+                //                        .font(.footnoteRegular)
+                //                        .lineLimit(1)
+                //                } else {
+                //                    Text("")
+                //                }
             }
 
             Spacer()
@@ -150,10 +166,8 @@ fileprivate struct InboxListItemFooterMenu: View {
     }
 
     private func performShare() {}
-
     private func performCancel() {}
 }
-
 
 struct ShimmerProposalListItemView: View {
     var body: some View {
@@ -201,6 +215,6 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest)
+        ProposalListItemView(proposal: .aaveTest, isRead: false, isSelected: false)
     }
 }

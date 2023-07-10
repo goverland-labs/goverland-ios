@@ -14,8 +14,15 @@ class SettingKeys: ObservableObject {
     @AppStorage("trackingAccepted") var trackingAccepted = false
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("authToken") var authToken = ""
+    @AppStorage("unreadEvents") var unreadEvents = 0 {
+        didSet {
+            UIApplication.shared.applicationIconBadgeNumber = unreadEvents
+        }
+    }
 
     static var shared = SettingKeys()
+
+    private init() {}
     
     static func reset() {
         SettingKeys.shared.onboardingFinished = false
@@ -23,6 +30,7 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.trackingAccepted = false
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.authToken = ""
+        SettingKeys.shared.unreadEvents = 0
     }
 }
 

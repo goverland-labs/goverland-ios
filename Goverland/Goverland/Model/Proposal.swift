@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDate
 
-struct Proposal: Decodable {
+struct Proposal: Decodable, Hashable {
     let id: String
     let ipfs: String
     let author: User
@@ -25,7 +25,10 @@ struct Proposal: Decodable {
     let snapshot: String
     let state: State
     //let strategies: [String]
-    let link: URL
+
+    // Swift can automatically decode urls with special characters.
+    // One option is to decode manually using percent-encoding, but for now we will make it a string
+    let link: String
     let scores: [Double]
     let scoresTotal: Double
     let votes: Int
@@ -52,24 +55,24 @@ struct Proposal: Decodable {
 
     enum State: String, Decodable {
         case active
-        case executed
+        case closed
         case failed
-        case queued
         case succeeded
         case defeated
-        case closed
+        case queued
         case pending
+        case executed
 
         var localizedName: String {
             switch self {
             case .active: return "Active vote"
-            case .executed: return "Executed"
+            case .closed: return "Closed"
             case .failed: return "Failed"
-            case .queued: return "Queued"
             case .succeeded: return "Succeeded"
             case .defeated: return "Defeated"
-            case .closed: return "Closed"
+            case .queued: return "Queued"
             case .pending: return "Pending"
+            case .executed: return "Executed"
             }
         }
     }
@@ -96,6 +99,14 @@ struct Proposal: Decodable {
         case votes
         case dao
     }
+
+    static func == (lhs: Proposal, rhs: Proposal) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 // MARK: - Mock data
@@ -120,7 +131,7 @@ extension Proposal {
         snapshot: "43600919",
         state: .active,
         //strategies: [],
-        link: URL(string: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02")!,
+        link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
         votes: 731,

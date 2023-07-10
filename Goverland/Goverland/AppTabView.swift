@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppTabView: View {
     @State private var selectedTab = 1
+    @Setting(\.unreadEvents) var unreadEvents
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -18,6 +19,7 @@ struct AppTabView: View {
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(1)
+                .badge(unreadEvents)
 
             SearchView()
                 .tabItem {
