@@ -30,7 +30,6 @@ class ProposalDataSource: ObservableObject, Refreshable {
         isLoading = true
         APIService.proposalsList()
             .sink { [weak self] completion in
-                print("COMPLETE \(completion)")
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
@@ -42,4 +41,3 @@ class ProposalDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 }
-

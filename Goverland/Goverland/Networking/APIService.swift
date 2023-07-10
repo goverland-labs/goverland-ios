@@ -138,8 +138,7 @@ extension APIService {
     }
     
     static func proposalsList(offset: Int = 0,
-                              limit: Int = 120, //TODO: 121 proposal has "Link" as icons in URL - fix Proposal decoder
-                              sorting: DaoSorting = .default) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
+                              limit: Int = 150) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
