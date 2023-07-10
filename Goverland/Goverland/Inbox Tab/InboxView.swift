@@ -28,7 +28,7 @@ struct InboxView: View {
     @State private var filter: InboxFilter = .all
     @StateObject private var data = InboxDataSource()
 
-    @State private var eventIndex: Int?
+    @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
     var body: some View {
@@ -49,7 +49,7 @@ struct InboxView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    List(0..<data.events.count, id: \.self, selection: $eventIndex) { index in
+                    List(0..<data.events.count, id: \.self, selection: $selectedEventIndex) { index in
                         let event = data.events[index]
                         if index == data.events.count - 1 && data.hasMore() {
                             ZStack {
@@ -70,7 +70,7 @@ struct InboxView: View {
                             ProposalListItemView(proposal: proposal)
                                 .swipeActions(allowsFullSwipe: false) {
                                     Button {
-                                        data.archive(proposal: proposal)
+                                        data.archive(eventID: event.id)
                                     } label: {
                                         Label("Archive", systemImage: "trash")
                                     }
@@ -89,11 +89,17 @@ struct InboxView: View {
             .listStyle(.plain)
             .scrollIndicators(.hidden)
         }  detail: {
-            if let index = eventIndex, data.events.count > index,
+            if let index = selectedEventIndex, data.events.count > index,
                 let proposal = data.events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
             } else {
                 EmptyView()
+            }
+        }
+        .onChange(of: selectedEventIndex) { newValue in
+            if let index = selectedEventIndex, data.events.count > index {
+                let event = data.events[index]
+                data.markRead(eventID: event.id)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

@@ -70,10 +70,15 @@ class APIService {
 }
 
 extension APIService {
+
+    // MARK: - Auth
+
     static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = AuthTokenEndpoint(deviceId: deviceId)
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
+
+    // MARK: - DAOs
     
     static func daos(offset: Int = 0,
                      limit: Int = DEFAULT_PAGINATION_COUNT,
@@ -96,7 +101,7 @@ extension APIService {
     }
 
     static func daoGrouped() -> AnyPublisher<(DaoGroupedEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoGroupedEndpoint(queryParameters: nil)
+        let endpoint = DaoGroupedEndpoint()
         return shared.request(endpoint)
     }
     
@@ -104,6 +109,8 @@ extension APIService {
         let endpoint = DaoInfoEndpoint(daoID: id)
         return shared.request(endpoint)
     }
+
+    // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,
                               limit: Int = 1000,
@@ -127,15 +134,7 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func inboxEvents(offset: Int = 0,
-                            limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
-        let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
-        return shared.request(endpoint)
-    }
+    // MARK: - Proposals
     
     static func proposalsList(offset: Int = 0,
                               limit: Int = 150) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
@@ -164,6 +163,25 @@ extension APIService {
         let endpoint = ProposalVotesEndpoint(proposalID: proposalID, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
+
+    // MARK: - Feed
+
+    static func inboxEvents(offset: Int = 0,
+                            limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func markEventRead(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkEventReadEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+
+    // MARK: - Notifications
 
     // TODO: atm this is not used. We will use it once we have granular notifications control
     static func notificationsSettings() -> AnyPublisher<(NotificationsSettingsEndpoint.ResponseType, HttpHeaders), APIError> {

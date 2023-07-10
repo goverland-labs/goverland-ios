@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ProposalListItemView: View {
-    @State private var isRead = false
     let proposal: Proposal
+    let withReadIndicator: Bool
+
+    init(proposal: Proposal, withReadIndicator: Bool = true) {
+        self.proposal = proposal
+        self.withReadIndicator = withReadIndicator
+    }
 
     var body: some View {
         ZStack {
@@ -17,7 +22,7 @@ struct ProposalListItemView: View {
                 .fill(Color.container)
             
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal)
+                ProposalListItemHeaderView(proposal: proposal, withReadIndicator: withReadIndicator)
                 ProposalListItemBodyView(proposal: proposal)
                 ProposalListItemFooterView(proposal: proposal)
             }
@@ -28,6 +33,7 @@ struct ProposalListItemView: View {
 
 fileprivate struct ProposalListItemHeaderView: View {
     let proposal: Proposal
+    let withReadIndicator: Bool
 
     var body: some View {
         HStack {
@@ -41,9 +47,10 @@ fileprivate struct ProposalListItemHeaderView: View {
 
             Spacer()
 
-            // TODO: implement
             HStack(spacing: 6) {
-                ReadIndicatiorView()
+                if withReadIndicator {
+                    ReadIndicatiorView()
+                }
                 ProposalStatusView(state: proposal.state)
             }
         }
