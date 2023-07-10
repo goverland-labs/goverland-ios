@@ -227,6 +227,21 @@ struct InboxEventsEndpoint: APIEndpoint {
     }
 }
 
+struct DaoEventsEndpoint: APIEndpoint {
+    typealias ResponseType = [InboxEvent]
+
+    let daoID: UUID
+
+    var path: String { "daos/\(daoID)/feed" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
+    }
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

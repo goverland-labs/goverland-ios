@@ -49,6 +49,8 @@
 		55B7B43A2A5ADC5700A894AD /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */; };
 		55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.plist */; };
+		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
+		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* InboxView.swift */; };
@@ -195,6 +197,8 @@
 		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
 		55B7B4422A5B087200A894AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
+		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
@@ -614,9 +618,11 @@
 			isa = PBXGroup;
 			children = (
 				BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */,
+				55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */,
 				BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */,
 				BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */,
 				BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */,
+				55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BA50AB3C2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
+				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BA8451662A5376CB0088A6E6 /* SnapshotRankedChoiceVotingView.swift in Sources */,
@@ -871,6 +878,7 @@
 				BA6B964B2A31056300851826 /* SearchProposalView.swift in Sources */,
 				BA8451582A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
+				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,

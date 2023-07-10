@@ -5,7 +5,7 @@
 //  Created by Jenny Shalai on 2023-01-05.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
 class InboxDataSource: ObservableObject, Paginatable {
@@ -17,6 +17,13 @@ class InboxDataSource: ObservableObject, Paginatable {
 
     private var total: Int?
     private var totalSkipped: Int?
+
+    var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
+        APIService.inboxEvents(limit: 100)
+    }
+    var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
+        APIService.inboxEvents(offset: events.count)
+    }
 
     func refresh(withFilter filter: InboxFilter) {
         events = []
@@ -31,7 +38,7 @@ class InboxDataSource: ObservableObject, Paginatable {
 
     private func loadInitialData(filter: InboxFilter) {
         isLoading = true
-        APIService.inboxEvents(limit: 100)
+        initialLoadingPublisher
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -45,11 +52,15 @@ class InboxDataSource: ObservableObject, Paginatable {
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
 
-                // TODO: implement properly
-                let unreadEvents = self.events.filter { $0.readAt == nil }.count
-                SettingKeys.shared.unreadEvents = unreadEvents
+                storeUnreadEventsCount()
             }
             .store(in: &cancellables)
+    }
+
+    func storeUnreadEventsCount() {
+        // TODO: implement properly
+        let unreadEvents = self.events.filter { $0.readAt == nil }.count
+        SettingKeys.shared.unreadEvents = unreadEvents
     }
 
     func hasMore() -> Bool {
@@ -58,7 +69,7 @@ class InboxDataSource: ObservableObject, Paginatable {
     }
 
     func loadMore() {
-        APIService.inboxEvents(offset: events.count)
+        loadMorePublisher
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -108,7 +119,7 @@ class InboxDataSource: ObservableObject, Paginatable {
                 case .failure(_):
                     // do nothing, error will be displayed to user if any
 
-                    // TODO: remove one backend is ready
+                    // TODO: remove once backend is ready
                     guard let `self` = self else { return }
                     if let index = self.events.firstIndex(where: { $0.id == eventID }) {
                         self.events.remove(at: index)

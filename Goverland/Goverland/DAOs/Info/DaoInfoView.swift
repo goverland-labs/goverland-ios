@@ -59,7 +59,7 @@ struct DaoInfoView: View {
                     .padding(.bottom, 4)
                     
                     switch filter {
-                    case .activity: InboxView()
+                    case .activity: DaoInfoEventsView(dao: dao)
                     case .about: DaoInfoAboutDaoView(dao: dao)
                     }
                 }

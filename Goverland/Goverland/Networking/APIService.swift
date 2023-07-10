@@ -176,6 +176,17 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func daoEvents(daoID: UUID,
+                          offset: Int = 0,
+                          limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(DaoEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = DaoEventsEndpoint(daoID: daoID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     static func markEventRead(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkEventReadEndpoint(eventID: eventID)
         return shared.request(endpoint)
