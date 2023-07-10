@@ -31,7 +31,7 @@ class InboxDataSource: ObservableObject, Paginatable {
 
     private func loadInitialData(filter: InboxFilter) {
         isLoading = true
-        APIService.inboxEvents()
+        APIService.inboxEvents(limit: 100)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -44,6 +44,10 @@ class InboxDataSource: ObservableObject, Paginatable {
                 self.events = recognizedEvents
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
+
+                // TODO: implement properly
+                let unreadEvents = self.events.filter { $0.readAt == nil }.count
+                SettingKeys.shared.unreadEvents = unreadEvents
             }
             .store(in: &cancellables)
     }
@@ -76,6 +80,7 @@ class InboxDataSource: ObservableObject, Paginatable {
     }
 
     func markRead(eventID: UUID) {
+        guard let event = events.first(where: { $0.id == eventID }), event.readAt == nil else { return }
         APIService.markEventRead(eventID: eventID)
             .retry(3)
             .sink { competion in
@@ -88,6 +93,7 @@ class InboxDataSource: ObservableObject, Paginatable {
                 guard let `self` = self else { return }
                 if let index = self.events.firstIndex(where: { $0.id == eventID }) {
                     self.events[index].readAt = Date()
+                    SettingKeys.shared.unreadEvents -= 1
                 }
             }
             .store(in: &cancellables)
