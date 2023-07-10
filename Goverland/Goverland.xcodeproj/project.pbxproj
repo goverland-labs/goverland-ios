@@ -509,8 +509,8 @@
 		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
 			isa = PBXGroup;
 			children = (
-				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
+				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				BAA8ED7E2A06FF4500316BFD /* Vote Tab */,
 			);
 			path = "Snapshot Proposal";

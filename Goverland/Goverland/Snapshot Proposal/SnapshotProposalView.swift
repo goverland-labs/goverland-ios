@@ -14,7 +14,7 @@ struct SnapshotProposalView: View {
     let allowShowingDaoInfo: Bool
     let navigationTitle: String
 
-    @State private var showDaoInfoView = false
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -24,7 +24,7 @@ struct SnapshotProposalView: View {
                 SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
                     .gesture(TapGesture().onEnded { _ in
                         if allowShowingDaoInfo {
-                            self.showDaoInfoView = true
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         }
                     })
                     .padding(.bottom, 15)
@@ -50,26 +50,23 @@ struct SnapshotProposalView: View {
                     .padding(.bottom, 20)
             }
             .padding(.horizontal)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(navigationTitle)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button("Share", action: performShare)
-                        Button("Open on Snapshot", action: performOpenSnapshot)
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundColor(.primary)
-                            .fontWeight(.bold)
-                            .frame(width: 20, height: 20)
-                    }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(navigationTitle)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button("Share", action: performShare)
+                    Button("Open on Snapshot", action: performOpenSnapshot)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(width: 20, height: 20)
                 }
             }
-            .onAppear() { Tracker.track(.snapshotProposalView) }
-            .popover(isPresented: $showDaoInfoView) {
-                DaoInfoView(dao: proposal.dao)
-            }
         }
+        .onAppear() { Tracker.track(.snapshotProposalView) }
     }
     
     private func performShare() {}
