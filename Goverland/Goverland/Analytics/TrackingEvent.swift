@@ -36,7 +36,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - DAO Info
 
-    // MARK: - Search
+    // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
     case searchDaosFollowFromCard = "search_daos_follow_from_card"
@@ -49,6 +49,9 @@ enum TrackingEvent: String, Trackable {
     case searchDaosOpenDaoFromCard = "search_daos_open_dao_from_card"
     case searchDaosOpenDaoFromCtgList = "search_daos_open_dao_from_ctg_list"
     case searchDaosOpenDaoFromCtgSearch = "search_daos_open_dao_from_ctg_search"
+
+    // MARK: - Search Proposal
+    case screenSearchPrp = "screen_search_prp"
 
     // MARK: - Followed DAOs
     case screenFollowedDaos = "screen_followed_daos"
@@ -93,6 +96,5 @@ enum TrackingEvent: String, Trackable {
 
     // LEGACY. Remove iteratively
     case daoInfoScreenView = "dao_info_screen_view"
-    case searchProposalView = "search_proposal_view"
     case snapshotProposalView = "snapshot_proposal_detail_view"
 }
