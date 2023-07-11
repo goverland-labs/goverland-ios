@@ -16,7 +16,7 @@ struct ProposalsListView: View {
             if dataSource.searchText == "" {
                 if dataSource.isLoading && dataSource.proposals.count == 0 {
                     ScrollView {
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<3) { _ in
                             ShimmerProposalListItemView()
                                 .padding(.horizontal, 12)
                         }
@@ -27,6 +27,7 @@ struct ProposalsListView: View {
                         if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
                             ZStack {
                                 if !dataSource.failedToLoadMore { // try to paginate
+                                    // TODO: minor: padding a bit higher than it should me
                                     ShimmerProposalListItemView()
                                         .onAppear {
                                             dataSource.loadMore()
@@ -36,6 +37,7 @@ struct ProposalsListView: View {
                                 }
                             }
                             .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = dataSource.proposals[index]
@@ -53,10 +55,13 @@ struct ProposalsListView: View {
                             .foregroundColor(.textWhite)
                             .padding(.top, 16)
                     } else if dataSource.searchResultProposals.isEmpty { // initial searching
-                        ForEach(0..<3) { _ in
-                            ShimmerProposalListItemView()
-                                .padding(.horizontal, 12)
+                        ScrollView {
+                            ForEach(0..<3) { _ in
+                                ShimmerProposalListItemView()
+                                    .padding(.horizontal, 12)
+                            }
                         }
+                        .padding(.top, 4)
                     } else {
                         List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
                             let proposal = dataSource.searchResultProposals[index]
@@ -68,8 +73,13 @@ struct ProposalsListView: View {
             }
         }
         .onAppear {
-            Tracker.track(.searchProposalView)
-            dataSource.refresh()
+            if dataSource.searchText == "" {
+                Tracker.track(.screenSearchPrp)
+                dataSource.refresh()
+            } else {
+                // This view is used by parent when searching by text
+                // do nothing
+            }
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
