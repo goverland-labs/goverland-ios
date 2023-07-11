@@ -10,13 +10,24 @@ import Kingfisher
 import StoreKit
 
 
+enum SettingsScreen {
+    case subscriptions
+    case pushNofitications
+    case about
+    case helpUsGrow
+    case partnership
+    case advanced
+}
+
 struct SettingsView: View {
+    @State private var path = NavigationPath()
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs") { SubscriptionsView() }
-                    NavigationLink("Notifications") { PushNotificationsSettingView() }
+                    NavigationLink("Followed DAOs", value: SettingsScreen.subscriptions)
+                    NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
                 }
                 
                 Section(header: Text("Contact Us")) {
@@ -26,15 +37,25 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    NavigationLink("About") { AboutSettingView() }
-                    NavigationLink("Help us grow") { HelpUsGrowSettingView() }
-                    NavigationLink("Partnership") { PartnershipSettingView() }
-                    NavigationLink("Advanced") { AdvancedSettingView() }
+                    NavigationLink("About", value: SettingsScreen.about)
+                    NavigationLink("Help us grow", value: SettingsScreen.helpUsGrow)
+                    NavigationLink("Partnership", value: SettingsScreen.partnership)
+                    NavigationLink("Advanced", value: SettingsScreen.advanced)
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: SettingsScreen.self) { settingsScreen in
+                switch settingsScreen {
+                case .subscriptions: SubscriptionsView()
+                case .pushNofitications: PushNotificationsSettingView()
+                case .about: AboutSettingView()
+                case .helpUsGrow: HelpUsGrowSettingView()
+                case .partnership: PartnershipSettingView()
+                case .advanced: AdvancedSettingView()
+                }
+            }
         }
         .onAppear() { Tracker.track(.screenSettings) }
     }

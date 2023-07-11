@@ -7,33 +7,47 @@
 
 import SwiftUI
 
+class TabManager: ObservableObject {
+    @Published var selectedTab: Tab = .inbox
+
+    static let shared = TabManager()
+
+    private init() {}
+
+    enum Tab {
+        case inbox
+        case search
+        case settings
+    }
+}
+
 struct AppTabView: View {
-    @State private var selectedTab = 1
+    @StateObject private var tabManager = TabManager.shared
     @Setting(\.unreadEvents) var unreadEvents
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $tabManager.selectedTab) {
             InboxView()
                 .tabItem {
-                    Image(selectedTab == 1 ? "inbox-active" : "inbox")
+                    Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(1)
+                .tag(TabManager.Tab.inbox)
                 .badge(unreadEvents)
 
             SearchView()
                 .tabItem {
-                    Image(selectedTab == 2 ? "search-active" : "search")
+                    Image(tabManager.selectedTab == .search ? "search-active" : "search")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(2)
+                .tag(TabManager.Tab.search)
 
             SettingsView()
                 .tabItem {
-                    Image(selectedTab == 3 ? "settings-active" : "settings")
+                    Image(tabManager.selectedTab == .settings ? "settings-active" : "settings")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(3)
+                .tag(TabManager.Tab.settings)
         }
         .accentColor(.primary)
     }
