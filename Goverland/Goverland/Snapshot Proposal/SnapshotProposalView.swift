@@ -55,36 +55,17 @@ struct SnapshotProposalView: View {
         .navigationTitle(navigationTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if let url = snapshotUrl(proposal: proposal) {
-                    Menu {
-                        ShareLink(item: url) {
-                            Label("Share", systemImage: "square.and.arrow.up")
-                        }
-                        Button {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                UIApplication.shared.open(url)
-                            }
-                        } label: {
-                            Label("Open on Snapshot", systemImage: "arrow.up.right")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundColor(.primary)
-                            .fontWeight(.bold)
-                            .frame(height: 20)
-                    }
+                Menu {
+                    ProposalSharingMenu(link: proposal.link)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(height: 20)
                 }
             }
         }
         .onAppear() { Tracker.track(.snapshotProposalView) }
-    }
-
-    private func snapshotUrl(proposal: Proposal) -> URL? {
-        if let percentEncodedString = proposal.link.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
-           let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23
-            return url
-        }
-        return nil
     }
 }
 

@@ -7,13 +7,49 @@
 
 import SwiftUI
 
-struct ProposalListItemView: View {
+struct ProposalSharingMenu: View {
+    let link: String
+
+    var body: some View {
+        if let url = Utils.urlFromString(link) {
+            ShareLink(item: url) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+
+            Button {
+                UIApplication.shared.open(url)
+            } label: {
+                // for now we handle only Snapshot proposals
+                Label("Open on Snapshot", systemImage: "arrow.up.right")
+            }
+        } else {
+            ShareLink(item: link) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
+    }
+}
+
+struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
     let displayUnreadIndicator: Bool
+    let menuContent: Content
 
     @Environment(\.presentationMode) private var presentationMode
+
+    init(proposal: Proposal,
+         isSelected: Bool,
+         isRead: Bool,
+         displayUnreadIndicator: Bool,
+         @ViewBuilder menuContent: () -> Content) {
+        self.proposal = proposal
+        self.isSelected = isSelected
+        self.isRead = isRead
+        self.displayUnreadIndicator = displayUnreadIndicator
+        self.menuContent = menuContent()
+    }
 
     private var backgroundColor: Color {
         if isSelected {
@@ -39,13 +75,16 @@ struct ProposalListItemView: View {
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
                 ProposalListItemBodyView(proposal: proposal)
-                ProposalListItemFooterView(proposal: proposal)
+                ProposalListItemFooterView(proposal: proposal) {
+                    menuContent
+                }
             }
             .padding(.horizontal, 12)
 
             if isRead && !isSelected {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.containerDim.opacity(0.6))
+                    .allowsHitTesting(false)
             }
         }
     }
@@ -120,14 +159,30 @@ fileprivate struct ProposalListItemBodyView: View {
     }
 }
 
-fileprivate struct ProposalListItemFooterView: View {
+fileprivate struct ProposalListItemFooterView<Content: View>: View {
     let proposal: Proposal
+    let menuContent: Content
+
+    init(proposal: Proposal, @ViewBuilder menuContent: () -> Content) {
+        self.proposal = proposal
+        self.menuContent = menuContent()
+    }
 
     var body: some View {
         HStack(spacing: 20) {
             VoteFooterView(votes: proposal.votes, quorum: proposal.quorum)
             Spacer()
-            InboxListItemFooterMenu()
+
+            HStack(spacing: 15) {
+                Menu {
+                    menuContent
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.textWhite40)
+                        .fontWeight(.bold)
+                        .frame(width: 40, height: 20)
+                }
+            }
         }
     }
 }
@@ -159,25 +214,6 @@ fileprivate struct VoteFooterView: View {
             }
         }
     }
-}
-
-fileprivate struct InboxListItemFooterMenu: View {
-    var body: some View {
-        HStack(spacing: 15) {
-            Menu {
-                Button("Share", action: performShare)
-                Button("Cancel", action: performCancel)
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.textWhite40)
-                    .fontWeight(.bold)
-                    .frame(width: 40, height: 20)
-            }
-        }
-    }
-
-    private func performShare() {}
-    private func performCancel() {}
 }
 
 struct ShimmerProposalListItemView: View {
@@ -226,6 +262,6 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true)
+        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true) {}
     }
 }

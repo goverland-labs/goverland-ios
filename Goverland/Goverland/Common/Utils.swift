@@ -42,4 +42,12 @@ enum Utils {
         let formattedString = formatter.string(from: NSNumber(value: currentNumber / totalNumber))
         return formattedString ?? ""
     }
+
+    static func urlFromString(_ string: String) -> URL? {
+        if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
+           let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23
+            return url
+        }
+        return nil
+    }
 }
