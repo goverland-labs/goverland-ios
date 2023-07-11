@@ -23,49 +23,56 @@ struct ProposalsListView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    // TODO: open proposal detail (info)
                     List(0..<dataSource.proposals.count, id: \.self) { index in
                         if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
-                            if !dataSource.failedToLoadMore { // try to paginate
-                                ShimmerDaoListItemView()
-                                    .onAppear {
-                                        dataSource.loadMore()
-                                    }
-                            } else { // retry pagination
-                                RetryLoadMoreListItemView(dataSource: dataSource)
+                            ZStack {
+                                if !dataSource.failedToLoadMore { // try to paginate
+                                    ShimmerProposalListItemView()
+                                        .onAppear {
+                                            dataSource.loadMore()
+                                        }
+                                } else { // retry pagination
+                                    RetryLoadMoreListItemView(dataSource: dataSource)
+                                }
                             }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
                         } else {
                             let proposal = dataSource.proposals[index]
-                            
                             proposalItem(proposal: proposal)
                         }
                     }
                 }
             } else {
                 // searching
-                if dataSource.nothingFound {
-                    Text("Nothing found")
-                        .font(.body)
-                        .foregroundColor(.textWhite)
-                        .padding(.top, 16)
-                } else if dataSource.searchResultProposals.isEmpty { // initial searching
-                    ForEach(0..<3) { _ in
-                        ShimmerDaoListItemView()
+                VStack(spacing: 12) {
+
+                    if dataSource.nothingFound {
+                        Text("Nothing found")
+                            .font(.body)
+                            .foregroundColor(.textWhite)
+                            .padding(.top, 16)
+                    } else if dataSource.searchResultProposals.isEmpty { // initial searching
+                        ForEach(0..<3) { _ in
+                            ShimmerProposalListItemView()
+                                .padding(.horizontal, 12)
+                        }
+                    } else {
+                        List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
+                            let proposal = dataSource.searchResultProposals[index]
+                            proposalItem(proposal: proposal)
+                        }
                     }
-                } else {
-                    List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
-                        let proposal = dataSource.searchResultProposals[index]
-                        proposalItem(proposal: proposal)
-                    }
+
                 }
             }
         }
-        .listStyle(.plain)
-        .scrollIndicators(.hidden)
         .onAppear {
             Tracker.track(.searchProposalView)
             dataSource.refresh()
         }
+        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
     
     private func proposalItem(proposal: Proposal) -> some View {
@@ -73,6 +80,7 @@ struct ProposalsListView: View {
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
             .listRowBackground(Color.clear)
+        // TODO: will not work for ellipsis
             .onTapGesture {
                 path.append(proposal)
             }

@@ -90,7 +90,7 @@ struct ShimmerDaoCardView: View {
             ShimmerFollowButtonView()
                 .padding(.bottom, 20)
         }
-        .frame(width: 140, height: 215)
+        .frame(width: 162, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))

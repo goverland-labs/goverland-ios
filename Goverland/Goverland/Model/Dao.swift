@@ -51,8 +51,10 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.id = try container.decode(UUID.self, forKey: .id)
         self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
+
+        // TODO: figure our with backend why sometimes avatar is Invalid URL string.
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
-        self.about = try? container.decode([DaoBody].self, forKey: .about)
+        self.about = try container.decodeIfPresent([DaoBody].self, forKey: .about)
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.members = try container.decode(Int.self, forKey: .members)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)

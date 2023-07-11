@@ -10,7 +10,8 @@ import MarkdownUI
 
 struct DaoInfoAboutDaoView: View {
     let dao: Dao
-    
+
+    // TODO: make a proper fix
     var markdownDescription: String {
         // we always expect to have a markdown text
         let rawStr = dao.about?.first { $0.type == .markdown }!.body

@@ -15,7 +15,6 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
     @Published var failedToLoadMore = false
     @Published var isLoading = false
     private(set) var totalProposals: Int?
-    private(set) var totalSkippedProposals: Int?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""
@@ -39,6 +38,10 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
         totalProposals = nil
         cancellables = Set<AnyCancellable>()
 
+        searchText = ""
+        searchResultProposals = []
+        nothingFound = false
+
         loadInitialData()
     }
 
@@ -59,8 +62,8 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
     }
     
     func hasMore() -> Bool {
-        guard let total = totalProposals, let totalSkipped = totalSkippedProposals else { return true }
-        return proposals.count < total - totalSkipped
+        guard let total = totalProposals else { return true }
+        return proposals.count < total
     }
     
     func retryLoadMore() {
@@ -76,9 +79,10 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
                 case .failure(_): self?.failedToLoadMore = true
                 }
             } receiveValue: { [weak self] result, headers in
-                self?.failedToLoadMore = false
-                self!.proposals.append(contentsOf: result)
-                self!.totalProposals = Utils.getTotal(from: headers)
+                guard let `self` = self else { return }
+                self.failedToLoadMore = false
+                self.proposals.append(contentsOf: result)
+                self.totalProposals = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
