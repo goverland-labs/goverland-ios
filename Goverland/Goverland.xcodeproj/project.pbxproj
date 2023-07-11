@@ -101,7 +101,6 @@
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451702A5B4CF90088A6E6 /* VoteWarningPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */; };
 		BA8451732A5B97F40088A6E6 /* ProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */; };
-		BA8451752A5CA5B70088A6E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA8451742A5CA5B70088A6E6 /* GoogleService-Info.plist */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotBasicVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -248,7 +247,6 @@
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteWarningPopupView.swift; sourceTree = "<group>"; };
 		BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalDataSource.swift; sourceTree = "<group>"; };
-		BA8451742A5CA5B70088A6E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 		55F143DB294B1DDA00D00B73 /* Goverland */ = {
 			isa = PBXGroup;
 			children = (
-				BA8451742A5CA5B70088A6E6 /* GoogleService-Info.plist */,
 				55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */,
 				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
@@ -779,7 +776,6 @@
 			files = (
 				BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */,
 				55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */,
-				BA8451752A5CA5B70088A6E6 /* GoogleService-Info.plist in Resources */,
 				BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */,
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
 				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
