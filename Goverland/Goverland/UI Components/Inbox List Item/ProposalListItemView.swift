@@ -9,19 +9,25 @@ import SwiftUI
 
 struct ProposalListItemView: View {
     let proposal: Proposal
-    let isRead: Bool
     let isSelected: Bool
+    let isRead: Bool
+    let displayReadIndicator: Bool
 
     @Environment(\.presentationMode) private var presentationMode
 
     private var backgroundColor: Color {
         if isSelected {
-            return .textWhite20
+            return .secondaryContainer
         }
-        // if in a popover or on iPads, make it lighter
-        if presentationMode.wrappedValue.isPresented || UIDevice.current.userInterfaceIdiom == .pad {
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
             return .containerBright
         }
+
+        if presentationMode.wrappedValue.isPresented {
+            return .containerBright
+        }
+
         return .container
     }
 
@@ -29,20 +35,25 @@ struct ProposalListItemView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
-            
+
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, isRead: isRead)
+                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayReadIndicator)
                 ProposalListItemBodyView(proposal: proposal)
                 ProposalListItemFooterView(proposal: proposal)
             }
             .padding(.horizontal, 12)
+
+            if isRead && !isSelected {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.containerDim.opacity(0.6))
+            }
         }
     }
 }
 
 fileprivate struct ProposalListItemHeaderView: View {
     let proposal: Proposal
-    let isRead: Bool
+    let displayReadIndicator: Bool
 
     var body: some View {
         HStack {
@@ -57,7 +68,7 @@ fileprivate struct ProposalListItemHeaderView: View {
             Spacer()
 
             HStack(spacing: 6) {
-                if !isRead {
+                if displayReadIndicator {
                     ReadIndicatiorView()
                 }
                 ProposalStatusView(state: proposal.state)
@@ -215,6 +226,6 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isRead: false, isSelected: false)
+        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayReadIndicator: true)
     }
 }

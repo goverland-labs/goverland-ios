@@ -57,8 +57,9 @@ struct DaoInfoEventsView: View {
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isRead: true,
-                                                 isSelected: selectedEventIndex == index)
+                                                 isSelected: selectedEventIndex == index,
+                                                 isRead: false,
+                                                 displayReadIndicator: false)
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)

@@ -56,8 +56,9 @@ struct InboxView: View {
                                 } else {
                                     let proposal = event.eventData! as! Proposal
                                     ProposalListItemView(proposal: proposal,
+                                                         isSelected: selectedEventIndex == index,
                                                          isRead: event.readAt != nil,
-                                                         isSelected: selectedEventIndex == index)
+                                                         displayReadIndicator: event.readAt != nil)
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button {
                                             data.archive(eventID: event.id)
