@@ -28,7 +28,6 @@ enum InboxFilter: Int, FilterOptions {
 class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var events: [InboxEvent]?
     @Published var filter: InboxFilter = .all
-    // TODO: remove
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -147,12 +146,14 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                     // TODO: remove once backend is ready
                     guard let `self` = self else { return }
                     if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                        self.total? -= 1 // to properly handle load more
                         self.events?.remove(at: index)
                     }
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                    self.total? -= 1 // to properly handle load more
                     self.events?.remove(at: index)
                 }
             }

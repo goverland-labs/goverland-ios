@@ -22,11 +22,13 @@ struct InboxView: View {
             if data.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: data)                    
             } else if data.events?.count == 0 {
+                // loading had finished, data.events != nil
                 EmptyInboxView()
             } else {
                 NavigationSplitView(columnVisibility: $columnVisibility) {
                     Group {
                         if data.isLoading && data.events == nil {
+                            // loading in progress
                             ScrollView {
                                 ForEach(0..<5) { _ in
                                     ShimmerProposalListItemView()

@@ -29,6 +29,7 @@ struct DaoInfoEventsView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
                 if data.isLoading && data.events == nil {
+                    // loading in progress
                     ScrollView {
                         ForEach(0..<5) { _ in
                             ShimmerProposalListItemView()
