@@ -10,7 +10,7 @@ import SwiftUI
 struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
     @Binding var path: NavigationPath
-
+    
     var body: some View {
         VStack(spacing: 0) {
             if dataSource.searchText == "" {
@@ -23,13 +23,22 @@ struct ProposalsListView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    // TODO: pagination
-                    // TODO: shimmer when loading more data
                     // TODO: open proposal detail (info)
-
                     List(0..<dataSource.proposals.count, id: \.self) { index in
-                        let proposal = dataSource.proposals[index]
-                        proposalItem(proposal: proposal)
+                        if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
+                            if !dataSource.failedToLoadMore { // try to paginate
+                                ShimmerDaoListItemView()
+                                    .onAppear {
+                                        dataSource.loadMore()
+                                    }
+                            } else { // retry pagination
+                                RetryLoadMoreListItemView(dataSource: dataSource)
+                            }
+                        } else {
+                            let proposal = dataSource.proposals[index]
+                            
+                            proposalItem(proposal: proposal)
+                        }
                     }
                 }
             } else {
@@ -58,7 +67,7 @@ struct ProposalsListView: View {
             dataSource.refresh()
         }
     }
-
+    
     private func proposalItem(proposal: Proposal) -> some View {
         return ProposalListItemView(proposal: proposal, isRead: true, isSelected: false)
             .listRowSeparator(.hidden)

@@ -8,11 +8,14 @@
 import SwiftUI
 import Combine
 
-class ProposalDataSource: ObservableObject, Refreshable {
+class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
+    
     @Published var proposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
+    @Published var failedToLoadMore = false
     @Published var isLoading = false
     private(set) var totalProposals: Int?
+    private(set) var totalSkippedProposals: Int?
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""
@@ -31,6 +34,7 @@ class ProposalDataSource: ObservableObject, Refreshable {
     func refresh() {
         proposals = []
         failedToLoadInitialData = false
+        failedToLoadMore = false
         isLoading = false
         totalProposals = nil
         cancellables = Set<AnyCancellable>()
@@ -50,6 +54,31 @@ class ProposalDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] proposals, headers in
                 self?.proposals = proposals
                 self?.totalProposals = Utils.getTotal(from: headers)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func hasMore() -> Bool {
+        guard let total = totalProposals, let totalSkipped = totalSkippedProposals else { return true }
+        return proposals.count < total - totalSkipped
+    }
+    
+    func retryLoadMore() {
+        // This will trigger view update cycle that will trigger `loadMore` function
+        self.failedToLoadMore = false
+    }
+
+    func loadMore() {
+        APIService.proposals(offset: proposals.count)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadMore = true
+                }
+            } receiveValue: { [weak self] result, headers in
+                self?.failedToLoadMore = false
+                self!.proposals.append(contentsOf: result)
+                self!.totalProposals = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
