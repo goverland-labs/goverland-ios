@@ -7,6 +7,7 @@
 
 import UserNotifications
 
+/// we might use it later for localization purpose
 class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -16,9 +17,7 @@ class NotificationService: UNNotificationServiceExtension {
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
         if let bestAttemptContent = bestAttemptContent {
-            // TODO: implement
-            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-            
+//            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
             contentHandler(bestAttemptContent)
         }
     }
