@@ -62,6 +62,7 @@ struct InboxView: View {
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button {
                                             data.archive(eventID: event.id)
+                                            Tracker.track(.inboxEventArchive)
                                         } label: {
                                             Label("Archive", systemImage: "trash")
                                         }
@@ -101,7 +102,11 @@ struct InboxView: View {
                 .onChange(of: selectedEventIndex) { _ in
                     if let index = selectedEventIndex, events.count > index {
                         let event = events[index]
-                        data.markRead(eventID: event.id)
+                        Tracker.track(.inboxEventOpen)
+                        if event.readAt == nil {
+                            Tracker.track(.inboxEventMarkRead)
+                            data.markRead(eventID: event.id)
+                        }
                     }
                 }
                 .onAppear() {
