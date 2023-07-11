@@ -62,7 +62,7 @@ struct SnapshotProposalView: View {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                        .frame(width: 20, height: 20)
+                        .frame(height: 20)
                 }
             }
         }

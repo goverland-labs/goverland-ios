@@ -11,7 +11,7 @@ struct DaoInfoEventsView: View {
     @StateObject private var data: DaoInfoEventsDataSource
 
     @State private var selectedEventIndex: Int?
-    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var path = NavigationPath()
 
     let dao: Dao
 
@@ -26,8 +26,8 @@ struct DaoInfoEventsView: View {
     }
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            VStack(spacing: 0) {
+        NavigationStack(path: $path) {
+            Group {
                 if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
@@ -63,6 +63,9 @@ struct DaoInfoEventsView: View {
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
+                            .onTapGesture {
+                                path.append(proposal)
+                            }
                         }
                     }
                     .refreshable {
@@ -72,12 +75,8 @@ struct DaoInfoEventsView: View {
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-        }  detail: {
-            if let index = selectedEventIndex, events.count > index,
-               let proposal = events[index].eventData as? Proposal {
+            .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
-            } else {
-                EmptyView()
             }
         }
         .onAppear() {
