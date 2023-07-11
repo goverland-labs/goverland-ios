@@ -66,7 +66,7 @@ fileprivate struct ShadowOverlay: View {
     }
 }
 
-fileprivate extension Theme {
+extension Theme {
     static let goverland = Theme()
         .code {
             FontFamilyVariant(.monospaced)

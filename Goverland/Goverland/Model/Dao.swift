@@ -12,6 +12,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let alias: String
     let name: String
     let avatar: URL?
+    let about: [DaoBody]?
     let proposals: Int
     let members: Int
     let subscriptionMeta: SubscriptionMeta?
@@ -20,6 +21,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          alias: String,
          name: String,
          image: URL?,
+         about: [DaoBody]?,
          proposals: Int,
          members: Int,
          subscriptionMeta: SubscriptionMeta?) {
@@ -27,6 +29,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.alias = alias
         self.name = name
         self.avatar = image
+        self.about = about
         self.proposals = proposals
         self.members = members
         self.subscriptionMeta = subscriptionMeta
@@ -37,6 +40,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case alias
         case name
         case avatar
+        case about
         case proposals = "proposals_count"
         case members = "followers_count"
         case subscriptionMeta = "subscription_info"
@@ -48,9 +52,24 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
+        self.about = try? container.decode([DaoBody].self, forKey: .about)
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.members = try container.decode(Int.self, forKey: .members)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
+    }
+    
+    struct DaoBody: Decodable {
+        let type: BodyType
+        let body: String
+
+        enum BodyType: String, Decodable {
+            case markdown
+            case html
+        }
+    }
+    
+    static func == (lhs: Dao, rhs: Dao) -> Bool {
+        lhs.id == rhs.id
     }
 }
 
@@ -107,6 +126,7 @@ extension Dao {
         alias: "gnosis.eth",
         name: "Gnosis DAO",
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
+        about: [],
         proposals: 100,
         members: 4567,
         subscriptionMeta: nil)
@@ -115,6 +135,7 @@ extension Dao {
         alias: "aave.eth",
         name: "Aave",
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
+        about: [],
         proposals: 150,
         members: 45678,
         subscriptionMeta: nil)
