@@ -12,7 +12,7 @@ struct SubscriptionsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        Group {
             if dataSource.isLoading {
                 VStack(spacing: 12) {
                     ForEach(0..<3, id: \.self) { _ in
@@ -20,29 +20,25 @@ struct SubscriptionsView: View {
                     }
                     Spacer()
                 }
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource)
+            } else if dataSource.subscriptions.isEmpty {
+                NoSubscriptionsView()
             } else {
-                if dataSource.failedToLoadInitialData {
-                    RetryInitialLoadingView(dataSource: dataSource)
-                } else {
-                    if dataSource.subscriptions.isEmpty {
-                        NoSubscriptionsView()
-                    } else {
-                        ScrollView(showsIndicators: false) {
-                            VStack(spacing: 12) {
-                                ForEach(dataSource.subscriptions) { subscription in
-                                    DaoListItemView(
-                                        dao: subscription.dao,
-                                        subscriptionMeta: SubscriptionMeta(id: subscription.id, createdAt: subscription.createdAt),
-                                        onSelectDao: { dao in
-                                            activeSheetManager.activeSheet = .daoInfo(subscription.dao)
-                                            Tracker.track(.followedDaosOpenDao)
-                                        },
-                                        onFollowToggle: { didFollow in
-                                            Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
-                                        }
-                                    )
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 12) {
+                        ForEach(dataSource.subscriptions) { subscription in
+                            DaoListItemView(
+                                dao: subscription.dao,
+                                subscriptionMeta: SubscriptionMeta(id: subscription.id, createdAt: subscription.createdAt),
+                                onSelectDao: { dao in
+                                    activeSheetManager.activeSheet = .daoInfo(subscription.dao)
+                                    Tracker.track(.followedDaosOpenDao)
+                                },
+                                onFollowToggle: { didFollow in
+                                    Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
                                 }
-                            }
+                            )
                         }
                     }
                 }
@@ -95,6 +91,8 @@ fileprivate struct NoSubscriptionsView: View {
                 }
                 Spacer()
             }
+            // this is needed as on iPad GeometryReader breaks VStack layout
+            .frame(width: geometry.size.width - 32)
             .padding([.horizontal, .bottom], 16)
             .onAppear {
                 Tracker.track(.screenFollowedDaosEmpty)

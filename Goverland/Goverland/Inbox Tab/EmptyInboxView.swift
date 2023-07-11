@@ -16,7 +16,7 @@ struct EmptyInboxView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
-                Text("There are no new notifications from the DAOs you follow. You can follow more DAOs or check specific DAO events.")
+                Text("There are no new notifications from the DAOs you follow.\nYou can follow more DAOs or check specific DAO events.")
                     .font(.callout)
                     .foregroundColor(.textWhite)
                 PrimaryButton("My followed DAOs") {
@@ -25,6 +25,8 @@ struct EmptyInboxView: View {
                 }
                 Spacer()
             }
+            // this is needed as on iPad GeometryReader breaks VStack layout
+            .frame(width: geometry.size.width - 32)
             .padding([.horizontal, .bottom], 16)
             .onAppear {
                 Tracker.track(.screenInboxEmpty)

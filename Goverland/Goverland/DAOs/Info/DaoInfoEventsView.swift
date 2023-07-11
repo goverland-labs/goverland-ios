@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DaoInfoEventsView: View {
-    @State private var filter: InboxFilter = .all
     @StateObject private var data: DaoInfoEventsDataSource
 
     @State private var selectedEventIndex: Int?
@@ -22,10 +21,14 @@ struct DaoInfoEventsView: View {
         self.dao = dao
     }
 
+    var events: [InboxEvent] {
+        data.events ?? []
+    }
+
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             VStack(spacing: 0) {
-                if data.isLoading && data.events.count == 0 {
+                if data.isLoading && data.events == nil {
                     ScrollView {
                         ForEach(0..<5) { _ in
                             ShimmerProposalListItemView()
@@ -34,9 +37,9 @@ struct DaoInfoEventsView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    List(0..<data.events.count, id: \.self, selection: $selectedEventIndex) { index in
-                        let event = data.events[index]
-                        if index == data.events.count - 1 && data.hasMore() {
+                    List(0..<events.count, id: \.self, selection: $selectedEventIndex) { index in
+                        let event = events[index]
+                        if index == events.count - 1 && data.hasMore() {
                             ZStack {
                                 if !data.failedToLoadMore {
                                     ShimmerProposalListItemView()
@@ -61,22 +64,22 @@ struct DaoInfoEventsView: View {
                         }
                     }
                     .refreshable {
-                        data.refresh(withFilter: filter)
+                        data.refresh()
                     }
                 }
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
         }  detail: {
-            if let index = selectedEventIndex, data.events.count > index,
-               let proposal = data.events[index].eventData as? Proposal {
+            if let index = selectedEventIndex, events.count > index,
+               let proposal = events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
             } else {
                 EmptyView()
             }
         }
         .onAppear() {
-            data.refresh(withFilter: .all)
+            data.refresh()
             // TODO: proper tracking
             //Tracker.track(.screenInbox)
         }

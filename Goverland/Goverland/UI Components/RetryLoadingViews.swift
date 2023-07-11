@@ -14,6 +14,7 @@ protocol Refreshable: AnyObject {
 struct RetryInitialLoadingView: View {
     let dataSource: Refreshable
     let message: String
+    // TODO: inject tracking event here
 
     init(dataSource: Refreshable,
          message: String = "Sorry, we couldn’t load the inital data") {
@@ -37,6 +38,8 @@ struct RetryInitialLoadingView: View {
                 }
                 Spacer()
             }
+            // this is needed as on iPad GeometryReader breaks VStack layout
+            .frame(width: geometry.size.width - 32)
             .padding([.horizontal, .bottom], 16)
         }
     }

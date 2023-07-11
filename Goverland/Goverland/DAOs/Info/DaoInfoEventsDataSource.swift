@@ -20,7 +20,7 @@ class DaoInfoEventsDataSource: InboxDataSource {
         APIService.daoEvents(daoID: daoID)
     }
     override var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.daoEvents(daoID: daoID, offset: events.count)
+        APIService.daoEvents(daoID: daoID, offset: events?.count ?? 0)
     }
 
     override func storeUnreadEventsCount() {}
