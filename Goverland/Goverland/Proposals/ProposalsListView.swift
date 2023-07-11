@@ -10,60 +10,87 @@ import SwiftUI
 struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
     @Binding var path: NavigationPath
-
+    
     var body: some View {
         VStack(spacing: 0) {
             if dataSource.searchText == "" {
                 if dataSource.isLoading && dataSource.proposals.count == 0 {
                     ScrollView {
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<3) { _ in
                             ShimmerProposalListItemView()
                                 .padding(.horizontal, 12)
                         }
                     }
                     .padding(.top, 4)
                 } else {
-                    // TODO: pagination
-                    // TODO: shimmer when loading more data
-                    // TODO: open proposal detail (info)
-
                     List(0..<dataSource.proposals.count, id: \.self) { index in
-                        let proposal = dataSource.proposals[index]
-                        proposalItem(proposal: proposal)
+                        if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
+                            ZStack {
+                                if !dataSource.failedToLoadMore { // try to paginate
+                                    // TODO: minor: padding a bit higher than it should me
+                                    ShimmerProposalListItemView()
+                                        .onAppear {
+                                            dataSource.loadMore()
+                                        }
+                                } else { // retry pagination
+                                    RetryLoadMoreListItemView(dataSource: dataSource)
+                                }
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                            .listRowBackground(Color.clear)
+                        } else {
+                            let proposal = dataSource.proposals[index]
+                            proposalItem(proposal: proposal)
+                        }
                     }
                 }
             } else {
                 // searching
-                if dataSource.nothingFound {
-                    Text("Nothing found")
-                        .font(.body)
-                        .foregroundColor(.textWhite)
-                        .padding(.top, 16)
-                } else if dataSource.searchResultProposals.isEmpty { // initial searching
-                    ForEach(0..<3) { _ in
-                        ShimmerDaoListItemView()
+                VStack(spacing: 12) {
+
+                    if dataSource.nothingFound {
+                        Text("Nothing found")
+                            .font(.body)
+                            .foregroundColor(.textWhite)
+                            .padding(.top, 16)
+                    } else if dataSource.searchResultProposals.isEmpty { // initial searching
+                        ScrollView {
+                            ForEach(0..<3) { _ in
+                                ShimmerProposalListItemView()
+                                    .padding(.horizontal, 12)
+                            }
+                        }
+                        .padding(.top, 4)
+                    } else {
+                        List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
+                            let proposal = dataSource.searchResultProposals[index]
+                            proposalItem(proposal: proposal)
+                        }
                     }
-                } else {
-                    List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
-                        let proposal = dataSource.searchResultProposals[index]
-                        proposalItem(proposal: proposal)
-                    }
+
                 }
+            }
+        }
+        .onAppear {
+            if dataSource.searchText == "" {
+                Tracker.track(.screenSearchPrp)
+                dataSource.refresh()
+            } else {
+                // This view is used by parent when searching by text
+                // do nothing
             }
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
-        .onAppear {
-            Tracker.track(.searchProposalView)
-            dataSource.refresh()
-        }
     }
-
+    
     private func proposalItem(proposal: Proposal) -> some View {
         return ProposalListItemView(proposal: proposal, isRead: true, isSelected: false)
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
             .listRowBackground(Color.clear)
+        // TODO: will not work for ellipsis
             .onTapGesture {
                 path.append(proposal)
             }

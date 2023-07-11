@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: this is a stab
 struct Vote: Identifiable, Decodable, Equatable {
     let id: UUID
     let name: String
@@ -34,7 +35,7 @@ struct Vote: Identifiable, Decodable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
-        self.image = try? container.decodeIfPresent(URL.self, forKey: .image)
+        self.image = try container.decodeIfPresent(URL.self, forKey: .image)
         self.message = try container.decodeIfPresent(String.self, forKey: .message)
     }
 }
