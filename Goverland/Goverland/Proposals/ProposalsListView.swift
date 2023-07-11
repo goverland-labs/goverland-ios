@@ -10,9 +10,10 @@ import SwiftUI
 struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
     @Binding var path: NavigationPath
+    @State private var selectedProposalIndex: Int?
     
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if dataSource.searchText == "" {
                 if dataSource.isLoading && dataSource.proposals.count == 0 {
                     ScrollView {
@@ -23,11 +24,10 @@ struct ProposalsListView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    List(0..<dataSource.proposals.count, id: \.self) { index in
+                    List(0..<dataSource.proposals.count, id: \.self, selection: $selectedProposalIndex) { index in
                         if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
                             ZStack {
                                 if !dataSource.failedToLoadMore { // try to paginate
-                                    // TODO: minor: padding a bit higher than it should me
                                     ShimmerProposalListItemView()
                                         .onAppear {
                                             dataSource.loadMore()
@@ -48,7 +48,6 @@ struct ProposalsListView: View {
             } else {
                 // searching
                 VStack(spacing: 12) {
-
                     if dataSource.nothingFound {
                         Text("Nothing found")
                             .font(.body)
@@ -68,14 +67,21 @@ struct ProposalsListView: View {
                             proposalItem(proposal: proposal)
                         }
                     }
-
                 }
+            }
+        }
+        .onChange(of: selectedProposalIndex) { _ in
+            if let index = selectedProposalIndex, dataSource.proposals.count > index {
+                path.append(dataSource.proposals[index])
             }
         }
         .onAppear {
             if dataSource.searchText == "" {
+                selectedProposalIndex = nil
                 Tracker.track(.screenSearchPrp)
-                dataSource.refresh()
+                if dataSource.proposals.isEmpty {
+                    dataSource.refresh()
+                }
             } else {
                 // This view is used by parent when searching by text
                 // do nothing
@@ -92,9 +98,6 @@ struct ProposalsListView: View {
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
         .listRowBackground(Color.clear)
-        .onTapGesture {
-            path.append(proposal)
-        }
     }
 }
 
