@@ -97,6 +97,7 @@ struct SearchView: View {
                 } else {
                     // Searching by text
                     switch filter {
+                        
                     case .daos:
                         DaosSearchListView(dataSource: daoDataSource,
                                            onSelectDao: { dao in
@@ -106,6 +107,7 @@ struct SearchView: View {
                                            onFollowToggle: { didFollow in
                             Tracker.track(.searchDaosFollowFromSearch)
                         })
+
                     case .proposals:
                         ProposalsListView(dataSource: proposalDataSource, path: $path)
                     }

@@ -10,7 +10,9 @@ import SwiftUI
 struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
     @Binding var path: NavigationPath
+
     @State private var selectedProposalIndex: Int?
+    @State private var selectedProposalSearchIndex: Int?
     
     var body: some View {
         Group {
@@ -62,7 +64,7 @@ struct ProposalsListView: View {
                         }
                         .padding(.top, 4)
                     } else {
-                        List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
+                        List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                             let proposal = dataSource.searchResultProposals[index]
                             proposalItem(proposal: proposal)
                         }
@@ -75,6 +77,11 @@ struct ProposalsListView: View {
                 path.append(dataSource.proposals[index])
             }
         }
+        .onChange(of: selectedProposalSearchIndex) { _ in
+            if let index = selectedProposalSearchIndex, dataSource.searchResultProposals.count > index {
+                path.append(dataSource.searchResultProposals[index])
+            }
+        }
         .onAppear {
             if dataSource.searchText == "" {
                 selectedProposalIndex = nil
@@ -84,7 +91,7 @@ struct ProposalsListView: View {
                 }
             } else {
                 // This view is used by parent when searching by text
-                // do nothing
+                selectedProposalSearchIndex = nil
             }
         }
         .listStyle(.plain)
