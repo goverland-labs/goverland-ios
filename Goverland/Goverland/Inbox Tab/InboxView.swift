@@ -58,7 +58,7 @@ struct InboxView: View {
                                     ProposalListItemView(proposal: proposal,
                                                          isSelected: selectedEventIndex == index,
                                                          isRead: event.readAt != nil,
-                                                         displayReadIndicator: event.readAt != nil)
+                                                         displayUnreadIndicator: event.readAt == nil)
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button {
                                             data.archive(eventID: event.id)
@@ -98,7 +98,7 @@ struct InboxView: View {
                         EmptyView()
                     }
                 }
-                .onChange(of: selectedEventIndex) { newValue in
+                .onChange(of: selectedEventIndex) { _ in
                     if let index = selectedEventIndex, events.count > index {
                         let event = events[index]
                         data.markRead(eventID: event.id)

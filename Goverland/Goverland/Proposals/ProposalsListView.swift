@@ -60,7 +60,7 @@ struct ProposalsListView: View {
     }
 
     private func proposalItem(proposal: Proposal) -> some View {
-        return ProposalListItemView(proposal: proposal, isSelected: false, isRead: false, displayReadIndicator: false)
+        return ProposalListItemView(proposal: proposal, isSelected: false, isRead: false, displayUnreadIndicator: false)
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
             .listRowBackground(Color.clear)

@@ -57,15 +57,12 @@ struct DaoInfoEventsView: View {
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isSelected: selectedEventIndex == index,
+                                                 isSelected: false,
                                                  isRead: false,
-                                                 displayReadIndicator: false)
+                                                 displayUnreadIndicator: false)
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
-                            .onTapGesture {
-                                path.append(proposal)
-                            }
                         }
                     }
                     .refreshable {
@@ -75,6 +72,12 @@ struct DaoInfoEventsView: View {
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
+            .onChange(of: selectedEventIndex) { _ in
+                if let index = selectedEventIndex, events.count > index,
+                   let proposal = events[index].eventData as? Proposal {
+                    path.append(proposal)
+                }
+            }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
             }

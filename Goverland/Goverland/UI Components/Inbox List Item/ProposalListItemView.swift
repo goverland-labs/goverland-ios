@@ -11,7 +11,7 @@ struct ProposalListItemView: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
-    let displayReadIndicator: Bool
+    let displayUnreadIndicator: Bool
 
     @Environment(\.presentationMode) private var presentationMode
 
@@ -37,7 +37,7 @@ struct ProposalListItemView: View {
                 .fill(backgroundColor)
 
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayReadIndicator)
+                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
                 ProposalListItemBodyView(proposal: proposal)
                 ProposalListItemFooterView(proposal: proposal)
             }
@@ -171,7 +171,7 @@ fileprivate struct InboxListItemFooterMenu: View {
                 Image(systemName: "ellipsis")
                     .foregroundColor(.textWhite40)
                     .fontWeight(.bold)
-                    .frame(height: 20)
+                    .frame(width: 40, height: 20)
             }
         }
     }
@@ -226,6 +226,6 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayReadIndicator: true)
+        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true)
     }
 }
