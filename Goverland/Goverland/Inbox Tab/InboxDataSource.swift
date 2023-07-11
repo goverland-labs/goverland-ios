@@ -8,8 +8,26 @@
 import Foundation
 import Combine
 
-class InboxDataSource: ObservableObject, Paginatable {
-    @Published var events: [InboxEvent] = []
+enum InboxFilter: Int, FilterOptions {
+    case all = 0
+    case vote
+    case treasury
+
+    var localizedName: String {
+        switch self {
+        case .all:
+            return "All"
+        case .vote:
+            return "Vote"
+        case .treasury:
+            return "Treasury"
+        }
+    }
+}
+
+class InboxDataSource: ObservableObject, Paginatable, Refreshable {
+    @Published var events: [InboxEvent]?
+    @Published var filter: InboxFilter = .all
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -22,21 +40,25 @@ class InboxDataSource: ObservableObject, Paginatable {
         APIService.inboxEvents(limit: 100)
     }
     var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents(offset: events.count)
+        APIService.inboxEvents(offset: events?.count ?? 0)
     }
 
-    func refresh(withFilter filter: InboxFilter) {
-        events = []
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
+    }
+
+    func refresh() {
+        events = nil
         isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false
         cancellables = Set<AnyCancellable>()
         total = nil
 
-        loadInitialData(filter: .all)
+        loadInitialData()
     }
 
-    private func loadInitialData(filter: InboxFilter) {
+    private func loadInitialData() {
         isLoading = true
         initialLoadingPublisher
             .sink { [weak self] completion in
@@ -59,12 +81,14 @@ class InboxDataSource: ObservableObject, Paginatable {
 
     func storeUnreadEventsCount() {
         // TODO: implement properly
-        let unreadEvents = self.events.filter { $0.readAt == nil }.count
+        let unreadEvents = self.events!.filter { $0.readAt == nil }.count
         SettingKeys.shared.unreadEvents = unreadEvents
     }
 
     func hasMore() -> Bool {
-        guard let total = total, let totalSkipped = totalSkipped else { return true }
+        guard let events = events,
+                let total = total,
+                let totalSkipped = totalSkipped else { return true }
         return events.count < total - totalSkipped
     }
 
@@ -78,7 +102,7 @@ class InboxDataSource: ObservableObject, Paginatable {
             } receiveValue: { [weak self] events, headers in
                 guard let `self` = self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
-                self.events.append(contentsOf: recognizedEvents)
+                self.events?.append(contentsOf: recognizedEvents)
                 self.totalSkipped! += events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
             }
@@ -91,7 +115,7 @@ class InboxDataSource: ObservableObject, Paginatable {
     }
 
     func markRead(eventID: UUID) {
-        guard let event = events.first(where: { $0.id == eventID }), event.readAt == nil else { return }
+        guard let event = events?.first(where: { $0.id == eventID }), event.readAt == nil else { return }
         APIService.markEventRead(eventID: eventID)
             .retry(3)
             .sink { competion in
@@ -102,8 +126,8 @@ class InboxDataSource: ObservableObject, Paginatable {
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
-                if let index = self.events.firstIndex(where: { $0.id == eventID }) {
-                    self.events[index].readAt = Date()
+                if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                    self.events?[index].readAt = Date()
                     SettingKeys.shared.unreadEvents -= 1
                 }
             }
@@ -121,16 +145,22 @@ class InboxDataSource: ObservableObject, Paginatable {
 
                     // TODO: remove once backend is ready
                     guard let `self` = self else { return }
-                    if let index = self.events.firstIndex(where: { $0.id == eventID }) {
-                        self.events.remove(at: index)
+                    if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                        self.total? -= 1 // to properly handle load more
+                        self.events?.remove(at: index)
                     }
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
-                if let index = self.events.firstIndex(where: { $0.id == eventID }) {
-                    self.events.remove(at: index)
+                if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                    self.total? -= 1 // to properly handle load more
+                    self.events?.remove(at: index)
                 }
             }
             .store(in: &cancellables)
+    }
+
+    @objc private func subscriptionDidToggle(_ notification: Notification) {
+        refresh()
     }
 }

@@ -29,6 +29,10 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
+    case screenInboxEmpty = "screen_inbox_empty"
+    case inboxEventOpen = "inbox_event_open"
+    case inboxEventArchive = "inbox_event_archive"
+    case inboxEventMarkRead = "inbox_event_mark_read"
 
     // MARK: - DAO Info
 

@@ -7,21 +7,63 @@
 
 import SwiftUI
 
-struct ProposalListItemView: View {
+struct ProposalSharingMenu: View {
+    let link: String
+
+    var body: some View {
+        if let url = Utils.urlFromString(link) {
+            ShareLink(item: url) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+
+            Button {
+                UIApplication.shared.open(url)
+            } label: {
+                // for now we handle only Snapshot proposals
+                Label("Open on Snapshot", systemImage: "arrow.up.right")
+            }
+        } else {
+            ShareLink(item: link) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
+    }
+}
+
+struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
-    let isRead: Bool
     let isSelected: Bool
+    let isRead: Bool
+    let displayUnreadIndicator: Bool
+    let menuContent: Content
 
     @Environment(\.presentationMode) private var presentationMode
 
+    init(proposal: Proposal,
+         isSelected: Bool,
+         isRead: Bool,
+         displayUnreadIndicator: Bool,
+         @ViewBuilder menuContent: () -> Content) {
+        self.proposal = proposal
+        self.isSelected = isSelected
+        self.isRead = isRead
+        self.displayUnreadIndicator = displayUnreadIndicator
+        self.menuContent = menuContent()
+    }
+
     private var backgroundColor: Color {
         if isSelected {
-            return .textWhite20
+            return .secondaryContainer
         }
-        // if in a popover or on iPads, make it lighter
-        if presentationMode.wrappedValue.isPresented || UIDevice.current.userInterfaceIdiom == .pad {
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
             return .containerBright
         }
+
+        if presentationMode.wrappedValue.isPresented {
+            return .containerBright
+        }
+
         return .container
     }
 
@@ -29,20 +71,28 @@ struct ProposalListItemView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
-            
+
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, isRead: isRead)
+                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
                 ProposalListItemBodyView(proposal: proposal)
-                ProposalListItemFooterView(proposal: proposal)
+                ProposalListItemFooterView(proposal: proposal) {
+                    menuContent
+                }
             }
             .padding(.horizontal, 12)
+
+            if isRead && !isSelected {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.containerDim.opacity(0.6))
+                    .allowsHitTesting(false)
+            }
         }
     }
 }
 
 fileprivate struct ProposalListItemHeaderView: View {
     let proposal: Proposal
-    let isRead: Bool
+    let displayReadIndicator: Bool
 
     var body: some View {
         HStack {
@@ -57,7 +107,7 @@ fileprivate struct ProposalListItemHeaderView: View {
             Spacer()
 
             HStack(spacing: 6) {
-                if !isRead {
+                if displayReadIndicator {
                     ReadIndicatiorView()
                 }
                 ProposalStatusView(state: proposal.state)
@@ -109,14 +159,30 @@ fileprivate struct ProposalListItemBodyView: View {
     }
 }
 
-fileprivate struct ProposalListItemFooterView: View {
+fileprivate struct ProposalListItemFooterView<Content: View>: View {
     let proposal: Proposal
+    let menuContent: Content
+
+    init(proposal: Proposal, @ViewBuilder menuContent: () -> Content) {
+        self.proposal = proposal
+        self.menuContent = menuContent()
+    }
 
     var body: some View {
         HStack(spacing: 20) {
             VoteFooterView(votes: proposal.votes, quorum: proposal.quorum)
             Spacer()
-            InboxListItemFooterMenu()
+
+            HStack(spacing: 15) {
+                Menu {
+                    menuContent
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.textWhite40)
+                        .fontWeight(.bold)
+                        .frame(width: 40, height: 20)
+                }
+            }
         }
     }
 }
@@ -148,25 +214,6 @@ fileprivate struct VoteFooterView: View {
             }
         }
     }
-}
-
-fileprivate struct InboxListItemFooterMenu: View {
-    var body: some View {
-        HStack(spacing: 15) {
-            Menu {
-                Button("Share", action: performShare)
-                Button("Cancel", action: performCancel)
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.textWhite40)
-                    .fontWeight(.bold)
-                    .frame(height: 20)
-            }
-        }
-    }
-
-    private func performShare() {}
-    private func performCancel() {}
 }
 
 struct ShimmerProposalListItemView: View {
@@ -215,6 +262,6 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isRead: false, isSelected: false)
+        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true) {}
     }
 }

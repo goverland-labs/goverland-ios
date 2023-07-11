@@ -10,9 +10,12 @@ import SwiftUI
 struct ProposalsListView: View {
     @StateObject var dataSource: ProposalDataSource
     @Binding var path: NavigationPath
+
+    @State private var selectedProposalIndex: Int?
+    @State private var selectedProposalSearchIndex: Int?
     
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if dataSource.searchText == "" {
                 if dataSource.isLoading && dataSource.proposals.count == 0 {
                     ScrollView {
@@ -23,11 +26,10 @@ struct ProposalsListView: View {
                     }
                     .padding(.top, 4)
                 } else {
-                    List(0..<dataSource.proposals.count, id: \.self) { index in
+                    List(0..<dataSource.proposals.count, id: \.self, selection: $selectedProposalIndex) { index in
                         if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
                             ZStack {
                                 if !dataSource.failedToLoadMore { // try to paginate
-                                    // TODO: minor: padding a bit higher than it should me
                                     ShimmerProposalListItemView()
                                         .onAppear {
                                             dataSource.loadMore()
@@ -48,7 +50,6 @@ struct ProposalsListView: View {
             } else {
                 // searching
                 VStack(spacing: 12) {
-
                     if dataSource.nothingFound {
                         Text("Nothing found")
                             .font(.body)
@@ -63,22 +64,34 @@ struct ProposalsListView: View {
                         }
                         .padding(.top, 4)
                     } else {
-                        List(0..<dataSource.searchResultProposals.count, id: \.self) { index in
+                        List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                             let proposal = dataSource.searchResultProposals[index]
                             proposalItem(proposal: proposal)
                         }
                     }
-
                 }
+            }
+        }
+        .onChange(of: selectedProposalIndex) { _ in
+            if let index = selectedProposalIndex, dataSource.proposals.count > index {
+                path.append(dataSource.proposals[index])
+            }
+        }
+        .onChange(of: selectedProposalSearchIndex) { _ in
+            if let index = selectedProposalSearchIndex, dataSource.searchResultProposals.count > index {
+                path.append(dataSource.searchResultProposals[index])
             }
         }
         .onAppear {
             if dataSource.searchText == "" {
+                selectedProposalIndex = nil
                 Tracker.track(.screenSearchPrp)
-                dataSource.refresh()
+                if dataSource.proposals.isEmpty {
+                    dataSource.refresh()
+                }
             } else {
                 // This view is used by parent when searching by text
-                // do nothing
+                selectedProposalSearchIndex = nil
             }
         }
         .listStyle(.plain)
@@ -86,14 +99,12 @@ struct ProposalsListView: View {
     }
     
     private func proposalItem(proposal: Proposal) -> some View {
-        return ProposalListItemView(proposal: proposal, isRead: true, isSelected: false)
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
-            .listRowBackground(Color.clear)
-        // TODO: will not work for ellipsis
-            .onTapGesture {
-                path.append(proposal)
-            }
+        return ProposalListItemView(proposal: proposal, isSelected: false, isRead: false, displayUnreadIndicator: false) {
+            ProposalSharingMenu(link: proposal.link)
+        }
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+        .listRowBackground(Color.clear)
     }
 }
 

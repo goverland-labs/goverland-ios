@@ -67,19 +67,24 @@ struct SearchView: View {
                 if searchText.wrappedValue == "" {
                     switch filter {
                     case .daos:
-                        if !daoDataSource.failedToLoadInitially {
-                            GroupedDaosView(dataSource: daoDataSource,
-                                            onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
-                                            onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
-                                            onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
+                        ZStack {
+                            if !daoDataSource.failedToLoadInitially {
+                                GroupedDaosView(dataSource: daoDataSource,
+                                                onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                                onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
+                                                onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
-                                            onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
-                                            onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
-                                            onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } },
+                                                onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
+                                                onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
+                                                onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.searchDaosFollowFromCtgSearch) } },
 
-                                            onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
-                        } else {
-                            RetryInitialLoadingView(dataSource: daoDataSource)
+                                                onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
+                            } else {
+                                RetryInitialLoadingView(dataSource: daoDataSource)
+                            }
+                        }
+                        .onAppear() {
+                            Tracker.track(.screenSearchDaos)
                         }
                     case .proposals:
                         if !proposalDataSource.failedToLoadInitialData {
@@ -92,6 +97,7 @@ struct SearchView: View {
                 } else {
                     // Searching by text
                     switch filter {
+                        
                     case .daos:
                         DaosSearchListView(dataSource: daoDataSource,
                                            onSelectDao: { dao in
@@ -101,6 +107,7 @@ struct SearchView: View {
                                            onFollowToggle: { didFollow in
                             Tracker.track(.searchDaosFollowFromSearch)
                         })
+
                     case .proposals:
                         ProposalsListView(dataSource: proposalDataSource, path: $path)
                     }
@@ -124,7 +131,6 @@ struct SearchView: View {
             }
             .onAppear() {
                 daoDataSource.refresh()
-                Tracker.track(.screenSearchDaos)
             }
         }
     }

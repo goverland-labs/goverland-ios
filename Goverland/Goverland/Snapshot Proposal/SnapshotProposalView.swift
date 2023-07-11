@@ -56,21 +56,17 @@ struct SnapshotProposalView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    Button("Share", action: performShare)
-                    Button("Open on Snapshot", action: performOpenSnapshot)
+                    ProposalSharingMenu(link: proposal.link)
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                        .frame(width: 20, height: 20)
+                        .frame(height: 20)
                 }
             }
         }
         .onAppear() { Tracker.track(.snapshotProposalView) }
     }
-    
-    private func performShare() {}
-    private func performOpenSnapshot() {}
 }
 
 fileprivate struct SnapshotProposalHeaderView: View {
