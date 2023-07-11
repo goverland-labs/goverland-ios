@@ -11,7 +11,7 @@ struct DaoInfoScreenHeaderView: View {
     let dao: Dao
     
     var body: some View {
-        HStack(spacing: 40) {
+        HStack(spacing: 50) {
             RoundPictureView(image: dao.avatar, imageSize: 100)
             
             VStack(spacing: 20) {
