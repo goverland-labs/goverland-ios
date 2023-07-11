@@ -9,6 +9,7 @@ import SwiftUI
 
 class TabManager: ObservableObject {
     @Published var selectedTab: Tab = .inbox
+    @Published var settingsPath = [SettingsScreen]()
 
     static let shared = TabManager()
 
@@ -42,7 +43,7 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
 
-            SettingsView()
+            SettingsView(path: $tabManager.settingsPath)
                 .tabItem {
                     Image(tabManager.selectedTab == .settings ? "settings-active" : "settings")
                 }

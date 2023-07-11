@@ -20,7 +20,7 @@ enum SettingsScreen {
 }
 
 struct SettingsView: View {
-    @State private var path = NavigationPath()
+    @Binding var path: [SettingsScreen]
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -219,7 +219,7 @@ fileprivate struct AdvancedSettingView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(path: .constant([]))
             .environmentObject(ColorSchemeManager())
     }
 }

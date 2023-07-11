@@ -48,6 +48,8 @@ struct InboxView: View {
                         }
                     }
                     .padding(.top, 4)
+                } else if data.events.count == 0 {
+                    EmptyInboxView()
                 } else {
                     List(0..<data.events.count, id: \.self, selection: $selectedEventIndex) { index in
                         let event = data.events[index]
