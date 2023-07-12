@@ -233,6 +233,7 @@ struct DaoEventsEndpoint: APIEndpoint {
     let daoID: UUID
 
     var path: String { "feed" } // "daos/\(daoID)/feed"
+    var path: String { "dao/\(daoID)/feed" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
