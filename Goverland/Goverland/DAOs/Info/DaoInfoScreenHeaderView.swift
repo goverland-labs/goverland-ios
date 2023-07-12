@@ -23,7 +23,11 @@ struct DaoInfoScreenHeaderView: View {
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
                 
-                FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: nil)
+                FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id) { didFollow in
+                    if didFollow {
+                        Tracker.track(.daoFollow)
+                    }
+                }
             }
         }
     }

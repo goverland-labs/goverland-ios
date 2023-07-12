@@ -126,6 +126,9 @@ struct DaoInfoAboutDaoView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            Tracker.track(.screenDaoAbout)
+        }
     }
 }
 

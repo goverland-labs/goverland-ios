@@ -65,7 +65,9 @@ struct SnapshotProposalView: View {
                 }
             }
         }
-        .onAppear() { Tracker.track(.snapshotProposalView) }
+        .onAppear() {
+            Tracker.track(.screenSnpDetails)
+        }
     }
 }
 

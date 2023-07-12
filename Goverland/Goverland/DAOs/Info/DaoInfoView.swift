@@ -87,11 +87,10 @@ struct DaoInfoView: View {
 
             }
         }
-        .onAppear() { Tracker.track(.daoInfoScreenView) }
+        .onAppear() {
+            Tracker.track(.screenDaoFeed, parameters: ["dao_name": dao.name])
+        }
     }
-
-    private func performShare() {}
-    private func performCancel() {}
 }
 
 struct DaoInfoView_Previews: PreviewProvider {
