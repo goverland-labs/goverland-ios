@@ -36,12 +36,12 @@ struct VoteWarningPopupView: View {
             
             Spacer()
             
-            Text("This functionality is under development, soon you will be able to vote directly from the application, but in the meantime you can go to the website to cast your vote!")
+            Text("We're developing in-app voting! Until it's ready, please use Snapshot website to cast your vote. Thanks for your patience!")
                 .font(.bodyRegular)
                 .foregroundColor(.textWhite)
                 .padding(.bottom)
 
-            PrimaryButton("Visit Website") {
+            PrimaryButton("Vote on Snapshot") {
                 if let url = Utils.urlFromString(proposal.link) {
                     openURL(url)
                 } else if let url = URL(string: "https://snapshot.org/#/\(proposal.dao.alias)/proposal/\(proposal.id)") {
