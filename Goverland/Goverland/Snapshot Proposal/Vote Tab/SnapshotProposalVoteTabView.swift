@@ -73,7 +73,6 @@ struct SnapshotProposalVoteTabView: View {
             
             switch chosenTab {
             case .vote:
-                // TODO: implement views for every vote type
                 switch proposal.type {
                 case .basic: SnapshotBasicVotingView { index in
                     print("Selected option # \(index + 1)")
@@ -85,7 +84,6 @@ struct SnapshotProposalVoteTabView: View {
                 case .weighted : SnapshotWeightedVotingView(proposal: proposal)
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingView(proposal: proposal)
-                default: SnapshotBasicVotingView { _ in }
                 }
             case .results:
                 switch proposal.type {
@@ -95,7 +93,6 @@ struct SnapshotProposalVoteTabView: View {
                 case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
                 case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
-                default: SnapshotBasicVotingResultView(proposal: proposal)
                 }
             case .votes:
                 SnapshotVotesView(proposal: proposal)
