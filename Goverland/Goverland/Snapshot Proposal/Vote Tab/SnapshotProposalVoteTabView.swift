@@ -64,7 +64,6 @@ struct SnapshotProposalVoteTabView: View {
                             withAnimation(.spring(response: 0.5)) {
                                 self.chosenTab = tab
                             }
-                            // API goes here
                         }
                     }
                 }

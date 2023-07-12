@@ -18,7 +18,8 @@ struct SnapshotVotesView: View {
     
     var body: some View {
         VStack {
-            ForEach(0..<dataSource.votes.count, id: \.self) { index in
+            let count = dataSource.votes.count
+            ForEach(0..<count, id: \.self) { index in
                 let vote = dataSource.votes[index]
                 Divider()
                     .background(Color.secondaryContainer)
@@ -26,7 +27,7 @@ struct SnapshotVotesView: View {
                     IdentityView(user: vote.voter)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.textWhite)
-                    Text(proposal.choices.count >= vote.choice ? proposal.choices[vote.choice] : String(vote.choice))
+                    Text(proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice))
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.textWhite40)
                     HStack {
@@ -42,9 +43,38 @@ struct SnapshotVotesView: View {
                 .padding(.vertical, 5)
                 .font(.footnoteRegular)
             }
+            
+            Button("Load More") {
+                if !dataSource.failedToLoadMore && dataSource.hasMore() {
+                    dataSource.loadMore()
+                }
+            }
+            .frame(width: 100, height: 30, alignment: .center)
+            .background(Capsule(style: .circular)
+                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+            .tint(.onSecondaryContainer)
+            .font(.footnoteSemibold)
         }
         .onAppear() {
             dataSource.refresh()
+        }
+    }
+}
+
+fileprivate struct ShimmerVoteListItemView: View {
+    var body: some View {
+        HStack {
+            ShimmerView()
+                .frame(width: 40, height: 20)
+                .cornerRadius(10)
+            Spacer()
+            ShimmerView()
+                .frame(width: 40, height: 20)
+                .cornerRadius(8)
+            Spacer()
+            ShimmerView()
+                .frame(width: 40, height: 20)
+                .cornerRadius(8)
         }
     }
 }
