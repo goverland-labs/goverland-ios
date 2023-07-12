@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MarkdownUI
+import SwiftDate
 
 struct DaoInfoAboutDaoView: View {
     @Environment(\.openURL) var openURL
@@ -18,6 +19,10 @@ struct DaoInfoAboutDaoView: View {
         // we always expect to have a markdown text
         let rawStr = dao.about?.first { $0.type == .markdown }!.body
         return rawStr?.replacingOccurrences(of: "ipfs://", with: "https://snapshot.mypinata.cloud/ipfs/") ?? ""
+    }
+
+    var date: String? {
+        return dao.activitySince?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
     }
     
     var body: some View {
@@ -36,14 +41,10 @@ struct DaoInfoAboutDaoView: View {
                         .scaledToFit()
                         .frame(height: frameH)
                         .onTapGesture {
-                            let appURL = URL(string: "twitter://user?screen_name=\(twitter)")!
-                            let webURL = URL(string: "https://twitter.com/\(twitter)")!
-                            
-                            if UIApplication.shared.canOpenURL(appURL as URL) {
-                                UIApplication.shared.open(appURL)
-                            } else {
-                                UIApplication.shared.open(webURL)
-                            }
+                            openURL(
+                                URL(string: "https://twitter.com/\(twitter)") ??
+                                URL(string: "https://twitter.com/")!
+                            )
                         }
                 }
                 //TODO: backend data needed here to accommodate design
@@ -64,7 +65,7 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-coingecko")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(
                                 URL(string: "https://www.coingecko.com/en/coins/\(coingecko)") ??
@@ -77,7 +78,7 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-github")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(
                                 URL(string: "https://github.com/\(github)") ??
@@ -90,7 +91,7 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-website")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(website)
                         }
@@ -100,7 +101,7 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-terms")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(terms)
                         }
@@ -109,20 +110,22 @@ struct DaoInfoAboutDaoView: View {
                 Spacer()
                 
             }
-            
-            HStack {
-                //TODO: date format "Activity since 07 July 2018"
-                Text("Activity since \(dao.createdAt)")
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
-                Spacer()
+
+            if let date = date {
+                HStack {
+                    Text("Activity since \(date)")
+                        .font(.footnoteRegular)
+                        .foregroundColor(.textWhite60)
+                    Spacer()
+                }
             }
             
             VStack(alignment: .leading) {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
             }
-            
+            .padding(.leading, -12)
+
             Spacer()
         }
         .padding()

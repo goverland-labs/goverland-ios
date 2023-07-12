@@ -14,6 +14,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let name: String
     let avatar: URL?
     let createdAt: Date
+    let activitySince: Date?
     let about: [DaoBody]?
     let proposals: Int
     let members: Int
@@ -29,6 +30,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          name: String,
          image: URL?,
          createdAt: Date,
+         activitySince: Date?,
          about: [DaoBody]?,
          proposals: Int,
          members: Int,
@@ -43,6 +45,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.name = name
         self.avatar = image
         self.createdAt = createdAt
+        self.activitySince = activitySince
         self.about = about
         self.proposals = proposals
         self.members = members
@@ -60,6 +63,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case name
         case avatar
         case createdAt = "created_at"
+        case activitySince = "activity_since"
         case about
         case proposals = "proposals_count"
         case members = "followers_count"
@@ -81,6 +85,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         // TODO: figure our with backend why sometimes avatar is Invalid URL string.
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.activitySince = try container.decodeIfPresent(Date.self, forKey: .activitySince)
         self.about = try container.decodeIfPresent([DaoBody].self, forKey: .about)
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.members = try container.decode(Int.self, forKey: .members)
@@ -161,6 +166,7 @@ extension Dao {
         name: "Gnosis DAO",
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
         createdAt: .now - 5.days,
+        activitySince: .now - 1.years,
         about: [],
         proposals: 100,
         members: 4567,
@@ -176,6 +182,7 @@ extension Dao {
         name: "Aave",
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
         createdAt: .now - 5.days,
+        activitySince: .now - 1.years,
         about: [],
         proposals: 150,
         members: 45678,
