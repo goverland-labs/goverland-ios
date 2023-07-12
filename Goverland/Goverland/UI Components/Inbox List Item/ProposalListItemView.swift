@@ -35,6 +35,7 @@ struct ProposalListItemView<Content: View>: View {
     let isSelected: Bool
     let isRead: Bool
     let displayUnreadIndicator: Bool
+    let onDaoTap: (() -> Void)?
     let menuContent: Content
 
     @Environment(\.presentationMode) private var presentationMode
@@ -43,11 +44,13 @@ struct ProposalListItemView<Content: View>: View {
          isSelected: Bool,
          isRead: Bool,
          displayUnreadIndicator: Bool,
+         onDaoTap: (() -> Void)? = nil,
          @ViewBuilder menuContent: () -> Content) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
         self.displayUnreadIndicator = displayUnreadIndicator
+        self.onDaoTap = onDaoTap
         self.menuContent = menuContent()
     }
 
@@ -74,7 +77,7 @@ struct ProposalListItemView<Content: View>: View {
 
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
-                ProposalListItemBodyView(proposal: proposal)
+                ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
                     menuContent
                 }
@@ -120,12 +123,13 @@ fileprivate struct ReadIndicatiorView: View {
     var body: some View {
         Circle()
             .fill(Color.primary)
-            .frame(width: 4, height: 4)
+            .frame(width: 5, height: 5)
     }
 }
 
 fileprivate struct ProposalListItemBodyView: View {
     let proposal: Proposal
+    let onDaoTap: (() -> Void)?
 
     var body: some View {
         HStack {
@@ -135,26 +139,25 @@ fileprivate struct ProposalListItemBodyView: View {
                     .font(.headlineSemibold)
                     .lineLimit(2)
 
-                // TODO: implement
-                Text("Finishes in 3 days")
-                    .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
-                    .font(.footnoteRegular)
-                    .lineLimit(1)
+                HStack(spacing: 0) {
+                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                        .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                        .font(.footnoteRegular)
+                        .lineLimit(1)
 
-                // TODO: fix
-                //                if let warning = data.content.warningSubtitle {
-                //                    Text(warning)
-                //                        .foregroundColor(.textWhite40)
-                //                        .font(.footnoteRegular)
-                //                        .lineLimit(1)
-                //                } else {
-                //                    Text("")
-                //                }
+                    DateView(date: proposal.votingEnd,
+                             style: .numeric,
+                             font: .footnoteRegular,
+                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                }
             }
 
             Spacer()
 
             RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
+                .onTapGesture {
+                    onDaoTap?()
+                }
         }
     }
 }
@@ -170,7 +173,10 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
 
     var body: some View {
         HStack(spacing: 20) {
-            VoteFooterView(votes: proposal.votes, quorum: proposal.quorum)
+            VoteFooterView(votes: proposal.votes,
+                           votesHighlighted: proposal.state == .active,
+                           quorum: proposal.quorum,
+                           quorumHighlighted: proposal.quorum >= 100)
             Spacer()
 
             HStack(spacing: 15) {
@@ -189,28 +195,30 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
 
 fileprivate struct VoteFooterView: View {
     let votes: Int
+    let votesHighlighted: Bool
     let quorum: Int
+    let quorumHighlighted: Bool
 
     var body: some View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-                    .foregroundColor(.gray)
-                    .font(.footnoteRegular)
 
                 Text(String(votes))
                     .fontWeight(.medium)
-                    .font(.footnoteRegular)
             }
+            .font(.footnoteRegular)
+            .foregroundColor(votesHighlighted ? .textWhite : .textWhite40)
 
-            HStack(spacing: 5) {
-                Image(systemName: "flag.checkered")
-                    .foregroundColor(.white)
-                    .font(.footnoteRegular)
+            if quorum > 0 {
+                HStack(spacing: 5) {
+                    Image(systemName: "flag.checkered")
 
-                Text(String(quorum))
-                    .fontWeight(.medium)
-                    .font(.footnoteRegular)
+                    Text(String(quorum))
+                        .fontWeight(.medium)
+                }
+                .font(.footnoteRegular)
+                .foregroundColor(quorumHighlighted ? .textWhite : .textWhite40)
             }
         }
     }

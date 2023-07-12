@@ -135,6 +135,16 @@ extension APIService {
     }
 
     // MARK: - Proposals
+
+    static func topProposals(offset: Int = 0,
+                             limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(TopProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = TopProposalsListEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
     
     static func proposals(offset: Int = 0,
                           limit: Int = DEFAULT_PAGINATION_COUNT,

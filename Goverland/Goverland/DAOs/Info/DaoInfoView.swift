@@ -76,22 +76,17 @@ struct DaoInfoView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Menu {
-                    Button("Share", action: performShare)
-                    Button("Cancel", action: performCancel)
+                    // TODO: implement properly
+                    ProposalSharingMenu(link: "https://snapshot.org/#/\(dao.alias)")
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }
-
             }
         }
-        .onAppear() { Tracker.track(.daoInfoScreenView) }
     }
-
-    private func performShare() {}
-    private func performCancel() {}
 }
 
 struct DaoInfoView_Previews: PreviewProvider {

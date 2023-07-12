@@ -37,7 +37,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var totalSkipped: Int?
 
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents(limit: 100)
+        APIService.inboxEvents()
     }
     var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
         APIService.inboxEvents(offset: events?.count ?? 0)
@@ -74,14 +74,13 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
 
-                storeUnreadEventsCount()
+                storeUnreadEventsCount(headers: headers)
             }
             .store(in: &cancellables)
     }
 
-    func storeUnreadEventsCount() {
-        // TODO: implement properly
-        let unreadEvents = self.events!.filter { $0.readAt == nil }.count
+    func storeUnreadEventsCount(headers: HttpHeaders) {
+        let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
         SettingKeys.shared.unreadEvents = unreadEvents
     }
 

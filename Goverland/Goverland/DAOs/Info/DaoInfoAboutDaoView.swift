@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MarkdownUI
+import SwiftDate
 
 struct DaoInfoAboutDaoView: View {
     @Environment(\.openURL) var openURL
@@ -18,6 +19,10 @@ struct DaoInfoAboutDaoView: View {
         // we always expect to have a markdown text
         let rawStr = dao.about?.first { $0.type == .markdown }!.body
         return rawStr?.replacingOccurrences(of: "ipfs://", with: "https://snapshot.mypinata.cloud/ipfs/") ?? ""
+    }
+
+    var date: String? {
+        return dao.activitySince?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
     }
     
     var body: some View {
@@ -36,40 +41,25 @@ struct DaoInfoAboutDaoView: View {
                         .scaledToFit()
                         .frame(height: frameH)
                         .onTapGesture {
-                            let appURL = URL(string: "twitter://user?screen_name=\(twitter)")!
-                            let webURL = URL(string: "https://twitter.com/\(twitter)")!
-                            
-                            if UIApplication.shared.canOpenURL(appURL as URL) {
-                                UIApplication.shared.open(appURL)
-                            } else {
-                                UIApplication.shared.open(webURL)
-                            }
+                            openURL(
+                                URL(string: "https://twitter.com/\(twitter)") ??
+                                URL(string: "https://twitter.com/")!
+                            )
+                            Tracker.track(.daoOpenTwitter)
                         }
                 }
-                //TODO: backend data needed here to accommodate design
-//                if let discord = dao.discord {
-//                    Image("dao-info-discord")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: frameH)
-//                }
-//                if let snapshot = dao.snapshot {
-//                    Image("dao-info-snapshot")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: frameH)
-//                }
                 
                 if let coingecko = dao.coingecko {
                     Image("dao-info-coingecko")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(
                                 URL(string: "https://www.coingecko.com/en/coins/\(coingecko)") ??
                                 URL(string: "https://www.coingecko.com/")!
                             )
+                            Tracker.track(.daoOpenCoingecko)
                         }
                 }
                 
@@ -77,12 +67,13 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-github")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(
                                 URL(string: "https://github.com/\(github)") ??
                                 URL(string: "https://github.com/")!
                             )
+                            Tracker.track(.daoOpenGithub)
                         }
                 }
                 
@@ -90,9 +81,21 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-website")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(website)
+                            Tracker.track(.daoOpenWebsite)
+                        }
+                }
+
+                if let snapshotUrl = Utils.urlFromString("https://snapshot.org/#/\(dao.alias)") {
+                    Image("dao-info-snapshot")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH + 4)
+                        .onTapGesture {
+                            openURL(snapshotUrl)
+                            Tracker.track(.daoOpenShapshot)
                         }
                 }
                 
@@ -100,32 +103,38 @@ struct DaoInfoAboutDaoView: View {
                     Image("dao-info-terms")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: frameH)
+                        .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(terms)
+                            Tracker.track(.daoOpenTerms)
                         }
                 }
                 
                 Spacer()
                 
             }
-            
-            HStack {
-                //TODO: date format "Activity since 07 July 2018"
-                Text("Activity since \(dao.createdAt)")
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
-                Spacer()
+
+            if let date = date {
+                HStack {
+                    Text("Activity since \(date)")
+                        .font(.footnoteRegular)
+                        .foregroundColor(.textWhite60)
+                    Spacer()
+                }
             }
             
             VStack(alignment: .leading) {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
             }
-            
+            .padding(.leading, -12)
+
             Spacer()
         }
         .padding()
+        .onAppear {
+            Tracker.track(.screenDaoAbout)
+        }
     }
 }
 

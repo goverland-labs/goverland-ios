@@ -31,10 +31,28 @@ enum TrackingEvent: String, Trackable {
     case screenInbox = "screen_inbox"
     case screenInboxEmpty = "screen_inbox_empty"
     case inboxEventOpen = "inbox_event_open"
+    case inboxEventOpenDao = "inbox_event_open_dao"
     case inboxEventArchive = "inbox_event_archive"
     case inboxEventMarkRead = "inbox_event_mark_read"
 
     // MARK: - DAO Info
+    case daoFollow = "dao_follow"
+    // Events
+    case screenDaoFeed = "screen_dao_feed"
+    case daoEventOpen = "dao_event_open"
+
+    // - About
+    case screenDaoAbout = "screen_dao_about"
+    case daoOpenWebsite = "dao_open_website"
+    case daoOpenShapshot = "dao_open_shapshot"
+    case daoOpenCoingecko = "dao_open_coingecko"
+    case daoOpenTwitter = "dao_open_twitter"
+    case daoOpenGithub = "dao_open_github"
+    case daoOpenTerms = "dao_open_terms"
+
+
+    // MARK: - Snapshot Proposal
+    case screenSnpDetails = "screen_snp_details"
 
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
@@ -52,6 +70,10 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Search Proposal
     case screenSearchPrp = "screen_search_prp"
+    case searchPrpOpenFromSearch = "search_prp_open_from_search"
+    case searchPrpOpenFromCard = "search_prp_open_from_card"
+    case searchPrpOpenDaoFromSearch = "search_prp_open_dao_from_search"
+    case searchPrpOpenDaoFromCard = "search_prp_open_dao_from_card"
 
     // MARK: - Followed DAOs
     case screenFollowedDaos = "screen_followed_daos"
@@ -92,9 +114,4 @@ enum TrackingEvent: String, Trackable {
 
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"
-
-
-    // LEGACY. Remove iteratively
-    case daoInfoScreenView = "dao_info_screen_view"
-    case snapshotProposalView = "snapshot_proposal_detail_view"
 }

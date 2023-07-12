@@ -65,7 +65,9 @@ struct SnapshotProposalView: View {
                 }
             }
         }
-        .onAppear() { Tracker.track(.snapshotProposalView) }
+        .onAppear() {
+            Tracker.track(.screenSnpDetails)
+        }
     }
 }
 
@@ -120,7 +122,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
             ProposalStatusView(state: state)
             Spacer()
             HStack(spacing: 0) {
-                Text("Vote finishes ")
+                Text(votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
                 DateView(date: votingEnd,

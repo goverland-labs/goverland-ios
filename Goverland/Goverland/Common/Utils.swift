@@ -23,7 +23,25 @@ enum Utils {
     static func getTotal(from headers: HttpHeaders) -> Int? {
         guard let totalStr = headers["x-total-count"] as? String,
             let total = Int(totalStr) else {
-            // TODO: log in crashlytics
+            logError(GError.missingTotalCount)
+            return nil
+        }
+        return total
+    }
+
+    static func getSubscriptionsCount(from headers: HttpHeaders) -> Int? {
+        guard let totalStr = headers["x-subscriptions-count"] as? String,
+            let total = Int(totalStr) else {
+            logError(GError.missingSubscriptionsCount)
+            return nil
+        }
+        return total
+    }
+
+    static func getUnreadEventsCount(from headers: HttpHeaders) -> Int? {
+        guard let totalStr = headers["x-unread-count"] as? String,
+            let total = Int(totalStr) else {
+            logError(GError.missingUnreadCount)
             return nil
         }
         return total

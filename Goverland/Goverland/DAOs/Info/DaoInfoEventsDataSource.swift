@@ -23,5 +23,5 @@ class DaoInfoEventsDataSource: InboxDataSource {
         APIService.daoEvents(daoID: daoID, offset: events?.count ?? 0)
     }
 
-    override func storeUnreadEventsCount() {}
+    override func storeUnreadEventsCount(headers: HttpHeaders) {}
 }

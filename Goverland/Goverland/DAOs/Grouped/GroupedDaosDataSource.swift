@@ -61,13 +61,10 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                     let category = DaoCategory(rawValue: key)!
                     self?.categoryDaos[category] = value.list
                     self?.totalInCategory[category] = value.count
-
-                    if let subscriptionsCount = value.subscriptionsCount, subscriptionsCount > 0 {
-                        self?.subscriptionsCount += subscriptionsCount
-                    }
                 }
 
                 self?.totalDaos = Utils.getTotal(from: headers)
+                self?.subscriptionsCount = Utils.getSubscriptionsCount(from: headers) ?? 0
             }
             .store(in: &cancellables)
     }

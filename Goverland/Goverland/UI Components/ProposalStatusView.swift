@@ -18,47 +18,34 @@ struct ProposalStatusView: View {
                 text: Text(state.localizedName),
                 textColor: .onPrimary,
                 backgroundColor: .primary)
-
-        case .executed:
-            BubbleView(
-                image: Image(systemName: "checkmark"),
-                text: Text(state.localizedName),
-                textColor: .textWhite,
-                backgroundColor: .success)
-
-        case .failed:
-            BubbleView(
-                image: Image(systemName: "bolt.slash.fill"),
-                text: Text(state.localizedName),
-                textColor: .textWhite,
-                backgroundColor: .fail)
-
-        case .queued:
-            BubbleView(
-                image: Image(systemName: "clock"),
-                text: Text(state.localizedName),
-                textColor: .textWhite,
-                backgroundColor: .warning)
-
-        case .succeeded:
-            BubbleView(
-                image: Image(systemName: "checkmark"),
-                text: Text(state.localizedName),
-                textColor: .textWhite,
-                backgroundColor: .success)
-
+            
         case .defeated, .closed:
             BubbleView(
                 image: Image(systemName: "xmark"),
                 text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .danger)
-        case .pending: // TODO: new status! we did not have it in design but we have it in backedn MOCS
+            
+        case .failed:
             BubbleView(
-                image: Image(systemName: "xmark"),
+                image: Image(systemName: "bolt.slash.fill"),
                 text: Text(state.localizedName),
                 textColor: .textWhite,
-                backgroundColor: .danger)
+                backgroundColor: .fail)
+            
+        case .succeeded, .executed:
+            BubbleView(
+                image: Image(systemName: "checkmark"),
+                text: Text(state.localizedName),
+                textColor: .textWhite,
+                backgroundColor: .success)
+            
+        case .queued, .pending:
+            BubbleView(
+                image: Image(systemName: "clock"),
+                text: Text(state.localizedName),
+                textColor: .textWhite,
+                backgroundColor: .warning)
         }
     }
 }

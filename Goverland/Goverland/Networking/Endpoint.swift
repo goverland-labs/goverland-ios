@@ -95,12 +95,10 @@ struct DaoGroupedEndpoint: APIEndpoint {
 
     struct GroupedDaos: Decodable {
         let count: Int
-        let subscriptionsCount: Int?
         let list: [Dao]
 
         enum CodingKeys: String, CodingKey {
-            case count
-            case subscriptionsCount = "subscriptions_count"
+            case count            
             case list
         }
     }
@@ -177,6 +175,19 @@ struct ProposalsListEndpoint: APIEndpoint {
     }
 }
 
+struct TopProposalsListEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "proposals/top"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+
 struct ProposalEndpoint: APIEndpoint {
     typealias ResponseType = Proposal
 
@@ -224,7 +235,7 @@ struct DaoEventsEndpoint: APIEndpoint {
 
     let daoID: UUID
 
-    var path: String { "feed" } // "daos/\(daoID)/feed"
+    var path: String { "dao/\(daoID)/feed" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
