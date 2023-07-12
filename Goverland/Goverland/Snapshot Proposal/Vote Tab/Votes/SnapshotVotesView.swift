@@ -1,5 +1,5 @@
 //
-//  SnapshotVotersView.swift
+//  SnapshotVotesView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-06.
@@ -7,7 +7,14 @@
 
 import SwiftUI
 
-struct SnapshotVotersView: View {
+struct SnapshotVotesView: View {
+    let proposal: Proposal
+    @StateObject var dataSource: SnapsotVotesDataSource
+    
+    init(proposal: Proposal) {
+        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
+        self.proposal = proposal
+    }
     
     var body: some View {
         VStack {
@@ -35,11 +42,14 @@ struct SnapshotVotersView: View {
                 .font(.footnoteRegular)
             }
         }
+        .onAppear() {
+            dataSource.refresh()
+        }
     }
 }
 
 struct SnapshotVotersView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotVotersView()
+        SnapshotVotesView(proposal: .aaveTest)
     }
 }

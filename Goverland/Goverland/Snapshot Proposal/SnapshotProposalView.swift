@@ -126,7 +126,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
                 DateView(date: votingEnd,
                          style: .numeric,
                          font: .footnoteRegular,
-                         color: .textWhite)
+                         color: .primaryDim)
             }
         }
         .padding(10)

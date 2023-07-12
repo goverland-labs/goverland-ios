@@ -103,9 +103,10 @@
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451702A5B4CF90088A6E6 /* VoteWarningPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */; };
 		BA8451732A5B97F40088A6E6 /* ProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */; };
+		BA84517D2A5F02E80088A6E6 /* SnapsotVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84517C2A5F02E80088A6E6 /* SnapsotVotesDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotBasicVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */; };
-		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
+		BAA8ED822A07293600316BFD /* SnapshotVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotesView.swift */; };
 		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
 		BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */; };
@@ -251,8 +252,9 @@
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteWarningPopupView.swift; sourceTree = "<group>"; };
 		BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalDataSource.swift; sourceTree = "<group>"; };
+		BA84517C2A5F02E80088A6E6 /* SnapsotVotesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsotVotesDataSource.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingResultView.swift; sourceTree = "<group>"; };
-		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
+		BAA8ED812A07293600316BFD /* SnapshotVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotesView.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Regular.otf"; sourceTree = "<group>"; };
 		BAB4B9422A4749A300D24110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -566,24 +568,57 @@
 			path = Proposals;
 			sourceTree = "<group>";
 		};
+		BA8451782A5EF9740088A6E6 /* Voting */ = {
+			isa = PBXGroup;
+			children = (
+				BA50AB3F2A04086900EC2AA6 /* SnapshotBasicVotingView.swift */,
+				BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */,
+				BA8451572A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift */,
+				BA84515B2A4F59400088A6E6 /* SnapshotWeightedVotingView.swift */,
+				BA8451652A5376CB0088A6E6 /* SnapshotRankedChoiceVotingView.swift */,
+				5596F1512A4F549F00BD55C7 /* VoteButton.swift */,
+				BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */,
+			);
+			path = Voting;
+			sourceTree = "<group>";
+		};
+		BA8451792A5EF9C00088A6E6 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */,
+				BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */,
+				BA8451592A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift */,
+				BA84515D2A505BC40088A6E6 /* SnapshotWeightedVotingResultView.swift */,
+				BA8451672A5376E50088A6E6 /* SnapshotRankedChoiceVotingResultView.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		BA84517A2A5EFA130088A6E6 /* Votes */ = {
+			isa = PBXGroup;
+			children = (
+				BAA8ED812A07293600316BFD /* SnapshotVotesView.swift */,
+				BA84517C2A5F02E80088A6E6 /* SnapsotVotesDataSource.swift */,
+			);
+			path = Votes;
+			sourceTree = "<group>";
+		};
+		BA84517B2A5EFE290088A6E6 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
 		BAA8ED7E2A06FF4500316BFD /* Vote Tab */ = {
 			isa = PBXGroup;
 			children = (
 				BA50AB3B2A009D0D00EC2AA6 /* SnapshotProposalVoteTabView.swift */,
-				BA50AB3F2A04086900EC2AA6 /* SnapshotBasicVotingView.swift */,
-				BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */,
-				BA8451512A4A50050088A6E6 /* SnapshotSingleChoiceVotingView.swift */,
-				BA8451532A4A56010088A6E6 /* SnapshotSingleChoiceVotingResultView.swift */,
-				BA8451572A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift */,
-				BA8451592A4CE3810088A6E6 /* SnapshotApprovalVotingResultView.swift */,
-				BA84515B2A4F59400088A6E6 /* SnapshotWeightedVotingView.swift */,
-				BA84515D2A505BC40088A6E6 /* SnapshotWeightedVotingResultView.swift */,
-				BA8451652A5376CB0088A6E6 /* SnapshotRankedChoiceVotingView.swift */,
-				BA8451672A5376E50088A6E6 /* SnapshotRankedChoiceVotingResultView.swift */,
-				BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */,
-				BA8451552A4B660C0088A6E6 /* SnapshotProposalInfoView.swift */,
-				5596F1512A4F549F00BD55C7 /* VoteButton.swift */,
-				BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */,
+				BA8451792A5EF9C00088A6E6 /* Result */,
+				BA8451782A5EF9740088A6E6 /* Voting */,
+				BA84517A2A5EFA130088A6E6 /* Votes */,
+				BA84517B2A5EFE290088A6E6 /* Info */,
 			);
 			path = "Vote Tab";
 			sourceTree = "<group>";
@@ -846,6 +881,7 @@
 				557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */,
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				BA84515E2A505BC40088A6E6 /* SnapshotWeightedVotingResultView.swift in Sources */,
+				BA84517D2A5F02E80088A6E6 /* SnapsotVotesDataSource.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
@@ -868,7 +904,7 @@
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
-				BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */,
+				BAA8ED822A07293600316BFD /* SnapshotVotesView.swift in Sources */,
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,

@@ -12,11 +12,11 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
     case vote = 0
     case results
-    case voters
+    case votes
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .voters, .info]
+        return [.vote, .results, .votes, .info]
     }
 
     var localizedName: String {
@@ -25,8 +25,8 @@ enum SnapshotVoteTabType: Int, Identifiable {
             return "Cust your vote"
         case .results:
             return "Current results"
-        case .voters:
-            return "Voters"
+        case .votes:
+            return "Votes"
         case .info:
             return "Info"
         }
@@ -97,8 +97,8 @@ struct SnapshotProposalVoteTabView: View {
                 case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
                 default: SnapshotBasicVotingResultView(proposal: proposal)
                 }
-            case .voters:
-                SnapshotVotersView()
+            case .votes:
+                SnapshotVotesView(proposal: proposal)
             case .info:
                 SnapshotProposalInfoView(proposal: proposal)
             }
