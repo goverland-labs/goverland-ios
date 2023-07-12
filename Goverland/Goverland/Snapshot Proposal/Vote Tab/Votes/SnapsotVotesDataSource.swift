@@ -15,14 +15,9 @@ class SnapsotVotesDataSource: ObservableObject {
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    private var proposalID = UUID()
 
     init(proposal: Proposal) {
         self.proposal = proposal
-        print(proposal.id)
-        if let url = UUID(uuidString: proposal.id) {
-            self.proposalID = url
-        }
         refresh()
     }
 
@@ -36,7 +31,7 @@ class SnapsotVotesDataSource: ObservableObject {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.votes(proposalID: proposalID)
+        APIService.votes(proposalID: proposal.id)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
