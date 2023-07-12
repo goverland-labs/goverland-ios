@@ -26,15 +26,17 @@ struct SnapshotVotesView: View {
                     IdentityView(user: vote.voter)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.textWhite)
-                    Text(proposal.choices.count >= vote.choice ? proposal.choices[vote.choice] : String(vote.choice)) 
+                    Text(proposal.choices.count >= vote.choice ? proposal.choices[vote.choice] : String(vote.choice))
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.textWhite40)
                     HStack {
                         Text(String(Utils.formattedNumber(vote.votingPower)))
                             .frame(maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(.textWhite)
-                        Image(systemName: "text.bubble.fill")
-                            .foregroundColor(.secondaryContainer)
+                        if vote.message != nil && !vote.message!.isEmpty {
+                            Image(systemName: "text.bubble.fill")
+                                .foregroundColor(.secondaryContainer)
+                        }
                     }
                 }
                 .padding(.vertical, 5)
