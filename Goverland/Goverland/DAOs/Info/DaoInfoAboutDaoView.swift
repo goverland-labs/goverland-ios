@@ -9,7 +9,9 @@ import SwiftUI
 import MarkdownUI
 
 struct DaoInfoAboutDaoView: View {
+    @Environment(\.openURL) var openURL
     let dao: Dao
+    private let frameH: CGFloat = 20
 
     // TODO: make a proper fix
     var markdownDescription: String {
@@ -19,7 +21,7 @@ struct DaoInfoAboutDaoView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             HStack {
                 Text(dao.name.capitalized)
                     .font(.title3Semibold)
@@ -27,40 +29,94 @@ struct DaoInfoAboutDaoView: View {
                 Spacer()
             }
             
-            HStack(spacing: 15) {
-                Image("dao-info-twitter")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-discord")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-snapshot")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-coingecko")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-github")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-website")
-                    .resizable()
-                    .scaledToFit()
-                Image("dao-info-terms")
-                    .resizable()
-                    .scaledToFit()
+            HStack(spacing: 20) {
+                if let twitter = dao.twitter {
+                    Image("dao-info-twitter")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH)
+                        .onTapGesture {
+                            let appURL = URL(string: "twitter://user?screen_name=\(twitter)")!
+                            let webURL = URL(string: "https://twitter.com/\(twitter)")!
+                            
+                            if UIApplication.shared.canOpenURL(appURL as URL) {
+                                UIApplication.shared.open(appURL)
+                            } else {
+                                UIApplication.shared.open(webURL)
+                            }
+                        }
+                }
+                //TODO: backend data needed here to accommodate design
+//                if let discord = dao.discord {
+//                    Image("dao-info-discord")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(height: frameH)
+//                }
+//                if let snapshot = dao.snapshot {
+//                    Image("dao-info-snapshot")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(height: frameH)
+//                }
+                
+                if let coingecko = dao.coingecko {
+                    Image("dao-info-coingecko")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH)
+                        .onTapGesture {
+                            openURL(
+                                URL(string: "https://www.coingecko.com/en/coins/\(coingecko)") ??
+                                URL(string: "https://www.coingecko.com/")!
+                            )
+                        }
+                }
+                
+                if let github = dao.github {
+                    Image("dao-info-github")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH)
+                        .onTapGesture {
+                            openURL(
+                                URL(string: "https://github.com/\(github)") ??
+                                URL(string: "https://github.com/")!
+                            )
+                        }
+                }
+                
+                if let website = dao.website {
+                    Image("dao-info-website")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH)
+                        .onTapGesture {
+                            openURL(website)
+                        }
+                }
+                
+                if let terms = dao.terms {
+                    Image("dao-info-terms")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH)
+                        .onTapGesture {
+                            openURL(terms)
+                        }
+                }
+                
                 Spacer()
                 
             }
-            .frame(height: 17)
             
             HStack {
-                Text("Activity since \(dao.alias)")
+                //TODO: date format "Activity since 07 July 2018"
+                Text("Activity since \(dao.createdAt)")
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite60)
                 Spacer()
             }
-            .padding(.bottom)
             
             VStack(alignment: .leading) {
                 Markdown(markdownDescription)
