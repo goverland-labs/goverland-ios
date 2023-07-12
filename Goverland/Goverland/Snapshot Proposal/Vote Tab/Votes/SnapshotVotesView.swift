@@ -18,24 +18,24 @@ struct SnapshotVotesView: View {
     
     var body: some View {
         VStack {
-            ForEach(0..<30) { index in
-                Divider()
-                    .background(Color.secondaryContainer)
+            ForEach(0..<dataSource.votes.count, id: \.self) { index in
+                let vote = dataSource.votes[index]
+                
+//                Divider()
+//                    .background(Color.secondaryContainer)
                 HStack {
-                    IdentityView(user: .test)
+                    IdentityView(user: vote.voter)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.textWhite)
-                    Text("For")
+                    Text(String(vote.choice))
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.textWhite40)
-                    NavigationLink(destination: EmptyView()) {
-                        HStack {
-                            Text("Voters")
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(.textWhite)
-                            Image(systemName: "text.bubble.fill")
-                                .foregroundColor(.secondaryContainer)
-                        }
+                    HStack {
+                        Text(String(Utils.formattedNumber(vote.votingPower)))
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .foregroundColor(.textWhite)
+                        Image(systemName: "text.bubble.fill")
+                            .foregroundColor(.secondaryContainer)
                     }
                 }
                 .padding(.vertical, 5)

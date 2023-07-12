@@ -9,16 +9,16 @@ import SwiftUI
 
 // TODO: this is a stab
 struct Vote: Identifiable, Decodable {
-    let id: UUID
+    let id: String
     let voter: User
     let votingPower: Double
-    let choice: String
+    let choice: Int
     let message: String?
     
-    init(id: UUID,
+    init(id: String,
          voter: User,
          votingPower: Double,
-         choice: String,
+         choice: Int,
          message: String?) {
         self.id = id
         self.voter = voter
@@ -33,14 +33,5 @@ struct Vote: Identifiable, Decodable {
         case votingPower = "vp"
         case choice
         case message = "reason"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
-        self.voter = try container.decode(User.self, forKey: .voter)
-        self.votingPower = try container.decode(Double.self, forKey: .votingPower)
-        self.choice = try container.decode(String.self, forKey: .choice)
-        self.message = try container.decodeIfPresent(String.self, forKey: .message)
     }
 }

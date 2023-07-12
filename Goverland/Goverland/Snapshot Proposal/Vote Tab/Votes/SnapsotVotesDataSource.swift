@@ -39,7 +39,7 @@ class SnapsotVotesDataSource: ObservableObject {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] votes, headers in
-               print("VOTES: \(votes)")
+                self?.votes = votes
             }
             .store(in: &cancellables)
     }
