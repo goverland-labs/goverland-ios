@@ -165,7 +165,7 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func votes(proposalID: UUID,
+    static func votes(proposalID: String,
                        offset: Int = 0,
                        limit: Int = DEFAULT_PAGINATION_COUNT,
                        query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint.ResponseType, HttpHeaders), APIError> {

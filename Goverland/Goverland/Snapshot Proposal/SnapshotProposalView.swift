@@ -128,7 +128,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
                 DateView(date: votingEnd,
                          style: .numeric,
                          font: .footnoteRegular,
-                         color: .textWhite)
+                         color: .primaryDim)
             }
         }
         .padding(10)
@@ -142,17 +142,20 @@ fileprivate struct SnapshotProposalTimelineView: View {
     private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Timeline")
-                .font(.headlineSemibold)
-                .foregroundColor(.textWhite)
+        VStack {
+            HStack {
+                Text("Timeline")
+                    .font(.headlineSemibold)
+                    .foregroundColor(.textWhite)
+                Spacer()
+            }
 
             ForEach(0..<2) { i in
                 HStack(spacing: 2) {
-                    //DateView(date: Date("Nov 5, 2022") ?? Date.now)
                     Text("Nov 5, 2022 - ")
                     Text(testEvents[i])
                     IdentityView(user: .test)
+                    Spacer()
                 }
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)

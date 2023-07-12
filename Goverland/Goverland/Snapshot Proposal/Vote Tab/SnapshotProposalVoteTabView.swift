@@ -12,11 +12,11 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
     case vote = 0
     case results
-    case voters
+    case votes
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .voters, .info]
+        return [.vote, .results, .votes, .info]
     }
 
     var localizedName: String {
@@ -25,8 +25,8 @@ enum SnapshotVoteTabType: Int, Identifiable {
             return "Cust your vote"
         case .results:
             return "Current results"
-        case .voters:
-            return "Voters"
+        case .votes:
+            return "Votes"
         case .info:
             return "Info"
         }
@@ -64,7 +64,6 @@ struct SnapshotProposalVoteTabView: View {
                             withAnimation(.spring(response: 0.5)) {
                                 self.chosenTab = tab
                             }
-                            // API goes here
                         }
                     }
                 }
@@ -73,7 +72,6 @@ struct SnapshotProposalVoteTabView: View {
             
             switch chosenTab {
             case .vote:
-                // TODO: implement views for every vote type
                 switch proposal.type {
                 case .basic: SnapshotBasicVotingView { index in
                     print("Selected option # \(index + 1)")
@@ -85,7 +83,6 @@ struct SnapshotProposalVoteTabView: View {
                 case .weighted : SnapshotWeightedVotingView(proposal: proposal)
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingView(proposal: proposal)
-                default: SnapshotBasicVotingView { _ in }
                 }
             case .results:
                 switch proposal.type {
@@ -95,10 +92,9 @@ struct SnapshotProposalVoteTabView: View {
                 case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
                 case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
                 case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
-                default: SnapshotBasicVotingResultView(proposal: proposal)
                 }
-            case .voters:
-                SnapshotVotersView()
+            case .votes:
+                SnapshotVotesView(proposal: proposal)
             case .info:
                 SnapshotProposalInfoView(proposal: proposal)
             }
