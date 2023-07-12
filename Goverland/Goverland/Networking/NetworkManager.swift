@@ -40,7 +40,7 @@ class NetworkManager {
                     }
                     return (data, headers)
                 } else {
-                    // TODO: log in crashlytics
+                    logError(APIError.unknown)
                     throw APIError.unknown
                 }
             }

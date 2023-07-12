@@ -57,11 +57,7 @@ class APIService {
                     }
                     return apiError
                 } else {
-                    // Decoding error. Don't show error to user.
-                    // TODO: log into crashlytics
-                    #if DEV
-                    print(error)
-                    #endif
+                    logError(error)                    
                     return APIError.unknown
                 }
             }
