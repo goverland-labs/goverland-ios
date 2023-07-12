@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VoteWarningPopupView: View {
+    let proposal: Proposal
     @Environment(\.openURL) var openURL
     @Binding var warningViewIsPresented: Bool
     
@@ -41,7 +42,13 @@ struct VoteWarningPopupView: View {
                 .padding(.bottom)
 
             PrimaryButton("Visit Website") {
-                openURL(URL(string: "https://www.goverland.xyz/")!)
+                if let url = Utils.urlFromString(proposal.link) {
+                    openURL(url)
+                } else if let url = URL(string: "https://snapshot.org/#/\(proposal.dao.alias)/proposal/\(proposal.id)") {
+                    openURL(url)
+                } else {
+                    openURL(URL(string: "https://snapshot.org")!)
+                }
             }
         }
         .padding()
@@ -50,11 +57,5 @@ struct VoteWarningPopupView: View {
                 .resizable()
                 .scaledToFit()
         }
-    }
-}
-
-struct VoteWarningPopupView_Previews: PreviewProvider {
-    static var previews: some View {
-        VoteWarningPopupView(warningViewIsPresented: .constant(true))
     }
 }

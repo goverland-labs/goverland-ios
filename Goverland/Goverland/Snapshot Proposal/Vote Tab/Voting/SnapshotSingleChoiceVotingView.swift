@@ -9,26 +9,22 @@ import SwiftUI
 
 struct SnapshotSingleChoiceVotingView: View {
     let proposal: Proposal
-    let onSubmittingVote: (_ index: Int) -> ()
+    @Binding var voteButtonDisabled: Bool
 
     var body: some View {
-        ChoicesView(choices: proposal.choices) { index in
-            onSubmittingVote(index)
-        }
+        ChoicesView(choices: proposal.choices, voteButtonDisabled: $voteButtonDisabled)
     }
 }
 
 struct ChoicesView: View {
     @State var selectedChoiceIndex: Int? {
         didSet {
-            disabled = selectedChoiceIndex == nil
+            voteButtonDisabled = selectedChoiceIndex == nil
         }
     }
-    @State var disabled: Bool = true
-    @State var warningViewIsPresented = false
 
     let choices: [String]
-    let onSubmittingVote: (_ index: Int) -> ()
+    @Binding var voteButtonDisabled: Bool
 
     var body: some View {
         VStack {
@@ -39,15 +35,6 @@ struct ChoicesView: View {
                     }
                 }
             }
-
-            VoteButton(disabled: $disabled) {
-                onSubmittingVote(selectedChoiceIndex!)
-                warningViewIsPresented = true
-            }
-        }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -75,11 +62,5 @@ fileprivate struct SnapshotSingleChoiceVotingButtonView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.secondaryContainer, lineWidth: 1)
         )
-    }
-}
-
-struct SnapshotSingleChoiceVotingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotSingleChoiceVotingView(proposal: .aaveTest, onSubmittingVote: { _ in })
     }
 }

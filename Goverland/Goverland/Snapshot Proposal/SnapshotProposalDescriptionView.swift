@@ -43,6 +43,9 @@ struct SnapshotProposalDescriptionView: View {
 
             // we will always display Show More button
             Button(isExpanded ? "Show Less" : "Show More") {
+                if !isExpanded {
+                    Tracker.track(.snpDetailsShowFullDscr)
+                }
                 withAnimation {
                     isExpanded.toggle()
                 }

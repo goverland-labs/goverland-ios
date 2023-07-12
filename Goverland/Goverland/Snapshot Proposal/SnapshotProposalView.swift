@@ -25,6 +25,7 @@ struct SnapshotProposalView: View {
                     .gesture(TapGesture().onEnded { _ in
                         if allowShowingDaoInfo {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            Tracker.track(.snpDetailsShowDao)
                         }
                     })
                     .padding(.bottom, 15)

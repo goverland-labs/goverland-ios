@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SnapshotWeightedVotingView: View {
     @StateObject var viewModel: SnapshotWeightedVotinViewModel
-    @State var isDisabled: Bool = true
-    @State var warningViewIsPresented = false
-    
-    init(proposal: Proposal) {
+    @Binding var voteButtonDisabled: Bool
+
+    init(proposal: Proposal, voteButtonDisabled: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: SnapshotWeightedVotinViewModel(proposal: proposal))
+        _voteButtonDisabled = voteButtonDisabled
     }
    
     var body: some View {
@@ -28,7 +28,7 @@ struct SnapshotWeightedVotingView: View {
                     HStack(spacing: 0) {
                         Button(action: {
                             viewModel.decreaseVotingPower(for: choice)
-                            isDisabled = viewModel.totalPower == 0
+                            voteButtonDisabled = viewModel.totalPower == 0
                         }) {
                             Image(systemName: "minus")
                                 .frame(width: 40)
@@ -38,7 +38,7 @@ struct SnapshotWeightedVotingView: View {
                             .frame(width: 20)
                         Button(action: {
                             viewModel.increaseVotingPower(for: choice)
-                            isDisabled = viewModel.totalPower == 0
+                            voteButtonDisabled = viewModel.totalPower == 0
                         }) {
                             Image(systemName: "plus")
                                 .frame(width: 40)
@@ -59,14 +59,6 @@ struct SnapshotWeightedVotingView: View {
                         .stroke(Color.secondaryContainer, lineWidth: 1)
                 )
             }
-            
-            VoteButton(disabled: $isDisabled) {
-                warningViewIsPresented = true
-            }
-        }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -97,12 +89,5 @@ class SnapshotWeightedVotinViewModel: ObservableObject {
     
     func prosentage(for choice: String) -> String {
         return totalPower == 0 ? "0" : Utils.percentage(of: Double(choicesPower[choice]!), in: Double(totalPower))
-    }
-}
-
-
-struct SnapshotWeightedVotingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotWeightedVotingView(proposal: .aaveTest)
     }
 }

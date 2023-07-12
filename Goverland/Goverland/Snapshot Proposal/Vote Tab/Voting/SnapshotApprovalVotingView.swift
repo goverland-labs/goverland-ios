@@ -10,13 +10,13 @@ import SwiftUI
 struct SnapshotApprovalVotingView: View {
     @State var selectedChoicesIndex: Set<Int> = [] {
         didSet {
-            disabled = selectedChoicesIndex == []
+            voteButtonDisabled = selectedChoicesIndex == []
         }
     }
-    @State var disabled: Bool = true
-    @State var warningViewIsPresented = false
 
     let proposal: Proposal
+    @Binding var voteButtonDisabled: Bool
+
     var body: some View {
         VStack {
             let choices = proposal.choices
@@ -29,14 +29,6 @@ struct SnapshotApprovalVotingView: View {
                     }
                 }
             }
-
-            VoteButton(disabled: $disabled) {
-                warningViewIsPresented = true
-            }
-        }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -64,11 +56,5 @@ fileprivate struct SnapshotApprovalVotingButtonView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.secondaryContainer, lineWidth: 1)
         )
-    }
-}
-
-struct SnapshotApprovalVotingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotApprovalVotingView(proposal: .aaveTest)
     }
 }
