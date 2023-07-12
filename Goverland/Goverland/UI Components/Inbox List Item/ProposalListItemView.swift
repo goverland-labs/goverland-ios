@@ -120,7 +120,7 @@ fileprivate struct ReadIndicatiorView: View {
     var body: some View {
         Circle()
             .fill(Color.primary)
-            .frame(width: 4, height: 4)
+            .frame(width: 5, height: 5)
     }
 }
 
@@ -135,21 +135,17 @@ fileprivate struct ProposalListItemBodyView: View {
                     .font(.headlineSemibold)
                     .lineLimit(2)
 
-                // TODO: implement
-                Text("Finishes in 3 days")
-                    .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
-                    .font(.footnoteRegular)
-                    .lineLimit(1)
+                HStack(spacing: 0) {
+                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes in ")
+                        .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                        .font(.footnoteRegular)
+                        .lineLimit(1)
 
-                // TODO: fix
-                //                if let warning = data.content.warningSubtitle {
-                //                    Text(warning)
-                //                        .foregroundColor(.textWhite40)
-                //                        .font(.footnoteRegular)
-                //                        .lineLimit(1)
-                //                } else {
-                //                    Text("")
-                //                }
+                    DateView(date: proposal.votingEnd,
+                             style: .numeric,
+                             font: .footnoteRegular,
+                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                }
             }
 
             Spacer()
@@ -170,7 +166,10 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
 
     var body: some View {
         HStack(spacing: 20) {
-            VoteFooterView(votes: proposal.votes, quorum: proposal.quorum)
+            VoteFooterView(votes: proposal.votes,
+                           votesHighlighted: proposal.state == .active,
+                           quorum: proposal.quorum,
+                           quorumHighlighted: proposal.quorum >= 100)
             Spacer()
 
             HStack(spacing: 15) {
@@ -189,28 +188,30 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
 
 fileprivate struct VoteFooterView: View {
     let votes: Int
+    let votesHighlighted: Bool
     let quorum: Int
+    let quorumHighlighted: Bool
 
     var body: some View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-                    .foregroundColor(.gray)
-                    .font(.footnoteRegular)
 
                 Text(String(votes))
                     .fontWeight(.medium)
-                    .font(.footnoteRegular)
             }
+            .font(.footnoteRegular)
+            .foregroundColor(votesHighlighted ? .textWhite : .textWhite40)
 
-            HStack(spacing: 5) {
-                Image(systemName: "flag.checkered")
-                    .foregroundColor(.white)
-                    .font(.footnoteRegular)
+            if quorum > 0 {
+                HStack(spacing: 5) {
+                    Image(systemName: "flag.checkered")
 
-                Text(String(quorum))
-                    .fontWeight(.medium)
-                    .font(.footnoteRegular)
+                    Text(String(quorum))
+                        .fontWeight(.medium)
+                }
+                .font(.footnoteRegular)
+                .foregroundColor(quorumHighlighted ? .textWhite : .textWhite40)
             }
         }
     }
