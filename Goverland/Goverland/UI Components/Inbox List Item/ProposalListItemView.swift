@@ -136,7 +136,7 @@ fileprivate struct ProposalListItemBodyView: View {
                     .lineLimit(2)
 
                 HStack(spacing: 0) {
-                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes in ")
+                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                         .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
                         .font(.footnoteRegular)
                         .lineLimit(1)

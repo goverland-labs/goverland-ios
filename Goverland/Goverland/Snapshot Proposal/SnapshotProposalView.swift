@@ -120,7 +120,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
             ProposalStatusView(state: state)
             Spacer()
             HStack(spacing: 0) {
-                Text(votingEnd.isInPast ? "Vote finished" : "Vote finishes in ")
+                Text(votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
                 DateView(date: votingEnd,
