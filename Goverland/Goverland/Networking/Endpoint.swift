@@ -175,6 +175,19 @@ struct ProposalsListEndpoint: APIEndpoint {
     }
 }
 
+struct TopProposalsListEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "proposals/top"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+
 struct ProposalEndpoint: APIEndpoint {
     typealias ResponseType = Proposal
 

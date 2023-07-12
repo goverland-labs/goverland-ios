@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ProposalsListView: View {
-    @StateObject var dataSource: ProposalDataSource
+struct TopProposalsListView: View {
+    @StateObject var dataSource: TopProposalDataSource
     @Binding var path: NavigationPath
 
     @State private var selectedProposalIndex: Int?

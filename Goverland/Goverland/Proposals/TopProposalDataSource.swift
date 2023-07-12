@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
+class TopProposalDataSource: ObservableObject, Refreshable, Paginatable {
     @Published var proposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -29,7 +29,7 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.proposals()
+        APIService.topProposals()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -54,7 +54,7 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
     }
 
     func loadMore() {
-        APIService.proposals(offset: proposals.count)
+        APIService.topProposals(offset: proposals.count)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
