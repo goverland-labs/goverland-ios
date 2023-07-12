@@ -40,8 +40,13 @@ enum TrackingEvent: String, Trackable {
     case screenDaoAbout = "screen_dao_about"
     case daoFollow = "dao_follow"
 
-//    case daoOpenWebsite = "dao_open_website"
-//    case daoOpenShapshot = "dao_open_shapshot"
+    case daoOpenWebsite = "dao_open_website"
+    case daoOpenShapshot = "dao_open_shapshot"
+    case daoOpenCoingecko = "dao_open_coingecko"
+    case daoOpenTwitter = "dao_open_twitter"
+    case daoOpenGithub = "dao_open_github"
+    case daoOpenTerms = "dao_open_terms"
+
 
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"

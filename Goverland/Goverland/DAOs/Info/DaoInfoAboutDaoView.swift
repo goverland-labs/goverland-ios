@@ -45,6 +45,7 @@ struct DaoInfoAboutDaoView: View {
                                 URL(string: "https://twitter.com/\(twitter)") ??
                                 URL(string: "https://twitter.com/")!
                             )
+                            Tracker.track(.daoOpenTwitter)
                         }
                 }
                 
@@ -58,6 +59,7 @@ struct DaoInfoAboutDaoView: View {
                                 URL(string: "https://www.coingecko.com/en/coins/\(coingecko)") ??
                                 URL(string: "https://www.coingecko.com/")!
                             )
+                            Tracker.track(.daoOpenCoingecko)
                         }
                 }
                 
@@ -71,6 +73,7 @@ struct DaoInfoAboutDaoView: View {
                                 URL(string: "https://github.com/\(github)") ??
                                 URL(string: "https://github.com/")!
                             )
+                            Tracker.track(.daoOpenGithub)
                         }
                 }
                 
@@ -81,6 +84,7 @@ struct DaoInfoAboutDaoView: View {
                         .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(website)
+                            Tracker.track(.daoOpenWebsite)
                         }
                 }
 
@@ -91,6 +95,7 @@ struct DaoInfoAboutDaoView: View {
                         .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(snapshotUrl)
+                            Tracker.track(.daoOpenShapshot)
                         }
                 }
                 
@@ -101,6 +106,7 @@ struct DaoInfoAboutDaoView: View {
                         .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(terms)
+                            Tracker.track(.daoOpenTerms)
                         }
                 }
                 
