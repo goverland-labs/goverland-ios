@@ -47,14 +47,6 @@ struct DaoInfoAboutDaoView: View {
                             )
                         }
                 }
-
-                //TODO: impl once backend return discord
-//                if let discord = dao.discord {
-//                    Image("dao-info-discord")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: frameH)
-//                }
                 
                 if let coingecko = dao.coingecko {
                     Image("dao-info-coingecko")
