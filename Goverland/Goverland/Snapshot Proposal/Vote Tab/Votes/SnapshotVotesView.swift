@@ -20,14 +20,13 @@ struct SnapshotVotesView: View {
         VStack {
             ForEach(0..<dataSource.votes.count, id: \.self) { index in
                 let vote = dataSource.votes[index]
-                
-//                Divider()
-//                    .background(Color.secondaryContainer)
+                Divider()
+                    .background(Color.secondaryContainer)
                 HStack {
                     IdentityView(user: vote.voter)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.textWhite)
-                    Text(String(vote.choice))
+                    Text(proposal.choices.count >= vote.choice ? proposal.choices[vote.choice] : String(vote.choice)) 
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.textWhite40)
                     HStack {
