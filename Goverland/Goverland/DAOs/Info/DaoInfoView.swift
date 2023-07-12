@@ -84,11 +84,7 @@ struct DaoInfoView: View {
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }
-
             }
-        }
-        .onAppear() {
-            Tracker.track(.screenDaoFeed, parameters: ["dao_name": dao.name])
         }
     }
 }

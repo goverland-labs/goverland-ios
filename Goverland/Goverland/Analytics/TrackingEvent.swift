@@ -36,10 +36,13 @@ enum TrackingEvent: String, Trackable {
     case inboxEventMarkRead = "inbox_event_mark_read"
 
     // MARK: - DAO Info
-    case screenDaoFeed = "screen_dao_feed"
-    case screenDaoAbout = "screen_dao_about"
     case daoFollow = "dao_follow"
+    // Events
+    case screenDaoFeed = "screen_dao_feed"
+    case daoEventOpen = "dao_event_open"
 
+    // - About
+    case screenDaoAbout = "screen_dao_about"
     case daoOpenWebsite = "dao_open_website"
     case daoOpenShapshot = "dao_open_shapshot"
     case daoOpenCoingecko = "dao_open_coingecko"

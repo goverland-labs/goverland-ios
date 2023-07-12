@@ -82,12 +82,14 @@ struct DaoInfoEventsView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false, navigationTitle: "")
+                    .onAppear {
+                        Tracker.track(.daoEventOpen)
+                    }
             }
         }
         .onAppear() {
             data.refresh()
-            // TODO: proper tracking
-            //Tracker.track(.screenInbox)
+            Tracker.track(.screenDaoFeed, parameters: ["dao_name": dao.name])
         }
     }
 }
