@@ -76,8 +76,8 @@ struct DaoInfoView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Menu {
-                    Button("Share", action: performShare)
-                    Button("Cancel", action: performCancel)
+                    // TODO: implement properly
+                    ProposalSharingMenu(link: "https://snapshot.org/#/\(dao.alias)")
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)

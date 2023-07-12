@@ -47,15 +47,10 @@ struct DaoInfoAboutDaoView: View {
                             )
                         }
                 }
-                //TODO: backend data needed here to accommodate design
+
+                //TODO: impl once backend return discord
 //                if let discord = dao.discord {
 //                    Image("dao-info-discord")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: frameH)
-//                }
-//                if let snapshot = dao.snapshot {
-//                    Image("dao-info-snapshot")
 //                        .resizable()
 //                        .scaledToFit()
 //                        .frame(height: frameH)
@@ -94,6 +89,16 @@ struct DaoInfoAboutDaoView: View {
                         .frame(height: frameH + 4)
                         .onTapGesture {
                             openURL(website)
+                        }
+                }
+
+                if let snapshotUrl = Utils.urlFromString("https://snapshot.org/#/\(dao.alias)") {
+                    Image("dao-info-snapshot")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: frameH + 4)
+                        .onTapGesture {
+                            openURL(snapshotUrl)
                         }
                 }
                 
