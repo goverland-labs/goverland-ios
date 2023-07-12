@@ -10,6 +10,7 @@ import SwiftUI
 struct TopProposalsListView: View {
     @StateObject var dataSource: TopProposalDataSource
     @Binding var path: NavigationPath
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     @State private var selectedProposalIndex: Int?
 
@@ -41,7 +42,14 @@ struct TopProposalsListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
-                        ProposalListItemView(proposal: proposal, isSelected: false, isRead: false, displayUnreadIndicator: false) {
+                        ProposalListItemView(proposal: proposal,
+                                             isSelected: false,
+                                             isRead: false,
+                                             displayUnreadIndicator: false,
+                                             onDaoTap: {
+                            activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                            Tracker.track(.searchPrpOpenDaoFromCard)
+                        }) {
                             ProposalSharingMenu(link: proposal.link)
                         }
                         .listRowSeparator(.hidden)
@@ -54,6 +62,7 @@ struct TopProposalsListView: View {
         .onChange(of: selectedProposalIndex) { _ in
             if let index = selectedProposalIndex, dataSource.proposals.count > index {
                 path.append(dataSource.proposals[index])
+                Tracker.track(.searchPrpOpenFromCard)
             }
         }
         .onAppear {

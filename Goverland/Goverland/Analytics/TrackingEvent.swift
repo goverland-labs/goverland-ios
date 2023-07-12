@@ -52,6 +52,10 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Search Proposal
     case screenSearchPrp = "screen_search_prp"
+    case searchPrpOpenFromSearch = "search_prp_open_from_search"
+    case searchPrpOpenFromCard = "search_prp_open_from_card"
+    case searchPrpOpenDaoFromSearch = "search_prp_open_dao_from_search"
+    case searchPrpOpenDaoFromCard = "search_prp_open_dao_from_card"
 
     // MARK: - Followed DAOs
     case screenFollowedDaos = "screen_followed_daos"

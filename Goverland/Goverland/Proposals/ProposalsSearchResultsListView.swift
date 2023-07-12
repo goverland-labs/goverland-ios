@@ -10,6 +10,7 @@ import SwiftUI
 struct ProposalsSearchResultsListView: View {
     @StateObject var dataSource: ProposalsSearchResultsDataSource
     @Binding var path: NavigationPath
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     @State private var selectedProposalSearchIndex: Int?
 
@@ -35,7 +36,11 @@ struct ProposalsSearchResultsListView: View {
                     ProposalListItemView(proposal: proposal,
                                          isSelected: false,
                                          isRead: false,
-                                         displayUnreadIndicator: false) {
+                                         displayUnreadIndicator: false,
+                                         onDaoTap: {
+                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                        Tracker.track(.searchPrpOpenDaoFromSearch)
+                    }) {
                         ProposalSharingMenu(link: proposal.link)
                     }
                     .listRowSeparator(.hidden)
@@ -47,6 +52,7 @@ struct ProposalsSearchResultsListView: View {
         .onChange(of: selectedProposalSearchIndex) { _ in
             if let index = selectedProposalSearchIndex, dataSource.searchResultProposals.count > index {
                 path.append(dataSource.searchResultProposals[index])
+                Tracker.track(.searchPrpOpenFromSearch)
             }
         }
         .onAppear {

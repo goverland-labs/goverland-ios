@@ -35,6 +35,7 @@ struct ProposalListItemView<Content: View>: View {
     let isSelected: Bool
     let isRead: Bool
     let displayUnreadIndicator: Bool
+    let onDaoTap: (() -> Void)?
     let menuContent: Content
 
     @Environment(\.presentationMode) private var presentationMode
@@ -43,11 +44,13 @@ struct ProposalListItemView<Content: View>: View {
          isSelected: Bool,
          isRead: Bool,
          displayUnreadIndicator: Bool,
+         onDaoTap: (() -> Void)? = nil,
          @ViewBuilder menuContent: () -> Content) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
         self.displayUnreadIndicator = displayUnreadIndicator
+        self.onDaoTap = onDaoTap
         self.menuContent = menuContent()
     }
 
@@ -74,7 +77,7 @@ struct ProposalListItemView<Content: View>: View {
 
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
-                ProposalListItemBodyView(proposal: proposal)
+                ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
                     menuContent
                 }
@@ -126,6 +129,7 @@ fileprivate struct ReadIndicatiorView: View {
 
 fileprivate struct ProposalListItemBodyView: View {
     let proposal: Proposal
+    let onDaoTap: (() -> Void)?
 
     var body: some View {
         HStack {
@@ -151,6 +155,9 @@ fileprivate struct ProposalListItemBodyView: View {
             Spacer()
 
             RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
+                .onTapGesture {
+                    onDaoTap?()
+                }
         }
     }
 }
