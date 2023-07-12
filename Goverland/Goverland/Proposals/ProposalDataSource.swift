@@ -9,26 +9,12 @@ import SwiftUI
 import Combine
 
 class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
-    
     @Published var proposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
     private(set) var totalProposals: Int?
     private var cancellables = Set<AnyCancellable>()
-
-    @Published var searchText = ""
-    @Published var searchResultProposals: [Proposal] = []
-    @Published var nothingFound: Bool = false
-    private var searchCancellable: AnyCancellable?
-
-    init() {
-        searchCancellable = $searchText
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .sink { [weak self] searchText in
-                self?.performSearch(searchText)
-            }
-    }
 
     func refresh() {
         proposals = []
@@ -37,10 +23,6 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
         isLoading = false
         totalProposals = nil
         cancellables = Set<AnyCancellable>()
-
-        searchText = ""
-        searchResultProposals = []
-        nothingFound = false
 
         loadInitialData()
     }
@@ -83,23 +65,6 @@ class ProposalDataSource: ObservableObject, Refreshable, Paginatable {
                 self.failedToLoadMore = false
                 self.proposals.append(contentsOf: result)
                 self.totalProposals = Utils.getTotal(from: headers)
-            }
-            .store(in: &cancellables)
-    }
-
-    private func performSearch(_ searchText: String) {
-        nothingFound = false
-        guard searchText != "" else { return }
-
-        APIService.proposals(query: searchText)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished: break
-                case .failure(_): self?.nothingFound = true
-                }
-            } receiveValue: { [weak self] proposals, headers in
-                self?.nothingFound = proposals.isEmpty
-                self?.searchResultProposals = proposals
             }
             .store(in: &cancellables)
     }
