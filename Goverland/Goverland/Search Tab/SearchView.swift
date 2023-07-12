@@ -26,7 +26,8 @@ struct SearchView: View {
     @State private var path = NavigationPath()
 
     @StateObject private var daoDataSource = GroupedDaosDataSource()
-    @StateObject private var proposalDataSource = ProposalDataSource()
+    @StateObject private var proposalDataSource = TopProposalDataSource()
+    @StateObject private var proposalsSearchResultsDataSource = ProposalsSearchResultsDataSource()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     private var searchPrompt: String {
@@ -49,7 +50,7 @@ struct SearchView: View {
         case .daos:
             return $daoDataSource.searchText
         case .proposals:
-            return $proposalDataSource.searchText
+            return $proposalsSearchResultsDataSource.searchText
         }
     }
     
@@ -88,7 +89,7 @@ struct SearchView: View {
                         }
                     case .proposals:
                         if !proposalDataSource.failedToLoadInitialData {
-                            ProposalsListView(dataSource: proposalDataSource, path: $path)
+                            TopProposalsListView(dataSource: proposalDataSource, path: $path)
                         } else {
                             RetryInitialLoadingView(dataSource: proposalDataSource)
                         }
@@ -97,7 +98,6 @@ struct SearchView: View {
                 } else {
                     // Searching by text
                     switch filter {
-                        
                     case .daos:
                         DaosSearchListView(dataSource: daoDataSource,
                                            onSelectDao: { dao in
@@ -109,7 +109,7 @@ struct SearchView: View {
                         })
 
                     case .proposals:
-                        ProposalsListView(dataSource: proposalDataSource, path: $path)
+                        ProposalsSearchResultsListView(dataSource: proposalsSearchResultsDataSource, path: $path)
                     }
                 }
             }

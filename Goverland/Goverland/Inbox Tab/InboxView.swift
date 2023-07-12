@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @StateObject private var data = InboxDataSource()
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -59,7 +60,11 @@ struct InboxView: View {
                                     ProposalListItemView(proposal: proposal,
                                                          isSelected: selectedEventIndex == index,
                                                          isRead: event.readAt != nil,
-                                                         displayUnreadIndicator: event.readAt == nil) {
+                                                         displayUnreadIndicator: event.readAt == nil,
+                                                         onDaoTap: {
+                                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                                        Tracker.track(.inboxEventOpenDao)
+                                    }) {
                                         ProposalSharingMenu(link: proposal.link)
                                     }
                                     .swipeActions(allowsFullSwipe: false) {
@@ -114,6 +119,8 @@ struct InboxView: View {
                 }
                 .onAppear() {
                     data.refresh()
+                    // TODO: track only if screen is presented here
+                    // and where emply. It is triggered on every DAO follow
                     Tracker.track(.screenInbox)
                 }
             }

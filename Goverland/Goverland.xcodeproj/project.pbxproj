@@ -43,6 +43,9 @@
 		5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */; };
 		559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C02A5DC745001F975D /* MarkdownTheme.swift */; };
 		559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C22A5DD4C8001F975D /* EmptyInboxView.swift */; };
+		559DA0C52A5EF4D3001F975D /* GError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C42A5EF4D3001F975D /* GError.swift */; };
+		559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */; };
+		559DA0C92A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C82A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift */; };
 		55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4212A5AC28700A894AD /* NotificationsManager.swift */; };
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
@@ -85,7 +88,7 @@
 		BA50AB402A04086900EC2AA6 /* SnapshotBasicVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB3F2A04086900EC2AA6 /* SnapshotBasicVotingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
-		BA6B964B2A31056300851826 /* ProposalsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* ProposalsListView.swift */; };
+		BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* TopProposalsListView.swift */; };
 		BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96502A376C7700851826 /* FollowButtonView.swift */; };
 		BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */; };
 		BA6B96552A38B87300851826 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96542A38B87300851826 /* Subscription.swift */; };
@@ -102,7 +105,7 @@
 		BA8451682A5376E50088A6E6 /* SnapshotRankedChoiceVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451672A5376E50088A6E6 /* SnapshotRankedChoiceVotingResultView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451702A5B4CF90088A6E6 /* VoteWarningPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */; };
-		BA8451732A5B97F40088A6E6 /* ProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */; };
+		BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAA8ED802A06FF8900316BFD /* SnapshotBasicVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */; };
 		BAA8ED822A07293600316BFD /* SnapshotVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */; };
@@ -194,6 +197,9 @@
 		5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		559DA0C02A5DC745001F975D /* MarkdownTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTheme.swift; sourceTree = "<group>"; };
 		559DA0C22A5DD4C8001F975D /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
+		559DA0C42A5EF4D3001F975D /* GError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GError.swift; sourceTree = "<group>"; };
+		559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsListView.swift; sourceTree = "<group>"; };
+		559DA0C82A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsDataSource.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B7B4352A5ADC5700A894AD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -233,7 +239,7 @@
 		BA50AB3F2A04086900EC2AA6 /* SnapshotBasicVotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
-		BA6B964A2A31056300851826 /* ProposalsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsListView.swift; sourceTree = "<group>"; };
+		BA6B964A2A31056300851826 /* TopProposalsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsListView.swift; sourceTree = "<group>"; };
 		BA6B96502A376C7700851826 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonView.swift; sourceTree = "<group>"; };
 		BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonDataSource.swift; sourceTree = "<group>"; };
 		BA6B96542A38B87300851826 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
@@ -250,7 +256,7 @@
 		BA8451672A5376E50088A6E6 /* SnapshotRankedChoiceVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotRankedChoiceVotingResultView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA84516F2A5B4CF90088A6E6 /* VoteWarningPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteWarningPopupView.swift; sourceTree = "<group>"; };
-		BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalDataSource.swift; sourceTree = "<group>"; };
+		BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalDataSource.swift; sourceTree = "<group>"; };
 		BAA8ED7F2A06FF8900316BFD /* SnapshotBasicVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingResultView.swift; sourceTree = "<group>"; };
 		BAA8ED812A07293600316BFD /* SnapshotVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVotersView.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
@@ -318,6 +324,7 @@
 				55D68FDE2A43251900A22657 /* Notifications.swift */,
 				5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */,
 				559DA0C02A5DC745001F975D /* MarkdownTheme.swift */,
+				559DA0C42A5EF4D3001F975D /* GError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -560,8 +567,10 @@
 		BA8451712A5B97A00088A6E6 /* Proposals */ = {
 			isa = PBXGroup;
 			children = (
-				BA6B964A2A31056300851826 /* ProposalsListView.swift */,
-				BA8451722A5B97F40088A6E6 /* ProposalDataSource.swift */,
+				BA6B964A2A31056300851826 /* TopProposalsListView.swift */,
+				BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */,
+				559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */,
+				559DA0C82A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift */,
 			);
 			path = Proposals;
 			sourceTree = "<group>";
@@ -847,6 +856,7 @@
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				BA84515E2A505BC40088A6E6 /* SnapshotWeightedVotingResultView.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
+				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
@@ -876,13 +886,15 @@
 				55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
+				559DA0C92A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
-				BA6B964B2A31056300851826 /* ProposalsListView.swift in Sources */,
+				BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */,
+				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BA8451582A4CDC0F0088A6E6 /* SnapshotApprovalVotingView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
@@ -924,7 +936,7 @@
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
 				BA50AB402A04086900EC2AA6 /* SnapshotBasicVotingView.swift in Sources */,
-				BA8451732A5B97F40088A6E6 /* ProposalDataSource.swift in Sources */,
+				BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				5521D27929EF17C800A09FD4 /* InboxListItemFooterMenu.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
@@ -1370,7 +1382,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = R2A35BPTWH;
+				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
@@ -1408,7 +1420,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
-				DEVELOPMENT_TEAM = R2A35BPTWH;
+				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;

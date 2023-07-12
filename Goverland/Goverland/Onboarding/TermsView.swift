@@ -48,7 +48,7 @@ struct TermsView: View {
                     Text("[Privacy Policy](https://www.goverland.xyz/privacy)")
                         .underline() +
                     Text(" and ") +
-                    Text("[Terms of Service](https://www.goverland.xyz/terms).").underline()
+                    Text("[Terms of Service.](https://www.goverland.xyz/terms)").underline()
                 }
                 .accentColor(.primaryDim)
             }
