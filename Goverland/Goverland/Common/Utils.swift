@@ -54,6 +54,14 @@ enum Utils {
         return formatter.stringWithMetric(from: number) ?? ""
     }
 
+    static func mediumDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
+    }
+
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent

@@ -47,7 +47,7 @@ struct SnapshotVotesView: View {
                 .font(.footnoteRegular)
             }
             
-            Button("Load More") {
+            Button("Load more") {
                 if !dataSource.failedToLoadMore && dataSource.hasMore() {
                     dataSource.loadMore()
                 }
