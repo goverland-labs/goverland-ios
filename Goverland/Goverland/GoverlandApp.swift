@@ -16,11 +16,13 @@ struct GoverlandApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
-        #if DEV
-        Tracker.append(handler: ConsoleTracker())
+        #if PROD
+        Tracker.append(handler: FirebaseTrackingHandler())
         #else
-        print("PROD mode")
+        Tracker.append(handler: ConsoleTrackingHandler())        
         #endif
+
+        Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
     }
 
     var body: some Scene {

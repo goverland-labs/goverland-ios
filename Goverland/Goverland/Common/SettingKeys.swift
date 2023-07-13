@@ -11,7 +11,11 @@ import SwiftUI
 class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("onboardingFinished") var onboardingFinished = false
-    @AppStorage("trackingAccepted") var trackingAccepted = false
+    @AppStorage("trackingAccepted") var trackingAccepted = false {
+        didSet {
+            Tracker.setTrackingEnabled(trackingAccepted)
+        }
+    }
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("authToken") var authToken = ""
     @AppStorage("unreadEvents") var unreadEvents = 0 {
