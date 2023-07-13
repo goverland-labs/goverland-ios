@@ -114,6 +114,7 @@ enum TrackingEvent: String, Trackable {
 
     case screenHelpUsGrow = "screen_help_us_grow"
     case settingsRateTheApp = "settings_rate_the_app"
+    case settingsShareTweet = "settings_share_a_tweet"
 
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"

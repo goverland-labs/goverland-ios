@@ -169,16 +169,29 @@ fileprivate struct HelpUsGrowSettingView: View {
                         .foregroundColor(.textWhite40)
                 }
             }
-            
-            HStack {
-                Image("share-tweet")
-                    .foregroundColor(.primary)
-                    .frame(width: 30)
-                Text("Share a tweet")
-                //TODO: Impl + tracking: message, body and the image (after branding is done)
-                Spacer()
-                Image(systemName: "square.and.arrow.up")
-                    .foregroundColor(.textWhite40)
+
+            Button(action: {
+                let tweetText = "Check out Goverland App by @goverland_xyz!"
+                let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                let twitterUrl = URL(string: "https://twitter.com/intent/tweet?text=\(tweetUrl ?? "")")
+
+                if let url = twitterUrl {
+                    UIApplication.shared.open(url)
+                }
+
+                Tracker.track(.settingsShareTweet)
+            }) {
+                HStack {
+                    HStack {
+                        Image("share-tweet")
+                            .foregroundColor(.primary)
+                            .frame(width: 30)
+                        Text("Share a tweet")
+                        Spacer()
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.textWhite40)
+                    }
+                }
             }
         }
         .accentColor(.textWhite)
