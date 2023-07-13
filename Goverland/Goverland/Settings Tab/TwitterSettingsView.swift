@@ -22,15 +22,8 @@ struct TwitterSettingsView: View {
     }
     
     private func openTwitterApp() {
-        let appURL = URL(string: "twitter://user?screen_name=goverland_xyz")!
-        let webURL = URL(string: "https://twitter.com/goverland_xyz")!
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL)
-        }
-
+        let url = URL(string: "https://twitter.com/goverland_xyz")!
+        UIApplication.shared.open(url)
         Tracker.track(.settingsOpenTwitter)
     }
 }
