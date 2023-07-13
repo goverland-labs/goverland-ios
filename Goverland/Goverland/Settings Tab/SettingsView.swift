@@ -124,6 +124,7 @@ fileprivate struct AboutSettingView: View {
                 Image(systemName: "arrow.up.right")
                     .foregroundColor(.textWhite40)
             }
+
             HStack {
                 Image("term-service")
                     .foregroundColor(.primary)
@@ -214,6 +215,12 @@ fileprivate struct AdvancedSettingView: View {
             Section(header: Text("Share anonymized data")) {
                 Toggle(isOn: $accepted) {
                     Text("Allow App to Track Activity")
+                }
+            }
+
+            if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                Section(header: Text("Meta-info")) {
+                    LabeledContent("Build number", value: buildNumber)
                 }
             }
         }
