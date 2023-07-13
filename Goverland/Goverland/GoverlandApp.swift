@@ -19,7 +19,8 @@ struct GoverlandApp: App {
         #if PROD
         Tracker.append(handler: FirebaseTrackingHandler())
         #else
-        Tracker.append(handler: ConsoleTrackingHandler())        
+        Tracker.append(handler: ConsoleTrackingHandler())
+        Tracker.append(handler: FirebaseTrackingHandler())
         #endif
 
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)

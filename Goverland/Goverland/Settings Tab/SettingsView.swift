@@ -208,7 +208,7 @@ fileprivate struct AdvancedSettingView: View {
             if !accepted {
                 Tracker.track(.settingsDisableTracking)
             }
-            Tracker.setTrackingEnabled(accepted)
+            SettingKeys.shared.trackingAccepted = accepted
         }
         .onAppear() {
             accepted = SettingKeys.shared.trackingAccepted
