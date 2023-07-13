@@ -50,14 +50,14 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     private func loadInitialData() {
         subscriptionsCount = 0
-        APIService.daoGrouped()
+        APIService.topDaos()
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitially = true
                 }
             } receiveValue: { [weak self] result, headers in
-                result.forEach { (key: String, value: DaoGroupedEndpoint.GroupedDaos) in
+                result.forEach { (key: String, value: DaoTopEndpoint.GroupedDaos) in
                     let category = DaoCategory(rawValue: key)!
                     self?.categoryDaos[category] = value.list
                     self?.totalInCategory[category] = value.count

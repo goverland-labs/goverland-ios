@@ -20,9 +20,9 @@ struct GoverlandApp: App {
         Tracker.append(handler: FirebaseTrackingHandler())
         #else
         Tracker.append(handler: ConsoleTrackingHandler())
-        Tracker.append(handler: FirebaseTrackingHandler())
         #endif
 
+        // Very important line of code. Do not remove it.
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
     }
 

@@ -14,9 +14,11 @@ func logInfo(_ message: String) {
     logger.info("\(message)")
 }
 
-func logError(_ error: Error) {
+func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
     // TODO: log in crashlytics
-    logger.error("\(error.localizedDescription)")
+    let filePath = "\(file)"
+    let fileName = (filePath as NSString).lastPathComponent
+    logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
 }
 
 enum Utils {

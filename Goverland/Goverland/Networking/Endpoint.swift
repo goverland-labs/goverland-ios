@@ -29,7 +29,11 @@ protocol APIEndpoint {
 
 extension APIEndpoint {
     var baseURL: URL {
+        #if PROD
+        return URL(string: "https://inbox.goverland.xyz")!
+        #else
         return URL(string: "https://inbox.staging.goverland.xyz")!
+        #endif
     }
 
     var headers: [String: String] {
@@ -90,7 +94,7 @@ struct DaoListEndpoint: APIEndpoint {
     }
 }
 
-struct DaoGroupedEndpoint: APIEndpoint {
+struct DaoTopEndpoint: APIEndpoint {
     typealias ResponseType = [String: GroupedDaos]
 
     struct GroupedDaos: Decodable {
