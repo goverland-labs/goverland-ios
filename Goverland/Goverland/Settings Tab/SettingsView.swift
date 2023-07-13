@@ -194,7 +194,7 @@ fileprivate struct AdvancedSettingView: View {
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
-                    exit(0)
+                    fatalError("Crash with Reset button")
                 }
                 .accentColor(.primary)
             }
