@@ -24,8 +24,8 @@ struct SnapshotProposalInfoView: View {
             
             VStack(alignment: .trailing, spacing: 15) {
                 Text(proposal.type.rawValue)
-                Text(proposal.votingStart.description)
-                Text(proposal.votingEnd.description)
+                Text(proposal.votingStart.description) // TODO: time formatting
+                Text(proposal.votingEnd.description)   // TODO: time formatting
             }
             .font(.footnoteSemibold)
             .foregroundColor(.textWhite)
