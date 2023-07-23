@@ -20,10 +20,6 @@ struct DaoInfoAboutDaoView: View {
         let rawStr = dao.about?.first { $0.type == .markdown }!.body
         return rawStr?.replacingOccurrences(of: "ipfs://", with: "https://snapshot.mypinata.cloud/ipfs/") ?? ""
     }
-
-    var date: String? {
-        return dao.activitySince?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-    }
     
     var body: some View {
         VStack(spacing: 15) {
@@ -114,9 +110,9 @@ struct DaoInfoAboutDaoView: View {
                 
             }
 
-            if let date = date {
+            if let date = dao.activitySince {
                 HStack {
-                    Text("Activity since \(date)")
+                    Text("Activity since \(Utils.formattedDateNoTime(date))")
                         .font(.footnoteRegular)
                         .foregroundColor(.textWhite60)
                     Spacer()

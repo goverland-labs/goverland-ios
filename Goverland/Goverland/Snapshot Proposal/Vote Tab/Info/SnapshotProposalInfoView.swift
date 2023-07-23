@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftDate
 
 struct SnapshotProposalInfoView: View {
     let proposal: Proposal
@@ -24,8 +25,8 @@ struct SnapshotProposalInfoView: View {
             
             VStack(alignment: .trailing, spacing: 15) {
                 Text(proposal.type.rawValue)
-                Text(proposal.votingStart.description) // TODO: time formatting
-                Text(proposal.votingEnd.description)   // TODO: time formatting
+                Text(Utils.formattedDateNoTime(proposal.votingStart))
+                Text(Utils.formattedDateNoTime(proposal.votingEnd))
             }
             .font(.footnoteSemibold)
             .foregroundColor(.textWhite)
