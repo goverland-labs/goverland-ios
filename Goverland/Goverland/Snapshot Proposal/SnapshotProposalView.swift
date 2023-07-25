@@ -25,6 +25,7 @@ struct SnapshotProposalView: View {
                     .gesture(TapGesture().onEnded { _ in
                         if allowShowingDaoInfo {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            Tracker.track(.snpDetailsShowDao)
                         }
                     })
                     .padding(.bottom, 15)
@@ -46,8 +47,9 @@ struct SnapshotProposalView: View {
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 35)
 
-                SnapshotProposalTimelineView()
-                    .padding(.bottom, 20)
+                // TODO: add once implemented properly
+//                SnapshotProposalTimelineView()
+//                    .padding(.bottom, 20)
             }
             .padding(.horizontal)
         }

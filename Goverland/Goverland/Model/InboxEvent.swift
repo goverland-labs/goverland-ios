@@ -79,8 +79,7 @@ struct InboxEvent: Identifiable, Decodable {
         do {
             self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
         } catch {
-            // TODO: log
-            print(error)
+            logError(error)            
             self.eventData = nil
         }
 

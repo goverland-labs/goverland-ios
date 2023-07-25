@@ -40,6 +40,7 @@
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
+		554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
@@ -127,7 +128,7 @@
 		BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651D129C0F00000C78A8A /* RoundPictureView.swift */; };
 		BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */; };
 		BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651FE29C8C1F300C78A8A /* Tracker.swift */; };
-		BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */; };
+		BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6520229C8C61500C78A8A /* ConsoleTrackingHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
+		554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
@@ -279,7 +281,7 @@
 		BAF651D129C0F00000C78A8A /* RoundPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPictureView.swift; sourceTree = "<group>"; };
 		BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingEvent.swift; sourceTree = "<group>"; };
 		BAF651FE29C8C1F300C78A8A /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
-		BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTracker.swift; sourceTree = "<group>"; };
+		BAF6520229C8C61500C78A8A /* ConsoleTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTrackingHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -681,8 +683,9 @@
 			isa = PBXGroup;
 			children = (
 				BAF651FE29C8C1F300C78A8A /* Tracker.swift */,
-				BAF6520229C8C61500C78A8A /* ConsoleTracker.swift */,
 				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
+				BAF6520229C8C61500C78A8A /* ConsoleTrackingHandler.swift */,
+				554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				55F143D7294B1DDA00D00B73 /* Resources */,
 				BA2EA1FE29636C2700FB87AC /* TODO Warnings */,
 				55B7B43E2A5ADC5800A894AD /* Embed Foundation Extensions */,
+				550E85782A5F70CF00B0CFDD /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -838,6 +842,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		550E85782A5F70CF00B0CFDD /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 		BA2EA1FE29636C2700FB87AC /* TODO Warnings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -923,7 +947,7 @@
 				550E85692A5F4C3400B0CFDD /* SnapshotWeightedVotingResultView.swift in Sources */,
 				559DA0C92A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
-				BAF6520329C8C61500C78A8A /* ConsoleTracker.swift in Sources */,
+				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
@@ -941,6 +965,7 @@
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
+				554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */,
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
@@ -1035,7 +1060,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1107,7 +1132,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1172,7 +1197,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1252,7 +1277,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1415,14 +1440,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
+				INFOPLIST_KEY_CFBundleDisplayName = "Goverland Alpha";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1453,14 +1478,14 @@
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
+				INFOPLIST_KEY_CFBundleDisplayName = "Goverland Alpha";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

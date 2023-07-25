@@ -38,8 +38,6 @@ fileprivate struct SnapshotWeightedVotingResultBarView: View {
                         .font(.footnoteSemibold)
                         .foregroundColor(.onSecondaryContainer)
                     Spacer()
-                    // TODO: converter to present rounded number with "K" needed here
-                    // TODO: converter for %
                     Text(Utils.formattedNumber(score) + " | " + Utils.percentage(of: score, in: totalScore))
                         .font(.footnoteSemibold)
                         .foregroundColor(.textWhite)

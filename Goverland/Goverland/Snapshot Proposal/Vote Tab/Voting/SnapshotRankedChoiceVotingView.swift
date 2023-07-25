@@ -10,12 +10,12 @@ import SwiftUI
 struct SnapshotRankedChoiceVotingView: View {
     @State var selectedChoicesIndex: [Int] = [] {
         didSet {
-            disabled = selectedChoicesIndex.count != proposal.choices.count
+            voteButtonDisabled = selectedChoicesIndex.count != proposal.choices.count
         }
     }
-    @State var disabled: Bool = true
-    @State var warningViewIsPresented = false
+
     let proposal: Proposal
+    @Binding var voteButtonDisabled: Bool
         
     var body: some View {
         VStack {
@@ -42,14 +42,6 @@ struct SnapshotRankedChoiceVotingView: View {
                     }
                 }
             }
-            
-            VoteButton(disabled: $disabled) {
-                warningViewIsPresented = true
-            }
-        }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -88,11 +80,5 @@ fileprivate struct SnapshotRankedChoiceVotingButtonView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.secondaryContainer, lineWidth: 1)
         )
-    }
-}
-
-struct SnapshotRankedChoiceVotingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotRankedChoiceVotingView(proposal: .aaveTest)
     }
 }

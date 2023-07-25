@@ -57,11 +57,7 @@ class APIService {
                     }
                     return apiError
                 } else {
-                    // Decoding error. Don't show error to user.
-                    // TODO: log into crashlytics
-                    #if DEV
-                    print(error)
-                    #endif
+                    logError(error)                    
                     return APIError.unknown
                 }
             }
@@ -100,8 +96,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func daoGrouped() -> AnyPublisher<(DaoGroupedEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoGroupedEndpoint()
+    static func topDaos() -> AnyPublisher<(DaoTopEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoTopEndpoint()
         return shared.request(endpoint)
     }
     

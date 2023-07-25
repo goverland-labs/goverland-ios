@@ -38,6 +38,15 @@ struct SnapshotProposalVoteTabView: View {
 
     @State var chosenTab: SnapshotVoteTabType = .vote
     @Namespace var namespace
+
+    @State var voteButtonDisabled: Bool = true
+    @State var warningViewIsPresented = false {
+        didSet {
+            if warningViewIsPresented {
+                Tracker.track(.snpDetailsVote)
+            }
+        }
+    }
     
     var body: some View {
         VStack {
@@ -73,16 +82,12 @@ struct SnapshotProposalVoteTabView: View {
             switch chosenTab {
             case .vote:
                 switch proposal.type {
-                case .basic: SnapshotBasicVotingView { index in
-                    print("Selected option # \(index + 1)")
-                }
-                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal) { index in
-                    print("Selected option # \(index + 1)")
-                }
-                case .approval: SnapshotApprovalVotingView(proposal: proposal)
-                case .weighted : SnapshotWeightedVotingView(proposal: proposal)
-                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal)
-                case .quadratic: SnapshotWeightedVotingView(proposal: proposal)
+                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled)
+                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .weighted : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .quadratic: SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
             case .results:
                 switch proposal.type {
@@ -98,6 +103,14 @@ struct SnapshotProposalVoteTabView: View {
             case .info:
                 SnapshotProposalInfoView(proposal: proposal)
             }
+
+            VoteButton(disabled: $voteButtonDisabled) {
+                warningViewIsPresented = true
+            }
+        }
+        .sheet(isPresented: $warningViewIsPresented) {
+            VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
+                .presentationDetents([.medium, .large])
         }
     }
 }

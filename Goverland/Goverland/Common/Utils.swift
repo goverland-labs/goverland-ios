@@ -14,9 +14,11 @@ func logInfo(_ message: String) {
     logger.info("\(message)")
 }
 
-func logError(_ error: Error) {
+func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
     // TODO: log in crashlytics
-    logger.error("\(error.localizedDescription)")
+    let filePath = "\(file)"
+    let fileName = (filePath as NSString).lastPathComponent
+    logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
 }
 
 enum Utils {
@@ -50,6 +52,14 @@ enum Utils {
     static func formattedNumber(_ number: Double) -> String {
         let formatter = MetricNumberFormatter()
         return formatter.stringWithMetric(from: number) ?? ""
+    }
+
+    static func mediumDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
     }
 
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {

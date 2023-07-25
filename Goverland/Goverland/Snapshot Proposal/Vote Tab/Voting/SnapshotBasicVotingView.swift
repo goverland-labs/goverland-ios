@@ -9,19 +9,10 @@ import SwiftUI
 
 
 struct SnapshotBasicVotingView: View {
-    let onSubmittingVote: (_ index: Int) -> ()
+    @Binding var voteButtonDisabled: Bool
     static let choices = ["For", "Against", "Abstain"]
 
     var body: some View {
-        ChoicesView(choices: Self.choices) { index in
-            onSubmittingVote(index)
-        }
-    }
-}
-
-
-struct BasicVotingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotBasicVotingView(onSubmittingVote: { _ in })
+        ChoicesView(choices: Self.choices, voteButtonDisabled: $voteButtonDisabled)
     }
 }

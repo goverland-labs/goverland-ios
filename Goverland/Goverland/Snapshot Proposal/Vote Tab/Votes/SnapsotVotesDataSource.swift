@@ -20,7 +20,6 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable {
 
     init(proposal: Proposal) {
         self.proposal = proposal
-        refresh()
     }
 
     func refresh() {
@@ -28,6 +27,7 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable {
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
+        
         loadInitialData()
     }
 

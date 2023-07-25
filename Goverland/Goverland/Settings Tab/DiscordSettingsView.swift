@@ -22,17 +22,9 @@ struct DiscordSettingsView: View {
     }
     
     private func openDiscordApp() {
-        // TODO: implement
-
-        guard let appURL = URL(string: "") else { return }
-        guard let webURL = NSURL(string: "") else { return }
-        
-        if UIApplication.shared.canOpenURL(appURL as URL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            UIApplication.shared.open(webURL as URL, options: [:], completionHandler: nil)
-        }
-
+        // TODO: change before Aug 10 to permanent link
+        let url = URL(string: "https://discord.gg/gke7Cz9VA")!
+        UIApplication.shared.open(url)
         Tracker.track(.settingsOpenDiscord)
     }
 }

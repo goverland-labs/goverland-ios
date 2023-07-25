@@ -124,6 +124,7 @@ fileprivate struct AboutSettingView: View {
                 Image(systemName: "arrow.up.right")
                     .foregroundColor(.textWhite40)
             }
+
             HStack {
                 Image("term-service")
                     .foregroundColor(.primary)
@@ -169,16 +170,29 @@ fileprivate struct HelpUsGrowSettingView: View {
                         .foregroundColor(.textWhite40)
                 }
             }
-            
-            HStack {
-                Image("share-tweet")
-                    .foregroundColor(.primary)
-                    .frame(width: 30)
-                Text("Share a tweet")
-                //TODO: Impl + tracking: message, body and the image (after branding is done)
-                Spacer()
-                Image(systemName: "square.and.arrow.up")
-                    .foregroundColor(.textWhite40)
+
+            Button(action: {
+                let tweetText = "Check out Goverland App by @goverland_xyz!"
+                let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                let twitterUrl = URL(string: "https://twitter.com/intent/tweet?text=\(tweetUrl ?? "")")
+
+                if let url = twitterUrl {
+                    UIApplication.shared.open(url)
+                }
+
+                Tracker.track(.settingsShareTweet)
+            }) {
+                HStack {
+                    HStack {
+                        Image("share-tweet")
+                            .foregroundColor(.primary)
+                            .frame(width: 30)
+                        Text("Share a tweet")
+                        Spacer()
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.textWhite40)
+                    }
+                }
             }
         }
         .accentColor(.textWhite)
@@ -194,7 +208,7 @@ fileprivate struct AdvancedSettingView: View {
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
-                    exit(0)
+                    fatalError("Crash with Reset button")
                 }
                 .accentColor(.primary)
             }
@@ -203,12 +217,18 @@ fileprivate struct AdvancedSettingView: View {
                     Text("Allow App to Track Activity")
                 }
             }
+
+            if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                Section(header: Text("Meta-info")) {
+                    LabeledContent("Build number", value: buildNumber)
+                }
+            }
         }
         .onChange(of: accepted) { accepted in
             if !accepted {
                 Tracker.track(.settingsDisableTracking)
             }
-            Tracker.setTrackingEnabled(accepted)
+            SettingKeys.shared.trackingAccepted = accepted
         }
         .onAppear() {
             accepted = SettingKeys.shared.trackingAccepted

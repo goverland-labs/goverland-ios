@@ -90,11 +90,13 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.members = try container.decode(Int.self, forKey: .members)
         self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
-        self.website = try container.decodeIfPresent(URL.self, forKey: .website)
+        self.website = try? container.decodeIfPresent(URL.self, forKey: .website)
         self.twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
         self.github = try container.decodeIfPresent(String.self, forKey: .github)
         self.coingecko = try container.decodeIfPresent(String.self, forKey: .coingecko)
-        self.terms = try container.decodeIfPresent(URL.self, forKey: .terms)
+
+        // can be empty string
+        self.terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
     }
     
     struct DaoBody: Decodable {
