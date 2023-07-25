@@ -85,14 +85,7 @@ struct SnapshotProposalVoteTabView: View {
                 case .quadratic: SnapshotWeightedVotingView(proposal: proposal)
                 }
             case .results:
-                switch proposal.type {
-                case .basic: SnapshotBasicVotingResultView(proposal: proposal)
-                case .singleChoice: SnapshotSingleChoiceVotingResultView(proposal: proposal)
-                case .approval: SnapshotApprovalVotingResultView(proposal: proposal)
-                case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
-                case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
-                case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
-                }
+                SnapshotVotingResultView(proposal: proposal)
             case .votes:
                 SnapshotVotesView(proposal: proposal)
             case .info:
