@@ -1,5 +1,5 @@
 //
-//  SnapshotApprovalVotingResultView.swift
+//  SnapshotApprovalVotingResultBarView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-28.
@@ -7,25 +7,7 @@
 
 import SwiftUI
 
-struct SnapshotApprovalVotingResultView: View {
-    let proposal: Proposal
-    
-    var body: some View {
-        VStack {
-            let choices = proposal.choices
-            ForEach(choices.indices, id: \.self) { index in
-                let score = proposal.scores[index]
-                let totalScore = proposal.scoresTotal
-                SnapshotApprovalVotingResultBarView(choice: choices[index],
-                                                    score: score,
-                                                    totalScore: totalScore)
-                .padding(.bottom, 30)
-            }
-        }
-    }
-}
-
-fileprivate struct SnapshotApprovalVotingResultBarView: View {
+struct SnapshotApprovalVotingResultBarView: View {
     let choice: String
     let score: Double
     let totalScore: Double
@@ -56,8 +38,3 @@ fileprivate struct SnapshotApprovalVotingResultBarView: View {
     }
 }
 
-struct SnapshotApprovalVotingResultView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotApprovalVotingResultView(proposal: .aaveTest)
-    }
-}

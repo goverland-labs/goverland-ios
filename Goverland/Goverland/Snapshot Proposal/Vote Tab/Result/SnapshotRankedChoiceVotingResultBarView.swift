@@ -1,31 +1,13 @@
 //
-//  SnapshotWeightedVotingResultView.swift
+//  SnapshotRankedChoiceVotingResultBarView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-07-01.
+//  Created by Jenny Shalai on 2023-07-03.
 //
 
 import SwiftUI
 
-struct SnapshotWeightedVotingResultView: View {
-    let proposal: Proposal
-    
-    var body: some View {
-        VStack {
-            let choices = proposal.choices
-            ForEach(choices.indices, id: \.self) { index in
-                let score = proposal.scores[index]
-                let totalScore = proposal.scoresTotal
-                SnapshotWeightedVotingResultBarView(choice: choices[index],
-                                                    score: score,
-                                                    totalScore: totalScore)
-                .padding(.bottom, 30)
-            }
-        }
-    }
-}
-
-fileprivate struct SnapshotWeightedVotingResultBarView: View {
+struct SnapshotRankedChoiceVotingResultBarView: View {
     let choice: String
     let score: Double
     let totalScore: Double
@@ -53,11 +35,5 @@ fileprivate struct SnapshotWeightedVotingResultBarView: View {
                 }
             }
         }
-    }
-}
-
-struct SnapshotWeightedVotingResultView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotWeightedVotingResultView(proposal: .aaveTest)
     }
 }
