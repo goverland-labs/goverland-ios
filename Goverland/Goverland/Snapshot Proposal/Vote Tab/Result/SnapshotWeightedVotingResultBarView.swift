@@ -25,14 +25,7 @@ struct SnapshotWeightedVotingResultBarView: View {
                         .foregroundColor(.textWhite)
                 }
                 
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(Color.secondaryContainer)
-                        .frame(height: 6, alignment: .center)
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(Color.primary)
-                        .frame(width: CGFloat(score/totalScore * 100) * CGFloat(geometry.size.width) / 100, height: 6, alignment: .center)
-                }
+                ProposalResultProcessBar(score: score, totalScore: totalScore, width: geometry.size.width)
             }
         }
     }
