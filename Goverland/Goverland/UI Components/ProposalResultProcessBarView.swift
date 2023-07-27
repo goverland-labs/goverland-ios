@@ -1,5 +1,5 @@
 //
-//  ProposalResultProcessBar.swift
+//  ProposalResultProcessBarView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-07-26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProposalResultProcessBar: View {
+struct ProposalResultProcessBarView: View {
     let score: Double
     let totalScore: Double
     let width: Double
@@ -25,6 +25,6 @@ struct ProposalResultProcessBar: View {
 
 struct ProposalResultProcessBar_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalResultProcessBar(score: 10, totalScore: 20, width: 50)
+        ProposalResultProcessBarView(score: 10, totalScore: 20, width: 50)
     }
 }

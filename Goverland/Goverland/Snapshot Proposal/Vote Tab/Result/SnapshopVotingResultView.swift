@@ -16,64 +16,22 @@ struct SnapshopVotingResultView: View {
             let choices = proposal.choices
             let scores = proposal.scores
             
-            switch proposal.type {
-            case .rankedChoice:
+            if scores.count == choices.count {
                 ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotRankedChoiceVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotRankedChoiceVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
+                    GeometryReader { geometry in
+                        VStack(spacing: 2) {
+                            ProposalResultProcessBarLabelView(choice: choices[index],
+                                                              score: scores[index],
+                                                              totalScore: totalScore)
+                            ProposalResultProcessBarView(score: scores[index],
+                                                         totalScore: totalScore,
+                                                         width: geometry.size.width)
+                        }
                     }
                 }
-            case .weighted:
-                ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotWeightedVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotWeightedVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
-                    }
-                }
-            case .approval:
-                ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotApprovalVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotApprovalVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
-                    }
-                }
-                
-            case .singleChoice:
-                ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotSingleChoiceVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotSingleChoiceVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
-                    }
-                }
-                
-            case .basic:
-                ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotSingleChoiceVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotSingleChoiceVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
-                    }
-                }
-                
-            case .quadratic:
-                ForEach(choices.indices, id: \.self) { index in
-                    if index < scores.count {
-                        SnapshotWeightedVotingResultBarView(choice: choices[index], score: scores[index], totalScore: totalScore)
-                    } else {
-                        SnapshotWeightedVotingResultBarView(choice: choices[index], score: 0, totalScore: totalScore)
-                        let _ = logError(GError.indexOutOfRange)
-                    }
-                }
+            } else {
+                let _ = logError(GError.voteResultsInconsistency(id: proposal.id))
+                EmptyView()
             }
         }
     }
