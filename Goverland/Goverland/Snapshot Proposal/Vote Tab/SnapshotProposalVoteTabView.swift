@@ -89,23 +89,16 @@ struct SnapshotProposalVoteTabView: View {
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .quadratic: SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
-            case .results:
-                switch proposal.type {
-                case .basic: SnapshotBasicVotingResultView(proposal: proposal)
-                case .singleChoice: SnapshotSingleChoiceVotingResultView(proposal: proposal)
-                case .approval: SnapshotApprovalVotingResultView(proposal: proposal)
-                case .weighted : SnapshotWeightedVotingResultView(proposal: proposal)
-                case .rankedChoice: SnapshotRankedChoiceVotingResultView(proposal: proposal)
-                case .quadratic: SnapshotWeightedVotingResultView(proposal: proposal)
+                
+                VoteButton(disabled: $voteButtonDisabled) {
+                    warningViewIsPresented = true
                 }
+            case .results:
+                SnapshopVotingResultView(proposal: proposal)
             case .votes:
                 SnapshotVotesView(proposal: proposal)
             case .info:
                 SnapshotProposalInfoView(proposal: proposal)
-            }
-
-            VoteButton(disabled: $voteButtonDisabled) {
-                warningViewIsPresented = true
             }
         }
         .sheet(isPresented: $warningViewIsPresented) {
