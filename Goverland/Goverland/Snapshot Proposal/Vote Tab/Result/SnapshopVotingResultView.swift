@@ -30,8 +30,18 @@ struct SnapshopVotingResultView: View {
                     }
                 }
             } else {
-                let _ = logError(GError.voteResultsInconsistency(id: proposal.id))
-                EmptyView()
+                ForEach(choices.indices, id: \.self) { index in
+                    GeometryReader { geometry in
+                        VStack(spacing: 2) {
+                            ProposalResultProcessBarLabelView(choice: choices[index],
+                                                              score: 0,
+                                                              totalScore: 100)
+                            ProposalResultProcessBarView(score: 0,
+                                                         totalScore: 100,
+                                                         width: geometry.size.width)
+                        }
+                    }
+                }
             }
         }
     }
