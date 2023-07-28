@@ -16,22 +16,19 @@ struct SnapshopVotingResultView: View {
             let choices = proposal.choices
             let scores = proposal.scores
             
-            if scores.count == choices.count {
-                ForEach(choices.indices, id: \.self) { index in
-                    GeometryReader { geometry in
-                        VStack(spacing: 2) {
-                            ProposalResultProcessBarLabelView(choice: choices[index],
-                                                              score: scores[index],
-                                                              totalScore: totalScore)
-                            ProposalResultProcessBarView(score: scores[index],
-                                                         totalScore: totalScore,
-                                                         width: geometry.size.width)
-                        }
+            ForEach(choices.indices, id: \.self) { index in
+                GeometryReader { geometry in
+                    VStack(spacing: 2) {
+                        ProposalResultProcessBarLabelView(
+                            choice: choices[index],
+                            score: scores.count != choices.count ? 0 : scores[index],
+                            totalScore: scores.count != choices.count ? 100 : totalScore)
+                        ProposalResultProcessBarView(
+                            score: scores.count != choices.count ? 0 : scores[index],
+                            totalScore: scores.count != choices.count ? 100 : totalScore,
+                            width: geometry.size.width)
                     }
                 }
-            } else {
-                let _ = logError(GError.voteResultsInconsistency(id: proposal.id))
-                EmptyView()
             }
         }
     }
