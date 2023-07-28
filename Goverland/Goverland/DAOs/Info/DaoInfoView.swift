@@ -10,6 +10,7 @@ import SwiftUI
 enum DaoInfoFilter: Int, FilterOptions {
     case activity = 0
     case about
+    case insights
 
     var localizedName: String {
         switch self {
@@ -17,6 +18,9 @@ enum DaoInfoFilter: Int, FilterOptions {
             return "Activity"
         case .about:
             return "About"
+        case .insights:
+            return "Insights"
+            
         }
     }
 }
@@ -53,6 +57,7 @@ struct DaoInfoView: View {
                     switch newValue {
                     case .activity: break
                     case .about: break
+                    case .insights: break
                     }
                 }
                 .padding(.bottom, 4)
@@ -60,6 +65,7 @@ struct DaoInfoView: View {
                 switch filter {
                 case .activity: DaoInfoEventsView(dao: dao)
                 case .about: DaoInfoAboutDaoView(dao: dao)
+                case .insights: DaoInfoInsightsDaoView(dao: dao)
                 }
             }
         }

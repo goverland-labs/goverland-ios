@@ -97,6 +97,7 @@
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
 		BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */; };
+		BA4A1C7D2A74238300AC7470 /* DaoInfoInsightsDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7C2A74238300AC7470 /* DaoInfoInsightsDaoView.swift */; };
 		BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
@@ -248,6 +249,7 @@
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
 		BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarLabelView.swift; sourceTree = "<group>"; };
+		BA4A1C7C2A74238300AC7470 /* DaoInfoInsightsDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoInsightsDaoView.swift; sourceTree = "<group>"; };
 		BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerLoadingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */,
+				BA4A1C7C2A74238300AC7470 /* DaoInfoInsightsDaoView.swift */,
 				55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */,
 				BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */,
 				BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */,
@@ -964,6 +967,7 @@
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
+				BA4A1C7D2A74238300AC7470 /* DaoInfoInsightsDaoView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
 				550E85702A5F4C3400B0CFDD /* VoteWarningPopupView.swift in Sources */,
