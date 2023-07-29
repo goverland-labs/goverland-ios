@@ -19,5 +19,11 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
+	<key>DEFAULT_PAGINATION_COUNT</key>
+	<string>$(DEFAULT_PAGINATION_COUNT)</string>
+	<key>TIMEOUT</key>
+	<string>$(TIMEOUT)</string>
 </dict>
 </plist>
