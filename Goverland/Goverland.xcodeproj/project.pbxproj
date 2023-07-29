@@ -33,6 +33,8 @@
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
+		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
+		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
@@ -65,7 +67,7 @@
 		55B7B4362A5ADC5700A894AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4352A5ADC5700A894AD /* NotificationService.swift */; };
 		55B7B43A2A5ADC5700A894AD /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */; };
-		55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.plist */; };
+		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
@@ -187,6 +189,8 @@
 		552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryLoadingViews.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
+		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
@@ -219,7 +223,7 @@
 		55B7B4372A5ADC5700A894AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
-		55B7B4422A5B087200A894AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
 		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
 		55C25E562A7563FD0087D56E /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
@@ -404,6 +408,17 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		553744DA2A757FA200D05D8A /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */,
+				553744DB2A75802E00D05D8A /* FirebaseConfig.swift */,
+				55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */,
+				553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		554301212A4C897C00029BC3 /* GoverlandTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,7 +556,6 @@
 				55C25E562A7563FD0087D56E /* Dev.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
-				55B7B4422A5B087200A894AD /* GoogleService-Info.plist */,
 				55B7B4412A5B059800A894AD /* Goverland.entitlements */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
@@ -686,7 +700,7 @@
 				BAF651FE29C8C1F300C78A8A /* Tracker.swift */,
 				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
 				BAF6520229C8C61500C78A8A /* ConsoleTrackingHandler.swift */,
-				554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */,
+				553744DA2A757FA200D05D8A /* Firebase */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -736,6 +750,7 @@
 				55F143D5294B1DDA00D00B73 /* Sources */,
 				55F143D6294B1DDA00D00B73 /* Frameworks */,
 				55F143D7294B1DDA00D00B73 /* Resources */,
+				553744DF2A75821800D05D8A /* [Firebase] Copy config file */,
 				BA2EA1FE29636C2700FB87AC /* TODO Warnings */,
 				55B7B43E2A5ADC5800A894AD /* Embed Foundation Extensions */,
 				550E85782A5F70CF00B0CFDD /* Crashlytics */,
@@ -830,7 +845,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */,
-				55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */,
+				553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */,
+				55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */,
 				BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */,
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
 				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
@@ -862,6 +878,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+		553744DF2A75821800D05D8A /* [Firebase] Copy config file */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Firebase] Copy config file";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Goverland/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		BA2EA1FE29636C2700FB87AC /* TODO Warnings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -970,6 +1005,7 @@
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
+				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,

@@ -12,6 +12,9 @@ APP_ICON_NAME = AppIcon-Staging
 PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland.staging
 NOTIFICATION_EXTENSION_BUNDLE_IDENTIFIER = me.scherbovich.goverland.staging.NotificationServiceExtension
 
+// Firebase
+FIREBASE_CONFIG = GoogleService-Info.Staging
+
 // URLs
 BASE_URL = https:/$()/inbox.staging.goverland.xyz
 DEFAULT_PAGINATION_COUNT = 10
