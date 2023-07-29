@@ -10,3 +10,4 @@
 
 APP_ICON_NAME = AppIcon-Staging
 PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland.staging
+NOTIFICATION_EXTENSION_BUNDLE_IDENTIFIER = me.scherbovich.goverland.staging.NotificationServiceExtension
