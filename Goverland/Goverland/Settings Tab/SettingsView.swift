@@ -205,6 +205,7 @@ fileprivate struct AdvancedSettingView: View {
 
     var body: some View {
         List {
+            #if DEV
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
@@ -212,6 +213,7 @@ fileprivate struct AdvancedSettingView: View {
                 }
                 .accentColor(.primary)
             }
+            #endif
             Section(header: Text("Share anonymized data")) {
                 Toggle(isOn: $accepted) {
                     Text("Allow App to Track Activity")
