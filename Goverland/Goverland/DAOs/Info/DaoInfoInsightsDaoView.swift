@@ -11,10 +11,12 @@ import Charts
 struct DaoInfoInsightsDaoView: View {
     let dao: Dao
     // for Chart bars animation
-    @State var mockChartData = [
+    let mockChartData = [
         (votersType: "Existed Voters", data: oldChampionVoters),
         (votersType: "New Voters", data: newChampionVoters)
     ]
+    
+    @State var votersChartData = oldChampionVoters
     
     var body: some View {
         VStack {
@@ -27,16 +29,41 @@ struct DaoInfoInsightsDaoView: View {
                         )
                     }
                     .foregroundStyle(by: .value("Voters(type)", element.votersType))
+                    .foregroundStyle(Color.chartBar)
                 }
             }
+            .chartForegroundStyleScale([
+                "Existed Voters": Color.chartBar, "New Voters": Color.primary
+            ])
             .frame(height: 200)
             .padding(.horizontal)
+            .chartOverlay { proxy in
+                GeometryReader { geometry in
+                    Rectangle().fill(.clear).contentShape(Rectangle())
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    // Convert the gesture location to the coordinate space of the plot area.
+                                    let origin = geometry[proxy.plotAreaFrame].origin
+                                    print(value)
+                                    let location = CGPoint(
+                                        x: value.location.x - origin.x,
+                                        y: value.location.y - origin.y
+                                    )
+                                    print(value.location.y - origin.y)
+                                    // Get the x (date) and y (price) value from the location.
+                                    let (date, votes) = proxy.value(at: location, as: (Date, Double).self)!
+                                    //print("Location: \(date), \(votes)")
+                                }
+                        )
+                }
+            }
             
             
             Chart {
-                ForEach(mockChartData.first!.data) { element in
+                ForEach(votersChartData) { element in
                     BarMark (
-                        x: .value("Date", element.date),
+                        x: .value("Date", element.date, unit: .month),
                         y: .value("Voters in K", element.voters)
                     )
                     .foregroundStyle(Color.chartBar)
@@ -46,13 +73,15 @@ struct DaoInfoInsightsDaoView: View {
             .padding(.horizontal)
             .onAppear() {
                 for (index, _) in mockChartData.first!.data.enumerated() {
-                    withAnimation(.easeInOut(duration: 0.8)) {
-                            mockChartData[0].data[index].animate = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
+                        withAnimation(.easeInOut(duration: 0.8)) {
+                            votersChartData[index].animate = true
                         }
+                    }
+                    
+                    
                 }
             }
-            
-            
             
             Spacer()
         }
@@ -78,8 +107,8 @@ private func formDate(year1: Int, month1: Int) -> Date {
 
 
     var oldChampionVoters: [ChampionVoters] = [
-        .init(date: formDate(year1: 2022, month1: 01), voters: 11.4),
-        .init(date: formDate(year1: 2022, month1: 02), voters: 10.9),
+        .init(date: formDate(year1: 2022, month1: 01), voters: 10),
+        .init(date: formDate(year1: 2022, month1: 02), voters: 10),
         .init(date: formDate(year1: 2022, month1: 03), voters: 9.9),
         .init(date: formDate(year1: 2022, month1: 04), voters: 10.4),
         .init(date: formDate(year1: 2022, month1: 05), voters: 11.4),
@@ -93,8 +122,8 @@ private func formDate(year1: Int, month1: Int) -> Date {
     ]
     
     var newChampionVoters: [ChampionVoters] = [
-        .init(date: formDate(year1: 2022, month1: 01), voters: 2.3),
-        .init(date: formDate(year1: 2022, month1: 02), voters: 1.1),
+        .init(date: formDate(year1: 2022, month1: 01), voters: 1),
+        .init(date: formDate(year1: 2022, month1: 02), voters: 2),
         .init(date: formDate(year1: 2022, month1: 03), voters: 2.9),
         .init(date: formDate(year1: 2022, month1: 04), voters: 2.4),
         .init(date: formDate(year1: 2022, month1: 05), voters: 2.3),
