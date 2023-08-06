@@ -32,6 +32,9 @@
 		5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
+		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
+		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
+		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
@@ -61,10 +64,8 @@
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
 		55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */; };
-		55B7B4362A5ADC5700A894AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4352A5ADC5700A894AD /* NotificationService.swift */; };
-		55B7B43A2A5ADC5700A894AD /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */; };
-		55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.plist */; };
+		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
@@ -137,13 +138,6 @@
 			remoteGlobalIDString = 55F143D8294B1DDA00D00B73;
 			remoteInfo = Goverland;
 		};
-		55B7B4382A5ADC5700A894AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55F143D1294B1DDA00D00B73 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 55B7B4322A5ADC5700A894AD;
-			remoteInfo = NotificationServiceExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -153,7 +147,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				55B7B43A2A5ADC5700A894AD /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +178,9 @@
 		552885972A28EB1900ED2BCD /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryLoadingViews.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
+		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
@@ -212,14 +208,13 @@
 		559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsListView.swift; sourceTree = "<group>"; };
 		559DA0C82A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsDataSource.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		55B7B4352A5ADC5700A894AD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		55B7B4372A5ADC5700A894AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
-		55B7B4422A5B087200A894AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
 		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
+		55C25E562A7563FD0087D56E /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
+		55C25E572A75641A0087D56E /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		55D632B829505C4F0073E04A /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
@@ -282,13 +277,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		5543011D2A4C897C00029BC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		55B7B4302A5ADC5700A894AD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -400,6 +388,17 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		553744DA2A757FA200D05D8A /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */,
+				553744DB2A75802E00D05D8A /* FirebaseConfig.swift */,
+				55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */,
+				553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		554301212A4C897C00029BC3 /* GoverlandTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,15 +455,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		55B7B4342A5ADC5700A894AD /* NotificationServiceExtension */ = {
-			isa = PBXGroup;
-			children = (
-				55B7B4352A5ADC5700A894AD /* NotificationService.swift */,
-				55B7B4372A5ADC5700A894AD /* Info.plist */,
-			);
-			path = NotificationServiceExtension;
-			sourceTree = "<group>";
-		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,11 +503,9 @@
 			children = (
 				55F143DB294B1DDA00D00B73 /* Goverland */,
 				554301212A4C897C00029BC3 /* GoverlandTests */,
-				55B7B4342A5ADC5700A894AD /* NotificationServiceExtension */,
 				55B7B42A2A5ACD6400A894AD /* Frameworks */,
 				BAF651B129A1580600C78A8A /* Goverland.app */,
 				557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */,
-				55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -532,9 +520,11 @@
 				55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */,
 				5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */,
 				55B7B4212A5AC28700A894AD /* NotificationsManager.swift */,
+				553744D82A7577AF00D05D8A /* ConfigurationManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
+				55C25E562A7563FD0087D56E /* Dev.xcconfig */,
+				55C25E572A75641A0087D56E /* Prod.xcconfig */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
-				55B7B4422A5B087200A894AD /* GoogleService-Info.plist */,
 				55B7B4412A5B059800A894AD /* Goverland.entitlements */,
 				55D632B12950576C0073E04A /* Onboarding */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
@@ -679,7 +669,7 @@
 				BAF651FE29C8C1F300C78A8A /* Tracker.swift */,
 				BAF651FC29C8AFE600C78A8A /* TrackingEvent.swift */,
 				BAF6520229C8C61500C78A8A /* ConsoleTrackingHandler.swift */,
-				554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */,
+				553744DA2A757FA200D05D8A /* Firebase */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -705,23 +695,6 @@
 			productReference = 557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		55B7B4322A5ADC5700A894AD /* NotificationServiceExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 55B7B43B2A5ADC5800A894AD /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
-			buildPhases = (
-				55B7B42F2A5ADC5700A894AD /* Sources */,
-				55B7B4302A5ADC5700A894AD /* Frameworks */,
-				55B7B4312A5ADC5700A894AD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NotificationServiceExtension;
-			productName = NotificationServiceExtension;
-			productReference = 55B7B4332A5ADC5700A894AD /* NotificationServiceExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		55F143D8294B1DDA00D00B73 /* Goverland */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F143FD294B1DDD00D00B73 /* Build configuration list for PBXNativeTarget "Goverland" */;
@@ -729,6 +702,7 @@
 				55F143D5294B1DDA00D00B73 /* Sources */,
 				55F143D6294B1DDA00D00B73 /* Frameworks */,
 				55F143D7294B1DDA00D00B73 /* Resources */,
+				553744DF2A75821800D05D8A /* [Firebase] Copy config file */,
 				BA2EA1FE29636C2700FB87AC /* TODO Warnings */,
 				55B7B43E2A5ADC5800A894AD /* Embed Foundation Extensions */,
 				550E85782A5F70CF00B0CFDD /* Crashlytics */,
@@ -736,7 +710,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				55B7B4392A5ADC5700A894AD /* PBXTargetDependency */,
 			);
 			name = Goverland;
 			packageProductDependencies = (
@@ -767,9 +740,6 @@
 						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = 55F143D8294B1DDA00D00B73;
 					};
-					55B7B4322A5ADC5700A894AD = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
 					55F143D8294B1DDA00D00B73 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -798,7 +768,6 @@
 			targets = (
 				55F143D8294B1DDA00D00B73 /* Goverland */,
 				5543011F2A4C897C00029BC3 /* GoverlandTests */,
-				55B7B4322A5ADC5700A894AD /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -811,19 +780,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		55B7B4312A5ADC5700A894AD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		55F143D7294B1DDA00D00B73 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */,
-				55B7B4432A5B087200A894AD /* GoogleService-Info.plist in Resources */,
+				553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */,
+				55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */,
 				BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */,
 				55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */,
 				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
@@ -856,6 +819,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
+		553744DF2A75821800D05D8A /* [Firebase] Copy config file */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Firebase] Copy config file";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Goverland/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		BA2EA1FE29636C2700FB87AC /* TODO Warnings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -882,14 +864,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		55B7B42F2A5ADC5700A894AD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				55B7B4362A5ADC5700A894AD /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +915,7 @@
 				559DA0C92A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
+				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
@@ -962,6 +937,7 @@
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
+				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
@@ -1009,11 +985,6 @@
 			target = 55F143D8294B1DDA00D00B73 /* Goverland */;
 			targetProxy = 554301242A4C897C00029BC3 /* PBXContainerItemProxy */;
 		};
-		55B7B4392A5ADC5700A894AD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 55B7B4322A5ADC5700A894AD /* NotificationServiceExtension */;
-			targetProxy = 55B7B4382A5ADC5700A894AD /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -1052,7 +1023,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1124,7 +1095,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1155,161 +1126,9 @@
 			};
 			name = Prod;
 		};
-		55B7B43C2A5ADC5800A894AD /* Dev */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = QC33UJN2FK;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 0.1;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland.NotificationServiceExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Dev;
-		};
-		55B7B43D2A5ADC5800A894AD /* Prod */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = QC33UJN2FK;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 0.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland.NotificationServiceExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Prod;
-		};
 		55F143FB294B1DDD00D00B73 /* Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55C25E562A7563FD0087D56E /* Dev.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1371,6 +1190,7 @@
 		};
 		55F143FC294B1DDD00D00B73 /* Prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55C25E572A75641A0087D56E /* Prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1428,18 +1248,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Goverland Alpha";
+				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1447,13 +1268,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = IntroLoadingView.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland;
+				MARKETING_VERSION = 0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1465,19 +1287,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = QC33UJN2FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Goverland/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Goverland Alpha";
+				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1485,13 +1308,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = IntroLoadingView.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland;
+				MARKETING_VERSION = 0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1508,15 +1332,6 @@
 			buildConfigurations = (
 				554301262A4C897C00029BC3 /* Dev */,
 				554301272A4C897C00029BC3 /* Prod */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Prod;
-		};
-		55B7B43B2A5ADC5800A894AD /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				55B7B43C2A5ADC5800A894AD /* Dev */,
-				55B7B43D2A5ADC5800A894AD /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Prod;

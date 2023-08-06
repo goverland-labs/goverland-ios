@@ -13,17 +13,13 @@ class NetworkManager {
 
     init() {
         let configuration = URLSessionConfiguration.default
-        #if DEV
-        configuration.timeoutIntervalForRequest = 3
-        #else
-        configuration.timeoutIntervalForRequest = 15
-        #endif
+        configuration.timeoutIntervalForRequest = ConfigurationManager.timeout        
         self.session = URLSession(configuration: configuration)
     }
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
         #if DEV
-        print(urlRequest.description)
+        logInfo(urlRequest.description)
         #endif
 
         return session
