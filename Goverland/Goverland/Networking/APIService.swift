@@ -8,12 +8,6 @@
 import Combine
 import Foundation
 
-#if DEV
-let DEFAULT_PAGINATION_COUNT = 10
-#else
-let DEFAULT_PAGINATION_COUNT = 20
-#endif
-
 class APIService {
     let networkManager: NetworkManager
     let decoder: JSONDecoder
@@ -77,7 +71,7 @@ extension APIService {
     // MARK: - DAOs
     
     static func daos(offset: Int = 0,
-                     limit: Int = DEFAULT_PAGINATION_COUNT,
+                     limit: Int = ConfigurationManager.defaultPaginationCount,
                      sorting: DaoSorting = .default,
                      category: DaoCategory? = nil,
                      query: String? = nil) -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
@@ -133,7 +127,7 @@ extension APIService {
     // MARK: - Proposals
 
     static func topProposals(offset: Int = 0,
-                             limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(TopProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
+                             limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
@@ -143,7 +137,7 @@ extension APIService {
     }
     
     static func proposals(offset: Int = 0,
-                          limit: Int = DEFAULT_PAGINATION_COUNT,
+                          limit: Int = ConfigurationManager.defaultPaginationCount,
                           query: String? = nil) -> AnyPublisher<(ProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
@@ -163,7 +157,7 @@ extension APIService {
     
     static func votes(proposalID: String,
                        offset: Int = 0,
-                       limit: Int = DEFAULT_PAGINATION_COUNT,
+                       limit: Int = ConfigurationManager.defaultPaginationCount,
                        query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
@@ -177,7 +171,7 @@ extension APIService {
     // MARK: - Feed
 
     static func inboxEvents(offset: Int = 0,
-                            limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+                            limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
@@ -188,7 +182,7 @@ extension APIService {
 
     static func daoEvents(daoID: UUID,
                           offset: Int = 0,
-                          limit: Int = DEFAULT_PAGINATION_COUNT) -> AnyPublisher<(DaoEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+                          limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(DaoEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")

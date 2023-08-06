@@ -28,13 +28,7 @@ protocol APIEndpoint {
 }
 
 extension APIEndpoint {
-    var baseURL: URL {
-        #if PROD
-        return URL(string: "https://inbox.goverland.xyz")!
-        #else
-        return URL(string: "https://inbox.staging.goverland.xyz")!
-        #endif
-    }
+    var baseURL: URL { ConfigurationManager.baseURL }
 
     var headers: [String: String] {
         var headers = ["Content-Type": "application/json"]

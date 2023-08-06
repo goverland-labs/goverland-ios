@@ -1,0 +1,20 @@
+//
+//  Prod.xcconfig
+//  Goverland
+//
+//  Created by Andrey Scherbovich on 29.07.23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+APP_ICON_NAME = AppIcon
+PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland
+
+// Firebase
+FIREBASE_CONFIG = GoogleService-Info.Production
+
+// URLs
+BASE_URL = https:/$()/inbox.goverland.xyz
+DEFAULT_PAGINATION_COUNT = 20
+TIMEOUT = 15

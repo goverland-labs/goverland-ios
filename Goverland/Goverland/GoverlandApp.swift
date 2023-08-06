@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseMessaging
+import Firebase
 
 @main
 struct GoverlandApp: App {
@@ -59,7 +58,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AuthManager.shared.updateToken()
-        FirebaseApp.configure()
+        FirebaseConfig.setUp()
         NotificationsManager.shared.setUpMessaging(delegate: self)
         return true
     }

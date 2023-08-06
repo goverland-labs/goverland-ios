@@ -7,6 +7,32 @@
 
 import SwiftUI
 
+struct DaoSharingMenu: View {
+    let dao: Dao
+    var link: String {
+        "https://snapshot.org/#/\(dao.alias)"
+    }
+
+    var body: some View {
+        if let url = Utils.urlFromString(link) {
+            ShareLink(item: url) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+
+            Button {
+                UIApplication.shared.open(url)
+            } label: {
+                // for now we handle only Snapshot proposals
+                Label("Open on Snapshot", systemImage: "arrow.up.right")
+            }
+        } else {
+            ShareLink(item: dao.alias) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
+    }
+}
+
 struct DaoListItemView: View {
     let dao: Dao
     let subscriptionMeta: SubscriptionMeta?

@@ -82,8 +82,7 @@ struct DaoInfoView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Menu {
-                    // TODO: implement properly
-                    ProposalSharingMenu(link: "https://snapshot.org/#/\(dao.alias)")
+                    DaoSharingMenu(dao: dao)
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.primary)
