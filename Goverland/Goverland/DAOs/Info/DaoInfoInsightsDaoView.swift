@@ -21,67 +21,46 @@ struct DaoInfoInsightsDaoView: View {
     
     var body: some View {
         VStack {
-            Chart {
-                ForEach(mockChartData, id: \.votersType) { element in
-                    ForEach(element.data, id: \.date) { data in
-                        BarMark (
-                            x: .value("Date", data.date, unit: .month),
-                            y: .value("Voters in K", data.voters)
-                        )
-                        .annotation {
-                            if data.voters == 0 {
-                                Text("0")
-                                    .foregroundColor(.textWhite40)
-                                    .font(.сaption2Regular)
-                            }
-                        }
-                        .foregroundStyle(by: .value("Voters(type)", element.votersType))
-                        .foregroundStyle(Color.chartBar)
-                    }
-                    
+            VStack {
+                HStack {
+                    Text("Monthly active users")
+                        .font(.title3Semibold)
+                        .foregroundColor(.textWhite)
+                        .padding([.horizontal, .top])
+                    Spacer()
                 }
                 
-            }
-            .frame(height: 200)
-            .padding(.horizontal)
-            
-            .chartForegroundStyleScale([
-                "Existed Voters": Color.chartBar, "New Voters": Color.primary
-            ])
-            
-            
-            
-            
-            
-            Chart {
-                ForEach(votersChartData) { element in
-                    BarMark (
-                        x: .value("Date", element.date, unit: .month),
-                        y: .value("Voters in K", element.voters)
-                    )
-                    .annotation {
-                        if element.voters == 0 {
-                            Text("0")
-                                .foregroundColor(.textWhite40)
-                                .font(.сaption2Regular)
+                Chart {
+                    ForEach(mockChartData, id: \.votersType) { element in
+                        ForEach(element.data, id: \.date) { data in
+                            BarMark (
+                                x: .value("Date", data.date, unit: .month),
+                                y: .value("Voters in K", data.voters)
+                            )
+                            .annotation {
+                                if data.voters == 0 {
+                                    Text("0")
+                                        .foregroundColor(.textWhite40)
+                                        .font(.сaption2Regular)
+                                }
+                            }
+                            .foregroundStyle(by: .value("Voters(type)", element.votersType))
+                            .foregroundStyle(Color.chartBar)
                         }
-                    }
-                    .foregroundStyle(Color.chartBar)
-                }
-            }
-            .frame(height: 200)
-            .padding(.horizontal)
-            .onAppear() {
-                for (index, _) in mockChartData.first!.data.enumerated() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                        withAnimation(.easeInOut(duration: 0.8)) {
-                            votersChartData[index].animate = true
-                        }
+                        
                     }
                     
-                    
                 }
+                .frame(height: 200)
+                .padding()
+                
+                .chartForegroundStyleScale([
+                    "Existed Voters": Color.chartBar, "New Voters": Color.primary
+                ])
             }
+            .background(Color.containerBright)
+            .cornerRadius(20)
+            .padding()
             
             Spacer()
         }
