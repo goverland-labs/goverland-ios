@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingFollowDaosView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
     @State private var path = NavigationPath()
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -26,9 +27,9 @@ struct OnboardingFollowDaosView: View {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
 
-                                        onSelectDaoFromGroup: nil,
-                                        onSelectDaoFromCategoryList: nil,
-                                        onSelectDaoFromCategorySearch: nil,
+                                        onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
+                                        onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgList) },
+                                        onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgSearch) },
 
                                         onFollowToggleFromCard: { if $0 { Tracker.track(.onboardingFollowFromCard) } },
                                         onFollowToggleFromCategoryList: { if $0 { Tracker.track(.onboardingFollowFromCtgList) } },
@@ -55,7 +56,7 @@ struct OnboardingFollowDaosView: View {
                     }
                 } else {
                     DaosSearchListView(dataSource: dataSource,
-                                       onSelectDao: nil,
+                                       onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromSearch) },
                                        onFollowToggle: { didFollow in
                         if didFollow {
                             Tracker.track(.onboardingFollowFromSearch)
