@@ -20,7 +20,7 @@ struct OnboardingFollowDaosView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            ZStack {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedDaosView(dataSource: dataSource,
@@ -37,12 +37,18 @@ struct OnboardingFollowDaosView: View {
                                         onCategoryListAppear: { Tracker.track(.screenOnboardingCategoryDaos) })
 
 
-                        PrimaryButton("Continue", isEnabled: dataSource.subscriptionsCount > 0) {
-                            path.append("EnablePushNotificationsView")
-                        }
-                        .padding()
-                        .navigationDestination(for: String.self) { _ in
-                            EnablePushNotificationsView()
+                        VStack {
+                            Spacer()
+                            PrimaryButton("Continue",
+                                          isEnabled: dataSource.subscriptionsCount > 0,
+                                          disabledText: "Follow a DAO to continue") {
+                                path.append("EnablePushNotificationsView")
+                            }
+                            .padding()
+                            .background(Color(.systemBackground).opacity(0.8))
+                            .navigationDestination(for: String.self) { _ in
+                                EnablePushNotificationsView()
+                            }
                         }
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
