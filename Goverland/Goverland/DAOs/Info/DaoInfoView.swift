@@ -22,7 +22,7 @@ enum DaoInfoFilter: Int, FilterOptions {
 }
 
 struct DaoInfoView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
     @StateObject var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
 
@@ -69,7 +69,7 @@ struct DaoInfoView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    self.presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
                 }

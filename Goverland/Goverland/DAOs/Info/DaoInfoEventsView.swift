@@ -66,10 +66,7 @@ struct DaoInfoEventsView: View {
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                             .listRowBackground(Color.clear)
                         }
-                    }
-                    .refreshable {
-                        data.refresh()
-                    }
+                    }                    
                 }
             }
             .listStyle(.plain)

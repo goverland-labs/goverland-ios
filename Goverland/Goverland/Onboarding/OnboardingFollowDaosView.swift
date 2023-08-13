@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingFollowDaosView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
     @State private var path = NavigationPath()
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -20,15 +21,15 @@ struct OnboardingFollowDaosView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            ZStack {
                 if dataSource.searchText == "" {
                     if !dataSource.failedToLoadInitially {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
 
-                                        onSelectDaoFromGroup: nil,
-                                        onSelectDaoFromCategoryList: nil,
-                                        onSelectDaoFromCategorySearch: nil,
+                                        onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
+                                        onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgList) },
+                                        onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgSearch) },
 
                                         onFollowToggleFromCard: { if $0 { Tracker.track(.onboardingFollowFromCard) } },
                                         onFollowToggleFromCategoryList: { if $0 { Tracker.track(.onboardingFollowFromCtgList) } },
@@ -37,19 +38,29 @@ struct OnboardingFollowDaosView: View {
                                         onCategoryListAppear: { Tracker.track(.screenOnboardingCategoryDaos) })
 
 
-                        PrimaryButton("Continue", isEnabled: dataSource.subscriptionsCount > 0) {
-                            path.append("EnablePushNotificationsView")
-                        }
-                        .padding()
-                        .navigationDestination(for: String.self) { _ in
-                            EnablePushNotificationsView()
+                        VStack {
+                            Spacer()
+                            PrimaryButton("Continue",
+                                          isEnabled: dataSource.subscriptionsCount > 0,
+                                          disabledText: "Follow a DAO to continue") {
+                                path.append("EnablePushNotificationsView")
+                            }
+                            .padding()
+                            .background(Color(.systemBackground)
+                                .opacity(0.8)
+                                .clipShape(TopRoundedCorner(radius: 20))
+                                .ignoresSafeArea()
+                            )
+                            .navigationDestination(for: String.self) { _ in
+                                EnablePushNotificationsView()
+                            }
                         }
                     } else {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
                     DaosSearchListView(dataSource: dataSource,
-                                       onSelectDao: nil,
+                                       onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromSearch) },
                                        onFollowToggle: { didFollow in
                         if didFollow {
                             Tracker.track(.onboardingFollowFromSearch)
@@ -82,8 +93,18 @@ struct OnboardingFollowDaosView: View {
     }
 }
 
-struct SelectDAOsView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingFollowDaosView()
+fileprivate struct TopRoundedCorner: Shape {
+    var radius: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
+        path.addQuadCurve(to: CGPoint(x: rect.minX + radius, y: rect.minY), control: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
+        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + radius), control: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.closeSubpath()
+        return path
     }
 }
