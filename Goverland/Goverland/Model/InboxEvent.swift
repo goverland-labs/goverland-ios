@@ -34,6 +34,21 @@ enum Event: String, Decodable {
     case proposalVoringFinishesSoon = "proposal.voting.coming"
     case proposalVotingEndsSoon = "proposal.voting.ends_soon"
     case proposalVotingEnded = "proposal.voting.ended"
+    
+    var localizedName: String {
+        switch self {
+        case .daoCreated: return "DAO created"
+        case .proposalCreated: return "Proposal created"
+        case .proposalUpdated: return "Proposal updated"
+        case .proposalUpdatedState: return "Proposal state updated"
+        case .proposalVotingStarted :return "Proposal voting started"
+        case .proposalVotingStartsSoon :return "Voting will start soon"
+        case .proposalVotingReachedQuorum :return "Proposal reached quorum"
+        case .proposalVoringFinishesSoon :return "Voting is coming"
+        case .proposalVotingEnded :return "Proposal voting ended"
+        case .proposalVotingEndsSoon :return "Voting is ending soon"
+        }
+    }
 }
 
 struct InboxEvent: Identifiable, Decodable {

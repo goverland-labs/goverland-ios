@@ -13,6 +13,7 @@ struct SnapshotProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
     let navigationTitle: String
+    let timeline: [TimelineEvent]
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
@@ -47,9 +48,9 @@ struct SnapshotProposalView: View {
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 35)
 
-                // TODO: add once implemented properly
-//                SnapshotProposalTimelineView()
-//                    .padding(.bottom, 20)
+                // TODO: adjust once implemented properly on backend (timeline will be a part of the proposal object)
+                SnapshotProposalTimelineView(timeline: timeline)
+                    .padding(.bottom, 20)
             }
             .padding(.horizontal)
         }
@@ -140,8 +141,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
 }
 
 fileprivate struct SnapshotProposalTimelineView: View {
-    private let testDates = [Date.now]
-    private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
+    let timeline: [TimelineEvent]
 
     var body: some View {
         VStack {
@@ -152,16 +152,17 @@ fileprivate struct SnapshotProposalTimelineView: View {
                 Spacer()
             }
 
-            ForEach(0..<2) { i in
+            ForEach(timeline.indices) { index in
                 HStack(spacing: 2) {
-                    Text("Nov 5, 2022 - ")
-                    Text(testEvents[i])
+                    Text(Utils.mediumDateNoTime((timeline[index].createdAt)))
+                    Text("\(timeline[index].event.localizedName)")
+                    Text(" by ")
                     IdentityView(user: .test)
                     Spacer()
                 }
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
-                .minimumScaleFactor(0.8)
+                //.minimumScaleFactor(0.8)
                 .lineLimit(1)
             }
         }
@@ -170,6 +171,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
+        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "", timeline: [])
     }
 }

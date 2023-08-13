@@ -102,7 +102,8 @@ struct InboxView: View {
                        let proposal = events[index].eventData as? Proposal {
                         SnapshotProposalView(proposal: proposal,
                                              allowShowingDaoInfo: true,
-                                             navigationTitle: proposal.dao.name)
+                                             navigationTitle: proposal.dao.name,
+                                             timeline: events[index].timeline)
                     } else {
                         EmptyView()
                     }
