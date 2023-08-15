@@ -84,6 +84,7 @@
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
+		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
 		BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */; };
@@ -231,6 +232,7 @@
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
+		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
 		BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemHeaderView.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 			children = (
 				550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */,
 				550E85652A5F4C3400B0CFDD /* SnapshotVotesView.swift */,
+				BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */,
 			);
 			path = Votes;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
+				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,

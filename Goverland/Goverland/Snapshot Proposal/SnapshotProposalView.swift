@@ -153,17 +153,15 @@ fileprivate struct SnapshotProposalTimelineView: View {
             }
 
             ForEach(timeline.indices) { index in
-                HStack(spacing: 2) {
+                HStack(spacing: 3) {
                     Text(Utils.mediumDateNoTime((timeline[index].createdAt)))
+                    Text("–")
                     Text("\(timeline[index].event.localizedName)")
-                    Text(" by ")
-                    IdentityView(user: .test)
                     Spacer()
                 }
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
-                //.minimumScaleFactor(0.8)
-                .lineLimit(1)
+                .padding(.vertical, 2)
             }
         }
     }
