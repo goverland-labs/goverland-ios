@@ -81,7 +81,7 @@ struct DaoInfoEventsView: View {
                 SnapshotProposalView(proposal: proposal,
                                      allowShowingDaoInfo: false,
                                      navigationTitle: "",
-                                     timeline: [])
+                                     timeline: []) // TODO: will be removed when backend moved timeline as a part of a proposal object
                     .onAppear {
                         Tracker.track(.daoEventOpen)
                     }

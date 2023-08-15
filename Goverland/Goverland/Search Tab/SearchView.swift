@@ -114,7 +114,10 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: true, navigationTitle: proposal.dao.name, timeline: [])
+                SnapshotProposalView(proposal: proposal,
+                                     allowShowingDaoInfo: true,
+                                     navigationTitle: proposal.dao.name,
+                                     timeline: []) // TODO: will be removed when backend moved timeline as a part of a proposal object
             }
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

@@ -55,7 +55,7 @@ struct InboxView: View {
                                     .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
                                     .listRowBackground(Color.clear)
                                 } else {
-                                    // For now we recognise only proosals
+                                    // For now we recognise only proposals
                                     let proposal = event.eventData! as! Proposal
                                     ProposalListItemView(proposal: proposal,
                                                          isSelected: selectedEventIndex == index,
@@ -103,7 +103,7 @@ struct InboxView: View {
                         SnapshotProposalView(proposal: proposal,
                                              allowShowingDaoInfo: true,
                                              navigationTitle: proposal.dao.name,
-                                             timeline: events[index].timeline)
+                                             timeline: events[index].timeline) // TODO: will be removed when backend moved timeline as a part of a proposal object
                     } else {
                         EmptyView()
                     }
