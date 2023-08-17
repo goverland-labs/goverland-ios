@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class SnapsotVotesDataSource: ObservableObject, Paginatable {
+class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
     private let proposal: Proposal
     
     @Published var votes: [Vote] = []

@@ -21,42 +21,20 @@ struct SnapshotVotesView: View {
             let count = dataSource.votes.count
             ForEach(0..<count, id: \.self) { index in
                 let vote = dataSource.votes[index]
-                Divider()
-                    .background(Color.secondaryContainer)
-                HStack {
-                    IdentityView(user: vote.voter)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.footnoteRegular)
-                        .foregroundColor(.textWhite)
-                    Text(proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .font(.footnoteRegular)
-                        .foregroundColor(.textWhite40)
-                    HStack {
-                        Text("\(String(Utils.formattedNumber(vote.votingPower))) Votes")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .font(.footnoteRegular)
-                            .foregroundColor(.textWhite)
-                        if vote.message != nil && !vote.message!.isEmpty {
-                            Image(systemName: "text.bubble.fill")
-                                .foregroundColor(.secondaryContainer)
-                        }
-                    }
-                }
-                .padding(.vertical, 5)
-                .font(.footnoteRegular)
+                VoteListItemView(voter: vote.voter,
+                                 votingPower: vote.votingPower,
+                                 choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
+                                 message: vote.message)
             }
             
-            Button("Load more") {
-                if !dataSource.failedToLoadMore && dataSource.hasMore() {
-                    dataSource.loadMore()
-                }
+            NavigationLink(destination: SnapshotAllVotesView(proposal: proposal)) {
+                Text("See all")
+                    .frame(width: 100, height: 30, alignment: .center)
+                    .background(Capsule(style: .circular)
+                        .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                    .tint(.onSecondaryContainer)
+                    .font(.footnoteSemibold)
             }
-            .frame(width: 100, height: 30, alignment: .center)
-            .background(Capsule(style: .circular)
-                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-            .tint(.onSecondaryContainer)
-            .font(.footnoteSemibold)
         }
         .onAppear() {
             dataSource.refresh()
@@ -64,7 +42,40 @@ struct SnapshotVotesView: View {
     }
 }
 
-fileprivate struct ShimmerVoteListItemView: View {
+struct VoteListItemView: View {
+    let voter: User
+    let votingPower: Double
+    let choice: String
+    let message: String?
+    var body: some View {
+        Divider()
+            .background(Color.secondaryContainer)
+        HStack {
+            IdentityView(user: voter)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite)
+            Text(choice)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite40)
+            HStack {
+                Text("\(String(Utils.formattedNumber(votingPower))) Votes")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite)
+                if message != nil && !message!.isEmpty {
+                    Image(systemName: "text.bubble.fill")
+                        .foregroundColor(.secondaryContainer)
+                }
+            }
+        }
+        .padding(.vertical, 5)
+        .font(.footnoteRegular)
+    }
+}
+
+struct ShimmerVoteListItemView: View {
     var body: some View {
         HStack {
             ShimmerView()
