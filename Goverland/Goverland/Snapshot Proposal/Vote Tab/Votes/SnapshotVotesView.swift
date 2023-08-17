@@ -20,24 +20,35 @@ struct SnapshotVotesView: View {
     
     var body: some View {
         VStack {
-            let count = dataSource.votes.count
-            ForEach(0..<count, id: \.self) { index in
-                let vote = dataSource.votes[index]
-                VoteListItemView(voter: vote.voter,
-                                 votingPower: vote.votingPower,
-                                 choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
-                                 message: vote.message)
+            HStack {
+                Text("Votes \(dataSource.totalVotes)")
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite)
+                Spacer()
             }
             
-            Text("See all")
-                .frame(width: 100, height: 30, alignment: .center)
-                .background(Capsule(style: .circular)
-                    .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-                .tint(.onSecondaryContainer)
-                .font(.footnoteSemibold)
-                .onTapGesture {
-                    activeSheetManger.activeSheet = .proposalVoters(proposal)
+            let count = dataSource.votes.count
+            ForEach(0..<count, id: \.self) { index in
+                if index < 5 {
+                    let vote = dataSource.votes[index]
+                    VoteListItemView(voter: vote.voter,
+                                     votingPower: vote.votingPower,
+                                     choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
+                                     message: vote.message)
                 }
+            }
+            
+            if dataSource.totalVotes > 4 {
+                Text("See all")
+                    .frame(width: 100, height: 30, alignment: .center)
+                    .background(Capsule(style: .circular)
+                        .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                    .tint(.onSecondaryContainer)
+                    .font(.footnoteSemibold)
+                    .onTapGesture {
+                        activeSheetManger.activeSheet = .proposalVoters(proposal)
+                    }
+            }
         }
         .sheet(item: $activeSheetManger.activeSheet) { item in
             NavigationStack {

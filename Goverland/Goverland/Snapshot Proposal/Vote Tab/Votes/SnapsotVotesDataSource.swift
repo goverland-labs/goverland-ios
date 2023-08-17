@@ -17,6 +17,10 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var isLoading = false
     private(set) var total: Int?
     private var cancellables = Set<AnyCancellable>()
+    
+    var totalVotes: Int {
+        return total ?? 0
+    }
 
     init(proposal: Proposal) {
         self.proposal = proposal

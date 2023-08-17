@@ -38,15 +38,15 @@ enum Event: String, Decodable {
     var localizedName: String {
         switch self {
         case .daoCreated: return "DAO created"
-        case .proposalCreated: return "Voting created"
-        case .proposalUpdated: return "Voting updated"
-        case .proposalUpdatedState: return "Voting state updated"
-        case .proposalVotingStarted :return "Voting started"
-        case .proposalVotingStartsSoon :return "Voting will start soon"
-        case .proposalVotingReachedQuorum :return "Voting reached quorum"
-        case .proposalVoringFinishesSoon :return "Voting is coming"
-        case .proposalVotingEnded :return "Voting ended"
-        case .proposalVotingEndsSoon :return "Voting is ending soon"
+        case .proposalCreated: return "Proposal vote created"
+        case .proposalUpdated: return "Proposal vote updated"
+        case .proposalUpdatedState: return "Proposal vote state updated"
+        case .proposalVotingStarted :return "Proposal vote started"
+        case .proposalVotingStartsSoon :return "Proposal vote will start soon"
+        case .proposalVotingReachedQuorum :return "Proposal vote reached quorum"
+        case .proposalVoringFinishesSoon :return "Proposal vote is coming"
+        case .proposalVotingEnded :return "Proposal vote ended"
+        case .proposalVotingEndsSoon :return "Proposal vote is ending soon"
         }
     }
 }
