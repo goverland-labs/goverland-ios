@@ -38,7 +38,10 @@ struct GoverlandApp: App {
                         case .daoInfo(let dao):
                             DaoInfoView(dao: dao)
                         case .followDaos:
-                            AddSubscriptionView() 
+                            AddSubscriptionView()
+                        default:
+                            // should not happen
+                            EmptyView()
                         }
                     }
                     .accentColor(.primary)

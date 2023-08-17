@@ -10,6 +10,8 @@ import SwiftUI
 struct SnapshotVotesView: View {
     let proposal: Proposal
     @StateObject var dataSource: SnapsotVotesDataSource
+    /// This view should have own active sheet manager as it is already presented in a popover
+    @StateObject private var activeSheetManger = ActiveSheetManager()
     
     init(proposal: Proposal) {
         _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
@@ -27,13 +29,29 @@ struct SnapshotVotesView: View {
                                  message: vote.message)
             }
             
-            NavigationLink(destination: SnapshotAllVotesView(proposal: proposal)) {
-                Text("See all")
-                    .frame(width: 100, height: 30, alignment: .center)
-                    .background(Capsule(style: .circular)
-                        .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-                    .tint(.onSecondaryContainer)
-                    .font(.footnoteSemibold)
+            Text("See all")
+                .frame(width: 100, height: 30, alignment: .center)
+                .background(Capsule(style: .circular)
+                    .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                .tint(.onSecondaryContainer)
+                .font(.footnoteSemibold)
+                .onTapGesture {
+                    activeSheetManger.activeSheet = .proposalVoters(proposal)
+                }
+        }
+        .sheet(item: $activeSheetManger.activeSheet) { item in
+            NavigationStack {
+                switch item {
+                case .proposalVoters(let proposal):
+                    SnapshotAllVotesView(proposal: proposal)
+                default:
+                    // should not happen
+                    EmptyView()
+                }
+            }
+            .accentColor(.primary)
+            .overlay {
+                ErrorView()
             }
         }
         .onAppear() {
