@@ -10,6 +10,7 @@ import SwiftUI
 struct SnapshotAllVotesView: View {
     let proposal: Proposal
     @StateObject var data: SnapsotVotesDataSource
+    @Environment(\.presentationMode) private var presentationMode
     
     init(proposal: Proposal) {
         _data = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
@@ -17,7 +18,7 @@ struct SnapshotAllVotesView: View {
     }
     
     var body: some View {
-        VStack {
+        Group {
             if data.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: data)
             } else {
@@ -48,18 +49,30 @@ struct SnapshotAllVotesView: View {
                                              votingPower: vote.votingPower,
                                              choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
                                              message: vote.message)
+                            .padding(.bottom, 30)
                             .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
                         }
                     }
                     .scrollIndicators(.hidden)
-                    .background(.red)
-                    .scrollContentBackground(.hidden)
-                    
                 }
             }
         }
         .onAppear() {
             data.loadMore()
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Votes")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.primary)
+                }
+            }
         }
     }
 }

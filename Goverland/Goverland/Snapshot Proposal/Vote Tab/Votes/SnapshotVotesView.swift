@@ -31,6 +31,8 @@ struct SnapshotVotesView: View {
             ForEach(0..<count, id: \.self) { index in
                 if index < 5 {
                     let vote = dataSource.votes[index]
+                    Divider()
+                        .background(Color.secondaryContainer)
                     VoteListItemView(voter: vote.voter,
                                      votingPower: vote.votingPower,
                                      choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
@@ -77,8 +79,6 @@ struct VoteListItemView: View {
     let choice: String
     let message: String?
     var body: some View {
-        Divider()
-            .background(Color.secondaryContainer)
         HStack {
             IdentityView(user: voter)
                 .frame(maxWidth: .infinity, alignment: .leading)
