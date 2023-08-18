@@ -19,6 +19,7 @@ struct Proposal: Decodable, Hashable {
     // TODO: fix after sync with backend
     let discussion: String?
     let choices: [String]
+    let symbol: String?
     let votingStart: Date
     let votingEnd: Date
     let quorum: Int
@@ -87,6 +88,7 @@ struct Proposal: Decodable, Hashable {
         case body
         case discussion
         case choices
+        case symbol
         case votingStart = "voting_start"
         case votingEnd = "voting_end"
         case quorum
@@ -125,6 +127,7 @@ extension Proposal {
         ],
         discussion: "https://discord.com/channels/732491344970383370/1111329507987701871/1111329507987701871",
         choices: ["Yes. Schedule all survey rolls.", "No. Don't schedule them."],
+        symbol: "AAVE",
         votingStart: .now + 1.days,
         votingEnd: .now + 5.days,
         quorum: 0,
