@@ -28,19 +28,18 @@ struct SnapshotVotesView: View {
             }
             
             let count = dataSource.votes.count
-            ForEach(0..<count, id: \.self) { index in
-                if index < 5 {
-                    let vote = dataSource.votes[index]
-                    Divider()
-                        .background(Color.secondaryContainer)
-                    VoteListItemView(voter: vote.voter,
-                                     votingPower: vote.votingPower,
-                                     choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
-                                     message: vote.message)
-                }
+            ForEach(0..<min(5, count), id: \.self) { index in
+                let vote = dataSource.votes[index]
+                Divider()
+                    .background(Color.secondaryContainer)
+                VoteListItemView(voter: vote.voter,
+                                 votingPower: vote.votingPower,
+                                 choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
+                                 message: vote.message)
+                
             }
             
-            if dataSource.totalVotes > 4 {
+            if dataSource.totalVotes >= 5 {
                 Text("See all")
                     .frame(width: 100, height: 30, alignment: .center)
                     .background(Capsule(style: .circular)

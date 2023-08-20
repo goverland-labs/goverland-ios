@@ -42,11 +42,11 @@ enum Event: String, Decodable {
         case .proposalUpdated: return "Proposal vote updated"
         case .proposalUpdatedState: return "Proposal vote state updated"
         case .proposalVotingStarted :return "Proposal vote started"
-        case .proposalVotingStartsSoon :return "Proposal vote will start soon"
+        case .proposalVotingStartsSoon :return "Proposal vote starts soon"
         case .proposalVotingReachedQuorum :return "Proposal vote reached quorum"
-        case .proposalVoringFinishesSoon :return "Proposal vote is coming"
+        case .proposalVoringFinishesSoon :return "Proposal vote finishes soon"
         case .proposalVotingEnded :return "Proposal vote ended"
-        case .proposalVotingEndsSoon :return "Proposal vote is ending soon"
+        case .proposalVotingEndsSoon :return "Proposal vote ends soon"
         }
     }
 }
