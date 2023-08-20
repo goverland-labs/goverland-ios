@@ -8,12 +8,15 @@
 import Foundation
 
 enum ActiveSheet: Identifiable {
-    case daoInfo(Dao), followDaos
+    case daoInfo(Dao)
+    case followDaos
+    case signIn
 
     var id: Int {
         switch self {
         case .daoInfo: return 1
         case .followDaos: return 2
+        case .signIn: return 3
         }
     }
 }

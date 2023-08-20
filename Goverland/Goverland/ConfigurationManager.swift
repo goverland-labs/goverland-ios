@@ -10,6 +10,7 @@ import Foundation
 class ConfigurationManager {
     enum ConfigKeys: String {
         case baseURL = "BASE_URL"
+        case wcProjectId = "WC_PROJECT_ID"
         case defaultPaginationCount = "DEFAULT_PAGINATION_COUNT"
         case timeout = "TIMEOUT"
     }
@@ -28,6 +29,13 @@ class ConfigurationManager {
             fatalError("Invalid Base URL")
         }
         return url
+    }
+
+    static var wcProjectId: String {
+        guard let id = self.value(for: .wcProjectId) else {
+            fatalError("Invalid WalletConnect Project Id")
+        }
+        return id
     }
 
     static var defaultPaginationCount: Int {

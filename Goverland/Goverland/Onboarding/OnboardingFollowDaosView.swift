@@ -80,6 +80,12 @@ struct OnboardingFollowDaosView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Sign In") {
+                        activeSheetManger.activeSheet = .signIn
+                    }
+                }
             }
             .refreshable {
                 dataSource.refresh()

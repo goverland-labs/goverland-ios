@@ -14,6 +14,9 @@ PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland
 // Firebase
 FIREBASE_CONFIG = GoogleService-Info.Production
 
+// WalletConnectc
+WC_PROJECT_ID = cbca9321570134df3d46a6ec431610da
+
 // URLs
 BASE_URL = https:/$()/inbox.goverland.xyz
 DEFAULT_PAGINATION_COUNT = 20
