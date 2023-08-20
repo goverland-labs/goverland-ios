@@ -32,10 +32,7 @@ class ConfigurationManager {
     }
 
     static var wcProjectId: String {
-        guard let id = self.value(for: .wcProjectId) else {
-            fatalError("Invalid WalletConnect Project Id")
-        }
-        return id
+        return self.value(for: .wcProjectId)        
     }
 
     static var defaultPaginationCount: Int {

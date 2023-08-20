@@ -66,8 +66,11 @@
 		55B2273F2A922BF500F5ADE4 /* WalletConnectNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 55B2273E2A922BF500F5ADE4 /* WalletConnectNetworking */; };
 		55B227412A922BF500F5ADE4 /* WalletConnectPairing in Frameworks */ = {isa = PBXBuildFile; productRef = 55B227402A922BF500F5ADE4 /* WalletConnectPairing */; };
 		55B227432A922BF500F5ADE4 /* WalletConnectRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 55B227422A922BF500F5ADE4 /* WalletConnectRouter */; };
-		55B227452A922BF500F5ADE4 /* Web3Modal in Frameworks */ = {isa = PBXBuildFile; productRef = 55B227442A922BF500F5ADE4 /* Web3Modal */; };
 		55B227472A922C2C00F5ADE4 /* WalletConnectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B227462A922C2C00F5ADE4 /* WalletConnectManager.swift */; };
+		55B2274A2A92317800F5ADE4 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 55B227492A92317800F5ADE4 /* Starscream */; };
+		55B2274D2A9231E000F5ADE4 /* DefaultSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2274C2A9231E000F5ADE4 /* DefaultSocketFactory.swift */; };
+		55B2274F2A923EDF00F5ADE4 /* WC_ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2274E2A923EDF00F5ADE4 /* WC_ModalView.swift */; };
+		55B227532A924A8600F5ADE4 /* Web3Modal in Frameworks */ = {isa = PBXBuildFile; productRef = 55B227522A924A8600F5ADE4 /* Web3Modal */; };
 		55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4212A5AC28700A894AD /* NotificationsManager.swift */; };
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
@@ -218,6 +221,8 @@
 		559DA0C82A5EFE58001F975D /* ProposalsSearchResultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsDataSource.swift; sourceTree = "<group>"; };
 		55B227392A921FA300F5ADE4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		55B227462A922C2C00F5ADE4 /* WalletConnectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectManager.swift; sourceTree = "<group>"; };
+		55B2274C2A9231E000F5ADE4 /* DefaultSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSocketFactory.swift; sourceTree = "<group>"; };
+		55B2274E2A923EDF00F5ADE4 /* WC_ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_ModalView.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
@@ -301,10 +306,11 @@
 				55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */,
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				55B227452A922BF500F5ADE4 /* Web3Modal in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				55B2273F2A922BF500F5ADE4 /* WalletConnectNetworking in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
+				55B2274A2A92317800F5ADE4 /* Starscream in Frameworks */,
+				55B227532A924A8600F5ADE4 /* Web3Modal in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				55B227432A922BF500F5ADE4 /* WalletConnectRouter in Frameworks */,
 				55B227412A922BF500F5ADE4 /* WalletConnectPairing in Frameworks */,
@@ -469,8 +475,19 @@
 			isa = PBXGroup;
 			children = (
 				55B227392A921FA300F5ADE4 /* SignInView.swift */,
+				55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */ = {
+			isa = PBXGroup;
+			children = (
+				55B227462A922C2C00F5ADE4 /* WalletConnectManager.swift */,
+				55B2274C2A9231E000F5ADE4 /* DefaultSocketFactory.swift */,
+				55B2274E2A923EDF00F5ADE4 /* WC_ModalView.swift */,
+			);
+			path = WalletConnectV2;
 			sourceTree = "<group>";
 		};
 		55B7B42A2A5ACD6400A894AD /* Frameworks */ = {
@@ -546,7 +563,6 @@
 				5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */,
 				55B7B4212A5AC28700A894AD /* NotificationsManager.swift */,
 				553744D82A7577AF00D05D8A /* ConfigurationManager.swift */,
-				55B227462A922C2C00F5ADE4 /* WalletConnectManager.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				55C25E562A7563FD0087D56E /* Dev.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
@@ -752,7 +768,8 @@
 				55B2273E2A922BF500F5ADE4 /* WalletConnectNetworking */,
 				55B227402A922BF500F5ADE4 /* WalletConnectPairing */,
 				55B227422A922BF500F5ADE4 /* WalletConnectRouter */,
-				55B227442A922BF500F5ADE4 /* Web3Modal */,
+				55B227492A92317800F5ADE4 /* Starscream */,
+				55B227522A924A8600F5ADE4 /* Web3Modal */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -794,6 +811,7 @@
 				55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				55B2273B2A922BF400F5ADE4 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
+				55B227482A92317800F5ADE4 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -922,6 +940,7 @@
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
 				BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */,
+				55B2274D2A9231E000F5ADE4 /* DefaultSocketFactory.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
@@ -961,6 +980,7 @@
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
+				55B2274F2A923EDF00F5ADE4 /* WC_ModalView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
@@ -1406,7 +1426,15 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 6.6.6;
+			};
+		};
+		55B227482A92317800F5ADE4 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.2;
 			};
 		};
 		55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -1477,7 +1505,12 @@
 			package = 55B2273B2A922BF400F5ADE4 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectRouter;
 		};
-		55B227442A922BF500F5ADE4 /* Web3Modal */ = {
+		55B227492A92317800F5ADE4 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55B227482A92317800F5ADE4 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		55B227522A924A8600F5ADE4 /* Web3Modal */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55B2273B2A922BF400F5ADE4 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = Web3Modal;

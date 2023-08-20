@@ -7,13 +7,15 @@
 
 import SwiftUI
 
+
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @State private var presentModal = false
 
     var body: some View {
         VStack {
             PrimaryButton("Sign In with Wallet") {
-                print("Sign In")
+                presentModal = true
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -33,6 +35,9 @@ struct SignInView: View {
                         .foregroundColor(Color.textWhite)
                 }
             }
+        }
+        .sheet(isPresented: $presentModal) {
+            WC_ModalView()
         }
     }
 }
