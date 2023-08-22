@@ -6,17 +6,15 @@
 //
 
 import SwiftUI
-import WalletConnectModal
 
 
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = SignInViewModel()
 
     var body: some View {
         VStack {
             PrimaryButton("Sign In with Wallet") {
-                WalletConnectModal.present()
+                WC_Manager.showModal()
             }
         }
         .navigationBarTitleDisplayMode(.inline)

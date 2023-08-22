@@ -60,7 +60,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AuthManager.shared.updateToken()
         FirebaseConfig.setUp()
-        WC_Manager.configure()
+
+        // run initializer with proper setup
+        _ = WC_Manager.shared
+
         NotificationsManager.shared.setUpMessaging(delegate: self)
         return true
     }
