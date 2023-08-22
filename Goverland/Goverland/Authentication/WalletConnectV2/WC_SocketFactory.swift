@@ -1,5 +1,5 @@
 //
-//  DefaultSocketFactory.swift
+//  WC_SocketFactory.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 20.08.23.
@@ -11,8 +11,8 @@ import WalletConnectRelay
 
 extension WebSocket: WebSocketConnecting { }
 
-struct DefaultSocketFactory: WebSocketFactory {
-    static let shared = DefaultSocketFactory()
+struct WC_SocketFactory: WebSocketFactory {
+    static let shared = WC_SocketFactory()
 
     private init() {}
 

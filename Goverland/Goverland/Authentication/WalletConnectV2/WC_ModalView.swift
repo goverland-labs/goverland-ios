@@ -6,25 +6,16 @@
 //
 
 import SwiftUI
-import WalletConnectPairing
-import Web3Modal
-
+import WalletConnectModal
 
 struct WC_ModalView: View {
-    let metadata = AppMetadata(
-        name: "Goverland",
-        description: "Mobile App for all DAOs",
-        url: "https://goverland.xyz",
-        // TODO: provide proper url
-        icons: ["https://uploads-ssl.webflow.com/63f0e8f1e5b3e07d58817370/6480451361d81702d7d7ccae_goverland-logo-full.svg"]
-    )
-
     var body: some View {
-        ModalContainerView(
-            projectId: ConfigurationManager.wcProjectId,
-            metadata: metadata,
-            webSocketFactory: DefaultSocketFactory.shared
-        )
+        EmptyView()
+//        ModalContainerView(
+//            projectId: ConfigurationManager.wcProjectId,
+//            metadata: WC_Goverland.metadata,
+//            webSocketFactory: DefaultSocketFactory.shared
+//        )
     }
 }
 

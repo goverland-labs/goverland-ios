@@ -10,9 +10,13 @@ import SwiftUI
 
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @StateObject private var model = SignInViewModel()
     @State private var presentModal = false
 
     var body: some View {
+        if case .signed(_) = model.state {
+            Text("Signed")
+        }
         VStack {
             PrimaryButton("Sign In with Wallet") {
                 presentModal = true
