@@ -6,20 +6,17 @@
 //
 
 import SwiftUI
+import WalletConnectModal
 
 
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var model = SignInViewModel()
-    @State private var presentModal = false
 
     var body: some View {
-        if case .signed(_) = model.state {
-            Text("Signed")
-        }
         VStack {
             PrimaryButton("Sign In with Wallet") {
-                presentModal = true
+                WalletConnectModal.present()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -39,9 +36,6 @@ struct SignInView: View {
                         .foregroundColor(Color.textWhite)
                 }
             }
-        }
-        .sheet(isPresented: $presentModal) {
-            WC_ModalView()
         }
     }
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 import WalletConnectNetworking
-import WalletConnectPairing
-import Auth
+import WalletConnectModal
 
 class WC_Manager {
     static func configure() {
         Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
-        Pair.configure(metadata: WC_Goverland.metadata)
-        Auth.configure(crypto: WC_CryptoProvider())
+        WalletConnectModal.configure(projectId: ConfigurationManager.wcProjectId, metadata: WC_Goverland.metadata)
+
+//        Pair.configure(metadata: WC_Goverland.metadata)
     }
 }
