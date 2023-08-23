@@ -47,6 +47,11 @@ struct SnapshotProposalView: View {
 
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 35)
+                
+                if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
+                    SnapshotProposalDiscussionView(proposal: proposal)
+                        .padding(.bottom, 35)
+                }
 
                 // TODO: adjust once implemented properly on backend (timeline will be a part of the proposal object)
                 SnapshotProposalTimelineView(timeline: timeline)
@@ -137,6 +142,44 @@ fileprivate struct SnapshotProposalStatusBarView: View {
         .padding(10)
         .background(Color.containerBright)
         .cornerRadius(20)
+    }
+}
+
+fileprivate struct SnapshotProposalDiscussionView: View {
+    let proposal: Proposal
+    var body: some View {
+        VStack{
+            HStack {
+                Text("Discussion")
+                    .font(.headlineSemibold)
+                    .foregroundColor(.textWhite)
+                Spacer()
+            }
+
+            HStack(spacing: 15) {
+                RoundPictureView(image: proposal.dao.avatar, imageSize: 35)
+                
+                if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
+                    Link(destination: unwrappedURL) {
+                        Text(proposal.title)
+                            .foregroundColor(.textWhite)
+                        +
+                        Text(" ")
+                        +
+                        Text(Image(systemName: "arrow.up.right"))
+                            .foregroundColor(.textWhite40)
+                        
+                        Spacer()
+                    }
+                }
+            }
+            .padding(15)
+            .font(.footnoteRegular)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundColor(.container)
+            )
+        }
     }
 }
 
