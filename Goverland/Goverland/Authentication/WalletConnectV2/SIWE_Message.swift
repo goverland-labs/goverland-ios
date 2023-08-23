@@ -49,6 +49,57 @@ struct SIWE_Message {
 
     // OPTIONAL. A list of information or references to information the user wishes to have resolved as part of authentication by the relying party. Every resource MUST be a RFC 3986 URI separated by "\n- " where \n is the byte 0x0a.
     let resources: [String]?
+
+
+    // Form an EIP-4361 formated message for signature.
+    func message() -> String {
+        var message = ""
+
+        if let scheme = scheme {
+            message.append("\(scheme)://")
+        }
+
+        message.append("\(domain) wants you to sign in with your Ethereum account:")
+
+        message.append("\n\(address)")
+
+        if let statement = statement {
+            message.append("\n\n\(statement)")
+        }
+
+        message.append("\n\nURI: \(uri)")
+
+        message.append("\nVersion: \(version)")
+
+        message.append("\nChain ID: \(chainId)")
+
+        message.append("\nNonce: \(nonce)")
+
+        if let issuedAt = issuedAt {
+            message.append("\nIssued At: \(issuedAt)")
+        }
+
+        if let expirationTime = expirationTime {
+            message.append("\nExpiration Time: \(expirationTime)")
+        }
+
+        if let notBefore = notBefore {
+            message.append("\nNot Before: \(notBefore)")
+        }
+
+        if let requestId = requestId {
+            message.append("\nRequest ID: \(requestId)")
+        }
+
+        if let resources = resources, !resources.isEmpty {
+            message.append("\nResources:")
+            resources.forEach {
+                message.append("\n- \($0)")
+            }
+        }
+
+        return message
+    }
 }
 
 extension SIWE_Message {
