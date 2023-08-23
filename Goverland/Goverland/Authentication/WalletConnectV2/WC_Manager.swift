@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import WalletConnectNetworking
 import WalletConnectModal
+import UIKit
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -34,6 +35,7 @@ class WC_Manager {
 
     private func configure() {
         Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
+        // Pair.configure happens inside Modal
         WalletConnectModal.configure(projectId: ConfigurationManager.wcProjectId, metadata: metadata)
     }
 
@@ -41,22 +43,44 @@ class WC_Manager {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { session in
-                print("Sessions: \(session)")
+                logInfo("[WC] Sessions: \(session)")
             }
             .store(in: &cancelables)
 
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
-            .sink { session in
-                print("Session settle: \(session)")
+            .sink { [unowned self] session in
+                logInfo("[WC] session settle: \(session)")
+                self.authenticate(session: session)
             }
             .store(in: &cancelables)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { (str, reason) in
-                print("Session deleted: String: \(str); Reason: \(reason)")
+                logInfo("[WC] Session deleted: String: \(str); Reason: \(reason)")
             }
             .store(in: &cancelables)
+    }
+
+    private func authenticate(session: Session) {
+        guard let address = session.accounts.first?.address else { return }
+        let dataStr = Data(SIWE_Message.goverland(walletAddress: address).message().utf8).toHexString()
+        let params = AnyCodable([dataStr, address])
+
+        let request = Request(
+            topic: session.topic,
+            method: "personal_sign",
+            params: params,
+            chainId: Blockchain("eip155:1")!)
+
+        Task {
+            try? await Sign.instance.request(params: request)
+        }
+
+        if let walletUrl = URL(string: session.peer.url) {
+            logInfo("[WC] Wallet URL: \(walletUrl)")
+            UIApplication.shared.open(walletUrl)
+        }
     }
 }
