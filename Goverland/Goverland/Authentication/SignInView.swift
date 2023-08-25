@@ -10,19 +10,22 @@ import SwiftUI
 
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @State private var showTwoStepsModal = false
 
     var body: some View {
         VStack {
+            Spacer()
+            
             PrimaryButton("Sign In with Wallet") {
-                WC_Manager.showModal()
+                showTwoStepsModal = true
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
+                Button {
                     presentationMode.wrappedValue.dismiss()
-                }) {
+                } label: {
                     Image(systemName: "xmark")
                         .foregroundColor(.primary)
                 }
@@ -34,6 +37,10 @@ struct SignInView: View {
                         .foregroundColor(Color.textWhite)
                 }
             }
+        }
+        .sheet(isPresented: $showTwoStepsModal) {
+            WC_TwoStepsModalView()
+                .presentationDetents([.medium, .large])
         }
     }
 }

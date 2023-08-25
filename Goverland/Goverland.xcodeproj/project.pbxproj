@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550B1A692A98E8C300CB50D3 /* WC_TwoStepsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */; };
+		550B1A6B2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */; };
 		550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */; };
 		550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */; };
 		550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */; };
@@ -164,6 +166,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_TwoStepsModalView.swift; sourceTree = "<group>"; };
+		550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_TwoStepsViewModel.swift; sourceTree = "<group>"; };
 		550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
 		550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotRankedChoiceVotingView.swift; sourceTree = "<group>"; };
 		550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingView.swift; sourceTree = "<group>"; };
@@ -481,6 +485,8 @@
 		55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */ = {
 			isa = PBXGroup;
 			children = (
+				550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */,
+				550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */,
 				55B227462A922C2C00F5ADE4 /* WC_Manager.swift */,
 				55B2274C2A9231E000F5ADE4 /* WC_SocketFactory.swift */,
 				55B2275E2A961AB200F5ADE4 /* SIWE_Message.swift */,
@@ -921,6 +927,7 @@
 			files = (
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
+				550B1A692A98E8C300CB50D3 /* WC_TwoStepsModalView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
 				556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
@@ -947,6 +954,7 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
+				550B1A6B2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
