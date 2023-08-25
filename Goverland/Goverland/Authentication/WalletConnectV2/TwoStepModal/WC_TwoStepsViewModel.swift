@@ -10,7 +10,8 @@ import Combine
 import WalletConnectSign
 
 class WC_TwoStepsViewModel: ObservableObject {
-    @Published var walletConnected = WC_Manager.shared.session != nil    
+    @Published var wcSession = WC_Manager.shared.session
+    // TODO: Add Loading State for button
 
     private var cancelables = Set<AnyCancellable>()
 
@@ -20,7 +21,7 @@ class WC_TwoStepsViewModel: ObservableObject {
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
-        walletConnected = WC_Manager.shared.session != nil
+        wcSession = WC_Manager.shared.session
     }
 
     private func listen_WC_Responses() {
@@ -30,6 +31,7 @@ class WC_TwoStepsViewModel: ObservableObject {
                 logInfo("[WC] Response: \(response)")
                 switch response.result {
                 case .error(let rpcError):
+                    logInfo("[WC] Error: \(rpcError)")
                     ErrorViewModel.shared.setErrorMessage(rpcError.localizedDescription)
                 case .response(let signature):
                     logInfo("[WC] Signature: \(signature)")

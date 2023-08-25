@@ -20,6 +20,7 @@ struct SignInView: View {
                 showTwoStepsModal = true
             }
         }
+        .padding(16)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

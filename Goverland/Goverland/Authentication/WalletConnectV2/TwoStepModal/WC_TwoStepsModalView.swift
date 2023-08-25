@@ -30,15 +30,30 @@ struct WC_TwoStepsModalView: View {
                 .fontWeight(.bold)
                 .font(.title3)
 
-            Text("Connect to any WalletConnect supported wallet.")
+            Text("You can use any WalletConnect supported wallet.")
 
-            HStack {
+            // TODO: add message to outreach support channel if smth doesn't work
+
+            HStack(alignment: .top) {
                 Text("1")
                 Text("Connect wallet")
                 Spacer()
-                if model.walletConnected {
-                    Image(systemName: "checkmark.circle.fill")
+                if let session = model.wcSession {
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            if let iconStr = session.peer.icons.first,
+                               let iconUrl = URL(string: iconStr) {
+                                RoundPictureView(image: iconUrl, imageSize: 24)
+                            }
+                            Image(systemName: "checkmark.circle.fill")
+                                .accentColor(.primary)
+                        }
+                        Button("Change Wallet") {
+                            WC_Manager.shared.session = nil
+                            WC_Manager.showModal()
+                        }
                         .accentColor(.primary)
+                    }
                 }
             }
 
@@ -50,10 +65,12 @@ struct WC_TwoStepsModalView: View {
 
             Spacer()
 
-            PrimaryButton("Continue") {
-                if !model.walletConnected {
+            if model.wcSession == nil {
+                PrimaryButton("Connect Wallet") {
                     WC_Manager.showModal()
-                } else {
+                }
+            } else {
+                PrimaryButton("Sign Message to Sign In") {
                     model.authenticate()
                 }
             }

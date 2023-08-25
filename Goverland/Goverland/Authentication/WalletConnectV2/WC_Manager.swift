@@ -26,6 +26,7 @@ class WC_Manager {
 
     var session: Session? {
         get {
+            // TODO: take into account expire date - kill it if expired or about to expire
             if let encodedSession = UserDefaults.standard.data(forKey: sessionKey),
                let session = try? JSONDecoder().decode(Session.self, from: encodedSession) {
                 return session
