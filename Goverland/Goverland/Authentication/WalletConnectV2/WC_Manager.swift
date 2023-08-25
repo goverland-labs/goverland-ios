@@ -22,6 +22,23 @@ class WC_Manager {
         icons: ["https://uploads-ssl.webflow.com/63f0e8f1e5b3e07d58817370/6480451361d81702d7d7ccae_goverland-logo-full.svg"]
     )
 
+    private let sessionKey = "xyz.goverland.wc_session"
+
+    var session: Session? {
+        get {
+            if let encodedSession = UserDefaults.standard.data(forKey: sessionKey),
+               let session = try? JSONDecoder().decode(Session.self, from: encodedSession) {
+                return session
+            }
+            return nil
+        }
+
+        set {
+            let encodedSession = try! JSONEncoder().encode(newValue)
+            UserDefaults.standard.set(encodedSession, forKey: sessionKey)
+        }
+    }
+
     static func showModal() {
         WalletConnectModal.present()
     }
@@ -50,8 +67,9 @@ class WC_Manager {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] session in
-                logInfo("[WC] session settle: \(session)")
-                self.authenticate(session: session)
+                logInfo("[WC] Session settle: \(session)")
+                self.session = session
+                NotificationCenter.default.post(name: .wcSessionUpdated, object: session)
             }
             .store(in: &cancelables)
 
@@ -59,28 +77,9 @@ class WC_Manager {
             .receive(on: DispatchQueue.main)
             .sink { (str, reason) in
                 logInfo("[WC] Session deleted: String: \(str); Reason: \(reason)")
+                self.session = nil
+                NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
             }
-            .store(in: &cancelables)
-    }
-
-    private func authenticate(session: Session) {
-        guard let address = session.accounts.first?.address else { return }
-        let dataStr = Data(SIWE_Message.goverland(walletAddress: address).message().utf8).toHexString()
-        let params = AnyCodable([dataStr, address])
-
-        let request = Request(
-            topic: session.topic,
-            method: "personal_sign",
-            params: params,
-            chainId: Blockchain("eip155:1")!)
-
-        Task {
-            try? await Sign.instance.request(params: request)
-        }
-
-        if let walletUrl = URL(string: session.peer.url) {
-            logInfo("[WC] Wallet URL: \(walletUrl)")
-            UIApplication.shared.open(walletUrl)
-        }
+            .store(in: &cancelables)        
     }
 }

@@ -341,6 +341,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		550B1A6C2A98FAEE00CB50D3 /* TwoStepModal */ = {
+			isa = PBXGroup;
+			children = (
+				550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */,
+				550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */,
+			);
+			path = TwoStepModal;
+			sourceTree = "<group>";
+		};
 		550E85532A5F4C3400B0CFDD /* Vote Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,8 +494,7 @@
 		55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */ = {
 			isa = PBXGroup;
 			children = (
-				550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */,
-				550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */,
+				550B1A6C2A98FAEE00CB50D3 /* TwoStepModal */,
 				55B227462A922C2C00F5ADE4 /* WC_Manager.swift */,
 				55B2274C2A9231E000F5ADE4 /* WC_SocketFactory.swift */,
 				55B2275E2A961AB200F5ADE4 /* SIWE_Message.swift */,

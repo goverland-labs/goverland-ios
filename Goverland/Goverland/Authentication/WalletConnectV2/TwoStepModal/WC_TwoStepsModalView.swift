@@ -36,8 +36,10 @@ struct WC_TwoStepsModalView: View {
                 Text("1")
                 Text("Connect wallet")
                 Spacer()
-                Image(systemName: "checkmark.circle.fill")
-                    .accentColor(.primary)
+                if model.walletConnected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .accentColor(.primary)
+                }
             }
 
             HStack {
@@ -49,7 +51,11 @@ struct WC_TwoStepsModalView: View {
             Spacer()
 
             PrimaryButton("Continue") {
-                WC_Manager.showModal()
+                if !model.walletConnected {
+                    WC_Manager.showModal()
+                } else {
+                    model.authenticate()
+                }
             }
         }
         .padding(16)
