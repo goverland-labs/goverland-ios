@@ -2,12 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
+	<key>DEFAULT_PAGINATION_COUNT</key>
+	<string>$(DEFAULT_PAGINATION_COUNT)</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED</key>
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>TIMEOUT</key>
+	<string>$(TIMEOUT)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Chillax-Regular.otf</string>
@@ -19,11 +25,5 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
-	<key>BASE_URL</key>
-	<string>$(BASE_URL)</string>
-	<key>DEFAULT_PAGINATION_COUNT</key>
-	<string>$(DEFAULT_PAGINATION_COUNT)</string>
-	<key>TIMEOUT</key>
-	<string>$(TIMEOUT)</string>
 </dict>
 </plist>

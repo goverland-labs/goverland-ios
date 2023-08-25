@@ -9,7 +9,7 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 APP_ICON_NAME = AppIcon-Staging
-PRODUCT_BUNDLE_IDENTIFIER = me.scherbovich.goverland.staging
+PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.staging
 
 // Firebase
 FIREBASE_CONFIG = GoogleService-Info.Staging
