@@ -25,7 +25,7 @@ struct ProposalsSearchResultsListView: View {
             } else if dataSource.searchResultProposals.isEmpty { // initial searching
                 ScrollView {
                     ForEach(0..<3) { _ in
-                        ShimmerProposalListItemView()
+                        ShimmerProposalListItemView(isCondensed: true)
                             .padding(.horizontal, 12)
                     }
                 }
@@ -37,6 +37,7 @@ struct ProposalsSearchResultsListView: View {
                                          isSelected: false,
                                          isRead: false,
                                          displayUnreadIndicator: false,
+                                         isCondensedDisplay: true,
                                          onDaoTap: {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.searchPrpOpenDaoFromSearch)

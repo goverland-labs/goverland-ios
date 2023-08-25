@@ -32,7 +32,7 @@ struct InboxView: View {
                             // loading in progress
                             ScrollView {
                                 ForEach(0..<5) { _ in
-                                    ShimmerProposalListItemView()
+                                    ShimmerProposalListItemView(isCondensed: false)
                                         .padding(.horizontal, 12)
                                 }
                             }
@@ -43,7 +43,7 @@ struct InboxView: View {
                                 if index == events.count - 1 && data.hasMore() {
                                     ZStack {
                                         if !data.failedToLoadMore {
-                                            ShimmerProposalListItemView()
+                                            ShimmerProposalListItemView(isCondensed: false)
                                                 .onAppear {
                                                     data.loadMore()
                                                 }
@@ -55,12 +55,13 @@ struct InboxView: View {
                                     .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
                                     .listRowBackground(Color.clear)
                                 } else {
-                                    // For now we recognise only proosals
+                                    // For now we recognise only proposals
                                     let proposal = event.eventData! as! Proposal
                                     ProposalListItemView(proposal: proposal,
                                                          isSelected: selectedEventIndex == index,
                                                          isRead: event.readAt != nil,
                                                          displayUnreadIndicator: event.readAt == nil,
+                                                         isCondensedDisplay: false,
                                                          onDaoTap: {
                                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                                         Tracker.track(.inboxEventOpenDao)

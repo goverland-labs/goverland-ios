@@ -32,7 +32,7 @@ struct DaoInfoEventsView: View {
                     // loading in progress
                     ScrollView {
                         ForEach(0..<5) { _ in
-                            ShimmerProposalListItemView()
+                            ShimmerProposalListItemView(isCondensed: false)
                                 .padding(.horizontal, 12)
                         }
                     }
@@ -43,7 +43,7 @@ struct DaoInfoEventsView: View {
                         if index == events.count - 1 && data.hasMore() {
                             ZStack {
                                 if !data.failedToLoadMore {
-                                    ShimmerProposalListItemView()
+                                    ShimmerProposalListItemView(isCondensed: false)
                                         .onAppear {
                                             data.loadMore()
                                         }
@@ -59,7 +59,8 @@ struct DaoInfoEventsView: View {
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
                                                  isRead: false,
-                                                 displayUnreadIndicator: false) {
+                                                 displayUnreadIndicator: false,
+                                                 isCondensedDisplay: false) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
                             .listRowSeparator(.hidden)

@@ -21,7 +21,6 @@ extension FilterOptions {
 
 struct FilterButtonsView<T: FilterOptions>: View {
     @Binding var filter: T
-    @Namespace var namespace
     
     var onSelect: (T) -> Void
     

@@ -35,6 +35,7 @@ struct ProposalListItemView<Content: View>: View {
     let isSelected: Bool
     let isRead: Bool
     let displayUnreadIndicator: Bool
+    let isCondensedDisplay: Bool
     let onDaoTap: (() -> Void)?
     let menuContent: Content
 
@@ -44,12 +45,14 @@ struct ProposalListItemView<Content: View>: View {
          isSelected: Bool,
          isRead: Bool,
          displayUnreadIndicator: Bool,
+         isCondensedDisplay: Bool,
          onDaoTap: (() -> Void)? = nil,
          @ViewBuilder menuContent: () -> Content) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
         self.displayUnreadIndicator = displayUnreadIndicator
+        self.isCondensedDisplay = isCondensedDisplay
         self.onDaoTap = onDaoTap
         self.menuContent = menuContent()
     }
@@ -77,9 +80,11 @@ struct ProposalListItemView<Content: View>: View {
 
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
-                ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
-                ProposalListItemFooterView(proposal: proposal) {
-                    menuContent
+                ProposalListItemBodyView(proposal: proposal, isDescription: !isCondensedDisplay, onDaoTap: onDaoTap)
+                if !isCondensedDisplay {
+                    ProposalListItemFooterView(proposal: proposal) {
+                        menuContent
+                    }
                 }
             }
             .padding(.horizontal, 12)
@@ -129,26 +134,29 @@ fileprivate struct ReadIndicatiorView: View {
 
 fileprivate struct ProposalListItemBodyView: View {
     let proposal: Proposal
+    let isDescription: Bool
     let onDaoTap: (() -> Void)?
 
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
                 Text(proposal.title)
                     .foregroundColor(.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
 
-                HStack(spacing: 0) {
-                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                        .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
-                        .font(.footnoteRegular)
-                        .lineLimit(1)
+                if isDescription {
+                    HStack(spacing: 0) {
+                        Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                            .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                            .font(.footnoteRegular)
+                            .lineLimit(1)
 
-                    DateView(date: proposal.votingEnd,
-                             style: .numeric,
-                             font: .footnoteRegular,
-                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                        DateView(date: proposal.votingEnd,
+                                 style: .numeric,
+                                 font: .footnoteRegular,
+                                 color: proposal.state == .active ? .primaryDim : .textWhite40)
+                    }
                 }
             }
 
@@ -225,6 +233,8 @@ fileprivate struct VoteFooterView: View {
 }
 
 struct ShimmerProposalListItemView: View {
+    let isCondensed: Bool
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
@@ -253,23 +263,29 @@ struct ShimmerProposalListItemView: View {
                 }
                 .frame(height: 50)
 
-                HStack {
-                    ShimmerView()
-                        .cornerRadius(20)
-                        .frame(width: 250)
-                    Spacer()
+                if !isCondensed {
+                    HStack {
+                        ShimmerView()
+                            .cornerRadius(20)
+                            .frame(width: 250)
+                        Spacer()
+                    }
+                    .frame(height: 20)
                 }
-                .frame(height: 20)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
         }
-        .frame(height: 160)
+        .frame(height: isCondensed ? 100 : 160)
     }
 }
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true) {}
+        ProposalListItemView(proposal: .aaveTest,
+                             isSelected: false,
+                             isRead: false,
+                             displayUnreadIndicator: true,
+                             isCondensedDisplay: false) {}
     }
 }
