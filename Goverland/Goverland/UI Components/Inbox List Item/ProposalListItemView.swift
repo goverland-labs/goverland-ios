@@ -276,7 +276,7 @@ struct ShimmerProposalListItemView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
         }
-        .frame(height: isCondensed ? 100 : 160)
+        .frame(height: isCondensed ? 110 : 160)
     }
 }
 
