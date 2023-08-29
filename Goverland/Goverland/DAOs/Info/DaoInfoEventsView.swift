@@ -80,8 +80,7 @@ struct DaoInfoEventsView: View {
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
                                      allowShowingDaoInfo: false,
-                                     navigationTitle: "",
-                                     timeline: []) // TODO: will be removed when backend moved timeline as a part of a proposal object
+                                     navigationTitle: "")
                     .onAppear {
                         Tracker.track(.daoEventOpen)
                     }

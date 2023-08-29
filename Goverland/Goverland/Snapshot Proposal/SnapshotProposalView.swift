@@ -13,7 +13,6 @@ struct SnapshotProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
     let navigationTitle: String
-    let timeline: [TimelineEvent]
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
@@ -53,8 +52,7 @@ struct SnapshotProposalView: View {
                         .padding(.bottom, 35)
                 }
 
-                // TODO: adjust once implemented properly on backend (timeline will be a part of the proposal object)
-                SnapshotProposalTimelineView(timeline: timeline)
+                SnapshotProposalTimelineView(timeline: proposal.timeline)
                     .padding(.bottom, 20)
             }
             .padding(.horizontal)
@@ -212,6 +210,6 @@ fileprivate struct SnapshotProposalTimelineView: View {
 
 struct SnapshotProposalView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "", timeline: [])
+        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
     }
 }
