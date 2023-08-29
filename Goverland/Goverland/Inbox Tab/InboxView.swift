@@ -32,7 +32,7 @@ struct InboxView: View {
                             // loading in progress
                             ScrollView {
                                 ForEach(0..<5) { _ in
-                                    ShimmerProposalListItemView(isCondensed: false)
+                                    ShimmerProposalListItemView()
                                         .padding(.horizontal, 12)
                                 }
                             }
@@ -43,7 +43,7 @@ struct InboxView: View {
                                 if index == events.count - 1 && data.hasMore() {
                                     ZStack {
                                         if !data.failedToLoadMore {
-                                            ShimmerProposalListItemView(isCondensed: false)
+                                            ShimmerProposalListItemView()
                                                 .onAppear {
                                                     data.loadMore()
                                                 }
@@ -61,7 +61,6 @@ struct InboxView: View {
                                                          isSelected: selectedEventIndex == index,
                                                          isRead: event.readAt != nil,
                                                          displayUnreadIndicator: event.readAt == nil,
-                                                         isCondensedDisplay: false,
                                                          onDaoTap: {
                                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                                         Tracker.track(.inboxEventOpenDao)
