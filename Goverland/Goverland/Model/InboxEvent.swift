@@ -51,12 +51,20 @@ enum Event: String, Decodable {
     }
 }
 
+enum EventType: String, Decodable {
+    case proposal
+    case unrecognized
+}
+
 struct InboxEvent: Identifiable, Decodable {
     let id: UUID
     let createdAt: Date
     let updatedAt: Date
+
     // we change it manually not to reload all data
     var readAt: Date?
+
+    let type: EventType
     let eventData: EventData?
     let timeline: [TimelineEvent]
     
@@ -64,12 +72,14 @@ struct InboxEvent: Identifiable, Decodable {
          createdAt: Date,
          updatedAt: Date,
          readAt: Date?,
+         type: EventType,
          eventData: EventData?,
          timeline: [TimelineEvent]) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.readAt = readAt
+        self.type = type
         self.eventData = eventData
         self.timeline = timeline
     }
@@ -79,11 +89,11 @@ struct InboxEvent: Identifiable, Decodable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case readAt = "read_at"
+        case type
         case proposal
         case timeline
     }
 
-    // TODO: finalize once API is ready
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
@@ -92,9 +102,21 @@ struct InboxEvent: Identifiable, Decodable {
         self.readAt = try container.decodeIfPresent(Date.self, forKey: .readAt)
 
         do {
-            self.eventData = try container.decodeIfPresent(Proposal.self, forKey: .proposal)
+            self.type = try container.decode(EventType.self, forKey: .type)
         } catch {
-            logError(error)            
+            logError(error)
+            self.type = .unrecognized
+        }
+
+        do {
+            switch type {
+            case .proposal:
+                self.eventData = try container.decode(Proposal.self, forKey: .proposal)
+            default:
+                self.eventData = nil
+            }
+        } catch {
+            logError(error)
             self.eventData = nil
         }
 
@@ -110,6 +132,7 @@ extension InboxEvent {
         createdAt: .now - 5.days,
         updatedAt: .now - 3.days,
         readAt: nil,
+        type: .proposal,
         eventData: Proposal.aaveTest,
         timeline: [])
 }

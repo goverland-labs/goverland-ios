@@ -25,16 +25,16 @@ struct Proposal: Decodable, Hashable {
     let quorum: Int
     let snapshot: String
     let state: State
-    let timeline: [TimelineEvent]
-    //let strategies: [String]
 
     // Swift can automatically decode urls with special characters.
     // One option is to decode manually using percent-encoding, but for now we will make it a string
     let link: String
+
     let scores: [Double]
     let scoresTotal: Double
     let votes: Int
     let dao: Dao
+    let timeline: [TimelineEvent]
 
     enum ProposalType: String, Decodable {
         case basic
@@ -95,13 +95,13 @@ struct Proposal: Decodable, Hashable {
         case quorum
         case snapshot
         case state
-        case timeline
        // case strategies
         case link
         case scores
         case scoresTotal = "scores_total"
         case votes
         case dao
+        case timeline
     }
 
     static func == (lhs: Proposal, rhs: Proposal) -> Bool {
@@ -135,11 +135,11 @@ extension Proposal {
         quorum: 0,
         snapshot: "43600919",
         state: .active,
-        timeline: [],
         //strategies: [],
         link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
         votes: 731,
-        dao: .aave)
+        dao: .aave,
+        timeline: [])
 }
