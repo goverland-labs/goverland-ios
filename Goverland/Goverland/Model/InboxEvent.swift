@@ -66,22 +66,19 @@ struct InboxEvent: Identifiable, Decodable {
 
     let type: EventType
     let eventData: EventData?
-    let timeline: [TimelineEvent]
     
     init(id: UUID,
          createdAt: Date,
          updatedAt: Date,
          readAt: Date?,
          type: EventType,
-         eventData: EventData?,
-         timeline: [TimelineEvent]) {
+         eventData: EventData?) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.readAt = readAt
         self.type = type
         self.eventData = eventData
-        self.timeline = timeline
     }
     
     enum CodingKeys: String, CodingKey {
@@ -91,7 +88,6 @@ struct InboxEvent: Identifiable, Decodable {
         case readAt = "read_at"
         case type
         case proposal
-        case timeline
     }
 
     init(from decoder: Decoder) throws {
@@ -119,8 +115,6 @@ struct InboxEvent: Identifiable, Decodable {
             logError(error)
             self.eventData = nil
         }
-
-        self.timeline = try container.decode([TimelineEvent].self, forKey: .timeline)
     }
 }
 
@@ -133,6 +127,6 @@ extension InboxEvent {
         updatedAt: .now - 3.days,
         readAt: nil,
         type: .proposal,
-        eventData: Proposal.aaveTest,
-        timeline: [])
+        eventData: Proposal.aaveTest
+    )
 }
