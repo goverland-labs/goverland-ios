@@ -7,29 +7,6 @@
 
 import SwiftUI
 
-struct ProposalSharingMenu: View {
-    let link: String
-
-    var body: some View {
-        if let url = Utils.urlFromString(link) {
-            ShareLink(item: url) {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-
-            Button {
-                UIApplication.shared.open(url)
-            } label: {
-                // for now we handle only Snapshot proposals
-                Label("Open on Snapshot", systemImage: "arrow.up.right")
-            }
-        } else {
-            ShareLink(item: link) {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-        }
-    }
-}
-
 struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
@@ -108,7 +85,6 @@ fileprivate struct ProposalListItemHeaderView: View {
             }
 
             Spacer()
-
             HStack(spacing: 6) {
                 if displayReadIndicator {
                     ReadIndicatiorView()
@@ -130,30 +106,29 @@ fileprivate struct ReadIndicatiorView: View {
 fileprivate struct ProposalListItemBodyView: View {
     let proposal: Proposal
     let onDaoTap: (() -> Void)?
-
+    
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
                 Text(proposal.title)
                     .foregroundColor(.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-
+                
                 HStack(spacing: 0) {
                     Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                         .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
                         .font(.footnoteRegular)
                         .lineLimit(1)
-
+                    
                     DateView(date: proposal.votingEnd,
                              style: .numeric,
                              font: .footnoteRegular,
                              color: proposal.state == .active ? .primaryDim : .textWhite40)
                 }
             }
-
+            
             Spacer()
-
             RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
                 .onTapGesture {
                     onDaoTap?()
@@ -178,7 +153,6 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
                            quorum: proposal.quorum,
                            quorumHighlighted: proposal.quorum >= 100)
             Spacer()
-
             HStack(spacing: 15) {
                 Menu {
                     menuContent
@@ -252,7 +226,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 50, height: 50)
                 }
                 .frame(height: 50)
-
+                
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
@@ -270,6 +244,9 @@ struct ShimmerProposalListItemView: View {
 
 struct InboxListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest, isSelected: false, isRead: false, displayUnreadIndicator: true) {}
+        ProposalListItemView(proposal: .aaveTest,
+                             isSelected: false,
+                             isRead: false,
+                             displayUnreadIndicator: true) {}
     }
 }

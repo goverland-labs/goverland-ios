@@ -8,13 +8,13 @@
 import SwiftUI
 
 enum SearchFilter: Int, FilterOptions {
-    case daos = 0
-    case proposals
+    case proposals = 0
+    case daos
 
     var localizedName: String {
         switch self {
         case .daos:
-            return "Daos"
+            return "DAOs"
         case .proposals:
             return "Proposals"
         }
@@ -22,7 +22,7 @@ enum SearchFilter: Int, FilterOptions {
 }
 
 struct SearchView: View {
-    @State private var filter: SearchFilter = .daos
+    @State private var filter: SearchFilter = .proposals
     @State private var path = NavigationPath()
 
     @StateObject private var daoDataSource = GroupedDaosDataSource()
@@ -63,7 +63,6 @@ struct SearchView: View {
                     case .proposals: break
                     }
                 }
-                .padding(.bottom, 4)
                 
                 if searchText.wrappedValue == "" {
                     switch filter {
