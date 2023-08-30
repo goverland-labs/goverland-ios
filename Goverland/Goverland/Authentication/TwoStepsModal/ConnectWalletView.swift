@@ -11,6 +11,7 @@ import WalletConnectModal
 
 struct ConnectWalletView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @StateObject private var model = ConnectWalletModel()
 
     var body: some View {
         VStack {
@@ -20,10 +21,10 @@ struct ConnectWalletView: View {
                 }
 
                 Section {
-                    WalletRowView(wallet: .rainbow)
-                    WalletRowView(wallet: .oneInch)
-                    WalletRowView(wallet: .uniswap)
-                    WalletRowView(wallet: .zerion)
+                    WalletRowView(wallet: .rainbow, model: model)
+                    WalletRowView(wallet: .oneInch, model: model)
+                    WalletRowView(wallet: .uniswap, model: model)
+                    WalletRowView(wallet: .zerion, model: model)
                 }
 
                 Section {
@@ -50,6 +51,11 @@ struct ConnectWalletView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
+            guard notification.object != nil else { return }
+            // session settled
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
@@ -60,7 +66,7 @@ struct Wallet {
 
     static let zerion = Wallet(image: "zerion", name: "Zerion", link: URL(string: "https://wallet.zerion.io")!)
     static let rainbow = Wallet(image: "rainbow", name: "Rainbow", link: URL(string: "https://rnbwapp.com")!)
-    static let oneInch = Wallet(image: "oneInch", name: "1Inch", link: URL(string: "https://wallet.1inch.io/")!)
+    static let oneInch = Wallet(image: "oneInch", name: "1Inch", link: URL(string: "https://wallet.1inch.io")!)
     static let uniswap = Wallet(image: "uniswap", name: "Uniswap", link: URL(string: "https://uniswap.org/app")!)
 }
 
@@ -86,28 +92,9 @@ fileprivate struct OtherWalletView: View {
 
 fileprivate struct WalletRowView: View {
     let wallet: Wallet
-    @StateObject private var model = WalletRowModel()
+    let model: ConnectWalletModel
 
     var body: some View {
-//        Button(action: {
-//            guard !model.connecting else { return }
-//            model.connect(wallet: wallet)
-//        }) {
-//            HStack {
-//                Image(wallet.image)
-//                    .frame(width: 32, height: 32)
-//                    .scaledToFit()
-//                    .cornerRadius(6)
-//                Text(wallet.name)
-//                Spacer()
-//                if model.connecting {
-//                    ProgressView()
-//                        .progressViewStyle(.circular)
-//                        .tint(.textWhite60)
-//                }
-//            }
-//            .frame(height: 48)
-//        }
         HStack {
             Image(wallet.image)
                 .frame(width: 32, height: 32)
@@ -126,27 +113,6 @@ fileprivate struct WalletRowView: View {
         .onTapGesture {
             guard !model.connecting else { return }
             model.connect(wallet: wallet)
-        }
-    }
-}
-
-fileprivate class WalletRowModel: ObservableObject {
-    @Published private(set) var connecting = false
-
-    func connect(wallet: Wallet) {
-        connecting = true
-        Task {
-            do {
-                let wcUri = try await WalletConnectModal.instance.connect(topic: nil)
-                logInfo("[WC] URI: \(String(describing: wcUri))")                
-            } catch {
-                DispatchQueue.main.async {
-                    ErrorViewModel.shared.setErrorMessage("Failed to connect. Please try again later.")
-                }
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)) {
-            self.connecting = false
         }
     }
 }

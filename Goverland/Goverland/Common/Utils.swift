@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import OSLog
 
 fileprivate let logger = Logger()
@@ -19,6 +20,18 @@ func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, fu
     let filePath = "\(file)"
     let fileName = (filePath as NSString).lastPathComponent
     logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
+}
+
+func showError(_ message: String) {
+    DispatchQueue.main.async {
+        ErrorViewModel.shared.setErrorMessage(message)
+    }
+}
+
+func openUrl(_ url: URL) {
+    DispatchQueue.main.async {
+        UIApplication.shared.open(url)
+    }
 }
 
 enum Utils {

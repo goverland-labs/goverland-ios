@@ -17,7 +17,7 @@ struct ProposalSharingMenu: View {
             }
 
             Button {
-                UIApplication.shared.open(url)
+                openUrl(url)                
             } label: {
                 // for now we handle only Snapshot proposals
                 Label("Open on Snapshot", systemImage: "arrow.up.right")

@@ -32,7 +32,7 @@ class TwoStepsViewModel: ObservableObject {
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
-                    ErrorViewModel.shared.setErrorMessage(rpcError.localizedDescription)
+                    showError(rpcError.localizedDescription)                    
                 case .response(let signature):
                     logInfo("[WC] Signature: \(signature)")
                 }

@@ -19,8 +19,8 @@ struct DaoSharingMenu: View {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
 
-            Button {
-                UIApplication.shared.open(url)
+            Button {                
+                openUrl(url)
             } label: {
                 // for now we handle only Snapshot proposals
                 Label("Open on Snapshot", systemImage: "arrow.up.right")
