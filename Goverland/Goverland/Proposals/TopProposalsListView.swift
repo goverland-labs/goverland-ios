@@ -42,12 +42,9 @@ struct TopProposalsListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
-                        ProposalListItemCondensedView(proposal: proposal,
-                                                      onDaoTap: {
+                        ProposalListItemCondensedView(proposal: proposal) {
                             activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.searchPrpOpenDaoFromCard)
-                        }) {
-                            ProposalSharingMenu(link: proposal.link)
                         }
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
