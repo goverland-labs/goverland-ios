@@ -12,7 +12,7 @@ class ErrorViewModel: ObservableObject {
     static let shared = ErrorViewModel()
     private var timer: Timer?
 
-    @Published var errorMessage: String?
+    @Published private(set) var errorMessage: String?
 
     private init() {}
 

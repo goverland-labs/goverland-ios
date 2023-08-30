@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import WalletConnectModal
 
 
 struct ConnectWalletView: View {
@@ -64,16 +64,12 @@ struct Wallet {
     static let uniswap = Wallet(image: "uniswap", name: "Uniswap", link: URL(string: "https://uniswap.org/app")!)
 }
 
-fileprivate struct WalletRowView: View {
-    let wallet: Wallet
-
+fileprivate struct QRRowView: View {
     var body: some View {
         HStack {
-            Image(wallet.image)
-                .frame(width: 32, height: 32)
-                .scaledToFit()
-                .cornerRadius(6)
-            Text(wallet.name)
+            Image(systemName: "qrcode")
+                .font(.system(size: 32))
+            Text("Show QR code")
         }
         .frame(height: 48)
     }
@@ -88,14 +84,70 @@ fileprivate struct OtherWalletView: View {
     }
 }
 
-fileprivate struct QRRowView: View {
+fileprivate struct WalletRowView: View {
+    let wallet: Wallet
+    @StateObject private var model = WalletRowModel()
+
     var body: some View {
+//        Button(action: {
+//            guard !model.connecting else { return }
+//            model.connect(wallet: wallet)
+//        }) {
+//            HStack {
+//                Image(wallet.image)
+//                    .frame(width: 32, height: 32)
+//                    .scaledToFit()
+//                    .cornerRadius(6)
+//                Text(wallet.name)
+//                Spacer()
+//                if model.connecting {
+//                    ProgressView()
+//                        .progressViewStyle(.circular)
+//                        .tint(.textWhite60)
+//                }
+//            }
+//            .frame(height: 48)
+//        }
         HStack {
-            Image(systemName: "qrcode")
-                .font(.system(size: 32))
-            Text("Show QR code")
+            Image(wallet.image)
+                .frame(width: 32, height: 32)
+                .scaledToFit()
+                .cornerRadius(6)
+            Text(wallet.name)
+            Spacer()
+            if model.connecting {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .tint(.textWhite60)
+            }
         }
         .frame(height: 48)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard !model.connecting else { return }
+            model.connect(wallet: wallet)
+        }
+    }
+}
+
+fileprivate class WalletRowModel: ObservableObject {
+    @Published private(set) var connecting = false
+
+    func connect(wallet: Wallet) {
+        connecting = true
+        Task {
+            do {
+                let wcUri = try await WalletConnectModal.instance.connect(topic: nil)
+                logInfo("[WC] URI: \(String(describing: wcUri))")                
+            } catch {
+                DispatchQueue.main.async {
+                    ErrorViewModel.shared.setErrorMessage("Failed to connect. Please try again later.")
+                }
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)) {
+            self.connecting = false
+        }
     }
 }
 

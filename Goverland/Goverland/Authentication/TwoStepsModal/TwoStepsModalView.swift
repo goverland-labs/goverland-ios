@@ -78,7 +78,6 @@ struct TwoStepsModalView: View {
         .sheet(isPresented: $showSelectWallet) {
             NavigationStack {
                 ConnectWalletView()
-                    .presentationDetents([.medium, .large])
             }
             .accentColor(.primary)
             .overlay {
