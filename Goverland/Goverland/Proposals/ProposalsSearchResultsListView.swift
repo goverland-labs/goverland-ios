@@ -33,12 +33,9 @@ struct ProposalsSearchResultsListView: View {
             } else {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
-                    ProposalListItemCondensedView(proposal: proposal,
-                                                  onDaoTap: {
+                    ProposalListItemCondensedView(proposal: proposal) {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.searchPrpOpenDaoFromSearch)
-                    }) {
-                        ProposalSharingMenu(link: proposal.link)
                     }
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
