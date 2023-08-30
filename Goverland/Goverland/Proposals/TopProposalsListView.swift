@@ -43,10 +43,7 @@ struct TopProposalsListView: View {
                     } else {
                         let proposal = dataSource.proposals[index]
                         ProposalListItemCondensedView(proposal: proposal,
-                                             isSelected: false,
-                                             isRead: false,
-                                             displayUnreadIndicator: false,
-                                             onDaoTap: {
+                                                      onDaoTap: {
                             activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.searchPrpOpenDaoFromCard)
                         }) {

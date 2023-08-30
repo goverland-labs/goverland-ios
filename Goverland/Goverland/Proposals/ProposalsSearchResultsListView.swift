@@ -34,10 +34,7 @@ struct ProposalsSearchResultsListView: View {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
                     ProposalListItemCondensedView(proposal: proposal,
-                                         isSelected: false,
-                                         isRead: false,
-                                         displayUnreadIndicator: false,
-                                         onDaoTap: {
+                                                  onDaoTap: {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.searchPrpOpenDaoFromSearch)
                     }) {

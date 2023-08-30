@@ -7,89 +7,6 @@
 
 import SwiftUI
 
-struct ProposalSharingMenu: View {
-    let link: String
-
-    var body: some View {
-        if let url = Utils.urlFromString(link) {
-            ShareLink(item: url) {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-
-            Button {
-                UIApplication.shared.open(url)
-            } label: {
-                // for now we handle only Snapshot proposals
-                Label("Open on Snapshot", systemImage: "arrow.up.right")
-            }
-        } else {
-            ShareLink(item: link) {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-        }
-    }
-}
-struct ProposalListItemCondensedView<Content: View>: View {
-    let proposal: Proposal
-    let isSelected: Bool
-    let isRead: Bool
-    let displayUnreadIndicator: Bool
-    let onDaoTap: (() -> Void)?
-    let menuContent: Content
-
-    @Environment(\.presentationMode) private var presentationMode
-
-    init(proposal: Proposal,
-         isSelected: Bool,
-         isRead: Bool,
-         displayUnreadIndicator: Bool,
-         onDaoTap: (() -> Void)? = nil,
-         @ViewBuilder menuContent: () -> Content) {
-        self.proposal = proposal
-        self.isSelected = isSelected
-        self.isRead = isRead
-        self.displayUnreadIndicator = displayUnreadIndicator
-        self.onDaoTap = onDaoTap
-        self.menuContent = menuContent()
-    }
-
-    private var backgroundColor: Color {
-        if isSelected {
-            return .secondaryContainer
-        }
-
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return .containerBright
-        }
-
-        if presentationMode.wrappedValue.isPresented {
-            return .containerBright
-        }
-
-        return .container
-    }
-
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(backgroundColor)
-
-            VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
-                ProposalListItemCondensedBodyView(proposal: proposal, onDaoTap: onDaoTap)
-                
-            }
-            .padding(.horizontal, 12)
-
-            if isRead && !isSelected {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.containerDim.opacity(0.6))
-                    .allowsHitTesting(false)
-            }
-        }
-    }
-}
-
 struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
@@ -168,7 +85,6 @@ fileprivate struct ProposalListItemHeaderView: View {
             }
 
             Spacer()
-
             HStack(spacing: 6) {
                 if displayReadIndicator {
                     ReadIndicatiorView()
@@ -184,29 +100,6 @@ fileprivate struct ReadIndicatiorView: View {
         Circle()
             .fill(Color.primary)
             .frame(width: 5, height: 5)
-    }
-}
-
-fileprivate struct ProposalListItemCondensedBodyView: View {
-    let proposal: Proposal
-    let onDaoTap: (() -> Void)?
-
-    var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 5) {
-                Text(proposal.title)
-                    .foregroundColor(.textWhite)
-                    .font(.headlineSemibold)
-                    .lineLimit(2)
-            }
-
-            Spacer()
-
-            RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
-                .onTapGesture {
-                    onDaoTap?()
-                }
-        }
     }
 }
 
@@ -236,7 +129,6 @@ fileprivate struct ProposalListItemBodyView: View {
             }
             
             Spacer()
-
             RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
                 .onTapGesture {
                     onDaoTap?()
@@ -261,7 +153,6 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
                            quorum: proposal.quorum,
                            quorumHighlighted: proposal.quorum >= 100)
             Spacer()
-
             HStack(spacing: 15) {
                 Menu {
                     menuContent
@@ -348,42 +239,6 @@ struct ShimmerProposalListItemView: View {
             .padding(.vertical, 12)
         }
         .frame(height: 160)
-    }
-}
-
-struct ShimmerProposalListItemCondensedView: View {
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.container)
-
-            VStack(spacing: 15) {
-                HStack {
-                    ShimmerView()
-                        .cornerRadius(20)
-                        .frame(width: 100)
-                    Spacer()
-                    ShimmerView()
-                        .cornerRadius(20)
-                        .frame(width: 80)
-                }
-                .frame(height: 20)
-
-                HStack {
-                    ShimmerView()
-                        .cornerRadius(20)
-                        .frame(width: 250)
-                    Spacer()
-                    ShimmerView()
-                        .cornerRadius(25)
-                        .frame(width: 50, height: 50)
-                }
-                .frame(height: 50)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 12)
-        }
-        .frame(height: 110)
     }
 }
 
