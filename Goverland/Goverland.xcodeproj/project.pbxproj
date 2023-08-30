@@ -96,6 +96,7 @@
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
 		55FF21022A9F940B00C292E9 /* ConnectWalletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */; };
+		55FF21052A9F9B5900C292E9 /* WC_QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF21042A9F9B5900C292E9 /* WC_QRView.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
@@ -252,6 +253,7 @@
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletModel.swift; sourceTree = "<group>"; };
+		55FF21042A9F9B5900C292E9 /* WC_QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_QRView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
@@ -351,8 +353,7 @@
 			children = (
 				550B1A682A98E8C300CB50D3 /* TwoStepsModalView.swift */,
 				550B1A6A2A98EB6D00CB50D3 /* TwoStepsViewModel.swift */,
-				556EF7832A9F2C370031CDBC /* ConnectWalletView.swift */,
-				55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */,
+				55FF21032A9F9B1700C292E9 /* Connect Wallet */,
 			);
 			path = TwoStepsModal;
 			sourceTree = "<group>";
@@ -631,6 +632,16 @@
 				BADB99CE2A3DFA470098C0D3 /* Subscriptions */,
 			);
 			path = DAOs;
+			sourceTree = "<group>";
+		};
+		55FF21032A9F9B1700C292E9 /* Connect Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				556EF7832A9F2C370031CDBC /* ConnectWalletView.swift */,
+				55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */,
+				55FF21042A9F9B5900C292E9 /* WC_QRView.swift */,
+			);
+			path = "Connect Wallet";
 			sourceTree = "<group>";
 		};
 		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
@@ -969,6 +980,7 @@
 				55B2275F2A961AB200F5ADE4 /* SIWE_Message.swift in Sources */,
 				BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */,
 				55B2274D2A9231E000F5ADE4 /* WC_SocketFactory.swift in Sources */,
+				55FF21052A9F9B5900C292E9 /* WC_QRView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ErrorView.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,

@@ -85,6 +85,6 @@ class WC_Manager {
                 self.session = nil
                 NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
             }
-            .store(in: &cancelables)        
+            .store(in: &cancelables)
     }
 }

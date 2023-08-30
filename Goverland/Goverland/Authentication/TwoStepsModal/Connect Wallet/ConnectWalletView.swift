@@ -17,7 +17,12 @@ struct ConnectWalletView: View {
         VStack {
             List {
                 Section(header: Text("If connecting from other device")) {
-                    QRRowView()
+                    ZStack(alignment: .leading) {
+                        QRRowView()
+                        NavigationLink(destination: WC_QRView()) {
+                            EmptyView()
+                        }.opacity(0)
+                    }
                 }
 
                 Section {
