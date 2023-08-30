@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-
+// TODO: Will be used once we have Sign in with Apple
 struct SignInView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var showTwoStepsModal = false

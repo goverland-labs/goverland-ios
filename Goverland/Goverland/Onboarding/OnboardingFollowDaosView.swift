@@ -11,6 +11,7 @@ struct OnboardingFollowDaosView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
     @State private var path = NavigationPath()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @State private var showSignIn = false
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -83,12 +84,16 @@ struct OnboardingFollowDaosView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Sign In") {
-                        activeSheetManger.activeSheet = .signIn
+                        showSignIn = true
                     }
                 }
             }
             .refreshable {
                 dataSource.refresh()
+            }
+            .sheet(isPresented: $showSignIn) {
+                TwoStepsModalView()
+                    .presentationDetents([.medium, .large])
             }
             .onAppear() {
                 dataSource.refresh()

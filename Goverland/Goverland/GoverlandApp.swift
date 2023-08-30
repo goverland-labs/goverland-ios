@@ -29,8 +29,6 @@ struct GoverlandApp: App {
                             DaoInfoView(dao: dao)
                         case .followDaos:
                             AddSubscriptionView()
-                        case .signIn:
-                            SignInView()
                         }
                     }
                     .accentColor(.primary)
