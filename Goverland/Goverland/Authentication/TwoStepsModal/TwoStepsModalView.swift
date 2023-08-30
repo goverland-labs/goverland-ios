@@ -1,5 +1,5 @@
 //
-//  WC_TwoStepsModalView.swift
+//  TwoStepsModalView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct WC_TwoStepsModalView: View {
+struct TwoStepsModalView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = WC_TwoStepsViewModel()
+    @StateObject private var model = TwoStepsViewModel()
+    @State private var showSelectWallet = false
     
     var body: some View {
         VStack(spacing: 24) {
@@ -30,9 +31,7 @@ struct WC_TwoStepsModalView: View {
                 .fontWeight(.bold)
                 .font(.title3)
 
-            Text("You can use any WalletConnect supported wallet.")
-
-            // TODO: add message to outreach support channel if smth doesn't work
+            Text("Connect your wallet and sign a message to sign in.")            
 
             HStack(alignment: .top) {
                 Text("1")
@@ -50,7 +49,7 @@ struct WC_TwoStepsModalView: View {
                         }
                         Button("Change Wallet") {
                             WC_Manager.shared.session = nil
-                            WC_Manager.showModal()
+                            showSelectWallet = true
                         }
                         .accentColor(.primary)
                     }
@@ -67,7 +66,7 @@ struct WC_TwoStepsModalView: View {
 
             if model.wcSession == nil {
                 PrimaryButton("Connect Wallet") {
-                    WC_Manager.showModal()
+                    showSelectWallet = true
                 }
             } else {
                 PrimaryButton("Sign Message to Sign In") {
@@ -76,11 +75,21 @@ struct WC_TwoStepsModalView: View {
             }
         }
         .padding(16)
+        .sheet(isPresented: $showSelectWallet) {
+            NavigationStack {
+                ConnectWalletView()
+                    .presentationDetents([.medium, .large])
+            }
+            .accentColor(.primary)
+            .overlay {
+                ErrorView()
+            }
+        }
     }
 }
 
 struct WC_TwoStepsView_Previews: PreviewProvider {
     static var previews: some View {
-        WC_TwoStepsModalView()
+        TwoStepsModalView()
     }
 }

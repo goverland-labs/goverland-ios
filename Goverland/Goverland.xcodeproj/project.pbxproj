@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550B1A692A98E8C300CB50D3 /* WC_TwoStepsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */; };
-		550B1A6B2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */; };
+		550B1A692A98E8C300CB50D3 /* TwoStepsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A682A98E8C300CB50D3 /* TwoStepsModalView.swift */; };
+		550B1A6B2A98EB6D00CB50D3 /* TwoStepsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B1A6A2A98EB6D00CB50D3 /* TwoStepsViewModel.swift */; };
 		550B1A712A9E7A4600CB50D3 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 550B1A702A9E7A4600CB50D3 /* WalletConnectModal */; };
 		550B1A732A9E7A4600CB50D3 /* WalletConnectNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 550B1A722A9E7A4600CB50D3 /* WalletConnectNetworking */; };
 		550B1A752A9E7A4600CB50D3 /* WalletConnectPairing in Frameworks */ = {isa = PBXBuildFile; productRef = 550B1A742A9E7A4600CB50D3 /* WalletConnectPairing */; };
@@ -47,6 +47,7 @@
 		554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */; };
+		556EF7842A9F2C370031CDBC /* ConnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EF7832A9F2C370031CDBC /* ConnectWalletView.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
@@ -166,8 +167,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_TwoStepsModalView.swift; sourceTree = "<group>"; };
-		550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_TwoStepsViewModel.swift; sourceTree = "<group>"; };
+		550B1A682A98E8C300CB50D3 /* TwoStepsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoStepsModalView.swift; sourceTree = "<group>"; };
+		550B1A6A2A98EB6D00CB50D3 /* TwoStepsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoStepsViewModel.swift; sourceTree = "<group>"; };
 		550B1A6E2A9E79AA00CB50D3 /* WalletConnectSwiftV2 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WalletConnectSwiftV2; path = ../../WalletConnectSwiftV2; sourceTree = "<group>"; };
 		550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
 		550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotRankedChoiceVotingView.swift; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 		554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishOnboardingWarningView.swift; sourceTree = "<group>"; };
+		556EF7832A9F2C370031CDBC /* ConnectWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletView.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,13 +344,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		550B1A6C2A98FAEE00CB50D3 /* TwoStepModal */ = {
+		550B1A6C2A98FAEE00CB50D3 /* TwoStepsModal */ = {
 			isa = PBXGroup;
 			children = (
-				550B1A682A98E8C300CB50D3 /* WC_TwoStepsModalView.swift */,
-				550B1A6A2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift */,
+				550B1A682A98E8C300CB50D3 /* TwoStepsModalView.swift */,
+				550B1A6A2A98EB6D00CB50D3 /* TwoStepsViewModel.swift */,
+				556EF7832A9F2C370031CDBC /* ConnectWalletView.swift */,
 			);
-			path = TwoStepModal;
+			path = TwoStepsModal;
 			sourceTree = "<group>";
 		};
 		550B1A6D2A9E79AA00CB50D3 /* Packages */ = {
@@ -495,6 +498,8 @@
 			isa = PBXGroup;
 			children = (
 				55B227392A921FA300F5ADE4 /* SignInView.swift */,
+				55B2275E2A961AB200F5ADE4 /* SIWE_Message.swift */,
+				550B1A6C2A98FAEE00CB50D3 /* TwoStepsModal */,
 				55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */,
 			);
 			path = Authentication;
@@ -503,10 +508,8 @@
 		55B2274B2A9231CE00F5ADE4 /* WalletConnectV2 */ = {
 			isa = PBXGroup;
 			children = (
-				550B1A6C2A98FAEE00CB50D3 /* TwoStepModal */,
 				55B227462A922C2C00F5ADE4 /* WC_Manager.swift */,
 				55B2274C2A9231E000F5ADE4 /* WC_SocketFactory.swift */,
-				55B2275E2A961AB200F5ADE4 /* SIWE_Message.swift */,
 			);
 			path = WalletConnectV2;
 			sourceTree = "<group>";
@@ -944,7 +947,7 @@
 			files = (
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
-				550B1A692A98E8C300CB50D3 /* WC_TwoStepsModalView.swift in Sources */,
+				550B1A692A98E8C300CB50D3 /* TwoStepsModalView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ErrorViewModel.swift in Sources */,
 				556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
@@ -971,7 +974,7 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
-				550B1A6B2A98EB6D00CB50D3 /* WC_TwoStepsViewModel.swift in Sources */,
+				550B1A6B2A98EB6D00CB50D3 /* TwoStepsViewModel.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
@@ -994,6 +997,7 @@
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
+				556EF7842A9F2C370031CDBC /* ConnectWalletView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,

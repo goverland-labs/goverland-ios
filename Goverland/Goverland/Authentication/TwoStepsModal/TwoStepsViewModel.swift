@@ -1,5 +1,5 @@
 //
-//  WC_TwoStepsViewModel.swift
+//  TwoStepsViewModel.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import WalletConnectSign
 
-class WC_TwoStepsViewModel: ObservableObject {
+class TwoStepsViewModel: ObservableObject {
     @Published var wcSession = WC_Manager.shared.session
     // TODO: Add Loading State for button
 
