@@ -19,7 +19,6 @@ struct SnapshotProposalDescriptionView: View {
     }
 
     @State private var isExpanded = false
-    @State private var isAlertPresented = false
 
     var heightLimit: CGFloat {
         // can be calculated based on device
@@ -34,15 +33,10 @@ struct SnapshotProposalDescriptionView: View {
             }
             .scrollDisabled(true)
             .frame(maxHeight: isExpanded ? .infinity : heightLimit)
-            .onTapGesture{} // do not delete, otherwise onLongPressGesture breaks the scrollview
+            .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
             .onLongPressGesture(minimumDuration: 1) {
                 UIPasteboard.general.string = markdownDescription
-                isAlertPresented.toggle()
-            }
-            .alert(isPresented: $isAlertPresented) {
-                Alert(title: Text("Copied"),
-                      message: Text("Content has been copied to clipboard"),
-                      dismissButton: .default(Text("OK")))
+                ToastViewModel.shared.setErrorMessage("Content copied to clipboard")
             }
             .overlay(
                 Group {

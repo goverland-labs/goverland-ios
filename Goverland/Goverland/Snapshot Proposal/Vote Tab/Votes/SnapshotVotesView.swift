@@ -63,7 +63,7 @@ struct SnapshotVotesView: View {
             }
             .accentColor(.primary)
             .overlay {
-                ErrorView()
+                ToastView()
             }
         }
         .onAppear() {

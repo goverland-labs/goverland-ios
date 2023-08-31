@@ -61,14 +61,6 @@ enum Utils {
         formatter.locale = Locale.current
         return formatter.string(from: date)
     }
-    
-    static func mediumDateNoTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        formatter.locale = Locale.current
-        return formatter.string(from: date)
-    }
 
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
         let formatter = NumberFormatter()

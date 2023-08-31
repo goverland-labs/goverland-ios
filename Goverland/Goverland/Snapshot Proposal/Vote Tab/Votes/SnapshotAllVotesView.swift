@@ -61,7 +61,7 @@ struct SnapshotAllVotesView: View {
         }
         .onAppear() {
             data.loadMore()
-            Tracker.track(.snpDetailsAllVotes)
+            Tracker.track(.screenSnpVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Votes")

@@ -46,11 +46,11 @@ struct GoverlandApp: App {
                     }
                     .accentColor(.primary)
                     .overlay {
-                        ErrorView()
+                        ToastView()
                     }
                 }
                 .overlay {
-                    ErrorView()
+                    ToastView()
                 }
         }
     }
