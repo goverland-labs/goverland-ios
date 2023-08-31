@@ -50,22 +50,7 @@ struct SnapshotVotesView: View {
                         activeSheetManger.activeSheet = .proposalVoters(proposal)
                     }
             }
-        }
-        .sheet(item: $activeSheetManger.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .proposalVoters(let proposal):
-                    SnapshotAllVotesView(proposal: proposal)
-                default:
-                    // should not happen
-                    EmptyView()
-                }
-            }
-            .accentColor(.primary)
-            .overlay {
-                ToastView()
-            }
-        }
+        }        
         .onAppear() {
             dataSource.refresh()
         }
