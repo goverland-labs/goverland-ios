@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class SnapsotVotesDataSource: ObservableObject, Paginatable {
+class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
     private let proposal: Proposal
     
     @Published var votes: [Vote] = []
@@ -17,6 +17,10 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable {
     @Published var isLoading = false
     private(set) var total: Int?
     private var cancellables = Set<AnyCancellable>()
+    
+    var totalVotes: Int {
+        return total ?? 0
+    }
 
     init(proposal: Proposal) {
         self.proposal = proposal

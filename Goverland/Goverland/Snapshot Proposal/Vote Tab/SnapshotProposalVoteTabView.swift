@@ -16,7 +16,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .votes, .info]
+        return [.vote, .results, /*.votes,*/ .info]
     }
 
     var localizedName: String {

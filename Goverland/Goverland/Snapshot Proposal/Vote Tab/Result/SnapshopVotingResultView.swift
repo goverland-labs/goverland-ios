@@ -15,6 +15,7 @@ struct SnapshopVotingResultView: View {
             let totalScore = proposal.scoresTotal
             let choices = proposal.choices
             let scores = proposal.scores
+            let symbol = proposal.symbol
             
             ForEach(choices.indices, id: \.self) { index in
                 GeometryReader { geometry in
@@ -22,7 +23,8 @@ struct SnapshopVotingResultView: View {
                         ProposalResultProcessBarLabelView(
                             choice: choices[index],
                             score: scores.count != choices.count ? 0 : scores[index],
-                            totalScore: scores.count != choices.count ? 100 : totalScore)
+                            totalScore: scores.count != choices.count ? 100 : totalScore,
+                            symbol: symbol)
                         ProposalResultProcessBarView(
                             score: scores.count != choices.count ? 0 : scores[index],
                             totalScore: scores.count != choices.count ? 100 : totalScore,

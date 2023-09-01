@@ -113,7 +113,9 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: true, navigationTitle: proposal.dao.name)
+                SnapshotProposalView(proposal: proposal,
+                                     allowShowingDaoInfo: true,
+                                     navigationTitle: proposal.dao.name)
             }
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

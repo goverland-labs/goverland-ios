@@ -26,6 +26,7 @@ struct OnboardingFollowDaosView: View {
                     if !dataSource.failedToLoadInitially {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
+                                        bottomPadding: 90,
 
                                         onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
                                         onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgList) },

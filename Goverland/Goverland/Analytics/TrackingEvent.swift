@@ -62,6 +62,9 @@ enum TrackingEvent: String, Trackable {
     case snpDetailsVote = "snp_details_vote"
     case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"
 
+    // MARK: - Snapshot Proposal Votes
+    case screenSnpVoters = "screen_snp_voters"
+
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"

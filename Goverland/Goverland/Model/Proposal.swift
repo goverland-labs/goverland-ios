@@ -19,20 +19,22 @@ struct Proposal: Decodable, Hashable {
     // TODO: fix after sync with backend
     let discussion: String?
     let choices: [String]
+    let symbol: String?
     let votingStart: Date
     let votingEnd: Date
     let quorum: Int
     let snapshot: String
     let state: State
-    //let strategies: [String]
 
     // Swift can automatically decode urls with special characters.
     // One option is to decode manually using percent-encoding, but for now we will make it a string
     let link: String
+
     let scores: [Double]
     let scoresTotal: Double
     let votes: Int
     let dao: Dao
+    let timeline: [TimelineEvent]
 
     enum ProposalType: String, Decodable {
         case basic
@@ -87,6 +89,7 @@ struct Proposal: Decodable, Hashable {
         case body
         case discussion
         case choices
+        case symbol
         case votingStart = "voting_start"
         case votingEnd = "voting_end"
         case quorum
@@ -98,6 +101,7 @@ struct Proposal: Decodable, Hashable {
         case scoresTotal = "scores_total"
         case votes
         case dao
+        case timeline
     }
 
     static func == (lhs: Proposal, rhs: Proposal) -> Bool {
@@ -125,6 +129,7 @@ extension Proposal {
         ],
         discussion: "https://discord.com/channels/732491344970383370/1111329507987701871/1111329507987701871",
         choices: ["Yes. Schedule all survey rolls.", "No. Don't schedule them."],
+        symbol: "AAVE",
         votingStart: .now + 1.days,
         votingEnd: .now + 5.days,
         quorum: 0,
@@ -135,5 +140,6 @@ extension Proposal {
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
         votes: 731,
-        dao: .aave)
+        dao: .aave,
+        timeline: [])
 }
