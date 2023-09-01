@@ -216,7 +216,7 @@
 		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
 		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
-		55C25E562A7563FD0087D56E /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
+		55C25E562A7563FD0087D56E /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		55C25E572A75641A0087D56E /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		55D632B2295057880073E04A /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
@@ -530,7 +530,7 @@
 				5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */,
 				5597E7392A0A5C8800E2FAE4 /* ToastView.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
-				55C25E562A7563FD0087D56E /* Dev.xcconfig */,
+				55C25E562A7563FD0087D56E /* Stage.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
 				55B7B4412A5B059800A894AD /* Goverland.entitlements */,
@@ -1000,7 +1000,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		554301262A4C897C00029BC3 /* Dev */ = {
+		554301262A4C897C00029BC3 /* Stage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1070,7 +1070,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Goverland.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Goverland";
 			};
-			name = Dev;
+			name = Stage;
 		};
 		554301272A4C897C00029BC3 /* Prod */ = {
 			isa = XCBuildConfiguration;
@@ -1138,9 +1138,9 @@
 			};
 			name = Prod;
 		};
-		55F143FB294B1DDD00D00B73 /* Dev */ = {
+		55F143FB294B1DDD00D00B73 /* Stage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55C25E562A7563FD0087D56E /* Dev.xcconfig */;
+			baseConfigurationReference = 55C25E562A7563FD0087D56E /* Stage.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1193,12 +1193,12 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-D DEV";
+				OTHER_SWIFT_FLAGS = "-D STAGE";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Dev;
+			name = Stage;
 		};
 		55F143FC294B1DDD00D00B73 /* Prod */ = {
 			isa = XCBuildConfiguration;
@@ -1256,7 +1256,7 @@
 			};
 			name = Prod;
 		};
-		55F143FE294B1DDD00D00B73 /* Dev */ = {
+		55F143FE294B1DDD00D00B73 /* Stage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1293,7 +1293,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Dev;
+			name = Stage;
 		};
 		55F143FF294B1DDD00D00B73 /* Prod */ = {
 			isa = XCBuildConfiguration;
@@ -1342,7 +1342,7 @@
 		554301282A4C897C00029BC3 /* Build configuration list for PBXNativeTarget "GoverlandTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				554301262A4C897C00029BC3 /* Dev */,
+				554301262A4C897C00029BC3 /* Stage */,
 				554301272A4C897C00029BC3 /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1351,7 +1351,7 @@
 		55F143D4294B1DDA00D00B73 /* Build configuration list for PBXProject "Goverland" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				55F143FB294B1DDD00D00B73 /* Dev */,
+				55F143FB294B1DDD00D00B73 /* Stage */,
 				55F143FC294B1DDD00D00B73 /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1360,7 +1360,7 @@
 		55F143FD294B1DDD00D00B73 /* Build configuration list for PBXNativeTarget "Goverland" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				55F143FE294B1DDD00D00B73 /* Dev */,
+				55F143FE294B1DDD00D00B73 /* Stage */,
 				55F143FF294B1DDD00D00B73 /* Prod */,
 			);
 			defaultConfigurationIsVisible = 0;
