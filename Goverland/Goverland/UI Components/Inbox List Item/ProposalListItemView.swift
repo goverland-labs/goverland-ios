@@ -153,7 +153,10 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
                            quorum: proposal.quorum,
                            quorumHighlighted: proposal.quorum >= 100)
             Spacer()
-            HStack(spacing: 15) {
+            // TODO: Magic. Using HStack here crashes the app. With LazyHStack app doesn't crash,
+            // but there are errors in the console:
+            // List failed to visit cell content, returning an empty cell. - SwiftUI/UICollectionViewListCoordinator.swift:293 - please file a bug report.
+            LazyHStack(spacing: 15) {
                 Menu {
                     menuContent
                 } label: {
