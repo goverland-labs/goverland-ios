@@ -10,7 +10,7 @@ import QRCode
 
 fileprivate func viewHeight() -> CGFloat {
     if UIScreen.screenWidth < UIScreen.screenHeight {
-        return UIScreen.screenWidth * 1.2
+        return UIScreen.screenWidth * 1.1
     } else {
         return UIScreen.screenHeight * 0.8
     }
@@ -44,7 +44,6 @@ struct WC_QRView: View {
                                 Button {
                                     showQR = false
                                 } label: {
-                                    // TODO: Fix in other places
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.textWhite40)
                                         .font(.system(size: 26))
@@ -52,7 +51,7 @@ struct WC_QRView: View {
                             }
                             .padding(16)
 
-                            Text("Scan with your Wallet")
+                            Text("Scan with your Wallet \u{20F0}")
                                 .font(.headlineSemibold)
                                 .foregroundColor(.textWhite)
 
@@ -78,7 +77,7 @@ struct WC_QRView: View {
 
         var edge: CGFloat {
             if UIScreen.screenWidth < UIScreen.screenHeight {
-                return UIScreen.screenWidth * 0.75
+                return UIScreen.screenWidth * 0.6
             } else {
                 return viewHeight() * 0.5
             }

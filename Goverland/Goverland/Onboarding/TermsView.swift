@@ -20,12 +20,13 @@ struct TermsView: View {
                     termsViewIsPresented = false
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.gray)
-                        .frame(width: 30, height: 30)
+                        .foregroundColor(.textWhite40)
+                        .font(.system(size: 26))
                 }
             }
+            .padding(.top, 16)
+
+            Spacer()
             
             Text("Understanding Our Practices")
                 .fontWeight(.bold)
@@ -53,6 +54,8 @@ struct TermsView: View {
                 .accentColor(.primaryDim)
             }
 
+            Spacer()
+
             PrimaryButton("Get Started") {
                 termsAccepted = true
                 trackingAccepted = true
@@ -61,6 +64,7 @@ struct TermsView: View {
             Button("Accept without sharing data") {
                 termsAccepted = true
             }
+            .padding(.bottom, 16)
             .fontWeight(.medium)
             .accentColor(.primaryDim)
             

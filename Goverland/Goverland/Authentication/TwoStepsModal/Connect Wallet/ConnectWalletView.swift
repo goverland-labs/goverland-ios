@@ -88,6 +88,7 @@ fileprivate struct QRRowView: View {
             Image(systemName: "qrcode")
                 .font(.system(size: 32))
             Text("Show QR code")
+            Spacer()
         }
         .frame(height: 48)
         .contentShape(Rectangle())
@@ -101,8 +102,13 @@ fileprivate struct OtherWalletView: View {
     var body: some View {
         HStack {
             Text("Other wallet")
+            Spacer()
         }
         .frame(height: 48)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            logInfo("Other Wallet selected")
+        }
     }
 }
 

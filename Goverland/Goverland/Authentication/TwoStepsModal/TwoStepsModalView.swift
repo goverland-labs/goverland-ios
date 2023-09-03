@@ -20,12 +20,12 @@ struct TwoStepsModalView: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.gray)
-                        .frame(width: 30, height: 30)
+                        .foregroundColor(.textWhite40)
+                        .font(.system(size: 26))
                 }
             }
+
+            Spacer()
 
             Text("Sign In")
                 .fontWeight(.bold)
