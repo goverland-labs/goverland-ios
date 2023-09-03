@@ -95,6 +95,7 @@
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
+		55FD0D292AA4E84500AAB216 /* TopRoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD0D282AA4E84500AAB216 /* TopRoundedCornerShape.swift */; };
 		55FF21022A9F940B00C292E9 /* ConnectWalletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */; };
 		55FF21052A9F9B5900C292E9 /* WC_QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF21042A9F9B5900C292E9 /* WC_QRView.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
@@ -252,6 +253,7 @@
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		55FD0D282AA4E84500AAB216 /* TopRoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRoundedCornerShape.swift; sourceTree = "<group>"; };
 		55FF21012A9F940B00C292E9 /* ConnectWalletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletModel.swift; sourceTree = "<group>"; };
 		55FF21042A9F9B5900C292E9 /* WC_QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_QRView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */,
 				5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */,
 				BA2EA2002967610500FB87AC /* FilterButtonsView.swift */,
+				55FD0D282AA4E84500AAB216 /* TopRoundedCornerShape.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 			);
@@ -1039,6 +1042,7 @@
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
 				550E85702A5F4C3400B0CFDD /* VoteWarningPopupView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
+				55FD0D292AA4E84500AAB216 /* TopRoundedCornerShape.swift in Sources */,
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,

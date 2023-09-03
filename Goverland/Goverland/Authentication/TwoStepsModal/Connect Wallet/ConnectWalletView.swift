@@ -12,32 +12,37 @@ import WalletConnectModal
 struct ConnectWalletView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var model = ConnectWalletModel()
+    @State private var showQR = false
 
     var body: some View {
-        VStack {
-            List {
-                Section(header: Text("If connecting from other device")) {
-                    ZStack(alignment: .leading) {
-                        QRRowView()
-                        NavigationLink(destination: WC_QRView()) {
-                            EmptyView()
-                        }.opacity(0)
+        ZStack {
+            VStack {
+                List {
+                    Section(header: Text("If connecting from other device")) {
+                        QRRowView {
+                            showQR = true
+                        }
+                    }
+
+                    Section {
+                        WalletRowView(wallet: .rainbow, model: model)
+                        WalletRowView(wallet: .oneInch, model: model)
+                        WalletRowView(wallet: .uniswap, model: model)
+                        WalletRowView(wallet: .zerion, model: model)
+                    }
+
+                    Section {
+                        OtherWalletView()
                     }
                 }
+            }
+            .padding(16)
 
-                Section {
-                    WalletRowView(wallet: .rainbow, model: model)
-                    WalletRowView(wallet: .oneInch, model: model)
-                    WalletRowView(wallet: .uniswap, model: model)
-                    WalletRowView(wallet: .zerion, model: model)
-                }
-
-                Section {
-                    OtherWalletView()
-                }
+            if showQR {
+                WC_QRView(showQR: $showQR)
+                    .ignoresSafeArea(.all)
             }
         }
-        .padding(16)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -76,6 +81,8 @@ struct Wallet {
 }
 
 fileprivate struct QRRowView: View {
+    let onTap: () -> Void
+
     var body: some View {
         HStack {
             Image(systemName: "qrcode")
@@ -83,6 +90,10 @@ fileprivate struct QRRowView: View {
             Text("Show QR code")
         }
         .frame(height: 48)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onTap()
+        }
     }
 }
 
