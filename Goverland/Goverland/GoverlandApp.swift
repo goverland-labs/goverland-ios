@@ -29,15 +29,17 @@ struct GoverlandApp: App {
                             DaoInfoView(dao: dao)
                         case .followDaos:
                             AddSubscriptionView()
+                        case .proposalVoters(let proposal):
+                            SnapshotAllVotesView(proposal: proposal)
                         }
                     }
                     .accentColor(.primary)
                     .overlay {
-                        ErrorView()
+                        ToastView()
                     }
                 }
                 .overlay {
-                    ErrorView()
+                    ToastView()
                 }
         }
     }

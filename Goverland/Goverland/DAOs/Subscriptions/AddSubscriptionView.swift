@@ -89,7 +89,7 @@ struct AddSubscriptionView: View {
             }
             .accentColor(.primary)
             .overlay {
-                ErrorView()
+                ToastView()
             }
         }
     }

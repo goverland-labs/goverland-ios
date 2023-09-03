@@ -1,5 +1,5 @@
 //
-//  ErrorView.swift
+//  ToastView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Combine
 
-struct ErrorView: View {
-    @StateObject var errorViewModel = ErrorViewModel.shared
+struct ToastView: View {
+    @StateObject var errorViewModel = ToastViewModel.shared
 
     var body: some View {
         if let errorMessage = errorViewModel.errorMessage {

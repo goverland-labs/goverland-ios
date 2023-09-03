@@ -13,7 +13,7 @@ protocol FilterOptions: CaseIterable & Identifiable & RawRepresentable where Sel
 
 extension FilterOptions {
     var id: Int { self.rawValue }
-
+    
     static var allValues: [Self] {
         return Array(Self.allCases.sorted { $0.rawValue < $1.rawValue })
     }
@@ -21,26 +21,20 @@ extension FilterOptions {
 
 struct FilterButtonsView<T: FilterOptions>: View {
     @Binding var filter: T
-    @Namespace var namespace
-
+    
     var onSelect: (T) -> Void
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
-                ForEach(T.allValues) { filterOption in
-                    ZStack {
-                        if filter.id == filterOption.id {
-                            RoundedRectangle(cornerRadius: 18)
-                                .fill(Color.primary)
-                                .frame(height: 36)
-                                .matchedGeometryEffect(id: "filter-background", in: namespace)
-                        }
-                        Text(filterOption.localizedName)
-                            .padding(16)
-                            .font(.footnoteSemibold)
-                            .foregroundColor(filterOption.id == filter.id ? .surfaceBright : .textWhite)
-                    }
+        HStack(spacing: 0) {
+            ForEach(T.allValues) { filterOption in
+                Text(filterOption.localizedName)
+                    .padding(.bottom, 7)
+                    .overlay(BottomBorder()
+                        .stroke(filterOption.id == filter.id ? Color.primaryDim : Color.clear,
+                                lineWidth: 3))
+                    .padding(.top)
+                    .font(.footnoteSemibold)
+                    .foregroundColor(filterOption.id == filter.id ? .primaryDim : .textWhite60)
                     .onTapGesture {
                         withAnimation(.spring(response: 0.5)) {
                             self.filter = filterOption
@@ -48,8 +42,20 @@ struct FilterButtonsView<T: FilterOptions>: View {
                         onSelect(filterOption)
                     }
                     .padding([.leading, .trailing], 12)
-                }
             }
+            
+            Spacer()
         }
+    }
+}
+
+fileprivate struct BottomBorder: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        
+        return path
     }
 }

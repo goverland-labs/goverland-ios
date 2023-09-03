@@ -47,7 +47,7 @@ class APIService {
                         AuthManager.shared.updateToken()
                     }
                     if defaultErrorDisplay {
-                        showError(apiError.localizedDescription)
+                        showToast(apiError.localizedDescription)
                     }
                     return apiError
                 } else {

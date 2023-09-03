@@ -33,6 +33,11 @@ struct SnapshotProposalDescriptionView: View {
             }
             .scrollDisabled(true)
             .frame(maxHeight: isExpanded ? .infinity : heightLimit)
+            .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
+            .onLongPressGesture(minimumDuration: 1) {
+                UIPasteboard.general.string = markdownDescription
+                showToast("Content copied to clipboard")                
+            }
             .overlay(
                 Group {
                     if !isExpanded {
@@ -56,6 +61,7 @@ struct SnapshotProposalDescriptionView: View {
             .tint(.onSecondaryContainer)
             .font(.footnoteSemibold)
         }
+        
     }
 }
 

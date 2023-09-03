@@ -205,7 +205,7 @@ fileprivate struct AdvancedSettingView: View {
 
     var body: some View {
         List {
-            #if DEV
+            #if STAGE
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()

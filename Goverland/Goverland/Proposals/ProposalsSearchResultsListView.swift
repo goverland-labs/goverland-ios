@@ -25,7 +25,7 @@ struct ProposalsSearchResultsListView: View {
             } else if dataSource.searchResultProposals.isEmpty { // initial searching
                 ScrollView {
                     ForEach(0..<3) { _ in
-                        ShimmerProposalListItemView()
+                        ShimmerProposalListItemCondensedView()
                             .padding(.horizontal, 12)
                     }
                 }
@@ -33,15 +33,9 @@ struct ProposalsSearchResultsListView: View {
             } else {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
-                    ProposalListItemView(proposal: proposal,
-                                         isSelected: false,
-                                         isRead: false,
-                                         displayUnreadIndicator: false,
-                                         onDaoTap: {
+                    ProposalListItemCondensedView(proposal: proposal) {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.searchPrpOpenDaoFromSearch)
-                    }) {
-                        ProposalSharingMenu(link: proposal.link)
                     }
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))

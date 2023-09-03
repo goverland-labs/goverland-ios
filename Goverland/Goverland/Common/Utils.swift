@@ -22,9 +22,9 @@ func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, fu
     logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
 }
 
-func showError(_ message: String) {
+func showToast(_ message: String) {
     DispatchQueue.main.async {
-        ErrorViewModel.shared.setErrorMessage(message)
+        ToastViewModel.shared.setErrorMessage(message)
     }
 }
 
