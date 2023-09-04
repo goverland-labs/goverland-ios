@@ -645,9 +645,9 @@
 		55FD0D342AA5179E00AAB216 /* Connect Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				55FD0D352AA5179E00AAB216 /* ConnectWalletModel.swift */,
 				55FD0D362AA5179E00AAB216 /* WC_QRView.swift */,
 				55FD0D372AA5179E00AAB216 /* ConnectWalletView.swift */,
+				55FD0D352AA5179E00AAB216 /* ConnectWalletModel.swift */,
 			);
 			path = "Connect Wallet";
 			sourceTree = "<group>";
