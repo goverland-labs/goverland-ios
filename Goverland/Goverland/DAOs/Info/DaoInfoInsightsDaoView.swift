@@ -9,7 +9,15 @@ import SwiftUI
 import Charts
 
 struct DaoInfoInsightsDaoView: View {
-    let dao: Dao
+    @StateObject var dataSource: DaoInsightsDataSource
+    
+    init(dao: Dao) {
+        let dataSource = DaoInsightsDataSource(dao: dao)
+        _dataSource = StateObject(wrappedValue: dataSource)
+    }
+    
+    
+    
     // for Chart bars animation
     let mockChartData = [
         (votersType: "Existed Voters", data: oldChampionVoters),
@@ -63,6 +71,12 @@ struct DaoInfoInsightsDaoView: View {
             .padding()
             
             Spacer()
+        }
+        .onAppear() {
+            Tracker.track(.screenDaoInsights)
+            if dataSource.graph.isEmpty {
+                dataSource.refresh()
+            }
         }
     }
 }

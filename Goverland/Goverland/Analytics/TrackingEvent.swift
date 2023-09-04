@@ -53,6 +53,9 @@ enum TrackingEvent: String, Trackable {
     case daoOpenTwitter = "dao_open_twitter"
     case daoOpenGithub = "dao_open_github"
     case daoOpenTerms = "dao_open_terms"
+    
+    // - Insights
+    case screenDaoInsights = "screen_dao_insights"
 
 
     // MARK: - Snapshot Proposal
