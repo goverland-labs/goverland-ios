@@ -47,7 +47,7 @@ class APIService {
                         AuthManager.shared.updateToken()
                     }
                     if defaultErrorDisplay {
-                        ErrorViewModel.shared.setErrorMessage(apiError.localizedDescription)
+                        ToastViewModel.shared.setErrorMessage(apiError.localizedDescription)
                     }
                     return apiError
                 } else {
@@ -65,6 +65,7 @@ extension APIService {
 
     static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = AuthTokenEndpoint(deviceId: deviceId)
+        logInfo("Device ID: \(deviceId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
 

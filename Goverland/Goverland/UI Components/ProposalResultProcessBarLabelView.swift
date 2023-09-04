@@ -11,6 +11,11 @@ struct ProposalResultProcessBarLabelView: View {
     let choice: String
     let score: Double
     let totalScore: Double
+    let symbol: String?
+    
+    private var votingToken: String {
+        return symbol ?? "|"
+    }
     
     var body: some View {
         HStack {
@@ -18,7 +23,9 @@ struct ProposalResultProcessBarLabelView: View {
                 .font(.footnoteSemibold)
                 .foregroundColor(.onSecondaryContainer)
             Spacer()
-            Text(Utils.formattedNumber(score) + " | " + Utils.percentage(of: score, in: totalScore))
+            Text(Utils.formattedNumber(score) +
+                 " \(votingToken) " +
+                 Utils.percentage(of: score, in: totalScore))
                 .font(.footnoteSemibold)
                 .foregroundColor(.textWhite)
         }
@@ -27,6 +34,6 @@ struct ProposalResultProcessBarLabelView: View {
 
 struct ProposalResultProcessBarLabelView_Previews: PreviewProvider {
     static var previews: some View {
-        ProposalResultProcessBarLabelView(choice: "", score: 0, totalScore: 0)
+        ProposalResultProcessBarLabelView(choice: "", score: 0, totalScore: 0, symbol: nil)
     }
 }

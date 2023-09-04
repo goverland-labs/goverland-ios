@@ -16,7 +16,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .votes, .info]
+        return [.vote, .results, /*.votes,*/ .info]
     }
 
     var localizedName: String {
@@ -38,6 +38,8 @@ struct SnapshotProposalVoteTabView: View {
 
     @State var chosenTab: SnapshotVoteTabType = .vote
     @Namespace var namespace
+    @Setting(\.onboardingFinished) var onboardingFinished
+    @Environment(\.presentationMode) var presentationMode
 
     @State var voteButtonDisabled: Bool = true
     @State var warningViewIsPresented = false {
@@ -47,7 +49,7 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
     }
-    
+
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -102,14 +104,17 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
         .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
+            if onboardingFinished {
+                VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
+                    .presentationDetents([.medium, .large])
+            } else {
+                FinishOnboardingWarningView {
+                    // Make it twice to come back to onboarding
+                    presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
+                }
+                    .presentationDetents([.medium, .large])
+            }
         }
-    }
-}
-
-struct SnapshotProposaVoteTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotProposalVoteTabView(proposal: .aaveTest)
     }
 }

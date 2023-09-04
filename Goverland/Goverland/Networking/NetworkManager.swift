@@ -18,7 +18,7 @@ class NetworkManager {
     }
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
-        #if DEV
+        #if STAGE
         logInfo(urlRequest.description)
         #endif
 

@@ -11,6 +11,7 @@ struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
 
     let callToAction: String?
+    let bottomPadding: CGFloat
 
     let onSelectDaoFromGroup: ((Dao) -> Void)?
     let onSelectDaoFromCategoryList: ((Dao) -> Void)?
@@ -25,6 +26,7 @@ struct GroupedDaosView: View {
     init(dataSource: GroupedDaosDataSource,
 
          callToAction: String? = nil,
+         bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
          onSelectDaoFromCategoryList: ((Dao) -> Void)? = nil,
@@ -39,6 +41,7 @@ struct GroupedDaosView: View {
         self.dataSource = dataSource
 
         self.callToAction = callToAction
+        self.bottomPadding = bottomPadding
 
         self.onSelectDaoFromGroup = onSelectDaoFromGroup
         self.onSelectDaoFromCategoryList = onSelectDaoFromCategoryList
@@ -85,6 +88,8 @@ struct GroupedDaosView: View {
                             .padding(.bottom, 16)
                     }
                 }
+                Spacer()
+                    .frame(height: bottomPadding)
             }
         }
         .navigationDestination(for: DaoCategory.self) { category in

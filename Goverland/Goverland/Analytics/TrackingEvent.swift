@@ -17,15 +17,19 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Onboarding
     case screenOnboardingFollowDaos = "screen_onboarding_follow_daos"
     case onboardingFollowFromSearch = "onboarding_follow_from_search"
+    case onboardingOpenDaoFromSearch = "onboarding_open_dao_from_search"
     case onboardingFollowFromCard = "onboarding_follow_from_card"
+    case onboardingOpenDaoFromCard = "onboarding_open_dao_from_card"
+
     case screenOnboardingCategoryDaos = "screen_onboarding_category_daos"
     case onboardingFollowFromCtgList = "onboarding_follow_from_ctg_list"
+    case onboardingOpenDaoFromCtgList = "onboarding_open_dao_from_ctg_list"
     case onboardingFollowFromCtgSearch = "onboarding_follow_from_ctg_search"
+    case onboardingOpenDaoFromCtgSearch = "onboarding_open_dao_from_ctg_search"
 
     case screenOnbaordingPushNotifications = "screen_onboarding_push_notifications"
     case onboardingYesNotifications = "onboarding_yes_notifications"
     case onboardingNoNotifications = "onboarding_no_notifications"
-
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
@@ -56,6 +60,10 @@ enum TrackingEvent: String, Trackable {
     case snpDetailsShowDao = "snp_details_show_dao"
     case snpDetailsShowFullDscr = "snp_details_show_full_dscr"
     case snpDetailsVote = "snp_details_vote"
+    case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"
+
+    // MARK: - Snapshot Proposal Votes
+    case screenSnpVoters = "screen_snp_voters"
 
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"

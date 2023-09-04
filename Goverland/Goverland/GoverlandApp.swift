@@ -15,10 +15,9 @@ struct GoverlandApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
+        Tracker.append(handler: ConsoleTrackingHandler())
         #if PROD
         Tracker.append(handler: FirebaseTrackingHandler())
-        #else
-        Tracker.append(handler: ConsoleTrackingHandler())
         #endif
 
         // Very important line of code. Do not remove it.
@@ -39,16 +38,18 @@ struct GoverlandApp: App {
                         case .daoInfo(let dao):
                             DaoInfoView(dao: dao)
                         case .followDaos:
-                            AddSubscriptionView() 
+                            AddSubscriptionView()
+                        case .proposalVoters(let proposal):
+                            SnapshotAllVotesView(proposal: proposal)
                         }
                     }
                     .accentColor(.primary)
                     .overlay {
-                        ErrorView()
+                        ToastView()
                     }
                 }
                 .overlay {
-                    ErrorView()
+                    ToastView()
                 }
         }
     }

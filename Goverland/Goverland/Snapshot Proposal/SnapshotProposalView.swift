@@ -46,10 +46,14 @@ struct SnapshotProposalView: View {
 
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 35)
+                
+                if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
+                    SnapshotProposalDiscussionView(proposal: proposal)
+                        .padding(.bottom, 35)
+                }
 
-                // TODO: add once implemented properly
-//                SnapshotProposalTimelineView()
-//                    .padding(.bottom, 20)
+                SnapshotProposalTimelineView(timeline: proposal.timeline)
+                    .padding(.bottom, 20)
             }
             .padding(.horizontal)
         }
@@ -139,9 +143,46 @@ fileprivate struct SnapshotProposalStatusBarView: View {
     }
 }
 
+fileprivate struct SnapshotProposalDiscussionView: View {
+    let proposal: Proposal
+    var body: some View {
+        VStack{
+            HStack {
+                Text("Discussion")
+                    .font(.headlineSemibold)
+                    .foregroundColor(.textWhite)
+                Spacer()
+            }
+
+            HStack(spacing: 15) {
+                RoundPictureView(image: proposal.dao.avatar, imageSize: 35)
+                
+                if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
+                    Link(destination: unwrappedURL) {
+                        Text(proposal.title)
+                            .foregroundColor(.textWhite)
+                        +
+                        Text(" ")
+                        +
+                        Text(Image(systemName: "arrow.up.right"))
+                            .foregroundColor(.textWhite40)
+                        
+                        Spacer()
+                    }
+                }
+            }
+            .padding(15)
+            .font(.footnoteRegular)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundColor(.container)
+            )
+        }
+    }
+}
+
 fileprivate struct SnapshotProposalTimelineView: View {
-    private let testDates = [Date.now]
-    private let testEvents = ["Snapshot vote created by ", "Discussion started by "]
+    let timeline: [TimelineEvent]
 
     var body: some View {
         VStack {
@@ -152,17 +193,16 @@ fileprivate struct SnapshotProposalTimelineView: View {
                 Spacer()
             }
 
-            ForEach(0..<2) { i in
-                HStack(spacing: 2) {
-                    Text("Nov 5, 2022 - ")
-                    Text(testEvents[i])
-                    IdentityView(user: .test)
+            ForEach(timeline.indices) { index in
+                HStack(spacing: 3) {
+                    Text(Utils.mediumDate((timeline[index].createdAt)))
+                    Text("–")
+                    Text("\(timeline[index].event.localizedName)")
                     Spacer()
                 }
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
-                .minimumScaleFactor(0.8)
-                .lineLimit(1)
+                .padding(.vertical, 2)
             }
         }
     }

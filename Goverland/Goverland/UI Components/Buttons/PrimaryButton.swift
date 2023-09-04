@@ -12,18 +12,21 @@ struct PrimaryButton: View {
     let maxWidth: CGFloat
     let maxHeight: CGFloat
     let isEnabled: Bool
+    let disabledText: String?
     let action: () -> Void
 
     init(_ text: String,
          maxWidth: CGFloat = 400,
          maxHeight: CGFloat = 54,
          isEnabled: Bool = true,
+         disabledText: String? = nil,
          action: @escaping () -> Void) {
         self.text = text
         self.action = action
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
         self.isEnabled = isEnabled
+        self.disabledText = disabledText
     }
 
     var body: some View {
@@ -32,7 +35,7 @@ struct PrimaryButton: View {
         }) {
             HStack {
                 Spacer()
-                Text(text)
+                Text(isEnabled ? text : (disabledText ?? text))
                 Spacer()
             }
             .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
