@@ -11,7 +11,7 @@ import Combine
 class DaoInsightsDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var graph: [Graph]
+    @Published var graph: [MonthlyActiveUsers]
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
@@ -36,7 +36,7 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
     
     private func loadInitialData() {
         isLoading = true
-        APIService.daoInsights(id: daoID)
+        APIService.monthlyActiveUsers(id: daoID)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 print("------------- \(completion)")

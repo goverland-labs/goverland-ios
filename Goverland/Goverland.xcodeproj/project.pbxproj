@@ -121,7 +121,7 @@
 		BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9482A47522300D24110 /* Chillax-Bold.otf */; };
 		BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */; };
 		BAB960AF2AA6245500DC2D92 /* DaoInsightsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* DaoInsightsDataSource.swift */; };
-		BAB960B12AA6263B00DC2D92 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* Graph.swift */; };
+		BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
@@ -271,7 +271,7 @@
 		BAB4B9482A47522300D24110 /* Chillax-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Bold.otf"; sourceTree = "<group>"; };
 		BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalSharingMenu.swift; sourceTree = "<group>"; };
 		BAB960AE2AA6245500DC2D92 /* DaoInsightsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInsightsDataSource.swift; sourceTree = "<group>"; };
-		BAB960B02AA6263B00DC2D92 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveUsers.swift; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
@@ -601,7 +601,6 @@
 			isa = PBXGroup;
 			children = (
 				BA352F09298C184D00F78958 /* Dao.swift */,
-				BAB960B02AA6263B00DC2D92 /* Graph.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
@@ -609,6 +608,7 @@
 				55143B552A585AC8003103B1 /* Vote.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 				55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */,
+				BAB960B22AA66C7E00DC2D92 /* Charts */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -654,6 +654,14 @@
 				BA1EAD6F29F053E9008D92E9 /* Fonts.swift */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		BAB960B22AA66C7E00DC2D92 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		BADB99CE2A3DFA470098C0D3 /* Subscriptions */ = {
@@ -971,7 +979,7 @@
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
-				BAB960B12AA6263B00DC2D92 /* Graph.swift in Sources */,
+				BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */,
 				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,

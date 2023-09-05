@@ -1,5 +1,5 @@
 //
-//  Graph.swift
+//  MonthlyActiveUsers.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-09-04.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Graph: Decodable {
+struct MonthlyActiveUsers: Decodable {
     let date: Date
     let activeUsers: Double
     let newUsers: Double

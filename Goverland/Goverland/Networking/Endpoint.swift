@@ -118,15 +118,14 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
-struct DaoInsightsEndpoint: APIEndpoint {
-    typealias ResponseType = [Graph]
+struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyActiveUsers]
     
     let daoID: UUID
-    var baseURL = URL(string: "https://gist.githubusercontent.com/JennyShalai/37990eed3bc1206af2f221906894e801/raw/74c429ba427acf0c84f1a5284fad73ac3ac6638e/gistfile1.txt")
-
-    var path: String { "dao/\(daoID)/stats/monthly-active" }
+    var baseURL: URL { URL(string: "https://gist.githubusercontent.com/")! }
+    var path: String { "JennyShalai/37990eed3bc1206af2f221906894e801/raw/74c429ba427acf0c84f1a5284fad73ac3ac6638e/gistfile1.txt" }
+    //var path: String { "dao/\(daoID)/stats/monthly-active" }
     var method: HttpMethod = .get
-    
     
     init(daoID: UUID) {
         self.daoID = daoID
