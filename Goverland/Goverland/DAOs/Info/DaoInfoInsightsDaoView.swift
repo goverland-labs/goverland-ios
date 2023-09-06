@@ -18,53 +18,81 @@ struct DaoInfoInsightsDaoView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                HStack {
-                    Text("Monthly active users")
-                        .font(.title3Semibold)
-                        .foregroundColor(.textWhite)
-                        .padding([.horizontal, .top])
-                    Spacer()
+            if dataSource.isLoading {
+                VStack {
+                    HStack {
+                        Text("Monthly active users")
+                            .font(.title3Semibold)
+                            .foregroundColor(.textWhite)
+                            .padding([.horizontal, .top])
+                        Spacer()
+                    }
+                
+                    ZStack {
+                        ProgressView()
+                            .foregroundColor(Color.textWhite20)
+                            .controlSize(.large)
+                    }
+                    .frame(height: 200)
+                    .padding()
                 }
+                .background(Color.containerBright)
+                .cornerRadius(20)
+                .padding()
                 
-                let chartData = [
-                    (votersType: "Existed Voters", data: dataSource.getExistedVoters()),
-                    (votersType: "New Voters", data: dataSource.getNewVoters())
-                ]
+                Spacer()
                 
-                Chart {
-                    ForEach(chartData, id: \.votersType) { element in
-                        ForEach(element.data, id: \.date) { data in
-                            BarMark (
-                                x: .value("Date", data.date, unit: .month),
-                                y: .value("Voters in K", data.voters)
-                            )
-                            .annotation {
-                                if data.voters == 0 {
-                                    Text("0")
-                                        .foregroundColor(.textWhite40)
-                                        .font(.сaption2Regular)
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource)
+            } else {
+                VStack {
+                    HStack {
+                        Text("Monthly active users")
+                            .font(.title3Semibold)
+                            .foregroundColor(.textWhite)
+                            .padding([.horizontal, .top])
+                        Spacer()
+                    }
+                    
+                    let chartData = [
+                        (votersType: "Existed Voters", data: dataSource.getExistedVoters()),
+                        (votersType: "New Voters", data: dataSource.getNewVoters())
+                    ]
+                    
+                    Chart {
+                        ForEach(chartData, id: \.votersType) { element in
+                            ForEach(element.data, id: \.date) { data in
+                                BarMark (
+                                    x: .value("Date", data.date, unit: .month),
+                                    y: .value("Voters in K", data.voters)
+                                )
+                                .annotation {
+                                    if data.voters == 0 {
+                                        Text("0")
+                                            .foregroundColor(.textWhite40)
+                                            .font(.сaption2Regular)
+                                    }
                                 }
+                                .foregroundStyle(by: .value("Voters(type)", element.votersType))
+                                .foregroundStyle(Color.chartBar)
                             }
-                            .foregroundStyle(by: .value("Voters(type)", element.votersType))
-                            .foregroundStyle(Color.chartBar)
+                            
                         }
                         
                     }
+                    .frame(height: 200)
+                    .padding()
                     
+                    .chartForegroundStyleScale([
+                        "Existed Voters": Color.chartBar, "New Voters": Color.primary
+                    ])
                 }
-                .frame(height: 200)
+                .background(Color.containerBright)
+                .cornerRadius(20)
                 .padding()
                 
-                .chartForegroundStyleScale([
-                    "Existed Voters": Color.chartBar, "New Voters": Color.primary
-                ])
+                Spacer()
             }
-            .background(Color.containerBright)
-            .cornerRadius(20)
-            .padding()
-            
-            Spacer()
         }
         .onAppear() {
             Tracker.track(.screenDaoInsights)

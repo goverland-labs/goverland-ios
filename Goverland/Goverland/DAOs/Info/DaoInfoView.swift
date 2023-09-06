@@ -43,7 +43,7 @@ struct DaoInfoView: View {
     var body: some View {
         VStack {
             if dataSource.isLoading {
-                // Unfortunately shimmer or reducted view here breaks preseantation in a popover view
+                // Unfortunately shimmer or reducted view here breaks presentation in a popover view
                 ProgressView()
                 Spacer()
             } else if dataSource.failedToLoadInitialData {

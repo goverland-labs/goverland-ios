@@ -29,13 +29,12 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
     func refresh() {
         monthlyActiveUsers = []
         failedToLoadInitialData = false
-        isLoading = false
+        isLoading = true
         cancellables = Set<AnyCancellable>()
         loadInitialData()
     }
     
     private func loadInitialData() {
-        isLoading = true
         APIService.monthlyActiveUsers(id: daoID)
             .sink { [weak self] completion in
                 self?.isLoading = false
@@ -49,13 +48,11 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
     
-    
     struct ChampionVoters: Identifiable {
         let id = UUID()
         let date: Date
         let voters: Double
     }
-    
     
     func getExistedVoters() -> [ChampionVoters] {
         var existedVoters: [ChampionVoters] = []
