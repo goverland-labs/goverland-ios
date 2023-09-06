@@ -11,14 +11,14 @@ import Combine
 class DaoInsightsDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var graph: [MonthlyActiveUsers]
+    @Published var monthlyActiveUsers: [MonthlyActiveUsers]
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
     init(daoID: UUID) {
         self.daoID = daoID
-        self.graph = []
+        self.monthlyActiveUsers = []
         refresh()
     }
     
@@ -27,7 +27,7 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
     }
     
     func refresh() {
-        graph = []
+        monthlyActiveUsers = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -39,15 +39,37 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
         APIService.monthlyActiveUsers(id: daoID)
             .sink { [weak self] completion in
                 self?.isLoading = false
-                print("------------- \(completion)")
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] graph, headers in
-                print("------------- \(graph)")
-                self?.graph = graph
+            } receiveValue: { [weak self] data, headers in
+                self?.monthlyActiveUsers = data
             }
             .store(in: &cancellables)
+    }
+    
+    
+    struct ChampionVoters: Identifiable {
+        let id = UUID()
+        let date: Date
+        let voters: Double
+    }
+    
+    
+    func getExistedVoters() -> [ChampionVoters] {
+        var existedVoters: [ChampionVoters] = []
+        for i in monthlyActiveUsers {
+            existedVoters.append(ChampionVoters.init(date: i.date, voters: i.activeUsers))
+        }
+        return existedVoters
+    }
+    
+    func getNewVoters() -> [ChampionVoters] {
+        var newVoters: [ChampionVoters] = []
+        for i in monthlyActiveUsers {
+            newVoters.append(ChampionVoters.init(date: i.date, voters: i.activeUsers))
+        }
+        return newVoters
     }
 }
