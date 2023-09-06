@@ -20,21 +20,25 @@ struct DaoInfoInsightsDaoView: View {
         VStack {
             if dataSource.isLoading {
                 VStack {
-                    HStack {
-                        Text("Monthly active users")
-                            .font(.title3Semibold)
-                            .foregroundColor(.textWhite)
-                            .padding([.horizontal, .top])
-                        Spacer()
-                    }
-                
                     ZStack {
+                        VStack {
+                            HStack {
+                                Text("Monthly active users")
+                                    .font(.title3Semibold)
+                                    .foregroundColor(.textWhite)
+                                    .padding([.horizontal, .top])
+                                Spacer()
+                            }
+                            
+                            Color.clear
+                                .frame(height: 200)
+                                .padding()
+                        }
+                        
                         ProgressView()
                             .foregroundColor(Color.textWhite20)
                             .controlSize(.large)
                     }
-                    .frame(height: 200)
-                    .padding()
                 }
                 .background(Color.containerBright)
                 .cornerRadius(20)
