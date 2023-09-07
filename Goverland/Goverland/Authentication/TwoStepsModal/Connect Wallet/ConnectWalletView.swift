@@ -24,10 +24,9 @@ struct ConnectWalletView: View {
                     }
 
                     Section {
-                        WalletRowView(wallet: .rainbow, model: model)
-                        WalletRowView(wallet: .oneInch, model: model)
-                        WalletRowView(wallet: .uniswap, model: model)
-                        WalletRowView(wallet: .zerion, model: model)
+                        ForEach(Wallet.recommended) { wallet in
+                            WalletRowView(wallet: wallet, model: model)                            
+                        }
                     }
 
                     Section {
@@ -66,17 +65,6 @@ struct ConnectWalletView: View {
             presentationMode.wrappedValue.dismiss()
         }
     }
-}
-
-struct Wallet {
-    let image: String
-    let name: String
-    let link: URL
-
-    static let zerion = Wallet(image: "zerion", name: "Zerion", link: URL(string: "https://wallet.zerion.io")!)
-    static let rainbow = Wallet(image: "rainbow", name: "Rainbow", link: URL(string: "https://rnbwapp.com")!)
-    static let oneInch = Wallet(image: "oneInch", name: "1Inch", link: URL(string: "https://wallet.1inch.io")!)
-    static let uniswap = Wallet(image: "uniswap", name: "Uniswap", link: URL(string: "https://uniswap.org/app")!)
 }
 
 fileprivate struct QRRowView: View {

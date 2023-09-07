@@ -66,6 +66,7 @@ class WC_Manager {
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
+            excludedWalletIds: Wallet.recommended.map { $0.id },
             accentColor: .primary
         )
     }

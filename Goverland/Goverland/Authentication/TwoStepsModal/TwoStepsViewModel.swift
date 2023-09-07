@@ -11,7 +11,6 @@ import WalletConnectSign
 
 class TwoStepsViewModel: ObservableObject {
     @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
-    // TODO: Add Loading State for button
 
     private var cancelables = Set<AnyCancellable>()
 

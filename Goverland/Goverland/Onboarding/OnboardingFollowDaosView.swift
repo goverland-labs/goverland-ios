@@ -83,6 +83,8 @@ struct OnboardingFollowDaosView: View {
                     }
                 }
 
+                // Feature Toggle
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Sign In") {
                         showSignIn = true
