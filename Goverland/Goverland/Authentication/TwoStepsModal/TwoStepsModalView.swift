@@ -48,7 +48,6 @@ struct TwoStepsModalView: View {
                                 .accentColor(.primary)
                         }
                         Button("Change Wallet") {
-                            WC_Manager.shared.sessionMeta = nil
                             showSelectWallet = true
                         }
                         .accentColor(.primary)
