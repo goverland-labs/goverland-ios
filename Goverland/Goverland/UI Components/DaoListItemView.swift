@@ -19,7 +19,7 @@ struct DaoSharingMenu: View {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
 
-            Button {                
+            Button {
                 openUrl(url)
             } label: {
                 // for now we handle only Snapshot proposals
