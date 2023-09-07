@@ -94,7 +94,7 @@ fileprivate struct OtherWalletView: View {
         .frame(height: 48)
         .contentShape(Rectangle())
         .onTapGesture {
-            logInfo("Other Wallet selected")
+            WalletConnectModal.present()
         }
     }
 }
