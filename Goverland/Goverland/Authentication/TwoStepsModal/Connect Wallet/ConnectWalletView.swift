@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WalletConnectModal
 
 
 struct ConnectWalletView: View {
@@ -94,7 +93,7 @@ fileprivate struct OtherWalletView: View {
         .frame(height: 48)
         .contentShape(Rectangle())
         .onTapGesture {
-            WalletConnectModal.present()
+            WC_Manager.showModal()
         }
     }
 }
