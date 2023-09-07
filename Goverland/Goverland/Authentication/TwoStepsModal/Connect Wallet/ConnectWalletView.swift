@@ -12,7 +12,6 @@ import WalletConnectModal
 struct ConnectWalletView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var model = ConnectWalletModel()
-    @State private var showQR = false
 
     var body: some View {
         ZStack {
@@ -20,7 +19,7 @@ struct ConnectWalletView: View {
                 List {
                     Section(header: Text("If connecting from other device")) {
                         QRRowView {
-                            showQR = true
+                            model.showQR()
                         }
                     }
 
@@ -38,8 +37,8 @@ struct ConnectWalletView: View {
             }
             .padding(16)
 
-            if showQR {
-                WC_QRView(showQR: $showQR)
+            if model.qrDisplayed {
+                WC_QRView(connectWalletModel: model)
                     .ignoresSafeArea(.all)
             }
         }

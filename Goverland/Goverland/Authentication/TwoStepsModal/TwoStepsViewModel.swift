@@ -10,7 +10,7 @@ import Combine
 import WalletConnectSign
 
 class TwoStepsViewModel: ObservableObject {
-    @Published var wcSession = WC_Manager.shared.session
+    @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
     // TODO: Add Loading State for button
 
     private var cancelables = Set<AnyCancellable>()
@@ -21,7 +21,7 @@ class TwoStepsViewModel: ObservableObject {
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
-        wcSession = WC_Manager.shared.session
+        wcSessionMeta = WC_Manager.shared.sessionMeta
     }
 
     private func listen_WC_Responses() {
@@ -41,7 +41,7 @@ class TwoStepsViewModel: ObservableObject {
     }
 
     func authenticate() {
-        guard let session = WC_Manager.shared.session,
+        guard let session = WC_Manager.shared.sessionMeta?.session,
             let address = session.accounts.first?.address else { return }
 
         let dataStr = Data(SIWE_Message.goverland(walletAddress: address).message().utf8).toHexString()
@@ -57,9 +57,10 @@ class TwoStepsViewModel: ObservableObject {
             try? await Sign.instance.request(params: request)
         }
 
-//        if let walletUrl = URL(string: session.peer.url) {
-//            logInfo("[WC] Wallet URL: \(walletUrl)")
-//            UIApplication.shared.open(walletUrl)
-//        }
+        if let meta = wcSessionMeta, meta.walletOnSameDevice,
+           let redirectUrlStr = meta.session.peer.redirect?.universal,
+           let redirectUrl = URL(string: redirectUrlStr) {
+            openUrl(redirectUrl)
+        }
     }
 }

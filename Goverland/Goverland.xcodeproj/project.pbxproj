@@ -636,8 +636,8 @@
 			isa = PBXGroup;
 			children = (
 				55FD0D332AA5179E00AAB216 /* TwoStepsModalView.swift */,
-				55FD0D342AA5179E00AAB216 /* Connect Wallet */,
 				55FD0D382AA5179E00AAB216 /* TwoStepsViewModel.swift */,
+				55FD0D342AA5179E00AAB216 /* Connect Wallet */,
 			);
 			path = TwoStepsModal;
 			sourceTree = "<group>";

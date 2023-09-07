@@ -26,7 +26,8 @@ fileprivate func qrEdge() -> CGFloat {
 }
 
 struct WC_QRView: View {
-    @Binding var showQR: Bool
+    let connectWalletModel: ConnectWalletModel
+
     @StateObject private var model = QRViewModel()
     @StateObject private var orientationManager = DeviceOrientationManager()
 
@@ -35,7 +36,7 @@ struct WC_QRView: View {
             Rectangle()
                 .foregroundColor(.black.opacity(0.2))
                 .onTapGesture {
-                    showQR = false
+                    connectWalletModel.hideQR()
                 }
 
             VStack {
@@ -51,7 +52,7 @@ struct WC_QRView: View {
                             HStack {
                                 Spacer()
                                 Button {
-                                    showQR = false
+                                    connectWalletModel.hideQR()
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.textWhite40)
@@ -83,7 +84,9 @@ struct WC_QRView: View {
             model.loadURI()
         }
         .onReceive(model.$failedToLoad) { failed in
-            showQR = !failed
+            if failed {
+                connectWalletModel.hideQR()
+            }
         }
     }
 
@@ -154,11 +157,5 @@ fileprivate class QRViewModel: ObservableObject {
                 }
             }
         }
-    }
-}
-
-struct WC_QRView_Previews: PreviewProvider {
-    static var previews: some View {
-        WC_QRView(showQR: .constant(true))
     }
 }

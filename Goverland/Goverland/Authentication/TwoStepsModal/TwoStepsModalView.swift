@@ -37,10 +37,10 @@ struct TwoStepsModalView: View {
                 Text("1")
                 Text("Connect wallet")
                 Spacer()
-                if let session = model.wcSession {
+                if let sessionMeta = model.wcSessionMeta {
                     VStack(alignment: .trailing) {
                         HStack {
-                            if let iconStr = session.peer.icons.first,
+                            if let iconStr = sessionMeta.session.peer.icons.first,
                                let iconUrl = URL(string: iconStr) {
                                 RoundPictureView(image: iconUrl, imageSize: 24)
                             }
@@ -48,7 +48,7 @@ struct TwoStepsModalView: View {
                                 .accentColor(.primary)
                         }
                         Button("Change Wallet") {
-                            WC_Manager.shared.session = nil
+                            WC_Manager.shared.sessionMeta = nil
                             showSelectWallet = true
                         }
                         .accentColor(.primary)
@@ -64,7 +64,7 @@ struct TwoStepsModalView: View {
 
             Spacer()
 
-            if model.wcSession == nil {
+            if model.wcSessionMeta == nil {
                 PrimaryButton("Connect Wallet") {
                     showSelectWallet = true
                 }
