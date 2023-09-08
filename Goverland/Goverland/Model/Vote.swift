@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-// TODO: this is a stab
-struct Vote: Identifiable, Decodable {
+
+struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
     let id: String
     let voter: User
     let votingPower: Double
-    let choice: Int
+    let choice: ChoiceType
     let message: String?
     
     init(id: String,
          voter: User,
          votingPower: Double,
-         choice: Int,
+         choice: ChoiceType,
          message: String?) {
         self.id = id
         self.voter = voter

@@ -11,7 +11,7 @@ import Combine
 class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
     private let proposal: Proposal
     
-    @Published var votes: [Vote] = []
+    @Published var votes: [Vote<Int>] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
@@ -44,7 +44,7 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] votes, headers in
+            } receiveValue: { [weak self] (votes: [Vote<Int>], headers) in
                 self?.votes = votes
                 self?.total = Utils.getTotal(from: headers)
             }
@@ -58,9 +58,9 @@ class SnapsotVotesDataSource: ObservableObject, Paginatable, Refreshable {
                 case .finished: break
                 case .failure(_): self?.failedToLoadMore = true
                 }
-            } receiveValue: { [weak self] result, headers in
+            } receiveValue: { [weak self] (votes: [Vote<Int>], headers) in
                 self?.failedToLoadMore = false
-                self?.votes.append(contentsOf: result)
+                self?.votes.append(contentsOf: votes)
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
