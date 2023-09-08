@@ -32,7 +32,6 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                 Divider()
                     .background(Color.secondaryContainer)
                 VoteListItemView(proposal: proposal, vote: vote)
-                
             }
             
             if dataSource.totalVotes >= 5 {
@@ -132,17 +131,18 @@ struct ShimmerVoteListItemView: View {
     var body: some View {
         HStack {
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(10)
             Spacer()
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(8)
             Spacer()
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(8)
         }
+        .padding(.vertical, 5)
     }
 }
 

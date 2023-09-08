@@ -33,23 +33,27 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                 } else {
                     List(0..<data.votes.count, id: \.self) { index in
                         if index == data.votes.count - 1 && data.hasMore() {
-                            ZStack {
-                                if !data.failedToLoadMore {
-                                    ShimmerProposalListItemView()
-                                        .onAppear {
-                                            data.loadMore()
-                                        }
-                                } else {
-                                    RetryLoadMoreListItemView(dataSource: data)
-                                }
+                            if !data.failedToLoadMore {
+                                ShimmerVoteListItemView()
+                                    .padding(.bottom, 30)
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                                    .onAppear {
+                                        data.loadMore()
+                                    }
+                            } else {
+                                RetryLoadMoreListItemView(dataSource: data) .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
                             }
                         } else {
                             let vote = data.votes[index]
                             VoteListItemView(proposal: proposal, vote: vote)
-                            .padding(.bottom, 30)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets())
+                                .padding(.bottom, 30)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                .listRowInsets(EdgeInsets())
                         }
                     }
                     .scrollIndicators(.hidden)
@@ -57,7 +61,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
             }
         }
         .onAppear() {
-            data.loadMore()
+            data.refresh()
             Tracker.track(.screenSnpVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
