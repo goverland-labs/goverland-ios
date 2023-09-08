@@ -31,10 +31,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                 let vote = dataSource.votes[index]
                 Divider()
                     .background(Color.secondaryContainer)
-                VoteListItemView(voter: vote.voter,
-                                 votingPower: vote.votingPower,
-                                 choice: vote.choice,
-                                 message: vote.message)
+                VoteListItemView(proposal: proposal, vote: vote)
                 
             }
             
@@ -66,29 +63,65 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
 }
 
 struct VoteListItemView<ChoiceType: Decodable>: View {
-    let voter: User
-    let votingPower: Double
-    let choice: ChoiceType
-    let message: String?
+    let proposal: Proposal
+    let vote: Vote<ChoiceType>
+
+    var choice: String? {
+        switch proposal.type {
+        case .basic:
+            if let choice = vote.choice as? Int {
+                return String(choice)
+            }
+        case .singleChoice:
+            if let choice = vote.choice as? String {
+                return choice
+            }
+        case .approval, .rankedChoice:
+            if let choice = vote.choice as? [Int] {
+                return choice.map { String($0) }.joined(separator: ", ")
+            }
+        case .weighted:
+            if let choice = vote.choice as? [String: Int] {
+                let total = choice.values.reduce(0, +)
+                return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
+            }
+        case .quadratic:
+            if let choice = vote.choice as? [String: Int] {
+                let total = choice.values.reduce(0.0) { $0 + sqrt(Double($1)) }
+                return choice.map { "\(Utils.percentage(of: sqrt(Double($0.value)), in: total)) for \($0.key)" }.joined(separator: ", ")
+            }
+        }
+
+        logError(GError.failedVotesDecoding(proposalID: proposal.id))
+        return nil
+    }
+
+
     var body: some View {
         HStack {
-            IdentityView(user: voter)
+            IdentityView(user: vote.voter)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
 
-            // TODO: implement
-//            Text(choice)
-//                .frame(maxWidth: .infinity, alignment: .center)
-//                .font(.footnoteRegular)
-//                .foregroundColor(.textWhite40)
+            if proposal.privacy == .shutter {
+                Image(systemName: "lock")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite40)
+            } else {
+                Text(choice ?? "")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite40)
+            }
 
             HStack {
-                Text("\(String(Utils.formattedNumber(votingPower))) Votes")
+                Text("\(String(Utils.formattedNumber(vote.votingPower))) Votes")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
-                if message != nil && !message!.isEmpty {
+                if vote.message != nil && !vote.message!.isEmpty {
                     Image(systemName: "text.bubble.fill")
                         .foregroundColor(.secondaryContainer)
                 }

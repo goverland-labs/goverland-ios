@@ -45,10 +45,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                             }
                         } else {
                             let vote = data.votes[index]
-                            VoteListItemView(voter: vote.voter,
-                                             votingPower: vote.votingPower,
-                                             choice: vote.choice,
-                                             message: vote.message)
+                            VoteListItemView(proposal: proposal, vote: vote)
                             .padding(.bottom, 30)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
