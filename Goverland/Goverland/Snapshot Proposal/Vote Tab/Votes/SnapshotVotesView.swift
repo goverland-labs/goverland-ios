@@ -68,27 +68,25 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
 
     var choice: String? {
         switch proposal.type {
-        case .basic:
-            if let choice = vote.choice as? Int {
-                return String(choice)
-            }
-        case .singleChoice:
-            if let choice = vote.choice as? String {
-                return choice
+        case .basic, .singleChoice:
+            if let choice = vote.choice as? Int, choice <= proposal.choices.count {
+                return String(proposal.choices[choice - 1])
             }
         case .approval, .rankedChoice:
             if let choice = vote.choice as? [Int] {
                 return choice.map { String($0) }.joined(separator: ", ")
             }
-        case .weighted:
+        case .weighted, .quadratic:
             if let choice = vote.choice as? [String: Int] {
                 let total = choice.values.reduce(0, +)
                 return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
             }
-        case .quadratic:
-            if let choice = vote.choice as? [String: Int] {
-                let total = choice.values.reduce(0.0) { $0 + sqrt(Double($1)) }
-                return choice.map { "\(Utils.percentage(of: sqrt(Double($0.value)), in: total)) for \($0.key)" }.joined(separator: ", ")
+        }
+
+        if proposal.privacy == .shutter {
+            // result is encrepted. fallback case
+            if let choice = vote.choice as? String {
+                return choice
             }
         }
 
@@ -104,11 +102,9 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
 
-            if proposal.privacy == .shutter {
-                Image(systemName: "lock")
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite40)
+            if proposal.privacy == .shutter && proposal.state == .active {
+                Image(systemName: "lock.fill")
+                    .foregroundColor(.textWhite)
             } else {
                 Text(choice ?? "")
                     .frame(maxWidth: .infinity, alignment: .center)

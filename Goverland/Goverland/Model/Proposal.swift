@@ -58,12 +58,7 @@ struct Proposal: Decodable, Hashable {
 
     enum Privacy: String, Decodable {
         case shutter
-        case none
-
-        enum CodingKeys: String, CodingKey {
-            case shutter
-            case none = ""
-        }
+        case none = ""
     }
 
     enum State: String, Decodable {
