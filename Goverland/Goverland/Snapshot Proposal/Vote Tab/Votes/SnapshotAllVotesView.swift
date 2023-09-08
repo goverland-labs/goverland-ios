@@ -23,20 +23,18 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                 RetryInitialLoadingView(dataSource: data)
             } else {
                 if data.isLoading {
-                    ScrollView {
-                        ForEach(0..<5) { _ in
-                            ShimmerVoteListItemView()
-                                .padding(.horizontal, 12)
-                        }
+                    List(0..<5, id: \.self) { _ in
+                        ShimmerVoteListItemView()
+                            .padding([.top, .bottom])
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
                     }
-                    .padding(.top, 4)
                 } else {
                     List(0..<data.votes.count, id: \.self) { index in
                         if index == data.votes.count - 1 && data.hasMore() {
                             if !data.failedToLoadMore {
                                 ShimmerVoteListItemView()
-                                    .padding(.bottom, 30)
-                                    .listRowSeparator(.hidden)
+                                    .padding([.top, .bottom])
                                     .listRowBackground(Color.clear)
                                     .listRowInsets(EdgeInsets())
                                     .onAppear {
@@ -50,8 +48,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                         } else {
                             let vote = data.votes[index]
                             VoteListItemView(proposal: proposal, vote: vote)
-                                .padding(.bottom, 30)
-                                .listRowSeparator(.hidden)
+                                .padding([.top, .bottom])
                                 .listRowBackground(Color.clear)
                                 .listRowInsets(EdgeInsets())
                         }

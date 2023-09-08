@@ -25,6 +25,10 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                     .foregroundColor(.textWhite)
                 Spacer()
             }
+
+            if dataSource.isLoading {
+                ShimmerVoteListItemView()
+            }
             
             let count = dataSource.votes.count
             ForEach(0..<min(5, count), id: \.self) { index in
@@ -122,7 +126,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 }
             }
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, 4)
         .font(.footnoteRegular)
     }
 }
@@ -142,7 +146,7 @@ struct ShimmerVoteListItemView: View {
                 .frame(width: 60, height: 20)
                 .cornerRadius(8)
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, 4)
     }
 }
 
