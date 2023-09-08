@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct SnapshotVotesView: View {
+struct SnapshotVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
-    @StateObject var dataSource: SnapsotVotesDataSource
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject var dataSource: SnapsotVotesDataSource<ChoiceType>
+    @State private var showAllVotes = false
     
     init(proposal: Proposal) {
-        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
         self.proposal = proposal
+        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
     }
     
     var body: some View {
@@ -34,7 +33,7 @@ struct SnapshotVotesView: View {
                     .background(Color.secondaryContainer)
                 VoteListItemView(voter: vote.voter,
                                  votingPower: vote.votingPower,
-                                 choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
+                                 choice: vote.choice,
                                  message: vote.message)
                 
             }
@@ -47,20 +46,29 @@ struct SnapshotVotesView: View {
                     .tint(.onSecondaryContainer)
                     .font(.footnoteSemibold)
                     .onTapGesture {
-                        activeSheetManger.activeSheet = .proposalVoters(proposal)
+                        showAllVotes = true
                     }
             }
         }        
         .onAppear() {
             dataSource.refresh()
         }
+        .sheet(isPresented: $showAllVotes) {
+            NavigationStack {
+                SnapshotAllVotesView<ChoiceType>(proposal: proposal)
+            }
+            .accentColor(.primary)
+            .overlay {
+                ToastView()
+            }
+        }
     }
 }
 
-struct VoteListItemView: View {
+struct VoteListItemView<ChoiceType: Decodable>: View {
     let voter: User
     let votingPower: Double
-    let choice: String
+    let choice: ChoiceType
     let message: String?
     var body: some View {
         HStack {
@@ -68,10 +76,13 @@ struct VoteListItemView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
-            Text(choice)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .font(.footnoteRegular)
-                .foregroundColor(.textWhite40)
+
+            // TODO: implement
+//            Text(choice)
+//                .frame(maxWidth: .infinity, alignment: .center)
+//                .font(.footnoteRegular)
+//                .foregroundColor(.textWhite40)
+
             HStack {
                 Text("\(String(Utils.formattedNumber(votingPower))) Votes")
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -108,6 +119,6 @@ struct ShimmerVoteListItemView: View {
 
 struct SnapshotVotersView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotVotesView(proposal: .aaveTest)
+        SnapshotVotesView<Int>(proposal: .aaveTest)
     }
 }

@@ -38,9 +38,7 @@ struct GoverlandApp: App {
                         case .daoInfo(let dao):
                             DaoInfoView(dao: dao)
                         case .followDaos:
-                            AddSubscriptionView()
-                        case .proposalVoters(let proposal):
-                            SnapshotAllVotesView(proposal: proposal)
+                            AddSubscriptionView()                        
                         }
                     }
                     .accentColor(.primary)

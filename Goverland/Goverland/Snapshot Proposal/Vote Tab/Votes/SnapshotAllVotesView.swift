@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SnapshotAllVotesView: View {
+struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
-    @StateObject var data: SnapsotVotesDataSource
+    @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
     @Environment(\.presentationMode) private var presentationMode
     
     init(proposal: Proposal) {
-        _data = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
         self.proposal = proposal
+        _data = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
     }
     
     var body: some View {
@@ -47,7 +47,7 @@ struct SnapshotAllVotesView: View {
                             let vote = data.votes[index]
                             VoteListItemView(voter: vote.voter,
                                              votingPower: vote.votingPower,
-                                             choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
+                                             choice: vote.choice,
                                              message: vote.message)
                             .padding(.bottom, 30)
                             .listRowSeparator(.hidden)
@@ -80,6 +80,6 @@ struct SnapshotAllVotesView: View {
 
 struct SnapshotAllVotesView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotAllVotesView(proposal: .aaveTest)
+        SnapshotAllVotesView<Int>(proposal: .aaveTest)
     }
 }
