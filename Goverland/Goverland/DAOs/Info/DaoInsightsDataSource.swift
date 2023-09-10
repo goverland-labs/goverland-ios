@@ -19,7 +19,7 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
     init(daoID: UUID) {
         self.daoID = daoID
         self.monthlyActiveUsers = []
-        refresh()
+        //refresh()
     }
     
     convenience init(dao: Dao) {

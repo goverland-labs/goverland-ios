@@ -1,5 +1,5 @@
 //
-//  DaoInfoInsightsDaoView.swift
+//  DaoInsightsView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-07-28.
@@ -8,8 +8,8 @@
 import SwiftUI
 import Charts
 
-struct DaoInfoInsightsDaoView: View {
-    @StateObject var dataSource: DaoInsightsDataSource
+struct DaoInsightsView: View {
+    @StateObject private var dataSource: DaoInsightsDataSource
     
     init(dao: Dao) {
         let dataSource = DaoInsightsDataSource(dao: dao)
@@ -109,6 +109,6 @@ struct DaoInfoInsightsDaoView: View {
 
 struct DaoInfoInsightsDaoView_Previews: PreviewProvider {
     static var previews: some View {
-        DaoInfoInsightsDaoView(dao: .aave)
+        DaoInsightsView(dao: .aave)
     }
 }
