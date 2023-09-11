@@ -13,6 +13,9 @@ struct DaoInsightsView: View {
     
     var body: some View {
         MonthlyActiveVotersGraphView(dao: dao)
+            .onAppear() {
+                Tracker.track(.screenDaoInsights)
+            }
     }
 }
 
