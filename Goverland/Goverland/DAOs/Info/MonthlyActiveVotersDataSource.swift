@@ -1,5 +1,5 @@
 //
-//  DaoInsightsDataSource.swift
+//  MonthlyActiveVotersDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-09-04.
@@ -8,18 +8,21 @@
 import SwiftUI
 import Combine
 
-class DaoInsightsDataSource: ObservableObject, Refreshable {
+class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var monthlyActiveUsers: [MonthlyActiveUsers]
+    @Published var monthlyActiveUsers: [MonthlyActiveUsers] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
+    var chartData: [(votersType: String, data: [MonthlyActiveVotersGraphData])] {
+        [(votersType: "Returning Voters", data: getReturningVoters()),
+         (votersType: "New Voters", data: getNewVoters())]
+    }
+    
     init(daoID: UUID) {
         self.daoID = daoID
-        self.monthlyActiveUsers = []
-        //refresh()
     }
     
     convenience init(dao: Dao) {
@@ -48,25 +51,17 @@ class DaoInsightsDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
     
-    struct ChampionVoters: Identifiable {
+    struct MonthlyActiveVotersGraphData: Identifiable {
         let id = UUID()
         let date: Date
         let voters: Double
     }
-    
-    func getExistedVoters() -> [ChampionVoters] {
-        var existedVoters: [ChampionVoters] = []
-        for i in monthlyActiveUsers {
-            existedVoters.append(ChampionVoters.init(date: i.date, voters: i.activeUsers))
-        }
-        return existedVoters
+
+    private func getReturningVoters() -> [MonthlyActiveVotersGraphData] {
+        return monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.activeUsers) }
     }
     
-    func getNewVoters() -> [ChampionVoters] {
-        var newVoters: [ChampionVoters] = []
-        for i in monthlyActiveUsers {
-            newVoters.append(ChampionVoters.init(date: i.date, voters: i.activeUsers))
-        }
-        return newVoters
+    private func getNewVoters() -> [MonthlyActiveVotersGraphData] {
+        return monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
     }
 }

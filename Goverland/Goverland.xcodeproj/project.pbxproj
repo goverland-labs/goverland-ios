@@ -120,8 +120,9 @@
 		BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */; };
 		BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9482A47522300D24110 /* Chillax-Bold.otf */; };
 		BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */; };
-		BAB960AF2AA6245500DC2D92 /* DaoInsightsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* DaoInsightsDataSource.swift */; };
+		BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */; };
 		BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */; };
+		BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
@@ -270,8 +271,9 @@
 		BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Semibold.otf"; sourceTree = "<group>"; };
 		BAB4B9482A47522300D24110 /* Chillax-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Bold.otf"; sourceTree = "<group>"; };
 		BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalSharingMenu.swift; sourceTree = "<group>"; };
-		BAB960AE2AA6245500DC2D92 /* DaoInsightsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInsightsDataSource.swift; sourceTree = "<group>"; };
+		BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveUsers.swift; sourceTree = "<group>"; };
+		BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersGraphView.swift; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
@@ -684,7 +686,8 @@
 				BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */,
 				BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */,
 				55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */,
-				BAB960AE2AA6245500DC2D92 /* DaoInsightsDataSource.swift */,
+				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
+				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -909,6 +912,7 @@
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
+				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
@@ -963,7 +967,7 @@
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */,
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
-				BAB960AF2AA6245500DC2D92 /* DaoInsightsDataSource.swift in Sources */,
+				BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
