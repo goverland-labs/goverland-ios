@@ -123,6 +123,9 @@
 		BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */; };
 		BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */; };
 		BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */; };
+		BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */; };
+		BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */; };
+		BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
@@ -274,6 +277,9 @@
 		BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveUsers.swift; sourceTree = "<group>"; };
 		BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersGraphView.swift; sourceTree = "<group>"; };
+		BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBucketsDataSource.swift; sourceTree = "<group>"; };
+		BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuckets.swift; sourceTree = "<group>"; };
+		BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBucketsGraphView.swift; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
@@ -662,6 +668,7 @@
 			isa = PBXGroup;
 			children = (
 				BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */,
+				BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -688,6 +695,8 @@
 				55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */,
 				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
 				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
+				BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */,
+				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -948,6 +957,7 @@
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
+				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
@@ -959,6 +969,7 @@
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
+				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
@@ -1007,6 +1018,7 @@
 				550E85722A5F4C3400B0CFDD /* VoteButton.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
+				BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,

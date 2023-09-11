@@ -12,10 +12,16 @@ struct DaoInsightsView: View {
     let dao: Dao
     
     var body: some View {
-        MonthlyActiveVotersGraphView(dao: dao)
+        ScrollView {
+            VStack {
+                MonthlyActiveVotersGraphView(dao: dao)
+                UserBucketsGraphView(dao: dao)
+            }
             .onAppear() {
                 Tracker.track(.screenDaoInsights)
             }
+        }
+        .scrollIndicators(.hidden)
     }
 }
 
