@@ -35,16 +35,12 @@ class UserBucketsDataSource: ObservableObject, Refreshable {
     private func loadInitialData() {
         APIService.userBuckets(id: daoID)
             .sink { [weak self] completion in
-                print("==================")
-                print(completion)
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] data, headers in
-                print("----------------")
-                print(data)
                 self?.userBuckets = data
             }
             .store(in: &cancellables)
