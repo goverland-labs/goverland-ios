@@ -42,8 +42,8 @@ struct MonthlyActiveVotersGraphView: View {
                     ForEach(element.data, id: \.date) { data in
                         BarMark (
                             x: .value("Date", data.date, unit: .month),
-                            y: .value("Voters in K", data.voters)
-                        )                        
+                            y: .value("Voters", data.voters)
+                        )
                         .foregroundStyle(by: .value("Voters(type)", element.votersType))
                         .foregroundStyle(Color.chartBar)
                     }
