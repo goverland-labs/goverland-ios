@@ -114,7 +114,8 @@ struct Dao: Identifiable, Decodable, Equatable {
     }
 }
 
-enum DaoCategory: String, Decodable, Identifiable {
+enum DaoCategory: String, Identifiable {
+    case new = "new_daos"
     case social
     case `protocol`
     case investment
@@ -127,11 +128,13 @@ enum DaoCategory: String, Decodable, Identifiable {
     var id: Self { self }
     
     static var values: [DaoCategory] {[
-        .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
+        .new, .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
     ]}
     
     var name: String {
         switch self {
+        case .new:
+            return "New"
         case .social:
             return "Social"
         case .protocol:
