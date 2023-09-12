@@ -12,6 +12,7 @@ enum GError: Error {
     case missingUnreadCount
     case missingSubscriptionsCount
     case voteResultsInconsistency(id: String)
+    case failedVotesDecoding(proposalID: String)
 
     var localizedDescription: String {
         switch self {
@@ -23,6 +24,8 @@ enum GError: Error {
             return "Missing x-subscriptions-count."
         case .voteResultsInconsistency(let id):
             return "Index out of range for proposal id: \(id)"
+        case .failedVotesDecoding(let proposalID):
+            return "Could not decode votes for proposal \(proposalID)"
         }
     }
 }

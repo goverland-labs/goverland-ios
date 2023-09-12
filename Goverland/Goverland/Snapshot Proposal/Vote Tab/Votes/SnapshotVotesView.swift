@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct SnapshotVotesView: View {
+struct SnapshotVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
-    @StateObject var dataSource: SnapsotVotesDataSource
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject var dataSource: SnapsotVotesDataSource<ChoiceType>
+    @State private var showAllVotes = false
     
     init(proposal: Proposal) {
-        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
         self.proposal = proposal
+        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
     }
     
     var body: some View {
@@ -26,17 +25,17 @@ struct SnapshotVotesView: View {
                     .foregroundColor(.textWhite)
                 Spacer()
             }
+
+            if dataSource.isLoading {
+                ShimmerVoteListItemView()
+            }
             
             let count = dataSource.votes.count
             ForEach(0..<min(5, count), id: \.self) { index in
                 let vote = dataSource.votes[index]
                 Divider()
                     .background(Color.secondaryContainer)
-                VoteListItemView(voter: vote.voter,
-                                 votingPower: vote.votingPower,
-                                 choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
-                                 message: vote.message)
-                
+                VoteListItemView(proposal: proposal, vote: vote)
             }
             
             if dataSource.totalVotes >= 5 {
@@ -47,43 +46,87 @@ struct SnapshotVotesView: View {
                     .tint(.onSecondaryContainer)
                     .font(.footnoteSemibold)
                     .onTapGesture {
-                        activeSheetManger.activeSheet = .proposalVoters(proposal)
+                        showAllVotes = true
                     }
             }
         }        
         .onAppear() {
             dataSource.refresh()
         }
+        .sheet(isPresented: $showAllVotes) {
+            NavigationStack {
+                SnapshotAllVotesView<ChoiceType>(proposal: proposal)
+            }
+            .accentColor(.primary)
+            .overlay {
+                ToastView()
+            }
+        }
     }
 }
 
-struct VoteListItemView: View {
-    let voter: User
-    let votingPower: Double
-    let choice: String
-    let message: String?
+struct VoteListItemView<ChoiceType: Decodable>: View {
+    let proposal: Proposal
+    let vote: Vote<ChoiceType>
+
+    var choice: String? {
+        switch proposal.type {
+        case .basic, .singleChoice:
+            if let choice = vote.choice as? Int, choice <= proposal.choices.count {
+                return String(proposal.choices[choice - 1])
+            }
+        case .approval, .rankedChoice:
+            if let choice = vote.choice as? [Int] {
+                return choice.map { String($0) }.joined(separator: ", ")
+            }
+        case .weighted, .quadratic:
+            if let choice = vote.choice as? [String: Int] {
+                let total = choice.values.reduce(0, +)
+                return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
+            }
+        }
+
+        if proposal.privacy == .shutter {
+            // result is encrepted. fallback case
+            if let choice = vote.choice as? String {
+                return choice
+            }
+        }
+
+        logError(GError.failedVotesDecoding(proposalID: proposal.id))
+        return nil
+    }
+
+
     var body: some View {
         HStack {
-            IdentityView(user: voter)
+            IdentityView(user: vote.voter)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
-            Text(choice)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .font(.footnoteRegular)
-                .foregroundColor(.textWhite40)
+
+            if proposal.privacy == .shutter && proposal.state == .active {
+                Image(systemName: "lock.fill")
+                    .foregroundColor(.textWhite)
+            } else {
+                Text(choice ?? "")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite40)
+            }
+
             HStack {
-                Text("\(String(Utils.formattedNumber(votingPower))) Votes")
+                Text("\(String(Utils.formattedNumber(vote.votingPower))) Votes")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
-                if message != nil && !message!.isEmpty {
+                if vote.message != nil && !vote.message!.isEmpty {
                     Image(systemName: "text.bubble.fill")
                         .foregroundColor(.secondaryContainer)
                 }
             }
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, 4)
         .font(.footnoteRegular)
     }
 }
@@ -92,22 +135,23 @@ struct ShimmerVoteListItemView: View {
     var body: some View {
         HStack {
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(10)
             Spacer()
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(8)
             Spacer()
             ShimmerView()
-                .frame(width: 40, height: 20)
+                .frame(width: 60, height: 20)
                 .cornerRadius(8)
         }
+        .padding(.vertical, 4)
     }
 }
 
 struct SnapshotVotersView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotVotesView(proposal: .aaveTest)
+        SnapshotVotesView<Int>(proposal: .aaveTest)
     }
 }

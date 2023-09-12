@@ -223,8 +223,8 @@ struct ProposalEndpoint: APIEndpoint {
     }
 }
 
-struct ProposalVotesEndpoint: APIEndpoint {
-    typealias ResponseType = [Vote]
+struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
+    typealias ResponseType = [Vote<ChoiceType>]
 
     let proposalID: String
     

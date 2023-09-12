@@ -16,7 +16,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, /*.votes,*/ .info]
+        return [.vote, .results, .votes, .info]
     }
 
     var localizedName: String {
@@ -87,9 +87,8 @@ struct SnapshotProposalVoteTabView: View {
                 case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled)
                 case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
-                case .weighted : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
-                case .quadratic: SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
                 
                 VoteButton(disabled: $voteButtonDisabled) {
@@ -98,7 +97,20 @@ struct SnapshotProposalVoteTabView: View {
             case .results:
                 SnapshopVotingResultView(proposal: proposal)
             case .votes:
-                SnapshotVotesView(proposal: proposal)
+                if proposal.privacy == .shutter && proposal.state == .active {
+                    // Votes are encrypted
+                    SnapshotVotesView<String>(proposal: proposal)
+                } else {
+                    switch proposal.type {
+                    case .basic, .singleChoice:
+                        SnapshotVotesView<Int>(proposal: proposal)
+                    case .approval, .rankedChoice:
+                        SnapshotVotesView<[Int]>(proposal: proposal)
+                    case .weighted, .quadratic:
+                        SnapshotVotesView<[String: Int]>(proposal: proposal)
+                    }
+                }
+
             case .info:
                 SnapshotProposalInfoView(proposal: proposal)
             }
