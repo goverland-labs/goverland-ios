@@ -214,9 +214,23 @@ fileprivate struct AdvancedSettingView: View {
                 .accentColor(.primary)
             }
             #endif
+
             Section(header: Text("Share anonymized data")) {
                 Toggle(isOn: $accepted) {
                     Text("Allow App to Track Activity")
+                }
+            }
+
+            if let deviceId = UIDevice.current.identifierForVendor?.uuidString {
+                Section(header: Text("Device Id")) {
+                    LabeledContent(deviceId) {
+                        Button {
+                            UIPasteboard.general.string = deviceId
+                            ToastViewModel.shared.setErrorMessage("Copied")
+                        } label: {
+                            Image(systemName: "doc.on.doc")
+                        }
+                    }
                 }
             }
 
