@@ -43,14 +43,7 @@ struct MonthlyActiveVotersGraphView: View {
                         BarMark (
                             x: .value("Date", data.date, unit: .month),
                             y: .value("Voters in K", data.voters)
-                        )
-                        .annotation {
-                            if data.voters == 0 {
-                                Text("0")
-                                    .foregroundColor(.textWhite40)
-                                    .font(.сaption2Regular)
-                            }
-                        }
+                        )                        
                         .foregroundStyle(by: .value("Voters(type)", element.votersType))
                         .foregroundStyle(Color.chartBar)
                     }
