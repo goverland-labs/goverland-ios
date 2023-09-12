@@ -10,7 +10,7 @@ import Combine
 
 class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
-    @Published var failedToLoadInitially: Bool = false
+    @Published var failedToLoadInitialData: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
     private(set) var totalInCategory: [DaoCategory: Int] = [:]
     private(set) var totalDaos: Int?
@@ -34,7 +34,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     func refresh() {
         categoryDaos = [:]
-        failedToLoadInitially = false
+        failedToLoadInitialData = false
         failedToLoadInCategory = [:]
         totalInCategory = [:]
         totalDaos = nil
@@ -54,7 +54,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self?.failedToLoadInitially = true
+                case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] result, headers in
                 result.forEach { (key: String, value: DaoTopEndpoint.GroupedDaos) in

@@ -58,10 +58,10 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     }
 
     private func getReturningVoters() -> [MonthlyActiveVotersGraphData] {
-        return monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.activeUsers) }
+        monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.activeUsers) }
     }
     
     private func getNewVoters() -> [MonthlyActiveVotersGraphData] {
-        return monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
+        monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
     }
 }
