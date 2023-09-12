@@ -573,6 +573,27 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		55F700222AB04FC9008EA30C /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */,
+				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
+				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
+				BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */,
+				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		55F700232AB04FD4008EA30C /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */,
+				55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		55FBE80E2A0BBDFF000A9204 /* DAOs */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,16 +708,11 @@
 			isa = PBXGroup;
 			children = (
 				BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */,
-				BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */,
-				55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */,
 				BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */,
 				BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */,
 				BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */,
-				55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */,
-				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
-				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
-				BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */,
-				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
+				55F700232AB04FD4008EA30C /* Events */,
+				55F700222AB04FC9008EA30C /* Insights */,
 			);
 			path = Info;
 			sourceTree = "<group>";
