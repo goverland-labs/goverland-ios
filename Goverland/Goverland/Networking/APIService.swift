@@ -100,6 +100,8 @@ extension APIService {
         let endpoint = DaoInfoEndpoint(daoID: id)
         return shared.request(endpoint)
     }
+
+    // MARK: DAO Analytics
     
     static func monthlyActiveUsers(id: UUID) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DaoMonthlyActiveUsersEndpoint(daoID: id)

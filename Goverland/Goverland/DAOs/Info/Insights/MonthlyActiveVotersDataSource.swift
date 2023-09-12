@@ -54,7 +54,7 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     struct MonthlyActiveVotersGraphData: Identifiable {
         let id = UUID()
         let date: Date
-        let voters: Double
+        let voters: Int
     }
 
     private func getReturningVoters() -> [MonthlyActiveVotersGraphData] {
