@@ -58,9 +58,10 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] result, headers in
                 result.forEach { (key: String, value: DaoTopEndpoint.GroupedDaos) in
-                    let category = DaoCategory(rawValue: key)!
-                    self?.categoryDaos[category] = value.list
-                    self?.totalInCategory[category] = value.count
+                    if let category = DaoCategory(rawValue: key) {
+                        self?.categoryDaos[category] = value.list
+                        self?.totalInCategory[category] = value.count
+                    }
                 }
 
                 self?.totalDaos = Utils.getTotal(from: headers)

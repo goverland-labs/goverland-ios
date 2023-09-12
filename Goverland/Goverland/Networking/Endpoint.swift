@@ -122,9 +122,7 @@ struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyActiveUsers]
     
     let daoID: UUID
-    var baseURL: URL { URL(string: "https://gist.githubusercontent.com/")! }
-    var path: String { "JennyShalai/37990eed3bc1206af2f221906894e801/raw/74c429ba427acf0c84f1a5284fad73ac3ac6638e/gistfile1.txt" }
-    //var path: String { "analytics/monthly-active-users/\(daoID)" }
+    var path: String { "analytics/monthly-active-users/\(daoID)" }
     var method: HttpMethod = .get
     
     init(daoID: UUID) {
@@ -136,9 +134,7 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     typealias ResponseType = [UserBuckets]
     
     let daoID: UUID
-    var baseURL: URL { URL(string: "https://gist.githubusercontent.com/")! }
-    var path: String { "JennyShalai/ec1d19d5b1c110dc9d2d0a0d40118366/raw/6906f2236428f0f9f78b5054bd18545afc1b543c/gistfile1.txt" }
-    //var path: String { "analytics/voter-buckets/\(daoID)" }
+    var path: String { "analytics/voter-buckets/\(daoID)" }
     var method: HttpMethod = .get
     
     init(daoID: UUID) {
