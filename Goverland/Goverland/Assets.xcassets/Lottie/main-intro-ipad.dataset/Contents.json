@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "main_4s_ipad.json",
+      "idiom" : "universal",
+      "universal-type-identifier" : "public.json"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
