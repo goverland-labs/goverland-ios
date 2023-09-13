@@ -33,7 +33,7 @@ struct ShimmerView: View {
                 .repeatCount(5, autoreverses: false)) {
                     startPoint = .init(x: 1, y: 1)
                     endPoint = .init(x: 2.2, y: 2.2)
-                }            
+                }
         }
     }
 }
