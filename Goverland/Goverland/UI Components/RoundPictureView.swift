@@ -11,18 +11,36 @@ import Kingfisher
 struct RoundPictureView: View {
     let image: URL?
     let imageSize: CGFloat
+
+    @State private var failedToLoad = false
+
     var body: some View {
-        KFImage(image)
-            .placeholder {
-                ShimmerView()
-                    .frame(width: imageSize, height: imageSize)
-                    .cornerRadius(imageSize / 2)
-            }
-            .resizable()
-            .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize),
-                                                 mode: .aspectFill))
-            .frame(width: imageSize, height: imageSize)
-            .cornerRadius(imageSize / 2)
+        if !failedToLoad {
+            KFImage(image)
+                .placeholder {
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        ProgressView()
+                            .foregroundColor(.textWhite20)
+                    } else {
+                        ShimmerView()
+                            .frame(width: imageSize, height: imageSize)
+                            .cornerRadius(imageSize / 2)
+                    }
+                }
+                .onFailure { _ in
+                    failedToLoad = true
+                }
+                .resizable()
+                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize),
+                                                     mode: .aspectFill))
+                .frame(width: imageSize, height: imageSize)
+                .cornerRadius(imageSize / 2)
+
+        } else {
+            Circle()
+                .foregroundColor(.containerBright)
+                .frame(width: imageSize, height: imageSize)
+        }
     }
 }
 
