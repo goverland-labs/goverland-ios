@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     let callToAction: String?
     let bottomPadding: CGFloat
@@ -99,6 +100,12 @@ struct GroupedDaosView: View {
                                        onFollowToggleFromList: onFollowToggleFromCategoryList,
                                        onFollowToggleFromSearch: onFollowToggleFromCategorySearch,
                                        onCategoryListAppear: onCategoryListAppear)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
+            // refresh if some popover sheet is presented
+            if activeSheetManager.activeSheet != nil {
+                dataSource.refresh()
+            }
         }
     }
 }
