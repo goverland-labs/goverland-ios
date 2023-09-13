@@ -23,7 +23,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let twitter: String?
     let github: String?
     let coingecko: String?
-    let terms: URL?
+    var terms: URL?
     
     init(id: UUID,
          alias: String,
@@ -97,6 +97,12 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         // can be empty string
         self.terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
+        if let terms = self.terms {
+            if terms.absoluteString.hasPrefix("ipfs:") {
+                let validString = "https://ipfs.io/ipfs/\(terms.absoluteString.dropFirst(7))"
+                self.terms = URL(string: validString)
+            }
+        }
     }
     
     struct DaoBody: Decodable {
