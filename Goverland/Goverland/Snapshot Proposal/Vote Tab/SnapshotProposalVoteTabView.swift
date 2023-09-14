@@ -90,9 +90,10 @@ struct SnapshotProposalVoteTabView: View {
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
-                
-                VoteButton(disabled: $voteButtonDisabled) {
-                    warningViewIsPresented = true
+                if proposal.state == .active {
+                    VoteButton(disabled: $voteButtonDisabled) {
+                        warningViewIsPresented = true
+                    }
                 }
             case .results:
                 SnapshopVotingResultView(proposal: proposal)
