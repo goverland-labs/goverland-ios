@@ -54,6 +54,33 @@ struct MonthlyActiveVotersGraphView: View {
                 // String name has to be same as in dataSource.chartData
                 "Returning Voters": Color.chartBar, "New Voters": Color.primary
             ])
+            .chartOverlay { chartProxy in
+                GeometryReader { proxy in
+                    Rectangle()
+                        .fill(.clear).contentShape(Rectangle())
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    let location = value.location
+                                    if let date: Date = chartProxy.value(atX: location.x) {
+                                        let calendar = Calendar.current
+                                        let month = calendar.component(.month, from: date)
+                                        let year = calendar.component(.year, from: date)
+                                        print(year, month)
+//                                        print("--------------")
+//                                        
+//                                        if let currentNewVoters = dataSource.chartData.first?.data.first(where: { item in
+//                                            calendar.component(.year, from: item.year) == year &&
+//                                            calendar.component(.month, from: item.month) == month
+//                                        }){
+//                                            print(currentNewVoters)
+//                                        }
+                                    }
+                                    
+                                }
+                        )
+                }
+            }
         }
     }
 }
