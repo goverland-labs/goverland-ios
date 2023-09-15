@@ -35,7 +35,8 @@ struct MonthlyActiveVotersGraphView: View {
 
     struct MonthlyActiveChart: View {
         @StateObject var dataSource: MonthlyActiveVotersDataSource
-
+        @State var votersTappedOnChart: (Int, Int) = (0,0)
+        @State var dateTapped: Date? = nil
         var body: some View {
             Chart {
                 ForEach(dataSource.chartData, id: \.votersType) { element in
@@ -46,6 +47,16 @@ struct MonthlyActiveVotersGraphView: View {
                         )
                         .foregroundStyle(by: .value("Voters(type)", element.votersType))
                         .foregroundStyle(Color.chartBar)
+                        
+                        if let dateTapped = dateTapped {
+                            RuleMark(x: .value("Date", dateTapped))
+                                .foregroundStyle(Color.chartBar)
+                                .lineStyle(.init(lineWidth: 2, dash: [4]))
+                                .annotation(position: .top) {
+                                    MonthlyActiveChartAnnotation(returnedUsers: votersTappedOnChart.0,
+                                                                 newUsers: votersTappedOnChart.1)
+                                }
+                        }
                     }
                 }
             }
@@ -62,25 +73,41 @@ struct MonthlyActiveVotersGraphView: View {
                             DragGesture()
                                 .onChanged { value in
                                     let location = value.location
-                                    if let date: Date = chartProxy.value(atX: location.x) {
+                                    if let dateOnChart: Date = chartProxy.value(atX: location.x) {
                                         let calendar = Calendar.current
-                                        let month = calendar.component(.month, from: date)
-                                        let year = calendar.component(.year, from: date)
-                                        print(year, month)
-//                                        print("--------------")
-//                                        
-//                                        if let currentNewVoters = dataSource.chartData.first?.data.first(where: { item in
-//                                            calendar.component(.year, from: item.year) == year &&
-//                                            calendar.component(.month, from: item.month) == month
-//                                        }){
-//                                            print(currentNewVoters)
-//                                        }
+                                        let yearOnChart = calendar.component(.year, from: dateOnChart)
+                                        let monthOnChart = calendar.component(.month, from: dateOnChart)
+                                        dateTapped = dateOnChart
+                                        // get new and returned voters for tapped date
+                                        votersTappedOnChart = dataSource.getNumberOfVotersForDate(year: yearOnChart, month: monthOnChart)
                                     }
-                                    
+                                }
+                                .onEnded { value in
+                                    votersTappedOnChart = (0, 0)
+                                    dateTapped = nil
                                 }
                         )
                 }
             }
+        }
+    }
+}
+
+fileprivate struct MonthlyActiveChartAnnotation: View {
+    let returnedUsers: Int
+    let newUsers: Int
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Returned users: \(returnedUsers)")
+            Text("New users: \(newUsers)")
+        }
+        .frame(width: 150)
+        .foregroundColor(.white)
+        .font(.footnoteRegular)
+        .background {
+            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                .fill(Color.containerBright)
+                .border(Color.chartBar)
         }
     }
 }

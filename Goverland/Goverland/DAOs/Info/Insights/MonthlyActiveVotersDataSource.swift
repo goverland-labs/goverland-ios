@@ -64,4 +64,24 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private func getNewVoters() -> [MonthlyActiveVotersGraphData] {
         monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
     }
+    
+    func getNumberOfVotersForDate(year: Int, month: Int) -> (Int, Int) {
+        var newVoters: Int = 0
+        var oldVoters: Int = 0
+        for monthlyActiveVotersGraphData in chartData[0].data {
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month], from: monthlyActiveVotersGraphData.date)
+            if dateComponents.year == year && dateComponents.month! + 1 == month {
+                oldVoters = monthlyActiveVotersGraphData.voters
+            }
+        }
+        for monthlyActiveVotersGraphData in chartData[1].data {
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month], from: monthlyActiveVotersGraphData.date)
+            if dateComponents.year == year && dateComponents.month! + 1 == month {
+                newVoters = monthlyActiveVotersGraphData.voters
+            }
+        }
+        return (oldVoters, newVoters)
+    }
 }
