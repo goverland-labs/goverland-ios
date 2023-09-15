@@ -64,32 +64,58 @@ struct SettingsView: View {
 fileprivate struct PushNotificationsSettingView: View {
     @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
     @State private var showAlert = false
+    @State private var skipTrackingOnce = false
 
     var body: some View {
         List {
             Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
         }
-        .onChange(of: notificationsEnabled) { enabled in
-            if enabled {
-                Tracker.track(.settingsEnableGlbNotifications)
-                NotificationsManager.shared.verifyGlobalNotificationSettingsEnabled { gloabalNotificationsEnabled in
-                    if !gloabalNotificationsEnabled {
+        .onChange(of: notificationsEnabled) { toggleEnabled in
+            NotificationsManager.shared.getNotificationsStatus { status in
+                switch status {
+                case .notDetermined:
+                    if toggleEnabled {
+                        Tracker.track(.settingsEnableGlbNotifications)
+                        NotificationsManager.shared.requestUserPermissionAndRegister { granted in
+                            DispatchQueue.main.async {
+                                SettingKeys.shared.notificationsEnabled = granted
+                                notificationsEnabled = granted
+                            }
+                        }
+                    } else {
+                        // should not happen
+                        logError(GError.appInconsistency(reason: "enabled notifications toggle without determined permission"))
+                    }
+
+                case .denied:
+                    if toggleEnabled {
+                        // Notifications are disabled in app settings
                         notificationsEnabled = false
                         showAlert = true
                     } else {
+                        logInfo("Auto-disabled notifications toggle")
+                    }
+                default:
+                    if toggleEnabled {
+                        if !skipTrackingOnce {
+                            Tracker.track(.settingsEnableGlbNotifications)
+                        } else {
+                            skipTrackingOnce = false
+                        }
                         SettingKeys.shared.notificationsEnabled = true
                         NotificationsManager.shared.enableNotifications()
+                    } else {
+                        Tracker.track(.settingsDisableGlbNotifications)
+                        NotificationsManager.shared.disableNotifications { disabled in
+                            guard disabled else {
+                                // Error will be displayed automatically if there was a networking issue
+                                skipTrackingOnce = true
+                                notificationsEnabled = true
+                                return
+                            }
+                            SettingKeys.shared.notificationsEnabled = false
+                        }
                     }
-                }
-            } else {
-                Tracker.track(.settingsDisableGlbNotifications)
-                NotificationsManager.shared.disableNotifications { disabled in
-                    guard disabled else {
-                        // Error will be displayed automatically
-                        notificationsEnabled = true
-                        return
-                    }
-                    SettingKeys.shared.notificationsEnabled = false
                 }
             }
         }
