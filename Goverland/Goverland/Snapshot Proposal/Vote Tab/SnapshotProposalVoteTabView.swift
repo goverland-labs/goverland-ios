@@ -22,12 +22,9 @@ enum SnapshotVoteTabType: Int, Identifiable {
     func localizedName(_ proposalState: Proposal.State) -> String {
         switch self {
         case .vote:
-            return "Cust your vote"
+            return "Cast your vote"
         case .results:
-            if proposalState == .active {
-                return "Current results"
-            }
-            return "Results"
+            return proposalState == .active ? "Current results" : "Results"
         case .votes:
             return "Votes"
         case .info:
