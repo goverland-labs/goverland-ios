@@ -45,4 +45,8 @@ class UserBucketsDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+
+    func votersInBucket(_ bucket: String) -> Int? {
+        userBuckets.first { $0.votes == bucket }?.voters
+    }
 }
