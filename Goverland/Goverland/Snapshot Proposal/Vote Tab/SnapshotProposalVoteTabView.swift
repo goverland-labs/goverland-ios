@@ -19,12 +19,12 @@ enum SnapshotVoteTabType: Int, Identifiable {
         return [.vote, .results, .votes, .info]
     }
 
-    var localizedName: String {
+    func localizedName(_ proposalState: Proposal.State) -> String {
         switch self {
         case .vote:
-            return "Cust your vote"
+            return "Cast your vote"
         case .results:
-            return "Current results"
+            return proposalState == .active ? "Current results" : "Results"
         case .votes:
             return "Votes"
         case .info:
@@ -55,25 +55,28 @@ struct SnapshotProposalVoteTabView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(SnapshotVoteTabType.allTabs) { tab in
-                        ZStack {
-                            if chosenTab == tab {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color.secondaryContainer)
-                                    .matchedGeometryEffect(id: "tab-background", in: namespace)
-                            }
-                            Text(tab.localizedName)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
-                                .font(.caption2Semibold)
-                                .foregroundColor(.onSecondaryContainer)
-                                .overlay(
+                        if !(proposal.state == .pending && tab == .results) {
+                            ZStack {
+                                if chosenTab == tab {
                                     RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.secondaryContainer, lineWidth: 1)
-                                )
-                        }
-                        .onTapGesture {
-                            withAnimation(.spring(response: 0.5)) {
-                                self.chosenTab = tab
+                                        .fill(Color.secondaryContainer)
+                                        .matchedGeometryEffect(id: "tab-background", in: namespace)
+                                }
+                                
+                                Text(tab.localizedName(proposal.state))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .font(.caption2Semibold)
+                                    .foregroundColor(.onSecondaryContainer)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.secondaryContainer, lineWidth: 1)
+                                    )
+                            }
+                            .onTapGesture {
+                                withAnimation(.spring(response: 0.5)) {
+                                    self.chosenTab = tab
+                                }
                             }
                         }
                     }
@@ -90,9 +93,10 @@ struct SnapshotProposalVoteTabView: View {
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
-                
-                VoteButton(disabled: $voteButtonDisabled) {
-                    warningViewIsPresented = true
+                if proposal.state == .active {
+                    VoteButton(disabled: $voteButtonDisabled) {
+                        warningViewIsPresented = true
+                    }
                 }
             case .results:
                 SnapshopVotingResultView(proposal: proposal)

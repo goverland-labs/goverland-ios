@@ -22,8 +22,7 @@ struct DiscordSettingsView: View {
     }
     
     private func openDiscordApp() {
-        // TODO: change before Aug 10 to permanent link
-        let url = URL(string: "https://discord.gg/gke7Cz9VA")!
+        let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
         UIApplication.shared.open(url)
         Tracker.track(.settingsOpenDiscord)
     }
