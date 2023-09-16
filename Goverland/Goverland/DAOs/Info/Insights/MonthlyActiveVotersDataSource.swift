@@ -17,8 +17,8 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
     
     var chartData: [(votersType: String, data: [MonthlyActiveVotersGraphData])] {
-        [(votersType: "Returning Voters", data: getReturningVoters()),
-         (votersType: "New Voters", data: getNewVoters())]
+        [(votersType: "Returning voters", data: getReturningVoters()),
+         (votersType: "New voters", data: getNewVoters())]
     }
     
     init(daoID: UUID) {
@@ -64,24 +64,27 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private func getNewVoters() -> [MonthlyActiveVotersGraphData] {
         monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
     }
-    
-    func getNumberOfVotersForDate(year: Int, month: Int) -> (Int, Int) {
-        var newVoters: Int = 0
-        var oldVoters: Int = 0
-        for monthlyActiveVotersGraphData in chartData[0].data {
-            let calendar = Calendar.current
-            let dateComponents = calendar.dateComponents([.year, .month], from: monthlyActiveVotersGraphData.date)
-            if dateComponents.year == year && dateComponents.month! + 1 == month {
-                oldVoters = monthlyActiveVotersGraphData.voters
-            }
+
+    func returningVoters(date: Date) -> Int {
+        let date = formatDateToStartOfMonth(date)
+        if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
+            return data.activeUsers - data.newUsers
         }
-        for monthlyActiveVotersGraphData in chartData[1].data {
-            let calendar = Calendar.current
-            let dateComponents = calendar.dateComponents([.year, .month], from: monthlyActiveVotersGraphData.date)
-            if dateComponents.year == year && dateComponents.month! + 1 == month {
-                newVoters = monthlyActiveVotersGraphData.voters
-            }
+        return 0
+    }
+
+    func newVoters(date: Date) -> Int {
+        let date = formatDateToStartOfMonth(date)
+        if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
+            return data.newUsers
         }
-        return (oldVoters, newVoters)
+        return 0
+    }
+
+    private func formatDateToStartOfMonth(_ date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = calendar.dateComponents([.year, .month], from: date)
+        components.timeZone = .gmt
+        return calendar.date(from: components)!
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+import SwiftDate
 
 struct MonthlyActiveVotersGraphView: View {
     @StateObject private var dataSource: MonthlyActiveVotersDataSource
@@ -35,8 +36,25 @@ struct MonthlyActiveVotersGraphView: View {
 
     struct MonthlyActiveChart: View {
         @StateObject var dataSource: MonthlyActiveVotersDataSource
-        @State var votersTappedOnChart: (Int, Int) = (0,0)
-        @State var dateTapped: Date? = nil
+        @State private var selectedDate: Date? = nil
+
+        var minScaleDate: Date {
+            (dataSource.monthlyActiveUsers.first?.date ?? Date())
+        }
+
+        var maxScaleDate: Date {
+            (dataSource.monthlyActiveUsers.last?.date ?? Date()) + 1.months
+        }
+
+        var midDate: Date {
+            let count = dataSource.monthlyActiveUsers.count
+            if count > 0 {
+                return dataSource.monthlyActiveUsers[count/2].date
+            } else {
+                return Date()
+            }
+        }
+
         var body: some View {
             Chart {
                 ForEach(dataSource.chartData, id: \.votersType) { element in
@@ -48,66 +66,79 @@ struct MonthlyActiveVotersGraphView: View {
                         .foregroundStyle(by: .value("Voters(type)", element.votersType))
                         .foregroundStyle(Color.chartBar)
                         
-                        if let dateTapped = dateTapped {
-                            RuleMark(x: .value("Date", dateTapped))
-                                .foregroundStyle(Color.chartBar)
-                                .lineStyle(.init(lineWidth: 2, dash: [4]))
-                                .annotation(position: .top) {
-                                    MonthlyActiveChartAnnotation(returnedUsers: votersTappedOnChart.0,
-                                                                 newUsers: votersTappedOnChart.1)
+                        if let selectedDate {
+                            RuleMark(x: .value("Date", selectedDate))
+                                .foregroundStyle(.primary.opacity(0.2))
+                                .lineStyle(.init(lineWidth: 1, dash: [4]))
+                                .annotation(
+                                    position: selectedDate <= midDate ? .trailing : .leading,
+                                    alignment: .center, spacing: 4
+                                ) {
+                                    AnnotationView(date: selectedDate, dataSource: dataSource)
                                 }
                         }
                     }
                 }
             }
             .padding()
+            .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartForegroundStyleScale([
                 // String name has to be same as in dataSource.chartData
-                "Returning Voters": Color.chartBar, "New Voters": Color.primary
+                "Returning voters": Color.chartBar, "New voters": Color.primary
             ])
             .chartOverlay { chartProxy in
-                GeometryReader { proxy in
+                GeometryReader { geometry in
                     Rectangle()
-                        .fill(.clear).contentShape(Rectangle())
+                        .fill(.clear)
+                        .contentShape(Rectangle())
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    let location = value.location
-                                    if let dateOnChart: Date = chartProxy.value(atX: location.x) {
-                                        let calendar = Calendar.current
-                                        let yearOnChart = calendar.component(.year, from: dateOnChart)
-                                        let monthOnChart = calendar.component(.month, from: dateOnChart)
-                                        dateTapped = dateOnChart
-                                        // get new and returned voters for tapped date
-                                        votersTappedOnChart = dataSource.getNumberOfVotersForDate(year: yearOnChart, month: monthOnChart)
-                                    }
+                                    selectedDate = chartProxy.value(atX: value.location.x, as: Date.self)
                                 }
                                 .onEnded { value in
-                                    votersTappedOnChart = (0, 0)
-                                    dateTapped = nil
+                                    selectedDate = nil
                                 }
                         )
                 }
             }
         }
     }
-}
 
-fileprivate struct MonthlyActiveChartAnnotation: View {
-    let returnedUsers: Int
-    let newUsers: Int
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Returned users: \(returnedUsers)")
-            Text("New users: \(newUsers)")
+    struct AnnotationView: View {
+        let date: Date
+        let dataSource: MonthlyActiveVotersDataSource
+
+        var returningVoters: Int {
+            dataSource.returningVoters(date: date)
         }
-        .frame(width: 150)
-        .foregroundColor(.white)
-        .font(.footnoteRegular)
-        .background {
-            RoundedRectangle(cornerRadius: 4, style: .continuous)
-                .fill(Color.containerBright)
-                .border(Color.chartBar)
+
+        var newVoters: Int {
+            dataSource.newVoters(date: date)
+        }
+
+        var body: some View {
+            VStack(alignment: .leading) {
+                Text(Utils.monthAndYear(from: date))
+                    .font(.captionSemibold)
+                HStack {
+                    Circle()
+                        .foregroundColor(Color.chartBar)
+                        .frame(width: 4, height: 4)
+                    Text("Returning voters: \(returningVoters)")
+                        .font(.сaption2Regular)
+                }
+                HStack {
+                    Circle()
+                        .foregroundColor(Color.primary)
+                        .frame(width: 4, height: 4)
+                    Text("New voters: \(newVoters)")
+                        .font(.сaption2Regular)
+                }
+            }
+            .padding()
+            .background(Color.containerBright)
+            .cornerRadius(8)
         }
     }
 }

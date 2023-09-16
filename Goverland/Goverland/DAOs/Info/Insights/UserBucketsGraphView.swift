@@ -53,7 +53,7 @@ struct UserBucketsGraphView: View {
                         .foregroundStyle(.primary.opacity(0.2))
                         .annotation(
                             position: selectedBucket == "13+" ? .leading : .trailing,
-                            alignment: .center, spacing: 0
+                            alignment: .center, spacing: 4
                         ) {
                             AnnotationView(voters: selectedBucketVoters)
                         }
