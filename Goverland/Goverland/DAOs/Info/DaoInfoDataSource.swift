@@ -16,18 +16,20 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
 
+    init(dao: Dao) {
+        self.daoID = dao.id
+        self.dao = dao
+        // TODO: we have all info and this refresh is not needed,
+        // but without it Nav Bar controls are jumping (seems like SwifUI bug)
+        refresh()
+    }
+
     init(daoID: UUID) {
         self.daoID = daoID
         refresh()
     }
 
-    convenience init(dao: Dao) {
-        self.init(daoID: dao.id)
-        self.dao = dao
-    }
-
     func refresh() {
-        dao = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()

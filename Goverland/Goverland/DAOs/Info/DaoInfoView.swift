@@ -30,7 +30,7 @@ struct DaoInfoView: View {
     @StateObject var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
 
-    var dao: Dao { dataSource.dao! }
+    var dao: Dao? { dataSource.dao }
 
     init(daoID: UUID) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoID: daoID))
@@ -49,7 +49,7 @@ struct DaoInfoView: View {
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
-            } else {
+            } else if let dao = dao {
                 DaoInfoScreenHeaderView(dao: dao)
                     .padding(.horizontal)
                     .padding(.bottom)
@@ -75,14 +75,16 @@ struct DaoInfoView: View {
                     Image(systemName: "xmark")
                 }
             }
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Menu {
-                    DaoSharingMenu(dao: dao)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                        .frame(height: 20)
+            if let dao = dao {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        DaoSharingMenu(dao: dao)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.primary)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
                 }
             }
         }
