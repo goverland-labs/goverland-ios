@@ -19,7 +19,7 @@ struct MonthlyActiveVotersGraphView: View {
     
     var body: some View {
         GraphView(header: "Monthly active users",
-                  subheader: "Distinguishing between established and newly acquired user",
+                  subheader: "Month-by-month breakdown of active users, distinguishing between 'old' and newly acquired users",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 300,

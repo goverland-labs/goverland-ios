@@ -17,11 +17,11 @@ struct UserBucketsGraphView: View {
     }
     
     var body: some View {
-        GraphView(header: "Voting Frequency",
-                  subheader: "Based on the number of user votes",
+        GraphView(header: "Voting frequency",
+                  subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 300,
+                  height: 330,
                   onRefresh: dataSource.refresh)
         {
             UserBucketsChart(dataSource: dataSource)
@@ -36,7 +36,6 @@ struct UserBucketsGraphView: View {
     struct UserBucketsChart: View {
         @StateObject var dataSource: UserBucketsDataSource
         @State private var selectedBucket: String?
-        @State private var selectedBucketVoters: Int?
 
         var body: some View {
             Chart {
@@ -48,14 +47,14 @@ struct UserBucketsGraphView: View {
                     .foregroundStyle(Color.chartBar)
                 }
 
-                if let selectedBucket, let selectedBucketVoters {
+                if let selectedBucket {
                     RectangleMark(x: .value("Bucket", selectedBucket))
                         .foregroundStyle(.primary.opacity(0.2))
                         .annotation(
-                            position: selectedBucket == "13+" ? .leading : .trailing,
+                            position: ["8-12", "13+"].contains(selectedBucket) ? .leading : .trailing,
                             alignment: .center, spacing: 4
                         ) {
-                            AnnotationView(voters: selectedBucketVoters)
+                            AnnotationView(bucket: selectedBucket, dataSource: dataSource)
                         }
                 }
             }
@@ -69,13 +68,9 @@ struct UserBucketsGraphView: View {
                             DragGesture()
                                 .onChanged { value in
                                     selectedBucket = chartProxy.value(atX: value.location.x, as: String.self)
-                                    if let selectedBucket {
-                                        selectedBucketVoters = dataSource.votersInBucket(selectedBucket)
-                                    }
                                 }
                                 .onEnded { _ in
                                     selectedBucket = nil
-                                    selectedBucketVoters = nil
                                 }
                         )
                 }
@@ -85,11 +80,16 @@ struct UserBucketsGraphView: View {
 }
 
 fileprivate struct AnnotationView: View {
-    let voters: Int
+    let bucket: String
+    let dataSource: UserBucketsDataSource
+
+    var voters: Int {
+        dataSource.votersInBucket(bucket) ?? 0
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(String(voters))
+            Text("\(voters) voters")
                 .font(.сaptionRegular)
         }
         .padding()
