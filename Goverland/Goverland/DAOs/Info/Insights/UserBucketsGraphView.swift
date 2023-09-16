@@ -77,24 +77,24 @@ struct UserBucketsGraphView: View {
             }
         }
     }
-}
 
-fileprivate struct AnnotationView: View {
-    let bucket: String
-    let dataSource: UserBucketsDataSource
+    struct AnnotationView: View {
+        let bucket: String
+        let dataSource: UserBucketsDataSource
 
-    var voters: Int {
-        dataSource.votersInBucket(bucket) ?? 0
-    }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(voters) voters")
-                .font(.сaptionRegular)
+        var voters: Int {
+            dataSource.votersInBucket(bucket) ?? 0
         }
-        .padding()
-        .background(Color.containerBright)
-        .cornerRadius(8)
+
+        var body: some View {
+            VStack(alignment: .leading) {
+                Text("\(voters) voters")
+                    .font(.сaptionRegular)
+            }
+            .padding()
+            .background(Color.containerBright)
+            .cornerRadius(8)
+        }
     }
 }
 
