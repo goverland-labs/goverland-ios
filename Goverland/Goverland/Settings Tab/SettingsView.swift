@@ -252,7 +252,7 @@ fileprivate struct AdvancedSettingView: View {
                     LabeledContent(deviceId) {
                         Button {
                             UIPasteboard.general.string = deviceId
-                            ToastViewModel.shared.setErrorMessage("Copied")
+                            showToast("Copied")
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }

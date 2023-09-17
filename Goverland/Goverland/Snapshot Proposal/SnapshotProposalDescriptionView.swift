@@ -36,7 +36,7 @@ struct SnapshotProposalDescriptionView: View {
             .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
             .onLongPressGesture(minimumDuration: 1) {
                 UIPasteboard.general.string = markdownDescription
-                showToast("Content copied to clipboard")                
+                showToast("Content copied to clipboard")
             }
             .overlay(
                 Group {
