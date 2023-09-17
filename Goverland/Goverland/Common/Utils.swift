@@ -62,6 +62,12 @@ enum Utils {
         return formatter.string(from: date)
     }
 
+    static func monthAndYear(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: date)
+    }
+
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent

@@ -17,8 +17,8 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
     
     var chartData: [(votersType: String, data: [MonthlyActiveVotersGraphData])] {
-        [(votersType: "Returning Voters", data: getReturningVoters()),
-         (votersType: "New Voters", data: getNewVoters())]
+        [(votersType: "Returning voters", data: getReturningVoters()),
+         (votersType: "New voters", data: getNewVoters())]
     }
     
     init(daoID: UUID) {
@@ -63,5 +63,28 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     
     private func getNewVoters() -> [MonthlyActiveVotersGraphData] {
         monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
+    }
+
+    func returningVoters(date: Date) -> Int {
+        let date = formatDateToStartOfMonth(date)
+        if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
+            return data.activeUsers - data.newUsers
+        }
+        return 0
+    }
+
+    func newVoters(date: Date) -> Int {
+        let date = formatDateToStartOfMonth(date)
+        if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
+            return data.newUsers
+        }
+        return 0
+    }
+
+    private func formatDateToStartOfMonth(_ date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = calendar.dateComponents([.year, .month], from: date)
+        components.timeZone = .gmt
+        return calendar.date(from: components)!
     }
 }

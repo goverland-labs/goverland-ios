@@ -127,7 +127,7 @@ struct DaoInfoAboutDaoView: View {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
             }
-            .padding(.leading, -12)
+            .padding(.leading, -8)
 
             Spacer()
         }
