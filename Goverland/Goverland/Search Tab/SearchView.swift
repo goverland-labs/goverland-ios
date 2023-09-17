@@ -68,7 +68,7 @@ struct SearchView: View {
                     switch filter {
                     case .daos:
                         ZStack {
-                            if !daoDataSource.failedToLoadInitially {
+                            if !daoDataSource.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daoDataSource,
                                                 onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },

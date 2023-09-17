@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SnapshotAllVotesView: View {
+struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
-    @StateObject var data: SnapsotVotesDataSource
+    @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
     @Environment(\.presentationMode) private var presentationMode
     
     init(proposal: Proposal) {
-        _data = StateObject(wrappedValue: SnapsotVotesDataSource(proposal: proposal))
         self.proposal = proposal
+        _data = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
     }
     
     var body: some View {
@@ -23,36 +23,34 @@ struct SnapshotAllVotesView: View {
                 RetryInitialLoadingView(dataSource: data)
             } else {
                 if data.isLoading {
-                    ScrollView {
-                        ForEach(0..<5) { _ in
-                            ShimmerVoteListItemView()
-                                .padding(.horizontal, 12)
-                        }
+                    List(0..<5, id: \.self) { _ in
+                        ShimmerVoteListItemView()
+                            .padding([.top, .bottom])
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
                     }
-                    .padding(.top, 4)
                 } else {
                     List(0..<data.votes.count, id: \.self) { index in
                         if index == data.votes.count - 1 && data.hasMore() {
-                            ZStack {
-                                if !data.failedToLoadMore {
-                                    ShimmerProposalListItemView()
-                                        .onAppear {
-                                            data.loadMore()
-                                        }
-                                } else {
-                                    RetryLoadMoreListItemView(dataSource: data)
-                                }
+                            if !data.failedToLoadMore {
+                                ShimmerVoteListItemView()
+                                    .padding([.top, .bottom])
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                                    .onAppear {
+                                        data.loadMore()
+                                    }
+                            } else {
+                                RetryLoadMoreListItemView(dataSource: data) .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
                             }
                         } else {
                             let vote = data.votes[index]
-                            VoteListItemView(voter: vote.voter,
-                                             votingPower: vote.votingPower,
-                                             choice: proposal.choices.count > vote.choice ? proposal.choices[vote.choice] : String(vote.choice),
-                                             message: vote.message)
-                            .padding(.bottom, 30)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets())
+                            VoteListItemView(proposal: proposal, vote: vote)
+                                .padding([.top, .bottom])
+                                .listRowBackground(Color.clear)
+                                .listRowInsets(EdgeInsets())
                         }
                     }
                     .scrollIndicators(.hidden)
@@ -60,7 +58,7 @@ struct SnapshotAllVotesView: View {
             }
         }
         .onAppear() {
-            data.loadMore()
+            data.refresh()
             Tracker.track(.screenSnpVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -80,6 +78,6 @@ struct SnapshotAllVotesView: View {
 
 struct SnapshotAllVotesView_Previews: PreviewProvider {
     static var previews: some View {
-        SnapshotAllVotesView(proposal: .aaveTest)
+        SnapshotAllVotesView<Int>(proposal: .aaveTest)
     }
 }

@@ -16,7 +16,12 @@ struct LottieIntroView: UIViewRepresentable {
         let view = UIView(frame: .zero)
 
         let animationView = LottieAnimationView()
-        animationView.animation = LottieAnimation.named("main-intro")
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            animationView.animation = LottieAnimation.named("main-intro-ipad")
+        } else {
+            animationView.animation = LottieAnimation.named("main-intro")
+        }
 
         let mode = UIDevice.current.orientation.isPortrait ? UIView.ContentMode.scaleAspectFill : .scaleAspectFit
         animationView.contentMode = mode

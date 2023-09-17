@@ -24,7 +24,7 @@ struct OnboardingFollowDaosView: View {
         NavigationStack(path: $path) {
             ZStack {
                 if dataSource.searchText == "" {
-                    if !dataSource.failedToLoadInitially {
+                    if !dataSource.failedToLoadInitialData {
                         GroupedDaosView(dataSource: dataSource,
                                         callToAction: "Receive updates for the DAOs you select.",
                                         bottomPadding: 90,

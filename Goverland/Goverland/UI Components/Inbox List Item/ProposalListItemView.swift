@@ -191,7 +191,7 @@ fileprivate struct VoteFooterView: View {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
 
-                    Text(String(quorum))
+                    Text(Utils.numberWithPercent(from: quorum))
                         .fontWeight(.medium)
                 }
                 .font(.footnoteRegular)

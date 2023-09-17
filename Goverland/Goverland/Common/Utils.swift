@@ -75,6 +75,12 @@ enum Utils {
         return formatter.string(from: date)
     }
 
+    static func monthAndYear(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: date)
+    }
+
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
@@ -82,6 +88,14 @@ enum Utils {
         formatter.positiveSuffix = "%"
         let formattedString = formatter.string(from: NSNumber(value: currentNumber / totalNumber))
         return formattedString ?? ""
+    }
+
+    static func numberWithPercent(from number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.positiveSuffix = "%"
+        let formattedString = formatter.string(from: NSNumber(value: Double(number) / 100))
+        return formattedString ?? "\(number)%"
     }
 
     static func urlFromString(_ string: String) -> URL? {

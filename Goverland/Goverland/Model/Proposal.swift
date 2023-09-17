@@ -23,6 +23,7 @@ struct Proposal: Decodable, Hashable {
     let votingStart: Date
     let votingEnd: Date
     let quorum: Int
+    let privacy: Privacy?
     let snapshot: String
     let state: State
 
@@ -53,6 +54,11 @@ struct Proposal: Decodable, Hashable {
             case markdown
             case html
         }
+    }
+
+    enum Privacy: String, Decodable {
+        case shutter
+        case none = ""
     }
 
     enum State: String, Decodable {
@@ -93,6 +99,7 @@ struct Proposal: Decodable, Hashable {
         case votingStart = "voting_start"
         case votingEnd = "voting_end"
         case quorum
+        case privacy
         case snapshot
         case state
        // case strategies
@@ -133,6 +140,7 @@ extension Proposal {
         votingStart: .now + 1.days,
         votingEnd: .now + 5.days,
         quorum: 0,
+        privacy: Proposal.Privacy.none,
         snapshot: "43600919",
         state: .active,
         //strategies: [],

@@ -1,53 +1,52 @@
 //
-//  DaoInfoDataSource.swift
+//  UserBucketsDataSource.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-06-25.
+//  Created by Jenny Shalai on 2023-09-11.
 //
 
 import SwiftUI
 import Combine
 
-class DaoInfoDataSource: ObservableObject, Refreshable {
+class UserBucketsDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var dao: Dao?
+    @Published var userBuckets: [UserBuckets] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-
-    init(dao: Dao) {
-        self.daoID = dao.id
-        self.dao = dao
-        // TODO: we have all info and this refresh is not needed,
-        // but without it Nav Bar controls are jumping (seems like SwifUI bug)
-        refresh()
-    }
-
+    
     init(daoID: UUID) {
         self.daoID = daoID
-        refresh()
     }
-
+    
+    convenience init(dao: Dao) {
+        self.init(daoID: dao.id)
+    }
+    
     func refresh() {
+        userBuckets = []
         failedToLoadInitialData = false
-        isLoading = false
+        isLoading = true
         cancellables = Set<AnyCancellable>()
         loadInitialData()
     }
-
+    
     private func loadInitialData() {
-        isLoading = true
-        APIService.daoInfo(id: daoID)
+        APIService.userBuckets(id: daoID)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] dao, headers in
-                self?.dao = dao
+            } receiveValue: { [weak self] data, headers in
+                self?.userBuckets = data
             }
             .store(in: &cancellables)
+    }
+
+    func votersInBucket(_ bucket: String) -> Int? {
+        userBuckets.first { $0.votes == bucket }?.voters
     }
 }

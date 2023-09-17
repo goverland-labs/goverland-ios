@@ -118,6 +118,30 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyActiveUsers]
+    
+    let daoID: UUID
+    var path: String { "analytics/monthly-active-users/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct DaoUserBucketsEndpoint: APIEndpoint {
+    typealias ResponseType = [UserBuckets]
+    
+    let daoID: UUID
+    var path: String { "analytics/voter-buckets/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
@@ -199,8 +223,8 @@ struct ProposalEndpoint: APIEndpoint {
     }
 }
 
-struct ProposalVotesEndpoint: APIEndpoint {
-    typealias ResponseType = [Vote]
+struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
+    typealias ResponseType = [Vote<ChoiceType>]
 
     let proposalID: String
     

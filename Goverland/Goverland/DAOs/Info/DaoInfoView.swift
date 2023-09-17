@@ -10,6 +10,7 @@ import SwiftUI
 enum DaoInfoFilter: Int, FilterOptions {
     case activity = 0
     case about
+    case insights
 
     var localizedName: String {
         switch self {
@@ -17,6 +18,9 @@ enum DaoInfoFilter: Int, FilterOptions {
             return "Activity"
         case .about:
             return "About"
+        case .insights:
+            return "Insights"
+            
         }
     }
 }
@@ -26,7 +30,7 @@ struct DaoInfoView: View {
     @StateObject var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
 
-    var dao: Dao { dataSource.dao! }
+    var dao: Dao? { dataSource.dao }
 
     init(daoID: UUID) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoID: daoID))
@@ -39,27 +43,24 @@ struct DaoInfoView: View {
     var body: some View {
         VStack {
             if dataSource.isLoading {
-                // Unfortunately shimmer or reducted view here breaks preseantation in a popover view
+                // Unfortunately shimmer or reducted view here breaks presentation in a popover view
                 ProgressView()
+                    .foregroundColor(.textWhite20)
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
-            } else {
+            } else if let dao = dao {
                 DaoInfoScreenHeaderView(dao: dao)
                     .padding(.horizontal)
                     .padding(.bottom)
 
-                FilterButtonsView<DaoInfoFilter>(filter: $filter) { newValue in
-                    switch newValue {
-                    case .activity: break
-                    case .about: break
-                    }
-                }
-                .padding(.bottom, 4)
+                FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
+                    .padding(.bottom, 4)
 
                 switch filter {
                 case .activity: DaoInfoEventsView(dao: dao)
                 case .about: DaoInfoAboutDaoView(dao: dao)
+                case .insights: DaoInsightsView(dao: dao)
                 }
             }
         }
@@ -74,14 +75,16 @@ struct DaoInfoView: View {
                     Image(systemName: "xmark")
                 }
             }
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Menu {
-                    DaoSharingMenu(dao: dao)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                        .frame(height: 20)
+            if let dao = dao {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        DaoSharingMenu(dao: dao)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.primary)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
                 }
             }
         }

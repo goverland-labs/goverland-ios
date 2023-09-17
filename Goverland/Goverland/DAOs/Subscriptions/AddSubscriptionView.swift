@@ -24,7 +24,7 @@ struct AddSubscriptionView: View {
     var body: some View {
         VStack {
             if dataSource.searchText == "" {
-                if !dataSource.failedToLoadInitially {
+                if !dataSource.failedToLoadInitialData {
                     GroupedDaosView(dataSource: dataSource,
 
                                     onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },

@@ -101,6 +101,18 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    // MARK: DAO Analytics
+    
+    static func monthlyActiveUsers(id: UUID) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoMonthlyActiveUsersEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func userBuckets(id: UUID) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoUserBucketsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,
@@ -156,16 +168,16 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func votes(proposalID: String,
-                       offset: Int = 0,
-                       limit: Int = ConfigurationManager.defaultPaginationCount,
-                       query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func votes<ChoiceType: Decodable>(proposalID: String,
+                                             offset: Int = 0,
+                                             limit: Int = ConfigurationManager.defaultPaginationCount,
+                                             query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint<ChoiceType>.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         
-        let endpoint = ProposalVotesEndpoint(proposalID: proposalID, queryParameters: queryParameters)
+        let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

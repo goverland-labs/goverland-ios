@@ -116,7 +116,7 @@ struct DaoInfoAboutDaoView: View {
 
             if let date = date {
                 HStack {
-                    Text("Activity since \(date)")
+                    Text("First activity \(date)")
                         .font(.footnoteRegular)
                         .foregroundColor(.textWhite60)
                     Spacer()
@@ -127,7 +127,7 @@ struct DaoInfoAboutDaoView: View {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
             }
-            .padding(.leading, -12)
+            .padding(.leading, -8)
 
             Spacer()
         }
