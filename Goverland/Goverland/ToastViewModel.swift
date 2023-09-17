@@ -12,7 +12,7 @@ class ToastViewModel: ObservableObject {
     static let shared = ToastViewModel()
     private var timer: Timer?
 
-    @Published var errorMessage: String?
+    @Published private(set) var errorMessage: String?
 
     private init() {}
 

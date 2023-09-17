@@ -20,10 +20,8 @@ struct VoteWarningPopupView: View {
                     warningViewIsPresented = false
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.gray)
-                        .frame(width: 30, height: 30)
+                        .foregroundColor(.textWhite40)
+                        .font(.system(size: 26))
                 }
             }
             

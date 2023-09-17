@@ -47,7 +47,7 @@ class APIService {
                         AuthManager.shared.updateToken()
                     }
                     if defaultErrorDisplay {
-                        ToastViewModel.shared.setErrorMessage(apiError.localizedDescription)
+                        showToast(apiError.localizedDescription)
                     }
                     return apiError
                 } else {

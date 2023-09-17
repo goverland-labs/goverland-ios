@@ -8,5 +8,6 @@
 import Foundation
 
 extension Notification.Name {
-    static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")    
+    static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")
+    static let wcSessionUpdated = Notification.Name("WC_SessionUpdated")
 }

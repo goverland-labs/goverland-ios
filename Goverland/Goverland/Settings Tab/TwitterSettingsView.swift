@@ -23,7 +23,7 @@ struct TwitterSettingsView: View {
     
     private func openTwitterApp() {
         let url = URL(string: "https://twitter.com/goverland_xyz")!
-        UIApplication.shared.open(url)
+        openUrl(url)
         Tracker.track(.settingsOpenTwitter)
     }
 }
