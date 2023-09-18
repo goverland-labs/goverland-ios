@@ -105,7 +105,7 @@ struct MonthlyActiveVotersGraphView: View {
         }
     }
 
-    struct AnnotationView: View {
+    private struct AnnotationView: View {
         let date: Date
         let dataSource: MonthlyActiveVotersDataSource
 

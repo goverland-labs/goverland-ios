@@ -74,8 +74,6 @@ struct GraphView<Content: View>: View {
             }
         }
         .frame(width: width, height: height)
-        .background(Color.containerBright)
-        .cornerRadius(20)
-        .padding()
+        .background(Color.clear)
     }
 }

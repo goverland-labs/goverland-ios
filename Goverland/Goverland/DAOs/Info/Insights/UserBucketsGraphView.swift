@@ -78,7 +78,7 @@ struct UserBucketsGraphView: View {
         }
     }
 
-    struct AnnotationView: View {
+    private struct AnnotationView: View {
         let bucket: String
         let dataSource: UserBucketsDataSource
 
