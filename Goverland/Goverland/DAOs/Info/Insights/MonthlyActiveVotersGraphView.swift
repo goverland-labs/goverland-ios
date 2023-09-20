@@ -96,10 +96,16 @@ struct MonthlyActiveVotersGraphView: View {
                                 .onChanged { value in
                                     selectedDate = chartProxy.value(atX: value.location.x, as: Date.self)
                                 }
-                                .onEnded { value in
+                                .onEnded { _ in
                                     selectedDate = nil
                                 }
                         )
+                        .onTapGesture(coordinateSpace: .local) { location in
+                            selectedDate = chartProxy.value(atX: location.x, as: Date.self)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                selectedDate = nil
+                            }
+                        }
                 }
             }
         }
