@@ -50,7 +50,9 @@ struct GraphView<Content: View>: View {
                         .foregroundColor(.textWhite40)
                         .padding(.trailing)
                         .onTapGesture() {
-                            isDescriptionPresent.toggle()
+                            withAnimation {
+                                isDescriptionPresent.toggle()
+                            }
                         }
                 }
                 .padding([.top, .horizontal])
@@ -82,6 +84,13 @@ struct GraphView<Content: View>: View {
                 }
             }
             .offset(x: -50, y: 45)
+        }
+        .onTapGesture() {
+            if isDescriptionPresent {
+                withAnimation {
+                    isDescriptionPresent.toggle()
+                }
+            }
         }
     }
 }
