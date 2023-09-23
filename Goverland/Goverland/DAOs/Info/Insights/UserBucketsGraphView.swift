@@ -48,8 +48,9 @@ struct UserBucketsGraphView: View {
                 }
 
                 if let selectedBucket {
-                    RectangleMark(x: .value("Bucket", selectedBucket))
-                        .foregroundStyle(.primary.opacity(0.2))
+                    RuleMark(x: .value("Bucket", selectedBucket))
+                        .foregroundStyle(Color.textWhite)
+                        .lineStyle(.init(lineWidth: 1, dash: [2]))
                         .annotation(
                             position: ["8-12", "13+"].contains(selectedBucket) ? .leading : .trailing,
                             alignment: .center, spacing: 4
@@ -87,13 +88,33 @@ struct UserBucketsGraphView: View {
         }
 
         var body: some View {
-            VStack(alignment: .leading) {
-                Text("\(voters) voters")
-                    .font(.сaptionRegular)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    HStack(alignment: .bottom, spacing: 4) {
+                        Text(String(voters))
+                            .font(.title3Regular)
+                            .foregroundColor(.textWhite)
+                        Text("Voters")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.systemGrayDark)
+                    }
+                    Spacer()
+                }
+                HStack {
+                    HStack(spacing: 4) {
+                        Text(bucket)
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.systemGrayDark)
+                        Text("times")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.systemGrayDark)
+                    }
+                    Spacer()
+                }
             }
-            .padding()
-            .background(Color.containerBright)
-            .cornerRadius(8)
+            .padding(8)
+            .background(Color.systemDarkElevatedSecondary)
+            .cornerRadius(10)
         }
     }
 }
