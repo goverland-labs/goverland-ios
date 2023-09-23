@@ -35,45 +35,71 @@ struct GraphView<Content: View>: View {
         self.onRefresh = onRefresh
         self.content = content()
     }
-
+    
+    @State var isDescriptionPresent = false
+    
     var body: some View {
-        VStack {
-            VStack(spacing: 3) {
+        ZStack(alignment: .top) {
+            VStack {
                 HStack {
                     Text(header)
                         .font(.title3Semibold)
                         .foregroundColor(.textWhite)
-                        .padding([.horizontal, .top])
                     Spacer()
-                }
-
-                HStack {
-                    Text(subheader)
-                        .font(.footnote)
+                    Image(systemName: "questionmark.circle")
                         .foregroundColor(.textWhite40)
-                        .padding([.horizontal])
+                        .padding(.trailing)
+                        .onTapGesture() {
+                            isDescriptionPresent.toggle()
+                        }
+                }
+                .padding([.top, .horizontal])
+                
+                if isLoading {
                     Spacer()
+                    ProgressView()
+                        .foregroundColor(.textWhite20)
+                        .controlSize(.large)
+                    Spacer()
+                } else if failedToLoadInitialData {
+                    Spacer()
+                    Button("Refresh") {
+                        onRefresh()
+                    }
+                    .foregroundColor(.primary)
+                    Spacer()
+                } else {
+                    content
                 }
             }
-
-            if isLoading {
+            .frame(width: width, height: height)
+            .background(Color.clear)
+            
+            HStack {
                 Spacer()
-                ProgressView()
-                    .foregroundColor(.textWhite20)
-                    .controlSize(.large)
-                Spacer()
-            } else if failedToLoadInitialData {
-                Spacer()
-                Button("Refresh") {
-                    onRefresh()
+                if isDescriptionPresent {
+                    QuestionMarkDescriptionView(info: subheader)
                 }
-                .foregroundColor(.primary)
-                Spacer()
-            } else {
-                content
             }
+            .offset(x: -50, y: 45)
         }
-        .frame(width: width, height: height)
-        .background(Color.clear)
+    }
+}
+
+fileprivate struct QuestionMarkDescriptionView: View {
+    let info: String
+    var body: some View {
+        Text(info)
+            .padding()
+            .background(Color.containerBright)
+            .cornerRadius(10)
+            .font(.footnoteRegular)
+            .frame(maxWidth: 250, alignment: .topTrailing)
+            .overlay(alignment: .topTrailing) {
+                Image(systemName: "arrowtriangle.up.fill")
+                    .rotationEffect(.degrees(45))
+                    .offset(x: 7, y: -7)
+                    .foregroundColor(Color.containerBright)
+            }
     }
 }
