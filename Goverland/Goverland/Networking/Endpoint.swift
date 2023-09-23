@@ -252,6 +252,19 @@ struct InboxEventsEndpoint: APIEndpoint {
     }
 }
 
+struct ArchiveEventsEndpoint: APIEndpoint {
+    typealias ResponseType = [InboxEvent]
+
+    var path: String = "feed"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+        //archived=only
+    }
+}
+
 struct DaoEventsEndpoint: APIEndpoint {
     typealias ResponseType = [InboxEvent]
 
@@ -286,6 +299,19 @@ struct MarkEventArchivedEndpoint: APIEndpoint {
     let eventID: UUID
 
     var path: String { "feed/\(eventID)/archive" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+struct MarkEventUnarchivedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/unarchive" }
     var method: HttpMethod = .post
 
     init(eventID: UUID) {

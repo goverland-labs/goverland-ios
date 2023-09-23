@@ -192,6 +192,16 @@ extension APIService {
         let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
+    
+    static func archiveEvents(offset: Int = 0,
+                            limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ArchiveEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = ArchiveEventsEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     static func daoEvents(daoID: UUID,
                           offset: Int = 0,
@@ -209,8 +219,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func markEventArchived(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func markEventArchived(eventID: UUID) -> AnyPublisher<(MarkEventArchivedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkEventArchivedEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+    
+    static func markEventUnarchived(eventID: UUID) -> AnyPublisher<(MarkEventUnarchivedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkEventUnarchivedEndpoint(eventID: eventID)
         return shared.request(endpoint)
     }
 

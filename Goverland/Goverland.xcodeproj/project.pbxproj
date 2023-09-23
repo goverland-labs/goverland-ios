@@ -113,6 +113,8 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
+		BA3C9F672ABF513000E66BD4 /* ArchiveSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */; };
+		BA3C9F692ABF527700E66BD4 /* ArchiveSettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F682ABF527700E66BD4 /* ArchiveSettingsDataSource.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
 		BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */; };
@@ -280,6 +282,8 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
+		BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingsView.swift; sourceTree = "<group>"; };
+		BA3C9F682ABF527700E66BD4 /* ArchiveSettingsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingsDataSource.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
 		BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarLabelView.swift; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 				BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */,
+				BA3C9F652ABF511D00E66BD4 /* Archive */,
 			);
 			path = "Settings Tab";
 			sourceTree = "<group>";
@@ -716,6 +721,15 @@
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA3C9F652ABF511D00E66BD4 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */,
+				BA3C9F682ABF527700E66BD4 /* ArchiveSettingsDataSource.swift */,
+			);
+			path = Archive;
 			sourceTree = "<group>";
 		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
@@ -1037,6 +1051,7 @@
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
+				BA3C9F692ABF527700E66BD4 /* ArchiveSettingsDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
@@ -1071,6 +1086,7 @@
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
+				BA3C9F672ABF513000E66BD4 /* ArchiveSettingsView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
