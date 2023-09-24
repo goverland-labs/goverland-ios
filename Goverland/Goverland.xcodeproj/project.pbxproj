@@ -113,6 +113,7 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
+		BA3C9F6B2ABFA24300E66BD4 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
 		BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */; };
@@ -280,6 +281,7 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
+		BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
 		BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarLabelView.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 				BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */,
+				BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */,
 			);
 			path = "Settings Tab";
 			sourceTree = "<group>";
@@ -1076,6 +1079,7 @@
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
+				BA3C9F6B2ABFA24300E66BD4 /* ProfileSettingsView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
