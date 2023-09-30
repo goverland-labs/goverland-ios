@@ -36,8 +36,8 @@ struct GraphView<Content: View>: View {
         self.content = content()
     }
     
-    @State var isDescriptionPresent = false
-    
+    @State private var isTooltipVisible = false
+
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
@@ -49,9 +49,14 @@ struct GraphView<Content: View>: View {
                     Image(systemName: "questionmark.circle")
                         .foregroundColor(.textWhite40)
                         .padding(.trailing)
+                        .tooltip($isTooltipVisible) {
+                            Text(subheader)
+                                .foregroundColor(.textWhite60)
+                                .font(.сaptionRegular)
+                        }
                         .onTapGesture() {
                             withAnimation {
-                                isDescriptionPresent.toggle()
+                                isTooltipVisible.toggle()
                             }
                         }
                 }
@@ -72,43 +77,17 @@ struct GraphView<Content: View>: View {
                     Spacer()
                 } else {
                     content
+                        .onTapGesture() {
+                            if isTooltipVisible {
+                                withAnimation {
+                                    isTooltipVisible.toggle()
+                                }
+                            }
+                        }
                 }
             }
             .frame(width: width, height: height)
             .background(Color.clear)
-            
-            HStack {
-                Spacer()
-                if isDescriptionPresent {
-                    QuestionMarkDescriptionView(info: subheader)
-                }
-            }
-            .offset(x: -50, y: 45)
         }
-        .onTapGesture() {
-            if isDescriptionPresent {
-                withAnimation {
-                    isDescriptionPresent.toggle()
-                }
-            }
-        }
-    }
-}
-
-fileprivate struct QuestionMarkDescriptionView: View {
-    let info: String
-    var body: some View {
-        Text(info)
-            .padding()
-            .background(Color.containerBright)
-            .cornerRadius(10)
-            .font(.footnoteRegular)
-            .frame(maxWidth: 250, alignment: .topTrailing)
-            .overlay(alignment: .topTrailing) {
-                Image(systemName: "arrowtriangle.up.fill")
-                    .rotationEffect(.degrees(45))
-                    .offset(x: 7, y: -7)
-                    .foregroundColor(Color.containerBright)
-            }
     }
 }

@@ -20,6 +20,8 @@
 		550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */; };
 		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
 		55143B562A585AC8003103B1 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B552A585AC8003103B1 /* Vote.swift */; };
+		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
+		551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -193,6 +195,7 @@
 		550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalInfoView.swift; sourceTree = "<group>"; };
 		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
 		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -343,6 +346,7 @@
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				55FD730A2AB75DAB0081C38D /* WalletConnectPairing in Frameworks */,
+				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
 				55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */,
@@ -439,6 +443,7 @@
 				55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
+				551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -855,6 +860,7 @@
 				55FD73072AB75DAB0081C38D /* WalletConnectNetworking */,
 				55FD73092AB75DAB0081C38D /* WalletConnectPairing */,
 				55FD73242AB75DF80081C38D /* Starscream */,
+				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -897,6 +903,7 @@
 				55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */,
+				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -1042,6 +1049,7 @@
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
+				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
@@ -1515,6 +1523,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quassum/SwiftUI-Tooltip.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/goverland-labs/BlockiesSwift";
@@ -1582,6 +1598,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		551E4A122AC85A9800C5F87A /* SwiftUITooltip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */;
+			productName = SwiftUITooltip;
+		};
 		553316FD29F162FF0034AF66 /* BlockiesSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
