@@ -18,7 +18,7 @@ struct UserBucketsGraphView: View {
     
     var body: some View {
         GraphView(header: "Voting frequency",
-                  subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes",
+                  subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 330,
@@ -74,6 +74,12 @@ struct UserBucketsGraphView: View {
                                     selectedBucket = nil
                                 }
                         )
+                        .onTapGesture(coordinateSpace: .local) { location in
+                            selectedBucket = chartProxy.value(atX: location.x, as: String.self)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                selectedBucket = nil
+                            }
+                        }
                 }
             }
         }
