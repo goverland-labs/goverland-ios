@@ -11,6 +11,7 @@ struct OnboardingFollowDaosView: View {
     @StateObject private var dataSource = GroupedDaosDataSource()
     @State private var path = NavigationPath()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @State private var showSignIn = false
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -49,7 +50,7 @@ struct OnboardingFollowDaosView: View {
                             .padding()
                             .background(Color(.systemBackground)
                                 .opacity(0.8)
-                                .clipShape(TopRoundedCorner(radius: 20))
+                                .clipShape(TopRoundedCornerShape(radius: 20))
                                 .ignoresSafeArea()
                             )
                             .navigationDestination(for: String.self) { _ in
@@ -81,9 +82,19 @@ struct OnboardingFollowDaosView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Sign In") {
+                        showSignIn = true
+                    }
+                }
             }
             .refreshable {
                 dataSource.refresh()
+            }
+            .sheet(isPresented: $showSignIn) {
+                TwoStepsModalView()
+                    .presentationDetents([.medium, .large])
             }
             .onAppear() {
                 dataSource.refresh()
@@ -91,21 +102,5 @@ struct OnboardingFollowDaosView: View {
             }
         }
         .accentColor(.primary)
-    }
-}
-
-fileprivate struct TopRoundedCorner: Shape {
-    var radius: CGFloat
-
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
-        path.addQuadCurve(to: CGPoint(x: rect.minX + radius, y: rect.minY), control: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
-        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + radius), control: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.closeSubpath()
-        return path
     }
 }

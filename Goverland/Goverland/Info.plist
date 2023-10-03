@@ -8,8 +8,6 @@
 	<string>$(DEFAULT_PAGINATION_COUNT)</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
-	<key>GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED</key>
-	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>TIMEOUT</key>
@@ -25,5 +23,7 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>WC_PROJECT_ID</key>
+	<string>$(WC_PROJECT_ID)</string>
 </dict>
 </plist>

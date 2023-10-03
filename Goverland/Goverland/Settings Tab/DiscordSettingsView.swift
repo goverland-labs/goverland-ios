@@ -23,7 +23,7 @@ struct DiscordSettingsView: View {
     
     private func openDiscordApp() {
         let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
-        UIApplication.shared.open(url)
+        openUrl(url)
         Tracker.track(.settingsOpenDiscord)
     }
 }

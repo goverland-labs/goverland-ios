@@ -8,6 +8,10 @@
 import SwiftUI
 
 extension Color {
+    static var systemDarkElevatedSecondary = Color("System Dark Elevated Secondary")
+    // TODO: change once updated in Figma
+    static var systemGrayDark = Color("System Gray Dark")
+    
     static var primary = Color("Primary")
     static var onPrimary = Color("On Primary")
     static var primaryDim = Color("Primary Dim")

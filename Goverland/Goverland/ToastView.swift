@@ -22,7 +22,7 @@ struct ToastView: View {
                     .cornerRadius(8)
                     .onTapGesture {
                         withAnimation {
-                            errorViewModel.errorMessage = nil
+                            errorViewModel.setErrorMessage(nil)
                         }
                     }
                 Spacer()

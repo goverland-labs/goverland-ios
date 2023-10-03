@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import OSLog
 
 fileprivate let logger = Logger()
@@ -19,6 +20,18 @@ func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, fu
     let filePath = "\(file)"
     let fileName = (filePath as NSString).lastPathComponent
     logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
+}
+
+func showToast(_ message: String) {
+    DispatchQueue.main.async {
+        ToastViewModel.shared.setErrorMessage(message)
+    }
+}
+
+func openUrl(_ url: URL) {
+    DispatchQueue.main.async {
+        UIApplication.shared.open(url)
+    }
 }
 
 enum Utils {
@@ -85,11 +98,25 @@ enum Utils {
         return formattedString ?? "\(number)%"
     }
 
+    static func decimalNumber(from number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let formattedString = formatter.string(from: NSNumber(value: number))
+        return formattedString ?? String(number)
+    }
+    
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
            let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23
             return url
         }
         return nil
+    }
+
+    static func randomNumber_8_dgts() -> Int {
+        let lowerBound = 10000000  // Minimum 8-digit number
+        let upperBound = 99999999  // Maximum 8-digit number
+        return Int(arc4random_uniform(UInt32(upperBound - lowerBound + 1))) + lowerBound
     }
 }

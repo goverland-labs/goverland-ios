@@ -162,7 +162,7 @@ fileprivate struct AboutSettingView: View {
             }
         }
         .environment(\.openURL, OpenURLAction { url in
-            UIApplication.shared.open(url)
+            openUrl(url)
 
             switch url.absoluteString {
             case "http://goverland.xyz/privacy": Tracker.track(.settingsOpenPrivacyPolicy)
@@ -203,7 +203,7 @@ fileprivate struct HelpUsGrowSettingView: View {
                 let twitterUrl = URL(string: "https://twitter.com/intent/tweet?text=\(tweetUrl ?? "")")
 
                 if let url = twitterUrl {
-                    UIApplication.shared.open(url)
+                    openUrl(url)
                 }
 
                 Tracker.track(.settingsShareTweet)
@@ -252,7 +252,7 @@ fileprivate struct AdvancedSettingView: View {
                     LabeledContent(deviceId) {
                         Button {
                             UIPasteboard.general.string = deviceId
-                            ToastViewModel.shared.setErrorMessage("Copied")
+                            showToast("Copied")
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }

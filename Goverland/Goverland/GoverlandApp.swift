@@ -14,16 +14,6 @@ struct GoverlandApp: App {
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    init() {
-        Tracker.append(handler: ConsoleTrackingHandler())
-        #if PROD
-        Tracker.append(handler: FirebaseTrackingHandler())
-        #endif
-
-        // Very important line of code. Do not remove it.
-        Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
-    }
-
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -56,9 +46,25 @@ struct GoverlandApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Setup App Tracking
+        Tracker.append(handler: ConsoleTrackingHandler())
+        Tracker.append(handler: FirebaseTrackingHandler())
+        // Very important line of code. Do not remove it.
+        Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
+
+        // Obtain session token. If a user is new, this will be a guest token,
+        // otherwise this will be signed in user token.
         AuthManager.shared.updateToken()
+
+        // Setup Firebase
         FirebaseConfig.setUp()
+
+        // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
+        _ = WC_Manager.shared
+
+        // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
+
         return true
     }
 
