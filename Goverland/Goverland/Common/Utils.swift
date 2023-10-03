@@ -98,7 +98,7 @@ enum Utils {
         return formattedString ?? "\(number)%"
     }
 
-    static func numberWithCommaSeparator(from number: Int) -> String {
+    static func decimalNumber(from number: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 0

@@ -102,7 +102,7 @@ struct MonthlyActiveVotersGraphView: View {
                         )
                         .onTapGesture(coordinateSpace: .local) { location in
                             selectedDate = chartProxy.value(atX: location.x, as: Date.self)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 selectedDate = nil
                             }
                         }
@@ -127,7 +127,7 @@ struct MonthlyActiveVotersGraphView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     HStack(alignment: .bottom, spacing: 4) {
-                        Text(Utils.numberWithCommaSeparator(from: newVoters))
+                        Text(Utils.decimalNumber(from: newVoters))
                             .font(.title3Regular)
                             .foregroundColor(.textWhite)
                         Text("New voters")
@@ -139,7 +139,7 @@ struct MonthlyActiveVotersGraphView: View {
                 
                 HStack {
                     HStack(spacing: 4) {
-                        Text(Utils.numberWithCommaSeparator(from: returningVoters))
+                        Text(Utils.decimalNumber(from: returningVoters))
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite)
                         Text("Returned voters")

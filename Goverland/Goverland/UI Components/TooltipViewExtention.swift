@@ -32,7 +32,7 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
 
     init(enabled: Binding<Bool>,
          side: TooltipSide,
-         @ViewBuilder tooltipContent: @escaping () -> TooltipContent) {
+         @ViewBuilder tooltipContent: () -> TooltipContent) {
         self._enabled = enabled
         self.side = side
         self.tooltipContent = tooltipContent()
@@ -61,6 +61,7 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
         tooltipConfig.arrowHeight = 10
         tooltipConfig.arrowWidth = 10
         tooltipConfig.margin = -4
+        tooltipConfig.zIndex = 1_000
         return tooltipConfig
     }
 
@@ -68,6 +69,11 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
         content
             .tooltip(enabled, config: configuration) {
                 tooltipContent
+                    .onTapGesture {
+                        if enabled {
+                            enabled.toggle()
+                        }
+                    }
             }
     }
 }

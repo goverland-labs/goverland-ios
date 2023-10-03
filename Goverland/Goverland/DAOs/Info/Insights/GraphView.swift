@@ -39,55 +39,53 @@ struct GraphView<Content: View>: View {
     @State private var isTooltipVisible = false
 
     var body: some View {
-        ZStack(alignment: .top) {
-            VStack {
-                HStack {
-                    Text(header)
-                        .font(.title3Semibold)
-                        .foregroundColor(.textWhite)
-                    Spacer()
-                    Image(systemName: "questionmark.circle")
-                        .foregroundColor(.textWhite40)
-                        .padding(.trailing)
-                        .tooltip($isTooltipVisible) {
-                            Text(subheader)
-                                .foregroundColor(.textWhite60)
-                                .font(.сaptionRegular)
-                        }
-                        .onTapGesture() {
-                            withAnimation {
-                                isTooltipVisible.toggle()
-                            }
-                        }
-                }
-                .padding([.top, .horizontal])
-                
-                if isLoading {
-                    Spacer()
-                    ProgressView()
-                        .foregroundColor(.textWhite20)
-                        .controlSize(.large)
-                    Spacer()
-                } else if failedToLoadInitialData {
-                    Spacer()
-                    Button("Refresh") {
-                        onRefresh()
+        VStack {
+            HStack {
+                Text(header)
+                    .font(.title3Semibold)
+                    .foregroundColor(.textWhite)
+                Spacer()
+                Image(systemName: "questionmark.circle")
+                    .foregroundColor(.textWhite40)
+                    .padding(.trailing)
+                    .tooltip($isTooltipVisible) {
+                        Text(subheader)
+                            .foregroundColor(.textWhite60)
+                            .font(.сaptionRegular)
                     }
-                    .foregroundColor(.primary)
-                    Spacer()
-                } else {
-                    content
-                        .onTapGesture() {
-                            if isTooltipVisible {
-                                withAnimation {
+                    .onTapGesture() {
+                        withAnimation {
+                            isTooltipVisible.toggle()
+                            // Shoe tooltip for 5 sec only
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                if isTooltipVisible {
                                     isTooltipVisible.toggle()
                                 }
                             }
                         }
-                }
+                    }
             }
-            .frame(width: width, height: height)
-            .background(Color.clear)
+            .padding([.top, .horizontal])
+
+            if isLoading {
+                Spacer()
+                ProgressView()
+                    .foregroundColor(.textWhite20)
+                    .controlSize(.large)
+                Spacer()
+            } else if failedToLoadInitialData {
+                Spacer()
+                Button("Refresh") {
+                    onRefresh()
+                }
+                .foregroundColor(.primary)
+                Spacer()
+            } else {
+                content
+                    .zIndex(-1)
+            }
         }
+        .frame(width: width, height: height)
+        .background(Color.clear)        
     }
 }
