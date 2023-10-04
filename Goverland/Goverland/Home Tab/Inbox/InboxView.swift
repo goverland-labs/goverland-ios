@@ -96,7 +96,7 @@ struct InboxView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Image(systemName: "rectangle.3.group")
                         .foregroundColor(.primary)
                         .onTapGesture {
