@@ -8,7 +8,7 @@
 import SwiftUI
 
 class TabManager: ObservableObject {
-    @Published var selectedTab: Tab = .inbox
+    @Published var selectedTab: Tab = .home
     @Published var settingsPath = [SettingsScreen]()
 
     static let shared = TabManager()
@@ -16,7 +16,7 @@ class TabManager: ObservableObject {
     private init() {}
 
     enum Tab {
-        case inbox
+        case home
         case search
         case settings
     }
@@ -28,12 +28,12 @@ struct AppTabView: View {
     
     var body: some View {
         TabView(selection: $tabManager.selectedTab) {
-            InboxView()
+            HomeView()
                 .tabItem {
-                    Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox")
+                    Image(tabManager.selectedTab == .home ? "inbox-active" : "inbox")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(TabManager.Tab.inbox)
+                .tag(TabManager.Tab.home)
                 .badge(unreadEvents)
 
             SearchView()
