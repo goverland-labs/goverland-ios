@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+enum HomeActiveView: Int, Identifiable {
+    case dashboard = 0
+    case inbox
+
+    var id: Int { self.rawValue }
+}
+
+class ActiveHomeViewManager: ObservableObject {
+    @Published var activeView = HomeActiveView.dashboard
+
+    static let shared = ActiveHomeViewManager()
+
+    private init() {}
+}
+
 struct HomeView: View {
     @StateObject var activeViewManager = ActiveHomeViewManager.shared
 
@@ -16,8 +31,4 @@ struct HomeView: View {
         case .inbox: InboxView()
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

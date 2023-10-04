@@ -46,7 +46,6 @@
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		55728B7A2ACD4E6E002961FD /* DashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B792ACD4E6E002961FD /* DashboardDataSource.swift */; };
 		55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B7B2ACD97A6002961FD /* HomeView.swift */; };
-		55728B7F2ACD9826002961FD /* ActiveHomeViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B7E2ACD9826002961FD /* ActiveHomeViewManager.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
 		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
@@ -223,7 +222,6 @@
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		55728B792ACD4E6E002961FD /* DashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDataSource.swift; sourceTree = "<group>"; };
 		55728B7B2ACD97A6002961FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		55728B7E2ACD9826002961FD /* ActiveHomeViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHomeViewManager.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 			isa = PBXGroup;
 			children = (
 				55728B7B2ACD97A6002961FD /* HomeView.swift */,
-				55728B7E2ACD9826002961FD /* ActiveHomeViewManager.swift */,
 				55728B7D2ACD97AA002961FD /* Dashboard */,
 				55D632B429505BDE0073E04A /* Inbox */,
 			);
@@ -1071,7 +1068,6 @@
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
-				55728B7F2ACD9826002961FD /* ActiveHomeViewManager.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,

@@ -13,11 +13,12 @@ fileprivate enum Path {
 
 struct DashboardView: View {
     @State private var path = NavigationPath()
+    @StateObject private var dataSource = DashboardViewDataSource.shared
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
-                Text("Dashboard")
+                Text("Dashboard \(dataSource.randomNumber)")
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -41,10 +42,9 @@ struct DashboardView: View {
                 case .topProposals: EmptyView()
                 }
             }
+            .onAppear {
+                // TODO: track
+            }
         }
     }
-}
-
-#Preview {
-    DashboardView()
 }
