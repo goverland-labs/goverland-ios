@@ -23,6 +23,13 @@ class ProposalsSearchResultsDataSource: ObservableObject {
             }
     }
 
+    func refresh() {
+        searchText = ""
+        searchResultProposals = []
+        nothingFound = false
+        cancellables = Set<AnyCancellable>()
+    }
+
     private func performSearch(_ searchText: String) {
         nothingFound = false
         guard searchText != "" else { return }

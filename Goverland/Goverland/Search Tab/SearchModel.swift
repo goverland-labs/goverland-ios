@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SearchFilter: Int, FilterOptions {
     case proposals = 0
@@ -21,13 +22,16 @@ enum SearchFilter: Int, FilterOptions {
     }
 }
 
-class SearchViewDataSource: ObservableObject {
+class SearchModel: ObservableObject {
     @Published var filter: SearchFilter = .proposals
-    @Published var daos = GroupedDaosDataSource()
-    @Published var proposals = TopProposalDataSource()
-    @Published var proposalsSearch = ProposalsSearchResultsDataSource()
+    @Published var path = NavigationPath()
 
-    static let shared = SearchViewDataSource()
+    static let shared = SearchModel()
 
     private init() {}
+
+    func refresh() {
+        filter = .proposals
+        path = NavigationPath()
+    }
 }

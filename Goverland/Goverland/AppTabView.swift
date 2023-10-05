@@ -25,8 +25,7 @@ class TabManager: ObservableObject {
                     ActiveHomeViewManager.shared.activeView = .dashboard
                     DashboardViewDataSource.shared.refresh()
                 case .search:
-                    // TODO: think how to make it lean for search
-                    break
+                    SearchModel.shared.refresh()
                 case .settings:
                     settingsPath = [SettingsScreen]()
                 }
