@@ -12,7 +12,7 @@ struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
     @StateObject var daos = GroupedDaosDataSource()
-    @StateObject var proposals = TopProposalDataSource()
+    @StateObject var proposals = TopProposalDataSource.shared
     @StateObject var proposalsSearch = ProposalsSearchResultsDataSource()
 
 

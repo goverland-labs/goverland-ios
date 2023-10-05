@@ -13,8 +13,13 @@ class TopProposalDataSource: ObservableObject, Refreshable, Paginatable {
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
+
     private(set) var totalProposals: Int?
     private var cancellables = Set<AnyCancellable>()
+
+    static let shared = TopProposalDataSource()
+
+    private init() {}
 
     func refresh() {
         proposals = []

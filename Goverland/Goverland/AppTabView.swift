@@ -26,6 +26,7 @@ class TabManager: ObservableObject {
                     DashboardViewDataSource.shared.refresh()
                 case .search:
                     SearchModel.shared.refresh()
+                    TopProposalDataSource.shared.refresh()
                 case .settings:
                     settingsPath = [SettingsScreen]()
                 }
