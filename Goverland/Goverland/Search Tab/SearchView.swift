@@ -101,6 +101,14 @@ struct SearchView: View {
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
+            .refreshable {
+                switch model.filter {
+                case .proposals:
+                    proposals.refresh()
+                case .daos:
+                    daos.refresh()
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
