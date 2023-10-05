@@ -86,10 +86,21 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.activitySince = try container.decodeIfPresent(Date.self, forKey: .activitySince)
-        self.about = try container.decodeIfPresent([DaoBody].self, forKey: .about)
+
+        do {
+            self.about = try container.decodeIfPresent([DaoBody].self, forKey: .about)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `about`: DAO ID: \(id)")
+        }
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.members = try container.decode(Int.self, forKey: .members)
-        self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
+
+        do {
+            self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `subscriptionMeta`: DAO ID: \(id)")
+        }
+
         self.website = try? container.decodeIfPresent(URL.self, forKey: .website)
         self.twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
         self.github = try container.decodeIfPresent(String.self, forKey: .github)

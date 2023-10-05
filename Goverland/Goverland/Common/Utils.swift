@@ -19,7 +19,8 @@ func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, fu
     // TODO: log in crashlytics
     let filePath = "\(file)"
     let fileName = (filePath as NSString).lastPathComponent
-    logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
+    let description = (error as? GError)?.localizedDescription ?? error.localizedDescription
+    logger.error("[ERROR] \(fileName): \(line): \(function) \(description)")
 }
 
 func showToast(_ message: String) {
