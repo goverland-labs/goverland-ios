@@ -132,7 +132,7 @@ struct MonthlyActiveVotersGraphView: View {
                             .foregroundColor(.textWhite)
                         Text("New voters")
                             .font(.subheadlineRegular)
-                            .foregroundColor(.systemGrayDark)
+                            .foregroundColor(.textWhite60)
                     }
                     Spacer()
                 }
@@ -144,18 +144,18 @@ struct MonthlyActiveVotersGraphView: View {
                             .foregroundColor(.textWhite)
                         Text("Returned voters")
                             .font(.subheadlineRegular)
-                            .foregroundColor(.systemGrayDark)
+                            .foregroundColor(.textWhite60)
                     }
                     Spacer()
                 }
                 
                 Text(Utils.monthAndYear(from: date))
                     .font(.captionSemibold)
-                    .foregroundColor(.systemGrayDark)
-                
+                    .foregroundColor(.textWhite60)
+
             }
             .padding(8)
-            .background(Color.systemDarkElevatedSecondary)
+            .background(Color.containerBright)
             .cornerRadius(10)
         }
     }
