@@ -1,5 +1,5 @@
 //
-//  ProposalsSearchResultsDataSource.swift
+//  ProposalsSearchDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 12.07.23.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class ProposalsSearchResultsDataSource: ObservableObject {
+class ProposalsSearchDataSource: ObservableObject {
     @Published var searchText = ""
     @Published var searchResultProposals: [Proposal] = []
     @Published var nothingFound: Bool = false

@@ -14,9 +14,7 @@ struct SearchView: View {
     @StateObject var daos = GroupedDaosDataSource.shared
     @StateObject var daosSearch = DaosSearchDataSource.shared
     @StateObject var proposals = TopProposalDataSource.shared
-    // TODO: rename
-    @StateObject var proposalsSearch = ProposalsSearchResultsDataSource()
-
+    @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
@@ -114,7 +112,6 @@ struct SearchView: View {
                 }
             }
             .onAppear() {
-                // TODO: refactor
                 daos.refresh()
             }
         }
