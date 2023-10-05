@@ -16,19 +16,11 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     private(set) var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
-    @Published var searchText = ""
-    @Published var searchResultDaos: [Dao] = []
-    @Published var nothingFound: Bool = false
-    private var searchCancellable: AnyCancellable?
-
     @Published var subscriptionsCount: Int = 0
 
-    init() {
-        searchCancellable = $searchText
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .sink { [weak self] searchText in
-                self?.performSearch(searchText)
-            }
+    static let shared = GroupedDaosDataSource()
+
+    private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
     }
 
@@ -39,11 +31,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
         totalInCategory = [:]
         totalDaos = nil
         cancellables = Set<AnyCancellable>()
-
-        searchText = ""
-        searchResultDaos = []
-        nothingFound = false
-        // do not clear searchCancellable
 
         loadInitialData()
     }
@@ -87,23 +74,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                 }
 
                 self?.totalInCategory[category] = Utils.getTotal(from: headers)
-            }
-            .store(in: &cancellables)
-    }
-
-    private func performSearch(_ searchText: String) {
-        nothingFound = false
-        guard searchText != "" else { return }
-
-        APIService.daos(query: searchText)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished: break
-                case .failure(_): self?.nothingFound = true
-                }
-            } receiveValue: { [weak self] result, headers in
-                self?.nothingFound = result.isEmpty
-                self?.searchResultDaos = result
             }
             .store(in: &cancellables)
     }

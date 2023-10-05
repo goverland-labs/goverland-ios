@@ -11,8 +11,10 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
-    @StateObject var daos = GroupedDaosDataSource()
+    @StateObject var daos = GroupedDaosDataSource.shared
+    @StateObject var daosSearch = DaosSearchDataSource.shared
     @StateObject var proposals = TopProposalDataSource.shared
+    // TODO: rename
     @StateObject var proposalsSearch = ProposalsSearchResultsDataSource()
 
 
@@ -36,7 +38,7 @@ struct SearchView: View {
     private var searchText: Binding<String> {
         switch model.filter {
         case .daos:
-            return $daos.searchText
+            return $daosSearch.searchText
         case .proposals:
             return $proposalsSearch.searchText
         }
@@ -52,8 +54,7 @@ struct SearchView: View {
                     case .daos:
                         ZStack {
                             if !daos.failedToLoadInitialData {
-                                GroupedDaosView(dataSource: daos,
-                                                onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                GroupedDaosView(onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
                                                 onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
@@ -81,8 +82,7 @@ struct SearchView: View {
                     // Searching by text
                     switch model.filter {
                     case .daos:
-                        DaosSearchListView(dataSource: daos,
-                                           onSelectDao: { dao in
+                        DaosSearchListView(onSelectDao: { dao in
                             activeSheetManger.activeSheet = .daoInfo(dao)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
