@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GroupedDaosView: View {
-    @ObservedObject var dataSource: GroupedDaosDataSource
+    @ObservedObject var dataSource = GroupedDaosDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     let callToAction: String?
@@ -24,9 +24,7 @@ struct GroupedDaosView: View {
 
     let onCategoryListAppear: (() -> Void)?
 
-    init(dataSource: GroupedDaosDataSource,
-
-         callToAction: String? = nil,
+    init(callToAction: String? = nil,
          bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
@@ -39,8 +37,6 @@ struct GroupedDaosView: View {
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
-        self.dataSource = dataSource
-
         self.callToAction = callToAction
         self.bottomPadding = bottomPadding
 
@@ -80,8 +76,7 @@ struct GroupedDaosView: View {
                         .padding(.top, 16)
                         .padding(.horizontal, 16)
 
-                        DaoThreadForCategoryView(dataSource: dataSource,
-                                                 category: category,
+                        DaoThreadForCategoryView(category: category,
                                                  onSelectDao: onSelectDaoFromGroup,
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
@@ -111,7 +106,8 @@ struct GroupedDaosView: View {
 }
 
 fileprivate struct DaoThreadForCategoryView: View {
-    @ObservedObject var dataSource: GroupedDaosDataSource
+    @ObservedObject var dataSource = GroupedDaosDataSource.shared
+    
     let category: DaoCategory
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
@@ -145,11 +141,5 @@ fileprivate struct DaoThreadForCategoryView: View {
                 }
             }
         }
-    }
-}
-
-struct GroupedDaosView_Previews: PreviewProvider {
-    static var previews: some View {
-        GroupedDaosView(dataSource: GroupedDaosDataSource())
     }
 }
