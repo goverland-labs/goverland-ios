@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileSettingsView: View {
     
     @State private var isDeleteProfilePopoverPresented = false
+    @State private var isSignOutPopoverPresented = false
     
     private let user = User.aaveChan
     private let devices = [["IPhone 14 Pro", "Sandefjord, Norway", "online"],
@@ -94,7 +95,10 @@ struct ProfileSettingsView: View {
             }
             
             Section() {
-                NavigationLink("Sign out", destination: EmptyView())
+                Button("Sign out") {
+                    isSignOutPopoverPresented.toggle()
+                }
+                .tint(Color.textWhite)
             }
         }
         .navigationTitle("My profile")
@@ -118,6 +122,10 @@ struct ProfileSettingsView: View {
         .sheet(isPresented: $isDeleteProfilePopoverPresented) {
             DeleteProfilePopoverView()
                 .presentationDetents([.medium, .large])
+        }
+        .popover(isPresented: $isSignOutPopoverPresented) {
+            SignOutPopoverView()
+                .presentationDetents([.fraction(0.15)])
         }
     }
 }

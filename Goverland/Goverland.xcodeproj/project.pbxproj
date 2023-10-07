@@ -123,6 +123,7 @@
 		BA3C9F6B2ABFA24300E66BD4 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */; };
 		BA3C9F732AD0E68400E66BD4 /* DeleteProfilePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */; };
 		BA3C9F752AD0EE0100E66BD4 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F742AD0EE0100E66BD4 /* SecondaryButton.swift */; };
+		BA3C9F772AD0F71600E66BD4 /* SignOutPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F762AD0F71600E66BD4 /* SignOutPopoverView.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
 		BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */; };
@@ -299,6 +300,7 @@
 		BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfilePopoverView.swift; sourceTree = "<group>"; };
 		BA3C9F742AD0EE0100E66BD4 /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
+		BA3C9F762AD0F71600E66BD4 /* SignOutPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutPopoverView.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
 		BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarLabelView.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 			children = (
 				BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */,
 				BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */,
+				BA3C9F762AD0F71600E66BD4 /* SignOutPopoverView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1122,6 +1125,7 @@
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
+				BA3C9F772AD0F71600E66BD4 /* SignOutPopoverView.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
 				55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */,
