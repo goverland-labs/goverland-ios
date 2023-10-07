@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileSettingsView: View {
     
+    @State private var isDeleteProfilePopoverPresented = false
+    
     private let user = User.aaveChan
     private let devices = [["IPhone 14 Pro", "Sandefjord, Norway", "online"],
                            ["IPhone 13", "Tbilisi, Georgia", "Apr 10"]]
@@ -94,6 +96,28 @@ struct ProfileSettingsView: View {
             Section() {
                 NavigationLink("Sign out", destination: EmptyView())
             }
+        }
+        .navigationTitle("My profile")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Menu {
+                    Button {
+                        isDeleteProfilePopoverPresented.toggle()
+                    } label: {
+                        Label("Delete Profile", systemImage: "trash.fill")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(height: 20)
+                }
+            }
+        }
+        .sheet(isPresented: $isDeleteProfilePopoverPresented) {
+            DeleteProfilePopoverView()
+                .presentationDetents([.medium, .large])
         }
     }
 }

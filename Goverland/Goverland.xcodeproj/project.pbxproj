@@ -121,6 +121,8 @@
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
 		BA3C9F6B2ABFA24300E66BD4 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */; };
+		BA3C9F732AD0E68400E66BD4 /* DeleteProfilePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */; };
+		BA3C9F752AD0EE0100E66BD4 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F742AD0EE0100E66BD4 /* SecondaryButton.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
 		BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */; };
@@ -295,6 +297,8 @@
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
 		BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfilePopoverView.swift; sourceTree = "<group>"; };
+		BA3C9F742AD0EE0100E66BD4 /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
 		BA4A1C7A2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarLabelView.swift; sourceTree = "<group>"; };
@@ -523,6 +527,7 @@
 			children = (
 				BA6B964F2A376C4500851826 /* Follow Button */,
 				5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */,
+				BA3C9F742AD0EE0100E66BD4 /* SecondaryButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -585,7 +590,6 @@
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 				BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */,
-				BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */,
 			);
 			path = "Settings Tab";
 			sourceTree = "<group>";
@@ -630,6 +634,7 @@
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
 				5508BBA72993FC93003E691A /* Common */,
 				55FBE80E2A0BBDFF000A9204 /* DAOs */,
+				BA3C9F6F2AD0DD1F00E66BD4 /* Profile */,
 				BA8451712A5B97A00088A6E6 /* Proposals */,
 				BA09B3022A2A3B6600223049 /* Snapshot Proposal */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
@@ -755,6 +760,15 @@
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA3C9F6F2AD0DD1F00E66BD4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BA3C9F6A2ABFA24300E66BD4 /* ProfileSettingsView.swift */,
+				BA3C9F722AD0E68400E66BD4 /* DeleteProfilePopoverView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
@@ -1112,6 +1126,7 @@
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
 				55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */,
 				BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */,
+				BA3C9F752AD0EE0100E66BD4 /* SecondaryButton.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
@@ -1121,6 +1136,7 @@
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
+				BA3C9F732AD0E68400E66BD4 /* DeleteProfilePopoverView.swift in Sources */,
 				BA3C9F6B2ABFA24300E66BD4 /* ProfileSettingsView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
