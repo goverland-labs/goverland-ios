@@ -19,7 +19,7 @@ struct MonthlyActiveVotersGraphView: View {
     
     var body: some View {
         GraphView(header: "Monthly active users",
-                  subheader: "Month-by-month breakdown of active users, distinguishing between 'old' and newly acquired users",
+                  subheader: "Month-by-month breakdown of active users, distinguishing between returning and new users.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 300,
@@ -68,8 +68,8 @@ struct MonthlyActiveVotersGraphView: View {
                         
                         if let selectedDate {
                             RuleMark(x: .value("Date", selectedDate))
-                                .foregroundStyle(.primary.opacity(0.2))
-                                .lineStyle(.init(lineWidth: 1, dash: [4]))
+                                .foregroundStyle(Color.textWhite)
+                                .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(
                                     position: selectedDate <= midDate ? .trailing : .leading,
                                     alignment: .center, spacing: 4
@@ -96,16 +96,22 @@ struct MonthlyActiveVotersGraphView: View {
                                 .onChanged { value in
                                     selectedDate = chartProxy.value(atX: value.location.x, as: Date.self)
                                 }
-                                .onEnded { value in
+                                .onEnded { _ in
                                     selectedDate = nil
                                 }
                         )
+                        .onTapGesture(coordinateSpace: .local) { location in
+                            selectedDate = chartProxy.value(atX: location.x, as: Date.self)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                selectedDate = nil
+                            }
+                        }
                 }
             }
         }
     }
 
-    struct AnnotationView: View {
+    private struct AnnotationView: View {
         let date: Date
         let dataSource: MonthlyActiveVotersDataSource
 
@@ -118,27 +124,39 @@ struct MonthlyActiveVotersGraphView: View {
         }
 
         var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    HStack(alignment: .bottom, spacing: 4) {
+                        Text(Utils.decimalNumber(from: newVoters))
+                            .font(.title3Regular)
+                            .foregroundColor(.textWhite)
+                        Text("New voters")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.systemGrayDark)
+                    }
+                    Spacer()
+                }
+                
+                HStack {
+                    HStack(spacing: 4) {
+                        Text(Utils.decimalNumber(from: returningVoters))
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.textWhite)
+                        Text("Returned voters")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.systemGrayDark)
+                    }
+                    Spacer()
+                }
+                
                 Text(Utils.monthAndYear(from: date))
                     .font(.captionSemibold)
-                HStack {
-                    Circle()
-                        .foregroundColor(Color.chartBar)
-                        .frame(width: 4, height: 4)
-                    Text("Returning voters: \(returningVoters)")
-                        .font(.сaption2Regular)
-                }
-                HStack {
-                    Circle()
-                        .foregroundColor(Color.primary)
-                        .frame(width: 4, height: 4)
-                    Text("New voters: \(newVoters)")
-                        .font(.сaption2Regular)
-                }
+                    .foregroundColor(.systemGrayDark)
+                
             }
-            .padding()
-            .background(Color.containerBright)
-            .cornerRadius(8)
+            .padding(8)
+            .background(Color.systemDarkElevatedSecondary)
+            .cornerRadius(10)
         }
     }
 }

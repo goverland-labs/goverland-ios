@@ -7,38 +7,26 @@
 
 import SwiftUI
 
-enum SearchFilter: Int, FilterOptions {
-    case proposals = 0
-    case daos
-
-    var localizedName: String {
-        switch self {
-        case .daos:
-            return "DAOs"
-        case .proposals:
-            return "Proposals"
-        }
-    }
-}
 
 struct SearchView: View {
-    @State private var filter: SearchFilter = .proposals
-    @State private var path = NavigationPath()
+    @StateObject var model = SearchModel.shared
 
-    @StateObject private var daoDataSource = GroupedDaosDataSource()
-    @StateObject private var proposalDataSource = TopProposalDataSource()
-    @StateObject private var proposalsSearchResultsDataSource = ProposalsSearchResultsDataSource()
+    @StateObject var daos = GroupedDaosDataSource.shared
+    @StateObject var daosSearch = DaosSearchDataSource.shared
+    @StateObject var proposals = TopProposalDataSource.shared
+    @StateObject var proposalsSearch = ProposalsSearchDataSource()
+
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     private var searchPrompt: String {
-        switch filter {
+        switch model.filter {
         case .daos:
-            if let total = daoDataSource.totalDaos.map(String.init) {
+            if let total = daos.totalDaos.map(String.init) {
                 return "Search for \(total) DAOs by name"
             }
             return ""
         case .proposals:
-            if let total = proposalDataSource.totalProposals.map(String.init) {
+            if let total = proposals.totalProposals.map(String.init) {
                 return "Search for \(total) proposals by name"
             }
             return ""
@@ -46,31 +34,25 @@ struct SearchView: View {
     }
 
     private var searchText: Binding<String> {
-        switch filter {
+        switch model.filter {
         case .daos:
-            return $daoDataSource.searchText
+            return $daosSearch.searchText
         case .proposals:
-            return $proposalsSearchResultsDataSource.searchText
+            return $proposalsSearch.searchText
         }
     }
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $model.path) {
             VStack {
-                FilterButtonsView<SearchFilter>(filter: $filter) { newValue in
-                    switch newValue {
-                    case .daos: break
-                    case .proposals: break
-                    }
-                }
-                
+                FilterButtonsView<SearchFilter>(filter: $model.filter) { _ in }
+
                 if searchText.wrappedValue == "" {
-                    switch filter {
+                    switch model.filter {
                     case .daos:
                         ZStack {
-                            if !daoDataSource.failedToLoadInitialData {
-                                GroupedDaosView(dataSource: daoDataSource,
-                                                onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                            if !daos.failedToLoadInitialData {
+                                GroupedDaosView(onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
                                                 onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
@@ -80,26 +62,25 @@ struct SearchView: View {
 
                                                 onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
                             } else {
-                                RetryInitialLoadingView(dataSource: daoDataSource)
+                                RetryInitialLoadingView(dataSource: daos)
                             }
                         }
                         .onAppear() {
                             Tracker.track(.screenSearchDaos)
                         }
                     case .proposals:
-                        if !proposalDataSource.failedToLoadInitialData {
-                            TopProposalsListView(dataSource: proposalDataSource, path: $path)
+                        if !proposals.failedToLoadInitialData {
+                            TopProposalsListView(dataSource: proposals, path: $model.path)
                         } else {
-                            RetryInitialLoadingView(dataSource: proposalDataSource)
+                            RetryInitialLoadingView(dataSource: proposals)
                         }
                     }
 
                 } else {
                     // Searching by text
-                    switch filter {
+                    switch model.filter {
                     case .daos:
-                        DaosSearchListView(dataSource: daoDataSource,
-                                           onSelectDao: { dao in
+                        DaosSearchListView(onSelectDao: { dao in
                             activeSheetManger.activeSheet = .daoInfo(dao)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
@@ -108,7 +89,7 @@ struct SearchView: View {
                         })
 
                     case .proposals:
-                        ProposalsSearchResultsListView(dataSource: proposalsSearchResultsDataSource, path: $path)
+                        ProposalsSearchResultsListView(dataSource: proposalsSearch, path: $model.path)
                     }
                 }
             }
@@ -120,6 +101,14 @@ struct SearchView: View {
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
+            .refreshable {
+                switch model.filter {
+                case .proposals:
+                    proposals.refresh()
+                case .daos:
+                    daos.refresh()
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -131,7 +120,7 @@ struct SearchView: View {
                 }
             }
             .onAppear() {
-                daoDataSource.refresh()
+                daos.refresh()
             }
         }
     }

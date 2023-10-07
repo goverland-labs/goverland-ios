@@ -98,6 +98,14 @@ enum Utils {
         return formattedString ?? "\(number)%"
     }
 
+    static func decimalNumber(from number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let formattedString = formatter.string(from: NSNumber(value: number))
+        return formattedString ?? String(number)
+    }
+    
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
            let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23

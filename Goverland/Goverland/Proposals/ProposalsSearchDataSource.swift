@@ -1,14 +1,14 @@
 //
-//  ProposalsSearchResultsDataSource.swift
+//  ProposalsSearchDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 12.07.23.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
-class ProposalsSearchResultsDataSource: ObservableObject {
+class ProposalsSearchDataSource: ObservableObject {
     @Published var searchText = ""
     @Published var searchResultProposals: [Proposal] = []
     @Published var nothingFound: Bool = false
@@ -21,6 +21,13 @@ class ProposalsSearchResultsDataSource: ObservableObject {
             .sink { [weak self] searchText in
                 self?.performSearch(searchText)
             }
+    }
+
+    func refresh() {
+        searchText = ""
+        searchResultProposals = []
+        nothingFound = false
+        cancellables = Set<AnyCancellable>()
     }
 
     private func performSearch(_ searchText: String) {

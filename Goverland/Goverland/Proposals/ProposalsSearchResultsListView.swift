@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProposalsSearchResultsListView: View {
-    @StateObject var dataSource: ProposalsSearchResultsDataSource
+    @StateObject var dataSource: ProposalsSearchDataSource
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
