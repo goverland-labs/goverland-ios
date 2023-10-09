@@ -30,7 +30,7 @@ struct ShimmerView: View {
                        endPoint: endPoint)
         .onAppear {
             withAnimation (.easeInOut (duration: 1)
-                .repeatCount(5, autoreverses: false)) {
+                .repeatCount(Int(ConfigurationManager.timeout), autoreverses: false)) {
                     startPoint = .init(x: 1, y: 1)
                     endPoint = .init(x: 2.2, y: 2.2)
                 }

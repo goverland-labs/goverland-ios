@@ -10,7 +10,8 @@ import SwiftUI
 /// This view is always presented in a popover
 struct AddSubscriptionView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var dataSource = GroupedDaosDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var searchDataSource = DaosSearchDataSource.shared
     /// This view should have own active sheet manager as it is already presented in a popover
     @StateObject private var activeSheetManger = ActiveSheetManager()
 
@@ -23,11 +24,9 @@ struct AddSubscriptionView: View {
 
     var body: some View {
         VStack {
-            if dataSource.searchText == "" {
+            if searchDataSource.searchText == "" {
                 if !dataSource.failedToLoadInitialData {
-                    GroupedDaosView(dataSource: dataSource,
-
-                                    onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
+                    GroupedDaosView(onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
                                     onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
                                     onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
 
@@ -40,8 +39,7 @@ struct AddSubscriptionView: View {
                     RetryInitialLoadingView(dataSource: dataSource)
                 }
             } else {
-                DaosSearchListView(dataSource: dataSource,
-                                   onSelectDao: { dao in
+                DaosSearchListView(onSelectDao: { dao in
                     activeSheetManger.activeSheet = .daoInfo(dao)
                     Tracker.track(.followedAddOpenDaoFromSearch)
                 },
@@ -52,7 +50,7 @@ struct AddSubscriptionView: View {
                 })
             }
         }
-        .searchable(text: $dataSource.searchText,
+        .searchable(text: $searchDataSource.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
         .navigationBarTitleDisplayMode(.inline)

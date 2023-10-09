@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DaosSearchListView: View {
-    @ObservedObject var dataSource: GroupedDaosDataSource
+    @ObservedObject var dataSource = DaosSearchDataSource.shared
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((Bool) -> Void)?
 

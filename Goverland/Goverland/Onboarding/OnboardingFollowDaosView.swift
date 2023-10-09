@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var searchDataSource = DaosSearchDataSource.shared
     @State private var path = NavigationPath()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
     @State private var showSignIn = false
@@ -23,10 +24,9 @@ struct OnboardingFollowDaosView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
-                if dataSource.searchText == "" {
+                if searchDataSource.searchText == "" {
                     if !dataSource.failedToLoadInitialData {
-                        GroupedDaosView(dataSource: dataSource,
-                                        callToAction: "Receive updates for the DAOs you select.",
+                        GroupedDaosView(callToAction: "Receive updates for the DAOs you select.",
                                         bottomPadding: 90,
 
                                         onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
@@ -61,8 +61,7 @@ struct OnboardingFollowDaosView: View {
                         RetryInitialLoadingView(dataSource: dataSource)
                     }
                 } else {
-                    DaosSearchListView(dataSource: dataSource,
-                                       onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromSearch) },
+                    DaosSearchListView(onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromSearch) },
                                        onFollowToggle: { didFollow in
                         if didFollow {
                             Tracker.track(.onboardingFollowFromSearch)
@@ -70,7 +69,7 @@ struct OnboardingFollowDaosView: View {
                     })
                 }
             }
-            .searchable(text: $dataSource.searchText,
+            .searchable(text: $searchDataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .navigationBarTitleDisplayMode(.inline)
