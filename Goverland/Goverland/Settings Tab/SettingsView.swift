@@ -84,7 +84,7 @@ fileprivate struct PushNotificationsSettingView: View {
                         }
                     } else {
                         // should not happen
-                        logError(GError.appInconsistency(reason: "enabled notifications toggle without determined permission"))
+                        logError(GError.appInconsistency(reason: "Enabled notifications toggle without determined permission."))
                     }
 
                 case .denied:
@@ -237,7 +237,12 @@ fileprivate struct AdvancedSettingView: View {
                     SettingKeys.reset()
                     fatalError("Crash with Reset button")
                 }
-                .accentColor(.primary)
+                .accentColor(.dangerText)
+
+                Button("LOG ERROR") {
+                    logError(GError.appInconsistency(reason: "Debug test error logging"))
+                }
+                .accentColor(.textWhite60)
             }
             #endif
 
@@ -256,6 +261,7 @@ fileprivate struct AdvancedSettingView: View {
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
+                        .foregroundColor(.textWhite)
                     }
                 }
             }

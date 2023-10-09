@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseCrashlytics
 import OSLog
 
 fileprivate let logger = Logger()
@@ -16,11 +17,12 @@ func logInfo(_ message: String) {
 }
 
 func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
-    // TODO: log in crashlytics
     let filePath = "\(file)"
     let fileName = (filePath as NSString).lastPathComponent
     let description = (error as? GError)?.localizedDescription ?? error.localizedDescription
-    logger.error("[ERROR] \(fileName): \(line): \(function) \(description)")
+    let msg = "[ERROR] \(fileName): \(line): \(function) \(description)"
+    logger.error("\(msg)")
+    Crashlytics.crashlytics().log(msg)
 }
 
 func showToast(_ message: String) {
