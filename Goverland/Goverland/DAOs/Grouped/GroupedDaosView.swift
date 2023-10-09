@@ -11,7 +11,6 @@ struct GroupedDaosView: View {
     @ObservedObject var dataSource = GroupedDaosDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    let callToAction: String?
     let bottomPadding: CGFloat
 
     let onSelectDaoFromGroup: ((Dao) -> Void)?
@@ -24,8 +23,7 @@ struct GroupedDaosView: View {
 
     let onCategoryListAppear: (() -> Void)?
 
-    init(callToAction: String? = nil,
-         bottomPadding: CGFloat = 0,
+    init(bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
          onSelectDaoFromCategoryList: ((Dao) -> Void)? = nil,
@@ -37,7 +35,6 @@ struct GroupedDaosView: View {
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
-        self.callToAction = callToAction
         self.bottomPadding = bottomPadding
 
         self.onSelectDaoFromGroup = onSelectDaoFromGroup
@@ -54,13 +51,6 @@ struct GroupedDaosView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {                
-                if let callToAction = callToAction {
-                    Text(callToAction)
-                        .font(.subheadlineRegular)
-                        .foregroundColor(.textWhite)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(16)
-                }
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
