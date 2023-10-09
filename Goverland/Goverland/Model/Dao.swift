@@ -17,7 +17,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let activitySince: Date?
     let about: [DaoBody]?
     let proposals: Int
-    let members: Int
+    let voters: Int
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
     let twitter: String?
@@ -33,7 +33,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          activitySince: Date?,
          about: [DaoBody]?,
          proposals: Int,
-         members: Int,
+         voters: Int,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
          twitter: String?,
@@ -48,7 +48,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.activitySince = activitySince
         self.about = about
         self.proposals = proposals
-        self.members = members
+        self.voters = voters
         self.subscriptionMeta = subscriptionMeta
         self.website = website
         self.twitter = twitter
@@ -66,7 +66,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case activitySince = "activity_since"
         case about
         case proposals = "proposals_count"
-        case members = "followers_count"
+        case voters = "voters_count"
         case subscriptionMeta = "subscription_info"
         case website
         case twitter
@@ -93,7 +93,7 @@ struct Dao: Identifiable, Decodable, Equatable {
             throw GError.errorDecodingData(error: error, context: "Decoding `about`: DAO ID: \(id)")
         }
         self.proposals = try container.decode(Int.self, forKey: .proposals)
-        self.members = try container.decode(Int.self, forKey: .members)
+        self.voters = try container.decode(Int.self, forKey: .voters)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
@@ -191,7 +191,7 @@ extension Dao {
         activitySince: .now - 1.years,
         about: [],
         proposals: 100,
-        members: 4567,
+        voters: 4567,
         subscriptionMeta: nil,
         website: URL(string: "https://gnosis.io"),
         twitter: "gnosisdao",
@@ -207,7 +207,7 @@ extension Dao {
         activitySince: .now - 1.years,
         about: [],
         proposals: 150,
-        members: 45678,
+        voters: 45678,
         subscriptionMeta: nil,
         website: nil,
         twitter: "AaveAave",

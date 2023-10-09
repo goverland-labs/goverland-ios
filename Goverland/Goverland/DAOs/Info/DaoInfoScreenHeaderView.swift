@@ -17,7 +17,7 @@ struct DaoInfoScreenHeaderView: View {
             VStack(spacing: 20) {
                 HStack {
                     InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.proposals)))", title: "Proposals")
-                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.members)))" , title: "Members")
+                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.voters)))" , title: "Members")
                 }
                 .scaledToFill()
                 .minimumScaleFactor(0.5)
