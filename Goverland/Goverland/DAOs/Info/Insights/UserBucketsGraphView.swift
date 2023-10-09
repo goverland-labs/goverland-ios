@@ -102,7 +102,7 @@ struct UserBucketsGraphView: View {
                             .foregroundColor(.textWhite)
                         Text("Voters")
                             .font(.subheadlineRegular)
-                            .foregroundColor(.systemGrayDark)
+                            .foregroundColor(.textWhite60)
                     }
                     Spacer()
                 }
@@ -110,16 +110,16 @@ struct UserBucketsGraphView: View {
                     HStack(spacing: 4) {
                         Text(bucket)
                             .font(.subheadlineRegular)
-                            .foregroundColor(.systemGrayDark)
+                            .foregroundColor(.textWhite60)
                         Text("times")
                             .font(.subheadlineRegular)
-                            .foregroundColor(.systemGrayDark)
+                            .foregroundColor(.textWhite60)
                     }
                     Spacer()
                 }
             }
             .padding(8)
-            .background(Color.systemDarkElevatedSecondary)
+            .background(Color.containerBright)
             .cornerRadius(10)
         }
     }
