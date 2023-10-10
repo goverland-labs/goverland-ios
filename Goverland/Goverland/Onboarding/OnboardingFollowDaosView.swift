@@ -99,6 +99,6 @@ struct OnboardingFollowDaosView: View {
                 Tracker.track(.screenOnboardingFollowDaos)
             }
         }
-        .accentColor(.primary)
+        .accentColor(.textWhite)
     }
 }
