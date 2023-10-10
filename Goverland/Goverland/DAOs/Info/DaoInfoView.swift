@@ -81,7 +81,7 @@ struct DaoInfoView: View {
                         DaoSharingMenu(dao: dao)
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.textWhite)
                             .fontWeight(.bold)
                             .frame(height: 20)
                     }

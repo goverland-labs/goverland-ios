@@ -78,7 +78,7 @@ struct TwoStepsModalView: View {
             NavigationStack {
                 ConnectWalletView()
             }
-            .accentColor(.primary)
+            .accentColor(.textWhite)
             .overlay {
                 ToastView()
             }

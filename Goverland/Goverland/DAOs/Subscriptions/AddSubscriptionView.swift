@@ -60,7 +60,7 @@ struct AddSubscriptionView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {
@@ -85,7 +85,7 @@ struct AddSubscriptionView: View {
                     EmptyView()
                 }
             }
-            .accentColor(.primary)
+            .accentColor(.textWhite)
             .overlay {
                 ToastView()
             }

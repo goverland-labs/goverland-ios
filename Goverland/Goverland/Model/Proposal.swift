@@ -118,6 +118,125 @@ struct Proposal: Decodable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+
+    init(id: String, 
+         ipfs: String,
+         author: User,
+         created: Date,
+         type: ProposalType,
+         title: String,
+         body: [ProposalBody],
+         discussion: String?,
+         choices: [String],
+         symbol: String?,
+         votingStart: Date,
+         votingEnd: Date,
+         quorum: Int,
+         privacy: Privacy?,
+         snapshot: String,
+         state: State,
+         link: String,
+         scores: [Double],
+         scoresTotal: Double,
+         votes: Int,
+         dao: Dao,
+         timeline: [TimelineEvent])
+    {
+        self.id = id
+        self.ipfs = ipfs
+        self.author = author
+        self.created = created
+        self.type = type
+        self.title = title
+        self.body = body
+        self.discussion = discussion
+        self.choices = choices
+        self.symbol = symbol
+        self.votingStart = votingStart
+        self.votingEnd = votingEnd
+        self.quorum = quorum
+        self.privacy = privacy
+        self.snapshot = snapshot
+        self.state = state
+        self.link = link
+        self.scores = scores
+        self.scoresTotal = scoresTotal
+        self.votes = votes
+        self.dao = dao
+        self.timeline = timeline
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.ipfs = try container.decode(String.self, forKey: .ipfs)
+
+        do {
+            self.author = try container.decode(User.self, forKey: .author)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `author`: Proposal ID: \(id)")
+        }
+
+        self.created = try container.decode(Date.self, forKey: .created)
+
+        do {
+            self.type = try container.decode(ProposalType.self, forKey: .type)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `type`: Proposal ID: \(id)")
+        }
+
+        self.title = try container.decode(String.self, forKey: .title)
+
+        do {
+            self.body = try container.decode([ProposalBody].self, forKey: .body)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `body`: Proposal ID: \(id)")
+        }
+
+        self.discussion = try? container.decodeIfPresent(String.self, forKey: .discussion)
+        self.choices = try container.decode([String].self, forKey: .choices)
+        self.symbol = try? container.decodeIfPresent(String.self, forKey: .symbol)
+        self.votingStart = try container.decode(Date.self, forKey: .votingStart)
+        self.votingEnd = try container.decode(Date.self, forKey: .votingEnd)
+        self.quorum = try container.decode(Int.self, forKey: .quorum)
+
+        do {
+            self.privacy = try container.decodeIfPresent(Privacy.self, forKey: .privacy)
+        } catch {
+            logError(GError.errorDecodingData(error: error, context: "Decoding `privacy`: Proposal ID: \(id)"))
+            self.privacy = nil
+        }
+
+        self.snapshot = try container.decode(String.self, forKey: .snapshot)
+        
+        do {
+            self.state = try container.decode(State.self, forKey: .state)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `state`: Proposal ID: \(id)")
+        }
+
+        self.link = try container.decode(String.self, forKey: .link)
+        self.scores = try container.decode([Double].self, forKey: .scores)
+        self.scoresTotal = try container.decode(Double.self, forKey: .scoresTotal)
+        self.votes = try container.decode(Int.self, forKey: .votes)
+
+        do {
+            self.dao = try container.decode(Dao.self, forKey: .dao)
+        } catch {
+            if error is GError {
+                throw(error)
+            } else {
+                throw(GError.errorDecodingData(error: error, context: "Decoding `dao`. Proposal ID: \(id)"))
+            }
+        }
+
+        do {
+            self.timeline = try container.decode([TimelineEvent].self, forKey: .timeline)
+        } catch {
+            throw(GError.errorDecodingData(error: error, context: "Decoding `timeline`. Proposal ID: \(id)"))
+        }
+    }
 }
 
 // MARK: - Mock data

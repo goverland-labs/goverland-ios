@@ -47,7 +47,7 @@ struct ConnectWalletView: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {

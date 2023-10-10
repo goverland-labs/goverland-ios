@@ -31,7 +31,7 @@ struct DashboardView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "envelope")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                         .onTapGesture {
                             ActiveHomeViewManager.shared.activeView = .inbox
                         }

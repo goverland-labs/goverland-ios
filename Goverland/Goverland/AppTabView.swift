@@ -69,6 +69,6 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.settings)
         }
-        .accentColor(.primary)
+        .accentColor(.textWhite)
     }
 }

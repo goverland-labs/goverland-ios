@@ -26,8 +26,7 @@ struct OnboardingFollowDaosView: View {
             ZStack {
                 if searchDataSource.searchText == "" {
                     if !dataSource.failedToLoadInitialData {
-                        GroupedDaosView(callToAction: "Receive updates for the DAOs you select.",
-                                        bottomPadding: 90,
+                        GroupedDaosView(bottomPadding: 90,
 
                                         onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
                                         onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgList) },
@@ -82,11 +81,11 @@ struct OnboardingFollowDaosView: View {
                     }
                 }
 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Sign In") {
-                        showSignIn = true
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button("Sign In") {
+//                        showSignIn = true
+//                    }
+//                }
             }
             .refreshable {
                 dataSource.refresh()
@@ -100,6 +99,6 @@ struct OnboardingFollowDaosView: View {
                 Tracker.track(.screenOnboardingFollowDaos)
             }
         }
-        .accentColor(.primary)
+        .accentColor(.textWhite)
     }
 }
