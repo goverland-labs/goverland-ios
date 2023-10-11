@@ -89,8 +89,12 @@ struct GroupedDaosView: View {
                                        onCategoryListAppear: onCategoryListAppear)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            // refresh if some popover sheet is presented (When showing DAO info page)
-            if activeSheetManager.activeSheet != nil {
+            // Refresh if some popover sheet is presented (When showing DAO info page).
+            // As we use singleton for the dataSource and different active sheet managers, it might happen
+            // that the Search screen's GroupedDaosView singleton will update AddSubscriptionView's GroupedDaosView.
+            // To avoid this behaviour we update datasource for all cases where a popover window is presented on top of
+            // GroupedDaosView expect when this view is presented from the AddSubscriptionView.
+            if (activeSheetManager.activeSheet != nil) && (activeSheetManager.activeSheet != .followDaos) {
                 dataSource.refresh()
             }
         }
@@ -125,7 +129,7 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao,                                        
+                            DaoCardView(dao: dao,
                                         onSelectDao: onSelectDao,
                                         onFollowToggle: onFollowToggle)
                         }
