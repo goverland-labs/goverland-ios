@@ -10,12 +10,17 @@ import SwiftUI
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
     @Setting(\.onboardingFinished) var onboardingFinished
+    @Setting(\.signInAsGuest) var signInAsGuest
 
     var body: some View {
         if !termsAccepted {
             IntroView()
         } else if !onboardingFinished {
-            OnboardingFollowDaosView()
+            if signInAsGuest {
+                OnboardingFollowDaosView()
+            } else {
+                SignInOnboardingView()
+            }
         } else {
             AppTabView()
         }

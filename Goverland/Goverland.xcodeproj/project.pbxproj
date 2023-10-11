@@ -127,6 +127,7 @@
 		BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
+		BA698E1D2AD6EDEE000180A5 /* SignInOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */; };
 		BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* TopProposalsListView.swift */; };
 		BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96502A376C7700851826 /* FollowButtonView.swift */; };
 		BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */; };
@@ -300,6 +301,7 @@
 		BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerLoadingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
+		BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInOnboardingView.swift; sourceTree = "<group>"; };
 		BA6B964A2A31056300851826 /* TopProposalsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsListView.swift; sourceTree = "<group>"; };
 		BA6B96502A376C7700851826 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonView.swift; sourceTree = "<group>"; };
 		BA6B96522A376CEF00851826 /* FollowButtonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonDataSource.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
 				552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */,
 				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
+				BA698E1B2AD6EDBD000180A5 /* Sign in */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -752,6 +755,14 @@
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA698E1B2AD6EDBD000180A5 /* Sign in */ = {
+			isa = PBXGroup;
+			children = (
+				BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */,
+			);
+			path = "Sign in";
 			sourceTree = "<group>";
 		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
@@ -1166,6 +1177,7 @@
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */,
+				BA698E1D2AD6EDEE000180A5 /* SignInOnboardingView.swift in Sources */,
 				5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */,
 				550E85722A5F4C3400B0CFDD /* VoteButton.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */,

@@ -30,6 +30,11 @@ enum TrackingEvent: String, Trackable {
     case screenOnbaordingPushNotifications = "screen_onboarding_push_notifications"
     case onboardingYesNotifications = "onboarding_yes_notifications"
     case onboardingNoNotifications = "onboarding_no_notifications"
+    
+    case onboardingSignInWithWallet = "onboarding_sign_in_with_wallet"
+    case screenOnbaordingSignIn = "screen_onbaording_sign_in"
+    case onboardingSignInAsGuest = "onboarding_sign_in_as_guest"
+    
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
