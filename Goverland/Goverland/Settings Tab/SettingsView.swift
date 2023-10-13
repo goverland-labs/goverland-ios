@@ -261,7 +261,7 @@ fileprivate struct AdvancedSettingView: View {
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
-                        .foregroundColor(.textWhite)
+                        .foregroundColor(.primaryDim)
                     }
                 }
             }
