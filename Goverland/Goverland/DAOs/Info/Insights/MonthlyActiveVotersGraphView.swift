@@ -64,7 +64,7 @@ struct MonthlyActiveVotersGraphView: View {
                             y: .value("Voters", data.voters)
                         )
                         .foregroundStyle(by: .value("Voters(type)", element.votersType))
-                        .foregroundStyle(Color.chartBar)
+                        .foregroundStyle(Color.primaryDim)
                         
                         if let selectedDate {
                             RuleMark(x: .value("Date", selectedDate))
@@ -84,7 +84,7 @@ struct MonthlyActiveVotersGraphView: View {
             .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartForegroundStyleScale([
                 // String name has to be same as in dataSource.chartData
-                "Returning voters": Color.chartBar, "New voters": Color.primary
+                "Returning voters": Color.primaryDim, "New voters": Color.red
             ])
             .chartOverlay { chartProxy in
                 GeometryReader { geometry in
