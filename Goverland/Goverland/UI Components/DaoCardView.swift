@@ -47,6 +47,9 @@ struct DaoCardView: View {
 
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
+                // we change ID here becase SwiftUI not alway correctly update this component
+                // when following/unfollowing from other views
+                .id("\(dao.id)-\(dao.subscriptionMeta == nil)")
                 .padding(.bottom, 18)
         }
         .frame(width: 162, height: 215)

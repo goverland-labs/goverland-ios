@@ -44,7 +44,7 @@ struct UserBucketsGraphView: View {
                         x: .value("Bucket", dataSource.userBuckets[i].votes),
                         y: .value("Voters", dataSource.userBuckets[i].voters)
                     )
-                    .foregroundStyle(Color.chartBar)
+                    .foregroundStyle(Color.primaryDim)
                 }
 
                 if let selectedBucket {

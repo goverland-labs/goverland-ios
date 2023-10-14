@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ActiveSheet: Identifiable {
+enum ActiveSheet: Identifiable, Equatable {
     case daoInfo(Dao)
     case followDaos
 

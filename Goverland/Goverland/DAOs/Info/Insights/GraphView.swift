@@ -78,7 +78,7 @@ struct GraphView<Content: View>: View {
                 Button("Refresh") {
                     onRefresh()
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 Spacer()
             } else {
                 content

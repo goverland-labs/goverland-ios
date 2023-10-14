@@ -14,7 +14,7 @@ extension Theme {
             FontSize(.em(0.85))
         }
         .link {
-            ForegroundColor(.primary)
+            ForegroundColor(.primaryDim)
         }
         .text {
             ForegroundColor(.textWhite)

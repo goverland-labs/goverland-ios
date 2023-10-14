@@ -30,7 +30,5 @@ extension Color {
     static var container = Color("Container")
     static var containerDim = Color("Container Dim")
     static var containerBright = Color("Container Bright")
-    static var disabled12 = Color("Disabled 12%")
-    
-    static var chartBar = Color("Chart Bar")
+    static var disabled12 = Color("Disabled 12%")    
 }

@@ -143,7 +143,7 @@ fileprivate struct AboutSettingView: View {
         List {
             HStack {
                 Image("privacy-policy")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primaryDim)
                     .frame(width: 30)
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
                 Spacer()
@@ -153,7 +153,7 @@ fileprivate struct AboutSettingView: View {
 
             HStack {
                 Image("term-service")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primaryDim)
                     .frame(width: 30)
                 Text("[Terms of Service](http://goverland.xyz/terms)")
                 Spacer()
@@ -188,7 +188,7 @@ fileprivate struct HelpUsGrowSettingView: View {
             }) {
                 HStack {
                     Image("rate-app")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.primaryDim)
                         .frame(width: 30)
                     Text("Rate the App")
                     Spacer()
@@ -211,7 +211,7 @@ fileprivate struct HelpUsGrowSettingView: View {
                 HStack {
                     HStack {
                         Image("share-tweet")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.primaryDim)
                             .frame(width: 30)
                         Text("Share a tweet")
                         Spacer()
@@ -261,7 +261,7 @@ fileprivate struct AdvancedSettingView: View {
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
-                        .foregroundColor(.textWhite)
+                        .foregroundColor(.primaryDim)
                     }
                 }
             }

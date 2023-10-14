@@ -9,21 +9,22 @@ import SwiftUI
 
 struct GroupedDaosView: View {
     @ObservedObject var dataSource = GroupedDaosDataSource.shared
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    let bottomPadding: CGFloat
+    private let activeSheetManager: ActiveSheetManager
+    private let bottomPadding: CGFloat
 
-    let onSelectDaoFromGroup: ((Dao) -> Void)?
-    let onSelectDaoFromCategoryList: ((Dao) -> Void)?
-    let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
+    private let onSelectDaoFromGroup: ((Dao) -> Void)?
+    private let onSelectDaoFromCategoryList: ((Dao) -> Void)?
+    private let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
 
-    let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
-    let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
-    let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
 
-    let onCategoryListAppear: (() -> Void)?
+    private let onCategoryListAppear: (() -> Void)?
 
-    init(bottomPadding: CGFloat = 0,
+    init(activeSheetManager: ActiveSheetManager,
+         bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
          onSelectDaoFromCategoryList: ((Dao) -> Void)? = nil,
@@ -35,6 +36,7 @@ struct GroupedDaosView: View {
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
+        self.activeSheetManager = activeSheetManager
         self.bottomPadding = bottomPadding
 
         self.onSelectDaoFromGroup = onSelectDaoFromGroup
@@ -87,8 +89,12 @@ struct GroupedDaosView: View {
                                        onCategoryListAppear: onCategoryListAppear)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            // refresh if some popover sheet is presented
-            if activeSheetManager.activeSheet != nil {
+            // Refresh if some popover sheet is presented (When showing DAO info page).
+            // As we use singleton for the dataSource and different active sheet managers, it might happen
+            // that the Search screen's GroupedDaosView singleton will update AddSubscriptionView's GroupedDaosView.
+            // To avoid this behaviour we update datasource for all cases where a popover window is presented on top of
+            // GroupedDaosView expect when this view is presented from the AddSubscriptionView.
+            if (activeSheetManager.activeSheet != nil) && (activeSheetManager.activeSheet != .followDaos) {
                 dataSource.refresh()
             }
         }
@@ -123,7 +129,7 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao,                                        
+                            DaoCardView(dao: dao,
                                         onSelectDao: onSelectDao,
                                         onFollowToggle: onFollowToggle)
                         }

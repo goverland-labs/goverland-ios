@@ -58,7 +58,7 @@ struct RetryLoadMoreListItemView: View {
             Button("Load more") {
                 dataSource.retryLoadMore()
             }
-            .foregroundColor(.primary)
+            .foregroundColor(.primaryDim)
             Spacer()
         }
         .padding(.vertical, 12)
