@@ -17,7 +17,8 @@ struct FollowButtonView: View {
          subscriptionID: UUID?,
          onFollowToggle: ((_ didFollow: Bool) -> Void)?,
          buttonWidth: CGFloat = 100,
-         buttonHeight: CGFloat = 32) {
+         buttonHeight: CGFloat = 32) 
+    {
         self.buttonWidth = buttonWidth
         self.buttonHeight = buttonHeight
         let dataSource = FollowButtonDataSource(daoID: daoID,

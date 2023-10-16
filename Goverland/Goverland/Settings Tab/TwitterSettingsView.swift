@@ -11,7 +11,7 @@ struct TwitterSettingsView: View {
     var body: some View {
         HStack {
             Image("twitter")
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 .frame(width: 30)
             Button("Twitter", action: openTwitterApp)
             Spacer()

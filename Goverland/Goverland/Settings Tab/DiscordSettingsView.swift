@@ -11,7 +11,7 @@ struct DiscordSettingsView: View {
     var body: some View {
         HStack {
             Image("discord")
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 .frame(width: 30)
             Button("Discord", action: openDiscordApp)
             Spacer()

@@ -26,7 +26,8 @@ struct OnboardingFollowDaosView: View {
             ZStack {
                 if searchDataSource.searchText == "" {
                     if !dataSource.failedToLoadInitialData {
-                        GroupedDaosView(bottomPadding: 90,
+                        GroupedDaosView(activeSheetManager: activeSheetManger,
+                                        bottomPadding: 90,
 
                                         onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },
                                         onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCtgList) },

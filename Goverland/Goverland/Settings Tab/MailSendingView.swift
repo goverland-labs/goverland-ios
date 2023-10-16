@@ -17,7 +17,7 @@ struct MailSettingView: View {
     var body: some View {
         HStack {
             Image("email")
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 .frame(width: 30)
             Button("Email", action: {
                 if !MFMailComposeViewController.canSendMail() {
