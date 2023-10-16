@@ -10,9 +10,11 @@ import SwiftUI
 /// This view is always presented in a popover
 struct AddSubscriptionView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var dataSource = GroupedDaosDataSource()
+    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var searchDataSource = DaosSearchDataSource.shared
+
     /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -23,13 +25,12 @@ struct AddSubscriptionView: View {
 
     var body: some View {
         VStack {
-            if dataSource.searchText == "" {
+            if searchDataSource.searchText == "" {
                 if !dataSource.failedToLoadInitialData {
-                    GroupedDaosView(dataSource: dataSource,
-
-                                    onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
-                                    onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
-                                    onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
+                    GroupedDaosView(activeSheetManager: activeSheetManager,
+                                    onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
+                                    onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
+                                    onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
 
                                     onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
                                     onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
@@ -40,9 +41,8 @@ struct AddSubscriptionView: View {
                     RetryInitialLoadingView(dataSource: dataSource)
                 }
             } else {
-                DaosSearchListView(dataSource: dataSource,
-                                   onSelectDao: { dao in
-                    activeSheetManger.activeSheet = .daoInfo(dao)
+                DaosSearchListView(onSelectDao: { dao in
+                    activeSheetManager.activeSheet = .daoInfo(dao)
                     Tracker.track(.followedAddOpenDaoFromSearch)
                 },
                                    onFollowToggle: { didFollow in
@@ -52,7 +52,7 @@ struct AddSubscriptionView: View {
                 })
             }
         }
-        .searchable(text: $dataSource.searchText,
+        .searchable(text: $searchDataSource.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
         .navigationBarTitleDisplayMode(.inline)
@@ -62,7 +62,7 @@ struct AddSubscriptionView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {
@@ -77,7 +77,7 @@ struct AddSubscriptionView: View {
             dataSource.refresh()
             Tracker.track(.screenFollowedDaosAdd)
         }
-        .sheet(item: $activeSheetManger.activeSheet) { item in
+        .sheet(item: $activeSheetManager.activeSheet) { item in
             NavigationStack {
                 switch item {
                 case .daoInfo(let dao):
@@ -87,7 +87,7 @@ struct AddSubscriptionView: View {
                     EmptyView()
                 }
             }
-            .accentColor(.primary)
+            .accentColor(.textWhite)
             .overlay {
                 ToastView()
             }

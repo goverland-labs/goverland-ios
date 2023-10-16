@@ -35,26 +35,37 @@ struct GraphView<Content: View>: View {
         self.onRefresh = onRefresh
         self.content = content()
     }
+    
+    @State private var isTooltipVisible = false
 
     var body: some View {
         VStack {
-            VStack(spacing: 3) {
-                HStack {
-                    Text(header)
-                        .font(.title3Semibold)
-                        .foregroundColor(.textWhite)
-                        .padding([.horizontal, .top])
-                    Spacer()
-                }
-
-                HStack {
-                    Text(subheader)
-                        .font(.footnote)
-                        .foregroundColor(.textWhite40)
-                        .padding([.horizontal])
-                    Spacer()
-                }
+            HStack {
+                Text(header)
+                    .font(.title3Semibold)
+                    .foregroundColor(.textWhite)
+                Spacer()
+                Image(systemName: "questionmark.circle")
+                    .foregroundColor(.textWhite40)
+                    .padding(.trailing)
+                    .tooltip($isTooltipVisible) {
+                        Text(subheader)
+                            .foregroundColor(.textWhite60)
+                            .font(.сaptionRegular)
+                    }
+                    .onTapGesture() {
+                        withAnimation {
+                            isTooltipVisible.toggle()
+                            // Shoe tooltip for 5 sec only
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                if isTooltipVisible {
+                                    isTooltipVisible.toggle()
+                                }
+                            }
+                        }
+                    }
             }
+            .padding([.top, .horizontal])
 
             if isLoading {
                 Spacer()
@@ -67,15 +78,14 @@ struct GraphView<Content: View>: View {
                 Button("Refresh") {
                     onRefresh()
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 Spacer()
             } else {
                 content
+                    .zIndex(-1)
             }
         }
         .frame(width: width, height: height)
-        .background(Color.containerBright)
-        .cornerRadius(20)
-        .padding()
+        .background(Color.clear)        
     }
 }

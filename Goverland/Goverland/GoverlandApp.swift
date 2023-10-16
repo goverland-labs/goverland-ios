@@ -31,7 +31,7 @@ struct GoverlandApp: App {
                             AddSubscriptionView()                        
                         }
                     }
-                    .accentColor(.primary)
+                    .accentColor(.textWhite)
                     .overlay {
                         ToastView()
                     }

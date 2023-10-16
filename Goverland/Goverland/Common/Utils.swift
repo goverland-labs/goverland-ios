@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseCrashlytics
 import OSLog
 
 fileprivate let logger = Logger()
@@ -16,10 +17,12 @@ func logInfo(_ message: String) {
 }
 
 func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
-    // TODO: log in crashlytics
     let filePath = "\(file)"
     let fileName = (filePath as NSString).lastPathComponent
-    logger.error("[ERROR] \(fileName): \(line): \(function) \(error.localizedDescription)")
+    let description = (error as? GError)?.localizedDescription ?? error.localizedDescription
+    let msg = "[ERROR] \(fileName): \(line): \(function) \(description)"
+    logger.error("\(msg)")
+    Crashlytics.crashlytics().log(msg)
 }
 
 func showToast(_ message: String) {
@@ -98,6 +101,14 @@ enum Utils {
         return formattedString ?? "\(number)%"
     }
 
+    static func decimalNumber(from number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        let formattedString = formatter.string(from: NSNumber(value: number))
+        return formattedString ?? String(number)
+    }
+    
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
            let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23

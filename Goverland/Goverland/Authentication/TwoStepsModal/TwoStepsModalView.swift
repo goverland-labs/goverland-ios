@@ -45,12 +45,12 @@ struct TwoStepsModalView: View {
                                 RoundPictureView(image: iconUrl, imageSize: 24)
                             }
                             Image(systemName: "checkmark.circle.fill")
-                                .accentColor(.primary)
+                                .accentColor(.primaryDim)
                         }
                         Button("Change Wallet") {
                             showSelectWallet = true
                         }
-                        .accentColor(.primary)
+                        .accentColor(.primaryDim)
                     }
                 }
             }
@@ -78,7 +78,7 @@ struct TwoStepsModalView: View {
             NavigationStack {
                 ConnectWalletView()
             }
-            .accentColor(.primary)
+            .accentColor(.textWhite)
             .overlay {
                 ToastView()
             }

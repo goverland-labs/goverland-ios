@@ -35,14 +35,23 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
+    @State private var chosenTab: SnapshotVoteTabType
 
-    @State var chosenTab: SnapshotVoteTabType = .vote
+    init(proposal: Proposal) {
+        self.proposal = proposal
+        if proposal.state == .active || proposal.state == .pending {
+            _chosenTab = State(wrappedValue: .vote)
+        } else {
+            _chosenTab = State(wrappedValue: .results)
+        }
+    }
+
     @Namespace var namespace
     @Setting(\.onboardingFinished) var onboardingFinished
     @Environment(\.presentationMode) var presentationMode
 
-    @State var voteButtonDisabled: Bool = true
-    @State var warningViewIsPresented = false {
+    @State private var voteButtonDisabled: Bool = true
+    @State private var warningViewIsPresented = false {
         didSet {
             if warningViewIsPresented {
                 Tracker.track(.snpDetailsVote)
@@ -55,7 +64,7 @@ struct SnapshotProposalVoteTabView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(SnapshotVoteTabType.allTabs) { tab in
-                        if !(proposal.state == .pending && tab == .results) {
+                        if !skipTab(tab) {
                             ZStack {
                                 if chosenTab == tab {
                                     RoundedRectangle(cornerRadius: 20)
@@ -132,5 +141,9 @@ struct SnapshotProposalVoteTabView: View {
                     .presentationDetents([.medium, .large])
             }
         }
+    }
+
+    private func skipTab(_ tab: SnapshotVoteTabType) -> Bool {
+        return (proposal.state == .pending && tab == .results) || (proposal.state != .active && tab == .vote)
     }
 }

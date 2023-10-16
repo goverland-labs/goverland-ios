@@ -18,7 +18,7 @@ struct UserBucketsGraphView: View {
     
     var body: some View {
         GraphView(header: "Voting frequency",
-                  subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes",
+                  subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 330,
@@ -44,12 +44,13 @@ struct UserBucketsGraphView: View {
                         x: .value("Bucket", dataSource.userBuckets[i].votes),
                         y: .value("Voters", dataSource.userBuckets[i].voters)
                     )
-                    .foregroundStyle(Color.chartBar)
+                    .foregroundStyle(Color.primaryDim)
                 }
 
                 if let selectedBucket {
-                    RectangleMark(x: .value("Bucket", selectedBucket))
-                        .foregroundStyle(.primary.opacity(0.2))
+                    RuleMark(x: .value("Bucket", selectedBucket))
+                        .foregroundStyle(Color.textWhite)
+                        .lineStyle(.init(lineWidth: 1, dash: [2]))
                         .annotation(
                             position: ["8-12", "13+"].contains(selectedBucket) ? .leading : .trailing,
                             alignment: .center, spacing: 4
@@ -73,12 +74,18 @@ struct UserBucketsGraphView: View {
                                     selectedBucket = nil
                                 }
                         )
+                        .onTapGesture(coordinateSpace: .local) { location in
+                            selectedBucket = chartProxy.value(atX: location.x, as: String.self)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                selectedBucket = nil
+                            }
+                        }
                 }
             }
         }
     }
 
-    struct AnnotationView: View {
+    private struct AnnotationView: View {
         let bucket: String
         let dataSource: UserBucketsDataSource
 
@@ -87,13 +94,33 @@ struct UserBucketsGraphView: View {
         }
 
         var body: some View {
-            VStack(alignment: .leading) {
-                Text("\(voters) voters")
-                    .font(.сaptionRegular)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    HStack(alignment: .bottom, spacing: 4) {
+                        Text(String(voters))
+                            .font(.title3Regular)
+                            .foregroundColor(.textWhite)
+                        Text("Voters")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.textWhite60)
+                    }
+                    Spacer()
+                }
+                HStack {
+                    HStack(spacing: 4) {
+                        Text(bucket)
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.textWhite60)
+                        Text("times")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(.textWhite60)
+                    }
+                    Spacer()
+                }
             }
-            .padding()
+            .padding(8)
             .background(Color.containerBright)
-            .cornerRadius(8)
+            .cornerRadius(10)
         }
     }
 }

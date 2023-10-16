@@ -17,9 +17,9 @@ struct DaoCardView: View {
         presentationMode.wrappedValue.isPresented ? .containerBright : .container
     }
 
-    private var members: String {
-        if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
-            return "\(members) members"
+    private var voters: String {
+        if let voters = MetricNumberFormatter().stringWithMetric(from: dao.voters) {
+            return "\(voters) voters"
         }
         return ""
     }
@@ -39,7 +39,7 @@ struct DaoCardView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
 
-                Text("\(members)")
+                Text("\(voters)")
                     .font(.сaption2Regular)
                     .foregroundColor(.textWhite60)
             }
@@ -47,6 +47,9 @@ struct DaoCardView: View {
 
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
+                // we change ID here becase SwiftUI not alway correctly update this component
+                // when following/unfollowing from other views
+                .id("\(dao.id)-\(dao.subscriptionMeta == nil)")
                 .padding(.bottom, 18)
         }
         .frame(width: 162, height: 215)

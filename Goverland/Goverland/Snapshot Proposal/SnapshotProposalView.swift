@@ -65,7 +65,7 @@ struct SnapshotProposalView: View {
                     ProposalSharingMenu(link: proposal.link)
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }
