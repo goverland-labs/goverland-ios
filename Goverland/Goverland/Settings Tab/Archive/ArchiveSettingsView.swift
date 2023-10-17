@@ -22,7 +22,7 @@ struct ArchiveSettingsView: View {
                 if data.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: data)
                 } else if data.archives?.count == 0 {
-                    // loading had finished, data.events != nil
+                    // loading had finished, data.archives != nil
                     EmptyInboxView()
                 } else if data.isLoading && data.archives == nil {
                     // loading in progress
@@ -63,8 +63,8 @@ struct ArchiveSettingsView: View {
                             }
                             .swipeActions(allowsFullSwipe: false) {
                                 Button {
-                                    //data.archive(eventID: event.id)
-                                    //Tracker.track(.inboxEventArchive)
+                                    data.unarchive(eventID: archive.id)
+                                    Tracker.track(.archiveEventUnarchive)
                                 } label: {
                                     Label("Unarchive", systemImage: "envelope")
                                 }
