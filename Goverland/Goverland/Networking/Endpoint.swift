@@ -261,7 +261,6 @@ struct ArchiveEventsEndpoint: APIEndpoint {
 
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
-        //archived=only
     }
 }
 
