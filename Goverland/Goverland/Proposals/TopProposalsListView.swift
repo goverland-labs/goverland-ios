@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TopProposalsListView: View {
     @StateObject var dataSource: TopProposalsDataSource
+    let trackingEvent: TrackingEvent
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
@@ -61,7 +62,7 @@ struct TopProposalsListView: View {
         }
         .onAppear {
             selectedProposalIndex = nil
-            Tracker.track(.screenSearchPrp)
+            Tracker.track(trackingEvent)
             if dataSource.proposals.isEmpty {
                 dataSource.refresh()
             }

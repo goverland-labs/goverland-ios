@@ -68,7 +68,12 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
-                case .hotProposals: EmptyView()
+                    // TODO: use proper tracking event
+                case .hotProposals: 
+                    TopProposalsListView(dataSource: TopProposalsDataSource.dashboard, 
+                                         trackingEvent: .screenSearchPrp,
+                                         path: $path)
+                        .navigationTitle("Hot Proposals")
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

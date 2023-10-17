@@ -71,7 +71,7 @@ struct SearchView: View {
                         }
                     case .proposals:
                         if !proposals.failedToLoadInitialData {
-                            TopProposalsListView(dataSource: proposals, path: $model.path)
+                            TopProposalsListView(dataSource: proposals, trackingEvent: .screenSearchPrp, path: $model.path)
                         } else {
                             RetryInitialLoadingView(dataSource: proposals)
                         }
