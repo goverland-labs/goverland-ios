@@ -45,7 +45,6 @@
 		556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
-		55728B7A2ACD4E6E002961FD /* DashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B792ACD4E6E002961FD /* DashboardDataSource.swift */; };
 		55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B7B2ACD97A6002961FD /* HomeView.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
@@ -224,7 +223,6 @@
 		556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishOnboardingWarningView.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		55728B792ACD4E6E002961FD /* DashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDataSource.swift; sourceTree = "<group>"; };
 		55728B7B2ACD97A6002961FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -502,7 +500,6 @@
 			children = (
 				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				55728B772ACD4E4E002961FD /* DashboardView.swift */,
-				55728B792ACD4E6E002961FD /* DashboardDataSource.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -1163,7 +1160,6 @@
 				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
 				55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */,
 				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
-				55728B7A2ACD4E6E002961FD /* DashboardDataSource.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,

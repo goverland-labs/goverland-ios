@@ -42,7 +42,7 @@ struct ProposalListItemCondensedView: View {
                                                   onDaoTap: onDaoTap)
                 
             }
-            .padding(.horizontal, 12)
+            .padding([.horizontal, .vertical], 12)            
         }
     }
 }

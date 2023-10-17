@@ -13,13 +13,16 @@ fileprivate enum Path {
 
 struct DashboardView: View {
     @State private var path = NavigationPath()
-    @StateObject private var dataSource = DashboardViewDataSource.shared
     @Setting(\.unreadEvents) var unreadEvents
     @State private var animate = false
 
+    static func refresh() {
+        TopProposalsDataSource.dashboard.refresh()
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
-            Group {
+            ScrollView {
                 SectionHeader(header: "Hot Proposals") {
                     path.append(Path.hotProposals)
                 }
@@ -53,17 +56,25 @@ struct DashboardView: View {
                     }
                 }
             }
-//            .refreshable {
-//                TopProposalsDataSource.dashboard.refresh()
-//            }
+            .onAppear {
+                // TODO: tracking
+                animate.toggle()
+                if TopProposalsDataSource.dashboard.proposals.isEmpty {
+                    TopProposalsDataSource.dashboard.refresh()
+                }
+            }
+            .refreshable {
+                Self.refresh()
+            }
             .navigationDestination(for: Path.self) { path in
                 switch path {
                 case .hotProposals: EmptyView()
                 }
             }
-            .onAppear {
-                animate.toggle()
-                // TODO: track
+            .navigationDestination(for: Proposal.self) { proposal in
+                SnapshotProposalView(proposal: proposal,
+                                     allowShowingDaoInfo: true,
+                                     navigationTitle: proposal.dao.name)
             }
         }
     }

@@ -38,7 +38,7 @@ struct TopProposalsListView: View {
                             }
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
@@ -47,7 +47,7 @@ struct TopProposalsListView: View {
                             Tracker.track(.searchPrpOpenDaoFromCard)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
                         .listRowBackground(Color.clear)
                     }
                 }

@@ -23,7 +23,7 @@ class TabManager: ObservableObject {
                 switch selectedTab {
                 case .home:
                     ActiveHomeViewManager.shared.activeView = .dashboard
-                    DashboardViewDataSource.shared.refresh()
+                    DashboardView.refresh()
                 case .search:
                     SearchModel.shared.refresh()
                     TopProposalsDataSource.search.refresh()
