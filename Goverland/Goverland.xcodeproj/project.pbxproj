@@ -37,6 +37,7 @@
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
+		5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5542437E2ADF32FC00504E97 /* RefreshIcon.swift */; };
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
@@ -215,6 +216,7 @@
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
+		5542437E2ADF32FC00504E97 /* RefreshIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIcon.swift; sourceTree = "<group>"; };
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			children = (
 				552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
+				5542437E2ADF32FC00504E97 /* RefreshIcon.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
@@ -1093,6 +1096,7 @@
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
+				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */,

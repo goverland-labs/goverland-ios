@@ -15,8 +15,9 @@ struct DashboardHotProposalsView: View {
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
-                // TODO: reload icon
-                EmptyView()
+                RefreshIcon {
+                    dataSource.refresh()
+                }
             } else if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemCondensedView()
@@ -27,7 +28,7 @@ struct DashboardHotProposalsView: View {
                     ProposalListItemCondensedView(proposal: proposal) {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
                         // TODO: proper tracking
-//                        Tracker.track(.searchPrpOpenDaoFromCard)
+                        //                        Tracker.track(.searchPrpOpenDaoFromCard)
                     }
                     .padding(.horizontal, 12)
                     .onTapGesture {
@@ -35,6 +36,6 @@ struct DashboardHotProposalsView: View {
                     }
                 }
             }
-        }        
+        }
     }
 }
