@@ -8,7 +8,7 @@
 import SwiftUI
 
 fileprivate enum Path {
-    case topProposals
+    case hotProposals
 }
 
 struct DashboardView: View {
@@ -20,7 +20,10 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             Group {
-                Text("Dashboard \(dataSource.randomNumber)")
+                SectionHeader(header: "Hot Proposals") {
+                    path.append(Path.hotProposals)
+                }
+                DashboardHotProposalsView(path: $path)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -50,14 +53,45 @@ struct DashboardView: View {
                     }
                 }
             }
+//            .refreshable {
+//                TopProposalsDataSource.dashboard.refresh()
+//            }
             .navigationDestination(for: Path.self) { path in
                 switch path {
-                case .topProposals: EmptyView()
+                case .hotProposals: EmptyView()
                 }
             }
             .onAppear {
                 animate.toggle()
                 // TODO: track
+            }
+        }
+    }
+}
+
+fileprivate struct SectionHeader: View {
+    let header: String
+    let onTap: (() -> Void)?
+
+    var body: some View {
+        VStack {
+            Spacer()
+                .frame(height: 32)
+
+            HStack {
+                Text(header)
+                    .font(.title2Semibold)
+                Spacer()
+                if onTap != nil {
+                    Image(systemName: "arrow.right")
+                        .font(.title2)
+                }
+            }
+            .padding(.horizontal)
+            .foregroundStyle(Color.textWhite)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                onTap?()
             }
         }
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TopProposalsListView: View {
-    @StateObject var dataSource: TopProposalDataSource
+    @StateObject var dataSource: TopProposalsDataSource
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 

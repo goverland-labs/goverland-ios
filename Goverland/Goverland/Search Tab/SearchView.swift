@@ -13,7 +13,7 @@ struct SearchView: View {
 
     @StateObject var daos = GroupedDaosDataSource.shared
     @StateObject var daosSearch = DaosSearchDataSource.shared
-    @StateObject var proposals = TopProposalDataSource.shared
+    @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager

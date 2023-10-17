@@ -26,6 +26,7 @@
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
 		5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* ProposalStatusView.swift */; };
+		5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */; };
 		552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */; };
 		552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */; };
 		552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */; };
@@ -134,7 +135,7 @@
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
-		BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */; };
+		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
@@ -205,6 +206,7 @@
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
 		5521D27629EF145300A09FD4 /* ProposalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalStatusView.swift; sourceTree = "<group>"; };
+		5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHotProposalsView.swift; sourceTree = "<group>"; };
 		552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFollowDaosView.swift; sourceTree = "<group>"; };
 		552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDaosDataSource.swift; sourceTree = "<group>"; };
 		552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowCategoryDaosListView.swift; sourceTree = "<group>"; };
@@ -307,7 +309,7 @@
 		BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoDataSource.swift; sourceTree = "<group>"; };
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
-		BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalDataSource.swift; sourceTree = "<group>"; };
+		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Regular.otf"; sourceTree = "<group>"; };
 		BAB4B9422A4749A300D24110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -458,6 +460,14 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		5526CAAE2ADEA46000B727A2 /* Hot Proposals */ = {
+			isa = PBXGroup;
+			children = (
+				5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */,
+			);
+			path = "Hot Proposals";
+			sourceTree = "<group>";
+		};
 		553744DA2A757FA200D05D8A /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +500,7 @@
 		55728B7D2ACD97AA002961FD /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				55728B772ACD4E4E002961FD /* DashboardView.swift */,
 				55728B792ACD4E6E002961FD /* DashboardDataSource.swift */,
 			);
@@ -767,7 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6B964A2A31056300851826 /* TopProposalsListView.swift */,
-				BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */,
+				BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */,
 				559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */,
 				559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */,
 			);
@@ -1048,6 +1059,7 @@
 				55FD731C2AB75DC60081C38D /* SignInView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
+				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* TwoStepsViewModel.swift in Sources */,
 				55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */,
@@ -1160,7 +1172,7 @@
 				55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
-				BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */,
+				BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */,
 				55FD73212AB75DC60081C38D /* Wallet.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
