@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ArchiveSettingsView: View {
-    @StateObject private var data = ArchiveSettingsDataSource()
+struct ArchiveView: View {
+    @StateObject private var data = ArchiveDataSource()
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
@@ -107,11 +107,5 @@ struct ArchiveSettingsView: View {
             data.refresh()
             Tracker.track(.screenArchive)
         }
-    }
-}
-
-struct ArchiveSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArchiveSettingsView()
     }
 }

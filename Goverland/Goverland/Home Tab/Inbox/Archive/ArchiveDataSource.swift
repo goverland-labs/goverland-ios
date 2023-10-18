@@ -1,5 +1,5 @@
 //
-//  ArchiveSettingsDataSource.swift
+//  ArchiveDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-09-23.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-class ArchiveSettingsDataSource: ObservableObject, Paginatable, Refreshable {
+class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var archives: [InboxEvent]?
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false

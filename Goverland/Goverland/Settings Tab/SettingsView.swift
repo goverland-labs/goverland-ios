@@ -51,7 +51,7 @@ struct SettingsView: View {
             .navigationDestination(for: SettingsScreen.self) { settingsScreen in
                 switch settingsScreen {
                 case .subscriptions: SubscriptionsView()
-                case .archive: ArchiveSettingsView()
+                case .archive: ArchiveView()
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
