@@ -88,7 +88,9 @@ struct DaoInfoEventsView: View {
             }
         }
         .onAppear() {
-            data.refresh()
+            if data.events?.isEmpty ?? true {
+                data.refresh()
+            }
             Tracker.track(.screenDaoFeed, parameters: ["dao_name": dao.name])
         }
     }

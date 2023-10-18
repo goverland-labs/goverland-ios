@@ -115,6 +115,10 @@ struct ArchiveView: View {
                                      navigationTitle: proposal.dao.name)
             }
         }
+        .accentColor(.textWhite)
+        .overlay {
+            ToastView()
+        }
         .onAppear() {
             data.refresh()
             Tracker.track(.screenArchive)

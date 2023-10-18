@@ -23,19 +23,28 @@ struct GoverlandApp: App {
                     colorSchemeManager.applyColorScheme()
                 }
                 .sheet(item: $activeSheetManger.activeSheet) { item in
-                    NavigationStack {
-                        switch item {
-                        case .daoInfo(let dao):
+                    switch item {
+                    case .daoInfo(let dao):
+                        NavigationStack {
                             DaoInfoView(dao: dao)
-                        case .followDaos:
-                            AddSubscriptionView()     
-                        case .archive:
-                            ArchiveView()
                         }
-                    }
-                    .accentColor(.textWhite)
-                    .overlay {
-                        ToastView()
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .followDaos:
+                        NavigationStack {
+                            AddSubscriptionView()
+                        }
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .archive:
+                        // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                        ArchiveView()
                     }
                 }
                 .overlay {
