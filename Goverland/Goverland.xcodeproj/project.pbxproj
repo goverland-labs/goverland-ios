@@ -123,7 +123,7 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
-		BA3C9F672ABF513000E66BD4 /* ArchiveSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */; };
+		BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */; };
 		BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
 		BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */; };
@@ -301,7 +301,7 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
-		BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingsView.swift; sourceTree = "<group>"; };
+		BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDataSource.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
 		BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalResultProcessBarView.swift; sourceTree = "<group>"; };
@@ -786,7 +786,7 @@
 		BA3C9F652ABF511D00E66BD4 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
-				BA3C9F662ABF513000E66BD4 /* ArchiveSettingsView.swift */,
+				BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */,
 				BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */,
 				553756F02AE070E600416381 /* EmptyArchiveView.swift */,
 			);
@@ -1155,7 +1155,7 @@
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
-				BA3C9F672ABF513000E66BD4 /* ArchiveSettingsView.swift in Sources */,
+				BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,

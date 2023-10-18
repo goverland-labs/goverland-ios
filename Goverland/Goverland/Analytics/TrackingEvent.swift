@@ -59,6 +59,7 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Archive
     case screenArchive = "screen_archive"
     case screenArchiveEmpty = "screen_archive_empty"
+    case archiveEventOpen = "archive_event_open"
     case archiveEventUnarchive = "archive_event_unarchive"
     case archiveEventMarkRead = "archive_event_mark_read"
 

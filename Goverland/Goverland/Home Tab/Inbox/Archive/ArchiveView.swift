@@ -1,5 +1,5 @@
 //
-//  ArchiveSettingsView.swift
+//  ArchiveView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-09-23.
@@ -101,9 +101,10 @@ struct ArchiveView: View {
                 if let index = selectedEventIndex, archives.count > index,
                    let proposal = archives[index].eventData as? Proposal {
                     path.append(proposal)
+                    Tracker.track(.archiveEventOpen)
                     if archives[index].readAt == nil {
-                        Tracker.track(.archiveEventMarkRead)
                         data.markRead(eventID: archives[index].id)
+                        Tracker.track(.archiveEventMarkRead)
                     }
                     selectedEventIndex = nil
                 }
