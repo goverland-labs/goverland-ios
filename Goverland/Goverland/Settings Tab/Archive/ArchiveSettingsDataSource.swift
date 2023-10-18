@@ -18,10 +18,10 @@ class ArchiveSettingsDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
 
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.archiveEvents()
+        APIService.archivedEvents()
     }
     var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.archiveEvents(offset: archives?.count ?? 0)
+        APIService.archivedEvents(offset: archives?.count ?? 0)
     }
 
     init() {

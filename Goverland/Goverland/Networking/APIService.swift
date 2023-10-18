@@ -193,15 +193,15 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func archiveEvents(offset: Int = 0,
-                              limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ArchiveEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func archivedEvents(offset: Int = 0,
+                               limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)"),
             URLQueryItem(name: "archived", value: "only")
             
         ]
-        let endpoint = ArchiveEventsEndpoint(queryParameters: queryParameters)
+        let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

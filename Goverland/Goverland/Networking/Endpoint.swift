@@ -252,18 +252,6 @@ struct InboxEventsEndpoint: APIEndpoint {
     }
 }
 
-struct ArchiveEventsEndpoint: APIEndpoint {
-    typealias ResponseType = [InboxEvent]
-
-    var path: String = "feed"
-    var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
-    }
-}
-
 struct DaoEventsEndpoint: APIEndpoint {
     typealias ResponseType = [InboxEvent]
 
