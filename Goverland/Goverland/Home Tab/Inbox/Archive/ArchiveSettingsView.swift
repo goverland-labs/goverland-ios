@@ -13,7 +13,7 @@ struct ArchiveView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
     var archives: [InboxEvent] {
-        data.archives ?? []
+        data.events ?? []
     }
     
     var body: some View {
@@ -21,10 +21,10 @@ struct ArchiveView: View {
             Group {
                 if data.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: data)
-                } else if data.archives?.count == 0 {
+                } else if data.events?.count == 0 {
                     // loading had finished, data.archives != nil
                     EmptyInboxView()
-                } else if data.isLoading && data.archives == nil {
+                } else if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
                         ForEach(0..<5) { _ in

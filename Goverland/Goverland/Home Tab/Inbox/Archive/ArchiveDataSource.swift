@@ -10,7 +10,7 @@ import Combine
 
 
 class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
-    @Published var archives: [InboxEvent]?
+    @Published var events: [InboxEvent]?
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -21,7 +21,7 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
         APIService.archivedEvents()
     }
     var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.archivedEvents(offset: archives?.count ?? 0)
+        APIService.archivedEvents(offset: events?.count ?? 0)
     }
 
     init() {
@@ -29,7 +29,7 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func refresh() {
-        archives = nil
+        events = nil
         isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false
@@ -49,13 +49,13 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
                 }
             } receiveValue: { [weak self] archives, headers in
                 guard let `self` = self else { return }
-                self.archives = archives
+                self.events = archives
             }
             .store(in: &cancellables)
     }
 
     func hasMore() -> Bool {
-        guard let archives = archives,
+        guard let archives = events,
                 let total = total else { return true }
         return archives.count < total
     }
@@ -69,7 +69,7 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
                 }
             } receiveValue: { [weak self] archives, headers in
                 guard let `self` = self else { return }
-                self.archives?.append(contentsOf: archives)
+                self.events?.append(contentsOf: archives)
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
@@ -91,16 +91,16 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
 
                     // TODO: remove once backend is ready
                     guard let `self` = self else { return }
-                    if let index = self.archives?.firstIndex(where: { $0.id == eventID }) {
+                    if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                         self.total? -= 1 // to properly handle load more
-                        self.archives?.remove(at: index)
+                        self.events?.remove(at: index)
                     }
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
-                if let index = self.archives?.firstIndex(where: { $0.id == eventID }) {
+                if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
-                    self.archives?.remove(at: index)
+                    self.events?.remove(at: index)
                 }
             }
             .store(in: &cancellables)
