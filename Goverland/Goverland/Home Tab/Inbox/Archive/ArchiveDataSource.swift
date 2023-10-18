@@ -24,10 +24,6 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
         APIService.archivedEvents(offset: events?.count ?? 0)
     }
 
-    init() {
-        refresh()
-    }
-
     func refresh() {
         events = nil
         isLoading = false
@@ -83,18 +79,11 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
     func unarchive(eventID: UUID) {
         APIService.markEventUnarchived(eventID: eventID)
             .retry(3)
-            .sink { [weak self] completion in
+            .sink { completion in
+                // do nothing, error will be displayed to user if any
                 switch completion {
                 case .finished: break
-                case .failure(_):
-                    // do nothing, error will be displayed to user if any
-
-                    // TODO: remove once backend is ready
-                    guard let `self` = self else { return }
-                    if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
-                        self.total? -= 1 // to properly handle load more
-                        self.events?.remove(at: index)
-                    }
+                case .failure(_): break
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
@@ -105,9 +94,4 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
             }
             .store(in: &cancellables)
     }
-
-    @objc private func subscriptionDidToggle(_ notification: Notification) {
-        refresh()
-    }
 }
-

@@ -136,18 +136,11 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     func archive(eventID: UUID) {
         APIService.markEventArchived(eventID: eventID)
             .retry(3)
-            .sink { [weak self] competion in
+            .sink { competion in
+                // do nothing, error will be displayed to user if any
                 switch competion {
                 case .finished: break
-                case .failure(_):
-                    // do nothing, error will be displayed to user if any
-
-                    // TODO: remove once backend is ready
-                    guard let `self` = self else { return }
-                    if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
-                        self.total? -= 1 // to properly handle load more
-                        self.events?.remove(at: index)
-                    }
+                case .failure(_): break
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
