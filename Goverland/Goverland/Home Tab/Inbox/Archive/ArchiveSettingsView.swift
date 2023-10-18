@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ArchiveView: View {
+    @Environment(\.presentationMode) var presentationMode
     @StateObject private var data = ArchiveDataSource()
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -23,7 +24,9 @@ struct ArchiveView: View {
                     RetryInitialLoadingView(dataSource: data)
                 } else if data.events?.count == 0 {
                     // loading had finished, data.archives != nil
-                    EmptyInboxView()
+                    EmptyArchiveView {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 } else if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
@@ -75,16 +78,20 @@ struct ArchiveView: View {
                             .listRowBackground(Color.clear)
                         }
                     }
-                    .refreshable {
-                        data.refresh()
-                    }
                 }
-
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Archive")

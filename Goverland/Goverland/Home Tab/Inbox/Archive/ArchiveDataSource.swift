@@ -80,10 +80,12 @@ class ArchiveDataSource: ObservableObject, Paginatable, Refreshable {
         APIService.markEventUnarchived(eventID: eventID)
             .retry(3)
             .sink { completion in
-                // do nothing, error will be displayed to user if any
                 switch completion {
-                case .finished: break
-                case .failure(_): break
+                case .finished: 
+                    NotificationCenter.default.post(name: .eventUnarchived, object: nil)
+                case .failure(_):
+                    // do nothing, error will be displayed to user if any
+                    break
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }

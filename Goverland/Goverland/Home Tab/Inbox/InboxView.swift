@@ -70,7 +70,7 @@ struct InboxView: View {
                                     data.archive(eventID: event.id)
                                     Tracker.track(.inboxEventArchive)
                                 } label: {
-                                    Label("Archive", systemImage: "trash")
+                                    Label("Archive", systemImage: "archivebox.fill")
                                 }
                                 .tint(.clear)
                             }
@@ -89,6 +89,14 @@ struct InboxView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "rectangle.3.group")
+                        .foregroundColor(.textWhite)
+                        .onTapGesture {
+                            ActiveHomeViewManager.shared.activeView = .dashboard
+                        }
+                }
+
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
@@ -96,12 +104,20 @@ struct InboxView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "rectangle.3.group")
-                        .foregroundColor(.textWhite)
-                        .onTapGesture {
-                            ActiveHomeViewManager.shared.activeView = .dashboard
+
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            activeSheetManger.activeSheet = .archive
+                        } label: {
+                            Label("See Archive", systemImage: "archivebox.fill")
                         }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
                 }
             }
         }  detail: {

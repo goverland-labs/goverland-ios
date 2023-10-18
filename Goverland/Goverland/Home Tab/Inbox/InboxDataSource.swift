@@ -45,6 +45,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)
     }
 
     func refresh() {
@@ -153,6 +154,10 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     @objc private func subscriptionDidToggle(_ notification: Notification) {
+        refresh()
+    }
+
+    @objc private func eventUnarchived(_ notification: Notification) {
         refresh()
     }
 }
