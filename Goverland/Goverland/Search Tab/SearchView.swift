@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
-    @StateObject var daos = GroupedDaosDataSource.shared
+    @StateObject var daos = GroupedDaosDataSource.search
     @StateObject var daosSearch = DaosSearchDataSource.shared
     @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
@@ -128,11 +128,5 @@ struct SearchView: View {
                 daos.refresh()
             }
         }
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
     }
 }

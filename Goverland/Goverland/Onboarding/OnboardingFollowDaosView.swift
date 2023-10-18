@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var dataSource = GroupedDaosDataSource.search
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
     @State private var path = NavigationPath()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager

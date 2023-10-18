@@ -9,15 +9,18 @@ import SwiftUI
 
 fileprivate enum Path {
     case hotProposals
+    case newDaos
 }
 
 struct DashboardView: View {
     @State private var path = NavigationPath()
     @Setting(\.unreadEvents) var unreadEvents
     @State private var animate = false
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     static func refresh() {
         TopProposalsDataSource.dashboard.refresh()
+        GroupedDaosDataSource.dashboard.refresh()
     }
 
     var body: some View {
@@ -27,7 +30,13 @@ struct DashboardView: View {
                     path.append(Path.hotProposals)
                 }
                 DashboardHotProposalsView(path: $path)
+
+                SectionHeader(header: "New DAOs") {
+                    path.append(Path.newDaos)
+                }
+                DashboardNewDaosView()
             }
+            .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -71,6 +80,10 @@ struct DashboardView: View {
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
+                
+                if GroupedDaosDataSource.dashboard.categoryDaos[.new]?.isEmpty ?? true {
+                    GroupedDaosDataSource.dashboard.refresh()
+                }
             }
             .refreshable {
                 Self.refresh()
@@ -84,6 +97,14 @@ struct DashboardView: View {
                                          openProposalFromListItemTrackingEvent: .dashHotOpenPrpFromList,
                                          openDaoFromListItemTrackingEvent: .dashHotOpenDaoFromList)
                         .navigationTitle("Hot Proposals")
+                case .newDaos:
+                    FollowCategoryDaosListView(category: .new,
+                                               onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
+                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashNewDaoFollowFromList) } },
+                                               onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
+                                               onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
+                        .navigationTitle("New DAOs")
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

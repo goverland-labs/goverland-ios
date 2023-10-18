@@ -10,7 +10,7 @@ import SwiftUI
 /// This view is always presented in a popover
 struct AddSubscriptionView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var dataSource = GroupedDaosDataSource.search
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
 
     /// This view should have own active sheet manager as it is already presented in a popover

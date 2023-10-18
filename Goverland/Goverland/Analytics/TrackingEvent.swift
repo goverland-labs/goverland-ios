@@ -34,10 +34,19 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"
     case screenDashHotList = "screen_dash_hot_list"
+    // Hot Proposals
     case dashHotOpenPrp = "dash_hot_open_prp"
     case dashHotOpenDao = "dash_hot_open_dao"
     case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
     case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
+    // New DAOs
+    case dashNewDaoOpen = "dash_newdao_open"
+    case dashNewDaoFollow = "dash_newdao_follow"
+    case screenDashNewDao = "screen_dash_newdao"
+    case dashNewDaoOpenFromList = "dash_newdao_open_from_list"
+    case dashNewDaoFollowFromList = "dash_newdao_follow_from_list"
+    case dashNewDaoOpenFromSearch = "dash_newdao_open_from_search"
+    case dashNewDaoFollowFromSearch = "dash_newdao_follow_from_search"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GroupedDaosView: View {
-    @ObservedObject var dataSource = GroupedDaosDataSource.shared
+    @ObservedObject var dataSource = GroupedDaosDataSource.search
 
     private let activeSheetManager: ActiveSheetManager
     private let bottomPadding: CGFloat
@@ -68,7 +68,8 @@ struct GroupedDaosView: View {
                         .padding(.top, 16)
                         .padding(.horizontal, 16)
 
-                        DaoThreadForCategoryView(category: category,
+                        DaoThreadForCategoryView(dataSource: dataSource, 
+                                                 category: category,
                                                  onSelectDao: onSelectDaoFromGroup,
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
@@ -101,9 +102,9 @@ struct GroupedDaosView: View {
     }
 }
 
-fileprivate struct DaoThreadForCategoryView: View {
-    @ObservedObject var dataSource = GroupedDaosDataSource.shared
-    
+struct DaoThreadForCategoryView: View {
+    @ObservedObject var dataSource: GroupedDaosDataSource
+
     let category: DaoCategory
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?

@@ -18,7 +18,8 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     @Published var subscriptionsCount: Int = 0
 
-    static let shared = GroupedDaosDataSource()
+    static let search = GroupedDaosDataSource()
+    static let dashboard = GroupedDaosDataSource()
 
     private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
