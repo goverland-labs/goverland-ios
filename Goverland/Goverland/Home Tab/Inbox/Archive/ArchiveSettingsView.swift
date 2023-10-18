@@ -11,14 +11,14 @@ struct ArchiveView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var data = ArchiveDataSource()
     @State private var selectedEventIndex: Int?
-    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var path = NavigationPath()
 
     var archives: [InboxEvent] {
         data.events ?? []
     }
     
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        NavigationStack(path: $path) {
             Group {
                 if data.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: data)
@@ -54,14 +54,11 @@ struct ArchiveView: View {
                             .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
                             .listRowBackground(Color.clear)
                         } else {
-                            // For now we recognise only proposals
                             let proposal = archive.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isSelected: selectedEventIndex == index,
+                                                 isSelected: false,
                                                  isRead: archive.readAt != nil,
-                                                 displayUnreadIndicator: archive.readAt == nil,
-                                                 onDaoTap: {print("")})
-                            {
+                                                 displayUnreadIndicator: archive.readAt == nil) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
                             .swipeActions(allowsFullSwipe: false) {
@@ -100,14 +97,16 @@ struct ArchiveView: View {
                     }
                 }
             }
-        }  detail: {
-            if let index = selectedEventIndex, archives.count > index,
-               let proposal = archives[index].eventData as? Proposal {
+            .onChange(of: selectedEventIndex) { _ in
+                if let index = selectedEventIndex, archives.count > index,
+                    let proposal = archives[index].eventData as? Proposal {
+                    path.append(proposal)
+                }
+            }
+            .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true,
+                                     allowShowingDaoInfo: false,
                                      navigationTitle: proposal.dao.name)
-            } else {
-                EmptyView()
             }
         }
         .onAppear() {

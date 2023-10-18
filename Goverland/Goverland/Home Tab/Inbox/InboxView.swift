@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @StateObject private var data = InboxDataSource()
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -60,7 +60,7 @@ struct InboxView: View {
                                                  isRead: event.readAt != nil,
                                                  displayUnreadIndicator: event.readAt == nil,
                                                  onDaoTap: {
-                                activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)
                             }) {
                                 ProposalSharingMenu(link: proposal.link)
@@ -108,7 +108,7 @@ struct InboxView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
-                            activeSheetManger.activeSheet = .archive
+                            activeSheetManager.activeSheet = .archive
                         } label: {
                             Label("See Archive", systemImage: "archivebox.fill")
                         }

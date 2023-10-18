@@ -92,9 +92,3 @@ struct DaoInfoEventsView: View {
         }
     }
 }
-
-struct DaoInfoEventsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DaoInfoEventsView(dao: .aave)
-    }
-}
