@@ -99,8 +99,12 @@ struct ArchiveView: View {
             }
             .onChange(of: selectedEventIndex) { _ in
                 if let index = selectedEventIndex, archives.count > index,
-                    let proposal = archives[index].eventData as? Proposal {
+                   let proposal = archives[index].eventData as? Proposal {
                     path.append(proposal)
+                    if archives[index].readAt == nil {
+                        Tracker.track(.archiveEventMarkRead)
+                        data.markRead(eventID: archives[index].id)
+                    }
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
