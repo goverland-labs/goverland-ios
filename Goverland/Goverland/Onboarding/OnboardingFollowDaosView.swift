@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingFollowDaosView: View {
-    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var dataSource = GroupedDaosDataSource.search
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
     @State private var path = NavigationPath()
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -26,7 +26,8 @@ struct OnboardingFollowDaosView: View {
             ZStack {
                 if searchDataSource.searchText == "" {
                     if !dataSource.failedToLoadInitialData {
-                        GroupedDaosView(activeSheetManager: activeSheetManger,
+                        GroupedDaosView(dataSource: dataSource,
+                                        activeSheetManager: activeSheetManger,
                                         bottomPadding: 90,
 
                                         onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.onboardingOpenDaoFromCard) },

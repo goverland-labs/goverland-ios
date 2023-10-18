@@ -26,6 +26,7 @@
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
 		5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27629EF145300A09FD4 /* ProposalStatusView.swift */; };
+		5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */; };
 		552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */; };
 		552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */; };
 		552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */; };
@@ -36,6 +37,8 @@
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
+		5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5542437E2ADF32FC00504E97 /* RefreshIcon.swift */; };
+		554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554243812AE04A9100504E97 /* DashboardNewDaosView.swift */; };
 		5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */; };
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
@@ -44,7 +47,6 @@
 		556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
-		55728B7A2ACD4E6E002961FD /* DashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B792ACD4E6E002961FD /* DashboardDataSource.swift */; };
 		55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B7B2ACD97A6002961FD /* HomeView.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
@@ -136,7 +138,7 @@
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
-		BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */; };
+		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
@@ -207,6 +209,7 @@
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
 		5521D27629EF145300A09FD4 /* ProposalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalStatusView.swift; sourceTree = "<group>"; };
+		5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHotProposalsView.swift; sourceTree = "<group>"; };
 		552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFollowDaosView.swift; sourceTree = "<group>"; };
 		552885922A28EAE700ED2BCD /* CategoryDaosDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDaosDataSource.swift; sourceTree = "<group>"; };
 		552885932A28EAE700ED2BCD /* FollowCategoryDaosListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowCategoryDaosListView.swift; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
+		5542437E2ADF32FC00504E97 /* RefreshIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIcon.swift; sourceTree = "<group>"; };
+		554243812AE04A9100504E97 /* DashboardNewDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardNewDaosView.swift; sourceTree = "<group>"; };
 		5543011A2A4C83F000029BC3 /* MetricNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatter.swift; sourceTree = "<group>"; };
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
@@ -224,7 +229,6 @@
 		556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishOnboardingWarningView.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		55728B792ACD4E6E002961FD /* DashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDataSource.swift; sourceTree = "<group>"; };
 		55728B7B2ACD97A6002961FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,7 +315,7 @@
 		BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoDataSource.swift; sourceTree = "<group>"; };
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
-		BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalDataSource.swift; sourceTree = "<group>"; };
+		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Regular.otf"; sourceTree = "<group>"; };
 		BAB4B9422A4749A300D24110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -445,6 +449,7 @@
 			children = (
 				552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
+				5542437E2ADF32FC00504E97 /* RefreshIcon.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
@@ -462,6 +467,14 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		5526CAAE2ADEA46000B727A2 /* Hot Proposals */ = {
+			isa = PBXGroup;
+			children = (
+				5526CAAF2ADEA48900B727A2 /* DashboardHotProposalsView.swift */,
+			);
+			path = "Hot Proposals";
+			sourceTree = "<group>";
+		};
 		553744DA2A757FA200D05D8A /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +484,14 @@
 				553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		554243802AE04A7700504E97 /* New DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				554243812AE04A9100504E97 /* DashboardNewDaosView.swift */,
+			);
+			path = "New DAOs";
 			sourceTree = "<group>";
 		};
 		554301212A4C897C00029BC3 /* GoverlandTests */ = {
@@ -494,8 +515,9 @@
 		55728B7D2ACD97AA002961FD /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
+				554243802AE04A7700504E97 /* New DAOs */,
 				55728B772ACD4E4E002961FD /* DashboardView.swift */,
-				55728B792ACD4E6E002961FD /* DashboardDataSource.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -781,7 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6B964A2A31056300851826 /* TopProposalsListView.swift */,
-				BA8451722A5B97F40088A6E6 /* TopProposalDataSource.swift */,
+				BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */,
 				559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */,
 				559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */,
 			);
@@ -1062,6 +1084,7 @@
 				55FD731C2AB75DC60081C38D /* SignInView.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
+				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* TwoStepsViewModel.swift in Sources */,
 				55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */,
@@ -1099,6 +1122,7 @@
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
+				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */,
@@ -1143,6 +1167,7 @@
 				55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
+				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
 				55FD731D2AB75DC60081C38D /* TwoStepsModalView.swift in Sources */,
@@ -1167,7 +1192,6 @@
 				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
 				55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */,
 				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
-				55728B7A2ACD4E6E002961FD /* DashboardDataSource.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
@@ -1176,7 +1200,7 @@
 				55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
-				BA8451732A5B97F40088A6E6 /* TopProposalDataSource.swift in Sources */,
+				BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */,
 				55FD73212AB75DC60081C38D /* Wallet.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,

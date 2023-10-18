@@ -26,10 +26,9 @@ struct HomeView: View {
     @StateObject var activeViewManager = ActiveHomeViewManager.shared
 
     var body: some View {
-        InboxView()
-//        switch activeViewManager.activeView {
-//        case .dashboard: DashboardView()
-//        case .inbox: InboxView()
-//        }
+        switch activeViewManager.activeView {
+        case .dashboard: DashboardView()
+        case .inbox: InboxView()
+        }
     }
 }
