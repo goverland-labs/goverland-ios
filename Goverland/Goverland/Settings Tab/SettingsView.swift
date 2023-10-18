@@ -12,7 +12,6 @@ import StoreKit
 
 enum SettingsScreen {
     case subscriptions
-    case archive
     case pushNofitications
     case about
     case helpUsGrow
@@ -28,7 +27,6 @@ struct SettingsView: View {
             List {
                 Section(header: Text("Goverland")) {
                     NavigationLink("Followed DAOs", value: SettingsScreen.subscriptions)
-                    NavigationLink("Archive", value: SettingsScreen.archive)
                     NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
                 }
                 
@@ -51,7 +49,6 @@ struct SettingsView: View {
             .navigationDestination(for: SettingsScreen.self) { settingsScreen in
                 switch settingsScreen {
                 case .subscriptions: SubscriptionsView()
-                case .archive: ArchiveView()
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
