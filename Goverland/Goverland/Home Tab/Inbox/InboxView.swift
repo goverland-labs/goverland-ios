@@ -96,13 +96,13 @@ struct InboxView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Image(systemName: "rectangle.3.group")
-//                        .foregroundColor(.textWhite)
-//                        .onTapGesture {
-//                            ActiveHomeViewManager.shared.activeView = .dashboard
-//                        }
-//                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "rectangle.3.group")
+                        .foregroundColor(.textWhite)
+                        .onTapGesture {
+                            ActiveHomeViewManager.shared.activeView = .dashboard
+                        }
+                }
             }
         }  detail: {
             if let index = selectedEventIndex, events.count > index,

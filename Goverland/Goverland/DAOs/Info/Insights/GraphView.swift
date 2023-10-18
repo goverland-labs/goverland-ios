@@ -75,10 +75,9 @@ struct GraphView<Content: View>: View {
                 Spacer()
             } else if failedToLoadInitialData {
                 Spacer()
-                Button("Refresh") {
+                RefreshIcon {
                     onRefresh()
-                }
-                .foregroundColor(.primaryDim)
+                }                
                 Spacer()
             } else {
                 content

@@ -31,6 +31,14 @@ enum TrackingEvent: String, Trackable {
     case onboardingYesNotifications = "onboarding_yes_notifications"
     case onboardingNoNotifications = "onboarding_no_notifications"
 
+    // MARK: - Dashboard
+    case screenDashboard = "screen_dashboard"
+    case screenDashHotList = "screen_dash_hot_list"
+    case dashHotOpenPrp = "dash_hot_open_prp"
+    case dashHotOpenDao = "dash_hot_open_dao"
+    case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
+    case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
+
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
     case screenInboxEmpty = "screen_inbox_empty"

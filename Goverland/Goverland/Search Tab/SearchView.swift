@@ -13,7 +13,7 @@ struct SearchView: View {
 
     @StateObject var daos = GroupedDaosDataSource.shared
     @StateObject var daosSearch = DaosSearchDataSource.shared
-    @StateObject var proposals = TopProposalDataSource.shared
+    @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -71,7 +71,11 @@ struct SearchView: View {
                         }
                     case .proposals:
                         if !proposals.failedToLoadInitialData {
-                            TopProposalsListView(dataSource: proposals, path: $model.path)
+                            TopProposalsListView(dataSource: proposals, 
+                                                 path: $model.path,
+                                                 screenTrackingEvent: .screenSearchPrp,
+                                                 openProposalFromListItemTrackingEvent: .searchPrpOpenFromCard,
+                                                 openDaoFromListItemTrackingEvent: .searchPrpOpenDaoFromCard)
                         } else {
                             RetryInitialLoadingView(dataSource: proposals)
                         }

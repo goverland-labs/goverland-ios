@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDate
 
-struct Proposal: Decodable, Hashable {
+struct Proposal: Decodable, Hashable, Identifiable {
     let id: String
     let ipfs: String
     let author: User
