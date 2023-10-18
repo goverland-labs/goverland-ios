@@ -9,8 +9,10 @@ import SwiftUI
 
 struct TopProposalsListView: View {
     @StateObject var dataSource: TopProposalsDataSource
-    let trackingEvent: TrackingEvent
     @Binding var path: NavigationPath
+    let screenTrackingEvent: TrackingEvent
+    let openProposalFromListItemTrackingEvent: TrackingEvent
+    let openDaoFromListItemTrackingEvent: TrackingEvent
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     @State private var selectedProposalIndex: Int?
@@ -45,7 +47,7 @@ struct TopProposalsListView: View {
                         let proposal = dataSource.proposals[index]
                         ProposalListItemCondensedView(proposal: proposal) {
                             activeSheetManger.activeSheet = .daoInfo(proposal.dao)
-                            Tracker.track(.searchPrpOpenDaoFromCard)
+                            Tracker.track(openDaoFromListItemTrackingEvent)
                         }
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
@@ -57,12 +59,12 @@ struct TopProposalsListView: View {
         .onChange(of: selectedProposalIndex) { _ in
             if let index = selectedProposalIndex, dataSource.proposals.count > index {
                 path.append(dataSource.proposals[index])
-                Tracker.track(.searchPrpOpenFromCard)
+                Tracker.track(openProposalFromListItemTrackingEvent)
             }
         }
         .onAppear {
             selectedProposalIndex = nil
-            Tracker.track(trackingEvent)
+            Tracker.track(screenTrackingEvent)
             if dataSource.proposals.isEmpty {
                 dataSource.refresh()
             }

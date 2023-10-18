@@ -71,7 +71,11 @@ struct SearchView: View {
                         }
                     case .proposals:
                         if !proposals.failedToLoadInitialData {
-                            TopProposalsListView(dataSource: proposals, trackingEvent: .screenSearchPrp, path: $model.path)
+                            TopProposalsListView(dataSource: proposals, 
+                                                 path: $model.path,
+                                                 screenTrackingEvent: .screenSearchPrp,
+                                                 openProposalFromListItemTrackingEvent: .searchPrpOpenFromCard,
+                                                 openDaoFromListItemTrackingEvent: .searchPrpOpenDaoFromCard)
                         } else {
                             RetryInitialLoadingView(dataSource: proposals)
                         }

@@ -57,7 +57,7 @@ struct DashboardView: View {
                 }
             }
             .onAppear {
-                // TODO: tracking
+                Tracker.track(.screenDashboard)
                 animate.toggle()
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
@@ -68,11 +68,12 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
-                    // TODO: use proper tracking event
                 case .hotProposals: 
-                    TopProposalsListView(dataSource: TopProposalsDataSource.dashboard, 
-                                         trackingEvent: .screenSearchPrp,
-                                         path: $path)
+                    TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
+                                         path: $path,
+                                         screenTrackingEvent: .screenDashHotList,
+                                         openProposalFromListItemTrackingEvent: .dashHotOpenPrpFromList,
+                                         openDaoFromListItemTrackingEvent: .dashHotOpenDaoFromList)
                         .navigationTitle("Hot Proposals")
                 }
             }

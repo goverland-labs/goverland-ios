@@ -27,11 +27,11 @@ struct DashboardHotProposalsView: View {
                 ForEach(dataSource.proposals.prefix(3)) { proposal in
                     ProposalListItemCondensedView(proposal: proposal) {
                         activeSheetManger.activeSheet = .daoInfo(proposal.dao)
-                        // TODO: proper tracking
-                        //                        Tracker.track(.searchPrpOpenDaoFromCard)
+                        Tracker.track(.dashHotOpenDao)
                     }
                     .padding(.horizontal, 12)
                     .onTapGesture {
+                        Tracker.track(.dashHotOpenPrp)
                         path.append(proposal)
                     }
                 }
