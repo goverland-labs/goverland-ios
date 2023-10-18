@@ -76,6 +76,7 @@ struct DaoInfoEventsView: View {
                    let proposal = events[index].eventData as? Proposal {
                     path.append(proposal)
                 }
+                selectedEventIndex = nil
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,

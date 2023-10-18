@@ -105,6 +105,7 @@ struct ArchiveView: View {
                         Tracker.track(.archiveEventMarkRead)
                         data.markRead(eventID: archives[index].id)
                     }
+                    selectedEventIndex = nil
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
