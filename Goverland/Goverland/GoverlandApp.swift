@@ -23,17 +23,28 @@ struct GoverlandApp: App {
                     colorSchemeManager.applyColorScheme()
                 }
                 .sheet(item: $activeSheetManger.activeSheet) { item in
-                    NavigationStack {
-                        switch item {
-                        case .daoInfo(let dao):
+                    switch item {
+                    case .daoInfo(let dao):
+                        NavigationStack {
                             DaoInfoView(dao: dao)
-                        case .followDaos:
-                            AddSubscriptionView()                        
                         }
-                    }
-                    .accentColor(.textWhite)
-                    .overlay {
-                        ToastView()
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .followDaos:
+                        NavigationStack {
+                            AddSubscriptionView()
+                        }
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .archive:
+                        // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                        ArchiveView()
                     }
                 }
                 .overlay {
@@ -71,7 +82,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable : Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        logInfo("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
+        logInfo("[PUSH] didReceiveRemoteNotification with userInfo: \(userInfo)")
         completionHandler(.noData)
     }
 
@@ -87,7 +98,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        logInfo("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
+        logInfo("[PUSH] App is in foreground, willPresent notification with userInfo: \(userInfo)")
         completionHandler([.badge, .sound])
     }
 
@@ -95,14 +106,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        logInfo("PUSH: didReceive notification with userInfo: \(userInfo)")
+        logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
         completionHandler()
     }
 }
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        logInfo("FCM Token: \(fcmToken ?? "unknown")")
+        logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
         NotificationsManager.shared.enableNotifications()
     }

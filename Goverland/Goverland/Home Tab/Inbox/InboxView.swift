@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @StateObject private var data = InboxDataSource()
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -60,7 +60,7 @@ struct InboxView: View {
                                                  isRead: event.readAt != nil,
                                                  displayUnreadIndicator: event.readAt == nil,
                                                  onDaoTap: {
-                                activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)
                             }) {
                                 ProposalSharingMenu(link: proposal.link)
@@ -70,7 +70,7 @@ struct InboxView: View {
                                     data.archive(eventID: event.id)
                                     Tracker.track(.inboxEventArchive)
                                 } label: {
-                                    Label("Archive", systemImage: "trash")
+                                    Label("Archive", systemImage: "archivebox.fill")
                                 }
                                 .tint(.clear)
                             }
@@ -89,6 +89,14 @@ struct InboxView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "rectangle.3.group")
+                        .foregroundColor(.textWhite)
+                        .onTapGesture {
+                            ActiveHomeViewManager.shared.activeView = .dashboard
+                        }
+                }
+
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
@@ -96,13 +104,21 @@ struct InboxView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Image(systemName: "rectangle.3.group")
-//                        .foregroundColor(.textWhite)
-//                        .onTapGesture {
-//                            ActiveHomeViewManager.shared.activeView = .dashboard
-//                        }
-//                }
+
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            activeSheetManager.activeSheet = .archive
+                        } label: {
+                            Label("See Archive", systemImage: "archivebox.fill")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
+                }
             }
         }  detail: {
             if let index = selectedEventIndex, events.count > index,

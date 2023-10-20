@@ -40,9 +40,9 @@ struct ProposalListItemCondensedView: View {
                 ProposalListItemCondensedHeaderView(proposal: proposal)
                 ProposalListItemCondensedBodyView(proposal: proposal,
                                                   onDaoTap: onDaoTap)
-                
+
             }
-            .padding(.horizontal, 12)
+            .padding([.horizontal, .vertical], 12)
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class TopProposalDataSource: ObservableObject, Refreshable, Paginatable {
+class TopProposalsDataSource: ObservableObject, Refreshable, Paginatable {
     @Published var proposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -17,7 +17,8 @@ class TopProposalDataSource: ObservableObject, Refreshable, Paginatable {
     private(set) var totalProposals: Int?
     private var cancellables = Set<AnyCancellable>()
 
-    static let shared = TopProposalDataSource()
+    static let search = TopProposalsDataSource()
+    static let dashboard = TopProposalsDataSource()
 
     private init() {}
 

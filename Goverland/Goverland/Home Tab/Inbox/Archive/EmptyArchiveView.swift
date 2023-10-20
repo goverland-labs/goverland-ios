@@ -1,13 +1,15 @@
 //
-//  EmptyInboxView.swift
+//  EmptyArchiveView.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 11.07.23.
+//  Created by Andrey Scherbovich on 18.10.23.
 //
 
 import SwiftUI
 
-struct EmptyInboxView: View {
+struct EmptyArchiveView: View {
+    let onClose: () -> Void
+
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 24) {
@@ -16,20 +18,19 @@ struct EmptyInboxView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
-                Text("There are no new notifications from the DAOs you follow.\nYou can follow more DAOs or check specific DAO events.")
+                Text("There are no arvived events.")
                     .font(.callout)
                     .foregroundColor(.textWhite)
                 Spacer()
-                PrimaryButton("My followed DAOs") {
-                    TabManager.shared.selectedTab = .settings
-                    TabManager.shared.settingsPath = [.subscriptions]
+                PrimaryButton("Close") {
+                    onClose()
                 }
             }
             // this is needed as on iPad GeometryReader breaks VStack layout
             .frame(width: geometry.size.width - 32)
             .padding([.horizontal, .bottom], 16)
             .onAppear {
-                Tracker.track(.screenInboxEmpty)
+                Tracker.track(.screenArchiveEmpty)
             }
         }
     }

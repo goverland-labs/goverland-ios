@@ -11,9 +11,9 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
-    @StateObject var daos = GroupedDaosDataSource.shared
+    @StateObject var daos = GroupedDaosDataSource.search
     @StateObject var daosSearch = DaosSearchDataSource.shared
-    @StateObject var proposals = TopProposalDataSource.shared
+    @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -52,7 +52,8 @@ struct SearchView: View {
                     case .daos:
                         ZStack {
                             if !daos.failedToLoadInitialData {
-                                GroupedDaosView(activeSheetManager: activeSheetManger,
+                                GroupedDaosView(dataSource: daos,
+                                                activeSheetManager: activeSheetManger,
                                                 onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
                                                 onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
@@ -71,7 +72,11 @@ struct SearchView: View {
                         }
                     case .proposals:
                         if !proposals.failedToLoadInitialData {
-                            TopProposalsListView(dataSource: proposals, path: $model.path)
+                            TopProposalsListView(dataSource: proposals, 
+                                                 path: $model.path,
+                                                 screenTrackingEvent: .screenSearchPrp,
+                                                 openProposalFromListItemTrackingEvent: .searchPrpOpenFromCard,
+                                                 openDaoFromListItemTrackingEvent: .searchPrpOpenDaoFromCard)
                         } else {
                             RetryInitialLoadingView(dataSource: proposals)
                         }
@@ -124,11 +129,5 @@ struct SearchView: View {
                 daos.refresh()
             }
         }
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
     }
 }
