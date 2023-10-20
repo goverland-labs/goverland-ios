@@ -793,6 +793,7 @@
 			);
 			path = "Sign in";
             sourceTree = "<group>";
+        };
 		BA3C9F652ABF511D00E66BD4 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
