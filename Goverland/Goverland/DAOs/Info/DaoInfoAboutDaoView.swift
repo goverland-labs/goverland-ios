@@ -17,8 +17,7 @@ struct DaoInfoAboutDaoView: View {
     // TODO: make a proper fix
     var markdownDescription: String {
         // we always expect to have a markdown text
-        let rawStr = dao.about?.first { $0.type == .markdown }!.body
-        return rawStr?.replacingOccurrences(of: "ipfs://", with: "https://snapshot.mypinata.cloud/ipfs/") ?? ""
+        return dao.about?.first { $0.type == .markdown }?.body ?? ""
     }
 
     var date: String? {
