@@ -18,7 +18,7 @@ struct EmptyArchiveView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
-                Text("There are no arvived events.")
+                Text("There are no archived events.")
                     .font(.callout)
                     .foregroundColor(.textWhite)
                 Spacer()
