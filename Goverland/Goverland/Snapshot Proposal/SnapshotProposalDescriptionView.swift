@@ -11,11 +11,9 @@ import MarkdownUI
 struct SnapshotProposalDescriptionView: View {
     let proposalBody: [Proposal.ProposalBody]
 
-    // TODO: fix when backend is ready
     var markdownDescription: String {
         // we always expect to have a markdown text
-        let rawStr = proposalBody.first { $0.type == .markdown }!.body
-        return rawStr.replacingOccurrences(of: "ipfs://", with: "https://snapshot.mypinata.cloud/ipfs/")
+        return proposalBody.first { $0.type == .markdown }?.body ?? ""
     }
 
     @State private var isExpanded = false
@@ -24,6 +22,8 @@ struct SnapshotProposalDescriptionView: View {
         // can be calculated based on device
         return 250
     }
+
+    let minCharsForShowMore = 300
 
     var body: some View {
         VStack {
@@ -40,35 +40,36 @@ struct SnapshotProposalDescriptionView: View {
             }
             .overlay(
                 Group {
-                    if !isExpanded {
+                    if !isExpanded && markdownDescription.count > minCharsForShowMore {
                         ShadowOverlay()
                     }
                 },
                 alignment: .bottom)
 
             // we will always display Show More button
-            Button(isExpanded ? "Show Less" : "Show More") {
-                if !isExpanded {
-                    Tracker.track(.snpDetailsShowFullDscr)
+            if markdownDescription.count > minCharsForShowMore {
+                Button(isExpanded ? "Show Less" : "Show More") {
+                    if !isExpanded {
+                        Tracker.track(.snpDetailsShowFullDscr)
+                    }
+                    withAnimation {
+                        isExpanded.toggle()
+                    }
                 }
-                withAnimation {
-                    isExpanded.toggle()
-                }
+                .frame(width: 100, height: 30, alignment: .center)
+                .background(Capsule(style: .circular)
+                    .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                .tint(.onSecondaryContainer)
+                .font(.footnoteSemibold)
             }
-            .frame(width: 100, height: 30, alignment: .center)
-            .background(Capsule(style: .circular)
-                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-            .tint(.onSecondaryContainer)
-            .font(.footnoteSemibold)
         }
-        
     }
 }
 
 fileprivate struct ShadowOverlay: View {
     var body: some View {
         Rectangle().fill(
-            LinearGradient(colors: [.clear, .surface.opacity(0.8)],
+            LinearGradient(colors: [.clear, .surface.opacity(0.5)],
                            startPoint: .top,
                            endPoint: .bottom))
         .frame(height: 50)
