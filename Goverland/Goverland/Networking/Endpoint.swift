@@ -142,6 +142,18 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     }
 }
 
+struct DaoExclusiveVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [ExclusiveVoters]
+    
+    let daoID: UUID
+    var path: String { "analytics/exclusive-voters/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
