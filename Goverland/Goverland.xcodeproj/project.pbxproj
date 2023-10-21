@@ -581,6 +581,7 @@
 				55D632B2295057880073E04A /* IntroView.swift */,
 				55D632C42950CB4A0073E04A /* TermsView.swift */,
 				552885912A28EAE600ED2BCD /* OnboardingFollowDaosView.swift */,
+				BAE1AB122AE2DB61001B89F3 /* DaoInfoOnboardingView.swift */,
 				555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */,
 			);
 			path = Onboarding;
@@ -795,14 +796,6 @@
 			path = Archive;
 			sourceTree = "<group>";
 		};
-		BA698E1B2AD6EDBD000180A5 /* Sign in */ = {
-			isa = PBXGroup;
-			children = (
-				BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */,
-			);
-			path = "Sign in";
-			sourceTree = "<group>";
-		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,7 +862,6 @@
 			isa = PBXGroup;
 			children = (
 				BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */,
-				BAE1AB122AE2DB61001B89F3 /* DaoInfoOnboardingView.swift */,
 				BAF651CD29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift */,
 				BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */,
 				BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */,

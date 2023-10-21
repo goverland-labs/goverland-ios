@@ -27,12 +27,7 @@ struct GoverlandApp: App {
                     switch item {
                     case .daoInfo(let dao):
                         NavigationStack {
-                            if onboardingFinished {
-                                DaoInfoView(dao: dao)
-                            } else {
-                                DaoInfoOnboardingView(dao: dao)
-                            }
-                            
+                            DaoInfoView(dao: dao)
                         }
                         .accentColor(.textWhite)
                         .overlay {
