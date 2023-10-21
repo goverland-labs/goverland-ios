@@ -13,6 +13,7 @@ struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some Scene {
         WindowGroup {
@@ -26,7 +27,12 @@ struct GoverlandApp: App {
                     switch item {
                     case .daoInfo(let dao):
                         NavigationStack {
-                            DaoInfoView(dao: dao)
+                            if onboardingFinished {
+                                DaoInfoView(dao: dao)
+                            } else {
+                                DaoInfoOnboardingView(dao: dao)
+                            }
+                            
                         }
                         .accentColor(.textWhite)
                         .overlay {
