@@ -16,6 +16,7 @@ struct DaoInsightsView: View {
             VStack(spacing: 0) {
                 HStack {
                     ExclusiveVotersView(dao: dao)
+                    ExclusiveVotersView(dao: dao)
                 }
                 .padding(10)
                 MonthlyActiveVotersGraphView(dao: dao)

@@ -18,7 +18,7 @@ struct ExclusiveVotersView: View {
     
     var body: some View {
         BrickView(header: "Exclusive voters",
-                  subheader: "Exclusive voters",
+                  subheader: "Exclusive voters sub title info",
                   data: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber( dataSource.exclusiveVoters.first!.percent))%",
                   metaData: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber(dataSource.exclusiveVoters.first!.count)) voters",
                   width: .infinity,

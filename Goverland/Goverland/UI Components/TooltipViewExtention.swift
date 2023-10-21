@@ -19,22 +19,26 @@ extension View {
     func tooltip<TooltipContent: View>(
         _ enabled: Binding<Bool>,
         side: TooltipSide = .bottomLeft,
+        width: CGFloat = 270,
         @ViewBuilder tooltipContent: @escaping () -> TooltipContent)
     -> some View {
-        modifier(TooltipModifier(enabled: enabled, side: side, tooltipContent: tooltipContent))
+        modifier(TooltipModifier(enabled: enabled, side: side, width: width, tooltipContent: tooltipContent))
     }
 }
 
 struct TooltipModifier<TooltipContent: View>: ViewModifier {
     @Binding var enabled: Bool
     let side: TooltipSide
+    let width: CGFloat
     let tooltipContent: TooltipContent
 
     init(enabled: Binding<Bool>,
          side: TooltipSide,
+         width: CGFloat,
          @ViewBuilder tooltipContent: () -> TooltipContent) {
         self._enabled = enabled
         self.side = side
+        self.width = width
         self.tooltipContent = tooltipContent()
     }
 
@@ -47,17 +51,17 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
         }
     }
 
-    var configuration: TooltipConfig {
+    var configurationGraph: TooltipConfig {
         var tooltipConfig = DefaultTooltipConfig()
         tooltipConfig.borderColor = Color.clear
-        tooltipConfig.backgroundColor = Color.containerBright
+        tooltipConfig.backgroundColor = Color.containerDim
         tooltipConfig.borderRadius = 10
         tooltipConfig.contentPaddingLeft = 8
         tooltipConfig.contentPaddingRight = 8
         tooltipConfig.contentPaddingTop = 8
         tooltipConfig.contentPaddingBottom = 8
         tooltipConfig.side = tooltipSide
-        tooltipConfig.width = 270
+        tooltipConfig.width = width
         tooltipConfig.arrowHeight = 10
         tooltipConfig.arrowWidth = 10
         tooltipConfig.margin = -4
@@ -67,7 +71,7 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .tooltip(enabled, config: configuration) {
+            .tooltip(enabled, config: configurationGraph) {
                 tooltipContent
                     .onTapGesture {
                         if enabled {
