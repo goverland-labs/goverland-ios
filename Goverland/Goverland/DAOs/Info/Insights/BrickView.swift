@@ -72,7 +72,6 @@ struct BrickView: View {
                                 Text(subheader)
                                     .foregroundColor(.textWhite60)
                                     .font(.сaptionRegular)
-                                    .background(Color.red)
                             }
                             .onTapGesture() {
                                 withAnimation {
