@@ -43,7 +43,7 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] data, headers in
                 print("------")
                 print(data)
-                self?.exclusiveVoters = data
+                self?.exclusiveVoters.append(data)
             }
             .store(in: &cancellables)
     }

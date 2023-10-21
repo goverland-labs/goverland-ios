@@ -17,10 +17,22 @@ struct ExclusiveVotersView: View {
     
     
     var body: some View {
-        BrickView(title: "Exclusive voters",
-                  subTitle: "",
-                  data: "94%",
-                  metaData: "123.4K voters")
+        BrickView(header: "Exclusive voters",
+                  subheader: "Exclusive",
+                  data: dataSource.exclusiveVoters.isEmpty ? " " : "\(dataSource.exclusiveVoters.first!.percent)%",
+                  metaData: dataSource.exclusiveVoters.isEmpty ? " " : "\(dataSource.exclusiveVoters.first!.count) voters",
+                  width: .infinity,
+                  height: 100,
+                  isLoading: dataSource.isLoading,
+                  failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                  onRefresh: dataSource.refresh)
+        .onAppear() {
+            if dataSource.exclusiveVoters.isEmpty {
+                dataSource.refresh()
+            }
+        }
+        
+        
     }
 }
 

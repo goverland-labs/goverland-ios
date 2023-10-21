@@ -8,27 +8,96 @@
 import SwiftUI
 
 struct BrickView: View {
-    let title: String
-    let subTitle: String
+    let header: String
+    let subheader: String
     let data: String
     let metaData: String
+    
+    let width: CGFloat?
+    let height: CGFloat?
+    let isLoading: Bool
+    let failedToLoadInitialData: Bool
+    let onRefresh: () -> Void
+    
+    init(header: String,
+         subheader: String,
+         data: String,
+         metaData: String,
+         width: CGFloat? = nil,
+         height: CGFloat?,
+         isLoading: Bool,
+         failedToLoadInitialData: Bool,
+         onRefresh: @escaping () -> Void) {
+        self.header = header
+        self.subheader = subheader
+        self.data = data
+        self.metaData = metaData
+        self.width = width
+        self.height = height
+        self.isLoading = isLoading
+        self.failedToLoadInitialData = failedToLoadInitialData
+        self.onRefresh = onRefresh
+    }
+    
+    @State private var isTooltipVisible = false
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(title)
-                    .font(.footnoteRegular)
-                Spacer()
-                Image(systemName: "questionmark.circle")
+        VStack {
+            if isLoading {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                        .foregroundColor(.textWhite20)
+                        .controlSize(.large)
+                        .frame(height: height)
+                    Spacer()
+                }
+            } else if failedToLoadInitialData {
+                HStack {
+                    Spacer()
+                    RefreshIcon {
+                        onRefresh()
+                    }
+                    .frame(height: height)
+                    Spacer()
+                }
+            } else {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(header)
+                            .font(.footnoteRegular)
+                        Spacer()
+                        Image(systemName: "questionmark.circle")
+                            .tooltip($isTooltipVisible) {
+                                Text(subheader)
+                                    .foregroundColor(.textWhite60)
+                                    .font(.сaptionRegular)
+                                    .background(Color.red)
+                            }
+                            .onTapGesture() {
+                                withAnimation {
+                                    isTooltipVisible.toggle()
+                                    // Shoe tooltip for 5 sec only
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                        if isTooltipVisible {
+                                            isTooltipVisible.toggle()
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    .foregroundStyle(Color.textWhite60)
+                    
+                    Text(data)
+                        .font(.largeTitleRegular)
+                        .foregroundStyle(Color.textWhite)
+                    Text(metaData)
+                        .font(.subheadlineRegular)
+                        .foregroundStyle(Color.textWhite60)
+                }
             }
-            .foregroundStyle(Color.textWhite60)
-            
-            Text(data)
-                .font(.largeTitleRegular)
-                .foregroundStyle(Color.textWhite)
-            Text(metaData)
-                .font(.subheadlineRegular)
-                .foregroundStyle(Color.textWhite60)
         }
+        .frame(height: height)
         .padding()
         .background(Color.containerBright)
         .cornerRadius(20)
@@ -36,5 +105,13 @@ struct BrickView: View {
 }
 
 #Preview {
-    BrickView(title: "", subTitle: "", data: "", metaData: "")
+    BrickView(header: "",
+              subheader: "",
+              data: "",
+              metaData: "",
+              width: 10,
+              height: 10,
+              isLoading: false,
+              failedToLoadInitialData: false,
+              onRefresh: {() -> Void in })
 }

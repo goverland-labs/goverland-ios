@@ -143,7 +143,7 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
 }
 
 struct DaoExclusiveVotersEndpoint: APIEndpoint {
-    typealias ResponseType = [ExclusiveVoters]
+    typealias ResponseType = ExclusiveVoters
     
     let daoID: UUID
     var path: String { "analytics/exclusive-voters/\(daoID)" }
