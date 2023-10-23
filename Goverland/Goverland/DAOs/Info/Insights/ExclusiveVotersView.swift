@@ -15,14 +15,10 @@ struct ExclusiveVotersView: View {
         _dataSource = StateObject(wrappedValue: dataSource)
     }
     
-    
     var body: some View {
         BrickView(header: "Exclusive voters",
-                  subheader: "Exclusive voters sub title info",
-                  data: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber( dataSource.exclusiveVoters.first!.percent))%",
+                  data: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber(dataSource.exclusiveVoters.first!.percent))%",
                   metaData: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber(dataSource.exclusiveVoters.first!.count)) voters",
-                  width: .infinity,
-                  height: 80,
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)
@@ -31,8 +27,6 @@ struct ExclusiveVotersView: View {
                 dataSource.refresh()
             }
         }
-        
-        
     }
 }
 

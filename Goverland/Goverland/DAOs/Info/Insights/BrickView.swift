@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BrickView: View {
     let header: String
-    let subheader: String
     let data: String
     let metaData: String
     
@@ -20,16 +19,14 @@ struct BrickView: View {
     let onRefresh: () -> Void
     
     init(header: String,
-         subheader: String,
          data: String,
          metaData: String,
          width: CGFloat? = nil,
-         height: CGFloat?,
+         height: CGFloat? = 80,
          isLoading: Bool,
          failedToLoadInitialData: Bool,
          onRefresh: @escaping () -> Void) {
         self.header = header
-        self.subheader = subheader
         self.data = data
         self.metaData = metaData
         self.width = width
@@ -46,8 +43,7 @@ struct BrickView: View {
                     Spacer()
                     ProgressView()
                         .foregroundColor(.textWhite20)
-                        .controlSize(.large)
-                        .frame(height: height)
+                        .controlSize(.regular)
                     Spacer()
                 }
             } else if failedToLoadInitialData {
@@ -56,7 +52,6 @@ struct BrickView: View {
                     RefreshIcon {
                         onRefresh()
                     }
-                    .frame(height: height)
                     Spacer()
                 }
             } else {
@@ -77,21 +72,9 @@ struct BrickView: View {
                 }
             }
         }
-        .frame(height: height)
+        .frame(width: width, height: height)
         .padding()
         .background(Color.containerBright)
         .cornerRadius(20)
     }
-}
-
-#Preview {
-    BrickView(header: "",
-              subheader: "",
-              data: "",
-              metaData: "",
-              width: 10,
-              height: 10,
-              isLoading: false,
-              failedToLoadInitialData: false,
-              onRefresh: {() -> Void in })
 }
