@@ -1,5 +1,5 @@
 //
-//  DaoInfoOnboardingView.swift
+//  DaoInfoMockEventsView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-20.
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct DaoInfoOnboardingView: View {
-    
+struct DaoInfoMockEventsView: View {
     var body: some View {
         List(0..<5) { index in
             ZStack {
@@ -61,10 +60,5 @@ struct DaoInfoOnboardingView: View {
         .edgesIgnoringSafeArea(.all)
         .listStyle(.plain)
         .mask(LinearGradient(gradient: Gradient(colors: [.black, .clear]), startPoint: .top, endPoint: .bottom))
-    
     }
-}
-
-#Preview {
-    DaoInfoOnboardingView()
 }
