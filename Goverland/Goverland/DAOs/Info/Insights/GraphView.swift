@@ -71,7 +71,7 @@ struct GraphView<Content: View>: View {
                 Spacer()
                 ProgressView()
                     .foregroundColor(.textWhite20)
-                    .controlSize(.large)
+                    .controlSize(.regular)
                 Spacer()
             } else if failedToLoadInitialData {
                 Spacer()

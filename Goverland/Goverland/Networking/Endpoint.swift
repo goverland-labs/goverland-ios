@@ -118,6 +118,8 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - DAO Insights
+
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyActiveUsers]
     
@@ -135,6 +137,18 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     
     let daoID: UUID
     var path: String { "analytics/voter-buckets/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct DaoExclusiveVotersEndpoint: APIEndpoint {
+    typealias ResponseType = ExclusiveVoters
+    
+    let daoID: UUID
+    var path: String { "analytics/exclusive-voters/\(daoID)" }
     var method: HttpMethod = .get
     
     init(daoID: UUID) {
