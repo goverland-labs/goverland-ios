@@ -118,6 +118,8 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - DAO Insights
+
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyActiveUsers]
     

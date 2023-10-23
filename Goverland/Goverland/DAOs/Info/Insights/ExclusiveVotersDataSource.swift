@@ -11,7 +11,7 @@ import Combine
 class ExclusiveVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var exclusiveVoters: [ExclusiveVoters] = []
+    @Published var exclusiveVoters: ExclusiveVoters?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
@@ -25,7 +25,7 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
     }
     
     func refresh() {
-        exclusiveVoters = []
+        exclusiveVoters = nil
         failedToLoadInitialData = false
         isLoading = true
         cancellables = Set<AnyCancellable>()
@@ -41,11 +41,8 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] data, headers in
-                print("------")
-                print(data)
-                self?.exclusiveVoters.append(data)
+                self?.exclusiveVoters = data
             }
             .store(in: &cancellables)
     }
 }
-

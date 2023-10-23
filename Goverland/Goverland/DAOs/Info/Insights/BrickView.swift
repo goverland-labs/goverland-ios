@@ -10,8 +10,8 @@ import SwiftUI
 struct BrickView: View {
     let header: String
     let data: String
-    let metaData: String
-    
+    let metadata: String
+
     let width: CGFloat?
     let height: CGFloat?
     let isLoading: Bool
@@ -20,7 +20,7 @@ struct BrickView: View {
     
     init(header: String,
          data: String,
-         metaData: String,
+         metadata: String,
          width: CGFloat? = nil,
          height: CGFloat? = 80,
          isLoading: Bool,
@@ -28,7 +28,7 @@ struct BrickView: View {
          onRefresh: @escaping () -> Void) {
         self.header = header
         self.data = data
-        self.metaData = metaData
+        self.metadata = metadata
         self.width = width
         self.height = height
         self.isLoading = isLoading
@@ -66,7 +66,7 @@ struct BrickView: View {
                     Text(data)
                         .font(.largeTitleRegular)
                         .foregroundStyle(Color.textWhite)
-                    Text(metaData)
+                    Text(metadata)
                         .font(.subheadlineRegular)
                         .foregroundStyle(Color.textWhite60)
                 }

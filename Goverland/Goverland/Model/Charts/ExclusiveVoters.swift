@@ -8,6 +8,6 @@
 import SwiftUI
 
 struct ExclusiveVoters: Decodable {
-    let count: Double
+    let count: Int
     let percent: Double
 }
