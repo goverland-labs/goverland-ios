@@ -51,10 +51,10 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
         }
     }
 
-    var configurationGraph: TooltipConfig {
+    var configuration: TooltipConfig {
         var tooltipConfig = DefaultTooltipConfig()
         tooltipConfig.borderColor = Color.clear
-        tooltipConfig.backgroundColor = Color.containerDim
+        tooltipConfig.backgroundColor = Color.containerBright
         tooltipConfig.borderRadius = 10
         tooltipConfig.contentPaddingLeft = 8
         tooltipConfig.contentPaddingRight = 8
@@ -71,7 +71,7 @@ struct TooltipModifier<TooltipContent: View>: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .tooltip(enabled, config: configurationGraph) {
+            .tooltip(enabled, config: configuration) {
                 tooltipContent
                     .onTapGesture {
                         if enabled {

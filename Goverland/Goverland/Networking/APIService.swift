@@ -117,6 +117,7 @@ extension APIService {
         let endpoint = DaoExclusiveVotersEndpoint(daoID: id)
         return shared.request(endpoint)
     }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,
