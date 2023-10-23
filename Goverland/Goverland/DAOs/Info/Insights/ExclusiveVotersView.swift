@@ -22,7 +22,7 @@ struct ExclusiveVotersView: View {
                   data: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber( dataSource.exclusiveVoters.first!.percent))%",
                   metaData: dataSource.exclusiveVoters.isEmpty ? " " : "\(Utils.formattedNumber(dataSource.exclusiveVoters.first!.count)) voters",
                   width: .infinity,
-                  height: 100,
+                  height: 80,
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)

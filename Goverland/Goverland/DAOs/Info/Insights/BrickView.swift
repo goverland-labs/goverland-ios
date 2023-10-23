@@ -39,36 +39,8 @@ struct BrickView: View {
         self.onRefresh = onRefresh
     }
     
-    @State private var isTooltipVisible = false
-    
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    Image(systemName: "questionmark.circle")
-                        .foregroundColor(.textWhite40)
-                        .tooltip($isTooltipVisible, width: 100) {
-                            Text(subheader)
-                                .foregroundColor(.textWhite60)
-                                .font(.сaptionRegular)
-                        }
-                        .onTapGesture() {
-                            withAnimation {
-                                isTooltipVisible.toggle()
-                                // Shoe tooltip for 5 sec only
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                    if isTooltipVisible {
-                                        isTooltipVisible.toggle()
-                                    }
-                                }
-                            }
-                        }
-                }
-                Spacer()
-            }
-            
-            
+        VStack {
             if isLoading {
                 HStack {
                     Spacer()
@@ -78,7 +50,6 @@ struct BrickView: View {
                         .frame(height: height)
                     Spacer()
                 }
-                .zIndex(-1)
             } else if failedToLoadInitialData {
                 HStack {
                     Spacer()
@@ -88,7 +59,6 @@ struct BrickView: View {
                     .frame(height: height)
                     Spacer()
                 }
-                .zIndex(-1)
             } else {
                 VStack(alignment: .leading) {
                     HStack {
@@ -105,7 +75,6 @@ struct BrickView: View {
                         .font(.subheadlineRegular)
                         .foregroundStyle(Color.textWhite60)
                 }
-                .zIndex(-1)
             }
         }
         .frame(height: height)
