@@ -13,7 +13,6 @@ struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @Setting(\.onboardingFinished) var onboardingFinished
 
     var body: some Scene {
         WindowGroup {
