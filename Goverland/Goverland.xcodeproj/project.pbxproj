@@ -158,6 +158,8 @@
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
 		BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */; };
+		BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */; };
+		BAE1AB202AE597BA001B89F3 /* PopularDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
@@ -335,6 +337,8 @@
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
 		BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
+		BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPopularDaosView.swift; sourceTree = "<group>"; };
+		BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularDaosListView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -517,9 +521,10 @@
 		55728B7D2ACD97AA002961FD /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				55728B772ACD4E4E002961FD /* DashboardView.swift */,
 				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				554243802AE04A7700504E97 /* New DAOs */,
-				55728B772ACD4E4E002961FD /* DashboardView.swift */,
+				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -855,6 +860,15 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
+		BAE1AB1C2AE59601001B89F3 /* Popular DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */,
+				BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */,
+			);
+			path = "Popular DAOs";
+			sourceTree = "<group>";
+		};
 		BAF651CA29B79E2200C78A8A /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1103,6 +1117,7 @@
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
+				BAE1AB202AE597BA001B89F3 /* PopularDaosListView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
@@ -1168,6 +1183,7 @@
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
 				BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */,
 				55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */,
+				BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,

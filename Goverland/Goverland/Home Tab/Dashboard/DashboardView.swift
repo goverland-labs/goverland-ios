@@ -10,6 +10,7 @@ import SwiftUI
 fileprivate enum Path {
     case hotProposals
     case newDaos
+    case popularDaos
 }
 
 struct DashboardView: View {
@@ -35,6 +36,11 @@ struct DashboardView: View {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
+                
+                SectionHeader(header: "Popular DAOs") {
+                    path.append(Path.popularDaos)
+                }
+                DashboardPopularDaosView()
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -105,6 +111,8 @@ struct DashboardView: View {
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
+                case .popularDaos:
+                    PopularDaosListView()
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
