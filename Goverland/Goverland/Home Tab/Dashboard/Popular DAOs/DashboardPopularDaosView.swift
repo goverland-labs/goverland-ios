@@ -12,8 +12,6 @@ struct DashboardPopularDaosView: View {
     @ObservedObject var dataSource = GroupedDaosDataSource.dashboard
     
     let category: DaoCategory = .popular
-    let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         if dataSource.failedToLoadInitialData {
@@ -47,15 +45,27 @@ struct DashboardPopularDaosView: View {
                                     RetryLoadMoreCardView(dataSource: dataSource, category: category)
                                 }
                             } else {
-                                DaoCardView(dao: dao,
-                                            onSelectDao: onSelectDao,
-                                            onFollowToggle: onFollowToggle)
+                                DaoAvatarView(dao: dao)
                             }
                         }
                     }
                 }
             }
-            
+        }
+    }
+}
+
+fileprivate struct DaoAvatarView: View {
+    
+    let dao: Dao
+    
+    var body: some View {
+        VStack {
+            RoundPictureView(image: dao.avatar, imageSize: 90)
+                .padding(.top, 18)
+                .onTapGesture {
+                    print("DAO TAPPED: \(dao.name)")
+                }
         }
     }
 }
