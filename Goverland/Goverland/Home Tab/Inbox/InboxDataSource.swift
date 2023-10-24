@@ -118,8 +118,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         guard let event = events?.first(where: { $0.id == eventID }), event.readAt == nil else { return }
         APIService.markEventRead(eventID: eventID)
             .retry(3)
-            .sink { competion in
-                switch competion {
+            .sink { completion in
+                switch completion {
                 case .finished: break
                 case .failure(_): break
                     // do nothing, error will be displayed to user if any
@@ -130,6 +130,26 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                     self.events?[index].readAt = Date()
                     SettingKeys.shared.unreadEvents -= 1
                 }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func markAllEventsRead() {
+        APIService.markAllEventsRead()
+            .retry(3)
+            .sink { completion in
+                print("========= \(completion)")
+                switch completion {
+                case .finished: break
+                case .failure(_): break
+                    // do nothing, error will be displayed to user if any
+                }
+            } receiveValue: { [weak self] _, _ in
+                guard let `self` = self else { return }
+                print("-------")
+                print(SettingKeys.shared.unreadEvents)
+                SettingKeys.shared.unreadEvents = 0
+                print(SettingKeys.shared.unreadEvents)
             }
             .store(in: &cancellables)
     }

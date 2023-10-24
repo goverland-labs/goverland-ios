@@ -294,6 +294,18 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkAllEventsReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String { "feed/mark-as-read" }
+    var method: HttpMethod = .post
+//    var body: Data?
+//    
+//    init() {
+//        self.body = try! JSONEncoder().encode(Empty())
+//    }
+}
+
 struct MarkEventArchivedEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
