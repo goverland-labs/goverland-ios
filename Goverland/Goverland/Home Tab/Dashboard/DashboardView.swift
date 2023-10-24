@@ -112,7 +112,12 @@ struct DashboardView: View {
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
                 case .popularDaos:
-                    PopularDaosListView()
+                    FollowCategoryDaosListView(category: .popular,
+                                               onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
+                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
+                                               onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
+                                               onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

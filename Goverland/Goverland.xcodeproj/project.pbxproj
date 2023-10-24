@@ -159,12 +159,11 @@
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
 		BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */; };
-		BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */; };
-		BAE1AB202AE597BA001B89F3 /* PopularDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */; };
 		BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */; };
 		BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */; };
 		BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */; };
 		BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */; };
+		BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
@@ -343,12 +342,11 @@
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
 		BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
-		BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPopularDaosView.swift; sourceTree = "<group>"; };
-		BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularDaosListView.swift; sourceTree = "<group>"; };
 		BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersView.swift; sourceTree = "<group>"; };
 		BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVoters.swift; sourceTree = "<group>"; };
 		BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickView.swift; sourceTree = "<group>"; };
+		BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPopularDaosView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -879,7 +877,6 @@
 			isa = PBXGroup;
 			children = (
 				BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */,
-				BAE1AB1F2AE597BA001B89F3 /* PopularDaosListView.swift */,
 			);
 			path = "Popular DAOs";
 			sourceTree = "<group>";
@@ -1134,7 +1131,6 @@
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
-				BAE1AB202AE597BA001B89F3 /* PopularDaosListView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
