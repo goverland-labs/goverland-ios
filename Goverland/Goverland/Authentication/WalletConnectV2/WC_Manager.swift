@@ -67,7 +67,7 @@ class WC_Manager {
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
             excludedWalletIds: Wallet.recommended.map { $0.id },
-            accentColor: .primary,
+            accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
     }

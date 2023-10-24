@@ -83,11 +83,11 @@ struct OnboardingFollowDaosView: View {
                     }
                 }
 
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button("Sign In") {
-//                        showSignIn = true
-//                    }
-//                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Sign In") {
+                        showSignIn = true
+                    }
+                }
             }
             .refreshable {
                 dataSource.refresh()
