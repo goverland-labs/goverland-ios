@@ -26,8 +26,9 @@ enum DaoInfoFilter: Int, FilterOptions {
 }
 
 struct DaoInfoView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @StateObject var dataSource: DaoInfoDataSource
+    @Environment(\.presentationMode) private var presentationMode
+    @Setting(\.onboardingFinished) private var onboardingFinished
+    @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
 
     var dao: Dao? { dataSource.dao }
@@ -58,7 +59,12 @@ struct DaoInfoView: View {
                     .padding(.bottom, 4)
 
                 switch filter {
-                case .activity: DaoInfoEventsView(dao: dao)
+                case .activity: 
+                    if onboardingFinished {
+                        DaoInfoEventsView(dao: dao)
+                    } else {
+                        DaoInfoMockEventsView()
+                    }
                 case .about: DaoInfoAboutDaoView(dao: dao)
                 case .insights: DaoInsightsView(dao: dao)
                 }

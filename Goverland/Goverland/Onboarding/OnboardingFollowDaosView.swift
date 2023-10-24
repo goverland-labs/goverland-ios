@@ -44,7 +44,7 @@ struct OnboardingFollowDaosView: View {
                         VStack {
                             Spacer()
                             PrimaryButton("Continue",
-                                          isEnabled: dataSource.subscriptionsCount > 0,
+                                          isEnabled: true,
                                           disabledText: "Follow a DAO to continue") {
                                 path.append("EnablePushNotificationsView")
                             }
