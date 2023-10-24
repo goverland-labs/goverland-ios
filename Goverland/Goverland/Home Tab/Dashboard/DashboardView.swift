@@ -49,7 +49,7 @@ struct DashboardView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if #available(iOS 17, *) {
                         if unreadEvents > 0 {
-                            Image(systemName: "envelope.badge.fill")
+                            Image(systemName: "envelope.badge")
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.primary, Color.textWhite)
                                 .symbolEffect(.bounce.up.byLayer, options: .speed(0.3), value: animate)
@@ -57,7 +57,7 @@ struct DashboardView: View {
                                     ActiveHomeViewManager.shared.activeView = .inbox
                                 }
                         } else {
-                            Image(systemName: "envelope.fill")
+                            Image(systemName: "envelope")
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.textWhite, Color.textWhite)
                                 .onTapGesture {
@@ -65,7 +65,7 @@ struct DashboardView: View {
                                 }
                         }
                     } else {
-                        Image(systemName: unreadEvents > 0 ? "envelope.badge.fill" : "envelope.fill")
+                        Image(systemName: unreadEvents > 0 ? "envelope.badge" : "envelope")
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(unreadEvents > 0 ? Color.primary : Color.textWhite, Color.textWhite)
                             .onTapGesture {
@@ -134,7 +134,7 @@ fileprivate struct SectionHeader: View {
                         .font(.title2)
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 24)
             .foregroundStyle(Color.textWhite)
             .contentShape(Rectangle())
             .onTapGesture {
