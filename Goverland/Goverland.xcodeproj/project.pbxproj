@@ -95,8 +95,6 @@
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
 		55F700252AB05149008EA30C /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F700242AB05149008EA30C /* GraphView.swift */; };
 		55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73052AB75DAB0081C38D /* WalletConnectModal */; };
-		55FD73082AB75DAB0081C38D /* WalletConnectNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73072AB75DAB0081C38D /* WalletConnectNetworking */; };
-		55FD730A2AB75DAB0081C38D /* WalletConnectPairing in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73092AB75DAB0081C38D /* WalletConnectPairing */; };
 		55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */; };
 		55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730E2AB75DC60081C38D /* WC_Manager.swift */; };
 		55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730F2AB75DC60081C38D /* SIWE_Message.swift */; };
@@ -374,10 +372,8 @@
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */,
-				55FD73082AB75DAB0081C38D /* WalletConnectNetworking in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
-				55FD730A2AB75DAB0081C38D /* WalletConnectPairing in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
@@ -800,14 +796,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BA698E1B2AD6EDBD000180A5 /* Sign in */ = {
-			isa = PBXGroup;
-			children = (
-				BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */,
-			);
-			path = "Sign in";
-            sourceTree = "<group>";
-        };
 		BA3C9F652ABF511D00E66BD4 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
@@ -816,6 +804,14 @@
 				553756F02AE070E600416381 /* EmptyArchiveView.swift */,
 			);
 			path = Archive;
+			sourceTree = "<group>";
+		};
+		BA698E1B2AD6EDBD000180A5 /* Sign in */ = {
+			isa = PBXGroup;
+			children = (
+				BA698E1C2AD6EDEE000180A5 /* SignInOnboardingView.swift */,
+			);
+			path = "Sign in";
 			sourceTree = "<group>";
 		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
@@ -953,8 +949,6 @@
 				55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */,
 				55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */,
 				55FD73052AB75DAB0081C38D /* WalletConnectModal */,
-				55FD73072AB75DAB0081C38D /* WalletConnectNetworking */,
-				55FD73092AB75DAB0081C38D /* WalletConnectPairing */,
 				55FD73242AB75DF80081C38D /* Starscream */,
 				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 			);
@@ -1671,7 +1665,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/goverland-labs/WalletConnectSwiftV2/";
 			requirement = {
-				branch = "goverland-styling";
+				branch = "1.9.0-goverland-styling";
 				kind = branch;
 			};
 		};
@@ -1744,16 +1738,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectModal;
-		};
-		55FD73072AB75DAB0081C38D /* WalletConnectNetworking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = WalletConnectNetworking;
-		};
-		55FD73092AB75DAB0081C38D /* WalletConnectPairing */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = WalletConnectPairing;
 		};
 		55FD73242AB75DF80081C38D /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
