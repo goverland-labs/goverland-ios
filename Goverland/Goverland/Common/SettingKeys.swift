@@ -17,7 +17,6 @@ class SettingKeys: ObservableObject {
         }
     }
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
-    @AppStorage("signInAsGuest") var signInAsGuest = false
     @AppStorage("authToken") var authToken = ""
     @AppStorage("unreadEvents") var unreadEvents = 0 {
         didSet {

@@ -1,5 +1,5 @@
 //
-//  SignInOnboardingView.swift
+//  SignInView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-11.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignInOnboardingView: View {
+struct SignInView: View {
     var body: some View {
         ZStack {
             SignInOnboardingBackgroundView()
@@ -59,7 +59,6 @@ fileprivate func getPadding() -> CGFloat {
 }
 
 fileprivate struct SignInOnboardingFooterControlsView: View {
-    @Setting(\.signInAsGuest) var signInAsGuest
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
@@ -69,7 +68,6 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
             
             Button("Continue as a guest") {
                 Tracker.track(.onboardingSignInAsGuest)
-                signInAsGuest = true
             }
             .fontWeight(.semibold)
             .padding(.bottom)
@@ -79,5 +77,5 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
 }
 
 #Preview {
-    SignInOnboardingView()
+    SignInView()
 }
