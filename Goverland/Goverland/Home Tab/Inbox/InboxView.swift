@@ -113,8 +113,7 @@ struct InboxView: View {
                             Label("See Archive", systemImage: "archivebox.fill")
                         }
                         Button {
-                            data.markAllEventsRead()
-                            data.refresh()
+                            data.markAllEventsRead() // also refreshes inbox
                         } label: {
                             Label("Mark all read", systemImage: "envelope.open.fill")
                         }

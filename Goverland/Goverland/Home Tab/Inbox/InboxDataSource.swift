@@ -138,7 +138,6 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         APIService.markAllEventsRead()
             .retry(3)
             .sink { completion in
-                print("========= \(completion)")
                 switch completion {
                 case .finished: break
                 case .failure(_): break
@@ -146,10 +145,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 }
             } receiveValue: { [weak self] _, _ in
                 guard let `self` = self else { return }
-                print("-------")
-                print(SettingKeys.shared.unreadEvents)
                 SettingKeys.shared.unreadEvents = 0
-                print(SettingKeys.shared.unreadEvents)
+                refresh()
             }
             .store(in: &cancellables)
     }
