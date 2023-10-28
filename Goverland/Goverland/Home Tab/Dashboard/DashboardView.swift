@@ -10,6 +10,7 @@ import SwiftUI
 fileprivate enum Path {
     case hotProposals
     case newDaos
+    case recentlyViewedDaos
 }
 
 struct DashboardView: View {
@@ -17,10 +18,12 @@ struct DashboardView: View {
     @Setting(\.unreadEvents) var unreadEvents
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @StateObject private var recentlyViewedDaosDataSource = RecentlyViewedDaosDataSource()
 
     static func refresh() {
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
+        //recentlyViewedDaosDataSource.refresh()
     }
 
     var body: some View {
@@ -35,6 +38,11 @@ struct DashboardView: View {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
+                
+                SectionHeader(header: "Recently Viewed DAOs") {
+                    path.append(Path.recentlyViewedDaos)
+                }
+                DashboardRecentlyViewedDaosView(dataSource: recentlyViewedDaosDataSource)
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -84,6 +92,10 @@ struct DashboardView: View {
                 if GroupedDaosDataSource.dashboard.categoryDaos[.new]?.isEmpty ?? true {
                     GroupedDaosDataSource.dashboard.refresh()
                 }
+                
+                if recentlyViewedDaosDataSource.recentlyViewedDaos.isEmpty {
+                    recentlyViewedDaosDataSource.refresh()
+                }
             }
             .refreshable {
                 Self.refresh()
@@ -105,6 +117,8 @@ struct DashboardView: View {
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
+                case .recentlyViewedDaos:
+                    RecentlyViewedDaosListView(dataSource: recentlyViewedDaosDataSource)
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

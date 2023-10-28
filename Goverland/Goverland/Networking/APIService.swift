@@ -198,6 +198,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func recentlyViewedDaos() -> AnyPublisher<(RecentlyViewedDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RecentlyViewedDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
     static func archivedEvents(offset: Int = 0,
                                limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
