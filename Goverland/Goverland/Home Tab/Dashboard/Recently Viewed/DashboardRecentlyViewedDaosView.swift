@@ -9,18 +9,13 @@ import SwiftUI
 
 struct DashboardRecentlyViewedDaosView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    private let dataSource: RecentlyViewedDaosDataSource
-    
-    init(dataSource: RecentlyViewedDaosDataSource) {
-        self.dataSource = dataSource
-    }
-    
+    @StateObject var dataSource = RecentlyViewedDaosDataSource.dashboard
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(dataSource.recentlyViewedDaos) { dao in
                     RoundPictureView(image: dao.avatar, imageSize: 45)
-                    
                 }
             }
             .padding()
@@ -28,8 +23,5 @@ struct DashboardRecentlyViewedDaosView: View {
         .background(Color.container)
         .cornerRadius(20)
         .padding(.horizontal)
-        .onAppear() {
-            dataSource.refresh()
-        }
     }
 }

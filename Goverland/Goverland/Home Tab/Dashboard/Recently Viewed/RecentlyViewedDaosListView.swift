@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RecentlyViewedDaosListView: View {
-    let dataSource: RecentlyViewedDaosDataSource
+    @StateObject var dataSource = RecentlyViewedDaosDataSource.dashboard
+    
     var body: some View {
         Text("Recently Viewed Daos List \(dataSource.recentlyViewedDaos.count)")
     }

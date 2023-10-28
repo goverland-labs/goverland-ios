@@ -12,7 +12,11 @@ class RecentlyViewedDaosDataSource: ObservableObject, Refreshable {
     @Published var recentlyViewedDaos: [Dao] = []
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
-    
+
+    static let dashboard = RecentlyViewedDaosDataSource()
+
+    private init() {}
+
     func refresh() {
         recentlyViewedDaos = []
         failedToLoadInitialData = false
