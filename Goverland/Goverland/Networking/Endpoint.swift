@@ -299,11 +299,12 @@ struct MarkAllEventsReadEndpoint: APIEndpoint {
 
     var path: String { "feed/mark-as-read" }
     var method: HttpMethod = .post
-//    var body: Data?
-//    
-//    init() {
-//        self.body = try! JSONEncoder().encode(Empty())
-//    }
+    var body: Data?
+
+    init() {
+        let emptyObject: [String: Any] = [:]
+        self.body = try! JSONSerialization.data(withJSONObject: emptyObject)
+    }
 }
 
 struct MarkEventArchivedEndpoint: APIEndpoint {
