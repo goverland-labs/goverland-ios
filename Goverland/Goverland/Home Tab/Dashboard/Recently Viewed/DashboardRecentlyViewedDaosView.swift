@@ -23,5 +23,6 @@ struct DashboardRecentlyViewedDaosView: View {
         .background(Color.container)
         .cornerRadius(20)
         .padding(.horizontal)
+        .padding(.bottom, 30)
     }
 }
