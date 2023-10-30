@@ -76,7 +76,7 @@ struct DaoInfoView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    presentationMode.wrappedValue.dismiss()                    
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
                 }
