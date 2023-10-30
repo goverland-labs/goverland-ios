@@ -118,7 +118,8 @@ struct DashboardView: View {
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
                 case .recentlyViewedDaos:
-                    RecentlyViewedDaosListView()
+                    RecentlyViewedDaosListView(onSelectDaoFromList: { dao in activeSheetManger.activeSheet =            .daoInfo(dao); Tracker.track(.dashRecentDaoOpenFromList) },
+                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashRecentDaoFollowFromList) } })
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
