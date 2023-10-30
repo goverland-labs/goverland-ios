@@ -16,7 +16,7 @@ struct DashboardRecentlyViewedDaosView: View {
             if !dataSource.failedToLoadInitialData {
                 HStack(spacing: 20) {
                     if dataSource.recentlyViewedDaos.isEmpty { // initial loading
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<3) { _ in
                             ShimmerView()
                                 .frame(width: 45, height: 45)
                                 .cornerRadius(45 / 2)
@@ -35,7 +35,7 @@ struct DashboardRecentlyViewedDaosView: View {
             } else {
                 RefreshIcon {
                     dataSource.refresh()
-                }                
+                }
             }
         }
         .background(Color.container)
