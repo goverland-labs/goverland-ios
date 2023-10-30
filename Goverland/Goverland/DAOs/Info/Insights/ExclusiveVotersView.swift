@@ -43,7 +43,3 @@ struct ExclusiveVotersView: View {
         }
     }
 }
-
-#Preview {
-    ExclusiveVotersView(dao: .aave)
-}

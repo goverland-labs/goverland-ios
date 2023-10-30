@@ -156,6 +156,18 @@ struct DaoExclusiveVotersEndpoint: APIEndpoint {
     }
 }
 
+struct SuccessfulProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = SuccessfulProposals
+    
+    let daoID: UUID
+    var path: String { "analytics/percent-succeeded-proposals/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 struct MonthlyNewProposalsEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyNewProposals]
     

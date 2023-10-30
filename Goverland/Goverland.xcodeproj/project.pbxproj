@@ -168,6 +168,9 @@
 		BAE1AB292AF03583001B89F3 /* MonthlyNewProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */; };
 		BAE1AB2B2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */; };
 		BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */; };
+		BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */; };
+		BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */; };
+		BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
@@ -355,6 +358,9 @@
 		BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposalsView.swift; sourceTree = "<group>"; };
 		BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposalsDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposals.swift; sourceTree = "<group>"; };
+		BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposalsView.swift; sourceTree = "<group>"; };
+		BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposalsDataSource.swift; sourceTree = "<group>"; };
+		BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposals.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -705,6 +711,8 @@
 				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
 				BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */,
 				BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */,
+				BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */,
+				BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */,
 				55F700242AB05149008EA30C /* GraphView.swift */,
 				BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */,
 			);
@@ -869,6 +877,7 @@
 				BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */,
 				BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */,
 				BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */,
+				BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */,
 				BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */,
 			);
 			path = Charts;
@@ -1158,12 +1167,14 @@
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
+				BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */,
 				BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */,
 				BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
+				BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
@@ -1189,6 +1200,7 @@
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
+				BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
