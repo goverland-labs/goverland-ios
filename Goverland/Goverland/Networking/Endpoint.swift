@@ -294,6 +294,20 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkAllEventsReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String { "feed/mark-as-read" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(before date: Date) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(["before": date])
+    }
+}
+
 struct MarkEventArchivedEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

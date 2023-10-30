@@ -112,6 +112,11 @@ struct InboxView: View {
                         } label: {
                             Label("See Archive", systemImage: "archivebox.fill")
                         }
+                        Button {
+                            data.markAllEventsRead() // also refreshes inbox
+                        } label: {
+                            Label("Mark all read", systemImage: "envelope.open.fill")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundColor(.textWhite)
