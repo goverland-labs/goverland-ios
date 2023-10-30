@@ -286,11 +286,6 @@ struct RecentlyViewedDaosEndpoint: APIEndpoint {
 
     var path: String { "dao/recent" }
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-    
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
-    }
 }
 
 struct MarkEventReadEndpoint: APIEndpoint {
