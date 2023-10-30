@@ -118,6 +118,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func monthlyNewProposals(id: UUID) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyNewProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,

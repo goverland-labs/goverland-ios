@@ -156,6 +156,18 @@ struct DaoExclusiveVotersEndpoint: APIEndpoint {
     }
 }
 
+struct MonthlyNewProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyNewProposals]
+    
+    let daoID: UUID
+    var path: String { "analytics/monthly-new-proposals/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
