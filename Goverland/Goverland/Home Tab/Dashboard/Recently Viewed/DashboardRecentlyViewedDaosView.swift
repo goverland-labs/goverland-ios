@@ -33,7 +33,9 @@ struct DashboardRecentlyViewedDaosView: View {
                 }
                 .padding()
             } else {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RefreshIcon {
+                    dataSource.refresh()
+                }                
             }
         }
         .background(Color.container)
