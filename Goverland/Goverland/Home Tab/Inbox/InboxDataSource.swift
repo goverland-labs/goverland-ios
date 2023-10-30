@@ -135,7 +135,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
     
     func markAllEventsRead() {
-        APIService.markAllEventsRead()
+        guard let latestEvent = events?.first else { return }
+        APIService.markAllEventsRead(before: latestEvent.updatedAt)
             .retry(3)
             .sink { completion in
                 switch completion {

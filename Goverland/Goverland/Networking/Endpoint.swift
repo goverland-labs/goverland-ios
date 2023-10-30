@@ -301,9 +301,10 @@ struct MarkAllEventsReadEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init() {
-        let emptyObject: [String: Any] = [:]
-        self.body = try! JSONSerialization.data(withJSONObject: emptyObject)
+    init(before date: Date) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(["before": date])
     }
 }
 

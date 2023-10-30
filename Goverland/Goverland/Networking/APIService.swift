@@ -226,8 +226,8 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func markAllEventsRead() -> AnyPublisher<(MarkAllEventsReadEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = MarkAllEventsReadEndpoint()
+    static func markAllEventsRead(before date: Date) -> AnyPublisher<(MarkAllEventsReadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkAllEventsReadEndpoint(before: date)
         return shared.request(endpoint)
     }
 
