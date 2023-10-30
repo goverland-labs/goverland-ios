@@ -47,6 +47,8 @@ enum TrackingEvent: String, Trackable {
     case dashNewDaoFollowFromList = "dash_newdao_follow_from_list"
     case dashNewDaoOpenFromSearch = "dash_newdao_open_from_search"
     case dashNewDaoFollowFromSearch = "dash_newdao_follow_from_search"
+    // Recently Viewed DAOs
+    case dashRecentDaoOpen = "dash_recentdao_open"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"

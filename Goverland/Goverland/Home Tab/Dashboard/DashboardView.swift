@@ -21,6 +21,7 @@ struct DashboardView: View {
     static func refresh() {
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
+        RecentlyViewedDaosDataSource.dashboard.refresh()
     }
 
     var body: some View {
@@ -30,6 +31,11 @@ struct DashboardView: View {
                     path.append(Path.hotProposals)
                 }
                 DashboardHotProposalsView(path: $path)
+
+                if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
+                    SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
+                    DashboardRecentlyViewedDaosView()
+                }
 
                 SectionHeader(header: "New DAOs") {
                     path.append(Path.newDaos)
@@ -77,12 +83,17 @@ struct DashboardView: View {
             .onAppear {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
                 
                 if GroupedDaosDataSource.dashboard.categoryDaos[.new]?.isEmpty ?? true {
                     GroupedDaosDataSource.dashboard.refresh()
+                }
+                
+                if RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
+                    RecentlyViewedDaosDataSource.dashboard.refresh()
                 }
             }
             .refreshable {
