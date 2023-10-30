@@ -76,8 +76,7 @@ struct DaoInfoView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    presentationMode.wrappedValue.dismiss()
-                    RecentlyViewedDaosDataSource.dashboard.refresh()
+                    presentationMode.wrappedValue.dismiss()                    
                 } label: {
                     Image(systemName: "xmark")
                 }

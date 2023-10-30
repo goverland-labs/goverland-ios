@@ -12,7 +12,6 @@ struct DashboardRecentlyViewedDaosView: View {
     @StateObject var dataSource = RecentlyViewedDaosDataSource.dashboard
 
     var body: some View {
-        
         ScrollView(.horizontal, showsIndicators: false) {
             if !dataSource.failedToLoadInitialData {
                 HStack(spacing: 20) {
@@ -25,6 +24,10 @@ struct DashboardRecentlyViewedDaosView: View {
                     } else {
                         ForEach(dataSource.recentlyViewedDaos) { dao in
                             RoundPictureView(image: dao.avatar, imageSize: 45)
+                                .onTapGesture {
+                                    activeSheetManger.activeSheet = .daoInfo(dao)
+                                    Tracker.track(.dashRecentDaoOpen)
+                                }
                         }
                     }
                 }
@@ -36,6 +39,5 @@ struct DashboardRecentlyViewedDaosView: View {
         .background(Color.container)
         .cornerRadius(20)
         .padding(.horizontal)
-        .padding(.bottom, 30)
     }
 }

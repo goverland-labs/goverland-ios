@@ -165,7 +165,6 @@
 		BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */; };
 		BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB222AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift */; };
 		BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */; };
-		BAE1AB272AEC5253001B89F3 /* RecentlyViewedDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB262AEC5253001B89F3 /* RecentlyViewedDaosListView.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
@@ -350,7 +349,6 @@
 		BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickView.swift; sourceTree = "<group>"; };
 		BAE1AB222AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRecentlyViewedDaosView.swift; sourceTree = "<group>"; };
 		BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosDataSource.swift; sourceTree = "<group>"; };
-		BAE1AB262AEC5253001B89F3 /* RecentlyViewedDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosListView.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -881,7 +879,6 @@
 			isa = PBXGroup;
 			children = (
 				BAE1AB222AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift */,
-				BAE1AB262AEC5253001B89F3 /* RecentlyViewedDaosListView.swift */,
 				BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */,
 			);
 			path = "Recently Viewed";
@@ -1122,7 +1119,6 @@
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* TwoStepsViewModel.swift in Sources */,
 				55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */,
-				BAE1AB272AEC5253001B89F3 /* RecentlyViewedDaosListView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */,
 				556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */,
 				BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */,

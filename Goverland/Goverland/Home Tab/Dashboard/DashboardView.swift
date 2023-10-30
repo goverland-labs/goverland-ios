@@ -10,7 +10,6 @@ import SwiftUI
 fileprivate enum Path {
     case hotProposals
     case newDaos
-    case recentlyViewedDaos
 }
 
 struct DashboardView: View {
@@ -33,15 +32,15 @@ struct DashboardView: View {
                 }
                 DashboardHotProposalsView(path: $path)
 
+                if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
+                    SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
+                    DashboardRecentlyViewedDaosView()
+                }
+
                 SectionHeader(header: "New DAOs") {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
-                
-                SectionHeader(header: "Recently Viewed DAOs") {
-                    path.append(Path.recentlyViewedDaos)
-                }
-                DashboardRecentlyViewedDaosView()
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -117,10 +116,6 @@ struct DashboardView: View {
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
-                case .recentlyViewedDaos:
-                    RecentlyViewedDaosListView(onSelectDaoFromList: { dao in activeSheetManger.activeSheet =
-                                                    .daoInfo(dao); Tracker.track(.dashRecentDaoOpenFromList) },
-                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashRecentDaoFollowFromList) } })
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

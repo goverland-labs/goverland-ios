@@ -21,10 +21,10 @@ class RecentlyViewedDaosDataSource: ObservableObject, Refreshable {
         recentlyViewedDaos = []
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
-        
+
         loadInitialData()
     }
-    
+
     private func loadInitialData() {
         APIService.recentlyViewedDaos()
             .sink { [weak self] completion in

@@ -10,7 +10,7 @@ import Combine
 
 class DaoInfoDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    
+
     @Published var dao: Dao?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
@@ -47,6 +47,7 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] dao, headers in
                 self?.dao = dao
+                RecentlyViewedDaosDataSource.dashboard.refresh()
             }
             .store(in: &cancellables)
     }
