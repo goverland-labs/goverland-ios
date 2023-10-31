@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+import SwiftDate
 
 struct MonthlyNewProposalsView: View {
     @StateObject private var dataSource: MonthlyNewProposalsDataSource
@@ -37,6 +38,14 @@ struct MonthlyNewProposalsView: View {
         @StateObject var dataSource: MonthlyNewProposalsDataSource
         @State private var selectedDate: Date? = nil
         
+        var minScaleDate: Date {
+            (dataSource.monthlyNewProposals.first?.date ?? Date()) - 1.months
+        }
+
+        var maxScaleDate: Date {
+            (dataSource.monthlyNewProposals.last?.date ?? Date()) + 1.months
+        }
+        
         var midDate: Date {
             let count = dataSource.monthlyNewProposals.count
             if count > 0 {
@@ -50,7 +59,7 @@ struct MonthlyNewProposalsView: View {
             Chart {
                 ForEach(dataSource.monthlyNewProposals.indices, id: \.self) { i in
                     BarMark (
-                        x: .value("Date", dataSource.monthlyNewProposals[i].date),
+                        x: .value("Date", dataSource.monthlyNewProposals[i].date, unit: .month),
                         y: .value("Proposals Count", dataSource.monthlyNewProposals[i].count)
                     )
                     .foregroundStyle(Color.primaryDim)
@@ -69,6 +78,7 @@ struct MonthlyNewProposalsView: View {
                 }
             }
             .padding()
+            .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartOverlay { chartProxy in
                 GeometryReader { geometry in
                     Rectangle()
