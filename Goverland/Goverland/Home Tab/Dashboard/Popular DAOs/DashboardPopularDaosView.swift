@@ -21,7 +21,7 @@ struct DashboardPopularDaosView: View {
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 if !dataSource.failedToLoadInitialData {
-                    HStack(spacing: 12) {
+                    HStack(spacing: 20) {
                         if dataSource.categoryDaos[category] == nil { // initial loading
                             ForEach(0..<3) { _ in
                                 ShimmerView()
