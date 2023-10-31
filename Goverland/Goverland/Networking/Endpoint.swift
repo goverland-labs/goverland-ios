@@ -281,6 +281,13 @@ struct DaoEventsEndpoint: APIEndpoint {
     }
 }
 
+struct RecentlyViewedDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    var path: String { "dao/recent" }
+    var method: HttpMethod = .get
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -291,6 +298,20 @@ struct MarkEventReadEndpoint: APIEndpoint {
 
     init(eventID: UUID) {
         self.eventID = eventID
+    }
+}
+
+struct MarkAllEventsReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String { "feed/mark-as-read" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(before date: Date) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(["before": date])
     }
 }
 
