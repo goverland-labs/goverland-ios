@@ -20,37 +20,48 @@ struct DashboardPopularDaosView: View {
             }
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 12) {
-                    if dataSource.categoryDaos[category] == nil { // initial loading
-                        ForEach(0..<5) { _ in
-                            ShimmerView()
-                                .frame(width: 90, height: 90)
-                                .cornerRadius(45)
-                                .padding()
-                        }
-                    } else {
-                        let count = dataSource.categoryDaos[category]!.count
-                        ForEach(0..<count, id: \.self) { index in
-                            let dao = dataSource.categoryDaos[category]![index]
-                            if index == count - 1 && dataSource.hasMore(category: category) {
-                                if !dataSource.failedToLoad(category: category) { // try to paginate
-                                    ShimmerView()
-                                        .frame(width: 90, height: 90)
-                                        .cornerRadius(45)
-                                        .padding()
-                                        .onAppear {
-                                            dataSource.loadMore(category: category)
+                if !dataSource.failedToLoadInitialData {
+                    HStack(spacing: 12) {
+                        if dataSource.categoryDaos[category] == nil { // initial loading
+                            ForEach(0..<3) { _ in
+                                ShimmerView()
+                                    .frame(width: 45, height: 45)
+                                    .cornerRadius(45/2)
+                            }
+                        } else {
+                            let count = dataSource.categoryDaos[category]!.count
+                            ForEach(0..<count, id: \.self) { index in
+                                let dao = dataSource.categoryDaos[category]![index]
+                                if index == count - 1 && dataSource.hasMore(category: category) {
+                                    if !dataSource.failedToLoad(category: category) { // try to paginate
+                                        ShimmerView()
+                                            .frame(width: 45, height: 45)
+                                            .cornerRadius(45/2)
+                                            .onAppear {
+                                                dataSource.loadMore(category: category)
+                                            }
+                                    }
+                                } else {
+                                    RoundPictureView(image: dao.avatar, imageSize: 45)
+                                        .onTapGesture {
+                                            activeSheetManger.activeSheet = .daoInfo(dao)
+                                            Tracker.track(.dashPopularDaoOpen)
                                         }
-                                } else { // retry pagination
-                                    RetryLoadMoreCardView(dataSource: dataSource, category: category)
                                 }
-                            } else {
-                                DaoAvatarView(dao: dao)
                             }
                         }
                     }
+                    .padding()
+                } else {
+                    RefreshIcon {
+                        dataSource.refresh()
+                    }
                 }
             }
+            .background(Color.container)
+            .cornerRadius(20)
+            .padding(.horizontal)
+            .padding(.bottom, 40)
         }
     }
 }
