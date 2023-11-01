@@ -59,7 +59,7 @@ struct MonthlyNewProposalsView: View {
                 ForEach(dataSource.monthlyNewProposals.indices, id: \.self) { i in
                     BarMark (
                         x: .value("Date", dataSource.monthlyNewProposals[i].date, unit: .month),
-                        y: .value("Proposals Count", dataSource.monthlyNewProposals[i].count)
+                        y: .value("Proposals", dataSource.monthlyNewProposals[i].count)
                     )
                     .foregroundStyle(Color.primaryDim)
                 }
@@ -78,6 +78,9 @@ struct MonthlyNewProposalsView: View {
             }
             .padding()
             .chartXScale(domain: [minScaleDate, maxScaleDate])
+            .chartForegroundStyleScale([
+                "Proposals": Color.primaryDim
+            ])
             .chartSelected_X_Date($selectedDate)
         }
     }
@@ -97,7 +100,7 @@ struct MonthlyNewProposalsView: View {
                         Text(String(count))
                             .font(.title3Regular)
                             .foregroundColor(.textWhite)
-                        Text("New Proposals")
+                        Text("New proposals")
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite60)
                     }

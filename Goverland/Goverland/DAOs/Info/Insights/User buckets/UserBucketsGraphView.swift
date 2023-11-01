@@ -59,7 +59,10 @@ struct UserBucketsGraphView: View {
                 }
             }
             .padding()
-            .chartSelected_X_String($selectedBucket)            
+            .chartForegroundStyleScale([                
+                "Voters": Color.primaryDim
+            ])
+            .chartSelected_X_String($selectedBucket)
         }
     }
 

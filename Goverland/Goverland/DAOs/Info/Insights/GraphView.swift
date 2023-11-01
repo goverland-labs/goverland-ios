@@ -17,9 +17,9 @@ struct GraphView<Content: GraphViewContent>: View {
     let width: CGFloat?
     let height: CGFloat?
     let onRefresh: () -> Void
-
+    
     let content: Content
-
+    
     init(header: String,
          subheader: String?,
          isLoading: Bool,
@@ -39,7 +39,7 @@ struct GraphView<Content: GraphViewContent>: View {
     }
     
     @State private var isTooltipVisible = false
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -70,7 +70,7 @@ struct GraphView<Content: GraphViewContent>: View {
                 }
             }
             .padding([.top, .horizontal])
-
+            
             if isLoading {
                 Spacer()
                 ProgressView()
