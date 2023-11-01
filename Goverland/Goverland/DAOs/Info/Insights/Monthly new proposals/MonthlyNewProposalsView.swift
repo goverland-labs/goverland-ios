@@ -24,7 +24,7 @@ struct MonthlyNewProposalsView: View {
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)
         {
-            MonthlyNewProposalsBucketsChart(dataSource: dataSource)
+            MonthlyNewProposalsChart(dataSource: dataSource)
         }
         .onAppear() {
             if dataSource.monthlyNewProposals.isEmpty {
@@ -33,7 +33,7 @@ struct MonthlyNewProposalsView: View {
         }
     }
     
-    struct MonthlyNewProposalsBucketsChart: GraphViewContent {
+    struct MonthlyNewProposalsChart: GraphViewContent {
         @StateObject var dataSource: MonthlyNewProposalsDataSource
         @State private var selectedDate: Date? = nil
         
@@ -59,7 +59,7 @@ struct MonthlyNewProposalsView: View {
                 ForEach(dataSource.monthlyNewProposals.indices, id: \.self) { i in
                     BarMark (
                         x: .value("Date", dataSource.monthlyNewProposals[i].date, unit: .month),
-                        y: .value("Proposals", dataSource.monthlyNewProposals[i].count)
+                        y: .value("New proposals", dataSource.monthlyNewProposals[i].count)
                     )
                     .foregroundStyle(Color.primaryDim)
                 }
@@ -79,7 +79,7 @@ struct MonthlyNewProposalsView: View {
             .padding()
             .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartForegroundStyleScale([
-                "Proposals": Color.primaryDim
+                "New proposals": Color.primaryDim
             ])
             .chartSelected_X_Date($selectedDate)
         }
