@@ -9,26 +9,26 @@ import SwiftUI
 
 struct ExclusiveVotersView: View {
     @StateObject private var dataSource: ExclusiveVotersDataSource
-    
+
     init(dao: Dao) {
         let dataSource = ExclusiveVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
-    
+
     private var data: String {
-        if let percentage = dataSource.exclusiveVoters?.percent {
-            return Utils.percentage(of: percentage, in: 100)
+        if let voters = dataSource.voters {
+            return Utils.percentage(of: voters.exclusive, in: voters.total)
         }
         return ""
     }
-    
+
     private var metadata: String {
-        if let voters = dataSource.exclusiveVoters?.count {
+        if let voters = dataSource.voters?.exclusive {
             return "\(voters) voters"
         }
         return ""
     }
-    
+
     var body: some View {
         BrickView(header: "Exclusive voters",
                   data: data,
@@ -37,9 +37,9 @@ struct ExclusiveVotersView: View {
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)
         .onAppear() {
-            if dataSource.exclusiveVoters == nil {
+            if dataSource.voters == nil {
                 dataSource.refresh()
             }
-        }        
+        }
     }
 }
