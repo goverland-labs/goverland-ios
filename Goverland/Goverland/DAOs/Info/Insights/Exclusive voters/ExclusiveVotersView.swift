@@ -17,28 +17,32 @@ struct ExclusiveVotersView: View {
 
     private var data: String {
         if let percentage = dataSource.exclusiveVoters?.percent {
-            return "\(Utils.formattedNumber(percentage))%"
+            return Utils.percentage(of: percentage, in: 100)
         }
-        return "NaN"
+        return ""
     }
 
     private var metadata: String {
         if let voters = dataSource.exclusiveVoters?.count {
             return "\(voters) voters"
         }
-        return "NaN"
+        return ""
     }
 
     var body: some View {
-        BrickView(header: "Exclusive voters",
-                  data: data,
-                  metadata: metadata,
-                  isLoading: dataSource.isLoading,
-                  failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  onRefresh: dataSource.refresh)
-        .onAppear() {
-            if dataSource.exclusiveVoters == nil {
-                dataSource.refresh()
+        if dataSource.exclusiveVoters?.count == 0 {
+            EmptyView()
+        } else {
+            BrickView(header: "Exclusive voters",
+                      data: data,
+                      metadata: metadata,
+                      isLoading: dataSource.isLoading,
+                      failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                      onRefresh: dataSource.refresh)
+            .onAppear() {
+                if dataSource.exclusiveVoters == nil {
+                    dataSource.refresh()
+                }
             }
         }
     }

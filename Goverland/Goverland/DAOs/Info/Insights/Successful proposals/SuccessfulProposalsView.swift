@@ -17,31 +17,32 @@ struct SuccessfulProposalsView: View {
     
     private var data: String {
         if let proposals = dataSource.successfulProposals {
-            if proposals.finished != 0 {
-                let percentage = Double(proposals.succeeded) / Double(proposals.finished)
-                return "\(Utils.formattedNumber(percentage))%"
-            }
+            return Utils.percentage(of: proposals.succeeded, in: proposals.finished)
         }
-        return "NaN"
+        return ""
     }
     
     private var metadata: String {
-        if let totalProposals = dataSource.successfulProposals?.succeeded {
-            return "\(totalProposals) proposals"
+        if let succeededProposals = dataSource.successfulProposals?.succeeded {
+            return "\(succeededProposals) proposals"
         }
-        return "NaN"
+        return ""
     }
     
     var body: some View {
-        BrickView(header: "Successful proposals",
-                  data: data,
-                  metadata: metadata,
-                  isLoading: dataSource.isLoading,
-                  failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  onRefresh: dataSource.refresh)
-        .onAppear() {
-            if dataSource.successfulProposals == nil {
-                //dataSource.refresh()
+        if dataSource.successfulProposals?.finished == 0 {
+            EmptyView()
+        } else {
+            BrickView(header: "Successful proposals",
+                      data: data,
+                      metadata: metadata,
+                      isLoading: dataSource.isLoading,
+                      failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                      onRefresh: dataSource.refresh)
+            .onAppear() {
+                if dataSource.successfulProposals == nil {
+                    dataSource.refresh()
+                }
             }
         }
     }

@@ -160,7 +160,7 @@ struct SuccessfulProposalsEndpoint: APIEndpoint {
     typealias ResponseType = SuccessfulProposals
     
     let daoID: UUID
-    var path: String { "analytics/percent-succeeded-proposals/\(daoID)" }
+    var path: String { "analytics/succeeded-proposals-count/\(daoID)" }
     var method: HttpMethod = .get
     
     init(daoID: UUID) {

@@ -97,12 +97,19 @@ enum Utils {
         return formatter.stringWithMetric(from: number) ?? ""
     }
 
+    static func percentage(of currentNumber: Int, in totalNumber: Int) -> String {
+        return percentage(of: Double(currentNumber), in: Double(totalNumber))
+    }
+
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 2
         formatter.positiveSuffix = "%"
-        let formattedString = formatter.string(from: NSNumber(value: currentNumber / totalNumber))
+        var formattedString: String? = nil
+        if totalNumber > 0 {
+            formattedString = formatter.string(from: NSNumber(value: currentNumber / totalNumber))
+        }
         return formattedString ?? ""
     }
 
