@@ -25,7 +25,7 @@ struct GraphView<Content: GraphViewContent>: View {
          isLoading: Bool,
          failedToLoadInitialData: Bool,
          width: CGFloat? = nil,
-         height: CGFloat?,
+         height: CGFloat? = 300,
          onRefresh: @escaping () -> Void,
          @ViewBuilder content: () -> Content) {
         self.header = header

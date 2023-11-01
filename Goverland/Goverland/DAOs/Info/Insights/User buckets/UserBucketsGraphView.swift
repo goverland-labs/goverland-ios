@@ -21,7 +21,6 @@ struct UserBucketsGraphView: View {
                   subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 330,
                   onRefresh: dataSource.refresh)
         {
             UserBucketsChart(dataSource: dataSource)

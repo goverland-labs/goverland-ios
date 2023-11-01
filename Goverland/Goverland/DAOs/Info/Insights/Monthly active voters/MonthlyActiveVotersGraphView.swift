@@ -22,7 +22,6 @@ struct MonthlyActiveVotersGraphView: View {
                   subheader: "Month-by-month breakdown of active voters, distinguishing between returning and new voters.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 300,
                   onRefresh: dataSource.refresh)
         {
             MonthlyActiveChart(dataSource: dataSource)

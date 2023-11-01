@@ -22,7 +22,6 @@ struct MonthlyNewProposalsView: View {
                   subheader: nil,
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 330,
                   onRefresh: dataSource.refresh)
         {
             MonthlyNewProposalsBucketsChart(dataSource: dataSource)
