@@ -83,7 +83,7 @@ struct MonthlyActiveVotersGraphView: View {
             .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartForegroundStyleScale([
                 // String name has to be same as in dataSource.chartData
-                "Returning voters": Color.primaryDim, "New voters": Color.red
+                "Returning voters": Color.primaryDim, "New voters": Color.cyan
             ])
             .chartSelected_X_Date($selectedDate)
         }
