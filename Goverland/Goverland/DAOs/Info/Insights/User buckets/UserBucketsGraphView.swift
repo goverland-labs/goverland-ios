@@ -31,11 +31,11 @@ struct UserBucketsGraphView: View {
             }
         }
     }
-
+    
     struct UserBucketsChart: GraphViewContent {
         @StateObject var dataSource: UserBucketsDataSource
         @State private var selectedBucket: String?
-
+        
         var body: some View {
             Chart {
                 ForEach(dataSource.userBuckets.indices, id: \.self) { i in
@@ -45,7 +45,7 @@ struct UserBucketsGraphView: View {
                     )
                     .foregroundStyle(Color.primaryDim)
                 }
-
+                
                 if let selectedBucket {
                     RuleMark(x: .value("Bucket", selectedBucket))
                         .foregroundStyle(Color.textWhite)
@@ -65,15 +65,15 @@ struct UserBucketsGraphView: View {
             .chartSelected_X_String($selectedBucket)
         }
     }
-
+    
     private struct AnnotationView: View {
         let bucket: String
         let dataSource: UserBucketsDataSource
-
+        
         var voters: Int {
             dataSource.votersInBucket(bucket) ?? 0
         }
-
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {

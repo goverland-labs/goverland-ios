@@ -30,21 +30,16 @@ struct SuccessfulProposalsView: View {
     }
     
     var body: some View {
-        if dataSource.successfulProposals?.finished == 0 {
-            EmptyView()
-        } else {
-            BrickView(header: "Successful proposals",
-                      data: data,
-                      metadata: metadata,
-                      isLoading: dataSource.isLoading,
-                      failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                      onRefresh: dataSource.refresh)
-            .onAppear() {
-                if dataSource.successfulProposals == nil {
-                    dataSource.refresh()
-                }
+        BrickView(header: "Successful proposals",
+                  data: data,
+                  metadata: metadata,
+                  isLoading: dataSource.isLoading,
+                  failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                  onRefresh: dataSource.refresh)
+        .onAppear() {
+            if dataSource.successfulProposals == nil {
+                dataSource.refresh()
             }
         }
     }
 }
-
