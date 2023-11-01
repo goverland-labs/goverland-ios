@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import Charts
 
 extension View {
-    func chartSelectedDate(_ selectedDate: Binding<Date?>) -> some View {
-        modifier(ChartModifier(selectedDate: selectedDate))
+    func chartSelected_X_Date(_ selectedDate: Binding<Date?>) -> some View {
+        modifier(ChartModifier(selected: selectedDate))
+    }
+
+    func chartSelected_X_String(_ selectedString: Binding<String?>) -> some View {
+        modifier(ChartModifier(selected: selectedString))
     }
 }
 
-fileprivate struct ChartModifier: ViewModifier {
-    @Binding var selectedDate: Date?
+fileprivate struct ChartModifier<ValueType: Plottable>: ViewModifier {
+    @Binding var selected: ValueType?
 
     func body(content: Content) -> some View {
         content
@@ -26,16 +31,16 @@ fileprivate struct ChartModifier: ViewModifier {
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    selectedDate = chartProxy.value(atX: value.location.x, as: Date.self)
+                                    selected = chartProxy.value(atX: value.location.x, as: ValueType.self)
                                 }
                                 .onEnded { _ in
-                                    selectedDate = nil
+                                    selected = nil
                                 }
                         )
                         .onTapGesture(coordinateSpace: .local) { location in
-                            selectedDate = chartProxy.value(atX: location.x, as: Date.self)
+                            selected = chartProxy.value(atX: location.x, as: ValueType.self)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                selectedDate = nil
+                                selected = nil
                             }
                         }
                 }

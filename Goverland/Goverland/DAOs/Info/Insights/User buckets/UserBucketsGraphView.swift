@@ -60,28 +60,7 @@ struct UserBucketsGraphView: View {
                 }
             }
             .padding()
-            .chartOverlay { chartProxy in
-                GeometryReader { geometry in
-                    Rectangle()
-                        .fill(.clear)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    selectedBucket = chartProxy.value(atX: value.location.x, as: String.self)
-                                }
-                                .onEnded { _ in
-                                    selectedBucket = nil
-                                }
-                        )
-                        .onTapGesture(coordinateSpace: .local) { location in
-                            selectedBucket = chartProxy.value(atX: location.x, as: String.self)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                selectedBucket = nil
-                            }
-                        }
-                }
-            }
+            .chartSelected_X_String($selectedBucket)            
         }
     }
 
