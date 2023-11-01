@@ -34,7 +34,7 @@ struct MonthlyNewProposalsView: View {
         }
     }
     
-    struct MonthlyNewProposalsBucketsChart: View {
+    struct MonthlyNewProposalsBucketsChart: GraphViewContent {
         @StateObject var dataSource: MonthlyNewProposalsDataSource
         @State private var selectedDate: Date? = nil
         

@@ -33,7 +33,7 @@ struct UserBucketsGraphView: View {
         }
     }
 
-    struct UserBucketsChart: View {
+    struct UserBucketsChart: GraphViewContent {
         @StateObject var dataSource: UserBucketsDataSource
         @State private var selectedBucket: String?
 

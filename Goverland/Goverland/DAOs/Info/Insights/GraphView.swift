@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct GraphView<Content: View>: View {
+protocol GraphViewContent: View {}
+
+struct GraphView<Content: GraphViewContent>: View {
     let header: String
     let subheader: String?
     let isLoading: Bool
