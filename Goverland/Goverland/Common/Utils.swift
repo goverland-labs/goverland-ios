@@ -38,6 +38,8 @@ func openUrl(_ url: URL) {
 }
 
 enum Utils {
+    // MARK: -HTTP Headers
+
     static func getTotal(from headers: HttpHeaders) -> Int? {
         guard let totalStr = headers["x-total-count"] as? String,
             let total = Int(totalStr) else {
@@ -65,10 +67,7 @@ enum Utils {
         return total
     }
 
-    static func formattedNumber(_ number: Double) -> String {
-        let formatter = MetricNumberFormatter()
-        return formatter.stringWithMetric(from: number) ?? ""
-    }
+    // MARK: -Dates
 
     static func mediumDate(_ date: Date) -> String {
         let formatter = DateFormatter()
@@ -82,6 +81,20 @@ enum Utils {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: date)
+    }
+
+    static func formatDateToStartOfMonth(_ date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = calendar.dateComponents([.year, .month], from: date)
+        components.timeZone = .gmt
+        return calendar.date(from: components)!
+    }
+
+    // MARK: -Numbers
+
+    static func formattedNumber(_ number: Double) -> String {
+        let formatter = MetricNumberFormatter()
+        return formatter.stringWithMetric(from: number) ?? ""
     }
 
     static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
@@ -108,7 +121,9 @@ enum Utils {
         let formattedString = formatter.string(from: NSNumber(value: number))
         return formattedString ?? String(number)
     }
-    
+
+    // MARK: -Misc
+
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
            let url = URL(string: percentEncodedString.replacingOccurrences(of: "%23", with: "#")) { // snapshot doesn't work with %23

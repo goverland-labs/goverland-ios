@@ -47,17 +47,10 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
     
     func newProposalsCount(date: Date) -> Int {
-        let date = formatDateToStartOfMonth(date)
+        let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyNewProposals.first(where: { $0.date == date }) {
             return data.count
         }
         return 0
-    }
-
-    private func formatDateToStartOfMonth(_ date: Date) -> Date {
-        let calendar = Calendar(identifier: .gregorian)
-        var components = calendar.dateComponents([.year, .month], from: date)
-        components.timeZone = .gmt
-        return calendar.date(from: components)!
     }
 }
