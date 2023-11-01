@@ -15,12 +15,13 @@ struct DaoInsightsView: View {
         ScrollView {
             VStack(spacing: 0) {
                 HStack {
-                    ExclusiveVotersView(dao: dao)
+                    SuccessfulProposalsView(dao: dao)
                     ExclusiveVotersView(dao: dao)
                 }
                 .padding(10)
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
+                MonthlyNewProposalsView(dao: dao)
             }
             .onAppear() {
                 Tracker.track(.screenDaoInsights)

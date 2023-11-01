@@ -1,17 +1,17 @@
 //
-//  ExclusiveVotersDataSource.swift
+//  MonthlyNewProposalsDataSource.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-10-20.
+//  Created by Jenny Shalai on 2023-10-30.
 //
 
 import SwiftUI
 import Combine
 
-class ExclusiveVotersDataSource: ObservableObject, Refreshable {
+class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
-    @Published var exclusiveVoters: ExclusiveVoters?
+    @Published var monthlyNewProposals: [MonthlyNewProposals] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
@@ -25,7 +25,7 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
     }
     
     func refresh() {
-        exclusiveVoters = nil
+        monthlyNewProposals = []
         failedToLoadInitialData = false
         isLoading = true
         cancellables = Set<AnyCancellable>()
@@ -33,7 +33,7 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
     }
     
     private func loadInitialData() {
-        APIService.exclusiveVoters(id: daoID)
+        APIService.monthlyNewProposals(id: daoID)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -41,8 +41,16 @@ class ExclusiveVotersDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] data, headers in
-                self?.exclusiveVoters = data
+                self?.monthlyNewProposals = data
             }
             .store(in: &cancellables)
+    }
+    
+    func newProposalsCount(date: Date) -> Int {
+        let date = Utils.formatDateToStartOfMonth(date)
+        if let data = monthlyNewProposals.first(where: { $0.date == date }) {
+            return data.count
+        }
+        return 0
     }
 }

@@ -66,7 +66,7 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     }
 
     func returningVoters(date: Date) -> Int {
-        let date = formatDateToStartOfMonth(date)
+        let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
             return data.activeUsers - data.newUsers
         }
@@ -74,17 +74,10 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     }
 
     func newVoters(date: Date) -> Int {
-        let date = formatDateToStartOfMonth(date)
+        let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
             return data.newUsers
         }
         return 0
-    }
-
-    private func formatDateToStartOfMonth(_ date: Date) -> Date {
-        let calendar = Calendar(identifier: .gregorian)
-        var components = calendar.dateComponents([.year, .month], from: date)
-        components.timeZone = .gmt
-        return calendar.date(from: components)!
     }
 }

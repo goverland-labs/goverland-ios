@@ -26,7 +26,7 @@ extension View {
     }
 }
 
-struct TooltipModifier<TooltipContent: View>: ViewModifier {
+fileprivate struct TooltipModifier<TooltipContent: View>: ViewModifier {
     @Binding var enabled: Bool
     let side: TooltipSide
     let width: CGFloat
