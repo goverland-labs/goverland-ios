@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GraphView<Content: View>: View {
     let header: String
-    let subheader: String
+    let subheader: String?
     let isLoading: Bool
     let failedToLoadInitialData: Bool
     let width: CGFloat?
@@ -19,7 +19,7 @@ struct GraphView<Content: View>: View {
     let content: Content
 
     init(header: String,
-         subheader: String,
+         subheader: String?,
          isLoading: Bool,
          failedToLoadInitialData: Bool,
          width: CGFloat? = nil,
@@ -45,25 +45,27 @@ struct GraphView<Content: View>: View {
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
                 Spacer()
-                Image(systemName: "questionmark.circle")
-                    .foregroundColor(.textWhite40)
-                    .padding(.trailing)
-                    .tooltip($isTooltipVisible) {
-                        Text(subheader)
-                            .foregroundColor(.textWhite60)
-                            .font(.сaptionRegular)
-                    }
-                    .onTapGesture() {
-                        withAnimation {
-                            isTooltipVisible.toggle()
-                            // Shoe tooltip for 5 sec only
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                if isTooltipVisible {
-                                    isTooltipVisible.toggle()
+                if let subheader {
+                    Image(systemName: "questionmark.circle")
+                        .foregroundColor(.textWhite40)
+                        .padding(.trailing)
+                        .tooltip($isTooltipVisible) {
+                            Text(subheader)
+                                .foregroundColor(.textWhite60)
+                                .font(.сaptionRegular)
+                        }
+                        .onTapGesture() {
+                            withAnimation {
+                                isTooltipVisible.toggle()
+                                // Shoe tooltip for 5 sec only
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                    if isTooltipVisible {
+                                        isTooltipVisible.toggle()
+                                    }
                                 }
                             }
                         }
-                    }
+                }
             }
             .padding([.top, .horizontal])
 

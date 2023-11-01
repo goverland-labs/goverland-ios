@@ -591,6 +591,51 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		55B5272B2AF2A4490038B6B5 /* Monthly active voters */ = {
+			isa = PBXGroup;
+			children = (
+				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
+				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
+			);
+			path = "Monthly active voters";
+			sourceTree = "<group>";
+		};
+		55B5272C2AF2A46F0038B6B5 /* Monthly new proposals */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */,
+				BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */,
+			);
+			path = "Monthly new proposals";
+			sourceTree = "<group>";
+		};
+		55B5272D2AF2A4890038B6B5 /* User buckets */ = {
+			isa = PBXGroup;
+			children = (
+				BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */,
+				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
+			);
+			path = "User buckets";
+			sourceTree = "<group>";
+		};
+		55B5272E2AF2A4A30038B6B5 /* Exclusive voters */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */,
+				BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */,
+			);
+			path = "Exclusive voters";
+			sourceTree = "<group>";
+		};
+		55B5272F2AF2A4BB0038B6B5 /* Successful proposals */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */,
+				BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */,
+			);
+			path = "Successful proposals";
+			sourceTree = "<group>";
+		};
 		55B7B42A2A5ACD6400A894AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,18 +748,13 @@
 			isa = PBXGroup;
 			children = (
 				BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */,
-				BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */,
-				BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */,
-				BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */,
-				BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */,
-				BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */,
-				BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */,
-				BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */,
-				BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */,
-				BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */,
-				BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */,
 				55F700242AB05149008EA30C /* GraphView.swift */,
 				BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */,
+				55B5272F2AF2A4BB0038B6B5 /* Successful proposals */,
+				55B5272E2AF2A4A30038B6B5 /* Exclusive voters */,
+				55B5272B2AF2A4490038B6B5 /* Monthly active voters */,
+				55B5272D2AF2A4890038B6B5 /* User buckets */,
+				55B5272C2AF2A46F0038B6B5 /* Monthly new proposals */,
 			);
 			path = Insights;
 			sourceTree = "<group>";

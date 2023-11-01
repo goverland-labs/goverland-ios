@@ -19,7 +19,7 @@ struct MonthlyNewProposalsView: View {
     
     var body: some View {
         GraphView(header: "Monthly new proposals",
-                  subheader: "",
+                  subheader: nil,
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 330,
