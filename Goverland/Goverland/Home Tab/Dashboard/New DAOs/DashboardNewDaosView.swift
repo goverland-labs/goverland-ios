@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardNewDaosView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    @ObservedObject var dataSource = GroupedDaosDataSource.dashboard
+    @ObservedObject var dataSource = GroupedDaosDataSource.newDaos
 
     var body: some View {
         if dataSource.failedToLoadInitialData {

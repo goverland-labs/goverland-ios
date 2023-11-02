@@ -12,8 +12,12 @@ struct DashboardRecentlyViewedDaosView: View {
     @StateObject var dataSource = RecentlyViewedDaosDataSource.dashboard
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            if !dataSource.failedToLoadInitialData {
+        if dataSource.failedToLoadInitialData {
+            RefreshIcon {
+                dataSource.refresh()
+            }
+        } else {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     if dataSource.recentlyViewedDaos.isEmpty { // initial loading
                         ForEach(0..<3) { _ in
@@ -32,14 +36,10 @@ struct DashboardRecentlyViewedDaosView: View {
                     }
                 }
                 .padding()
-            } else {
-                RefreshIcon {
-                    dataSource.refresh()
-                }
             }
+            .background(Color.container)
+            .cornerRadius(20)
+            .padding(.horizontal)
         }
-        .background(Color.container)
-        .cornerRadius(20)
-        .padding(.horizontal)
     }
 }

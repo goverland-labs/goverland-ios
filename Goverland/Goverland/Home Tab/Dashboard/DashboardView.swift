@@ -10,6 +10,7 @@ import SwiftUI
 fileprivate enum Path {
     case hotProposals
     case newDaos
+    case popularDaos
 }
 
 struct DashboardView: View {
@@ -19,28 +20,34 @@ struct DashboardView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     static func refresh() {
-        TopProposalsDataSource.dashboard.refresh()
-        GroupedDaosDataSource.dashboard.refresh()
         RecentlyViewedDaosDataSource.dashboard.refresh()
+        TopProposalsDataSource.dashboard.refresh()
+        GroupedDaosDataSource.newDaos.refresh()
+        GroupedDaosDataSource.popularDaos.refresh()
     }
 
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                SectionHeader(header: "Hot Proposals") {
-                    path.append(Path.hotProposals)
-                }
-                DashboardHotProposalsView(path: $path)
-
                 if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
                     SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
                     DashboardRecentlyViewedDaosView()
                 }
 
+                SectionHeader(header: "Hot Proposals") {
+                    path.append(Path.hotProposals)
+                }
+                DashboardHotProposalsView(path: $path)
+
                 SectionHeader(header: "New DAOs") {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
+                
+                SectionHeader(header: "Popular DAOs") {
+                    path.append(Path.popularDaos)
+                }
+                DashboardPopularDaosView()
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -84,16 +91,20 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
 
+                if RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
+                    RecentlyViewedDaosDataSource.dashboard.refresh()
+                }
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
                 
-                if GroupedDaosDataSource.dashboard.categoryDaos[.new]?.isEmpty ?? true {
-                    GroupedDaosDataSource.dashboard.refresh()
+                if GroupedDaosDataSource.newDaos.categoryDaos[.new]?.isEmpty ?? true {
+                    GroupedDaosDataSource.newDaos.refresh()
                 }
                 
-                if RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    RecentlyViewedDaosDataSource.dashboard.refresh()
+                if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
+                    GroupedDaosDataSource.popularDaos.refresh()
                 }
             }
             .refreshable {
@@ -116,6 +127,13 @@ struct DashboardView: View {
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                         .navigationTitle("New DAOs")
+                case .popularDaos:
+                    FollowCategoryDaosListView(category: .popular,
+                                               onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
+                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
+                                               onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
+                                               onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in

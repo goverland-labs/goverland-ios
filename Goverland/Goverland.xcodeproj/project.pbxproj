@@ -164,6 +164,7 @@
 		BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */; };
 		BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */; };
 		BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */; };
+		BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */; };
 		BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB222AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift */; };
 		BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */; };
 		BAE1AB292AF03583001B89F3 /* MonthlyNewProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */; };
@@ -355,6 +356,7 @@
 		BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVoters.swift; sourceTree = "<group>"; };
 		BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickView.swift; sourceTree = "<group>"; };
+		BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPopularDaosView.swift; sourceTree = "<group>"; };
 		BAE1AB222AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRecentlyViewedDaosView.swift; sourceTree = "<group>"; };
 		BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposalsView.swift; sourceTree = "<group>"; };
@@ -545,10 +547,11 @@
 		55728B7D2ACD97AA002961FD /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				55728B772ACD4E4E002961FD /* DashboardView.swift */,
 				BAE1AB212AEBEC80001B89F3 /* Recently Viewed */,
 				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				554243802AE04A7700504E97 /* New DAOs */,
-				55728B772ACD4E4E002961FD /* DashboardView.swift */,
+				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -944,6 +947,14 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
+		BAE1AB1C2AE59601001B89F3 /* Popular DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */,
+			);
+			path = "Popular DAOs";
+            sourceTree = "<group>";
+        };
 		BAE1AB212AEBEC80001B89F3 /* Recently Viewed */ = {
 			isa = PBXGroup;
 			children = (
@@ -1278,6 +1289,7 @@
 				5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */,
 				BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */,
 				55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */,
+				BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,

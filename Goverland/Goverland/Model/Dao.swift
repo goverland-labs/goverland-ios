@@ -133,6 +133,7 @@ struct Dao: Identifiable, Decodable, Equatable {
 
 enum DaoCategory: String, Identifiable {
     case new = "new_daos"
+    case popular
     case social
     case `protocol`
     case investment
@@ -152,6 +153,8 @@ enum DaoCategory: String, Identifiable {
         switch self {
         case .new:
             return "New"
+        case .popular:
+            return "Popular"
         case .social:
             return "Social"
         case .protocol:
