@@ -18,7 +18,8 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     @Published var subscriptionsCount: Int = 0
 
-    static let dashboard = GroupedDaosDataSource()
+    static let newDaos = GroupedDaosDataSource()
+    static let popularDaos = GroupedDaosDataSource()
     static let search = GroupedDaosDataSource()
     static let addSubscription = GroupedDaosDataSource()
 
