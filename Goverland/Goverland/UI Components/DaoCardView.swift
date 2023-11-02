@@ -65,7 +65,7 @@ struct RetryLoadMoreCardView: View {
     let category: DaoCategory
 
     var body: some View {
-        Button("Load more") {
+        RefreshIcon {
             dataSource.retryLoadMore(category: category)
         }
         .frame(width: 130)
