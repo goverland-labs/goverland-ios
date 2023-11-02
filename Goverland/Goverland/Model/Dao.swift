@@ -111,7 +111,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
         if let terms = self.terms {
             if terms.absoluteString.hasPrefix("ipfs://") {
-                let validString = "https://gateway.4everland.link/ipfs/\(terms.absoluteString.dropFirst(7))"
+                let validString = "https://snapshot.4everland.link/ipfs/\(terms.absoluteString.dropFirst(7))"
                 self.terms = URL(string: validString)
             }
         }
@@ -134,7 +134,7 @@ struct Dao: Identifiable, Decodable, Equatable {
 
 enum DaoCategory: String, Identifiable {
     case new = "new_daos"
-    case popular
+    case popular = "popular_daos"
     case social
     case `protocol`
     case investment
