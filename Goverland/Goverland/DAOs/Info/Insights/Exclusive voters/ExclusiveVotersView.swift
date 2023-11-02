@@ -16,17 +16,17 @@ struct ExclusiveVotersView: View {
     }
 
     private var data: String {
-        if let percentage = dataSource.exclusiveVoters?.percent {
-            return "\(Utils.formattedNumber(percentage))%"
+        if let voters = dataSource.voters {
+            return Utils.percentage(of: voters.exclusive, in: voters.total)
         }
-        return "NaN"
+        return ""
     }
 
     private var metadata: String {
-        if let voters = dataSource.exclusiveVoters?.count {
+        if let voters = dataSource.voters?.exclusive {
             return "\(voters) voters"
         }
-        return "NaN"
+        return ""
     }
 
     var body: some View {
@@ -37,13 +37,9 @@ struct ExclusiveVotersView: View {
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)
         .onAppear() {
-            if dataSource.exclusiveVoters == nil {
+            if dataSource.voters == nil {
                 dataSource.refresh()
             }
         }
     }
-}
-
-#Preview {
-    ExclusiveVotersView(dao: .aave)
 }

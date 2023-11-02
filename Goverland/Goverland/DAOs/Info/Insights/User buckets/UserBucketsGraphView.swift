@@ -21,7 +21,6 @@ struct UserBucketsGraphView: View {
                   subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 330,
                   onRefresh: dataSource.refresh)
         {
             UserBucketsChart(dataSource: dataSource)
@@ -32,11 +31,11 @@ struct UserBucketsGraphView: View {
             }
         }
     }
-
-    struct UserBucketsChart: View {
+    
+    struct UserBucketsChart: GraphViewContent {
         @StateObject var dataSource: UserBucketsDataSource
         @State private var selectedBucket: String?
-
+        
         var body: some View {
             Chart {
                 ForEach(dataSource.userBuckets.indices, id: \.self) { i in
@@ -46,7 +45,7 @@ struct UserBucketsGraphView: View {
                     )
                     .foregroundStyle(Color.primaryDim)
                 }
-
+                
                 if let selectedBucket {
                     RuleMark(x: .value("Bucket", selectedBucket))
                         .foregroundStyle(Color.textWhite)
@@ -60,39 +59,21 @@ struct UserBucketsGraphView: View {
                 }
             }
             .padding()
-            .chartOverlay { chartProxy in
-                GeometryReader { geometry in
-                    Rectangle()
-                        .fill(.clear)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    selectedBucket = chartProxy.value(atX: value.location.x, as: String.self)
-                                }
-                                .onEnded { _ in
-                                    selectedBucket = nil
-                                }
-                        )
-                        .onTapGesture(coordinateSpace: .local) { location in
-                            selectedBucket = chartProxy.value(atX: location.x, as: String.self)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                selectedBucket = nil
-                            }
-                        }
-                }
-            }
+            .chartForegroundStyleScale([                
+                "Voters": Color.primaryDim
+            ])
+            .chartSelected_X_String($selectedBucket)
         }
     }
-
+    
     private struct AnnotationView: View {
         let bucket: String
         let dataSource: UserBucketsDataSource
-
+        
         var voters: Int {
             dataSource.votersInBucket(bucket) ?? 0
         }
-
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {

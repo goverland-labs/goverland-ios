@@ -18,11 +18,10 @@ struct MonthlyActiveVotersGraphView: View {
     }
     
     var body: some View {
-        GraphView(header: "Monthly active users",
-                  subheader: "Month-by-month breakdown of active users, distinguishing between returning and new users.",
+        GraphView(header: "Monthly active voters",
+                  subheader: "Month-by-month breakdown of active voters, distinguishing between returning and new voters.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 300,
                   onRefresh: dataSource.refresh)
         {
             MonthlyActiveChart(dataSource: dataSource)
@@ -34,7 +33,7 @@ struct MonthlyActiveVotersGraphView: View {
         }
     }
 
-    struct MonthlyActiveChart: View {
+    struct MonthlyActiveChart: GraphViewContent {
         @StateObject var dataSource: MonthlyActiveVotersDataSource
         @State private var selectedDate: Date? = nil
 
@@ -84,30 +83,9 @@ struct MonthlyActiveVotersGraphView: View {
             .chartXScale(domain: [minScaleDate, maxScaleDate])
             .chartForegroundStyleScale([
                 // String name has to be same as in dataSource.chartData
-                "Returning voters": Color.primaryDim, "New voters": Color.red
+                "Returning voters": Color.primaryDim, "New voters": Color.cyan
             ])
-            .chartOverlay { chartProxy in
-                GeometryReader { geometry in
-                    Rectangle()
-                        .fill(.clear)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    selectedDate = chartProxy.value(atX: value.location.x, as: Date.self)
-                                }
-                                .onEnded { _ in
-                                    selectedDate = nil
-                                }
-                        )
-                        .onTapGesture(coordinateSpace: .local) { location in
-                            selectedDate = chartProxy.value(atX: location.x, as: Date.self)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                selectedDate = nil
-                            }
-                        }
-                }
-            }
+            .chartSelected_X_Date($selectedDate)
         }
     }
 
@@ -158,11 +136,5 @@ struct MonthlyActiveVotersGraphView: View {
             .background(Color.containerBright)
             .cornerRadius(10)
         }
-    }
-}
-
-struct MonthlyActiveVotersGraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        MonthlyActiveVotersGraphView(dao: .aave)
     }
 }
