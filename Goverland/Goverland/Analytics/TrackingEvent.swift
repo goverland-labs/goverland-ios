@@ -48,13 +48,12 @@ enum TrackingEvent: String, Trackable {
     case dashNewDaoOpenFromSearch = "dash_newdao_open_from_search"
     case dashNewDaoFollowFromSearch = "dash_newdao_follow_from_search"
     // Popular DAOs
-    case dashPopularDaoOpen = "dash_popular_dao_open"
-    case dashPopularDaoFollow = "dash_popular_dao_follow"
-    case screenDashPopularDao = "screen_popular_dao_newdao"
-    case dashPopularDaoOpenFromList = "dash_popular_dao_open_from_list"
-    case dashPopularDaoFollowFromList = "dash_popular_dao_follow_from_list"
-    case dashPopularDaoOpenFromSearch = "dash_popular_dao_open_from_search"
-    case dashPopularDaoFollowFromSearch = "dash_popular_dao_follow_from_search"
+    case dashPopularDaoOpen = "dash_populardao_open"
+    case screenDashPopularDao = "screen_dash_populardao"
+    case dashPopularDaoOpenFromList = "dash_populardao_open_from_list"
+    case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
+    case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
+    case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
     // Recently Viewed DAOs
     case dashRecentDaoOpen = "dash_recentdao_open"
 
