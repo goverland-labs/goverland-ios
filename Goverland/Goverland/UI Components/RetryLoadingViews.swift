@@ -56,10 +56,9 @@ struct RetryLoadMoreListItemView: View {
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            Button("Load more") {
+            RefreshIcon {
                 dataSource.retryLoadMore()
-            }
-            .foregroundColor(.primaryDim)
+            }            
             Spacer()
         }
         .padding(.vertical, 12)
