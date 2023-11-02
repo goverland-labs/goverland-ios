@@ -3,6 +3,7 @@
 //  GoverlandTests
 //
 //  Created by Andrey Scherbovich on 28.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import XCTest
