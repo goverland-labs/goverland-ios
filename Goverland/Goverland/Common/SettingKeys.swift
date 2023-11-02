@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation

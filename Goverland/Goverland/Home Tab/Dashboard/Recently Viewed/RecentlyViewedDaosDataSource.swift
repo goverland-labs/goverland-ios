@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-27.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation

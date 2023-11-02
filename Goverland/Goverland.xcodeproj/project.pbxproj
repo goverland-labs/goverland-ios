@@ -953,8 +953,8 @@
 				BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosView.swift */,
 			);
 			path = "Popular DAOs";
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		BAE1AB212AEBEC80001B89F3 /* Recently Viewed */ = {
 			isa = PBXGroup;
 			children = (
