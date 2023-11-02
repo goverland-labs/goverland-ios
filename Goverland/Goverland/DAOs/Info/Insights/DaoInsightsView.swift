@@ -23,6 +23,7 @@ struct DaoInsightsView: View {
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
                 MonthlyNewProposalsView(dao: dao)
+                MutualDaosView(dao: dao)
             }
             .onAppear() {
                 Tracker.track(.screenDaoInsights)

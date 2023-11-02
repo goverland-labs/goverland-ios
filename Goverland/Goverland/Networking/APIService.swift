@@ -123,8 +123,20 @@ extension APIService {
         let endpoint = SuccessfulProposalsEndpoint(daoID: id)
         return shared.request(endpoint)
     }
+    
     static func monthlyNewProposals(id: UUID) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MonthlyNewProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func mutualDaos(id: UUID,
+                           offset: Int = 0,
+                           limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = MutualDaosEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
     
