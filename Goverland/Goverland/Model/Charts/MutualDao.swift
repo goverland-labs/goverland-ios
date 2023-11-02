@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct MutualDao: Decodable {
-    let voter: String
-    let vp_avg: Int
-    let count: Int
-    
+    let dao: Dao
+    let votersCount: Int
+    let votersPercent: Double
+
     enum CodingKeys: String, CodingKey {
-        case voter
-        case vp_avg = "vp_avg"
-        case count = "votes_count"
+        case dao
+        case votersCount = "voters_count"
+        case votersPercent = "voters_percent"
     }
 }

@@ -100,14 +100,3 @@ struct ShimmerDaoCardView: View {
                 .fill(Color.container))
     }
 }
-
-struct DaoCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            DaoCardView(dao: .aave,
-                        onSelectDao: nil,
-                        onFollowToggle: nil)
-            ShimmerDaoCardView()
-        }
-    }
-}
