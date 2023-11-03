@@ -122,6 +122,15 @@ enum Utils {
         return formattedString ?? "\(number)%"
     }
 
+    static func numberWithPercent(from number: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 2
+        formatter.positiveSuffix = "%"
+        let formattedString = formatter.string(from: NSNumber(value: Double(number) / 100))
+        return formattedString ?? "\(number)%"
+    }
+
     static func decimalNumber(from number: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

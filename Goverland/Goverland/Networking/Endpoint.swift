@@ -185,7 +185,7 @@ struct MutualDaosEndpoint: APIEndpoint {
     typealias ResponseType = [MutualDao]
     
     let daoID: UUID
-    var path: String { "analytics/top-voters-by-vp/\(daoID)" }
+    var path: String { "analytics/mutual-daos/\(daoID)" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 

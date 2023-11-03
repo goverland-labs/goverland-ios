@@ -28,8 +28,11 @@ struct MutualDaosView: View {
                 } else {
                     let count = dataSource.mutualDaos.count
                     ForEach(0..<count, id: \.self) { index in
-                        let dao = dataSource.mutualDaos[index].dao
+                        let obj = dataSource.mutualDaos[index]
+                        let dao = obj.dao
+                        let percentage = Utils.numberWithPercent(from: obj.votersPercent)
                         DaoCardView(dao: dao,
+                                    subheader: "\(percentage) voters",
                                     onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.daoInsightsMutualOpen) },
                                     onFollowToggle: { if $0 { Tracker.track(.daoInsightsMutualFollow) } })
                     }
