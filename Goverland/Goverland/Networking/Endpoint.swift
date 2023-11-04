@@ -181,6 +181,20 @@ struct MonthlyNewProposalsEndpoint: APIEndpoint {
     }
 }
 
+struct MutualDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MutualDao]
+    
+    let daoID: UUID
+    var path: String { "analytics/mutual-daos/\(daoID)" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {

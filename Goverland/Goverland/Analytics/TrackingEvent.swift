@@ -90,6 +90,8 @@ enum TrackingEvent: String, Trackable {
     
     // - Insights
     case screenDaoInsights = "screen_dao_insights"
+    case daoInsightsMutualOpen = "dao_insights_mutual_open"
+    case daoInsightsMutualFollow = "dao_insights_mutual_follow"
 
 
     // MARK: - Snapshot Proposal

@@ -173,6 +173,9 @@
 		BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */; };
 		BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */; };
 		BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */; };
+		BAE1AB362AF3DD08001B89F3 /* MutualDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB352AF3DD08001B89F3 /* MutualDaosView.swift */; };
+		BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB372AF3DD49001B89F3 /* MutualDaosDataSource.swift */; };
+		BAE1AB3A2AF3E6AC001B89F3 /* MutualDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */; };
 		BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */; };
 		BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651C429B3EA0100C78A8A /* MailSendingView.swift */; };
 		BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF651CB29B79E3700C78A8A /* DaoInfoView.swift */; };
@@ -365,6 +368,9 @@
 		BAE1AB2E2AF04914001B89F3 /* SuccessfulProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposalsView.swift; sourceTree = "<group>"; };
 		BAE1AB302AF04926001B89F3 /* SuccessfulProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposalsDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulProposals.swift; sourceTree = "<group>"; };
+		BAE1AB352AF3DD08001B89F3 /* MutualDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutualDaosView.swift; sourceTree = "<group>"; };
+		BAE1AB372AF3DD49001B89F3 /* MutualDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutualDaosDataSource.swift; sourceTree = "<group>"; };
+		BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutualDao.swift; sourceTree = "<group>"; };
 		BAF651B129A1580600C78A8A /* Goverland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goverland.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeManager.swift; sourceTree = "<group>"; };
 		BAF651C429B3EA0100C78A8A /* MailSendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSendingView.swift; sourceTree = "<group>"; };
@@ -769,6 +775,7 @@
 				55B5272B2AF2A4490038B6B5 /* Monthly active voters */,
 				55B5272D2AF2A4890038B6B5 /* User buckets */,
 				55B5272C2AF2A46F0038B6B5 /* Monthly new proposals */,
+				BAE1AB342AF3DC7D001B89F3 /* Mutual DAOs */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -933,6 +940,7 @@
 				BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */,
 				BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */,
 				BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */,
+				BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -962,6 +970,15 @@
 				BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */,
 			);
 			path = "Recently Viewed";
+			sourceTree = "<group>";
+		};
+		BAE1AB342AF3DC7D001B89F3 /* Mutual DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				BAE1AB352AF3DD08001B89F3 /* MutualDaosView.swift */,
+				BAE1AB372AF3DD49001B89F3 /* MutualDaosDataSource.swift */,
+			);
+			path = "Mutual DAOs";
 			sourceTree = "<group>";
 		};
 		BAF651CA29B79E2200C78A8A /* Info */ = {
@@ -1195,6 +1212,7 @@
 			files = (
 				55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */,
 				55FD731C2AB75DC60081C38D /* SignInView.swift in Sources */,
+				BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
@@ -1228,6 +1246,7 @@
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
+				BAE1AB3A2AF3E6AC001B89F3 /* MutualDao.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */,
@@ -1236,6 +1255,7 @@
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
+				BAE1AB362AF3DD08001B89F3 /* MutualDaosView.swift in Sources */,
 				552885942A28EAE700ED2BCD /* OnboardingFollowDaosView.swift in Sources */,
 				BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
