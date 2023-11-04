@@ -32,7 +32,7 @@ class MutualDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
-        APIService.mutualDaos(id: daoID, limit: 21)
+        APIService.mutualDaos(id: daoID)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

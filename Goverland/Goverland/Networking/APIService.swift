@@ -130,10 +130,8 @@ extension APIService {
     }
     
     static func mutualDaos(id: UUID,
-                           offset: Int = 0,
-                           limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+                           limit: Int = 21) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         let endpoint = MutualDaosEndpoint(daoID: id, queryParameters: queryParameters)
