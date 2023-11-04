@@ -34,6 +34,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var failedToLoadMore = false
     private var cancellables = Set<AnyCancellable>()
 
+    static let shared = InboxDataSource()
+
     private var total: Int?
     private var totalSkipped: Int?
 
@@ -44,6 +46,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         APIService.inboxEvents(offset: events?.count ?? 0)
     }
 
+    // subclassable
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)

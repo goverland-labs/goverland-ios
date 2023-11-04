@@ -48,7 +48,6 @@
 		556868622A87D92500D66CA0 /* FinishOnboardingWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
-		55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B7B2ACD97A6002961FD /* HomeView.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
 		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
@@ -249,7 +248,6 @@
 		556868612A87D92500D66CA0 /* FinishOnboardingWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishOnboardingWarningView.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		55728B7B2ACD97A6002961FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
@@ -540,17 +538,7 @@
 			path = GoverlandTests;
 			sourceTree = "<group>";
 		};
-		55728B762ACD4E11002961FD /* Home Tab */ = {
-			isa = PBXGroup;
-			children = (
-				55728B7B2ACD97A6002961FD /* HomeView.swift */,
-				55728B7D2ACD97AA002961FD /* Dashboard */,
-				55D632B429505BDE0073E04A /* Inbox */,
-			);
-			path = "Home Tab";
-			sourceTree = "<group>";
-		};
-		55728B7D2ACD97AA002961FD /* Dashboard */ = {
+		55728B7D2ACD97AA002961FD /* Dashboard Tab */ = {
 			isa = PBXGroup;
 			children = (
 				55728B772ACD4E4E002961FD /* DashboardView.swift */,
@@ -559,7 +547,7 @@
 				554243802AE04A7700504E97 /* New DAOs */,
 				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
 			);
-			path = Dashboard;
+			path = "Dashboard Tab";
 			sourceTree = "<group>";
 		};
 		557C9D672A30ECED001C4DEA /* Grouped */ = {
@@ -676,7 +664,7 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		55D632B429505BDE0073E04A /* Inbox */ = {
+		55D632B429505BDE0073E04A /* Inbox Tab */ = {
 			isa = PBXGroup;
 			children = (
 				55D632B829505C4F0073E04A /* InboxView.swift */,
@@ -684,7 +672,7 @@
 				BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */,
 				BA3C9F652ABF511D00E66BD4 /* Archive */,
 			);
-			path = Inbox;
+			path = "Inbox Tab";
 			sourceTree = "<group>";
 		};
 		55D632B529505BEB0073E04A /* Search Tab */ = {
@@ -740,7 +728,8 @@
 				55B7B4412A5B059800A894AD /* Goverland.entitlements */,
 				55FD730B2AB75DC60081C38D /* Authentication */,
 				55D632B12950576C0073E04A /* Onboarding */,
-				55728B762ACD4E11002961FD /* Home Tab */,
+				55728B7D2ACD97AA002961FD /* Dashboard Tab */,
+				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
 				55D632B729505C070073E04A /* Settings Tab */,
 				BA2EA20229677F0800FB87AC /* Model */,
@@ -1337,7 +1326,6 @@
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
 				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
-				55728B7C2ACD97A6002961FD /* HomeView.swift in Sources */,
 				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,

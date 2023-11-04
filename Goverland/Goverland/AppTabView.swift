@@ -11,6 +11,7 @@ import SwiftUI
 class TabManager: ObservableObject {
     enum Tab {
         case home
+        case inbox
         case search
         case settings
     }
@@ -23,10 +24,14 @@ class TabManager: ObservableObject {
             if selectedTab == oldValue {
                 switch selectedTab {
                 case .home:
-                    ActiveHomeViewManager.shared.activeView = .dashboard
+                    // TODO: jump to root path
                     DashboardView.refresh()
+                case .inbox:
+                    // TODO: jump to root path
+                    InboxDataSource.shared.refresh()
                 case .search:
                     SearchModel.shared.refresh()
+                    // TODO: now DAOs is a default tab
                     TopProposalsDataSource.search.refresh()
                 case .settings:
                     settingsPath = [SettingsScreen]()
@@ -48,24 +53,31 @@ struct AppTabView: View {
 
     var body: some View {
         TabView(selection: $tabManager.selectedTab) {
-            HomeView()
+            DashboardView()
                 .tabItem {
-                    Image(tabManager.selectedTab == .home ? "inbox-active" : "inbox")
+                    Image(tabManager.selectedTab == .home ? "home-active" : "home-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.home)
+
+            InboxView()
+                .tabItem {
+                    Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                }
+                .toolbarBackground(.visible, for: .tabBar)
+                .tag(TabManager.Tab.inbox)
                 .badge(unreadEvents)
 
             SearchView()
                 .tabItem {
-                    Image(tabManager.selectedTab == .search ? "search-active" : "search")
+                    Image(tabManager.selectedTab == .search ? "search-active" : "search-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
 
             SettingsView(path: $tabManager.settingsPath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .settings ? "settings-active" : "settings")
+                    Image(tabManager.selectedTab == .settings ? "settings-active" : "settings-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.settings)

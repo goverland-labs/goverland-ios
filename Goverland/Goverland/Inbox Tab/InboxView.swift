@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InboxView: View {
-    @StateObject private var data = InboxDataSource()
+    @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedEventIndex: Int?
@@ -90,14 +90,6 @@ struct InboxView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "rectangle.3.group")
-                        .foregroundColor(.textWhite)
-                        .onTapGesture {
-                            ActiveHomeViewManager.shared.activeView = .dashboard
-                        }
-                }
-
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
