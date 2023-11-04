@@ -45,8 +45,16 @@ struct SettingsView: View {
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
-            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Settings")
+                            .font(.title3Semibold)
+                            .foregroundColor(Color.textWhite)
+                    }
+                }
+            }
             .navigationDestination(for: SettingsScreen.self) { settingsScreen in
                 switch settingsScreen {
                 case .subscriptions: SubscriptionsView()
