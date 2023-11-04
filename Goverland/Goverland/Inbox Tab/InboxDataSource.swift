@@ -172,8 +172,13 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
+                    if let event = self.events?[index], event.readAt == nil {
+                        // fool protection
+                        if SettingKeys.shared.unreadEvents > 0 {
+                            SettingKeys.shared.unreadEvents -= 1
+                        }
+                    }
                     self.events?.remove(at: index)
-                    SettingKeys.shared.unreadEvents -= 1
                 }
             }
             .store(in: &cancellables)
