@@ -27,7 +27,7 @@ struct SettingsView: View {
         NavigationStack(path: $path) {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs", value: SettingsScreen.subscriptions)
+                    NavigationLink("My followed DAOs", value: SettingsScreen.subscriptions)
                     NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
                 }
                 

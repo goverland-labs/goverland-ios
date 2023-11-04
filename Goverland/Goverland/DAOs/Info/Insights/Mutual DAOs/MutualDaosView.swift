@@ -31,13 +31,18 @@ struct MutualDaosView: View {
                 RefreshIcon {
                     dataSource.refresh()
                 }
+            } else if dataSource.mutualDaos?.isEmpty ?? false {
+                Text("All voters are exclusive to this DAO")
+                    .font(.body)
+                    .foregroundColor(.textWhite)
+                    .padding()
             } else {
                 MutualDaosScrollView(dataSource: dataSource)
                     .padding(.leading, 8)
             }
         }
         .onAppear {
-            if dataSource.mutualDaos.isEmpty {
+            if dataSource.mutualDaos?.isEmpty ?? true {
                 dataSource.refresh()
             }
         }
@@ -53,14 +58,14 @@ fileprivate struct MutualDaosScrollView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                if dataSource.mutualDaos.isEmpty { // initial loading
+                if dataSource.mutualDaos == nil { // initial loading
                     ForEach(0..<5) { _ in
                         ShimmerDaoCardView()
                     }
                 } else {
-                    let count = dataSource.mutualDaos.count
+                    let count = dataSource.mutualDaos!.count
                     ForEach(0..<count, id: \.self) { index in
-                        let obj = dataSource.mutualDaos[index]
+                        let obj = dataSource.mutualDaos![index]
                         let dao = obj.dao
                         let percentage = Utils.numberWithPercent(from: obj.votersPercent)
                         DaoCardView(dao: dao,

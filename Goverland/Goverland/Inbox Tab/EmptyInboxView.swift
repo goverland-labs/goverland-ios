@@ -10,28 +10,30 @@ import SwiftUI
 
 struct EmptyInboxView: View {
     var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .center, spacing: 24) {
-                Spacer()
-                Image("looped-line")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: geometry.size.width / 2)
-                Text("There are no new notifications from the DAOs you follow.\nYou can follow more DAOs or check specific DAO events.")
-                    .font(.callout)
-                    .foregroundColor(.textWhite)
-                Spacer()
-                PrimaryButton("My followed DAOs") {
-                    TabManager.shared.selectedTab = .settings
-                    TabManager.shared.settingsPath = [.subscriptions]
+        VStack(alignment: .center, spacing: 24) {
+            Spacer()
+            VStack(spacing: 20) {
+                HStack {
+                    Text("Your Inbox is empty")
+                    Image(systemName: "envelope.open.fill")
                 }
+                .font(.titleSemibold)
+                .foregroundColor(.textWhite)
+
+                Text("Follow new DAOs to receive updates!")
+                    .font(.body)
+                    .foregroundColor(.textWhite)
+
             }
-            // this is needed as on iPad GeometryReader breaks VStack layout
-            .frame(width: geometry.size.width - 32)
-            .padding([.horizontal, .bottom], 16)
-            .onAppear {
-                Tracker.track(.screenInboxEmpty)
+            Spacer()
+            PrimaryButton("My followed DAOs") {
+                TabManager.shared.selectedTab = .settings
+                TabManager.shared.settingsPath = [.subscriptions]
             }
+        }
+        .padding([.horizontal, .bottom], 16)
+        .onAppear {
+            Tracker.track(.screenInboxEmpty)
         }
     }
 }
