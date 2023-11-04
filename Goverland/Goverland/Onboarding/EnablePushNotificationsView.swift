@@ -100,9 +100,3 @@ fileprivate func getPadding() -> CGFloat {
         return 50
     }
 }
-
-struct EnablePushNotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnablePushNotificationsView()
-    }
-}

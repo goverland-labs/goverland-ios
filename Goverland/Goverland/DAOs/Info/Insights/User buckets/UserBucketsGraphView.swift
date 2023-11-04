@@ -82,7 +82,7 @@ struct UserBucketsGraphView: View {
                         Text(String(voters))
                             .font(.title3Regular)
                             .foregroundColor(.textWhite)
-                        Text("Voters")
+                        Text(voters == 1 ? "Voter" : "Voters")
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite60)
                     }
@@ -93,7 +93,7 @@ struct UserBucketsGraphView: View {
                         Text(bucket)
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite60)
-                        Text("times")
+                        Text(bucket == "1" ? "time" :" times")
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite60)
                     }
@@ -104,11 +104,5 @@ struct UserBucketsGraphView: View {
             .background(Color.containerBright)
             .cornerRadius(10)
         }
-    }
-}
-
-struct UserBucketsGraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserBucketsGraphView(dao: .aave)
     }
 }

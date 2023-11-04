@@ -59,7 +59,7 @@ struct DashboardPopularDaosView: View {
             }
             .background(Color.container)
             .cornerRadius(20)
-            .padding(.horizontal)
+            .padding(.horizontal, 8)
             .padding(.bottom, 40)
         }
     }

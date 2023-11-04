@@ -15,7 +15,7 @@ fileprivate enum Path {
 }
 
 struct DashboardView: View {
-    @State private var path = NavigationPath()
+    @Binding var path: NavigationPath
     @Setting(\.unreadEvents) var unreadEvents
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
@@ -44,7 +44,7 @@ struct DashboardView: View {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
-                
+
                 SectionHeader(header: "Popular DAOs") {
                     path.append(Path.popularDaos)
                 }
@@ -60,33 +60,6 @@ struct DashboardView: View {
                             .foregroundColor(Color.textWhite)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if #available(iOS 17, *) {
-                        if unreadEvents > 0 {
-                            Image(systemName: "envelope.badge")
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.primary, Color.textWhite)
-                                .symbolEffect(.bounce.up.byLayer, options: .speed(0.3), value: animate)
-                                .onTapGesture {
-                                    ActiveHomeViewManager.shared.activeView = .inbox
-                                }
-                        } else {
-                            Image(systemName: "envelope")
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.textWhite, Color.textWhite)
-                                .onTapGesture {
-                                    ActiveHomeViewManager.shared.activeView = .inbox
-                                }
-                        }
-                    } else {
-                        Image(systemName: unreadEvents > 0 ? "envelope.badge" : "envelope")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(unreadEvents > 0 ? Color.primary : Color.textWhite, Color.textWhite)
-                            .onTapGesture {
-                                ActiveHomeViewManager.shared.activeView = .inbox
-                            }
-                    }
-                }
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
@@ -99,11 +72,11 @@ struct DashboardView: View {
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
-                
+
                 if GroupedDaosDataSource.newDaos.categoryDaos[.new]?.isEmpty ?? true {
                     GroupedDaosDataSource.newDaos.refresh()
                 }
-                
+
                 if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
                     GroupedDaosDataSource.popularDaos.refresh()
                 }
@@ -119,7 +92,7 @@ struct DashboardView: View {
                                          screenTrackingEvent: .screenDashHotList,
                                          openProposalFromListItemTrackingEvent: .dashHotOpenPrpFromList,
                                          openDaoFromListItemTrackingEvent: .dashHotOpenDaoFromList)
-                        .navigationTitle("Hot Proposals")
+                    .navigationTitle("Hot Proposals")
                 case .newDaos:
                     FollowCategoryDaosListView(category: .new,
                                                onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
@@ -127,7 +100,7 @@ struct DashboardView: View {
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashNewDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
-                        .navigationTitle("New DAOs")
+                    .navigationTitle("New DAOs")
                 case .popularDaos:
                     FollowCategoryDaosListView(category: .popular,
                                                onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },

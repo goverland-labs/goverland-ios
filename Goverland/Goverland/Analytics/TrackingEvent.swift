@@ -15,19 +15,7 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
 
-    // MARK: - Onboarding
-    case screenOnboardingFollowDaos = "screen_onboarding_follow_daos"
-    case onboardingFollowFromSearch = "onboarding_follow_from_search"
-    case onboardingOpenDaoFromSearch = "onboarding_open_dao_from_search"
-    case onboardingFollowFromCard = "onboarding_follow_from_card"
-    case onboardingOpenDaoFromCard = "onboarding_open_dao_from_card"
-
-    case screenOnboardingCategoryDaos = "screen_onboarding_category_daos"
-    case onboardingFollowFromCtgList = "onboarding_follow_from_ctg_list"
-    case onboardingOpenDaoFromCtgList = "onboarding_open_dao_from_ctg_list"
-    case onboardingFollowFromCtgSearch = "onboarding_follow_from_ctg_search"
-    case onboardingOpenDaoFromCtgSearch = "onboarding_open_dao_from_ctg_search"
-
+    // MARK: - Onboarding: Push Notifications
     case screenOnbaordingPushNotifications = "screen_onboarding_push_notifications"
     case onboardingYesNotifications = "onboarding_yes_notifications"
     case onboardingNoNotifications = "onboarding_no_notifications"
@@ -90,6 +78,8 @@ enum TrackingEvent: String, Trackable {
     
     // - Insights
     case screenDaoInsights = "screen_dao_insights"
+    case daoInsightsMutualOpen = "dao_insights_mutual_open"
+    case daoInsightsMutualFollow = "dao_insights_mutual_follow"
 
 
     // MARK: - Snapshot Proposal
