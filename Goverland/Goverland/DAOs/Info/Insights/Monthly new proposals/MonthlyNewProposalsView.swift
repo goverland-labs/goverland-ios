@@ -82,7 +82,7 @@ struct MonthlyNewProposalsView: View {
             .chartForegroundStyleScale([
                 "New proposals": Color.primaryDim
             ])
-            .chartSelected_X_Date($selectedDate)
+            .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
         }
     }
     

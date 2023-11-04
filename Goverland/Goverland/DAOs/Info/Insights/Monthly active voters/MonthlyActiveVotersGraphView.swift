@@ -86,7 +86,7 @@ struct MonthlyActiveVotersGraphView: View {
                 // String name has to be same as in dataSource.chartData
                 "Returning voters": Color.primaryDim, "New voters": Color.cyan
             ])
-            .chartSelected_X_Date($selectedDate)
+            .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
         }
     }
 
