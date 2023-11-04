@@ -67,7 +67,7 @@ struct MonthlyActiveVotersGraphView: View {
                         .foregroundStyle(Color.primaryDim)
                         
                         if let selectedDate {
-                            RuleMark(x: .value("Date", selectedDate))
+                            RuleMark(x: .value("Date", Utils.formatDateToMiddleOfMonth(selectedDate)))
                                 .foregroundStyle(Color.textWhite)
                                 .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(
@@ -121,7 +121,7 @@ struct MonthlyActiveVotersGraphView: View {
                         Text(Utils.decimalNumber(from: returningVoters))
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite)
-                        Text("Returned voters")
+                        Text("Returning voters")
                             .font(.subheadlineRegular)
                             .foregroundColor(.textWhite60)
                     }
