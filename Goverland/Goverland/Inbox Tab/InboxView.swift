@@ -139,10 +139,10 @@ struct InboxView: View {
             }
         }
         .onAppear() {
-            data.refresh()
-            // TODO: track only if screen is presented here
-            // and where emply. It is triggered on every DAO follow
-            Tracker.track(.screenInbox)
+            if data.events?.isEmpty ?? true {
+                data.refresh()
+                Tracker.track(.screenInbox)
+            }            
         }
     }
 }

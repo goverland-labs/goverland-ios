@@ -27,7 +27,7 @@ class TabManager: ObservableObject {
                     DashboardView.refresh()
                     dashboardPath = NavigationPath()
                 case .inbox:
-                    // TODO: jump to root path
+                    inboxViewId = UUID()
                     InboxDataSource.shared.refresh()
                 case .search:
                     SearchModel.shared.refresh()
@@ -42,6 +42,7 @@ class TabManager: ObservableObject {
 
     @Published var settingsPath = [SettingsScreen]()
     @Published var dashboardPath = NavigationPath()
+    @Published var inboxViewId = UUID()
 
     static let shared = TabManager()
 
@@ -52,6 +53,8 @@ struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
     @Setting(\.unreadEvents) var unreadEvents
 
+    @State var currentInboxViewId: UUID?
+
     var body: some View {
         TabView(selection: $tabManager.selectedTab) {
             DashboardView(path: $tabManager.dashboardPath)
@@ -61,13 +64,28 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.home)
 
-            InboxView()
-                .tabItem {
-                    Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                }
-                .toolbarBackground(.visible, for: .tabBar)
-                .tag(TabManager.Tab.inbox)
-                .badge(unreadEvents)
+            // The magic below is to simulate view update by view id.
+            // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
+            if tabManager.inboxViewId == currentInboxViewId {
+                InboxView()
+                    .tabItem {
+                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                    }
+                    .toolbarBackground(.visible, for: .tabBar)
+                    .tag(TabManager.Tab.inbox)
+                    .badge(unreadEvents)
+            } else {
+                Spacer()
+                    .tabItem {
+                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                    }
+                    .onAppear {
+                        currentInboxViewId = tabManager.inboxViewId
+                    }
+                    .toolbarBackground(.visible, for: .tabBar)
+                    .tag(TabManager.Tab.inbox)
+                    .badge(unreadEvents)
+            }
 
             SearchView()
                 .tabItem {
