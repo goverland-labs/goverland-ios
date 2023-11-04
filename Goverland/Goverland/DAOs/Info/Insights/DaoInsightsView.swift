@@ -32,9 +32,3 @@ struct DaoInsightsView: View {
         .scrollIndicators(.hidden)
     }
 }
-
-struct DaoInfoInsightsDaoView_Previews: PreviewProvider {
-    static var previews: some View {
-        DaoInsightsView(dao: .aave)
-    }
-}

@@ -96,9 +96,3 @@ struct AddSubscriptionView: View {
         }
     }
 }
-
-struct AddSubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSubscriptionView()
-    }
-}
