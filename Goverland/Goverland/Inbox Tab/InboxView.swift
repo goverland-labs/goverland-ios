@@ -105,10 +105,18 @@ struct InboxView: View {
                         } label: {
                             Label("See Archive", systemImage: "archivebox.fill")
                         }
+
                         Button {
                             data.markAllEventsRead() // also refreshes inbox
                         } label: {
-                            Label("Mark all read", systemImage: "envelope.open.fill")
+                            Label("Mark all as read", systemImage: "envelope.open.fill")
+                        }
+
+                        Button {
+                            TabManager.shared.selectedTab = .settings
+                            TabManager.shared.settingsPath = [.subscriptions]
+                        } label: {
+                            Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
