@@ -31,8 +31,7 @@ class TabManager: ObservableObject {
                     InboxDataSource.shared.refresh()
                 case .search:
                     SearchModel.shared.refresh()
-                    // TODO: now DAOs is a default tab
-                    TopProposalsDataSource.search.refresh()
+                    GroupedDaosDataSource.search.refresh()                    
                 case .settings:
                     settingsPath = [SettingsScreen]()
                 }

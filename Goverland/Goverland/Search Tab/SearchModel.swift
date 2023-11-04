@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 
 enum SearchFilter: Int, FilterOptions {
-    case proposals = 0
-    case daos
+    case daos = 0
+    case proposals
 
     var localizedName: String {
         switch self {
@@ -24,7 +24,7 @@ enum SearchFilter: Int, FilterOptions {
 }
 
 class SearchModel: ObservableObject {
-    @Published var filter: SearchFilter = .proposals
+    @Published var filter: SearchFilter = .daos
     @Published var path = NavigationPath()
 
     static let shared = SearchModel()
@@ -32,7 +32,7 @@ class SearchModel: ObservableObject {
     private init() {}
 
     func refresh() {
-        filter = .proposals
+        filter = .daos
         path = NavigationPath()
     }
 }

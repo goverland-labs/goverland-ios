@@ -120,7 +120,7 @@ struct SearchView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Search")
+                        Text("Discover")
                             .font(.title3Semibold)
                             .foregroundColor(Color.textWhite)
                     }
