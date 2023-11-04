@@ -11,7 +11,7 @@ import Combine
 
 class MutualDaosDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    @Published var mutualDaos: [MutualDao] = []
+    @Published var mutualDaos: [MutualDao]?
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
@@ -24,7 +24,7 @@ class MutualDaosDataSource: ObservableObject, Refreshable {
     }
 
     func refresh() {
-        mutualDaos = []
+        mutualDaos = nil
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
 

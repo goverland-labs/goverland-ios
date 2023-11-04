@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InboxView: View {
-    @StateObject private var data = InboxDataSource()
+    @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedEventIndex: Int?
@@ -90,14 +90,6 @@ struct InboxView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "rectangle.3.group")
-                        .foregroundColor(.textWhite)
-                        .onTapGesture {
-                            ActiveHomeViewManager.shared.activeView = .dashboard
-                        }
-                }
-
                 ToolbarItem(placement: .principal) {
                     VStack {
                         Text("Inbox")
@@ -113,10 +105,18 @@ struct InboxView: View {
                         } label: {
                             Label("See Archive", systemImage: "archivebox.fill")
                         }
+
                         Button {
                             data.markAllEventsRead() // also refreshes inbox
                         } label: {
-                            Label("Mark all read", systemImage: "envelope.open.fill")
+                            Label("Mark all as read", systemImage: "envelope.open.fill")
+                        }
+
+                        Button {
+                            TabManager.shared.selectedTab = .settings
+                            TabManager.shared.settingsPath = [.subscriptions]
+                        } label: {
+                            Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -147,10 +147,10 @@ struct InboxView: View {
             }
         }
         .onAppear() {
-            data.refresh()
-            // TODO: track only if screen is presented here
-            // and where emply. It is triggered on every DAO follow
-            Tracker.track(.screenInbox)
+            if data.events?.isEmpty ?? true {
+                data.refresh()
+                Tracker.track(.screenInbox)
+            }            
         }
     }
 }

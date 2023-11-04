@@ -13,6 +13,8 @@ import Firebase
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
+    @Environment(\.scenePhase) private var scenePhase
+    @Setting(\.onboardingFinished) var onboardingFinished
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -22,6 +24,21 @@ struct GoverlandApp: App {
                 .environmentObject(activeSheetManger)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
+                }
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .inactive:
+                        logInfo("[App] Did become inactive")
+                    case .active:
+                        logInfo("[App] Did enter foreground")
+                        if onboardingFinished {
+                            // to refresh unread messages indicator
+                            InboxDataSource.shared.refresh()
+                        }
+                    case .background:
+                        logInfo("[App] Did enter background")
+                    @unknown default: break
+                    }
                 }
                 .sheet(item: $activeSheetManger.activeSheet) { item in
                     switch item {

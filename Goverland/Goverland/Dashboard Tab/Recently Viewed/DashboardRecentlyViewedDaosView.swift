@@ -19,7 +19,7 @@ struct DashboardRecentlyViewedDaosView: View {
             }
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
+                HStack(spacing: 16) {
                     if dataSource.recentlyViewedDaos.isEmpty { // initial loading
                         ForEach(0..<3) { _ in
                             ShimmerView()
@@ -36,11 +36,11 @@ struct DashboardRecentlyViewedDaosView: View {
                         }
                     }
                 }
-                .padding()
+                .padding(16)
             }
             .background(Color.container)
             .cornerRadius(20)
-            .padding(.horizontal)
+            .padding(.horizontal, 8)
         }
     }
 }
