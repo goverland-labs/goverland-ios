@@ -23,9 +23,9 @@ class TabManager: ObservableObject {
             // Re-evaluate it later.
             if selectedTab == oldValue {
                 switch selectedTab {
-                case .home:
-                    // TODO: jump to root path
+                case .home:                    
                     DashboardView.refresh()
+                    dashboardPath = NavigationPath()
                 case .inbox:
                     // TODO: jump to root path
                     InboxDataSource.shared.refresh()
@@ -41,6 +41,7 @@ class TabManager: ObservableObject {
     }
 
     @Published var settingsPath = [SettingsScreen]()
+    @Published var dashboardPath = NavigationPath()
 
     static let shared = TabManager()
 
@@ -53,7 +54,7 @@ struct AppTabView: View {
 
     var body: some View {
         TabView(selection: $tabManager.selectedTab) {
-            DashboardView()
+            DashboardView(path: $tabManager.dashboardPath)
                 .tabItem {
                     Image(tabManager.selectedTab == .home ? "home-active" : "home-inactive")
                 }

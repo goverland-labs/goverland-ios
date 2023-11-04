@@ -15,18 +15,18 @@ fileprivate enum Path {
 }
 
 struct DashboardView: View {
-    @State private var path = NavigationPath()
+    @Binding var path: NavigationPath
     @Setting(\.unreadEvents) var unreadEvents
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    
+
     static func refresh() {
         RecentlyViewedDaosDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
     }
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
@@ -34,17 +34,17 @@ struct DashboardView: View {
                     SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
                     DashboardRecentlyViewedDaosView()
                 }
-                
+
                 SectionHeader(header: "Hot Proposals") {
                     path.append(Path.hotProposals)
                 }
                 DashboardHotProposalsView(path: $path)
-                
+
                 SectionHeader(header: "New DAOs") {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
-                
+
                 SectionHeader(header: "Popular DAOs") {
                     path.append(Path.popularDaos)
                 }
@@ -64,19 +64,19 @@ struct DashboardView: View {
             .onAppear {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
-                
+
                 if RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
                     RecentlyViewedDaosDataSource.dashboard.refresh()
                 }
-                
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
-                
+
                 if GroupedDaosDataSource.newDaos.categoryDaos[.new]?.isEmpty ?? true {
                     GroupedDaosDataSource.newDaos.refresh()
                 }
-                
+
                 if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
                     GroupedDaosDataSource.popularDaos.refresh()
                 }
@@ -122,12 +122,12 @@ struct DashboardView: View {
 fileprivate struct SectionHeader: View {
     let header: String
     let onTap: (() -> Void)?
-    
+
     var body: some View {
         VStack {
             Spacer()
                 .frame(height: 32)
-            
+
             HStack {
                 Text(header)
                     .font(.title2Semibold)
