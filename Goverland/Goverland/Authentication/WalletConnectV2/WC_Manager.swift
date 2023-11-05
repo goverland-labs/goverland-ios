@@ -37,7 +37,7 @@ class WC_Manager {
             if let encodedSessionMeta = UserDefaults.standard.data(forKey: sessionMetaKey),
                let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
                // check session is valid and not finishing soon
-               sessionMeta.session.expiryDate > .now + 30.minutes {
+               sessionMeta.session.expiryDate > .now + 5.minutes {
                 return sessionMeta
             }
             return nil

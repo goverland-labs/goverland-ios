@@ -21,8 +21,9 @@ class AuthManager {
         retryTimer?.invalidate()
         retryTimer = nil
 
+        // TODO: change
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
-        APIService.authToken(deviceId: deviceId, defaultErrorDisplay: false)
+        APIService.guestAuth(guestId: deviceId, defaultErrorDisplay: false)
             .retry(3)
             .sink { [weak self] completion in
                 switch completion {

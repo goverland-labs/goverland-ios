@@ -64,10 +64,15 @@ extension APIService {
 
     // MARK: - Auth
 
-    static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = AuthTokenEndpoint(deviceId: deviceId)
-        logInfo("Device ID: \(deviceId)")
+    static func guestAuth(guestId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GuestAuthTokenEndpoint(guestId: guestId)
+        logInfo("Guest ID: \(guestId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
+    }
+
+    static func regularAuth(signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RegularAuthTokenEndpoint(signature: "TEST SIGN IN")
+        return shared.request(endpoint)
     }
 
     // MARK: - DAOs

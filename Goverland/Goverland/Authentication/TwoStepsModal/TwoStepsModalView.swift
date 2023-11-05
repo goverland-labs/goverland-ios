@@ -86,9 +86,3 @@ struct TwoStepsModalView: View {
         }
     }
 }
-
-struct WC_TwoStepsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TwoStepsModalView()
-    }
-}
