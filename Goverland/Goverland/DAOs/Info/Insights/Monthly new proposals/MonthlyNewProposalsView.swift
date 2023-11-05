@@ -66,7 +66,7 @@ struct MonthlyNewProposalsView: View {
                 }
 
                 if let selectedDate {
-                    RuleMark(x: .value("Date", selectedDate))
+                    RuleMark(x: .value("Date", Utils.formatDateToMiddleOfMonth(selectedDate)))
                         .foregroundStyle(Color.textWhite)
                         .lineStyle(.init(lineWidth: 1, dash: [2]))
                         .annotation(

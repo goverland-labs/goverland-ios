@@ -39,6 +39,11 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
     private var totalSkipped: Int?
 
+    // We need this flag for the use case when we form initial feed for new users.
+    // As we form feed on the first inbox request, we want to skip inbox refresh
+    // for users who haven't finished the inbox yet.
+    private var loadedOnce = false
+
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
         APIService.inboxEvents()
     }
@@ -75,6 +80,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             } receiveValue: { [weak self] events, headers in
                 guard let `self` = self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
+                if !recognizedEvents.isEmpty {
+                    self.loadedOnce = true
+                }
                 self.events = recognizedEvents
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
@@ -172,15 +180,22 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
+                    if let event = self.events?[index], event.readAt == nil {
+                        // fool protection
+                        if SettingKeys.shared.unreadEvents > 0 {
+                            SettingKeys.shared.unreadEvents -= 1
+                        }
+                    }
                     self.events?.remove(at: index)
-                    SettingKeys.shared.unreadEvents -= 1
                 }
             }
             .store(in: &cancellables)
     }
 
     @objc private func subscriptionDidToggle(_ notification: Notification) {
-        refresh()
+        if loadedOnce {
+            refresh()
+        }
     }
 
     @objc private func eventUnarchived(_ notification: Notification) {

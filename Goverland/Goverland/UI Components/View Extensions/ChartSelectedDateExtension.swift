@@ -28,32 +28,39 @@ fileprivate struct ChartModifier<ValueType: Plottable & Comparable>: ViewModifie
         content
             .chartOverlay { chartProxy in
                 GeometryReader { geometry in
-                    Rectangle()
-                        .fill(.clear)
-                        .contentShape(Rectangle())
+                    Rectangle().fill(.clear).contentShape(Rectangle())
                         .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    let selectedOnGraph = chartProxy.value(atX: value.location.x, as: ValueType.self)
-                                    if let minValue, let selectedOnGraph {
-                                        guard selectedOnGraph >= minValue else { selected = nil; return }
+                            SpatialTapGesture()
+                                .onEnded { value in
+                                    selected = selectFor(x: value.location.x, chartProxy: chartProxy)
+                                    if selected != nil {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            selected = nil
+                                        }
                                     }
-                                    if let maxValue, let selectedOnGraph {
-                                        guard selectedOnGraph <= maxValue else { selected = nil; return }
-                                    }
-                                    selected = selectedOnGraph
                                 }
-                                .onEnded { _ in
-                                    selected = nil
-                                }
+                                .exclusively(
+                                    before: DragGesture()
+                                        .onChanged { value in
+                                            selected = selectFor(x: value.location.x, chartProxy: chartProxy)
+                                        }
+                                        .onEnded { _ in
+                                            selected = nil
+                                        }
+                                )
                         )
-                        .onTapGesture(coordinateSpace: .local) { location in
-                            selected = chartProxy.value(atX: location.x, as: ValueType.self)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                selected = nil
-                            }
-                        }
                 }
             }
+    }
+
+    private func selectFor(x: Double, chartProxy: ChartProxy) -> ValueType? {
+        let selectedOnGraph = chartProxy.value(atX: x, as: ValueType.self)
+        if let minValue, let selectedOnGraph {
+            guard selectedOnGraph >= minValue else { return nil }
+        }
+        if let maxValue, let selectedOnGraph {
+            guard selectedOnGraph <= maxValue else { return nil }
+        }
+        return selectedOnGraph
     }
 }

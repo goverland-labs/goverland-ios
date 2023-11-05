@@ -91,6 +91,14 @@ enum Utils {
         return calendar.date(from: components)!
     }
 
+    static func formatDateToMiddleOfMonth(_ date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = calendar.dateComponents([.year, .month], from: date)
+        components.timeZone = .gmt
+        components.day = 15
+        return calendar.date(from: components)!
+    }
+
     // MARK: -Numbers
 
     static func formattedNumber(_ number: Double) -> String {

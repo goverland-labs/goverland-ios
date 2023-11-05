@@ -262,7 +262,7 @@ fileprivate struct AdvancedSettingView: View {
             }
 
             if let deviceId = UIDevice.current.identifierForVendor?.uuidString {
-                Section(header: Text("Device Id")) {
+                Section(header: Text("Guest id")) {
                     LabeledContent(deviceId) {
                         Button {
                             UIPasteboard.general.string = deviceId
