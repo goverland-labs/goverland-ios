@@ -69,14 +69,31 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                 showSignIn = true
             }
 
-            Button("Continue as a guest") {
-                Tracker.track(.onboardingSignInAsGuest)
-                dataSource.guestAuth()
+            HStack(spacing: 8) {
+                Spacer() // spacer to balance out loading indicator
+                    .frame(width: 30)
+
+                Button("Continue as a guest") {
+                    Tracker.track(.onboardingSignInAsGuest)
+                    dataSource.guestAuth()
+                }
+                .disabled(dataSource.loading)
+                .fontWeight(.semibold)
+
+                .accentColor(.secondaryContainer)
+
+                HStack {
+                    if dataSource.loading {
+                        ProgressView()
+                            .foregroundColor(.textWhite20)
+                            .controlSize(.mini)
+                    }
+                    Spacer()
+                }
+                .frame(width: 30)
+
             }
-            .disabled(dataSource.loading)
-            .fontWeight(.semibold)
             .padding(.bottom)
-            .accentColor(.secondaryContainer)
         }
         .sheet(isPresented: $showSignIn) {
             TwoStepsModalView()

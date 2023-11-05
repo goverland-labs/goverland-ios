@@ -44,7 +44,7 @@ struct BrickView: View {
                     Spacer()
                     ProgressView()
                         .foregroundColor(.textWhite20)
-                        .controlSize(.regular)
+                        .controlSize(.small)
                     Spacer()
                 }
             } else if failedToLoadInitialData {
