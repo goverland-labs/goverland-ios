@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-07.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -27,7 +28,6 @@ enum DaoInfoFilter: Int, FilterOptions {
 
 struct DaoInfoView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @Setting(\.onboardingFinished) private var onboardingFinished
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
 
@@ -59,12 +59,7 @@ struct DaoInfoView: View {
                     .padding(.bottom, 4)
 
                 switch filter {
-                case .activity: 
-                    if onboardingFinished {
-                        DaoInfoEventsView(dao: dao)
-                    } else {
-                        DaoInfoMockEventsView()
-                    }
+                case .activity: DaoInfoEventsView(dao: dao)
                 case .about: DaoInfoAboutDaoView(dao: dao)
                 case .insights: DaoInsightsView(dao: dao)
                 }

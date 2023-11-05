@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-16.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -97,11 +98,5 @@ fileprivate func getPadding() -> CGFloat {
         return 30
     } else {
         return 50
-    }
-}
-
-struct EnablePushNotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnablePushNotificationsView()
     }
 }

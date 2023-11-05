@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2022-12-28.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -54,7 +55,7 @@ struct ProposalListItemView<Content: View>: View {
 
             VStack(spacing: 15) {
                 ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
-                ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
+                ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
                     menuContent
                 }
@@ -70,7 +71,7 @@ struct ProposalListItemView<Content: View>: View {
     }
 }
 
-fileprivate struct ProposalListItemHeaderView: View {
+struct ProposalListItemHeaderView: View {
     let proposal: Proposal
     let displayReadIndicator: Bool
 
@@ -103,10 +104,11 @@ fileprivate struct ReadIndicatiorView: View {
     }
 }
 
-fileprivate struct ProposalListItemBodyView: View {
+struct ProposalListItemBodyView: View {
     let proposal: Proposal
+    let displayStatus: Bool
     let onDaoTap: (() -> Void)?
-    
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
@@ -115,16 +117,18 @@ fileprivate struct ProposalListItemBodyView: View {
                     .font(.headlineSemibold)
                     .lineLimit(2)
                 
-                HStack(spacing: 0) {
-                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                        .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
-                        .font(.footnoteRegular)
-                        .lineLimit(1)
-                    
-                    DateView(date: proposal.votingEnd,
-                             style: .numeric,
-                             font: .footnoteRegular,
-                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                if displayStatus {
+                    HStack(spacing: 0) {
+                        Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                            .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                            .font(.footnoteRegular)
+                            .lineLimit(1)
+
+                        DateView(date: proposal.votingEnd,
+                                 style: .numeric,
+                                 font: .footnoteRegular,
+                                 color: proposal.state == .active ? .primaryDim : .textWhite40)
+                    }
                 }
             }
             

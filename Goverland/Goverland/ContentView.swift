@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 15.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -15,7 +16,7 @@ struct ContentView: View {
         if !termsAccepted {
             IntroView()
         } else if !onboardingFinished {
-            SignInView()
+            EnablePushNotificationsView()
         } else {
             AppTabView()
         }

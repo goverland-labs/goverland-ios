@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-08-29.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -36,54 +37,11 @@ struct ProposalListItemCondensedView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
 
-            VStack(spacing: 15) {
-                ProposalListItemCondensedHeaderView(proposal: proposal)
-                ProposalListItemCondensedBodyView(proposal: proposal,
-                                                  onDaoTap: onDaoTap)
-
+            VStack(spacing: 15) {                
+                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: false)
+                ProposalListItemBodyView(proposal: proposal, displayStatus: false, onDaoTap: onDaoTap)
             }
             .padding([.horizontal, .vertical], 12)
-        }
-    }
-}
-
-fileprivate struct ProposalListItemCondensedHeaderView: View {
-    let proposal: Proposal
-
-    var body: some View {
-        HStack {
-            HStack(spacing: 6) {
-                IdentityView(user: proposal.author)
-                DateView(date: proposal.created,
-                         style: .named,
-                         font: .footnoteRegular,
-                         color: .textWhite40)
-            }
-
-            Spacer()
-            ProposalStatusView(state: proposal.state)
-        }
-    }
-}
-
-fileprivate struct ProposalListItemCondensedBodyView: View {
-    let proposal: Proposal
-    let onDaoTap: (() -> Void)?
-
-    var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 5) {
-                Text(proposal.title)
-                    .foregroundColor(.textWhite)
-                    .font(.headlineSemibold)
-                    .lineLimit(2)
-            }
-
-            Spacer()
-            RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
-                .onTapGesture {
-                    onDaoTap?()
-                }
         }
     }
 }

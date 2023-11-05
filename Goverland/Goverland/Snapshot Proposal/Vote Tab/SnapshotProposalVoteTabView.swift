@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-01.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -46,8 +47,7 @@ struct SnapshotProposalVoteTabView: View {
         }
     }
 
-    @Namespace var namespace
-    @Setting(\.onboardingFinished) var onboardingFinished
+    @Namespace var namespace    
     @Environment(\.presentationMode) var presentationMode
 
     @State private var voteButtonDisabled: Bool = true
@@ -129,17 +129,8 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
         .sheet(isPresented: $warningViewIsPresented) {
-            if onboardingFinished {
-                VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
-                    .presentationDetents([.medium, .large])
-            } else {
-                FinishOnboardingWarningView {
-                    // Make it twice to come back to onboarding
-                    presentationMode.wrappedValue.dismiss()
-                    presentationMode.wrappedValue.dismiss()
-                }
-                    .presentationDetents([.medium, .large])
-            }
+            VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
+                .presentationDetents([.medium, .large])
         }
     }
 

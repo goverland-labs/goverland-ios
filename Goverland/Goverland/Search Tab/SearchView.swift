@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -119,7 +120,7 @@ struct SearchView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Search")
+                        Text("Explore")
                             .font(.title3Semibold)
                             .foregroundColor(Color.textWhite)
                     }

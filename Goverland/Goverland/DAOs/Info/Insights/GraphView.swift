@@ -3,27 +3,30 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 12.09.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
 
-struct GraphView<Content: View>: View {
+protocol GraphViewContent: View {}
+
+struct GraphView<Content: GraphViewContent>: View {
     let header: String
-    let subheader: String
+    let subheader: String?
     let isLoading: Bool
     let failedToLoadInitialData: Bool
     let width: CGFloat?
     let height: CGFloat?
     let onRefresh: () -> Void
-
+    
     let content: Content
-
+    
     init(header: String,
-         subheader: String,
+         subheader: String?,
          isLoading: Bool,
          failedToLoadInitialData: Bool,
          width: CGFloat? = nil,
-         height: CGFloat?,
+         height: CGFloat? = 300,
          onRefresh: @escaping () -> Void,
          @ViewBuilder content: () -> Content) {
         self.header = header
@@ -37,7 +40,7 @@ struct GraphView<Content: View>: View {
     }
     
     @State private var isTooltipVisible = false
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -45,28 +48,30 @@ struct GraphView<Content: View>: View {
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
                 Spacer()
-                Image(systemName: "questionmark.circle")
-                    .foregroundColor(.textWhite40)
-                    .padding(.trailing)
-                    .tooltip($isTooltipVisible) {
-                        Text(subheader)
-                            .foregroundColor(.textWhite60)
-                            .font(.сaptionRegular)
-                    }
-                    .onTapGesture() {
-                        withAnimation {
-                            isTooltipVisible.toggle()
-                            // Shoe tooltip for 5 sec only
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                if isTooltipVisible {
-                                    isTooltipVisible.toggle()
+                if let subheader {
+                    Image(systemName: "questionmark.circle")
+                        .foregroundColor(.textWhite40)
+                        .padding(.trailing)
+                        .tooltip($isTooltipVisible) {
+                            Text(subheader)
+                                .foregroundColor(.textWhite60)
+                                .font(.сaptionRegular)
+                        }
+                        .onTapGesture() {
+                            withAnimation {
+                                isTooltipVisible.toggle()
+                                // Shoe tooltip for 5 sec only
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                    if isTooltipVisible {
+                                        isTooltipVisible.toggle()
+                                    }
                                 }
                             }
                         }
-                    }
+                }
             }
             .padding([.top, .horizontal])
-
+            
             if isLoading {
                 Spacer()
                 ProgressView()

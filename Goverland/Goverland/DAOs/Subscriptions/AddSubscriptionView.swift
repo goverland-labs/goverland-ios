@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -93,11 +94,5 @@ struct AddSubscriptionView: View {
                 ToastView()
             }
         }
-    }
-}
-
-struct AddSubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSubscriptionView()
     }
 }

@@ -3,25 +3,39 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 15.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
 
 struct DaoCardView: View {
     let dao: Dao
+    let subheader: String
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
     @Environment(\.presentationMode) private var presentationMode
 
-    private var backgroundColor: Color {
-        presentationMode.wrappedValue.isPresented ? .containerBright : .container
+    init(dao: Dao,
+         subheader: String? = nil,
+         onSelectDao: ((Dao) -> Void)?,
+         onFollowToggle: ((_ didFollow: Bool) -> Void)?)
+    {
+        self.dao = dao
+        if let subheader {
+            self.subheader = subheader
+        } else {
+            if let voters = MetricNumberFormatter().stringWithMetric(from: dao.voters) {
+                self.subheader = "\(voters) voters"
+            } else {
+                self.subheader = ""
+            }
+        }
+        self.onSelectDao = onSelectDao
+        self.onFollowToggle = onFollowToggle
     }
 
-    private var voters: String {
-        if let voters = MetricNumberFormatter().stringWithMetric(from: dao.voters) {
-            return "\(voters) voters"
-        }
-        return ""
+    private var backgroundColor: Color {
+        presentationMode.wrappedValue.isPresented ? .containerBright : .container
     }
 
     var body: some View {
@@ -39,7 +53,7 @@ struct DaoCardView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
 
-                Text("\(voters)")
+                Text("\(subheader)")
                     .font(.сaption2Regular)
                     .foregroundColor(.textWhite60)
             }
@@ -64,7 +78,7 @@ struct RetryLoadMoreCardView: View {
     let category: DaoCategory
 
     var body: some View {
-        Button("Load more") {
+        RefreshIcon {
             dataSource.retryLoadMore(category: category)
         }
         .frame(width: 130)
@@ -97,16 +111,5 @@ struct ShimmerDaoCardView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))
-    }
-}
-
-struct DaoCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            DaoCardView(dao: .aave,
-                        onSelectDao: nil,
-                        onFollowToggle: nil)
-            ShimmerDaoCardView()
-        }
     }
 }

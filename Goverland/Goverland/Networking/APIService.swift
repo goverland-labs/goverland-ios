@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Combine
@@ -118,6 +119,25 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func successfulProposals(id: UUID) -> AnyPublisher<(SuccessfulProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = SuccessfulProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func monthlyNewProposals(id: UUID) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyNewProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func mutualDaos(id: UUID,
+                           limit: Int = 21) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = MutualDaosEndpoint(daoID: id, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,
@@ -198,6 +218,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func recentlyViewedDaos() -> AnyPublisher<(RecentlyViewedDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RecentlyViewedDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
     static func archivedEvents(offset: Int = 0,
                                limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
@@ -223,6 +248,11 @@ extension APIService {
 
     static func markEventRead(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkEventReadEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+    
+    static func markAllEventsRead(before date: Date) -> AnyPublisher<(MarkAllEventsReadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkAllEventsReadEndpoint(before: date)
         return shared.request(endpoint)
     }
 

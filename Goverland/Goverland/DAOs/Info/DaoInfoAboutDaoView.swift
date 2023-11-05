@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-25.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -14,7 +15,6 @@ struct DaoInfoAboutDaoView: View {
     let dao: Dao
     private let frameH: CGFloat = 20
 
-    // TODO: make a proper fix
     var markdownDescription: String {
         // we always expect to have a markdown text
         return dao.about?.first { $0.type == .markdown }?.body ?? ""
@@ -25,15 +25,15 @@ struct DaoInfoAboutDaoView: View {
     }
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text(dao.name.capitalized)
+                Text(dao.name)
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
                 Spacer()
             }
             
-            HStack(spacing: 20) {
+            HStack(spacing: 16) {
                 if let twitter = dao.twitter {
                     Image("dao-info-twitter")
                         .resizable()
@@ -121,12 +121,19 @@ struct DaoInfoAboutDaoView: View {
                     Spacer()
                 }
             }
-            
+
+            if !dao.categories.isEmpty {
+                let first = dao.categories.first!.name.lowercased()
+                let categories = dao.categories.dropFirst().reduce("#\(first)") { r, c in "\(r) #\(c.name.lowercased())"}
+                Text(categories)
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite60)
+            }
+
             VStack(alignment: .leading) {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
             }
-            .padding(.leading, -8)
 
             Spacer()
         }

@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 08.02.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI

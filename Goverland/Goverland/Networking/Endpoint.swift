@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -156,6 +157,44 @@ struct DaoExclusiveVotersEndpoint: APIEndpoint {
     }
 }
 
+struct SuccessfulProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = SuccessfulProposals
+    
+    let daoID: UUID
+    var path: String { "analytics/succeeded-proposals-count/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct MonthlyNewProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyNewProposals]
+    
+    let daoID: UUID
+    var path: String { "analytics/monthly-new-proposals/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct MutualDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MutualDao]
+    
+    let daoID: UUID
+    var path: String { "analytics/mutual-daos/\(daoID)" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
@@ -281,6 +320,13 @@ struct DaoEventsEndpoint: APIEndpoint {
     }
 }
 
+struct RecentlyViewedDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    var path: String { "dao/recent" }
+    var method: HttpMethod = .get
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -291,6 +337,20 @@ struct MarkEventReadEndpoint: APIEndpoint {
 
     init(eventID: UUID) {
         self.eventID = eventID
+    }
+}
+
+struct MarkAllEventsReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String { "feed/mark-as-read" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(before date: Date) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(["before": date])
     }
 }
 

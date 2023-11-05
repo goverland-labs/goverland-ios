@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-02.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -16,6 +17,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let createdAt: Date
     let activitySince: Date?
     let about: [DaoBody]?
+    let categories: [DaoCategory]
     let proposals: Int
     let voters: Int
     let subscriptionMeta: SubscriptionMeta?
@@ -32,6 +34,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          createdAt: Date,
          activitySince: Date?,
          about: [DaoBody]?,
+         categories: [DaoCategory],
          proposals: Int,
          voters: Int,
          subscriptionMeta: SubscriptionMeta?,
@@ -47,6 +50,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.createdAt = createdAt
         self.activitySince = activitySince
         self.about = about
+        self.categories = categories
         self.proposals = proposals
         self.voters = voters
         self.subscriptionMeta = subscriptionMeta
@@ -65,6 +69,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case createdAt = "created_at"
         case activitySince = "activity_since"
         case about
+        case categories
         case proposals = "proposals_count"
         case voters = "voters_count"
         case subscriptionMeta = "subscription_info"
@@ -92,6 +97,13 @@ struct Dao: Identifiable, Decodable, Equatable {
         } catch {
             throw GError.errorDecodingData(error: error, context: "Decoding `about`: DAO ID: \(id)")
         }
+
+        do {
+            self.categories = try container.decode([DaoCategory].self, forKey: .categories)
+        } catch {
+            throw GError.errorDecodingData(error: error, context: "Decoding `categories`: DAO ID: \(id)")
+        }
+
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
 
@@ -109,8 +121,8 @@ struct Dao: Identifiable, Decodable, Equatable {
         // can be empty string
         self.terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
         if let terms = self.terms {
-            if terms.absoluteString.hasPrefix("ipfs:") {
-                let validString = "https://ipfs.io/ipfs/\(terms.absoluteString.dropFirst(7))"
+            if terms.absoluteString.hasPrefix("ipfs://") {
+                let validString = "https://snapshot.4everland.link/ipfs/\(terms.absoluteString.dropFirst(7))"
                 self.terms = URL(string: validString)
             }
         }
@@ -131,8 +143,9 @@ struct Dao: Identifiable, Decodable, Equatable {
     }
 }
 
-enum DaoCategory: String, Identifiable {
+enum DaoCategory: String, Identifiable, Decodable {
     case new = "new_daos"
+    case popular = "popular_daos"
     case social
     case `protocol`
     case investment
@@ -145,13 +158,15 @@ enum DaoCategory: String, Identifiable {
     var id: Self { self }
     
     static var values: [DaoCategory] {[
-        .new, .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
+        .new, .popular, .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
     ]}
     
     var name: String {
         switch self {
         case .new:
             return "New"
+        case .popular:
+            return "Popular"
         case .social:
             return "Social"
         case .protocol:
@@ -189,7 +204,8 @@ extension Dao {
         image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
-        about: [],
+        about: [], 
+        categories: [.protocol],
         proposals: 100,
         voters: 4567,
         subscriptionMeta: nil,
@@ -205,7 +221,8 @@ extension Dao {
         image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
-        about: [],
+        about: [], 
+        categories: [.protocol],
         proposals: 150,
         voters: 45678,
         subscriptionMeta: nil,

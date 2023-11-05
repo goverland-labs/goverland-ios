@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -26,7 +27,7 @@ struct SettingsView: View {
         NavigationStack(path: $path) {
             List {
                 Section(header: Text("Goverland")) {
-                    NavigationLink("Followed DAOs", value: SettingsScreen.subscriptions)
+                    NavigationLink("My followed DAOs", value: SettingsScreen.subscriptions)
                     NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
                 }
                 
@@ -44,8 +45,16 @@ struct SettingsView: View {
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
-            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Settings")
+                            .font(.title3Semibold)
+                            .foregroundColor(Color.textWhite)
+                    }
+                }
+            }
             .navigationDestination(for: SettingsScreen.self) { settingsScreen in
                 switch settingsScreen {
                 case .subscriptions: SubscriptionsView()
@@ -253,7 +262,7 @@ fileprivate struct AdvancedSettingView: View {
             }
 
             if let deviceId = UIDevice.current.identifierForVendor?.uuidString {
-                Section(header: Text("Device Id")) {
+                Section(header: Text("Guest id")) {
                     LabeledContent(deviceId) {
                         Button {
                             UIPasteboard.general.string = deviceId
@@ -282,12 +291,5 @@ fileprivate struct AdvancedSettingView: View {
             accepted = SettingKeys.shared.trackingAccepted
             Tracker.track(.screenAdvancedSettings)
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(path: .constant([]))
-            .environmentObject(ColorSchemeManager())
     }
 }
