@@ -32,15 +32,17 @@ fileprivate struct ChartModifier<ValueType: Plottable & Comparable>: ViewModifie
                         .gesture(
                             SpatialTapGesture()
                                 .onEnded { value in
-                                    selectFor(x: value.location.x, chartProxy: chartProxy)
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                        selected = nil
+                                    selected = selectFor(x: value.location.x, chartProxy: chartProxy)
+                                    if selected != nil {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            selected = nil
+                                        }
                                     }
                                 }
                                 .exclusively(
                                     before: DragGesture()
                                         .onChanged { value in
-                                            selectFor(x: value.location.x, chartProxy: chartProxy)
+                                            selected = selectFor(x: value.location.x, chartProxy: chartProxy)
                                         }
                                         .onEnded { _ in
                                             selected = nil
@@ -51,14 +53,14 @@ fileprivate struct ChartModifier<ValueType: Plottable & Comparable>: ViewModifie
             }
     }
 
-    private func selectFor(x: Double, chartProxy: ChartProxy) {
+    private func selectFor(x: Double, chartProxy: ChartProxy) -> ValueType? {
         let selectedOnGraph = chartProxy.value(atX: x, as: ValueType.self)
         if let minValue, let selectedOnGraph {
-            guard selectedOnGraph >= minValue else { selected = nil; return }
+            guard selectedOnGraph >= minValue else { return nil }
         }
         if let maxValue, let selectedOnGraph {
-            guard selectedOnGraph <= maxValue else { selected = nil; return }
+            guard selectedOnGraph <= maxValue else { return nil }
         }
-        selected = selectedOnGraph
+        return selectedOnGraph
     }
 }
