@@ -84,13 +84,13 @@ fileprivate struct NoSubscriptionsView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
-                Text("You don’t follow any DAO at the moment.")
+                Text("You don't follow any DAOs at the moment.")
                     .font(.callout)
                     .foregroundColor(.textWhite)
+                Spacer()
                 PrimaryButton("Follow a DAO") {
                     activeSheetManager.activeSheet = .followDaos
                 }
-                Spacer()
             }
             // this is needed as on iPad GeometryReader breaks VStack layout
             .frame(width: geometry.size.width - 32)

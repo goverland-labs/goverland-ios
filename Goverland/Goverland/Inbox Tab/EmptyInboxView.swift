@@ -14,7 +14,7 @@ struct EmptyInboxView: View {
             Spacer()
             VStack(spacing: 20) {
                 HStack {
-                    Text("Your Inbox is empty")
+                    Text("Your inbox is empty")
                     Image(systemName: "envelope.open.fill")
                 }
                 .font(.titleSemibold)
