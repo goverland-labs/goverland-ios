@@ -13,7 +13,7 @@ import WalletConnectSign
 class TwoStepsViewModel: ObservableObject {
     @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
 
-    private var cancelables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(wcSessionUpdated(_:)), name: .wcSessionUpdated, object: nil)
@@ -27,17 +27,31 @@ class TwoStepsViewModel: ObservableObject {
     private func listen_WC_Responses() {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
-            .sink { response in
+            .sink { [weak self] response in
                 logInfo("[WC] Response: \(response)")
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
                     showToast(rpcError.localizedDescription)                    
                 case .response(let signature):
+                    // signature here is AnyCodable
                     logInfo("[WC] Signature: \(signature)")
+                    self?.signIn(signature: "\(signature)")
                 }
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
+    }
+
+    private func signIn(signature: String) {
+        APIService.regularAuth(signature: signature)
+            .retry(3)
+            .sink { _ in
+                // do nothing, error will be displayed to user
+            } receiveValue: { response, _ in
+                SettingKeys.shared.authToken = response.sessionId
+                logInfo("Auth token: \(response.sessionId)")
+            }
+            .store(in: &cancellables)
     }
 
     func authenticate() {

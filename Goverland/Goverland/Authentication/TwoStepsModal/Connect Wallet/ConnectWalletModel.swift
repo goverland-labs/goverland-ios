@@ -14,7 +14,7 @@ class ConnectWalletModel: ObservableObject {
     @Published private(set) var connecting = false
     @Published private(set) var qrDisplayed = false
 
-    private var cancelables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         listen_WC()
@@ -55,6 +55,6 @@ class ConnectWalletModel: ObservableObject {
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
                 NotificationCenter.default.post(name: .wcSessionUpdated, object: WC_Manager.shared.sessionMeta)
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
     }
 }

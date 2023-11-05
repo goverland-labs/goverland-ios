@@ -53,7 +53,7 @@ class WC_Manager {
         WalletConnectModal.present()
     }
 
-    private var cancelables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     private init() {
         configure()
@@ -80,7 +80,7 @@ class WC_Manager {
             .sink { session in
                 logInfo("[WC] Sessions: \(session)")
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
@@ -89,6 +89,6 @@ class WC_Manager {
                 self.sessionMeta = nil
                 NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
     }
 }

@@ -81,10 +81,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Very important line of code. Do not remove it.
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
 
-        // Obtain session token. If a user is new, this will be a guest token,
-        // otherwise this will be signed in user token.
-        AuthManager.shared.updateToken()
-
         // Setup Firebase
         FirebaseConfig.setUp()
 

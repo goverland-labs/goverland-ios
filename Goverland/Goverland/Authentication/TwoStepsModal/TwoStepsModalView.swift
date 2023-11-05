@@ -12,7 +12,8 @@ struct TwoStepsModalView: View {
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var model = TwoStepsViewModel()
     @State private var showSelectWallet = false
-    
+    @Setting(\.authToken) private var authToken
+
     var body: some View {
         VStack(spacing: 24) {
             HStack {
@@ -82,6 +83,11 @@ struct TwoStepsModalView: View {
             .accentColor(.textWhite)
             .overlay {
                 ToastView()
+            }
+        }
+        .onChange(of: authToken) { token in
+            if !token.isEmpty {
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }

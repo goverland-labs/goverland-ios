@@ -48,7 +48,6 @@
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
 		557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */; };
-		5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB882A34C75500A6E316 /* AuthManager.swift */; };
 		5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */; };
 		5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */; };
 		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
@@ -87,6 +86,7 @@
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55E800A42AF825D900A43D5F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A32AF825D900A43D5F /* SignInView.swift */; };
+		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
@@ -244,7 +244,6 @@
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
 		557E057B2A4C95C800DB36C6 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		557FD1252A25FEA000BDC5B0 /* GroupedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosDataSource.swift; sourceTree = "<group>"; };
-		5586BB882A34C75500A6E316 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoListItemView.swift; sourceTree = "<group>"; };
 		5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoCardView.swift; sourceTree = "<group>"; };
 		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
@@ -282,6 +281,7 @@
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55E800A32AF825D900A43D5F /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		55E800A52AF8419E00A43D5F /* SignInDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataSource.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -688,6 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				55E800A32AF825D900A43D5F /* SignInView.swift */,
+				55E800A52AF8419E00A43D5F /* SignInDataSource.swift */,
 			);
 			path = "Sign in";
 			sourceTree = "<group>";
@@ -709,7 +710,6 @@
 				55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */,
 				55F143DE294B1DDA00D00B73 /* ContentView.swift */,
 				55D632C229505DFF0073E04A /* AppTabView.swift */,
-				5586BB882A34C75500A6E316 /* AuthManager.swift */,
 				BAF651C229AE5F8700C78A8A /* ColorSchemeManager.swift */,
 				55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */,
 				5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */,
@@ -809,8 +809,8 @@
 			isa = PBXGroup;
 			children = (
 				55FD73122AB75DC60081C38D /* TwoStepsModalView.swift */,
-				55FD73132AB75DC60081C38D /* Connect Wallet */,
 				55FD73182AB75DC60081C38D /* TwoStepsViewModel.swift */,
+				55FD73132AB75DC60081C38D /* Connect Wallet */,
 			);
 			path = TwoStepsModal;
 			sourceTree = "<group>";
@@ -1291,6 +1291,7 @@
 				BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosView.swift in Sources */,
 				5528859A2A28EBF600ED2BCD /* RetryLoadingViews.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
+				55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */,
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
@@ -1316,7 +1317,6 @@
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
 				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
-				5586BB892A34C75500A6E316 /* AuthManager.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,

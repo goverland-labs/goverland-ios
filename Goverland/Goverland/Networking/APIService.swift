@@ -45,7 +45,8 @@ class APIService {
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
-                        AuthManager.shared.updateToken()
+                        // This will force display of Sign In view (see ContentView file)
+                        SettingKeys.shared.authToken = ""
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)

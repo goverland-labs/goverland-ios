@@ -59,23 +59,28 @@ fileprivate func getPadding() -> CGFloat {
 }
 
 fileprivate struct SignInOnboardingFooterControlsView: View {
+    @State private var showSignIn = false
+    @StateObject var dataSource = SignInDataSource()
+
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
                 Tracker.track(.onboardingSignInWithWallet)
-                // sign in logic starts here
+                showSignIn = true
             }
-            
+
             Button("Continue as a guest") {
                 Tracker.track(.onboardingSignInAsGuest)
+                dataSource.guestAuth()
             }
+            .disabled(dataSource.loading)
             .fontWeight(.semibold)
             .padding(.bottom)
             .accentColor(.secondaryContainer)
         }
+        .sheet(isPresented: $showSignIn) {
+            TwoStepsModalView()
+                .presentationDetents([.medium, .large])
+        }
     }
-}
-
-#Preview {
-    SignInView()
 }
