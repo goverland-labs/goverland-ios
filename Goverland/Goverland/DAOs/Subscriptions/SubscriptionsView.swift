@@ -88,7 +88,7 @@ fileprivate struct NoSubscriptionsView: View {
                     .font(.callout)
                     .foregroundColor(.textWhite)
                 Spacer()
-                PrimaryButton("Follow a DAO") {
+                PrimaryButton("Explore DAOs") {
                     activeSheetManager.activeSheet = .followDaos
                 }
             }
