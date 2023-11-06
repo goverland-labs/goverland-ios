@@ -10,18 +10,17 @@ import SwiftUI
 
 enum DaoInfoFilter: Int, FilterOptions {
     case activity = 0
-    case about
     case insights
+    case about
 
     var localizedName: String {
         switch self {
         case .activity:
             return "Activity"
-        case .about:
-            return "About"
         case .insights:
             return "Insights"
-            
+        case .about:
+            return "About"
         }
     }
 }
