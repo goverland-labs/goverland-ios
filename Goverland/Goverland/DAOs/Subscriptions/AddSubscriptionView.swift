@@ -71,7 +71,7 @@ struct AddSubscriptionView: View {
             }
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("Follow DAOs")
+                    Text("Explore DAOs")
                         .font(.title3Semibold)
                         .foregroundColor(Color.textWhite)
                 }
