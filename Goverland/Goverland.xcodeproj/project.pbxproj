@@ -192,19 +192,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		55B7B43E2A5ADC5800A894AD /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
 		550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotRankedChoiceVotingView.swift; sourceTree = "<group>"; };
@@ -1015,7 +1002,6 @@
 				55F143D7294B1DDA00D00B73 /* Resources */,
 				553744DF2A75821800D05D8A /* [Firebase] Copy config file */,
 				BA2EA1FE29636C2700FB87AC /* TODO Warnings */,
-				55B7B43E2A5ADC5800A894AD /* Embed Foundation Extensions */,
 				550E85782A5F70CF00B0CFDD /* Crashlytics */,
 			);
 			buildRules = (
@@ -1126,8 +1112,11 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
 			);
 			name = Crashlytics;
 			outputFileListPaths = (
