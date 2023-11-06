@@ -23,7 +23,12 @@ func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, fu
     let description = (error as? GError)?.localizedDescription ?? error.localizedDescription
     let msg = "[ERROR] \(fileName): \(line): \(function) \(description)"
     logger.error("\(msg)")
-    Crashlytics.crashlytics().log(msg)
+
+    let userInfo = [
+      NSLocalizedDescriptionKey: NSLocalizedString("Non-fatal error.", comment: ""),
+      NSLocalizedFailureReasonErrorKey: NSLocalizedString("\(msg)", comment: "")
+    ]
+    Crashlytics.crashlytics().record(error: error, userInfo: userInfo)
 }
 
 func showToast(_ message: String) {

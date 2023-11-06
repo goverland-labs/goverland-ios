@@ -192,13 +192,13 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             .store(in: &cancellables)
     }
 
-    @objc private func subscriptionDidToggle(_ notification: Notification) {
+    @objc func subscriptionDidToggle(_ notification: Notification) {
         if loadedOnce {
             refresh()
         }
     }
 
-    @objc private func eventUnarchived(_ notification: Notification) {
+    @objc func eventUnarchived(_ notification: Notification) {
         refresh()
     }
 }
