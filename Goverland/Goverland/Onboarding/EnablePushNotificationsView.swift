@@ -18,7 +18,7 @@ struct EnablePushNotificationsView: View {
                 PushNotificationFooterControlsView()
             }
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenOnbaordingPushNotifications) }
+            .onAppear() { Tracker.track(.screenPushNotifications) }
         }
     }
 }
@@ -45,7 +45,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Enable notifications") {
-                Tracker.track(.onboardingYesNotifications)
+                Tracker.track(.notificationsYes)
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
                         notificationsEnabled = granted
@@ -55,8 +55,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
             }
             
             Button("No, thanks") {
-                // TODO: change tracking
-                Tracker.track(.onboardingNoNotifications)
+                Tracker.track(.notificationsNo)
                 presentationMode.wrappedValue.dismiss()
             }
             .fontWeight(.semibold)
