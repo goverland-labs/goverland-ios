@@ -261,17 +261,15 @@ fileprivate struct AdvancedSettingView: View {
                 }
             }
 
-            if let deviceId = UIDevice.current.identifierForVendor?.uuidString {
-                Section(header: Text("Guest id")) {
-                    LabeledContent(deviceId) {
-                        Button {
-                            UIPasteboard.general.string = deviceId
-                            showToast("Copied")
-                        } label: {
-                            Image(systemName: "doc.on.doc")
-                        }
-                        .foregroundColor(.primaryDim)
+            Section(header: Text("Auth token")) {
+                LabeledContent(SettingKeys.shared.authToken) {
+                    Button {
+                        UIPasteboard.general.string = SettingKeys.shared.authToken
+                        showToast("Copied")
+                    } label: {
+                        Image(systemName: "doc.on.doc")
                     }
+                    .foregroundColor(.primaryDim)
                 }
             }
 

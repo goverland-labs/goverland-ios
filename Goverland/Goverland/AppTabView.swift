@@ -50,8 +50,11 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
-    
+    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
+    @Setting(\.notificationsEnabled) private var notificationsEnabled
+
     @State var currentInboxViewId: UUID?
     
     var body: some View {
@@ -101,5 +104,20 @@ struct AppTabView: View {
                 .tag(TabManager.Tab.settings)
         }
         .accentColor(.textWhite)
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
+            // TODO: check if we can make it better with macros
+
+            // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
+            guard let subscribed = notification.object as? Bool, subscribed else { return }
+            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
+            let now = Date().timeIntervalSinceReferenceDate
+            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+                // don't promore if some active sheet already displayed
+                if activeSheetManger.activeSheet == nil {
+                    lastPromotedPushNotificationsTime = now
+                    activeSheetManger.activeSheet = .subscribeToNotifications
+                }
+            }
+        }
     }
 }

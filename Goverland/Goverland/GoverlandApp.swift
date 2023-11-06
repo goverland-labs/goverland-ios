@@ -14,7 +14,7 @@ struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
-    @Setting(\.onboardingFinished) var onboardingFinished
+    @Setting(\.authToken) var authToken
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -31,8 +31,9 @@ struct GoverlandApp: App {
                         logInfo("[App] Did become inactive")
                     case .active:
                         logInfo("[App] Did enter foreground")
-                        if onboardingFinished {
-                            // to refresh unread messages indicator
+
+                        // Also called when closing system dialogue to enable push notifications.
+                        if !authToken.isEmpty {
                             InboxDataSource.shared.refresh()
                         }
                     case .background:
@@ -63,6 +64,9 @@ struct GoverlandApp: App {
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
                         ArchiveView()
+                    
+                    case .subscribeToNotifications:
+                        EnablePushNotificationsView()
                     }
                 }
                 .overlay {

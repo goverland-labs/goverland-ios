@@ -15,10 +15,10 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
 
-    // MARK: - Onboarding: Push Notifications
-    case screenOnbaordingPushNotifications = "screen_onboarding_push_notifications"
-    case onboardingYesNotifications = "onboarding_yes_notifications"
-    case onboardingNoNotifications = "onboarding_no_notifications"
+    // MARK: - Push Notifications
+    case screenPushNotifications = "screen_push_notifications"
+    case notificationsYes = "notifications_yes"
+    case notificationsNo = "notifications_no"
 
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"

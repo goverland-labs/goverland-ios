@@ -25,4 +25,8 @@ class DaoInfoEventsDataSource: InboxDataSource {
     }
 
     override func storeUnreadEventsCount(headers: HttpHeaders) {}
+
+    override func subscriptionDidToggle(_ notification: Notification) {}
+
+    override func eventUnarchived(_ notification: Notification) {}
 }
