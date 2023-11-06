@@ -33,11 +33,7 @@ struct GoverlandApp: App {
                         logInfo("[App] Did enter foreground")
 
                         // Also called when closing system dialogue to enable push notifications.
-                        // Don't refresh inbox feed if some popover screen is presented. This adjustment is needed
-                        // to not request initial inbox feed forming after a user follows the first DAO
-                        // and then confirms notifications with system dialogue.
-                        // Without this adjustment the initial feed will always be formed for one DAO only.
-                        if !authToken.isEmpty && activeSheetManger.activeSheet == nil {
+                        if !authToken.isEmpty {
                             InboxDataSource.shared.refresh()
                         }
                     case .background:

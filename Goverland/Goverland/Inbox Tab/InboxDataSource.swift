@@ -39,11 +39,6 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
     private var totalSkipped: Int?
 
-    // We need this flag for the use case when we form initial feed for new users.
-    // As we form feed on the first inbox request, we want to skip inbox refresh
-    // for users who haven't finished the inbox yet.
-    private var loadedOnce = false
-
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
         APIService.inboxEvents()
     }
@@ -79,10 +74,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 }
             } receiveValue: { [weak self] events, headers in
                 guard let `self` = self else { return }
-                let recognizedEvents = events.filter { $0.eventData != nil }
-                if !recognizedEvents.isEmpty {
-                    self.loadedOnce = true
-                }
+                let recognizedEvents = events.filter { $0.eventData != nil }                
                 self.events = recognizedEvents
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
@@ -193,9 +185,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     @objc func subscriptionDidToggle(_ notification: Notification) {
-        if loadedOnce {
-            refresh()
-        }
+        refresh()
     }
 
     @objc func eventUnarchived(_ notification: Notification) {
