@@ -11,14 +11,17 @@ import SwiftUI
 
 class SettingKeys: ObservableObject {
     @AppStorage("termsAccepted") var termsAccepted = false
-    @AppStorage("onboardingFinished") var onboardingFinished = false
     @AppStorage("trackingAccepted") var trackingAccepted = false {
         didSet {
             Tracker.setTrackingEnabled(trackingAccepted)
         }
     }
-    @AppStorage("notificationsEnabled") var notificationsEnabled = false
+
     @AppStorage("authToken") var authToken = ""
+
+    @AppStorage("notificationsEnabled") var notificationsEnabled = false
+    @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
+
     @AppStorage("unreadEvents") var unreadEvents = 0 {
         didSet {
             UIApplication.shared.applicationIconBadgeNumber = unreadEvents
@@ -30,11 +33,11 @@ class SettingKeys: ObservableObject {
     private init() {}
     
     static func reset() {
-        SettingKeys.shared.onboardingFinished = false
         SettingKeys.shared.termsAccepted = false
         SettingKeys.shared.trackingAccepted = false
-        SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.authToken = ""
+        SettingKeys.shared.notificationsEnabled = false
+        SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.unreadEvents = 0
     }
 }

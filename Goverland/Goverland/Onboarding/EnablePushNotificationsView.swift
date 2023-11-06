@@ -17,7 +17,6 @@ struct EnablePushNotificationsView: View {
                 Spacer()
                 PushNotificationFooterControlsView()
             }
-            .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
             .onAppear() { Tracker.track(.screenOnbaordingPushNotifications) }
         }
@@ -40,8 +39,8 @@ fileprivate struct PushNotificationBackgroundView: View {
 }
 
 fileprivate struct PushNotificationFooterControlsView: View {
-    @Setting(\.onboardingFinished) var onboardingFinished
     @Setting(\.notificationsEnabled) var notificationsEnabled
+    @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
         VStack(spacing: 20) {
@@ -50,14 +49,15 @@ fileprivate struct PushNotificationFooterControlsView: View {
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
                         notificationsEnabled = granted
-                        onboardingFinished = true
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
             
             Button("No, thanks") {
+                // TODO: change tracking
                 Tracker.track(.onboardingNoNotifications)
-                onboardingFinished = true
+                presentationMode.wrappedValue.dismiss()
             }
             .fontWeight(.semibold)
             .padding(.bottom)
@@ -82,7 +82,7 @@ fileprivate struct PushNotificationHeaderView: View {
                 Spacer()
             }
             
-            Text("Get push notifications about new proposals, votes, treasury movements, your delegates' activity, and more")
+            Text("Get push notifications about new proposals.")
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.textWhite)
