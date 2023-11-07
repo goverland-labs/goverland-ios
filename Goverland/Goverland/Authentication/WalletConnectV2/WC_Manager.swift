@@ -37,7 +37,7 @@ class WC_Manager {
             if let encodedSessionMeta = UserDefaults.standard.data(forKey: sessionMetaKey),
                let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
                // check session is valid and not finishing soon
-               sessionMeta.session.expiryDate > .now + 30.minutes {
+               sessionMeta.session.expiryDate > .now + 5.minutes {
                 return sessionMeta
             }
             return nil
@@ -53,7 +53,7 @@ class WC_Manager {
         WalletConnectModal.present()
     }
 
-    private var cancelables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     private init() {
         configure()
@@ -68,7 +68,7 @@ class WC_Manager {
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
             excludedWalletIds: Wallet.recommended.map { $0.id },
-            accentColor: .primary,
+            accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
     }
@@ -80,7 +80,7 @@ class WC_Manager {
             .sink { session in
                 logInfo("[WC] Sessions: \(session)")
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
@@ -89,6 +89,6 @@ class WC_Manager {
                 self.sessionMeta = nil
                 NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
     }
 }

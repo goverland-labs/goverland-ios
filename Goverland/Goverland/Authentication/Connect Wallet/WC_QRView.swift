@@ -101,7 +101,7 @@ struct WC_QRView: View {
                 let edge = qrEdge()
                 ProgressView()
                     .progressViewStyle(.circular)
-                    .tint(.textWhite)
+                    .tint(.textWhite20)
                     .frame(width: edge, height: edge)
             }
         }

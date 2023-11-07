@@ -22,6 +22,7 @@ struct RoundPictureView: View {
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         ProgressView()
                             .foregroundColor(.textWhite20)
+                            .controlSize(.mini)
                     } else {
                         ShimmerView()
                             .frame(width: imageSize, height: imageSize)
