@@ -27,8 +27,8 @@ struct EmptyInboxView: View {
             }
             Spacer()
             PrimaryButton("My followed DAOs") {
-                TabManager.shared.selectedTab = .settings
-                TabManager.shared.settingsPath = [.subscriptions]
+                TabManager.shared.selectedTab = .profile
+                TabManager.shared.profilePath = [.subscriptions]
             }
         }
         .padding([.horizontal, .bottom], 16)

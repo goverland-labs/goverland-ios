@@ -12,8 +12,6 @@ import StoreKit
 
 
 enum SettingsScreen {
-    case profile
-    case subscriptions
     case pushNofitications
     case about
     case helpUsGrow
@@ -22,58 +20,54 @@ enum SettingsScreen {
 }
 
 struct SettingsView: View {
-    @Binding var path: [SettingsScreen]
+    @Binding var path: [ProfileScreen]
 
     var body: some View {
-        NavigationStack(path: $path) {
-            List {
-                Section(header: Text("Goverland")) {
-                    NavigationLink("My profile", value: SettingsScreen.profile)
-                    NavigationLink("My followed DAOs", value: SettingsScreen.subscriptions)
-                    NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
-                }
-                
-                Section(header: Text("Contact Us")) {
-                    TwitterSettingsView()
-                    DiscordSettingsView()
-                    MailSettingView()
-                }
-                
-                Section {
-                    NavigationLink("About", value: SettingsScreen.about)
-                    NavigationLink("Help us grow", value: SettingsScreen.helpUsGrow)
-                    NavigationLink("Partnership", value: SettingsScreen.partnership)
-                    NavigationLink("Advanced", value: SettingsScreen.advanced)
-                    LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
-                }
+        List {
+            Section(header: Text("Goverland")) {
+                NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Settings")
-                            .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
-                    }
-                }
+
+            Section(header: Text("Contact Us")) {
+                TwitterSettingsView()
+                DiscordSettingsView()
+                MailSettingView()
             }
-            .navigationDestination(for: SettingsScreen.self) { settingsScreen in
-                switch settingsScreen {
-                case .profile: ProfileSettingsView()
-                case .subscriptions: SubscriptionsView()
-                case .pushNofitications: PushNotificationsSettingView()
-                case .about: AboutSettingView()
-                case .helpUsGrow: HelpUsGrowSettingView()
-                case .partnership: PartnershipSettingView()
-                case .advanced: AdvancedSettingView()
+
+            Section {
+                NavigationLink("About", value: SettingsScreen.about)
+                NavigationLink("Help us grow", value: SettingsScreen.helpUsGrow)
+                NavigationLink("Partnership", value: SettingsScreen.partnership)
+                NavigationLink("Advanced", value: SettingsScreen.advanced)
+                LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Settings")
+                        .font(.title3Semibold)
+                        .foregroundColor(Color.textWhite)
                 }
             }
         }
+//        NavigationStack(path: $path) {
+//            .navigationDestination(for: SettingsScreen.self) { settingsScreen in
+//                switch settingsScreen {
+//                case .pushNofitications: PushNotificationsSettingView()
+//                case .about: AboutSettingView()
+//                case .helpUsGrow: HelpUsGrowSettingView()
+//                case .partnership: PartnershipSettingView()
+//                case .advanced: AdvancedSettingView()
+//                }
+//            }
+//        }
         .onAppear() { Tracker.track(.screenSettings) }
     }
 }
 
-fileprivate struct PushNotificationsSettingView: View {
+struct PushNotificationsSettingView: View {
     @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
     @State private var showAlert = false
     @State private var skipTrackingOnce = false
@@ -150,7 +144,7 @@ fileprivate struct PushNotificationsSettingView: View {
     }
 }
 
-fileprivate struct AboutSettingView: View {
+struct AboutSettingView: View {
     var body: some View {
         List {
             HStack {
@@ -189,7 +183,7 @@ fileprivate struct AboutSettingView: View {
     }
 }
 
-fileprivate struct HelpUsGrowSettingView: View {
+struct HelpUsGrowSettingView: View {
     var body: some View {
         List{
             Button(action: {
@@ -238,7 +232,7 @@ fileprivate struct HelpUsGrowSettingView: View {
     }
 }
 
-fileprivate struct AdvancedSettingView: View {
+struct AdvancedSettingView: View {
     @State private var accepted = false
 
     var body: some View {

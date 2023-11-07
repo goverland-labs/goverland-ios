@@ -113,8 +113,8 @@ struct InboxView: View {
                         }
 
                         Button {
-                            TabManager.shared.selectedTab = .settings
-                            TabManager.shared.settingsPath = [.subscriptions]
+                            TabManager.shared.selectedTab = .profile
+                            TabManager.shared.profilePath = [.subscriptions]
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
