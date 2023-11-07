@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 import WalletConnectSign
 
 class SignInTwoStepsViewModel: ObservableObject {
@@ -24,6 +25,10 @@ class SignInTwoStepsViewModel: ObservableObject {
         wcSessionMeta = WC_Manager.shared.sessionMeta
     }
 
+    var address: String? {
+        WC_Manager.shared.sessionMeta?.session.accounts.first?.address
+    }
+
     private func listen_WC_Responses() {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -35,16 +40,23 @@ class SignInTwoStepsViewModel: ObservableObject {
                     showToast(rpcError.localizedDescription)                    
                 case .response(let signature):
                     // signature here is AnyCodable
-                    logInfo("[WC] Signature: \(signature)")
-                    self?.signIn(signature: "\(signature)")
+                    guard let signatureStr = signature.value as? String else {
+                        logError(GError.appInconsistency(reason: "Expected signature as string. Got \(signature)"))
+                        return
+                    }
+                    logInfo("[WC] Signature: \(signatureStr)")
+                    self?.signIn(signature: signatureStr)
                 }
             }
             .store(in: &cancellables)
     }
 
     private func signIn(signature: String) {
-        APIService.regularAuth(signature: signature)
-            .retry(3)
+        guard let address = address else { return }
+        APIService.regularAuth(address: address,
+                               device: UIDevice.current.name,
+                               message: siweMessage(address: address),
+                               signature: signature)
             .sink { _ in
                 // do nothing, error will be displayed to user
             } receiveValue: { response, _ in
@@ -56,9 +68,9 @@ class SignInTwoStepsViewModel: ObservableObject {
 
     func authenticate() {
         guard let session = WC_Manager.shared.sessionMeta?.session,
-            let address = session.accounts.first?.address else { return }
+            let address = address else { return }
 
-        let dataStr = Data(SIWE_Message.goverland(walletAddress: address).message().utf8).toHexString()
+        let dataStr = Data(siweMessage(address: address).utf8).toHexString()
         let params = AnyCodable([dataStr, address])
 
         let request = Request(
@@ -76,5 +88,9 @@ class SignInTwoStepsViewModel: ObservableObject {
            let redirectUrl = URL(string: redirectUrlStr) {
             openUrl(redirectUrl)
         }
+    }
+
+    private func siweMessage(address: String) -> String {
+        SIWE_Message.goverland(walletAddress: address).message()
     }
 }

@@ -71,8 +71,11 @@ extension APIService {
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
 
-    static func regularAuth(signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = RegularAuthTokenEndpoint(signature: "TEST SIGN IN")
+    static func regularAuth(address: String,
+                            device: String,
+                            message: String,
+                            signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RegularAuthTokenEndpoint(address: address, device: device, message: message, signature: signature)
         return shared.request(endpoint)
     }
 

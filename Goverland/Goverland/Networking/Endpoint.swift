@@ -76,8 +76,6 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
     }
 }
 
-
-// TODO: change once backend is ready
 struct RegularAuthTokenEndpoint: APIEndpoint {
     typealias ResponseType = AuthTokenResponse
 
@@ -89,7 +87,7 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
         }
     }
 
-    var path: String = "auth/guest"
+    var path: String = "auth/siwe"
     var method: HttpMethod = .post
     var headers: [String: String] {
         // do not set authorization header in this request
@@ -98,8 +96,13 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    init(signature: String) {
-        self.body = try! JSONEncoder().encode(["device_id": signature])
+    init(address: String, device: String, message: String, signature: String) {
+        self.body = try! JSONEncoder().encode([
+            "address": address,
+            "device": device,
+            "message": message,
+            "singature": signature
+        ])
     }
 }
 
