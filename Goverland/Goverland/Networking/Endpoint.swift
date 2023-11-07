@@ -50,7 +50,7 @@ struct IgnoredResponse: Decodable {
 
 // MARK: - Auth
 
-struct AuthTokenEndpoint: APIEndpoint {
+struct GuestAuthTokenEndpoint: APIEndpoint {
     typealias ResponseType = AuthTokenResponse
 
     struct AuthTokenResponse: Decodable {
@@ -70,8 +70,39 @@ struct AuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    init(deviceId: String) {
-        self.body = try! JSONEncoder().encode(["device_id": deviceId])
+    // TODO: change parameter name for guest token
+    init(guestId: String) {
+        self.body = try! JSONEncoder().encode(["device_id": guestId])
+    }
+}
+
+struct RegularAuthTokenEndpoint: APIEndpoint {
+    typealias ResponseType = AuthTokenResponse
+
+    struct AuthTokenResponse: Decodable {
+        let sessionId: String
+
+        enum CodingKeys: String, CodingKey {
+            case sessionId = "session_id"
+        }
+    }
+
+    var path: String = "auth/siwe"
+    var method: HttpMethod = .post
+    var headers: [String: String] {
+        // do not set authorization header in this request
+        return ["Content-Type": "application/json"]
+    }
+
+    var body: Data?
+
+    init(address: String, device: String, message: String, signature: String) {
+        self.body = try! JSONEncoder().encode([
+            "address": address,
+            "device": device,
+            "message": message,
+            "singature": signature
+        ])
     }
 }
 

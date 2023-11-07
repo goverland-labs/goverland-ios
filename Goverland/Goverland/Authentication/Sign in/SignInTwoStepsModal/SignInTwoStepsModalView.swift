@@ -1,5 +1,5 @@
 //
-//  TwoStepsModalView.swift
+//  SignInTwoStepsModalView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -8,11 +8,12 @@
 
 import SwiftUI
 
-struct TwoStepsModalView: View {
+struct SignInTwoStepsModalView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = TwoStepsViewModel()
+    @StateObject private var model = SignInTwoStepsViewModel()
     @State private var showSelectWallet = false
-    
+    @Setting(\.authToken) private var authToken
+
     var body: some View {
         VStack(spacing: 24) {
             HStack {
@@ -84,11 +85,10 @@ struct TwoStepsModalView: View {
                 ToastView()
             }
         }
-    }
-}
-
-struct WC_TwoStepsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TwoStepsModalView()
+        .onChange(of: authToken) { token in
+            if !token.isEmpty {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }

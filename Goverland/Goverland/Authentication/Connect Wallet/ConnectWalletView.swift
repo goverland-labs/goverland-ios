@@ -113,8 +113,8 @@ fileprivate struct WalletRowView: View {
             Spacer()
             if model.connecting {
                 ProgressView()
-                    .progressViewStyle(.circular)
-                    .tint(.textWhite60)
+                    .tint(.textWhite20)
+                    .controlSize(.mini)
             }
         }
         .frame(height: 48)

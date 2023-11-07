@@ -10,18 +10,15 @@ import SwiftUI
 
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
+    @Setting(\.authToken) private var authToken
 
     var body: some View {
         if !termsAccepted {
             IntroView()
+        } else if authToken.isEmpty {
+            SignInView()
         } else {
             AppTabView()
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

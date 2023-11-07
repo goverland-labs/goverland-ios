@@ -45,7 +45,8 @@ class APIService {
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
-                        AuthManager.shared.updateToken()
+                        // This will force display of Sign In view (see ContentView file)
+                        SettingKeys.shared.authToken = ""
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)
@@ -64,10 +65,18 @@ extension APIService {
 
     // MARK: - Auth
 
-    static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = AuthTokenEndpoint(deviceId: deviceId)
-        logInfo("Device ID: \(deviceId)")
+    static func guestAuth(guestId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GuestAuthTokenEndpoint(guestId: guestId)
+        logInfo("Guest ID: \(guestId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
+    }
+
+    static func regularAuth(address: String,
+                            device: String,
+                            message: String,
+                            signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RegularAuthTokenEndpoint(address: address, device: device, message: message, signature: signature)
+        return shared.request(endpoint)
     }
 
     // MARK: - DAOs

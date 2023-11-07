@@ -51,6 +51,7 @@ struct DaoInfoView: View {
                 // Unfortunately shimmer or reducted view here breaks presentation in a popover view
                 ProgressView()
                     .foregroundColor(.textWhite20)
+                    .controlSize(.regular)
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
