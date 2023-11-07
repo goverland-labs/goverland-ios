@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-20.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -14,22 +15,41 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
 
-    // MARK: - Onboarding
-    case screenOnboardingFollowDaos = "screen_onboarding_follow_daos"
-    case onboardingFollowFromSearch = "onboarding_follow_from_search"
-    case onboardingOpenDaoFromSearch = "onboarding_open_dao_from_search"
-    case onboardingFollowFromCard = "onboarding_follow_from_card"
-    case onboardingOpenDaoFromCard = "onboarding_open_dao_from_card"
+    // MARK: - Sign In
+    case onboardingSignInWithWallet = "onboarding_sign_in_with_wallet"
+    case screenOnbaordingSignIn = "screen_onbaording_sign_in"
+    case onboardingSignInAsGuest = "onboarding_sign_in_as_guest"
 
-    case screenOnboardingCategoryDaos = "screen_onboarding_category_daos"
-    case onboardingFollowFromCtgList = "onboarding_follow_from_ctg_list"
-    case onboardingOpenDaoFromCtgList = "onboarding_open_dao_from_ctg_list"
-    case onboardingFollowFromCtgSearch = "onboarding_follow_from_ctg_search"
-    case onboardingOpenDaoFromCtgSearch = "onboarding_open_dao_from_ctg_search"
+    // MARK: - Push Notifications
+    case screenPushNotifications = "screen_push_notifications"
+    case notificationsYes = "notifications_yes"
+    case notificationsNo = "notifications_no"
 
-    case screenOnbaordingPushNotifications = "screen_onboarding_push_notifications"
-    case onboardingYesNotifications = "onboarding_yes_notifications"
-    case onboardingNoNotifications = "onboarding_no_notifications"
+    // MARK: - Dashboard
+    case screenDashboard = "screen_dashboard"
+    case screenDashHotList = "screen_dash_hot_list"
+    // Hot Proposals
+    case dashHotOpenPrp = "dash_hot_open_prp"
+    case dashHotOpenDao = "dash_hot_open_dao"
+    case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
+    case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
+    // New DAOs
+    case dashNewDaoOpen = "dash_newdao_open"
+    case dashNewDaoFollow = "dash_newdao_follow"
+    case screenDashNewDao = "screen_dash_newdao"
+    case dashNewDaoOpenFromList = "dash_newdao_open_from_list"
+    case dashNewDaoFollowFromList = "dash_newdao_follow_from_list"
+    case dashNewDaoOpenFromSearch = "dash_newdao_open_from_search"
+    case dashNewDaoFollowFromSearch = "dash_newdao_follow_from_search"
+    // Popular DAOs
+    case dashPopularDaoOpen = "dash_populardao_open"
+    case screenDashPopularDao = "screen_dash_populardao"
+    case dashPopularDaoOpenFromList = "dash_populardao_open_from_list"
+    case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
+    case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
+    case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
+    // Recently Viewed DAOs
+    case dashRecentDaoOpen = "dash_recentdao_open"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
@@ -38,6 +58,13 @@ enum TrackingEvent: String, Trackable {
     case inboxEventOpenDao = "inbox_event_open_dao"
     case inboxEventArchive = "inbox_event_archive"
     case inboxEventMarkRead = "inbox_event_mark_read"
+    
+    // MARK: - Archive
+    case screenArchive = "screen_archive"
+    case screenArchiveEmpty = "screen_archive_empty"
+    case archiveEventOpen = "archive_event_open"
+    case archiveEventUnarchive = "archive_event_unarchive"
+    case archiveEventMarkRead = "archive_event_mark_read"
 
     // MARK: - DAO Info
     case daoFollow = "dao_follow"
@@ -56,6 +83,8 @@ enum TrackingEvent: String, Trackable {
     
     // - Insights
     case screenDaoInsights = "screen_dao_insights"
+    case daoInsightsMutualOpen = "dao_insights_mutual_open"
+    case daoInsightsMutualFollow = "dao_insights_mutual_follow"
 
 
     // MARK: - Snapshot Proposal

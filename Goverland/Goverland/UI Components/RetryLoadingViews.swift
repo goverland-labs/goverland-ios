@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 01.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -55,10 +56,9 @@ struct RetryLoadMoreListItemView: View {
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            Button("Load more") {
+            RefreshIcon {
                 dataSource.retryLoadMore()
-            }
-            .foregroundColor(.primary)
+            }            
             Spacer()
         }
         .padding(.vertical, 12)

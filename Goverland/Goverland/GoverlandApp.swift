@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 15.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -12,6 +13,8 @@ import Firebase
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
+    @Environment(\.scenePhase) private var scenePhase
+    @Setting(\.authToken) var authToken
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -22,18 +25,48 @@ struct GoverlandApp: App {
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
-                .sheet(item: $activeSheetManger.activeSheet) { item in
-                    NavigationStack {
-                        switch item {
-                        case .daoInfo(let dao):
-                            DaoInfoView(dao: dao)
-                        case .followDaos:
-                            AddSubscriptionView()                        
+                .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .inactive:
+                        logInfo("[App] Did become inactive")
+                    case .active:
+                        logInfo("[App] Did enter foreground")
+
+                        // Also called when closing system dialogue to enable push notifications.
+                        if !authToken.isEmpty {
+                            InboxDataSource.shared.refresh()
                         }
+                    case .background:
+                        logInfo("[App] Did enter background")
+                    @unknown default: break
                     }
-                    .accentColor(.primary)
-                    .overlay {
-                        ToastView()
+                }
+                .sheet(item: $activeSheetManger.activeSheet) { item in
+                    switch item {
+                    case .daoInfo(let dao):
+                        NavigationStack {
+                            DaoInfoView(dao: dao)
+                        }
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .followDaos:
+                        NavigationStack {
+                            AddSubscriptionView()
+                        }
+                        .accentColor(.textWhite)
+                        .overlay {
+                            ToastView()
+                        }
+
+                    case .archive:
+                        // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                        ArchiveView()
+                    
+                    case .subscribeToNotifications:
+                        EnablePushNotificationsView()
                     }
                 }
                 .overlay {
@@ -52,10 +85,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Very important line of code. Do not remove it.
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
 
-        // Obtain session token. If a user is new, this will be a guest token,
-        // otherwise this will be signed in user token.
-        AuthManager.shared.updateToken()
-
         // Setup Firebase
         FirebaseConfig.setUp()
 
@@ -71,7 +100,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable : Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        logInfo("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
+        logInfo("[PUSH] didReceiveRemoteNotification with userInfo: \(userInfo)")
         completionHandler(.noData)
     }
 
@@ -87,7 +116,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        logInfo("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
+        logInfo("[PUSH] App is in foreground, willPresent notification with userInfo: \(userInfo)")
         completionHandler([.badge, .sound])
     }
 
@@ -95,14 +124,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        logInfo("PUSH: didReceive notification with userInfo: \(userInfo)")
+        logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
         completionHandler()
     }
 }
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        logInfo("FCM Token: \(fcmToken ?? "unknown")")
+        logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
         NotificationsManager.shared.enableNotifications()
     }

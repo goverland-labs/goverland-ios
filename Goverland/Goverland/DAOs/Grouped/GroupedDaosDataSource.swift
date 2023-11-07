@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 30.05.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -18,7 +19,10 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     @Published var subscriptionsCount: Int = 0
 
-    static let shared = GroupedDaosDataSource()
+    static let newDaos = GroupedDaosDataSource()
+    static let popularDaos = GroupedDaosDataSource()
+    static let search = GroupedDaosDataSource()
+    static let addSubscription = GroupedDaosDataSource()
 
     private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)

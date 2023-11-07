@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Combine
@@ -44,7 +45,8 @@ class APIService {
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
-                        AuthManager.shared.updateToken()
+                        // This will force display of Sign In view (see ContentView file)
+                        SettingKeys.shared.authToken = ""
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)
@@ -63,10 +65,18 @@ extension APIService {
 
     // MARK: - Auth
 
-    static func authToken(deviceId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(AuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = AuthTokenEndpoint(deviceId: deviceId)
-        logInfo("Device ID: \(deviceId)")
+    static func guestAuth(guestId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GuestAuthTokenEndpoint(guestId: guestId)
+        logInfo("Guest ID: \(guestId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
+    }
+
+    static func regularAuth(address: String,
+                            device: String,
+                            message: String,
+                            signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RegularAuthTokenEndpoint(address: address, device: device, message: message, signature: signature)
+        return shared.request(endpoint)
     }
 
     // MARK: - DAOs
@@ -110,6 +120,30 @@ extension APIService {
     
     static func userBuckets(id: UUID) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DaoUserBucketsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func exclusiveVoters(id: UUID) -> AnyPublisher<(DaoExclusiveVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoExclusiveVotersEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func successfulProposals(id: UUID) -> AnyPublisher<(SuccessfulProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = SuccessfulProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func monthlyNewProposals(id: UUID) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyNewProposalsEndpoint(daoID: id)
+        return shared.request(endpoint)
+    }
+    
+    static func mutualDaos(id: UUID,
+                           limit: Int = 21) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = MutualDaosEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
     
@@ -192,6 +226,23 @@ extension APIService {
         let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
+    
+    static func recentlyViewedDaos() -> AnyPublisher<(RecentlyViewedDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = RecentlyViewedDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
+    static func archivedEvents(offset: Int = 0,
+                               limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)"),
+            URLQueryItem(name: "archived", value: "only")
+            
+        ]
+        let endpoint = InboxEventsEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     static func daoEvents(daoID: UUID,
                           offset: Int = 0,
@@ -208,9 +259,19 @@ extension APIService {
         let endpoint = MarkEventReadEndpoint(eventID: eventID)
         return shared.request(endpoint)
     }
+    
+    static func markAllEventsRead(before date: Date) -> AnyPublisher<(MarkAllEventsReadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkAllEventsReadEndpoint(before: date)
+        return shared.request(endpoint)
+    }
 
-    static func markEventArchived(eventID: UUID) -> AnyPublisher<(MarkEventReadEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func markEventArchived(eventID: UUID) -> AnyPublisher<(MarkEventArchivedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkEventArchivedEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+    
+    static func markEventUnarchived(eventID: UUID) -> AnyPublisher<(MarkEventUnarchivedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkEventUnarchivedEndpoint(eventID: eventID)
         return shared.request(endpoint)
     }
 

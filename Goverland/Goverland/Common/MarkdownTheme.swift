@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 11.07.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import MarkdownUI
@@ -14,7 +15,7 @@ extension Theme {
             FontSize(.em(0.85))
         }
         .link {
-            ForegroundColor(.primary)
+            ForegroundColor(.primaryDim)
         }
         .text {
             ForegroundColor(.textWhite)

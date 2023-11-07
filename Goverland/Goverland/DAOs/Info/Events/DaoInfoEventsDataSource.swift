@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 10.07.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -24,4 +25,8 @@ class DaoInfoEventsDataSource: InboxDataSource {
     }
 
     override func storeUnreadEventsCount(headers: HttpHeaders) {}
+
+    override func subscriptionDidToggle(_ notification: Notification) {}
+
+    override func eventUnarchived(_ notification: Notification) {}
 }

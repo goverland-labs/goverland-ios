@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-07.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -17,7 +18,7 @@ struct DaoInfoScreenHeaderView: View {
             VStack(spacing: 20) {
                 HStack {
                     InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.proposals)))", title: "Proposals")
-                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.members)))" , title: "Members")
+                    InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.voters)))" , title: "Voters")
                 }
                 .scaledToFill()
                 .minimumScaleFactor(0.5)

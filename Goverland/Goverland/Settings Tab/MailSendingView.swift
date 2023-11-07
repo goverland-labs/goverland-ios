@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-04.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -17,7 +18,7 @@ struct MailSettingView: View {
     var body: some View {
         HStack {
             Image("email")
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 .frame(width: 30)
             Button("Email", action: {
                 if !MFMailComposeViewController.canSendMail() {

@@ -3,13 +3,17 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-07.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
 
 struct TopProposalsListView: View {
-    @StateObject var dataSource: TopProposalDataSource
+    @StateObject var dataSource: TopProposalsDataSource
     @Binding var path: NavigationPath
+    let screenTrackingEvent: TrackingEvent
+    let openProposalFromListItemTrackingEvent: TrackingEvent
+    let openDaoFromListItemTrackingEvent: TrackingEvent
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
     @State private var selectedProposalIndex: Int?
@@ -38,16 +42,16 @@ struct TopProposalsListView: View {
                             }
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
                         ProposalListItemCondensedView(proposal: proposal) {
                             activeSheetManger.activeSheet = .daoInfo(proposal.dao)
-                            Tracker.track(.searchPrpOpenDaoFromCard)
+                            Tracker.track(openDaoFromListItemTrackingEvent)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
                         .listRowBackground(Color.clear)
                     }
                 }
@@ -56,12 +60,12 @@ struct TopProposalsListView: View {
         .onChange(of: selectedProposalIndex) { _ in
             if let index = selectedProposalIndex, dataSource.proposals.count > index {
                 path.append(dataSource.proposals[index])
-                Tracker.track(.searchPrpOpenFromCard)
+                Tracker.track(openProposalFromListItemTrackingEvent)
             }
         }
         .onAppear {
             selectedProposalIndex = nil
-            Tracker.track(.screenSearchPrp)
+            Tracker.track(screenTrackingEvent)
             if dataSource.proposals.isEmpty {
                 dataSource.refresh()
             }

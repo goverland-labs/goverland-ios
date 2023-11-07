@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 02.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -39,9 +40,9 @@ struct DaoListItemView: View {
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
-    private var members: String {
-        if let members = MetricNumberFormatter().stringWithMetric(from: dao.members) {
-            return "\(members) members"
+    private var voters: String {
+        if let voters = MetricNumberFormatter().stringWithMetric(from: dao.voters) {
+            return "\(voters) voters"
         }
         return ""
     }
@@ -53,7 +54,7 @@ struct DaoListItemView: View {
                 Text(dao.name)
                     .font(.headlineRegular)
                     .foregroundColor(.textWhite)
-                Text(members)
+                Text(voters)
                     .font(.caption2)
                     .foregroundColor(.textWhite60)
             }

@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-01-06.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -92,6 +93,7 @@ struct InboxEvent: Identifiable, Decodable {
 
     init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
+
         self.id = try container.decode(UUID.self, forKey: .id)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
@@ -100,7 +102,7 @@ struct InboxEvent: Identifiable, Decodable {
         do {
             self.type = try container.decode(EventType.self, forKey: .type)
         } catch {
-            logError(error)
+            logError(GError.errorDecodingData(error: error, context: "InboxEvent `type` decoding. Event ID: \(id)"))
             self.type = .unrecognized
         }
 
@@ -112,7 +114,12 @@ struct InboxEvent: Identifiable, Decodable {
                 self.eventData = nil
             }
         } catch {
-            logError(error)
+            // Proposal decoding will emit a proper GError
+            if error is GError {
+                logError(error)
+            } else {
+                logError(GError.errorDecodingData(error: error, context: "InboxEvent `proposal` decoding. Event ID: \(id)"))
+            }
             self.eventData = nil
         }
     }

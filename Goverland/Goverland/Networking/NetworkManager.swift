@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Combine
@@ -19,7 +20,11 @@ class NetworkManager {
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
         #if STAGE
-        logInfo(urlRequest.description)
+        var body = ""
+        if let bodyData = urlRequest.httpBody {
+            body = String(data: bodyData, encoding: .utf8)!
+        }
+        logInfo("[REQUEST] \(urlRequest.description); \(body)")
         #endif
 
         return session

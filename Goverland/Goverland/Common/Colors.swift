@@ -3,15 +3,12 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 18.04.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
 
 extension Color {
-    static var systemDarkElevatedSecondary = Color("System Dark Elevated Secondary")
-    // TODO: change once updated in Figma
-    static var systemGrayDark = Color("System Gray Dark")
-    
     static var primary = Color("Primary")
     static var onPrimary = Color("On Primary")
     static var primaryDim = Color("Primary Dim")
@@ -34,7 +31,5 @@ extension Color {
     static var container = Color("Container")
     static var containerDim = Color("Container Dim")
     static var containerBright = Color("Container Bright")
-    static var disabled12 = Color("Disabled 12%")
-    
-    static var chartBar = Color("Chart Bar")
+    static var disabled12 = Color("Disabled 12%")    
 }

@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-02-16.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -16,9 +17,8 @@ struct EnablePushNotificationsView: View {
                 Spacer()
                 PushNotificationFooterControlsView()
             }
-            .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenOnbaordingPushNotifications) }
+            .onAppear() { Tracker.track(.screenPushNotifications) }
         }
     }
 }
@@ -39,24 +39,24 @@ fileprivate struct PushNotificationBackgroundView: View {
 }
 
 fileprivate struct PushNotificationFooterControlsView: View {
-    @Setting(\.onboardingFinished) var onboardingFinished
     @Setting(\.notificationsEnabled) var notificationsEnabled
+    @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Enable notifications") {
-                Tracker.track(.onboardingYesNotifications)
+                Tracker.track(.notificationsYes)
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
                         notificationsEnabled = granted
-                        onboardingFinished = true
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
             
             Button("No, thanks") {
-                Tracker.track(.onboardingNoNotifications)
-                onboardingFinished = true
+                Tracker.track(.notificationsNo)
+                presentationMode.wrappedValue.dismiss()
             }
             .fontWeight(.semibold)
             .padding(.bottom)
@@ -81,7 +81,7 @@ fileprivate struct PushNotificationHeaderView: View {
                 Spacer()
             }
             
-            Text("Get push notifications about new proposals, votes, treasury movements, your delegates' activity, and more")
+            Text("Get push notifications about new proposals.")
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.textWhite)
@@ -97,11 +97,5 @@ fileprivate func getPadding() -> CGFloat {
         return 30
     } else {
         return 50
-    }
-}
-
-struct EnablePushNotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnablePushNotificationsView()
     }
 }

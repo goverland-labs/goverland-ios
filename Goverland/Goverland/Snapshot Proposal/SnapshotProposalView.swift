@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-01.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -65,7 +66,7 @@ struct SnapshotProposalView: View {
                     ProposalSharingMenu(link: proposal.link)
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }

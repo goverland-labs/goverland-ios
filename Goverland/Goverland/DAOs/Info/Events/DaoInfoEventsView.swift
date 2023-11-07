@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 10.07.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -76,6 +77,7 @@ struct DaoInfoEventsView: View {
                    let proposal = events[index].eventData as? Proposal {
                     path.append(proposal)
                 }
+                selectedEventIndex = nil
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
@@ -87,14 +89,10 @@ struct DaoInfoEventsView: View {
             }
         }
         .onAppear() {
-            data.refresh()
+            if data.events?.isEmpty ?? true {
+                data.refresh()
+            }
             Tracker.track(.screenDaoFeed, parameters: ["dao_name": dao.name])
         }
-    }
-}
-
-struct DaoInfoEventsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DaoInfoEventsView(dao: .aave)
     }
 }

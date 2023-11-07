@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.03.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -49,7 +50,7 @@ struct IgnoredResponse: Decodable {
 
 // MARK: - Auth
 
-struct AuthTokenEndpoint: APIEndpoint {
+struct GuestAuthTokenEndpoint: APIEndpoint {
     typealias ResponseType = AuthTokenResponse
 
     struct AuthTokenResponse: Decodable {
@@ -69,8 +70,39 @@ struct AuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    init(deviceId: String) {
-        self.body = try! JSONEncoder().encode(["device_id": deviceId])
+    // TODO: change parameter name for guest token
+    init(guestId: String) {
+        self.body = try! JSONEncoder().encode(["device_id": guestId])
+    }
+}
+
+struct RegularAuthTokenEndpoint: APIEndpoint {
+    typealias ResponseType = AuthTokenResponse
+
+    struct AuthTokenResponse: Decodable {
+        let sessionId: String
+
+        enum CodingKeys: String, CodingKey {
+            case sessionId = "session_id"
+        }
+    }
+
+    var path: String = "auth/siwe"
+    var method: HttpMethod = .post
+    var headers: [String: String] {
+        // do not set authorization header in this request
+        return ["Content-Type": "application/json"]
+    }
+
+    var body: Data?
+
+    init(address: String, device: String, message: String, signature: String) {
+        self.body = try! JSONEncoder().encode([
+            "address": address,
+            "device": device,
+            "message": message,
+            "singature": signature
+        ])
     }
 }
 
@@ -118,6 +150,8 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - DAO Insights
+
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyActiveUsers]
     
@@ -139,6 +173,56 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     
     init(daoID: UUID) {
         self.daoID = daoID
+    }
+}
+
+struct DaoExclusiveVotersEndpoint: APIEndpoint {
+    typealias ResponseType = ExclusiveVoters
+    
+    let daoID: UUID
+    var path: String { "analytics/exclusive-voters/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct SuccessfulProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = SuccessfulProposals
+    
+    let daoID: UUID
+    var path: String { "analytics/succeeded-proposals-count/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct MonthlyNewProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyNewProposals]
+    
+    let daoID: UUID
+    var path: String { "analytics/monthly-new-proposals/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
+struct MutualDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MutualDao]
+    
+    let daoID: UUID
+    var path: String { "analytics/mutual-daos/\(daoID)" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 
@@ -267,6 +351,13 @@ struct DaoEventsEndpoint: APIEndpoint {
     }
 }
 
+struct RecentlyViewedDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    var path: String { "dao/recent" }
+    var method: HttpMethod = .get
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -280,12 +371,39 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkAllEventsReadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String { "feed/mark-as-read" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(before date: Date) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(["before": date])
+    }
+}
+
 struct MarkEventArchivedEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
     let eventID: UUID
 
     var path: String { "feed/\(eventID)/archive" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+struct MarkEventUnarchivedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/unarchive" }
     var method: HttpMethod = .post
 
     init(eventID: UUID) {

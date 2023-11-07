@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-08-13.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -69,7 +70,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                 }
             }
         }

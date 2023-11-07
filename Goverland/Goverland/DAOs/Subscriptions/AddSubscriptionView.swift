@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.06.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -10,10 +11,13 @@ import SwiftUI
 /// This view is always presented in a popover
 struct AddSubscriptionView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var dataSource = GroupedDaosDataSource.shared
+    @StateObject private var dataSource = GroupedDaosDataSource.addSubscription
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
+    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
+    @Setting(\.notificationsEnabled) private var notificationsEnabled
+
     /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos.map(String.init) {
@@ -26,9 +30,11 @@ struct AddSubscriptionView: View {
         VStack {
             if searchDataSource.searchText == "" {
                 if !dataSource.failedToLoadInitialData {
-                    GroupedDaosView(onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
-                                    onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
-                                    onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
+                    GroupedDaosView(dataSource: dataSource,
+                                    activeSheetManager: activeSheetManager,
+                                    onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
+                                    onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
+                                    onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
 
                                     onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
                                     onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
@@ -40,7 +46,7 @@ struct AddSubscriptionView: View {
                 }
             } else {
                 DaosSearchListView(onSelectDao: { dao in
-                    activeSheetManger.activeSheet = .daoInfo(dao)
+                    activeSheetManager.activeSheet = .daoInfo(dao)
                     Tracker.track(.followedAddOpenDaoFromSearch)
                 },
                                    onFollowToggle: { didFollow in
@@ -60,12 +66,12 @@ struct AddSubscriptionView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("Follow DAOs")
+                    Text("Explore DAOs")
                         .font(.title3Semibold)
                         .foregroundColor(Color.textWhite)
                 }
@@ -75,26 +81,35 @@ struct AddSubscriptionView: View {
             dataSource.refresh()
             Tracker.track(.screenFollowedDaosAdd)
         }
-        .sheet(item: $activeSheetManger.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .daoInfo(let dao):
+        .sheet(item: $activeSheetManager.activeSheet) { item in
+            switch item {
+            case .daoInfo(let dao):
+                NavigationStack {
                     DaoInfoView(dao: dao)
-                default:
-                    // should not happen
-                    EmptyView()
                 }
-            }
-            .accentColor(.primary)
-            .overlay {
-                ToastView()
+                .accentColor(.textWhite)
+                .overlay {
+                    ToastView()
+                }
+            case .subscribeToNotifications:
+                EnablePushNotificationsView()
+            default:
+                // should not happen
+                EmptyView()
             }
         }
-    }
-}
-
-struct AddSubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSubscriptionView()
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
+            // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
+            guard let subscribed = notification.object as? Bool, subscribed else { return }
+            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
+            let now = Date().timeIntervalSinceReferenceDate
+            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+                // don't promore if some active sheet already displayed
+                if activeSheetManager.activeSheet == nil {
+                    lastPromotedPushNotificationsTime = now
+                    activeSheetManager.activeSheet = .subscribeToNotifications
+                }
+            }
+        }
     }
 }

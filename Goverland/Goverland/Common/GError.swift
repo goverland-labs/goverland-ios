@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 12.07.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import Foundation
@@ -14,6 +15,7 @@ enum GError: Error {
     case voteResultsInconsistency(id: String)
     case failedVotesDecoding(proposalID: String)
     case appInconsistency(reason: String)
+    case errorDecodingData(error: Error, context: String)
 
     var localizedDescription: String {
         switch self {
@@ -29,6 +31,8 @@ enum GError: Error {
             return "Could not decode votes for proposal \(proposalID)"
         case .appInconsistency(let reason):
             return "App inconsistency: \(reason)"
+        case .errorDecodingData(let error, let context):
+            return "Error decoding data: \(error.localizedDescription); Context: \(context)"
         }
     }
 }

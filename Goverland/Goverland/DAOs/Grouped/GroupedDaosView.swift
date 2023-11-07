@@ -3,28 +3,29 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-05.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
 
 struct GroupedDaosView: View {
-    @ObservedObject var dataSource = GroupedDaosDataSource.shared
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @ObservedObject var dataSource: GroupedDaosDataSource
 
-    let callToAction: String?
-    let bottomPadding: CGFloat
+    private let activeSheetManager: ActiveSheetManager
+    private let bottomPadding: CGFloat
 
-    let onSelectDaoFromGroup: ((Dao) -> Void)?
-    let onSelectDaoFromCategoryList: ((Dao) -> Void)?
-    let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
+    private let onSelectDaoFromGroup: ((Dao) -> Void)?
+    private let onSelectDaoFromCategoryList: ((Dao) -> Void)?
+    private let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
 
-    let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
-    let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
-    let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
 
-    let onCategoryListAppear: (() -> Void)?
+    private let onCategoryListAppear: (() -> Void)?
 
-    init(callToAction: String? = nil,
+    init(dataSource: GroupedDaosDataSource,
+         activeSheetManager: ActiveSheetManager,
          bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
@@ -37,7 +38,8 @@ struct GroupedDaosView: View {
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
-        self.callToAction = callToAction
+        self.dataSource = dataSource
+        self.activeSheetManager = activeSheetManager
         self.bottomPadding = bottomPadding
 
         self.onSelectDaoFromGroup = onSelectDaoFromGroup
@@ -54,13 +56,6 @@ struct GroupedDaosView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {                
-                if let callToAction = callToAction {
-                    Text(callToAction)
-                        .font(.subheadlineRegular)
-                        .foregroundColor(.textWhite)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(16)
-                }
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
@@ -76,7 +71,8 @@ struct GroupedDaosView: View {
                         .padding(.top, 16)
                         .padding(.horizontal, 16)
 
-                        DaoThreadForCategoryView(category: category,
+                        DaoThreadForCategoryView(dataSource: dataSource, 
+                                                 category: category,
                                                  onSelectDao: onSelectDaoFromGroup,
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, 8)
@@ -97,7 +93,7 @@ struct GroupedDaosView: View {
                                        onCategoryListAppear: onCategoryListAppear)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            // refresh if some popover sheet is presented
+            // Refresh if some popover sheet is presented
             if activeSheetManager.activeSheet != nil {
                 dataSource.refresh()
             }
@@ -105,9 +101,9 @@ struct GroupedDaosView: View {
     }
 }
 
-fileprivate struct DaoThreadForCategoryView: View {
-    @ObservedObject var dataSource = GroupedDaosDataSource.shared
-    
+struct DaoThreadForCategoryView: View {
+    @ObservedObject var dataSource: GroupedDaosDataSource
+
     let category: DaoCategory
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
@@ -133,7 +129,7 @@ fileprivate struct DaoThreadForCategoryView: View {
                                 RetryLoadMoreCardView(dataSource: dataSource, category: category)
                             }
                         } else {
-                            DaoCardView(dao: dao,                                        
+                            DaoCardView(dao: dao,
                                         onSelectDao: onSelectDao,
                                         onFollowToggle: onFollowToggle)
                         }

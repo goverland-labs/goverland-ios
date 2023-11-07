@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-20.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI

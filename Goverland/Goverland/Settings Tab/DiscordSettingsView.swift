@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-31.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -11,7 +12,7 @@ struct DiscordSettingsView: View {
     var body: some View {
         HStack {
             Image("discord")
-                .foregroundColor(.primary)
+                .foregroundColor(.primaryDim)
                 .frame(width: 30)
             Button("Discord", action: openDiscordApp)
             Spacer()

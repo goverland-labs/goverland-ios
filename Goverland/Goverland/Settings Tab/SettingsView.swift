@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -28,7 +29,7 @@ struct SettingsView: View {
             List {
                 Section(header: Text("Goverland")) {
                     NavigationLink("My profile", value: SettingsScreen.profile)
-                    NavigationLink("Followed DAOs", value: SettingsScreen.subscriptions)
+                    NavigationLink("My followed DAOs", value: SettingsScreen.subscriptions)
                     NavigationLink("Notifications", value: SettingsScreen.pushNofitications)
                 }
                 
@@ -46,8 +47,16 @@ struct SettingsView: View {
                     LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
                 }
             }
-            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Settings")
+                            .font(.title3Semibold)
+                            .foregroundColor(Color.textWhite)
+                    }
+                }
+            }
             .navigationDestination(for: SettingsScreen.self) { settingsScreen in
                 switch settingsScreen {
                 case .profile: ProfileSettingsView()
@@ -87,7 +96,7 @@ fileprivate struct PushNotificationsSettingView: View {
                         }
                     } else {
                         // should not happen
-                        logError(GError.appInconsistency(reason: "enabled notifications toggle without determined permission"))
+                        logError(GError.appInconsistency(reason: "Enabled notifications toggle without determined permission."))
                     }
 
                 case .denied:
@@ -146,7 +155,7 @@ fileprivate struct AboutSettingView: View {
         List {
             HStack {
                 Image("privacy-policy")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primaryDim)
                     .frame(width: 30)
                 Text("[Privacy Policy](http://goverland.xyz/privacy)")
                 Spacer()
@@ -156,7 +165,7 @@ fileprivate struct AboutSettingView: View {
 
             HStack {
                 Image("term-service")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primaryDim)
                     .frame(width: 30)
                 Text("[Terms of Service](http://goverland.xyz/terms)")
                 Spacer()
@@ -191,7 +200,7 @@ fileprivate struct HelpUsGrowSettingView: View {
             }) {
                 HStack {
                     Image("rate-app")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.primaryDim)
                         .frame(width: 30)
                     Text("Rate the App")
                     Spacer()
@@ -214,7 +223,7 @@ fileprivate struct HelpUsGrowSettingView: View {
                 HStack {
                     HStack {
                         Image("share-tweet")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.primaryDim)
                             .frame(width: 30)
                         Text("Share a tweet")
                         Spacer()
@@ -240,7 +249,12 @@ fileprivate struct AdvancedSettingView: View {
                     SettingKeys.reset()
                     fatalError("Crash with Reset button")
                 }
-                .accentColor(.primary)
+                .accentColor(.dangerText)
+
+                Button("LOG ERROR") {
+                    logError(GError.appInconsistency(reason: "Debug test error logging"))
+                }
+                .accentColor(.textWhite60)
             }
             #endif
 
@@ -250,16 +264,15 @@ fileprivate struct AdvancedSettingView: View {
                 }
             }
 
-            if let deviceId = UIDevice.current.identifierForVendor?.uuidString {
-                Section(header: Text("Device Id")) {
-                    LabeledContent(deviceId) {
-                        Button {
-                            UIPasteboard.general.string = deviceId
-                            showToast("Copied")
-                        } label: {
-                            Image(systemName: "doc.on.doc")
-                        }
+            Section(header: Text("Auth token")) {
+                LabeledContent(SettingKeys.shared.authToken) {
+                    Button {
+                        UIPasteboard.general.string = SettingKeys.shared.authToken
+                        showToast("Copied")
+                    } label: {
+                        Image(systemName: "doc.on.doc")
                     }
+                    .foregroundColor(.primaryDim)
                 }
             }
 
@@ -279,12 +292,5 @@ fileprivate struct AdvancedSettingView: View {
             accepted = SettingKeys.shared.trackingAccepted
             Tracker.track(.screenAdvancedSettings)
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(path: .constant([]))
-            .environmentObject(ColorSchemeManager())
     }
 }

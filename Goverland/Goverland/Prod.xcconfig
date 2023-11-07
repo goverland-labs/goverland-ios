@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 29.07.23.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 // Configuration settings file format documentation can be found at:
@@ -20,4 +21,4 @@ WC_PROJECT_ID = cbca9321570134df3d46a6ec431610da
 // URLs
 BASE_URL = https:/$()/inbox.goverland.xyz
 DEFAULT_PAGINATION_COUNT = 20
-TIMEOUT = 15
+TIMEOUT = 30

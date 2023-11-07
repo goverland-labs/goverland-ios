@@ -194,8 +194,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/goverland-labs/WalletConnectSwiftV2/",
       "state" : {
-        "branch" : "goverland-styling",
-        "revision" : "26fbc7f54f9a1283287240e464e70025e4850b1e"
+        "branch" : "1.9.0-goverland-styling",
+        "revision" : "0a379b7d27f6590b449fcda77dd30fff19f96b7c"
       }
     }
   ],

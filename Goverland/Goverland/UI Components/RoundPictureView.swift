@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-14.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -21,6 +22,7 @@ struct RoundPictureView: View {
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         ProgressView()
                             .foregroundColor(.textWhite20)
+                            .controlSize(.mini)
                     } else {
                         ShimmerView()
                             .frame(width: imageSize, height: imageSize)

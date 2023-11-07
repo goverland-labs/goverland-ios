@@ -3,6 +3,7 @@
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 19.12.22.
+//  Copyright © Goverland Inc. All rights reserved.
 //
 
 import SwiftUI
@@ -76,7 +77,7 @@ struct TermsView: View {
 fileprivate struct BulletedListsDot: View {
     var body: some View {
         Circle()
-            .fill(.primary)
+            .fill(Color.primaryDim)
             .frame(width: 8, height: 8)
             .padding(.top, 6)
     }
