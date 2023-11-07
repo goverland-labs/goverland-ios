@@ -75,6 +75,10 @@
 		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
+		55BD8D502AFAA4820014982C /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4D2AFAA4820014982C /* ProfileSettingsView.swift */; };
+		55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */; };
+		55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */; };
+		55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D532AFAA4F20014982C /* SecondaryButton.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* InboxView.swift */; };
@@ -256,6 +260,10 @@
 		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
 		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
+		55BD8D4D2AFAA4820014982C /* ProfileSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
+		55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOutPopoverView.swift; sourceTree = "<group>"; };
+		55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteProfilePopoverView.swift; sourceTree = "<group>"; };
+		55BD8D532AFAA4F20014982C /* SecondaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		55C25E562A7563FD0087D56E /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		55C25E572A75641A0087D56E /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
@@ -551,6 +559,7 @@
 			children = (
 				BA6B964F2A376C4500851826 /* Follow Button */,
 				5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */,
+				55BD8D532AFAA4F20014982C /* SecondaryButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -625,6 +634,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55BD8D4C2AFAA4820014982C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				55BD8D4D2AFAA4820014982C /* ProfileSettingsView.swift */,
+				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
+				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
@@ -717,6 +736,7 @@
 				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
 				55D632B729505C070073E04A /* Settings Tab */,
+				55BD8D4C2AFAA4820014982C /* Profile */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				5597E7342A0A5C8800E2FAE4 /* Networking */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
@@ -1202,6 +1222,7 @@
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
+				55BD8D502AFAA4820014982C /* ProfileSettingsView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
@@ -1246,6 +1267,7 @@
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
+				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
@@ -1290,6 +1312,7 @@
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
+				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
@@ -1326,6 +1349,7 @@
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 				BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */,
 				BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */,
+				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,
