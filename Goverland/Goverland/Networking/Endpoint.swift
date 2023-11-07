@@ -195,6 +195,18 @@ struct MutualDaosEndpoint: APIEndpoint {
     }
 }
 
+struct TopVotePowerVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [VotePowerVoter]
+    
+    let daoID: UUID
+    var path: String { "analytics/top-voters-by-vp/\(daoID)" }
+    var method: HttpMethod = .get
+    
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {

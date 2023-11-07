@@ -22,6 +22,7 @@ struct DaoInsightsView: View {
                 .padding(10)
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
+                TopVotePowerVotersView(dao: dao)
                 MonthlyNewProposalsView(dao: dao)
                 MutualDaosView(dao: dao)
             }
