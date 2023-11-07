@@ -38,6 +38,6 @@ struct Address: Decodable, CustomStringConvertible {
 
 extension Address {
     var short: String {
-        "\(value.prefix(6))...\(value.suffix(4))"
+        value.count < 10 ? "\(value)" : "\(value.prefix(6))...\(value.suffix(4))"
     }
 }

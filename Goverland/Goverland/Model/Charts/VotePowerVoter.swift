@@ -10,12 +10,12 @@
 import SwiftUI
 
 struct VotePowerVoter: Decodable {
-    let voter: Address
+    let name: Address
     let voterPower: Double
     let voterCount: Double
 
     enum CodingKeys: String, CodingKey {
-        case voter
+        case name = "voter"
         case voterPower = "vp_avg"
         case voterCount = "votes_count"
     }

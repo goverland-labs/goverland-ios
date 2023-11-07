@@ -11,7 +11,7 @@ import Combine
 
 class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    @Published var topVotePowerVoters: [VotePowerVoter]?
+    @Published var topVotePowerVoters: [VotePowerVoter] = []
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
@@ -24,7 +24,7 @@ class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
     }
 
     func refresh() {
-        topVotePowerVoters = nil
+        topVotePowerVoters = []
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
 
@@ -39,7 +39,6 @@ class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] result, _ in
-                print(result)
                 self?.topVotePowerVoters = result
             }
             .store(in: &cancellables)

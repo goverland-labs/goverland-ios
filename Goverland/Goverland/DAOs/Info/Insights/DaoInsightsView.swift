@@ -20,11 +20,13 @@ struct DaoInsightsView: View {
                     ExclusiveVotersView(dao: dao)
                 }
                 .padding(10)
+                
+                TopVotePowerVotersView(dao: dao)
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
-                TopVotePowerVotersView(dao: dao)
-                MonthlyNewProposalsView(dao: dao)
                 MutualDaosView(dao: dao)
+                
+                MonthlyNewProposalsView(dao: dao)
             }
             .onAppear() {
                 Tracker.track(.screenDaoInsights)
