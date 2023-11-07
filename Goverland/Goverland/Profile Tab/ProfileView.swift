@@ -12,6 +12,7 @@ enum ProfileScreen {
     case settings
     case subscriptions
 
+    // Settings
     case pushNofitications
     case about
     case helpUsGrow
@@ -132,7 +133,6 @@ fileprivate struct UserProfileView: View {
                     .tint(Color.textWhite)
                 }
             }
-            .navigationTitle("My profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -140,6 +140,14 @@ fileprivate struct UserProfileView: View {
                         path.append(.settings)
                     } label: {
                         Image("settings-active")
+                    }
+                }
+
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Profile")
+                            .font(.title3Semibold)
+                            .foregroundColor(Color.textWhite)
                     }
                 }
 
@@ -160,15 +168,17 @@ fileprivate struct UserProfileView: View {
             }
             .navigationDestination(for: ProfileScreen.self) { profileScreen in
                 switch profileScreen {
-                case .settings: SettingsView(path: $path)
+                case .settings: SettingsView()
                 case .subscriptions: SubscriptionsView()
+
+                // Settings
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
                 case .partnership: PartnershipSettingView()
                 case .advanced: AdvancedSettingView()
                 }
-            }            
+            }
             .sheet(isPresented: $isDeleteProfilePopoverPresented) {
                 DeleteProfilePopoverView()
                     .presentationDetents([.medium, .large])
