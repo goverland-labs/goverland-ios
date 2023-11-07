@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
-    @Setting(\.onboardingFinished) var onboardingFinished
     @Setting(\.authToken) private var authToken
 
     var body: some View {
@@ -18,8 +17,6 @@ struct ContentView: View {
             IntroView()
         } else if authToken.isEmpty {
             SignInView()
-        } else if !onboardingFinished {
-            EnablePushNotificationsView()
         } else {
             AppTabView()
         }
