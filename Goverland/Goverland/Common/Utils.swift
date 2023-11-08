@@ -55,15 +55,6 @@ enum Utils {
         return total
     }
 
-    static func getSubscriptionsCount(from headers: HttpHeaders) -> Int? {
-        guard let totalStr = headers["x-subscriptions-count"] as? String,
-            let total = Int(totalStr) else {
-            logError(GError.missingSubscriptionsCount)
-            return nil
-        }
-        return total
-    }
-
     static func getUnreadEventsCount(from headers: HttpHeaders) -> Int? {
         guard let totalStr = headers["x-unread-count"] as? String,
             let total = Int(totalStr) else {

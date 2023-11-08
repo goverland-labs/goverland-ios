@@ -68,11 +68,10 @@ fileprivate struct SignInOnboardingHeaderView: View {
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
-                
+
                 Spacer()
             }
-        }
-        .padding(.top, getPadding())
+        }        
     }
 }
 

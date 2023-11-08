@@ -17,16 +17,12 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     private(set) var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
-    @Published var subscriptionsCount: Int = 0
-
     static let newDaos = GroupedDaosDataSource()
     static let popularDaos = GroupedDaosDataSource()
     static let search = GroupedDaosDataSource()
     static let addSubscription = GroupedDaosDataSource()
 
-    private init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
-    }
+    private init() {}
 
     func refresh() {
         categoryDaos = [:]
@@ -40,7 +36,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
-        subscriptionsCount = 0
         APIService.topDaos()
             .sink { [weak self] completion in
                 switch completion {
@@ -56,7 +51,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                 }
 
                 self?.totalDaos = Utils.getTotal(from: headers)
-                self?.subscriptionsCount = Utils.getSubscriptionsCount(from: headers) ?? 0
             }
             .store(in: &cancellables)
     }
@@ -101,14 +95,5 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     private func offset(category: DaoCategory) -> Int {
         return categoryDaos[category]?.count ?? 0
-    }
-
-    @objc private func subscriptionDidToggle(_ notification: Notification) {
-        guard let subscribed = notification.object as? Bool else { return }
-        if subscribed {
-            subscriptionsCount += 1
-        } else {
-            subscriptionsCount -= 1
-        }
     }
 }

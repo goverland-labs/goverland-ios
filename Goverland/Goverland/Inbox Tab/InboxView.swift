@@ -9,6 +9,18 @@
 import SwiftUI
 
 struct InboxView: View {
+    @Setting(\.authToken) var authToken
+
+    var body: some View {
+        if authToken.isEmpty {
+            SignInView()
+        } else {
+            _InboxView()
+        }
+    }
+}
+
+fileprivate struct _InboxView: View {
     @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 

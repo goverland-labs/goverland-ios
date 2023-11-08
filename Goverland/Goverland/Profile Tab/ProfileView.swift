@@ -28,12 +28,12 @@ struct ProfileView: View {
         if authToken.isEmpty {
             SignInView()
         } else {
-            UserProfileView(path: $path)
+            _ProfileView(path: $path)
         }
     }
 }
 
-fileprivate struct UserProfileView: View {
+fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
 
     @State private var isDeleteProfilePopoverPresented = false
