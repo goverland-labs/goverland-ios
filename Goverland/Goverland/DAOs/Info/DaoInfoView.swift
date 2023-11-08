@@ -121,7 +121,10 @@ struct DaoInfoView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
-            activeSheetManager.activeSheet = .signIn
+            // This approach is used on AppTabView and DaoInfoView
+            if activeSheetManager.activeSheet == nil {
+                activeSheetManager.activeSheet = .signIn
+            }
         }
     }
 }
