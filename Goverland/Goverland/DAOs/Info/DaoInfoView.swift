@@ -95,14 +95,16 @@ struct DaoInfoView: View {
             }
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .subscribeToNotifications:
+            switch item {
+            case .signIn:
+                SignInView()
+            case .subscribeToNotifications:
+                NavigationStack {
                     EnablePushNotificationsView()
-                default:
-                    // should not happen
-                    EmptyView()
                 }
+            default:
+                // should not happen
+                EmptyView()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
@@ -117,6 +119,9 @@ struct DaoInfoView: View {
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+            activeSheetManager.activeSheet = .signIn
         }
     }
 }

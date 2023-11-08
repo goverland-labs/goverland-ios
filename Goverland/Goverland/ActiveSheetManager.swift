@@ -9,6 +9,7 @@
 import Foundation
 
 enum ActiveSheet: Identifiable, Equatable {
+    case signIn
     case daoInfo(Dao)
     case followDaos
     case archive
@@ -16,6 +17,7 @@ enum ActiveSheet: Identifiable, Equatable {
 
     var id: Int {
         switch self {
+        case .signIn: return 0
         case .daoInfo: return 1
         case .followDaos: return 2
         case .archive: return 3

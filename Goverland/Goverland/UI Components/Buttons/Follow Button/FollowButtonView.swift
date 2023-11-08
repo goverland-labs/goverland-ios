@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FollowButtonView: View {
     @StateObject private var dataSource: FollowButtonDataSource
+    @Setting(\.authToken) private var authToken
     let buttonWidth: CGFloat
     let buttonHeight: CGFloat
     var isFollowing: Bool { dataSource.subscriptionID != nil }
@@ -18,7 +19,7 @@ struct FollowButtonView: View {
          subscriptionID: UUID?,
          onFollowToggle: ((_ didFollow: Bool) -> Void)?,
          buttonWidth: CGFloat = 100,
-         buttonHeight: CGFloat = 32) 
+         buttonHeight: CGFloat = 32)
     {
         self.buttonWidth = buttonWidth
         self.buttonHeight = buttonHeight
@@ -33,7 +34,11 @@ struct FollowButtonView: View {
             ShimmerFollowButtonView()
         } else {
             Button(action: {
-                dataSource.toggle()
+                if authToken.isEmpty {
+                    NotificationCenter.default.post(name: .unauthorizedActionAttempt, object: nil)
+                } else {
+                    dataSource.toggle()
+                }
             }) {
                 Text(isFollowing ? "Following" : "Follow")
             }
@@ -61,11 +66,5 @@ struct ShimmerFollowButtonView: View {
                 .frame(width: buttonWidth, height: buttonHeight)
                 .cornerRadius(buttonHeight / 2)
         }
-    }
-}
-
-struct FollowButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowButtonView(daoID: UUID(), subscriptionID: UUID(), onFollowToggle: nil)
     }
 }

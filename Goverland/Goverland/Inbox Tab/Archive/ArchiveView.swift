@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ArchiveView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var data = ArchiveDataSource()
     @State private var selectedEventIndex: Int?
     @State private var path = NavigationPath()
@@ -26,7 +26,7 @@ struct ArchiveView: View {
                 } else if data.events?.count == 0 {
                     // loading had finished, data.archives != nil
                     EmptyArchiveView {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }
                 } else if data.isLoading && data.events == nil {
                     // loading in progress
@@ -84,7 +84,7 @@ struct ArchiveView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                     }

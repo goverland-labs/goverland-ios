@@ -50,7 +50,7 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
     @Setting(\.notificationsEnabled) private var notificationsEnabled
@@ -113,10 +113,16 @@ struct AppTabView: View {
             let now = Date().timeIntervalSinceReferenceDate
             if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
-                if activeSheetManger.activeSheet == nil {
+                if activeSheetManager.activeSheet == nil {
                     lastPromotedPushNotificationsTime = now
-                    activeSheetManger.activeSheet = .subscribeToNotifications
+                    activeSheetManager.activeSheet = .subscribeToNotifications
                 }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+            // This approach is used on AppTabView and DaoInfoView
+            if activeSheetManager.activeSheet == nil {
+                activeSheetManager.activeSheet = .signIn
             }
         }
     }

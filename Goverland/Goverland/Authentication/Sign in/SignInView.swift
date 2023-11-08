@@ -8,9 +8,31 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Environment(\.isPresented) private var isPresented
+    @Environment(\.dismiss) private var dismiss
+    @Setting(\.authToken) private var authToken
+
     var body: some View {
         ZStack {
             SignInOnboardingBackgroundView()
+
+            if isPresented {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.textWhite20)
+                                .font(.system(size: 26))
+                        }
+                    }
+                    Spacer()
+                }
+                .padding()
+            }
+
             VStack {
                 SignInOnboardingHeaderView()
                 Spacer()
@@ -18,7 +40,12 @@ struct SignInView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenOnbaordingSignIn) }
+            .onAppear() { Tracker.track(.screenSignIn) }
+        }
+        .onChange(of: authToken) { token in
+            if !token.isEmpty && isPresented {
+                dismiss()
+            }
         }
     }
 }
@@ -65,7 +92,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
-                Tracker.track(.onboardingSignInWithWallet)
+                Tracker.track(.signInWithWallet)
                 showSignIn = true
             }
 
@@ -74,7 +101,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                     .frame(width: 30)
 
                 Button("Continue as a guest") {
-                    Tracker.track(.onboardingSignInAsGuest)
+                    Tracker.track(.signInAsGuest)
                     dataSource.guestAuth()
                 }
                 .disabled(dataSource.loading)
