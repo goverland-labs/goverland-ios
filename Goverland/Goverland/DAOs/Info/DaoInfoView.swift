@@ -66,7 +66,7 @@ struct DaoInfoView: View {
                 switch filter {
                 case .activity: DaoInfoEventsView(dao: dao)
                 case .about: DaoInfoAboutDaoView(dao: dao)
-                case .insights: DaoInsightsView(dao: dao)
+                case .insights: DaoInsightsView(dao: dao, activeSheetManager: activeSheetManager)
                 }
             }
         }
@@ -98,6 +98,14 @@ struct DaoInfoView: View {
             switch item {
             case .signIn:
                 SignInView()
+            case .daoInfo(let dao):
+                NavigationStack {
+                    DaoInfoView(dao: dao)
+                }
+                .accentColor(.textWhite)
+                .overlay {
+                    ToastView()
+                }
             case .subscribeToNotifications:
                 NavigationStack {
                     EnablePushNotificationsView()

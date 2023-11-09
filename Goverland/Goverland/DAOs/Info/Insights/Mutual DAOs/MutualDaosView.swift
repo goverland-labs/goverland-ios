@@ -11,10 +11,12 @@ import SwiftUI
 
 struct MutualDaosView: View {
     @StateObject private var dataSource: MutualDaosDataSource
+    let activeSheetManager: ActiveSheetManager
 
-    init(dao: Dao) {
+    init(dao: Dao, activeSheetManager: ActiveSheetManager) {
         let dataSource = MutualDaosDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
+        self.activeSheetManager = activeSheetManager
     }
 
     var body: some View {
@@ -37,7 +39,7 @@ struct MutualDaosView: View {
                     .foregroundColor(.textWhite)
                     .padding()
             } else {
-                MutualDaosScrollView(dataSource: dataSource)
+                MutualDaosScrollView(dataSource: dataSource, activeSheetManager: activeSheetManager)
                     .padding(.leading, 8)
             }
         }
@@ -51,9 +53,7 @@ struct MutualDaosView: View {
 
 fileprivate struct MutualDaosScrollView: View {
     @StateObject var dataSource: MutualDaosDataSource
-
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManager = ActiveSheetManager()
+    let activeSheetManager: ActiveSheetManager
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -74,21 +74,6 @@ fileprivate struct MutualDaosScrollView: View {
                                     onFollowToggle: { if $0 { Tracker.track(.daoInsightsMutualFollow) } })
                     }
                 }
-            }
-        }
-        .sheet(item: $activeSheetManager.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .daoInfo(let dao):
-                    DaoInfoView(dao: dao)
-                default:
-                    // should not happen
-                    EmptyView()
-                }
-            }
-            .accentColor(.textWhite)
-            .overlay {
-                ToastView()
             }
         }
     }
