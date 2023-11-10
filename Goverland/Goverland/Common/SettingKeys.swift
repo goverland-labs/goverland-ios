@@ -35,7 +35,11 @@ class SettingKeys: ObservableObject {
     static func reset() {
         SettingKeys.shared.termsAccepted = false
         SettingKeys.shared.trackingAccepted = false
+
         SettingKeys.shared.authToken = ""
+        WC_Manager.shared.sessionMeta = nil
+        ProfileDataSource.shared.clearCache()
+
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.unreadEvents = 0

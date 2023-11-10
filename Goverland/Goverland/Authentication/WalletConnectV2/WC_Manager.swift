@@ -44,6 +44,10 @@ class WC_Manager {
         }
 
         set {
+            if newValue == nil {
+                UserDefaults.standard.removeObject(forKey: sessionMetaKey)
+                return
+            }
             let encodedSessionMeta = try! JSONEncoder().encode(newValue)
             UserDefaults.standard.set(encodedSessionMeta, forKey: sessionMetaKey)
         }

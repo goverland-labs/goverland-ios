@@ -61,7 +61,9 @@ class SignInTwoStepsViewModel: ObservableObject {
                 // do nothing, error will be displayed to user
             } receiveValue: { response, _ in
                 SettingKeys.shared.authToken = response.sessionId
+                ProfileDataSource.shared.cache(profile: response.profile)
                 logInfo("Auth token: \(response.sessionId)")
+                logInfo("Profile: \(response.profile)")
             }
             .store(in: &cancellables)
     }

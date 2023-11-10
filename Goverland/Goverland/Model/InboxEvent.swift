@@ -13,7 +13,11 @@ protocol EventData {}
 
 extension Proposal: EventData {}
 
-struct TimelineEvent: Decodable {
+struct TimelineEvent: Decodable, Identifiable {
+    var id: Date {
+        createdAt
+    }
+
     let createdAt: Date
     let event: Event
 

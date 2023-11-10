@@ -194,11 +194,11 @@ fileprivate struct SnapshotProposalTimelineView: View {
                 Spacer()
             }
 
-            ForEach(timeline.indices) { index in
+            ForEach(timeline) { t in
                 HStack(spacing: 3) {
-                    Text(Utils.mediumDate((timeline[index].createdAt)))
+                    Text(Utils.mediumDate((t.createdAt)))
                     Text("–")
-                    Text("\(timeline[index].event.localizedName)")
+                    Text("\(t.event.localizedName)")
                     Spacer()
                 }
                 .font(.footnoteRegular)
