@@ -32,12 +32,12 @@ struct DaoInfoEventsView: View {
                 if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<3) { _ in
                             ShimmerProposalListItemView()
                                 .padding(.horizontal, 12)
                         }
                     }
-                    .padding(.top, 4)
+                    .padding(.top, 10)
                 } else {
                     List(0..<events.count, id: \.self, selection: $selectedEventIndex) { index in
                         let event = events[index]
@@ -54,6 +54,7 @@ struct DaoInfoEventsView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
@@ -65,9 +66,10 @@ struct DaoInfoEventsView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         }
-                    }                    
+                    }
                 }
             }
             .listStyle(.plain)

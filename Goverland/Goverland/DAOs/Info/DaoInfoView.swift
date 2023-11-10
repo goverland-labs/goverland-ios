@@ -56,17 +56,18 @@ struct DaoInfoView: View {
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else if let dao = dao {
-                DaoInfoScreenHeaderView(dao: dao)
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                VStack(spacing: 0) {
+                    DaoInfoScreenHeaderView(dao: dao)
+                        .padding(.horizontal)
+                        .padding(.bottom)
 
-                FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
-                    .padding(.bottom, 4)
-
-                switch filter {
-                case .activity: DaoInfoEventsView(dao: dao)
-                case .about: DaoInfoAboutDaoView(dao: dao)
-                case .insights: DaoInsightsView(dao: dao, activeSheetManager: activeSheetManager)
+                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
+                    
+                    switch filter {
+                    case .activity: DaoInfoEventsView(dao: dao)
+                    case .about: DaoInfoAboutDaoView(dao: dao)
+                    case .insights: DaoInsightsView(dao: dao, activeSheetManager: activeSheetManager)
+                    }
                 }
             }
         }
