@@ -86,16 +86,6 @@ fileprivate struct PushNotificationHeaderView: View {
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.textWhite)
                 .font(.chillaxRegular(size: 17))
-        }
-        .padding(.top, getPadding())
-    }
-}
-
-fileprivate func getPadding() -> CGFloat {
-    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.screenHeight <= 667.0 {
-        // iPhone SE or smaller
-        return 30
-    } else {
-        return 50
+        }        
     }
 }

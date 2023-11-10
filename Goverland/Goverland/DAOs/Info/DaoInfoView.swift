@@ -107,9 +107,7 @@ struct DaoInfoView: View {
                     ToastView()
                 }
             case .subscribeToNotifications:
-                NavigationStack {
-                    EnablePushNotificationsView()
-                }
+                EnablePushNotificationsView()
             default:
                 // should not happen
                 EmptyView()

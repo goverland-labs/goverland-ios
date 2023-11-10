@@ -16,23 +16,6 @@ struct SignInView: View {
         ZStack {
             SignInOnboardingBackgroundView()
 
-            if isPresented {
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.textWhite20)
-                                .font(.system(size: 26))
-                        }
-                    }
-                    Spacer()
-                }
-                .padding()
-            }
-
             VStack {
                 SignInOnboardingHeaderView()
                 Spacer()
@@ -71,16 +54,7 @@ fileprivate struct SignInOnboardingHeaderView: View {
 
                 Spacer()
             }
-        }        
-    }
-}
-
-fileprivate func getPadding() -> CGFloat {
-    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.screenHeight <= 667.0 {
-        // iPhone SE or smaller
-        return 30
-    } else {
-        return 50
+        }
     }
 }
 
