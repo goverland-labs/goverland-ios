@@ -44,8 +44,7 @@ class APIService {
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
-                    if case .notAuthorized = apiError {
-                        // This will force display of Sign In view (see ContentView file)
+                    if case .notAuthorized = apiError {                        
                         SettingKeys.shared.authToken = ""
                     }
                     if defaultErrorDisplay {

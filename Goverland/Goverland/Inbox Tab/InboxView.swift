@@ -9,6 +9,18 @@
 import SwiftUI
 
 struct InboxView: View {
+    @Setting(\.authToken) var authToken
+
+    var body: some View {
+        if authToken.isEmpty {
+            SignInView()
+        } else {
+            _InboxView()
+        }
+    }
+}
+
+fileprivate struct _InboxView: View {
     @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -113,8 +125,8 @@ struct InboxView: View {
                         }
 
                         Button {
-                            TabManager.shared.selectedTab = .settings
-                            TabManager.shared.settingsPath = [.subscriptions]
+                            TabManager.shared.selectedTab = .profile
+                            TabManager.shared.profilePath = [.subscriptions]
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }

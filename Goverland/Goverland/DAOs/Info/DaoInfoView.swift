@@ -66,7 +66,7 @@ struct DaoInfoView: View {
                 switch filter {
                 case .activity: DaoInfoEventsView(dao: dao)
                 case .about: DaoInfoAboutDaoView(dao: dao)
-                case .insights: DaoInsightsView(dao: dao)
+                case .insights: DaoInsightsView(dao: dao, activeSheetManager: activeSheetManager)
                 }
             }
         }
@@ -95,14 +95,22 @@ struct DaoInfoView: View {
             }
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .subscribeToNotifications:
-                    EnablePushNotificationsView()
-                default:
-                    // should not happen
-                    EmptyView()
+            switch item {
+            case .signIn:
+                SignInView()
+            case .daoInfo(let dao):
+                NavigationStack {
+                    DaoInfoView(dao: dao)
                 }
+                .accentColor(.textWhite)
+                .overlay {
+                    ToastView()
+                }
+            case .subscribeToNotifications:
+                EnablePushNotificationsView()
+            default:
+                // should not happen
+                EmptyView()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
@@ -116,6 +124,12 @@ struct DaoInfoView: View {
                     lastPromotedPushNotificationsTime = now
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+            // This approach is used on AppTabView and DaoInfoView
+            if activeSheetManager.activeSheet == nil {
+                activeSheetManager.activeSheet = .signIn
             }
         }
     }
