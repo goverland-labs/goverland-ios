@@ -200,7 +200,9 @@ extension APIService {
         let endpoint = ProposalEndpoint(proposalID: id)
         return shared.request(endpoint)
     }
-    
+
+    // MARK: - Voting & Votes
+
     static func votes<ChoiceType: Decodable>(proposalID: String,
                                              offset: Int = 0,
                                              limit: Int = ConfigurationManager.defaultPaginationCount,
@@ -211,6 +213,11 @@ extension APIService {
         ]
         
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func validate(proposalID: String, voter: String) -> AnyPublisher<(ProposalValidateAddressEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalValidateAddressEndpoint(proposalID: proposalID, voter: voter)
         return shared.request(endpoint)
     }
 

@@ -307,6 +307,8 @@ struct ProposalEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - Voting & Votes
+
 struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     typealias ResponseType = [Vote<ChoiceType>]
 
@@ -319,6 +321,21 @@ struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     init(proposalID: String, queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
         self.proposalID = proposalID
+    }
+}
+
+struct ProposalValidateAddressEndpoint: APIEndpoint {
+    typealias ResponseType = ProposalAddressValidation
+
+    let proposalID: String
+
+    var path: String { "proposals/\(proposalID)/validate" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(proposalID: String, voter: String) {
+        self.proposalID = proposalID
+        self.body = try! JSONEncoder().encode(["voter": voter])
     }
 }
 

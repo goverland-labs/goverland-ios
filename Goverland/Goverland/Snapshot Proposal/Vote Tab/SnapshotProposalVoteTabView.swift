@@ -48,16 +48,11 @@ struct SnapshotProposalVoteTabView: View {
     }
 
     @Namespace var namespace    
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
+    @Setting(\.authToken) private var authToken
 
     @State private var voteButtonDisabled: Bool = true
-    @State private var warningViewIsPresented = false {
-        didSet {
-            if warningViewIsPresented {
-                Tracker.track(.snpDetailsVote)
-            }
-        }
-    }
+    @State private var showSignIn = false
 
     var body: some View {
         VStack {
@@ -102,9 +97,17 @@ struct SnapshotProposalVoteTabView: View {
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
+
                 if proposal.state == .active {
-                    VoteButton(disabled: $voteButtonDisabled) {
-                        warningViewIsPresented = true
+                    if authToken.isEmpty {
+                        VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
+                            showSignIn = true
+                        }
+                    } else {
+                        VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
+                            Tracker.track(.snpDetailsVote)
+                            
+                        }
                     }
                 }
             case .results:
@@ -128,8 +131,8 @@ struct SnapshotProposalVoteTabView: View {
                 SnapshotProposalInfoView(proposal: proposal)
             }
         }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsModalView()
                 .presentationDetents([.medium, .large])
         }
     }

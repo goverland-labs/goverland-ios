@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550ACFAF2AFED63F006EF5BB /* CustYourVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */; };
+		550ACFB12AFED65C006EF5BB /* CustYourVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */; };
+		550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */; };
 		550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */; };
 		550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */; };
 		550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */; };
-		550E85702A5F4C3400B0CFDD /* VoteWarningPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855E2A5F4C3400B0CFDD /* VoteWarningPopupView.swift */; };
 		550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E855F2A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift */; };
 		550E85722A5F4C3400B0CFDD /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85602A5F4C3400B0CFDD /* VoteButton.swift */; };
 		550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85612A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift */; };
@@ -199,10 +201,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustYourVoteView.swift; sourceTree = "<group>"; };
+		550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustYourVoteModel.swift; sourceTree = "<group>"; };
+		550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalAddressValidation.swift; sourceTree = "<group>"; };
 		550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalVoteTabView.swift; sourceTree = "<group>"; };
 		550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotRankedChoiceVotingView.swift; sourceTree = "<group>"; };
 		550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotBasicVotingView.swift; sourceTree = "<group>"; };
-		550E855E2A5F4C3400B0CFDD /* VoteWarningPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteWarningPopupView.swift; sourceTree = "<group>"; };
 		550E855F2A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotWeightedVotingView.swift; sourceTree = "<group>"; };
 		550E85602A5F4C3400B0CFDD /* VoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
 		550E85612A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotSingleChoiceVotingView.swift; sourceTree = "<group>"; };
@@ -420,6 +424,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		550ACFAD2AFED5D3006EF5BB /* Cust your vote */ = {
+			isa = PBXGroup;
+			children = (
+				550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */,
+				550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */,
+			);
+			path = "Cust your vote";
+			sourceTree = "<group>";
+		};
 		550E85532A5F4C3400B0CFDD /* Vote Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,12 +456,12 @@
 		550E855B2A5F4C3400B0CFDD /* Voting */ = {
 			isa = PBXGroup;
 			children = (
+				550ACFAD2AFED5D3006EF5BB /* Cust your vote */,
 				550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */,
 				550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */,
 				550E855F2A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift */,
 				550E85612A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift */,
 				550E85622A5F4C3400B0CFDD /* SnapshotApprovalVotingView.swift */,
-				550E855E2A5F4C3400B0CFDD /* VoteWarningPopupView.swift */,
 				550E85602A5F4C3400B0CFDD /* VoteButton.swift */,
 			);
 			path = Voting;
@@ -871,6 +884,7 @@
 			children = (
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
+				550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 				5533170129F16B290034AF66 /* Address.swift */,
@@ -1263,6 +1277,7 @@
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
+				550ACFAF2AFED63F006EF5BB /* CustYourVoteView.swift in Sources */,
 				55E800A42AF825D900A43D5F /* SignInView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
@@ -1296,12 +1311,14 @@
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
+				550ACFB12AFED65C006EF5BB /* CustYourVoteModel.swift in Sources */,
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
 				BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
+				550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
@@ -1331,7 +1348,6 @@
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
-				550E85702A5F4C3400B0CFDD /* VoteWarningPopupView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
