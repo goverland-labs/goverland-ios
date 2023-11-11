@@ -1,5 +1,5 @@
 //
-//  CustYourVoteModel.swift
+//  CastYourVoteModel.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 10.11.23.
@@ -10,7 +10,7 @@
 import Foundation
 import Combine
 
-class CustYourVoteModel: ObservableObject {
+class CastYourVoteModel: ObservableObject {
     let proposal: Proposal
 
     @Published var valid: Bool?
@@ -42,12 +42,17 @@ class CustYourVoteModel: ObservableObject {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): self?.failedToValidate = true
+                case .failure(_): 
+                    self?.failedToValidate = true
+                    self?.errorMessage = "We failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
                 }
             } receiveValue: { [weak self] validation, _ in
                 switch validation.result {
-                case .success(let votingPower): self?.votingPower = votingPower
-                case .failure(let error): self?.errorMessage = error.message
+                case .success(let votingPower):
+                    self?.valid = true
+                    self?.votingPower = votingPower
+                case .failure(let error): 
+                    self?.errorMessage = error.message
                 }
             }
             .store(in: &cancellables)

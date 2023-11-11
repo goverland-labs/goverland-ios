@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550ACFAF2AFED63F006EF5BB /* CustYourVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */; };
-		550ACFB12AFED65C006EF5BB /* CustYourVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */; };
+		550ACFAF2AFED63F006EF5BB /* CastYourVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */; };
+		550ACFB12AFED65C006EF5BB /* CastYourVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */; };
 		550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */; };
 		550ACFB52AFEED3A006EF5BB /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB42AFEED3A006EF5BB /* Profile.swift */; };
 		550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */; };
@@ -203,8 +203,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustYourVoteView.swift; sourceTree = "<group>"; };
-		550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustYourVoteModel.swift; sourceTree = "<group>"; };
+		550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteView.swift; sourceTree = "<group>"; };
+		550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteModel.swift; sourceTree = "<group>"; };
 		550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalAddressValidation.swift; sourceTree = "<group>"; };
 		550ACFB42AFEED3A006EF5BB /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataSource.swift; sourceTree = "<group>"; };
@@ -428,13 +428,13 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		550ACFAD2AFED5D3006EF5BB /* Cust your vote */ = {
+		550ACFAD2AFED5D3006EF5BB /* Cast your vote */ = {
 			isa = PBXGroup;
 			children = (
-				550ACFAE2AFED63F006EF5BB /* CustYourVoteView.swift */,
-				550ACFB02AFED65C006EF5BB /* CustYourVoteModel.swift */,
+				550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */,
+				550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */,
 			);
-			path = "Cust your vote";
+			path = "Cast your vote";
 			sourceTree = "<group>";
 		};
 		550E85532A5F4C3400B0CFDD /* Vote Tab */ = {
@@ -460,7 +460,7 @@
 		550E855B2A5F4C3400B0CFDD /* Voting */ = {
 			isa = PBXGroup;
 			children = (
-				550ACFAD2AFED5D3006EF5BB /* Cust your vote */,
+				550ACFAD2AFED5D3006EF5BB /* Cast your vote */,
 				550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */,
 				550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */,
 				550E855F2A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift */,
@@ -1284,7 +1284,7 @@
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
-				550ACFAF2AFED63F006EF5BB /* CustYourVoteView.swift in Sources */,
+				550ACFAF2AFED63F006EF5BB /* CastYourVoteView.swift in Sources */,
 				55E800A42AF825D900A43D5F /* SignInView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
@@ -1319,7 +1319,7 @@
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
-				550ACFB12AFED65C006EF5BB /* CustYourVoteModel.swift in Sources */,
+				550ACFB12AFED65C006EF5BB /* CastYourVoteModel.swift in Sources */,
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,

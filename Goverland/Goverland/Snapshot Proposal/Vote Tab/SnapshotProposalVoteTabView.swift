@@ -138,7 +138,10 @@ struct SnapshotProposalVoteTabView: View {
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showVote) {
-            CustYourVoteView(proposal: proposal)
+            CastYourVoteView(proposal: proposal)
+                .overlay {
+                    ToastView()
+                }
         }
     }
 

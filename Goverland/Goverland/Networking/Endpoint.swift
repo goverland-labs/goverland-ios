@@ -331,7 +331,7 @@ struct ProposalValidateAddressEndpoint: APIEndpoint {
 
     let proposalID: String
 
-    var path: String { "proposals/\(proposalID)/validate" }
+    var path: String { "proposals/\(proposalID)/votes/validate" }
     var method: HttpMethod = .post
     var body: Data?
 
