@@ -11,6 +11,7 @@ import Foundation
 
 struct ValidationError: Error, Decodable {
     let message: String
+    let code: Int
 }
 
 struct ProposalAddressValidation: Decodable {
@@ -21,7 +22,7 @@ struct ProposalAddressValidation: Decodable {
     enum CodingKeys: String, CodingKey {
         case ok = "ok"
         case votingPower = "voting_power"
-        case error = "Error"
+        case error = "error"
     }
 
     init(from decoder: Decoder) throws {

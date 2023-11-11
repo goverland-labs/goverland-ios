@@ -51,7 +51,8 @@ class CastYourVoteModel: ObservableObject {
                 case .success(let votingPower):
                     self?.valid = true
                     self?.votingPower = votingPower
-                case .failure(let error): 
+                case .failure(let error):
+                    self?.valid = false
                     self?.errorMessage = error.message
                 }
             }
