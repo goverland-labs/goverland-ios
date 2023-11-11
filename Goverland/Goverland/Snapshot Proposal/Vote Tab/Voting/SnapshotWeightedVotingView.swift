@@ -9,51 +9,59 @@
 import SwiftUI
 
 struct SnapshotWeightedVotingView: View {
-    @StateObject private var viewModel: SnapshotWeightedVotinViewModel
+    let proposal: Proposal
     @Binding var voteButtonDisabled: Bool
+    @Binding var choicesPower: [String: Int]?
+    @State private var totalPower: Int = 0
 
-    init(proposal: Proposal, voteButtonDisabled: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: SnapshotWeightedVotinViewModel(proposal: proposal))
+    init(proposal: Proposal, voteButtonDisabled: Binding<Bool>, choice: Binding<[String: Int]?>) {
+        self.proposal = proposal
         _voteButtonDisabled = voteButtonDisabled
+        _choicesPower = choice
     }
-   
+
     var body: some View {
         VStack {
-            ForEach(viewModel.proposal.choices, id: \.self) { choice in
+            ForEach(proposal.choices, id: \.self) { choice in
                 HStack(spacing: 0) {
                     Text(choice)
                         .padding()
                         .foregroundColor(.onSecondaryContainer)
                         .font(.footnoteSemibold)
+
                     Spacer()
+
                     HStack(spacing: 0) {
                         Button(action: {
-                            viewModel.decreaseVotingPower(for: choice)
-                            voteButtonDisabled = viewModel.totalPower == 0
+                            decreaseVotingPower(for: choice)
+                            voteButtonDisabled = totalPower == 0
                         }) {
                             Image(systemName: "minus")
                                 .frame(width: 40)
                                 .padding(.vertical)
                         }
-                        Text("\(viewModel.choicesPower[choice]!)")
+
+                        Text("\(choicesPower?[choice] ?? 0)")
                             .frame(width: 20)
+
                         Button(action: {
-                            viewModel.increaseVotingPower(for: choice)
-                            voteButtonDisabled = viewModel.totalPower == 0
+                            increaseVotingPower(for: choice)
+                            voteButtonDisabled = totalPower == 0
                         }) {
                             Image(systemName: "plus")
                                 .frame(width: 40)
                                 .padding(.vertical)
                         }
                     }
-                    Text(viewModel.percentage(for: choice))
+
+                    Text(percentage(for: choice))
                         .frame(width: 55)
                 }
                 .padding(.trailing)
                 .foregroundColor(.onSecondaryContainer)
                 .font(.footnoteSemibold)
                 .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-                .background(viewModel.choicesPower[choice] != 0 ? Color.secondaryContainer : Color.clear)
+                .background((choicesPower?[choice] ?? 0) != 0 ? Color.secondaryContainer : Color.clear)
                 .cornerRadius(20)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
@@ -61,34 +69,31 @@ struct SnapshotWeightedVotingView: View {
                 )
             }
         }
-    }
-}
-
-fileprivate class SnapshotWeightedVotinViewModel: ObservableObject {
-    let proposal: Proposal
-    var totalPower: Int = 0
-    @Published var choicesPower: [String: Int] = [:]
-    
-    init(proposal: Proposal) {
-        self.proposal = proposal
-        for choice in proposal.choices {
-            self.choicesPower[choice] = 0
+        .onAppear {
+            // if trying to do the same in the init, it doesn't work 🤷‍♂️
+            if choicesPower == nil {
+                var initialChoicesPower = [String: Int]()
+                for choice in proposal.choices {
+                    initialChoicesPower[choice] = 0
+                }
+                choicesPower = initialChoicesPower
+            }
         }
     }
-    
-    func decreaseVotingPower(for choice: String) {
-        if choicesPower[choice]! > 0 {
-            choicesPower[choice]! -= 1
+
+    private func decreaseVotingPower(for choice: String) {
+        if choicesPower![choice]! > 0 {
+            choicesPower![choice]! -= 1
             totalPower -= 1
         }
     }
-    
-    func increaseVotingPower(for choice: String) {
-        choicesPower[choice]! += 1
+
+    private func increaseVotingPower(for choice: String) {
+        choicesPower![choice]! += 1
         totalPower += 1
     }
-    
-    func percentage(for choice: String) -> String {
-        return totalPower == 0 ? "0" : Utils.percentage(of: Double(choicesPower[choice]!), in: Double(totalPower))
+
+    private func percentage(for choice: String) -> String {
+        return totalPower == 0 ? "0" : Utils.percentage(of: Double(choicesPower![choice]!), in: Double(totalPower))
     }
 }

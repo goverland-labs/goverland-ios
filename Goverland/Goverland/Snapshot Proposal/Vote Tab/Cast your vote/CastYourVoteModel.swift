@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 10.11.23.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import Foundation
 import Combine
@@ -29,10 +29,12 @@ class CastYourVoteModel: ObservableObject {
         switch proposal.type {
         case .singleChoice, .basic:
             return proposal.choices[choice as! Int]
+
         case .approval:
             let approvedIndices = choice as! [Int]
             let first = proposal.choices[approvedIndices.first!]
             return approvedIndices.dropFirst().reduce(first) { r, i in "\(r), \(proposal.choices[i])" }
+
         case .rankedChoice:
             let approvedIndices = choice as! [Int]
             let first = proposal.choices[approvedIndices.first!]
@@ -41,8 +43,19 @@ class CastYourVoteModel: ObservableObject {
                 idx += 1
                 return "\(r), (\(idx)) \(proposal.choices[i])"
             }
-        default:
-            return ""
+
+        case .weighted, .quadratic:
+            let choicesPower = choice as! [String: Int]
+            let totalPower = choicesPower.values.reduce(0, +)
+
+            // to keep them sorted we will use proposal choices array
+            let choices = proposal.choices.filter { choicesPower[$0] != 0 }
+            let first = choices.first!
+            let firstPercentage = Utils.percentage(of: Double(choicesPower[first]!), in: Double(totalPower))
+            return choices.dropFirst().reduce("\(firstPercentage) for \(first)") { r, k in
+                let percentage = Utils.percentage(of: Double(choicesPower[k]!), in: Double(totalPower))
+                return "\(r), \(percentage) for \(k)"
+            }
         }
     }
 
@@ -65,7 +78,7 @@ class CastYourVoteModel: ObservableObject {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): 
+                case .failure(_):
                     self?.failedToValidate = true
                     self?.errorMessage = "We failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
                 }

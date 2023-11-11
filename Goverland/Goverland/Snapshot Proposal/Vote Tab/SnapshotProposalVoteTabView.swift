@@ -93,11 +93,16 @@ struct SnapshotProposalVoteTabView: View {
             switch chosenTab {
             case .vote:
                 switch proposal.type {
-                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
-                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
-                case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
-                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
-                case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .basic: 
+                    SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .singleChoice: 
+                    SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .approval: 
+                    SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
+                case .rankedChoice: 
+                    SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
+                case .weighted, .quadratic:
+                    SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Int]>())
                 }
 
                 if proposal.state == .active {
