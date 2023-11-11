@@ -93,9 +93,9 @@ struct SnapshotProposalVoteTabView: View {
             switch chosenTab {
             case .vote:
                 switch proposal.type {
-                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asIntBinding())
-                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asIntBinding())
-                case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 }
@@ -152,10 +152,10 @@ struct SnapshotProposalVoteTabView: View {
 }
 
 extension Binding where Value == AnyObject? {
-    func asIntBinding() -> Binding<Int?> {
-        Binding<Int?>(
+    func asOptionalTypedBinding<T>() -> Binding<T?> {
+        Binding<T?>(
             get: {
-                return self.wrappedValue as? Int
+                return self.wrappedValue as? T
             },
             set: { newValue in
                 self.wrappedValue = newValue as AnyObject?

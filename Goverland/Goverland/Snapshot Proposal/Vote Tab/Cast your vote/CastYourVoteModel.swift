@@ -29,6 +29,10 @@ class CastYourVoteModel: ObservableObject {
         switch proposal.type {
         case .singleChoice, .basic:
             return proposal.choices[choice as! Int]
+        case .approval:
+            let approvedIndices = choice as! [Int]
+            let first = proposal.choices[approvedIndices.first!]
+            return approvedIndices.dropFirst().reduce(first) { r, i in "\(r), \(proposal.choices[i])" }            
         default:
             return ""
         }
