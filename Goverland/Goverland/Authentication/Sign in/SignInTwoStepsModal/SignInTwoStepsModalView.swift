@@ -70,7 +70,7 @@ struct SignInTwoStepsModalView: View {
                     showSelectWallet = true
                 }
             } else {
-                PrimaryButton("Sign Message to Sign In") {
+                PrimaryButton("Sign message to sign in") {
                     model.authenticate()
                 }
             }

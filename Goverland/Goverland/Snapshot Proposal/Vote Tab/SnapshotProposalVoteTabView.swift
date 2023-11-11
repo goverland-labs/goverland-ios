@@ -53,6 +53,7 @@ struct SnapshotProposalVoteTabView: View {
 
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
+    @State private var showVote = false
 
     var body: some View {
         VStack {
@@ -103,10 +104,11 @@ struct SnapshotProposalVoteTabView: View {
                         VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
                             showSignIn = true
                         }
+                        // TODO: check here if session is expired and offer to connect wallet
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
                             Tracker.track(.snpDetailsVote)
-                            
+                            showVote = true
                         }
                     }
                 }
@@ -134,6 +136,9 @@ struct SnapshotProposalVoteTabView: View {
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsModalView()
                 .presentationDetents([.medium, .large])
+        }
+        .sheet(isPresented: $showVote) {
+            CustYourVoteView(proposal: proposal)
         }
     }
 

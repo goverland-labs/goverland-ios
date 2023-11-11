@@ -18,3 +18,9 @@ struct Profile: Codable {
         case regular
     }
 }
+
+extension Profile {
+    static let testRegular = Profile(
+        role: .regular,
+        accounts: [.flipside])
+}
