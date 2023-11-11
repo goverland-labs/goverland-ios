@@ -32,7 +32,15 @@ class CastYourVoteModel: ObservableObject {
         case .approval:
             let approvedIndices = choice as! [Int]
             let first = proposal.choices[approvedIndices.first!]
-            return approvedIndices.dropFirst().reduce(first) { r, i in "\(r), \(proposal.choices[i])" }            
+            return approvedIndices.dropFirst().reduce(first) { r, i in "\(r), \(proposal.choices[i])" }
+        case .rankedChoice:
+            let approvedIndices = choice as! [Int]
+            let first = proposal.choices[approvedIndices.first!]
+            var idx = 1
+            return approvedIndices.dropFirst().reduce("(\(idx)) \(first)") { r, i in
+                idx += 1
+                return "\(r), (\(idx)) \(proposal.choices[i])"
+            }
         default:
             return ""
         }

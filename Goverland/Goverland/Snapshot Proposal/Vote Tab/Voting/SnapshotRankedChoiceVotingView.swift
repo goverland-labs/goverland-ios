@@ -9,37 +9,41 @@
 import SwiftUI
 
 struct SnapshotRankedChoiceVotingView: View {
-    @State var selectedChoicesIndex: [Int] = [] {
+    let proposal: Proposal
+    @Binding var voteButtonDisabled: Bool
+    @Binding var choice: [Int]? {
         didSet {
-            voteButtonDisabled = selectedChoicesIndex.count != proposal.choices.count
+            voteButtonDisabled = choice == nil || (choice!.count != proposal.choices.count)
         }
     }
 
-    let proposal: Proposal
-    @Binding var voteButtonDisabled: Bool
-        
     var body: some View {
         VStack {
             let choices = proposal.choices
             
-            ForEach(selectedChoicesIndex, id: \.self) { choice in
-                if let index = selectedChoicesIndex.firstIndex(of: choice) {
-                    SnapshotRankedChoiceVotingButtonView(choice: choices[choice],
-                                                         choiceIndex: index + 1,
-                                                         isSelected: true) {
-                        selectedChoicesIndex.remove(at: index)
+            if choice != nil {
+                ForEach(choice!, id: \.self) { element in
+                    if let index = choice!.firstIndex(of: element) {
+                        SnapshotRankedChoiceVotingButtonView(choice: choices[element],
+                                                             choiceIndex: index + 1,
+                                                             isSelected: true) {
+                            choice!.remove(at: index)
+                        }
                     }
                 }
             }
 
-            if !selectedChoicesIndex.isEmpty{
+            if !(choice?.isEmpty ?? true) {
                 Spacer().frame(height: 20)
             }
             
-            ForEach(choices.indices, id: \.self) { choice in
-                if !selectedChoicesIndex.contains(choice) {
-                    SnapshotRankedChoiceVotingButtonView(choice: choices[choice], choiceIndex: nil, isSelected: false) {
-                        selectedChoicesIndex.append(choice)
+            ForEach(choices.indices, id: \.self) { index in
+                if !(choice?.contains(index) ?? false) {
+                    SnapshotRankedChoiceVotingButtonView(choice: choices[index], choiceIndex: nil, isSelected: false) {
+                        if choice == nil {
+                            choice = []
+                        }
+                        choice!.append(index)
                     }
                 }
             }
