@@ -441,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				550E855A2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift */,
+				550ACFAD2AFED5D3006EF5BB /* Cast your vote */,
 				550E855B2A5F4C3400B0CFDD /* Voting */,
 				550E85542A5F4C3400B0CFDD /* Result */,
 				550E85632A5F4C3400B0CFDD /* Votes */,
@@ -460,7 +461,6 @@
 		550E855B2A5F4C3400B0CFDD /* Voting */ = {
 			isa = PBXGroup;
 			children = (
-				550ACFAD2AFED5D3006EF5BB /* Cast your vote */,
 				550E855C2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift */,
 				550E855D2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift */,
 				550E855F2A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift */,

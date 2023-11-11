@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SnapshotWeightedVotingView: View {
-    @StateObject var viewModel: SnapshotWeightedVotinViewModel
+    @StateObject private var viewModel: SnapshotWeightedVotinViewModel
     @Binding var voteButtonDisabled: Bool
 
     init(proposal: Proposal, voteButtonDisabled: Binding<Bool>) {
@@ -46,7 +46,7 @@ struct SnapshotWeightedVotingView: View {
                                 .padding(.vertical)
                         }
                     }
-                    Text(viewModel.prosentage(for: choice))
+                    Text(viewModel.percentage(for: choice))
                         .frame(width: 55)
                 }
                 .padding(.trailing)
@@ -64,7 +64,7 @@ struct SnapshotWeightedVotingView: View {
     }
 }
 
-class SnapshotWeightedVotinViewModel: ObservableObject {
+fileprivate class SnapshotWeightedVotinViewModel: ObservableObject {
     let proposal: Proposal
     var totalPower: Int = 0
     @Published var choicesPower: [String: Int] = [:]
@@ -88,7 +88,7 @@ class SnapshotWeightedVotinViewModel: ObservableObject {
         totalPower += 1
     }
     
-    func prosentage(for choice: String) -> String {
+    func percentage(for choice: String) -> String {
         return totalPower == 0 ? "0" : Utils.percentage(of: Double(choicesPower[choice]!), in: Double(totalPower))
     }
 }

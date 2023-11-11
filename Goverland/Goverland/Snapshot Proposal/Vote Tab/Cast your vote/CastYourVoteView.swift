@@ -13,8 +13,8 @@ struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteModel
     @Environment(\.dismiss) private var dismiss
 
-    init(proposal: Proposal) {
-        self._model = StateObject(wrappedValue: CastYourVoteModel(proposal: proposal))
+    init(proposal: Proposal, choice: AnyObject) {
+        self._model = StateObject(wrappedValue: CastYourVoteModel(proposal: proposal, choice: choice))        
     }
 
     var vpSymbol: String {
@@ -43,11 +43,20 @@ struct CastYourVoteView: View {
                     .foregroundStyle(Color.textWhite)
                 Spacer()
                 Text("\(model.votingPower) \(vpSymbol)" )
+                    .foregroundStyle(Color.textWhite)
             }
 
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.secondaryContainer)
                 .frame(height: 2)
+
+            HStack {
+                Text("Choice")
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+                Text(model.choiceStr)
+                    .foregroundStyle(Color.textWhite)
+            }
 
             HStack {
                 Text("Validation")

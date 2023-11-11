@@ -12,6 +12,7 @@ import Combine
 
 class CastYourVoteModel: ObservableObject {
     let proposal: Proposal
+    let choice: AnyObject
 
     @Published var valid: Bool?
     @Published var votingPower = 0
@@ -24,8 +25,18 @@ class CastYourVoteModel: ObservableObject {
         WC_Manager.shared.sessionMeta!.session.accounts.first!.address
     }
 
-    init(proposal: Proposal) {
+    var choiceStr: String {
+        switch proposal.type {
+        case .singleChoice, .basic:
+            return proposal.choices[choice as! Int]
+        default:
+            return ""
+        }
+    }
+
+    init(proposal: Proposal, choice: AnyObject) {
         self.proposal = proposal
+        self.choice = choice
     }
 
     private func clear() {

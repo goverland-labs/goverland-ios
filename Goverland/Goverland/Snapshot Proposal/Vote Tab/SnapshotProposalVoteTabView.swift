@@ -51,6 +51,7 @@ struct SnapshotProposalVoteTabView: View {
     @Environment(\.presentationMode) private var presentationMode
     @Setting(\.authToken) private var authToken
 
+    @State private var choice: AnyObject?
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
     @State private var showVote = false
@@ -92,8 +93,8 @@ struct SnapshotProposalVoteTabView: View {
             switch chosenTab {
             case .vote:
                 switch proposal.type {
-                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled)
-                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asIntBinding())
+                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asIntBinding())
                 case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
                 case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
@@ -138,7 +139,7 @@ struct SnapshotProposalVoteTabView: View {
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showVote) {
-            CastYourVoteView(proposal: proposal)
+            CastYourVoteView(proposal: proposal, choice: choice!)
                 .overlay {
                     ToastView()
                 }
@@ -147,5 +148,18 @@ struct SnapshotProposalVoteTabView: View {
 
     private func skipTab(_ tab: SnapshotVoteTabType) -> Bool {
         return (proposal.state == .pending && tab == .results) || (proposal.state != .active && tab == .vote)
+    }
+}
+
+extension Binding where Value == AnyObject? {
+    func asIntBinding() -> Binding<Int?> {
+        Binding<Int?>(
+            get: {
+                return self.wrappedValue as? Int
+            },
+            set: { newValue in
+                self.wrappedValue = newValue as AnyObject?
+            }
+        )
     }
 }
