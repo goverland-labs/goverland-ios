@@ -13,7 +13,7 @@ class TabManager: ObservableObject {
         case home
         case inbox
         case search
-        case settings
+        case profile
     }
     
     @Published var selectedTab: Tab = .home {
@@ -32,14 +32,14 @@ class TabManager: ObservableObject {
                 case .search:
                     SearchModel.shared.refresh()
                     GroupedDaosDataSource.search.refresh()
-                case .settings:
-                    settingsPath = [SettingsScreen]()
+                case .profile:
+                    profilePath = [ProfileScreen]()
                 }
             }
         }
     }
     
-    @Published var settingsPath = [SettingsScreen]()
+    @Published var profilePath = [ProfileScreen]()
     @Published var dashboardPath = NavigationPath()
     @Published var inboxViewId = UUID()
     
@@ -50,7 +50,7 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
     @Setting(\.notificationsEnabled) private var notificationsEnabled
@@ -96,12 +96,12 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
             
-            SettingsView(path: $tabManager.settingsPath)
+            ProfileView(path: $tabManager.profilePath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .settings ? "settings-active" : "settings-inactive")
+                    Image(tabManager.selectedTab == .profile ? "settings-active" : "settings-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(TabManager.Tab.settings)
+                .tag(TabManager.Tab.profile)
         }
         .accentColor(.textWhite)
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
@@ -113,10 +113,16 @@ struct AppTabView: View {
             let now = Date().timeIntervalSinceReferenceDate
             if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
-                if activeSheetManger.activeSheet == nil {
+                if activeSheetManager.activeSheet == nil {
                     lastPromotedPushNotificationsTime = now
-                    activeSheetManger.activeSheet = .subscribeToNotifications
+                    activeSheetManager.activeSheet = .subscribeToNotifications
                 }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+            // This approach is used on AppTabView and DaoInfoView
+            if activeSheetManager.activeSheet == nil {
+                activeSheetManager.activeSheet = .signIn
             }
         }
     }

@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Environment(\.isPresented) private var isPresented
+    @Environment(\.dismiss) private var dismiss
+    @Setting(\.authToken) private var authToken
+
     var body: some View {
         ZStack {
             SignInOnboardingBackgroundView()
+
             VStack {
                 SignInOnboardingHeaderView()
                 Spacer()
@@ -18,7 +23,12 @@ struct SignInView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenOnbaordingSignIn) }
+            .onAppear() { Tracker.track(.screenSignIn) }
+        }
+        .onChange(of: authToken) { token in
+            if !token.isEmpty && isPresented {
+                dismiss()
+            }
         }
     }
 }
@@ -41,20 +51,10 @@ fileprivate struct SignInOnboardingHeaderView: View {
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
-                
+
                 Spacer()
             }
         }
-        .padding(.top, getPadding())
-    }
-}
-
-fileprivate func getPadding() -> CGFloat {
-    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.screenHeight <= 667.0 {
-        // iPhone SE or smaller
-        return 30
-    } else {
-        return 50
     }
 }
 
@@ -65,7 +65,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
-                Tracker.track(.onboardingSignInWithWallet)
+                Tracker.track(.signInWithWallet)
                 showSignIn = true
             }
 
@@ -74,7 +74,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                     .frame(width: 30)
 
                 Button("Continue as a guest") {
-                    Tracker.track(.onboardingSignInAsGuest)
+                    Tracker.track(.signInAsGuest)
                     dataSource.guestAuth()
                 }
                 .disabled(dataSource.loading)

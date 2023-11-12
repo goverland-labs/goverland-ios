@@ -43,6 +43,8 @@ struct GoverlandApp: App {
                 }
                 .sheet(item: $activeSheetManger.activeSheet) { item in
                     switch item {
+                    case .signIn:
+                        SignInView()
                     case .daoInfo(let dao):
                         NavigationStack {
                             DaoInfoView(dao: dao)
@@ -68,7 +70,7 @@ struct GoverlandApp: App {
                     case .subscribeToNotifications:
                         EnablePushNotificationsView()
                     }
-                }
+                }                
                 .overlay {
                     ToastView()
                 }

@@ -56,17 +56,18 @@ struct DaoInfoView: View {
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else if let dao = dao {
-                DaoInfoScreenHeaderView(dao: dao)
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                VStack(spacing: 0) {
+                    DaoInfoScreenHeaderView(dao: dao)
+                        .padding(.horizontal)
+                        .padding(.bottom)
 
-                FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
-                    .padding(.bottom, 4)
-
-                switch filter {
-                case .activity: DaoInfoEventsView(dao: dao)
-                case .about: DaoInfoAboutDaoView(dao: dao)
-                case .insights: DaoInsightsView(dao: dao)
+                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
+                    
+                    switch filter {
+                    case .activity: DaoInfoEventsView(dao: dao)
+                    case .about: DaoInfoAboutDaoView(dao: dao)
+                    case .insights: DaoInsightsView(dao: dao, activeSheetManager: activeSheetManager)
+                    }
                 }
             }
         }
@@ -95,14 +96,22 @@ struct DaoInfoView: View {
             }
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
-            NavigationStack {
-                switch item {
-                case .subscribeToNotifications:
-                    EnablePushNotificationsView()
-                default:
-                    // should not happen
-                    EmptyView()
+            switch item {
+            case .signIn:
+                SignInView()
+            case .daoInfo(let dao):
+                NavigationStack {
+                    DaoInfoView(dao: dao)
                 }
+                .accentColor(.textWhite)
+                .overlay {
+                    ToastView()
+                }
+            case .subscribeToNotifications:
+                EnablePushNotificationsView()
+            default:
+                // should not happen
+                EmptyView()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
@@ -116,6 +125,12 @@ struct DaoInfoView: View {
                     lastPromotedPushNotificationsTime = now
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+            // This approach is used on AppTabView and DaoInfoView
+            if activeSheetManager.activeSheet == nil {
+                activeSheetManager.activeSheet = .signIn
             }
         }
     }

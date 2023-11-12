@@ -26,37 +26,36 @@ struct FilterButtonsView<T: FilterOptions>: View {
     var onSelect: (T) -> Void
     
     var body: some View {
-        HStack(spacing: 0) {
-            ForEach(T.allValues) { filterOption in
-                Text(filterOption.localizedName)
-                    .padding(.bottom, 7)
-                    .overlay(BottomBorder()
-                        .stroke(filterOption.id == filter.id ? Color.primaryDim : Color.clear,
-                                lineWidth: 3))
-                    .padding(.top)
-                    .font(.footnoteSemibold)
-                    .foregroundColor(filterOption.id == filter.id ? .primaryDim : .textWhite60)
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.5)) {
-                            self.filter = filterOption
+        VStack {
+            HStack(spacing: 0) {
+                ForEach(T.allValues) { filterOption in
+                    Text(filterOption.localizedName)
+                        .padding(.bottom, 8)
+                        .background(RoundedRectangle(cornerRadius: 2, style: .continuous)
+                            .fill(filterOption.id == filter.id ? Color.primaryDim : Color.clear)
+                            .frame(height: 4)
+                            .offset(y: 2)
+                            .clipped()
+                            .frame(height: 2)
+                            .offset(y: 9)
+                        )
+                        .padding(.top)
+                        .font(.footnoteSemibold)
+                        .foregroundColor(filterOption.id == filter.id ? .primaryDim : .textWhite60)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.5)) {
+                                self.filter = filterOption
+                            }
+                            onSelect(filterOption)
                         }
-                        onSelect(filterOption)
-                    }
-                    .padding([.leading, .trailing], 12)
+                        .padding([.leading, .trailing], 12)
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
         }
-    }
-}
-
-fileprivate struct BottomBorder: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        
-        return path
+        .overlay(Rectangle()
+            .frame(height: 1)
+            .foregroundColor(Color.containerBright), alignment: .bottom)
     }
 }

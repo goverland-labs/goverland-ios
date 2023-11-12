@@ -75,6 +75,14 @@
 		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
+		55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4D2AFAA4820014982C /* ProfileView.swift */; };
+		55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */; };
+		55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */; };
+		55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D532AFAA4F20014982C /* SecondaryButton.swift */; };
+		55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */; };
+		55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */; };
+		55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */; };
+		55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */; };
 		55D632B0295055D30073E04A /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632AF295055D30073E04A /* SettingKeys.swift */; };
 		55D632B3295057880073E04A /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B2295057880073E04A /* IntroView.swift */; };
 		55D632B929505C4F0073E04A /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632B829505C4F0073E04A /* InboxView.swift */; };
@@ -259,6 +267,14 @@
 		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
 		55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsDataSource.swift; sourceTree = "<group>"; };
+		55BD8D4D2AFAA4820014982C /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOutPopoverView.swift; sourceTree = "<group>"; };
+		55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteProfilePopoverView.swift; sourceTree = "<group>"; };
+		55BD8D532AFAA4F20014982C /* SecondaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
+		55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingView.swift; sourceTree = "<group>"; };
+		55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingView.swift; sourceTree = "<group>"; };
+		55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpUsGrowSettingView.swift; sourceTree = "<group>"; };
+		55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingView.swift; sourceTree = "<group>"; };
 		55C25E562A7563FD0087D56E /* Stage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Stage.xcconfig; sourceTree = "<group>"; };
 		55C25E572A75641A0087D56E /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		55D632AF295055D30073E04A /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
@@ -557,6 +573,7 @@
 			children = (
 				BA6B964F2A376C4500851826 /* Follow Button */,
 				5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */,
+				55BD8D532AFAA4F20014982C /* SecondaryButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -633,6 +650,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		55BD8D4C2AFAA4820014982C /* Profile Tab */ = {
+			isa = PBXGroup;
+			children = (
+				55BD8D4D2AFAA4820014982C /* ProfileView.swift */,
+				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
+				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
+				55D632B729505C070073E04A /* Settings */,
+			);
+			path = "Profile Tab";
+			sourceTree = "<group>";
+		};
 		55D632B12950576C0073E04A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,16 +693,20 @@
 			path = "Search Tab";
 			sourceTree = "<group>";
 		};
-		55D632B729505C070073E04A /* Settings Tab */ = {
+		55D632B729505C070073E04A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
+				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
 				BAD5225D2A279A950097068F /* TwitterSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 				BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */,
+				55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */,
+				55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */,
+				55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */,
 			);
-			path = "Settings Tab";
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		55E800A22AF825D900A43D5F /* Sign in */ = {
@@ -722,7 +754,7 @@
 				55728B7D2ACD97AA002961FD /* Dashboard Tab */,
 				55D632B429505BDE0073E04A /* Inbox Tab */,
 				55D632B529505BEB0073E04A /* Search Tab */,
-				55D632B729505C070073E04A /* Settings Tab */,
+				55BD8D4C2AFAA4820014982C /* Profile Tab */,
 				BA2EA20229677F0800FB87AC /* Model */,
 				5597E7342A0A5C8800E2FAE4 /* Networking */,
 				5521D26F29EF0C7100A09FD4 /* UI Components */,
@@ -1199,8 +1231,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */,
+				55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */,
 				BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
+				55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* SignInTwoStepsViewModel.swift in Sources */,
@@ -1220,6 +1254,7 @@
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
+				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
@@ -1265,6 +1300,7 @@
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
+				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
@@ -1310,9 +1346,11 @@
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
+				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
+				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85702A5F4C3400B0CFDD /* VoteWarningPopupView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
@@ -1346,11 +1384,13 @@
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 				BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */,
 				BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */,
+				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,
 				55F700252AB05149008EA30C /* GraphView.swift in Sources */,
 				55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */,
+				55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
