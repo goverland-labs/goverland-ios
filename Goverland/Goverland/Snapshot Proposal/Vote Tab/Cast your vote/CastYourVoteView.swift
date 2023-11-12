@@ -65,11 +65,11 @@ struct CastYourVoteView: View {
                 if model.failedToValidate {
                     Text("-")
                         .foregroundStyle(Color.textWhite)
-                } else if model.valid == nil { // validation in progress
+                } else if model.validated == nil { // validation in progress
                     ProgressView()
                         .foregroundColor(.textWhite20)
                         .controlSize(.mini)
-                } else if model.valid! {
+                } else if model.validated! {
                     Image(systemName: "checkmark")
                         .foregroundStyle(Color.primaryDim)
                 } else {
@@ -103,8 +103,8 @@ struct CastYourVoteView: View {
                 SecondaryButton("Cancel") {
                     dismiss()
                 }
-                PrimaryButton("Confirm", isEnabled: model.valid ?? false) {
-                    // TODO: impl
+                PrimaryButton("Confirm", isEnabled: (model.validated ?? false) && !model.isPreparing) {
+                    model.prepareVote()
                 }
             }
             .padding(.horizontal)
