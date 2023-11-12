@@ -12,6 +12,7 @@ fileprivate enum Path {
     case hotProposals
     case newDaos
     case popularDaos
+    case ecosystemCharts
 }
 
 struct DashboardView: View {
@@ -49,6 +50,11 @@ struct DashboardView: View {
                     path.append(Path.popularDaos)
                 }
                 DashboardPopularDaosView()
+                
+                SectionHeader(header: "Ecosystem charts") {
+                    path.append(Path.ecosystemCharts)
+                }
+                EcosystemDashboardView()
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -86,6 +92,8 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
+                case .ecosystemCharts:
+                    EmptyView()
                 case .hotProposals:
                     TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
                                          path: $path,

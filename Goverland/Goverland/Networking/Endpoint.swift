@@ -358,6 +358,19 @@ struct RecentlyViewedDaosEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
+struct EcosystemDashboardChartsEndpoint: APIEndpoint {
+    typealias ResponseType = EcosystemChart
+    
+    let days: Int
+
+    var path: String { "analytics/ecosystem-totals/\(days)" }
+    var method: HttpMethod = .get
+    
+    init(days: Int) {
+        self.days = days
+    }
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

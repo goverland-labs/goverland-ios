@@ -145,6 +145,9 @@
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
+		BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */; };
+		BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */; };
+		BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */; };
 		BAB4B91F2A44864100D24110 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BAB4B91E2A44864100D24110 /* Lottie */; };
 		BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB4B9202A4487B400D24110 /* LottieIntroView.swift */; };
 		BAB4B9412A47495B00D24110 /* Chillax-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */; };
@@ -331,6 +334,9 @@
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
+		BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardView.swift; sourceTree = "<group>"; };
+		BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardDataSource.swift; sourceTree = "<group>"; };
+		BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChart.swift; sourceTree = "<group>"; };
 		BAB4B9202A4487B400D24110 /* LottieIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieIntroView.swift; sourceTree = "<group>"; };
 		BAB4B9402A47495B00D24110 /* Chillax-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Regular.otf"; sourceTree = "<group>"; };
 		BAB4B9422A4749A300D24110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -538,6 +544,7 @@
 				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				554243802AE04A7700504E97 /* New DAOs */,
 				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
+				BAAA2BF82B0115AC0061F890 /* Ecosystem */,
 			);
 			path = "Dashboard Tab";
 			sourceTree = "<group>";
@@ -912,6 +919,15 @@
 			path = Proposals;
 			sourceTree = "<group>";
 		};
+		BAAA2BF82B0115AC0061F890 /* Ecosystem */ = {
+			isa = PBXGroup;
+			children = (
+				BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */,
+				BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */,
+			);
+			path = Ecosystem;
+			sourceTree = "<group>";
+		};
 		BAAA526D2953ABF9003177BC /* Inbox List Item */ = {
 			isa = PBXGroup;
 			children = (
@@ -944,6 +960,7 @@
 				BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */,
 				BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */,
 				BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */,
+				BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1241,6 +1258,7 @@
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
+				BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */,
 				BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
 				BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */,
@@ -1276,6 +1294,7 @@
 				55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
+				BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */,
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
@@ -1283,6 +1302,7 @@
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
+				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,

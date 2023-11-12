@@ -231,6 +231,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func ecosystemCharts(days: Int) -> AnyPublisher<(EcosystemDashboardChartsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = EcosystemDashboardChartsEndpoint(days: days)
+        return shared.request(endpoint)
+    }
+    
     static func archivedEvents(offset: Int = 0,
                                limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(InboxEventsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
