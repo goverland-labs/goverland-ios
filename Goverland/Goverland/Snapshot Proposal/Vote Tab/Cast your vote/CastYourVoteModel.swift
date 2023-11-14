@@ -82,7 +82,7 @@ class CastYourVoteModel: ObservableObject {
         errorMessage = nil
         failedToValidate = false
         failedToPrepare = false
-        cancellables = Set<AnyCancellable>()
+        // do not clear cancellables
     }
 
     func validate() {
@@ -175,6 +175,22 @@ class CastYourVoteModel: ObservableObject {
     }
 
     private func submiteVote(signature: String) {
-        // TODO: impl
+        // TODO: isSubmitting
+        APIService.submitVote(proposal: proposal, voter: address, choice: choice, reason: nil, signature: signature)
+            .sink { [weak self] completion in
+                guard let `self` = self else { return }
+                switch completion {
+                case .finished: break
+                case .failure(_):
+                    break
+                    // TODO: impl
+//                    self.failedToPrepare = true
+//                    self.errorMessage = self.failedToPrepareMessage
+                }
+            } receiveValue: { [weak self] resp, _ in
+                guard let `self` = self else { return }
+                logInfo("RESPONSE: \(resp)")
+            }
+            .store(in: &cancellables)
     }
 }

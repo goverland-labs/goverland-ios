@@ -82,7 +82,8 @@ class WC_Manager {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { session in
-                logInfo("[WC] Sessions: \(session)")
+                // TODO: beautify log
+                //logInfo("[WC] Sessions: \(session)")
             }
             .store(in: &cancellables)
 

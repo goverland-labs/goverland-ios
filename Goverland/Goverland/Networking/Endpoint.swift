@@ -311,6 +311,36 @@ struct ProposalEndpoint: APIEndpoint {
 
 // MARK: - Voting & Votes
 
+fileprivate enum ChoiceValue: Encodable {
+    case str(String)
+    case int(Int)
+    case intArray([Int])
+    case intDictionary([String: Int])
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .str(let value):
+            try container.encode(value)
+        case .int(let value):
+            try container.encode(value)
+        case .intArray(let array):
+            try container.encode(array)
+        case .intDictionary(let dictionary):
+            try container.encode(dictionary)
+        }
+    }
+}
+
+fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> ChoiceValue {
+    switch proposal.type {
+    case .singleChoice, .basic: return .int(choice as! Int)
+    case .approval: return .intArray(choice as! [Int])
+    case .rankedChoice: return .intArray(choice as! [Int])
+    case .weighted, .quadratic: return .intDictionary(choice as! [String: Int])
+    }
+}
+
 struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     typealias ResponseType = [Vote<ChoiceType>]
 
@@ -350,46 +380,13 @@ struct ProposalPrepareVoteEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    enum ChoiceValue: Encodable {
-        case str(String)
-        case int(Int)
-        case intArray([Int])
-        case intDictionary([String: Int])
-
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .str(let value):
-                try container.encode(value)
-            case .int(let value):
-                try container.encode(value)
-            case .intArray(let array):
-                try container.encode(array)
-            case .intDictionary(let dictionary):
-                try container.encode(dictionary)
-            }
-        }
-    }
-
     init(proposal: Proposal, voter: String, choice: AnyObject, reason: String?) {
         self.proposalID = proposal.id
 
-        var body: [String: ChoiceValue] = ["voter": .str(voter)]
-
-        switch proposal.type {
-        case .singleChoice, .basic:
-            body["choice"] = .int(choice as! Int)
-
-        case .approval:
-            body["choice"] = .intArray(choice as! [Int])
-
-        case .rankedChoice:
-            body["choice"] = .intArray(choice as! [Int])
-
-        case .weighted, .quadratic:
-            body["choice"] = .intDictionary(choice as! [String: Int])
-        }
-
+        var body: [String: ChoiceValue] = [
+            "voter": .str(voter),
+            "choice": choiceForProposal(proposal, choice: choice)
+        ]
         if let reason {
             body["reason"] = .str(reason)
         }
@@ -397,6 +394,33 @@ struct ProposalPrepareVoteEndpoint: APIEndpoint {
         self.body = try! JSONEncoder().encode(body)
     }
 }
+
+struct ProposalSubmitVoteEndpoint: APIEndpoint {
+    typealias ResponseType = VoteSubmission
+
+    let proposalID: String
+
+    var path: String { "proposals/\(proposalID)/votes" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(proposal: Proposal, voter: String, choice: AnyObject, reason: String?, signature: String) {
+        self.proposalID = proposal.id
+
+        var body: [String: ChoiceValue] = [
+            "voter": .str(voter),
+            "choice": choiceForProposal(proposal, choice: choice),
+            "signature": .str(signature)
+        ]
+        if let reason {
+            body["reason"] = .str(reason)
+        }
+
+        self.body = try! JSONEncoder().encode(body)
+    }
+}
+
+
 
 // MARK: - Feed
 

@@ -230,6 +230,15 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func submitVote(proposal: Proposal,
+                           voter: String,
+                           choice: AnyObject,
+                           reason: String?,
+                           signature: String) -> AnyPublisher<(ProposalSubmitVoteEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalSubmitVoteEndpoint(proposal: proposal, voter: voter, choice: choice, reason: reason, signature: signature)
+        return shared.request(endpoint)
+    }
+
     // MARK: - Feed
 
     static func inboxEvents(offset: Int = 0,

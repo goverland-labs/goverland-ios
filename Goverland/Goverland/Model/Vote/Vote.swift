@@ -35,3 +35,7 @@ struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
         case message = "reason"
     }
 }
+
+struct VoteSubmission: Decodable {
+    let id: String
+}
