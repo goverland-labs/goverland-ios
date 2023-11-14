@@ -6,8 +6,7 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import SwiftUI
-
+import Foundation
 
 struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
     let id: String

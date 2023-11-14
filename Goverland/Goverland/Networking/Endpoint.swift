@@ -342,7 +342,7 @@ struct ProposalValidateAddressEndpoint: APIEndpoint {
 }
 
 struct ProposalPrepareVoteEndpoint: APIEndpoint {
-    typealias ResponseType = ProposalAddressValidation
+    typealias ResponseType = VoteTypedData
 
     let proposalID: String
 

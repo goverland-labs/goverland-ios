@@ -35,7 +35,7 @@ struct CastYourVoteView: View {
                 Spacer()
                 // TODO: use IdentityView with a User oject within a cached Profile object
                 // TODO: session might be not there, so connecting wallet would be required
-                Text(model.voter)
+                Text(model.address)
             }
 
             HStack {

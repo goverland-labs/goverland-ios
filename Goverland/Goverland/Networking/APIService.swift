@@ -225,7 +225,7 @@ extension APIService {
     static func prepareVote(proposal: Proposal,
                             voter: String,
                             choice: AnyObject,
-                            reason: String?) -> AnyPublisher<(ProposalValidateAddressEndpoint.ResponseType, HttpHeaders), APIError> {
+                            reason: String?) -> AnyPublisher<(ProposalPrepareVoteEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = ProposalPrepareVoteEndpoint(proposal: proposal, voter: voter, choice: choice, reason: reason)
         return shared.request(endpoint)
     }

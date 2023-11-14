@@ -18,6 +18,7 @@ struct AdvancedSettingView: View {
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
+                    WC_Manager.shared.sessionMeta = nil
                     fatalError("Crash with Reset button")
                 }
                 .accentColor(.dangerText)

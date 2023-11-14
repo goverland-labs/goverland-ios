@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import WalletConnectSign
 
 class CastYourVoteModel: ObservableObject {
     let proposal: Proposal
@@ -30,7 +31,7 @@ class CastYourVoteModel: ObservableObject {
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
 
-    var voter: String {
+    var address: String {
         // TODO: return from the cached Profile object
         WC_Manager.shared.sessionMeta!.session.accounts.first!.address
     }
@@ -72,6 +73,7 @@ class CastYourVoteModel: ObservableObject {
     init(proposal: Proposal, choice: AnyObject) {
         self.proposal = proposal
         self.choice = choice
+        listen_WC_Responses()
     }
 
     private func clear() {
@@ -85,7 +87,7 @@ class CastYourVoteModel: ObservableObject {
 
     func validate() {
         clear()
-        APIService.validate(proposalID: proposal.id, voter: voter)
+        APIService.validate(proposalID: proposal.id, voter: address)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 switch completion {
@@ -110,7 +112,7 @@ class CastYourVoteModel: ObservableObject {
 
     func prepareVote() {
         isPreparing = true
-        APIService.prepareVote(proposal: proposal, voter: voter, choice: choice, reason: nil)
+        APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isPreparing = false
@@ -120,18 +122,59 @@ class CastYourVoteModel: ObservableObject {
                     self.failedToPrepare = true
                     self.errorMessage = self.failedToPrepareMessage
                 }
-            } receiveValue: { [weak self] validation, _ in
+            } receiveValue: { [weak self] prep, _ in
                 guard let `self` = self else { return }
-                switch validation.result {
-                case .success(let votingPower):
-                    self.prepared = true
-                    // TODO: initiate signing process with wallet
-                    logInfo("[VOTE] Sucessfully prepared")
-                case .failure(let error):
-                    self.prepared = false
-                    self.errorMessage = error.message
+                self.signTypedData(prep.typedData)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func signTypedData(_ typedData: String) {
+        logInfo("[WC] eth_signTypedData: \(typedData)")
+        guard let session = WC_Manager.shared.sessionMeta?.session else { return }
+        let params = AnyCodable([address, typedData])
+
+        let request = Request(
+            topic: session.topic,
+            method: "eth_signTypedData",
+            params: params,
+            chainId: Blockchain("eip155:1")!)
+
+        Task {
+            try? await Sign.instance.request(params: request)
+        }
+
+        // TODO: code duplicate. Move to Utils
+        if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
+           let redirectUrlStr = meta.session.peer.redirect?.universal,
+           let redirectUrl = URL(string: redirectUrlStr) {
+            openUrl(redirectUrl)
+        }
+    }
+
+    private func listen_WC_Responses() {
+        Sign.instance.sessionResponsePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] response in
+                logInfo("[WC] Response: \(response)")
+                switch response.result {
+                case .error(let rpcError):
+                    logInfo("[WC] Error: \(rpcError)")
+                    showToast(rpcError.localizedDescription)
+                case .response(let signature):
+                    // signature here is AnyCodable
+                    guard let signatureStr = signature.value as? String else {
+                        logError(GError.appInconsistency(reason: "Expected signature as string. Got \(signature)"))
+                        return
+                    }
+                    logInfo("[WC] Signature: \(signatureStr)")
+                    self?.submiteVote(signature: signatureStr)
                 }
             }
             .store(in: &cancellables)
+    }
+
+    private func submiteVote(signature: String) {
+        // TODO: impl
     }
 }
