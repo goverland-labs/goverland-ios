@@ -327,7 +327,12 @@ fileprivate enum TypedValue: Encodable {
         case .intArray(let array):
             try container.encode(array)
         case .intDictionary(let dictionary):
-            try container.encode(dictionary)
+            let jsonData = try JSONEncoder().encode(dictionary)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                try container.encode(jsonString)
+            } else {
+                throw EncodingError.invalidValue(dictionary, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Failed to convert JSON data to String."))
+            }
         }
     }
 }

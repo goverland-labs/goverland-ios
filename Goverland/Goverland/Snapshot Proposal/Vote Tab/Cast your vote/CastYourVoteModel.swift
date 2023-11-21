@@ -62,12 +62,12 @@ class CastYourVoteModel: ObservableObject {
             let totalPower = choicesPower.values.reduce(0, +)
 
             // to keep them sorted we will use proposal choices array
-            let choices = proposal.choices.filter { choicesPower[$0] != 0 }
+            let choices = proposal.choices.indices.filter { choicesPower[String($0 + 1)] != 0 }
             let first = choices.first!
-            let firstPercentage = Utils.percentage(of: Double(choicesPower[first]!), in: Double(totalPower))
-            return choices.dropFirst().reduce("\(firstPercentage) for \(first)") { r, k in
-                let percentage = Utils.percentage(of: Double(choicesPower[k]!), in: Double(totalPower))
-                return "\(r), \(percentage) for \(k)"
+            let firstPercentage = Utils.percentage(of: Double(choicesPower[String(first + 1)]!), in: Double(totalPower))
+            return choices.dropFirst().reduce("\(firstPercentage) for \(first + 1)") { r, k in
+                let percentage = Utils.percentage(of: Double(choicesPower[String(k + 1)]!), in: Double(totalPower))
+                return "\(r), \(percentage) for \(k + 1)"
             }
         }
     }
