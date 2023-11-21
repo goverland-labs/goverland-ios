@@ -71,6 +71,7 @@ class WC_Manager {
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
+            sessionParams: SessionParams.goverland,
             excludedWalletIds: Wallet.recommended.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
@@ -96,4 +97,25 @@ class WC_Manager {
             }
             .store(in: &cancellables)
     }
+}
+
+extension SessionParams {
+    static let goverland: Self = {
+        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData", "eth_signTypedData_v4"]
+        let events: Set<String> = ["chainChanged", "accountsChanged"]
+        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!]
+        let namespaces: [String: ProposalNamespace] = [
+            "eip155": ProposalNamespace(
+                chains: blockchains,
+                methods: methods,
+                events: events
+            )
+        ]
+
+        return SessionParams(
+            requiredNamespaces: namespaces,
+            optionalNamespaces: nil,
+            sessionProperties: nil
+        )
+    }()
 }

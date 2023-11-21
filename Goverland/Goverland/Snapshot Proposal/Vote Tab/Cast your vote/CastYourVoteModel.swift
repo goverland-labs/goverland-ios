@@ -134,13 +134,14 @@ class CastYourVoteModel: ObservableObject {
     }
 
     private func signTypedData(_ typedData: String) {
-        logInfo("[WC] eth_signTypedData: \(typedData)")
+        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
         guard let session = WC_Manager.shared.sessionMeta?.session else { return }
         let params = AnyCodable([address, typedData])
 
+        // TODO: check if all popular wallets support eth_sighTypedData_v4
         let request = Request(
             topic: session.topic,
-            method: "eth_signTypedData",
+            method: "eth_signTypedData_v4",
             params: params,
             chainId: Blockchain("eip155:1")!)
 
