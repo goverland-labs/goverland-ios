@@ -38,4 +38,5 @@ struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
 
 struct VoteSubmission: Decodable {
     let id: String
+    let ipfs: String
 }

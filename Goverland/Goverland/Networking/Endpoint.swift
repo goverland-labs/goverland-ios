@@ -311,7 +311,7 @@ struct ProposalEndpoint: APIEndpoint {
 
 // MARK: - Voting & Votes
 
-fileprivate enum ChoiceValue: Encodable {
+fileprivate enum TypedValue: Encodable {
     case str(String)
     case int(Int)
     case intArray([Int])
@@ -332,11 +332,10 @@ fileprivate enum ChoiceValue: Encodable {
     }
 }
 
-fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> ChoiceValue {
+fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> TypedValue {
     switch proposal.type {
-    case .singleChoice, .basic: return .int(choice as! Int)
-    case .approval: return .intArray(choice as! [Int])
-    case .rankedChoice: return .intArray(choice as! [Int])
+    case .singleChoice, .basic: return .int((choice as! Int) + 1) // enumeration starts with 1
+    case .approval, .rankedChoice: return .intArray((choice as! [Int]).map { $0 + 1 })
     case .weighted, .quadratic: return .intDictionary(choice as! [String: Int])
     }
 }
@@ -383,7 +382,7 @@ struct ProposalPrepareVoteEndpoint: APIEndpoint {
     init(proposal: Proposal, voter: String, choice: AnyObject, reason: String?) {
         self.proposalID = proposal.id
 
-        var body: [String: ChoiceValue] = [
+        var body: [String: TypedValue] = [
             "voter": .str(voter),
             "choice": choiceForProposal(proposal, choice: choice)
         ]
@@ -400,27 +399,22 @@ struct ProposalSubmitVoteEndpoint: APIEndpoint {
 
     let proposalID: String
 
-    var path: String { "proposals/\(proposalID)/votes" }
+//    var path: String { "proposals/\(proposalID)/votes" }
+    var path: String { "proposals/votes" }
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, voter: String, choice: AnyObject, reason: String?, signature: String) {
+    init(proposal: Proposal, id: Int, signature: String) {
         self.proposalID = proposal.id
 
-        var body: [String: ChoiceValue] = [
-            "voter": .str(voter),
-            "choice": choiceForProposal(proposal, choice: choice),
-            "signature": .str(signature)
+        let body: [String: TypedValue] = [
+            "id": .int(id),
+            "sig": .str(signature)
         ]
-        if let reason {
-            body["reason"] = .str(reason)
-        }
 
         self.body = try! JSONEncoder().encode(body)
     }
 }
-
-
 
 // MARK: - Feed
 

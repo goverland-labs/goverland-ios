@@ -10,9 +10,11 @@
 import Foundation
 
 struct VoteTypedData: Decodable {
+    let id: Int
     let typedData: String
 
     enum CodingKeys: String, CodingKey {
+        case id
         case typedData = "typed_data"
     }
 }

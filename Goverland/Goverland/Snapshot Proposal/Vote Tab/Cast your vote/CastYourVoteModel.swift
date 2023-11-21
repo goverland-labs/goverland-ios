@@ -31,6 +31,8 @@ class CastYourVoteModel: ObservableObject {
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
 
+    private var voteRequestId: Int?
+
     var address: String {
         // TODO: return from the cached Profile object
         WC_Manager.shared.sessionMeta!.session.accounts.first!.address
@@ -112,6 +114,7 @@ class CastYourVoteModel: ObservableObject {
 
     func prepareVote() {
         isPreparing = true
+        voteRequestId = nil
         APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
@@ -124,6 +127,7 @@ class CastYourVoteModel: ObservableObject {
                 }
             } receiveValue: { [weak self] prep, _ in
                 guard let `self` = self else { return }
+                self.voteRequestId = prep.id
                 self.signTypedData(prep.typedData)
             }
             .store(in: &cancellables)
@@ -176,7 +180,8 @@ class CastYourVoteModel: ObservableObject {
 
     private func submiteVote(signature: String) {
         // TODO: isSubmitting
-        APIService.submitVote(proposal: proposal, voter: address, choice: choice, reason: nil, signature: signature)
+        guard let voteRequestId else { return }
+        APIService.submitVote(proposal: proposal, id: voteRequestId, signature: signature)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 switch completion {
