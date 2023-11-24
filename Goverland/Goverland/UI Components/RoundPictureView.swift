@@ -19,15 +19,9 @@ struct RoundPictureView: View {
         if !failedToLoad {
             KFImage(image)
                 .placeholder {
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        ProgressView()
-                            .foregroundColor(.textWhite20)
-                            .controlSize(.mini)
-                    } else {
-                        ShimmerView()
-                            .frame(width: imageSize, height: imageSize)
-                            .cornerRadius(imageSize / 2)
-                    }
+                    ShimmerView()
+                        .frame(width: imageSize, height: imageSize)
+                        .cornerRadius(imageSize / 2)
                 }
                 .onFailure { _ in
                     failedToLoad = true
