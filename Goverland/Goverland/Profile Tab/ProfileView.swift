@@ -71,94 +71,119 @@ struct ProfileView: View {
 }
 
 fileprivate struct _ProfileView: View {
-    @State private var isDeleteProfilePopoverPresented = false
-    @State private var isSignOutPopoverPresented = false
-
-    private let user = User.aaveChan
-    private let devices = [["IPhone 14 Pro", "Sandefjord, Norway", "online"],
-                           ["IPhone 13", "Tbilisi, Georgia", "Apr 10"]]
+    @StateObject private var dataSource = ProfileDataSource.shared
 
     var body: some View {
         VStack {
-            Circle()
-                .fill(Color.gray)
-                .frame(width: 70, height: 70)
-            Text((user.resolvedName != nil) ? user.resolvedName! : "Unnamed")
-                .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+            if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource)
+            } else if dataSource.profile == nil { // is loading
+                // TODO: use ProfileHeaderShimmerView
+                ProgressView()
+                    .foregroundColor(.textWhite20)
+                    .controlSize(.regular)
+                    .padding(.top, 16)
+                Spacer()
+            } else if let profile = dataSource.profile {
+                ProfileHeaderView(user: profile.accounts.first!)
+                ProfileListView(profile: profile)
+            }
         }
+        .onAppear {
+            dataSource.refresh()
+        }
+    }
+}
+
+fileprivate struct ProfileHeaderView: View {
+    let user: User
+
+    var body: some View {
+        VStack(alignment: .center) {
+            RoundPictureView(image: user.avatar, imageSize: 70)
+
+            ZStack {
+                if let name = user.resolvedName {
+                    Text(name)
+                        .truncationMode(.tail)
+                } else {
+                    Text("Unnamed")
+                }
+            }
+            .font(.title3Semibold)
+            .lineLimit(1)
+            .foregroundColor(.textWhite)
+        }
+        .padding(26)
+    }
+}
+
+fileprivate struct ProfileListView: View {
+    let profile: Profile
+
+    var user: User {
+        profile.accounts.first!
+    }
+
+    @State private var isDeleteProfilePopoverPresented = false
+    @State private var isSignOutPopoverPresented = false
+
+    var body: some View {
         List {
             Section {
                 NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
             }
 
-            Section() {
-                NavigationLink("", destination: EmptyView())
-                    .background(
-                        HStack {
-                            Text("Accounts")
-                            Spacer()
-                            Image(systemName: "plus")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 17)
-                                .foregroundColor(Color.onPrimary)
-                        }
-                            .foregroundColor(Color.onPrimary)
-                    )
-                    .listRowBackground(Color.primaryDim)
+            // TODO: place notifications here
 
-                if user.resolvedName != nil {
-                    NavigationLink("", destination: EmptyView())
-                        .frame(height: 40)
-                        .background(
-                            HStack {
-                                Image(systemName: "circle")
-                                    .frame(width:20, height: 20)
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(user.resolvedName!)
-                                        .font(.bodyRegular)
-                                        .foregroundColor(.textWhite)
-                                    Text(user.address.short)
-                                        .font(.сaptionRegular)
-                                        .foregroundColor(.textWhite60)
-                                }
-                                Spacer()
-                            })
+            Section {
+                HStack {
+                    Text("Accounts")
+                    Spacer()
                 }
+                .foregroundColor(Color.onPrimary)
+                .listRowBackground(Color.primaryDim)
 
-                NavigationLink("", destination: EmptyView())
-                    .background(
-                        HStack {
-                            HStack {
-                                Image(systemName: "circle")
-                                    .frame(width:20, height: 20)
-                                Text(user.address.short)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-                            }
-                            Spacer()
-                        })
+                HStack(spacing: 8) {
+                    UserPictureView(user: user, imageSize: 20)
+
+                    if let name = user.resolvedName {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(user.resolvedName!)
+                                .font(.bodyRegular)
+                                .foregroundColor(.textWhite)
+                            Text(user.address.short)
+                                .font(.сaptionRegular)
+                                .foregroundColor(.textWhite60)
+                        }
+                    } else {
+                        Text(user.address.short)
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                    }
+
+                    Spacer()
+                }
             }
 
-            Section(header: Text("Devices")) {
-                ForEach(devices.indices) { i in
-                    NavigationLink("", destination: EmptyView())
-                        .frame(height: 40)
-                        .background(
-                            HStack {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(devices[i][0])
-                                        .font(.bodyRegular)
-                                        .foregroundColor(.textWhite)
-                                    Text("\(devices[i][1]) - \(devices[i][2])")
-                                        .font(.footnoteRegular)
-                                        .foregroundColor(.textWhite60)
-                                }
-                                Spacer()
-                            }
-                        )}
-            }
+//            Section(header: Text("Devices")) {
+//                ForEach(devices.indices) { i in
+//                    NavigationLink("", destination: EmptyView())
+//                        .frame(height: 40)
+//                        .background(
+//                            HStack {
+//                                VStack(alignment: .leading, spacing: 5) {
+//                                    Text(devices[i][0])
+//                                        .font(.bodyRegular)
+//                                        .foregroundColor(.textWhite)
+//                                    Text("\(devices[i][1]) - \(devices[i][2])")
+//                                        .font(.footnoteRegular)
+//                                        .foregroundColor(.textWhite60)
+//                                }
+//                                Spacer()
+//                            }
+//                        )}
+//            }
 
             Section() {
                 Button("Sign out") {
@@ -171,6 +196,9 @@ fileprivate struct _ProfileView: View {
                 }
                 .tint(Color.textWhite)
             }
+        }
+        .refreshable {
+            ProfileDataSource.shared.refresh()
         }
         .sheet(isPresented: $isDeleteProfilePopoverPresented) {
             DeleteProfilePopoverView()

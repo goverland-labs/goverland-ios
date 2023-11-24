@@ -10,11 +10,14 @@
 import Foundation
 import Combine
 
-class ProfileDataSource: ObservableObject {
+class ProfileDataSource: ObservableObject, Refreshable {
     @Published var profile: Profile?
+    @Published var failedToLoadInitialData = false
+
+    private var cancellables = Set<AnyCancellable>()
 
     static let shared = ProfileDataSource()
-    static let profileKey = "xyz.goverland.Profile"
+    static let profileKey = "xyz.goverland.profile"
 
     private init() {
         // try to get Profile from cache
@@ -24,7 +27,27 @@ class ProfileDataSource: ObservableObject {
         }
     }
 
-    // TODO: fetch profile by endpoint
+    func refresh() {
+        profile = nil
+        failedToLoadInitialData = false
+        cancellables = Set<AnyCancellable>()
+
+        loadProfile()
+    }
+
+    private func loadProfile() {
+        APIService.profile()
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] profile, _ in
+                self?.profile = profile
+                self?.cache(profile: profile)
+            }
+            .store(in: &cancellables)
+    }
 
     func cache(profile: Profile) {
         let encodedProfile = try! JSONEncoder().encode(profile)

@@ -108,6 +108,29 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - Profile
+
+struct ProfileEndpoint: APIEndpoint {
+    typealias ResponseType = Profile
+
+    var path: String = "me"
+    var method: HttpMethod = .get
+}
+
+struct LogoutEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "logout"
+    var method: HttpMethod = .post
+}
+
+struct DeleteProfileEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "me"
+    var method: HttpMethod = .delete
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {

@@ -79,6 +79,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    // MARK: - Profile
+
+    static func profile() -> AnyPublisher<(ProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProfileEndpoint()
+        return shared.request(endpoint)
+    }
+
     // MARK: - DAOs
     
     static func daos(offset: Int = 0,

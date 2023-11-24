@@ -677,10 +677,10 @@
 			isa = PBXGroup;
 			children = (
 				55BD8D4D2AFAA4820014982C /* ProfileView.swift */,
+				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
 				55D632B729505C070073E04A /* Settings */,
-				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 			);
 			path = "Profile Tab";
 			sourceTree = "<group>";

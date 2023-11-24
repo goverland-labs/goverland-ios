@@ -1,0 +1,10 @@
+{
+    "role": "regular",
+    "accounts": [
+        {
+            "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+            "resolved_name": "vitalik.eth",
+            "avatar": "https://metadata.ens.domains/mainnet/avatar/vitalik.eth"
+        }
+    ]
+}
