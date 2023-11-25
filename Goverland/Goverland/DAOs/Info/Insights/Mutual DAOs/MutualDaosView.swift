@@ -41,6 +41,7 @@ struct MutualDaosView: View {
             } else {
                 MutualDaosScrollView(dataSource: dataSource, activeSheetManager: activeSheetManager)
                     .padding(.leading, 8)
+                    .padding(.bottom, 16)
             }
         }
         .onAppear {

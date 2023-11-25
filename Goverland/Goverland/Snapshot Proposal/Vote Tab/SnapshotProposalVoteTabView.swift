@@ -107,6 +107,7 @@ struct SnapshotProposalVoteTabView: View {
 
                 if proposal.state == .active {
                     if authToken.isEmpty {
+                        // TODO: detect if this is a guest user
                         VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
                             showSignIn = true
                         }

@@ -26,6 +26,7 @@ struct InboxView: View {
                         }
                     }
             }
+            .environment(\.horizontalSizeClass, .compact)
         } else {
             _InboxView()
         }
