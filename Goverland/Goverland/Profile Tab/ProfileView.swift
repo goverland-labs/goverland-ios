@@ -78,11 +78,7 @@ fileprivate struct _ProfileView: View {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else if dataSource.profile == nil { // is loading
-                // TODO: use ProfileHeaderShimmerView
-                ProgressView()
-                    .foregroundColor(.textWhite20)
-                    .controlSize(.regular)
-                    .padding(.top, 16)
+                ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = dataSource.profile {
                 ProfileHeaderView(user: profile.accounts.first!)
@@ -114,7 +110,22 @@ fileprivate struct ProfileHeaderView: View {
             .lineLimit(1)
             .foregroundColor(.textWhite)
         }
-        .padding(26)
+        .padding(24)
+    }
+}
+
+fileprivate struct ShimmerProfileHeaderView: View {
+    var body: some View {
+        VStack(alignment: .center) {
+            ShimmerView()
+                .frame(width: 70, height: 70)
+                .cornerRadius(35)
+
+            ShimmerView()
+                .cornerRadius(24)
+                .frame(width: 100, height: 24)
+        }
+        .padding(24)
     }
 }
 
@@ -132,13 +143,14 @@ fileprivate struct ProfileListView: View {
         List {
             Section {
                 NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
+                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 
             // TODO: place notifications here
 
             Section {
                 HStack {
-                    Text("Accounts")
+                    Text("Account")
                     Spacer()
                 }
                 .foregroundColor(Color.onPrimary)
