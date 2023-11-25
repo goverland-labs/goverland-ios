@@ -47,7 +47,8 @@ fileprivate struct _InboxView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Group {
                 if data.failedToLoadInitialData {
-                    RetryInitialLoadingView(dataSource: data)
+                    RetryInitialLoadingView(dataSource: data,
+                                            message: "Sorry, we couldn’t load the inbox")
                 } else if data.events?.count == 0 {
                     // loading had finished, data.events != nil
                     EmptyInboxView()

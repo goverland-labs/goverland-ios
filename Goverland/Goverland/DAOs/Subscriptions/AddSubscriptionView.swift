@@ -42,7 +42,7 @@ struct AddSubscriptionView: View {
 
                                     onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) })
                 } else {
-                    RetryInitialLoadingView(dataSource: dataSource)
+                    RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAOs list")
                 }
             } else {
                 DaosSearchListView(onSelectDao: { dao in

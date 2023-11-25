@@ -30,6 +30,7 @@ struct EmptyInboxView: View {
                 TabManager.shared.selectedTab = .profile
                 TabManager.shared.profilePath = [.subscriptions]
             }
+            Spacer()
         }
         .padding([.horizontal, .bottom], 16)
         .onAppear {

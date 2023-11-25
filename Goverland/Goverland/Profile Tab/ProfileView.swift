@@ -76,7 +76,7 @@ fileprivate struct _ProfileView: View {
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
             } else if dataSource.profile == nil { // is loading
                 ShimmerProfileHeaderView()
                 Spacer()

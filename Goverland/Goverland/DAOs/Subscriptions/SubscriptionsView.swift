@@ -22,7 +22,7 @@ struct SubscriptionsView: View {
                     Spacer()
                 }
             } else if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAOs list")
             } else if dataSource.subscriptions.isEmpty {
                 NoSubscriptionsView()
             } else {

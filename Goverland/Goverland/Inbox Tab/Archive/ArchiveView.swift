@@ -22,7 +22,8 @@ struct ArchiveView: View {
         NavigationStack(path: $path) {
             Group {
                 if data.failedToLoadInitialData {
-                    RetryInitialLoadingView(dataSource: data)
+                    RetryInitialLoadingView(dataSource: data,
+                                            message: "Sorry, we couldn’t load the archive")
                 } else if data.events?.count == 0 {
                     // loading had finished, data.archives != nil
                     EmptyArchiveView {

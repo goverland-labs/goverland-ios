@@ -65,7 +65,7 @@ struct SearchView: View {
 
                                                 onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
                             } else {
-                                RetryInitialLoadingView(dataSource: daos)
+                                RetryInitialLoadingView(dataSource: daos, message: "Sorry, we couldn’t load DAOs")
                             }
                         }
                         .onAppear() {
@@ -79,7 +79,7 @@ struct SearchView: View {
                                                  openProposalFromListItemTrackingEvent: .searchPrpOpenFromCard,
                                                  openDaoFromListItemTrackingEvent: .searchPrpOpenDaoFromCard)
                         } else {
-                            RetryInitialLoadingView(dataSource: proposals)
+                            RetryInitialLoadingView(dataSource: proposals, message: "Sorry, we couldn’t load proposals")
                         }
                     }
 

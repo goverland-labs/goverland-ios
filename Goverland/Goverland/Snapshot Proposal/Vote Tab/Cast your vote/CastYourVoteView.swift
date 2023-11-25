@@ -36,6 +36,9 @@ struct CastYourVoteView: View {
                 // TODO: use IdentityView
                 if let address = model.profile?.address {
                     Text(address)
+                } else if model.failedToValidate {
+                    Text("-")
+                        .foregroundStyle(Color.textWhite)
                 } else {
                     ProgressView()
                         .foregroundColor(.textWhite20)
