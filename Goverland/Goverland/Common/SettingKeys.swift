@@ -38,7 +38,7 @@ class SettingKeys: ObservableObject {
 
         SettingKeys.shared.authToken = ""
         WC_Manager.shared.sessionMeta = nil
-        ProfileDataSource.shared.clearCache()
+        Profile.clearCache()
 
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0

@@ -17,15 +17,8 @@ class ProfileDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     static let shared = ProfileDataSource()
-    static let profileKey = "xyz.goverland.profile"
 
-    private init() {
-        // try to get Profile from cache
-        if let encodedProfile = UserDefaults.standard.data(forKey: Self.profileKey),
-           let profile = try? JSONDecoder().decode(Profile.self, from: encodedProfile) {
-            self.profile = profile
-        }
-    }
+    private init() {}
 
     func refresh() {
         profile = nil
@@ -44,17 +37,8 @@ class ProfileDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
-                self?.cache(profile: profile)
+                profile.cache()
             }
             .store(in: &cancellables)
-    }
-
-    func cache(profile: Profile) {
-        let encodedProfile = try! JSONEncoder().encode(profile)
-        UserDefaults.standard.set(encodedProfile, forKey: Self.profileKey)
-    }
-
-    func clearCache() {
-        UserDefaults.standard.removeObject(forKey: Self.profileKey)
     }
 }

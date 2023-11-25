@@ -28,7 +28,7 @@ class WC_Manager {
     private let sessionMetaKey = "xyz.goverland.wc_session_meta"
 
     struct SessionMeta: Codable {
-        let session: Session
+        let session: WalletConnectSign.Session
         let walletOnSameDevice: Bool
     }
 

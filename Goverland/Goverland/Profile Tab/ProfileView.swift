@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftDate
 
 enum ProfileScreen {
     case settings
@@ -33,7 +34,6 @@ struct ProfileView: View {
                     _ProfileView()
                 }
             }
-
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -74,7 +74,7 @@ fileprivate struct _ProfileView: View {
     @StateObject private var dataSource = ProfileDataSource.shared
 
     var body: some View {
-        VStack {
+        Group {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource)
             } else if dataSource.profile == nil { // is loading
@@ -86,7 +86,9 @@ fileprivate struct _ProfileView: View {
             }
         }
         .onAppear {
-            dataSource.refresh()
+            if dataSource.profile == nil {
+                dataSource.refresh()
+            }
         }
     }
 }
@@ -146,8 +148,6 @@ fileprivate struct ProfileListView: View {
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 
-            // TODO: place notifications here
-
             Section {
                 HStack {
                     Text("Account")
@@ -178,24 +178,29 @@ fileprivate struct ProfileListView: View {
                 }
             }
 
-//            Section(header: Text("Devices")) {
-//                ForEach(devices.indices) { i in
-//                    NavigationLink("", destination: EmptyView())
-//                        .frame(height: 40)
-//                        .background(
-//                            HStack {
-//                                VStack(alignment: .leading, spacing: 5) {
-//                                    Text(devices[i][0])
-//                                        .font(.bodyRegular)
-//                                        .foregroundColor(.textWhite)
-//                                    Text("\(devices[i][1]) - \(devices[i][2])")
-//                                        .font(.footnoteRegular)
-//                                        .foregroundColor(.textWhite60)
-//                                }
-//                                Spacer()
-//                            }
-//                        )}
-//            }
+            Section(header: Text("Devices")) {
+                ForEach(profile.sessions) { s in
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(s.device)
+                                .font(.bodyRegular)
+                                .foregroundColor(.textWhite)
+                            
+                            if s.lastActivity + 10.minutes > .now {
+                                Text("Online")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            } else {
+                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                Text("Last activity \(activity)")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+            }
 
             Section() {
                 Button("Sign out") {

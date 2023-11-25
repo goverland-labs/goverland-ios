@@ -46,7 +46,7 @@ class APIService {
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {                        
                         SettingKeys.shared.authToken = ""
-                        ProfileDataSource.shared.clearCache()
+                        Profile.clearCache()
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)
