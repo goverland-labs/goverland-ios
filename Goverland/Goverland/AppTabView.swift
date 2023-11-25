@@ -98,7 +98,7 @@ struct AppTabView: View {
             
             ProfileView(path: $tabManager.profilePath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .profile ? "settings-active" : "settings-inactive")
+                    Image(tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.profile)

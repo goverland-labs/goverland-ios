@@ -13,7 +13,19 @@ struct InboxView: View {
 
     var body: some View {
         if authToken.isEmpty {
-            SignInView()
+            NavigationView {
+                SignInView()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("Inbox")
+                                    .font(.title3Semibold)
+                                    .foregroundColor(Color.textWhite)
+                            }
+                        }
+                    }
+            }
         } else {
             _InboxView()
         }
