@@ -20,10 +20,8 @@ class SignInDataSource: ObservableObject {
             .sink { [weak self] _ in
                 self?.loading = false
             } receiveValue: { response, headers in
-                // TODO: use a proper profile object
-                let profile = Profile.testRegular
-                SettingKeys.shared.storeAuthTokenAndCacheProfile(authToken: response.sessionId, profile: profile)
-                logInfo("Auth token: \(response.sessionId); Profile: \(profile)")
+                SettingKeys.shared.authToken = response.sessionId
+                logInfo("Auth token: \(response.sessionId)")
             }
             .store(in: &cancellables)
     }

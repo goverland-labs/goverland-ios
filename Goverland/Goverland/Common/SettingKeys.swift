@@ -36,25 +36,13 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.termsAccepted = false
         SettingKeys.shared.trackingAccepted = false
 
-        SettingKeys.shared.clearAuthTokenAndCachedProfile()
+        SettingKeys.shared.authToken = ""
 
         WC_Manager.shared.sessionMeta = nil
 
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.unreadEvents = 0
-    }
-
-    // We want to assure that we cache profile when storing auth tokens
-    // and clear cached profile when reseting token
-    func storeAuthTokenAndCacheProfile(authToken: String, profile: Profile) {
-        self.authToken = authToken
-        profile.cache()
-    }
-
-    func clearAuthTokenAndCachedProfile() {
-        SettingKeys.shared.authToken = ""
-        Profile.clearCache()
     }
 }
 

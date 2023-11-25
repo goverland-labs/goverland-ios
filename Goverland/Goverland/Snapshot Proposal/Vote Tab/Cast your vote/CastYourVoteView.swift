@@ -33,9 +33,14 @@ struct CastYourVoteView: View {
                 Text("Account")
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                // TODO: use IdentityView with a User oject within a cached Profile object
-                // TODO: session might be not there, so connecting wallet would be required
-                Text(model.address)
+                // TODO: use IdentityView
+                if let address = model.profile?.address {
+                    Text(address)
+                } else {
+                    ProgressView()
+                        .foregroundColor(.textWhite20)
+                        .controlSize(.mini)
+                }
             }
 
             HStack {
@@ -103,7 +108,7 @@ struct CastYourVoteView: View {
                 SecondaryButton("Cancel") {
                     dismiss()
                 }
-                PrimaryButton("Confirm", isEnabled: (model.validated ?? false) && !model.isPreparing) {
+                PrimaryButton("Sign", isEnabled: (model.validated ?? false) && !model.isPreparing) {
                     model.prepareVote()
                 }
             }

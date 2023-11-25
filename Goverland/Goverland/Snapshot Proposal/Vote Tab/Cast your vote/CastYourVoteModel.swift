@@ -28,14 +28,14 @@ class CastYourVoteModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
 
+    private let failedToLoadProfileMessage = "Failed to load user profile. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
 
     private var voteRequestId: Int?
 
-    var address: String {
-        // We can be here only when cached profile exists
-        Profile.cached!.accounts.first!.address.value
+    var profile: Profile? {
+        ProfileDataSource.shared.profile
     }
 
     var choiceStr: String {
@@ -89,6 +89,23 @@ class CastYourVoteModel: ObservableObject {
 
     func validate() {
         clear()
+
+        if let profile {
+            _validate(address: profile.address)
+        } else {
+            ProfileDataSource.shared.refresh { [weak self] optionalProfile in
+                guard let `self` = self else { return }
+                if let profile = optionalProfile {
+                    self._validate(address: profile.address)
+                } else {
+                    self.failedToValidate = true
+                    self.errorMessage = self.failedToLoadProfileMessage
+                }
+            }
+        }
+    }
+
+    private func _validate(address: String) {
         APIService.validate(proposalID: proposal.id, voter: address)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
@@ -113,6 +130,8 @@ class CastYourVoteModel: ObservableObject {
     }
 
     func prepareVote() {
+        guard let address = profile?.address else { return }
+
         isPreparing = true
         voteRequestId = nil
         APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
@@ -128,12 +147,12 @@ class CastYourVoteModel: ObservableObject {
             } receiveValue: { [weak self] prep, _ in
                 guard let `self` = self else { return }
                 self.voteRequestId = prep.id
-                self.signTypedData(prep.typedData)
+                self.signTypedData(prep.typedData, address: address)
             }
             .store(in: &cancellables)
     }
 
-    private func signTypedData(_ typedData: String) {
+    private func signTypedData(_ typedData: String, address: String) {
         logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
         guard let session = WC_Manager.shared.sessionMeta?.session else { return }
         let params = AnyCodable([address, typedData])

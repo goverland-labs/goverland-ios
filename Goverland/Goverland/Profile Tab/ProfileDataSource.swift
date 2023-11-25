@@ -21,23 +21,33 @@ class ProfileDataSource: ObservableObject, Refreshable {
     private init() {}
 
     func refresh() {
+        clear()
+        loadProfile() { _ in }
+    }
+
+    func refresh(completion: @escaping (Profile?) -> Void) {
+        clear()
+        loadProfile(completion: completion)
+    }
+
+    private func clear() {
         profile = nil
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
-
-        loadProfile()
     }
 
-    private func loadProfile() {
+    private func loadProfile(completion: @escaping (Profile?) -> Void) {
         APIService.profile()
-            .sink { [weak self] completion in
-                switch completion {
+            .sink { [weak self] respCompletion in
+                switch respCompletion {
                 case .finished: break
-                case .failure(_): self?.failedToLoadInitialData = true
+                case .failure(_): 
+                    self?.failedToLoadInitialData = true
+                    completion(nil)
                 }
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
-                profile.cache()
+                completion(profile)
             }
             .store(in: &cancellables)
     }

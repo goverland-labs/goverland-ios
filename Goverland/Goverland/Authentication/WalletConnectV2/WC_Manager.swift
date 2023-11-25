@@ -38,8 +38,10 @@ class WC_Manager {
                let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
                // check session is valid and not finishing soon
                sessionMeta.session.expiryDate > .now + 5.minutes {
+                logInfo("[WC] found stored session meta")
                 return sessionMeta
             }
+            logInfo("[WC] no stored session meta found")
             return nil
         }
 
