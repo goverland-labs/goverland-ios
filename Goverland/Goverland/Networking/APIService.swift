@@ -44,9 +44,8 @@ class APIService {
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
-                    if case .notAuthorized = apiError {                        
-                        SettingKeys.shared.authToken = ""
-                        Profile.clearCache()
+                    if case .notAuthorized = apiError {
+                        SettingKeys.shared.clearAuthTokenAndCachedProfile()
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)

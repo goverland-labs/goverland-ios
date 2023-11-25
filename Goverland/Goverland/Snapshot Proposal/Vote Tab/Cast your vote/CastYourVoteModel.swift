@@ -34,8 +34,8 @@ class CastYourVoteModel: ObservableObject {
     private var voteRequestId: Int?
 
     var address: String {
-        // TODO: return from the cached Profile object
-        WC_Manager.shared.sessionMeta!.session.accounts.first!.address
+        // We can be here only when cached profile exists
+        Profile.cached!.accounts.first!.address.value
     }
 
     var choiceStr: String {
