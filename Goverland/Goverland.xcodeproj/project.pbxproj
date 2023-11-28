@@ -127,6 +127,7 @@
 		BA2EA20F2968912B00FB87AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20E2968912B00FB87AC /* User.swift */; };
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
+		BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */; };
 		BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */; };
 		BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
@@ -317,6 +318,7 @@
 		BA2EA20E2968912B00FB87AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
+		BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChartsFullView.swift; sourceTree = "<group>"; };
 		BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDataSource.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 			children = (
 				BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */,
 				BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */,
+				BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */,
 			);
 			path = Ecosystem;
 			sourceTree = "<group>";
@@ -1255,6 +1258,7 @@
 				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
+				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,

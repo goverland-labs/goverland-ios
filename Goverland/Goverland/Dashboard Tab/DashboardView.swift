@@ -32,26 +32,26 @@ struct DashboardView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
+                    SectionHeader(header: "Recently Viewed DAOs", icon: nil, onTap: nil)
                     DashboardRecentlyViewedDaosView()
                 }
 
-                SectionHeader(header: "Hot Proposals") {
+                SectionHeader(header: "Hot Proposals", icon: nil) {
                     path.append(Path.hotProposals)
                 }
                 DashboardHotProposalsView(path: $path)
 
-                SectionHeader(header: "New DAOs") {
+                SectionHeader(header: "New DAOs", icon: nil) {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
 
-                SectionHeader(header: "Popular DAOs") {
+                SectionHeader(header: "Popular DAOs", icon: nil) {
                     path.append(Path.popularDaos)
                 }
                 DashboardPopularDaosView()
                 
-                SectionHeader(header: "Ecosystem charts") {
+                SectionHeader(header: "Ecosystem charts", icon: Image(systemName: "chart.xyaxis.line")) {
                     path.append(Path.ecosystemCharts)
                 }
                 EcosystemDashboardView()
@@ -93,7 +93,7 @@ struct DashboardView: View {
             .navigationDestination(for: Path.self) { path in
                 switch path {
                 case .ecosystemCharts:
-                    EmptyView()
+                    EcosystemChartsFullView()
                 case .hotProposals:
                     TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
                                          path: $path,
@@ -129,6 +129,7 @@ struct DashboardView: View {
 
 fileprivate struct SectionHeader: View {
     let header: String
+    let icon: Image?
     let onTap: (() -> Void)?
 
     var body: some View {
@@ -141,7 +142,7 @@ fileprivate struct SectionHeader: View {
                     .font(.title2Semibold)
                 Spacer()
                 if onTap != nil {
-                    Image(systemName: "arrow.right")
+                    (icon ?? Image(systemName: "arrow.right"))
                         .font(.title2)
                 }
             }
