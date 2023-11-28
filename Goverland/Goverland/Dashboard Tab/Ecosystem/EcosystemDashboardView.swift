@@ -19,35 +19,35 @@ struct EcosystemDashboardView: View {
     }
 
     private var dataActiveDaos: String {
-        return dataSource.charts.daos.current ?? ""
+        return dataSource.charts?.daos.current.description ?? ""
     }
     
     private var dataActiveVoters: String {
-        return dataSource.charts.voters.current ?? ""
+        return dataSource.charts?.voters.current.description ?? ""
     }
     
     private var dataCreatedProposals: String {
-        return dataSource.charts.proposals.current ?? ""
+        return dataSource.charts?.proposals.current.description ?? ""
     }
     
     private var dataTotalVotes: String {
-        return dataSource.charts.votes.current ?? ""
+        return dataSource.charts?.votes.current.description ?? ""
     }
 
     private var metadataActiveDaos: String {
-        return dataSource.charts.daos.previous ?? ""
+        return dataSource.charts?.daos.previous.description ?? ""
     }
     
     private var metadataActiveVoters: String {
-        return dataSource.charts.voters.previous ?? ""
+        return dataSource.charts?.voters.previous.description ?? ""
     }
 
     private var metadataCreatedProposals: String {
-        return dataSource.charts.proposals.previous ?? ""
+        return dataSource.charts?.proposals.previous.description ?? ""
     }
     
     private var metadataTotalVotes: String {
-        return dataSource.charts.votes.previous ?? ""
+        return dataSource.charts?.votes.previous.description ?? ""
     }
     var body: some View {
         VStack {
@@ -64,6 +64,7 @@ struct EcosystemDashboardView: View {
             }
             .onChange(of: selectedDuration) { newValue in
                 dataSource.periodInDays = newValue
+                dataSource.refresh()
             }
             
             HStack {
@@ -96,11 +97,11 @@ struct EcosystemDashboardView: View {
                           onRefresh: dataSource.refresh)
             }
         }
+        .padding([.horizontal, .bottom])
         .onAppear() {
             if dataSource.charts == nil {
-               // dataSource.refresh()
+               dataSource.refresh()
             }
         }
-        .padding([.horizontal, .bottom])
     }
 }

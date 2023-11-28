@@ -12,18 +12,13 @@ import Combine
 
 class EcosystemDashboardDataSource: ObservableObject {
     @Published var periodInDays = 7
-    //@Published var charts: EcosystemChart?
-    @Published var charts: EcosystemChart = EcosystemChart(
-        daos: EcosystemChart.EcosystemChartData(current: "11", previous: "1111"),
-        proposals: EcosystemChart.EcosystemChartData(current: "22", previous: "2222"),
-        voters: EcosystemChart.EcosystemChartData(current: "33", previous: "3333"),
-        votes: EcosystemChart.EcosystemChartData(current: "44", previous: "44444"))
+    @Published var charts: EcosystemChart?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
     func refresh() {
-        //charts = nil
+        charts = nil
         failedToLoadInitialData = false
         isLoading = true
         cancellables = Set<AnyCancellable>()

@@ -14,7 +14,7 @@ struct EcosystemChart: Decodable {
     let votes: EcosystemChartData
     
     struct EcosystemChartData: Decodable {
-        let current: String
-        let previous: String
+        let current: Int
+        let previous: Int
     }
 }
