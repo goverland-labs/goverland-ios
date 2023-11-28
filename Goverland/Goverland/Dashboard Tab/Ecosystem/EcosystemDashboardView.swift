@@ -18,37 +18,6 @@ struct EcosystemDashboardView: View {
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
-    private var dataActiveDaos: String {
-        return dataSource.charts?.daos.current.description ?? ""
-    }
-    
-    private var dataActiveVoters: String {
-        return dataSource.charts?.voters.current.description ?? ""
-    }
-    
-    private var dataCreatedProposals: String {
-        return dataSource.charts?.proposals.current.description ?? ""
-    }
-    
-    private var dataTotalVotes: String {
-        return dataSource.charts?.votes.current.description ?? ""
-    }
-
-    private var metadataActiveDaos: String {
-        return dataSource.charts?.daos.previous.description ?? ""
-    }
-    
-    private var metadataActiveVoters: String {
-        return dataSource.charts?.voters.previous.description ?? ""
-    }
-
-    private var metadataCreatedProposals: String {
-        return dataSource.charts?.proposals.previous.description ?? ""
-    }
-    
-    private var metadataTotalVotes: String {
-        return dataSource.charts?.votes.previous.description ?? ""
-    }
     var body: some View {
         VStack {
             Picker("Duration", selection: $selectedDuration) {
@@ -69,14 +38,16 @@ struct EcosystemDashboardView: View {
             
             HStack {
                 BrickView(header: "Active DAOs",
-                          data: dataActiveDaos,
-                          metadata: metadataActiveDaos,
+                          data: dataSource.dataActiveDaos,
+                          metadata: dataSource.metadataActiveDaos,
+                          metadataColor: dataSource.metadataColorForActiveDaos,
                           isLoading: dataSource.isLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           onRefresh: dataSource.refresh)
                 BrickView(header: "Active voters",
-                          data: dataActiveVoters,
-                          metadata: metadataActiveVoters,
+                          data: dataSource.dataActiveVoters,
+                          metadata: dataSource.metadataActiveVoters,
+                          metadataColor: dataSource.metadataColorForActiveVoters,
                           isLoading: dataSource.isLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           onRefresh: dataSource.refresh)
@@ -84,14 +55,16 @@ struct EcosystemDashboardView: View {
             
             HStack {
                 BrickView(header: "Created proposals",
-                          data: dataCreatedProposals,
-                          metadata: metadataCreatedProposals,
+                          data: dataSource.dataCreatedProposals,
+                          metadata: dataSource.metadataCreatedProposals,
+                          metadataColor: dataSource.metadataColorForCreatedProposals,
                           isLoading: dataSource.isLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           onRefresh: dataSource.refresh)
                 BrickView(header: "Total votes",
-                          data: dataTotalVotes,
-                          metadata: metadataTotalVotes,
+                          data: dataSource.dataTotalVotes,
+                          metadata: dataSource.metadataTotalVotes,
+                          metadataColor: dataSource.metadataColorForTotalVotes,
                           isLoading: dataSource.isLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           onRefresh: dataSource.refresh)

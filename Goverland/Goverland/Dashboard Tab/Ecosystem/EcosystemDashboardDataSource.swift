@@ -17,6 +17,76 @@ class EcosystemDashboardDataSource: ObservableObject {
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
+    private func formattedDataString(current: Int?, previous: Int?) -> String {
+        guard let current = current else {
+            return ""
+        }
+        if let previous = previous {
+            let percent = Utils.percentage(of: current - previous, in: previous)
+            return current > previous ? "+\(percent)" : percent
+        }
+        return Utils.formattedNumber(Double(current))
+    }
+
+    private func metadataColor(current: Int?, previous: Int?) -> Color {
+        guard let current = current, let previous = previous else {
+            return Color.textWhite60
+        }
+        return current > previous ? Color.primaryDim : Color.dangerText
+    }
+    
+    // DAOs Chart Data
+    var dataActiveDaos: String {
+        return formattedDataString(current: charts?.daos.current, previous: nil)
+    }
+
+    var metadataActiveDaos: String {
+        return formattedDataString(current: charts?.daos.current, previous: charts?.daos.previous)
+    }
+
+    var metadataColorForActiveDaos: Color {
+        return metadataColor(current: charts?.daos.current, previous: charts?.daos.previous)
+    }
+
+    // Voters Chart Data
+    var dataActiveVoters: String {
+        return formattedDataString(current: charts?.voters.current, previous: nil)
+    }
+
+    var metadataActiveVoters: String {
+        return formattedDataString(current: charts?.voters.current, previous: charts?.voters.previous)
+    }
+
+    var metadataColorForActiveVoters: Color {
+        return metadataColor(current: charts?.voters.current, previous: charts?.voters.previous)
+    }
+
+    // Proposals Chart Data
+    var dataCreatedProposals: String {
+        return formattedDataString(current: charts?.proposals.current, previous: nil)
+    }
+
+    var metadataCreatedProposals: String {
+        return formattedDataString(current: charts?.proposals.current, previous: charts?.proposals.previous)
+    }
+
+    var metadataColorForCreatedProposals: Color {
+        return metadataColor(current: charts?.proposals.current, previous: charts?.proposals.previous)
+    }
+
+    // Votes Chart Data
+    var dataTotalVotes: String {
+        return formattedDataString(current: charts?.votes.current, previous: nil)
+    }
+
+    var metadataTotalVotes: String {
+        return formattedDataString(current: charts?.votes.current, previous: charts?.votes.previous)
+    }
+
+    var metadataColorForTotalVotes: Color {
+        return metadataColor(current: charts?.votes.current, previous: charts?.votes.previous)
+    }
+    
     func refresh() {
         charts = nil
         failedToLoadInitialData = false
