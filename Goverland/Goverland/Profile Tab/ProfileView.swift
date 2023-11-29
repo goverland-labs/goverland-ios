@@ -49,7 +49,7 @@ struct ProfileView: View {
                     Button {
                         path.append(.settings)
                     } label: {
-                        Image(systemName: "gearshape")
+                        Image(systemName: "gearshape.fill")
                     }
                 }
             }
