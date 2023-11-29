@@ -11,7 +11,7 @@ import Firebase
 import SwiftData
 
 @MainActor
-fileprivate let appContainer: ModelContainer = {
+let appContainer: ModelContainer = {
     do {
         let container = try ModelContainer(for: AppSettings.self)
 

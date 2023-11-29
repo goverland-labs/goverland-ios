@@ -12,9 +12,6 @@ import SwiftUI
 class SettingKeys: ObservableObject {
     @AppStorage("authToken") var authToken = ""
 
-    @AppStorage("notificationsEnabled") var notificationsEnabled = false
-    @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
-
     @AppStorage("unreadEvents") var unreadEvents = 0 {
         didSet {
             UIApplication.shared.applicationIconBadgeNumber = unreadEvents
@@ -30,8 +27,6 @@ class SettingKeys: ObservableObject {
 
         WC_Manager.shared.sessionMeta = nil
 
-        SettingKeys.shared.notificationsEnabled = false
-        SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.unreadEvents = 0
     }
 }

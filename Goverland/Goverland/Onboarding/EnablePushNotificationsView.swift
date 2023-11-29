@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EnablePushNotificationsView: View {
     var body: some View {
@@ -39,7 +40,7 @@ fileprivate struct PushNotificationBackgroundView: View {
 }
 
 fileprivate struct PushNotificationFooterControlsView: View {
-    @Setting(\.notificationsEnabled) var notificationsEnabled
+    @Query private var appSettings: [AppSettings]
     @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
@@ -48,7 +49,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
                 Tracker.track(.notificationsYes)
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
-                        notificationsEnabled = granted
+                        appSettings.first!.notificationsEnabled = granted
                         presentationMode.wrappedValue.dismiss()
                     }
                 }

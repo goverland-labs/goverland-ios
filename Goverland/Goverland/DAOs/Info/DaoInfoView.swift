@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum DaoInfoFilter: Int, FilterOptions {
     case activity = 0
@@ -26,11 +27,10 @@ enum DaoInfoFilter: Int, FilterOptions {
 }
 
 struct DaoInfoView: View {
+    @Query private var appSettings: [AppSettings]
     @Environment(\.presentationMode) private var presentationMode
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
-    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
-    @Setting(\.notificationsEnabled) private var notificationsEnabled
 
     /// This view should have own active sheet manager as it is already presented in a popover
     @StateObject private var activeSheetManager = ActiveSheetManager()
@@ -118,10 +118,12 @@ struct DaoInfoView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+            // TODO: place into app config
+            if now - appSettings.first!.lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60
+                && !appSettings.first!.notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
-                    lastPromotedPushNotificationsTime = now
+                    appSettings.first!.lastPromotedPushNotificationsTime = now
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
             }

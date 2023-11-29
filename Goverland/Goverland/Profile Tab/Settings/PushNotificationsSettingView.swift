@@ -8,17 +8,20 @@
 	
 
 import SwiftUI
+import SwiftData
 
 struct PushNotificationsSettingView: View {
-    @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
+    @Query private var appSettings: [AppSettings]
+    @State private var notificationsEnabled = false
     @State private var showAlert = false
     @State private var skipTrackingOnce = false
 
     var body: some View {
         List {
+            // TODO: can we use here appSettings directly?
             Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
         }
-        .onChange(of: notificationsEnabled) { toggleEnabled in
+        .onChange(of: notificationsEnabled) { _, toggleEnabled in
             NotificationsManager.shared.getNotificationsStatus { status in
                 switch status {
                 case .notDetermined:
@@ -26,7 +29,7 @@ struct PushNotificationsSettingView: View {
                         Tracker.track(.settingsEnableGlbNotifications)
                         NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                             DispatchQueue.main.async {
-                                SettingKeys.shared.notificationsEnabled = granted
+                                appSettings.first!.notificationsEnabled = granted
                                 notificationsEnabled = granted
                             }
                         }
@@ -50,7 +53,7 @@ struct PushNotificationsSettingView: View {
                         } else {
                             skipTrackingOnce = false
                         }
-                        SettingKeys.shared.notificationsEnabled = true
+                        appSettings.first!.notificationsEnabled = true
                         NotificationsManager.shared.enableNotifications()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
@@ -61,7 +64,7 @@ struct PushNotificationsSettingView: View {
                                 notificationsEnabled = true
                                 return
                             }
-                            SettingKeys.shared.notificationsEnabled = false
+                            appSettings.first!.notificationsEnabled = false
                         }
                     }
                 }
@@ -75,7 +78,10 @@ struct PushNotificationsSettingView: View {
                 secondaryButton: .cancel()
             )
         }
-        .onAppear() { Tracker.track(.screenNotifications) }
+        .onAppear() {
+            notificationsEnabled = appSettings.first!.notificationsEnabled
+            Tracker.track(.screenNotifications)
+        }
     }
 
     private func showAppSettings() {

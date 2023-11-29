@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 class TabManager: ObservableObject {
     enum Tab {
@@ -49,11 +50,10 @@ class TabManager: ObservableObject {
 }
 
 struct AppTabView: View {
+    @Query private var appSettings: [AppSettings]
     @StateObject private var tabManager = TabManager.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
-    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
-    @Setting(\.notificationsEnabled) private var notificationsEnabled
 
     @State var currentInboxViewId: UUID?
     
@@ -111,10 +111,13 @@ struct AppTabView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+
+            if now - appSettings.first!.lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 
+                && !appSettings.first!.notificationsEnabled {
+
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
-                    lastPromotedPushNotificationsTime = now
+                    appSettings.first!.lastPromotedPushNotificationsTime = now
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
             }
