@@ -9,12 +9,46 @@
 
 import SwiftUI
 
-struct EcosystemChartsFullView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+enum EcosystemFilter: Int, FilterOptions {
+    case daos = 0
+    case voters
+    case proposals
+
+    var localizedName: String {
+        switch self {
+        case .daos:
+            return "DAOs"
+        case .voters:
+            return "Voters"
+        case .proposals:
+            return "Proposals"
+        }
     }
 }
 
-#Preview {
-    EcosystemChartsFullView()
+struct EcosystemChartsFullView: View {
+    @State private var filter: EcosystemFilter = .daos
+    var body: some View {
+        VStack {
+            VStack {
+                FilterButtonsView<EcosystemFilter>(filter: $filter) { _ in }
+                
+                switch filter {
+                case .daos: MonthlyTotalDaosView()
+                case .voters:EmptyView()
+                case .proposals:EmptyView()
+                }
+            }
+            Spacer()
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Ecosystem charts")
+                        .font(.title2Semibold)
+                        .foregroundColor(Color.textWhite)
+                }
+            }
+        }
+    }
 }

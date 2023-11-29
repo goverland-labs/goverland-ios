@@ -128,6 +128,9 @@
 		BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */; };
 		BA352F0A298C184D00F78958 /* Dao.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA352F09298C184D00F78958 /* Dao.swift */; };
 		BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */; };
+		BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */; };
+		BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */; };
+		BA36DEFB2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */; };
 		BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */; };
 		BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
@@ -319,6 +322,9 @@
 		BA352F03298AF89F00F78958 /* IntroLoadingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroLoadingView.storyboard; sourceTree = "<group>"; };
 		BA352F09298C184D00F78958 /* Dao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao.swift; sourceTree = "<group>"; };
 		BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChartsFullView.swift; sourceTree = "<group>"; };
+		BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaos.swift; sourceTree = "<group>"; };
+		BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaosView.swift; sourceTree = "<group>"; };
+		BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaosDataSource.swift; sourceTree = "<group>"; };
 		BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDataSource.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
@@ -891,6 +897,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BA36DEF52B178AA5002EBEB0 /* Ecosystem charts */ = {
+			isa = PBXGroup;
+			children = (
+				BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */,
+				BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */,
+			);
+			path = "Ecosystem charts";
+			sourceTree = "<group>";
+		};
 		BA3C9F652ABF511D00E66BD4 /* Archive */ = {
 			isa = PBXGroup;
 			children = (
@@ -927,6 +942,7 @@
 				BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */,
 				BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */,
 				BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */,
+				BA36DEF52B178AA5002EBEB0 /* Ecosystem charts */,
 			);
 			path = Ecosystem;
 			sourceTree = "<group>";
@@ -964,6 +980,7 @@
 				BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */,
 				BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */,
 				BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */,
+				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1347,6 +1364,8 @@
 				55FD731D2AB75DC60081C38D /* SignInTwoStepsModalView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
+				BA36DEFB2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift in Sources */,
+				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
@@ -1378,6 +1397,7 @@
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
 				BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */,
 				55FD73212AB75DC60081C38D /* Wallet.swift in Sources */,
+				BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,

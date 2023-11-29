@@ -146,6 +146,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func monthlyTotalDaos() -> AnyPublisher<(MonthlyTotalDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyTotalDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,

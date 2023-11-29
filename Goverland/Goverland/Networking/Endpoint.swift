@@ -371,6 +371,13 @@ struct EcosystemDashboardChartsEndpoint: APIEndpoint {
     }
 }
 
+struct MonthlyTotalDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalDaos]
+
+    var path: String { "analytics/monthly-totals/daos" }
+    var method: HttpMethod = .get
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
