@@ -131,6 +131,9 @@
 		BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */; };
 		BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */; };
 		BA36DEFB2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */; };
+		BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DF002B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift */; };
+		BA36DF032B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DF022B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift */; };
+		BA36DF052B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */; };
 		BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */; };
 		BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */; };
 		BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */; };
@@ -325,6 +328,9 @@
 		BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaos.swift; sourceTree = "<group>"; };
 		BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaosView.swift; sourceTree = "<group>"; };
 		BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalDaosDataSource.swift; sourceTree = "<group>"; };
+		BA36DF002B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalNewProposalsView.swift; sourceTree = "<group>"; };
+		BA36DF022B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalNewProposalsDataSource.swift; sourceTree = "<group>"; };
+		BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalNewProposals.swift; sourceTree = "<group>"; };
 		BA3C9F662ABF513000E66BD4 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		BA3C9F682ABF527700E66BD4 /* ArchiveDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDataSource.swift; sourceTree = "<group>"; };
 		BA4A1C762A719E0B00AC7470 /* SnapshopVotingResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshopVotingResultView.swift; sourceTree = "<group>"; };
@@ -902,6 +908,8 @@
 			children = (
 				BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */,
 				BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */,
+				BA36DF002B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift */,
+				BA36DF022B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift */,
 			);
 			path = "Ecosystem charts";
 			sourceTree = "<group>";
@@ -981,6 +989,7 @@
 				BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */,
 				BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */,
 				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
+				BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1279,6 +1288,7 @@
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
+				BA36DF052B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift in Sources */,
 				BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */,
 				BA4A1C7B2A72E66200AC7470 /* ProposalResultProcessBarLabelView.swift in Sources */,
 				BAF651FD29C8AFE600C78A8A /* TrackingEvent.swift in Sources */,
@@ -1330,6 +1340,7 @@
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
+				BA36DF032B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
 				55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */,
@@ -1399,6 +1410,7 @@
 				55FD73212AB75DC60081C38D /* Wallet.swift in Sources */,
 				BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
+				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
 				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */,
