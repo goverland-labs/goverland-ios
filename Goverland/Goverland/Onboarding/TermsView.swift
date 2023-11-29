@@ -7,9 +7,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TermsView: View {
-    @Setting(\.termsAccepted) var termsAccepted
+    @Query private var appSettings: [AppSettings]
     @Setting(\.trackingAccepted) var trackingAccepted
     @Binding var termsViewIsPresented: Bool
     
@@ -58,12 +59,12 @@ struct TermsView: View {
             Spacer()
 
             PrimaryButton("Get Started") {
-                termsAccepted = true
+                appSettings.first!.termsAccepted = true
                 trackingAccepted = true
             }
             
             Button("Accept without sharing data") {
-                termsAccepted = true
+                appSettings.first!.termsAccepted = true
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)
@@ -80,11 +81,5 @@ fileprivate struct BulletedListsDot: View {
             .fill(Color.primaryDim)
             .frame(width: 8, height: 8)
             .padding(.top, 6)
-    }
-}
-
-struct TermsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TermsView(termsViewIsPresented: .constant(true))
     }
 }

@@ -8,6 +8,27 @@
 
 import SwiftUI
 import Firebase
+import SwiftData
+
+@MainActor
+fileprivate let appContainer: ModelContainer = {
+    do {
+        let container = try ModelContainer(for: AppSettings.self)
+
+        var fetchDescriptor = FetchDescriptor<AppSettings>()
+        fetchDescriptor.fetchLimit = 1
+
+        if try container.mainContext.fetch(fetchDescriptor).count > 0 {
+            return container
+        } else {
+            container.mainContext.insert(AppSettings(termsAccepted: false))
+            return container
+        }
+    } catch {
+        fatalError("Failed to create App container")
+    }
+}()
+
 
 @main
 struct GoverlandApp: App {
@@ -21,7 +42,8 @@ struct GoverlandApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManger)
+                .environmentObject(activeSheetManger)                
+                .modelContainer(appContainer)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
