@@ -11,7 +11,6 @@ import SwiftData
 
 struct TermsView: View {
     @Query private var appSettings: [AppSettings]
-    @Setting(\.trackingAccepted) var trackingAccepted
     @Binding var termsViewIsPresented: Bool
     
     var body: some View {
@@ -60,11 +59,12 @@ struct TermsView: View {
 
             PrimaryButton("Get Started") {
                 appSettings.first!.termsAccepted = true
-                trackingAccepted = true
+                appSettings.first!.setTrackingAccepted(true)
             }
             
             Button("Accept without sharing data") {
                 appSettings.first!.termsAccepted = true
+                appSettings.first!.setTrackingAccepted(false)
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)

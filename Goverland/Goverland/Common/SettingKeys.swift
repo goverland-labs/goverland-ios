@@ -10,12 +10,6 @@ import Foundation
 import SwiftUI
 
 class SettingKeys: ObservableObject {
-    @AppStorage("trackingAccepted") var trackingAccepted = false {
-        didSet {
-            Tracker.setTrackingEnabled(trackingAccepted)
-        }
-    }
-
     @AppStorage("authToken") var authToken = ""
 
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
@@ -32,8 +26,6 @@ class SettingKeys: ObservableObject {
     private init() {}
     
     static func reset() {
-        SettingKeys.shared.trackingAccepted = false
-
         SettingKeys.shared.authToken = ""
 
         WC_Manager.shared.sessionMeta = nil

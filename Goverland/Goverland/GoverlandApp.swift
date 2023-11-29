@@ -21,7 +21,7 @@ fileprivate let appContainer: ModelContainer = {
         if try container.mainContext.fetch(fetchDescriptor).count > 0 {
             return container
         } else {
-            container.mainContext.insert(AppSettings(termsAccepted: false))
+            container.mainContext.insert(AppSettings())
             return container
         }
     } catch {
@@ -106,8 +106,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Setup App Tracking
         Tracker.append(handler: ConsoleTrackingHandler())
         Tracker.append(handler: FirebaseTrackingHandler())
+
         // Very important line of code. Do not remove it.
-        Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
+        setupTracking()
 
         // Setup Firebase
         FirebaseConfig.setUp()
@@ -119,6 +120,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         NotificationsManager.shared.setUpMessaging(delegate: self)
 
         return true
+    }
+
+    private func setupTracking() {
+        var fetchDescriptor = FetchDescriptor<AppSettings>()
+        fetchDescriptor.fetchLimit = 1
+        if let appSettings = try? appContainer.mainContext.fetch(fetchDescriptor).first {
+            logInfo("[App] Set tracking to \(appSettings.trackingAccepted)")
+            Tracker.setTrackingEnabled(appSettings.trackingAccepted)
+        } else {
+            fatalError("Failed to fetch AppSettings")
+        }
     }
 
     func application(_ application: UIApplication,

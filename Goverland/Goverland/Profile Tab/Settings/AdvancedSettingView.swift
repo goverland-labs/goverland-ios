@@ -8,8 +8,10 @@
 	
 
 import SwiftUI
+import SwiftData
 
 struct AdvancedSettingView: View {
+    @Query private var appSettings: [AppSettings]
     @State private var accepted = false
 
     var body: some View {
@@ -17,16 +19,22 @@ struct AdvancedSettingView: View {
             #if STAGE
             Section(header: Text("Debug")) {
                 Button("RESET") {
-                    SettingKeys.reset()
+                    // TODO: store in Model
                     WC_Manager.shared.sessionMeta = nil
-                    fatalError("Crash with Reset button")
+
+                    appSettings.first!.reset()
+                }
+                .accentColor(.dangerText)
+
+                Button("CRASH") {
+                    fatalError("Crash the App")
                 }
                 .accentColor(.dangerText)
 
                 Button("LOG ERROR") {
                     logError(GError.appInconsistency(reason: "Debug test error logging"))
                 }
-                .accentColor(.textWhite60)
+                .accentColor(.dangerText)
             }
             #endif
 
@@ -54,14 +62,14 @@ struct AdvancedSettingView: View {
                 }
             }
         }
-        .onChange(of: accepted) { accepted in
-            if !accepted {
+        .onChange(of: accepted) { oldValue, newValue in
+            if !newValue {
                 Tracker.track(.settingsDisableTracking)
             }
-            SettingKeys.shared.trackingAccepted = accepted
+            appSettings.first!.setTrackingAccepted(newValue)
         }
         .onAppear() {
-            accepted = SettingKeys.shared.trackingAccepted
+            accepted = appSettings.first!.trackingAccepted
             Tracker.track(.screenAdvancedSettings)
         }
     }
