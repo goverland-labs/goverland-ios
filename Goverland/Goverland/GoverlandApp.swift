@@ -42,8 +42,7 @@ struct GoverlandApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManger)                
-                .modelContainer(appContainer)
+                .environmentObject(activeSheetManger)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
@@ -97,6 +96,7 @@ struct GoverlandApp: App {
                     ToastView()
                 }
         }
+        .modelContainer(appContainer)
     }
 }
 

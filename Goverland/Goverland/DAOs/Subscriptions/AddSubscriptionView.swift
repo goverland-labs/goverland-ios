@@ -103,7 +103,7 @@ struct AddSubscriptionView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - appSettings.first!.lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60
+            if now - appSettings.first!.lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval
                 && !appSettings.first!.notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
