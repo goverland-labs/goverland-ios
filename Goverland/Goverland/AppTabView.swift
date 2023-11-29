@@ -53,7 +53,6 @@ struct AppTabView: View {
     @Query private var appSettings: [AppSettings]
     @StateObject private var tabManager = TabManager.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @Setting(\.unreadEvents) private var unreadEvents
 
     @State var currentInboxViewId: UUID?
     
@@ -75,7 +74,7 @@ struct AppTabView: View {
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                     .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
+                    .badge(appSettings.first!.unreadEvents)
             } else {
                 Spacer()
                     .tabItem {
@@ -86,7 +85,7 @@ struct AppTabView: View {
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                     .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
+                    .badge(appSettings.first!.unreadEvents)
             }
             
             SearchView()

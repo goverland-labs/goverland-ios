@@ -12,22 +12,13 @@ import SwiftUI
 class SettingKeys: ObservableObject {
     @AppStorage("authToken") var authToken = ""
 
-    @AppStorage("unreadEvents") var unreadEvents = 0 {
-        didSet {
-            UIApplication.shared.applicationIconBadgeNumber = unreadEvents
-        }
-    }
-
     static var shared = SettingKeys()
 
     private init() {}
     
     static func reset() {
         SettingKeys.shared.authToken = ""
-
         WC_Manager.shared.sessionMeta = nil
-
-        SettingKeys.shared.unreadEvents = 0
     }
 }
 

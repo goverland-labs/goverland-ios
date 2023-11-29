@@ -7,7 +7,7 @@
 //
 	
 
-import Foundation
+import SwiftUI
 import SwiftData
 
 @Model
@@ -16,15 +16,18 @@ final class AppSettings {
     private(set) var trackingAccepted: Bool
     var notificationsEnabled: Bool
     var lastPromotedPushNotificationsTime: TimeInterval
+    private(set) var unreadEvents: Int
 
     init(termsAccepted: Bool = false,
          trackingAccepted: Bool = false,
          notificationsEnabled: Bool = false,
-         lastPromotedPushNotificationsTime: TimeInterval = 0) {
+         lastPromotedPushNotificationsTime: TimeInterval = 0,
+         unreadEvents: Int = 0) {
         self.termsAccepted = termsAccepted
         self.trackingAccepted = trackingAccepted
         self.notificationsEnabled = notificationsEnabled
         self.lastPromotedPushNotificationsTime = lastPromotedPushNotificationsTime
+        self.unreadEvents = unreadEvents
     }
 }
 
@@ -34,10 +37,16 @@ extension AppSettings {
         Tracker.setTrackingEnabled(accepted)
     }
 
+    func setUnreadEvents(count: Int) {
+        self.unreadEvents = count
+        UNUserNotificationCenter.current().setBadgeCount(count)
+    }
+
     func reset() {
         termsAccepted = false
         setTrackingAccepted(false)
         lastPromotedPushNotificationsTime = 0
+        unreadEvents = 0
     }
 }
 
@@ -51,6 +60,31 @@ enum AppSettingsRead {
         } else {
             logInfo("[AppSettings] Failed to fetch AppSettings in AppSettingsRead")
             return false
+        }
+    }
+
+    static var unreadEvents: Int {
+        var fetchDescriptor = FetchDescriptor<AppSettings>()
+        fetchDescriptor.fetchLimit = 1
+        if let appSettings = try? appContainer.mainContext.fetch(fetchDescriptor).first {
+            return appSettings.unreadEvents
+        } else {
+            logInfo("[AppSettings] Failed to fetch AppSettings in AppSettingsRead")
+            return 0
+        }
+    }
+}
+
+@MainActor
+enum AppSettingsWrite {
+    static func setUnreadEvents(_ count: Int) {
+        var fetchDescriptor = FetchDescriptor<AppSettings>()
+        fetchDescriptor.fetchLimit = 1
+        if let appSettings = try? appContainer.mainContext.fetch(fetchDescriptor).first {
+            appSettings.setUnreadEvents(count: count)
+            try? appContainer.mainContext.save()
+        } else {
+            logInfo("[AppSettings] Failed to fetch AppSettings in AppSettingsWrite")
         }
     }
 }
