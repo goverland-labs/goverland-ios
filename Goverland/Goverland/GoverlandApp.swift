@@ -95,6 +95,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
+        
+        // Setup appearance
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.containerBright)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .normal)
 
         return true
     }

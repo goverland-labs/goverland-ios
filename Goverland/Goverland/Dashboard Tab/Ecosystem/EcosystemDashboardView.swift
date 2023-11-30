@@ -26,11 +26,6 @@ struct EcosystemDashboardView: View {
             }
             .pickerStyle(.segmented)
             .padding(.bottom)
-            .onAppear() {
-                UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.containerBright)
-                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .selected)
-                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .normal)
-            }
             .onChange(of: selectedDuration) { newValue in
                 dataSource.periodInDays = newValue
                 dataSource.refresh()
