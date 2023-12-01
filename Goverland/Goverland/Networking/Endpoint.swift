@@ -55,9 +55,11 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
 
     struct AuthTokenResponse: Decodable {
         let sessionId: String
+        let profile: Profile
 
         enum CodingKeys: String, CodingKey {
             case sessionId = "session_id"
+            case profile
         }
     }
 

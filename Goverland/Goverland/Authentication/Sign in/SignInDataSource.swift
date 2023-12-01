@@ -23,8 +23,8 @@ class SignInDataSource: ObservableObject {
                     self?.loading = false
                 } receiveValue: { response, headers in
                     Task {
+                        try! await UserProfile.update(with: response.profile, sessionId: response.sessionId)
                         try! await profile.select()
-                        try! await UserProfile.updateSessionIdForSelectedProfile(with: response.sessionId)
                     }
                     logInfo("[App] Auth Token: \(response.sessionId)")
                 }

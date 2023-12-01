@@ -10,41 +10,42 @@
 import Foundation
 
 struct Profile: Codable {
+    let id: UUID
     let role: Role
-    let accounts: [User]
+    let account: User?
     let sessions: [Session]
 
     enum Role: String, Codable {
-        case guest = "GEUST"
+        case guest = "GUEST"
         case regular = "REGULAR"
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case role
+        case account
+        case sessions = "last_sessions"
     }
 }
 
 struct Session: Codable, Identifiable {
     let id: UUID
-    let device: String
     let created: Date
     let lastActivity: Date
+    let deviceId: String
+    let deviceName: String
 
     enum CodingKeys: String, CodingKey {
         case id
-        case device
         case created = "created_at"
         case lastActivity = "last_activity_at"
+        case deviceId = "device_id"
+        case deviceName = "device_name"
     }
 }
 
 extension Profile {
-    var address: String {
-        accounts.first?.address.value ?? ""
+    var address: String? {
+        account?.address.value
     }
-}
-
-// MARK: - Stub
-
-extension Profile {
-    static let testRegular = Profile(
-        role: .regular,
-        accounts: [.flipside],
-        sessions: [])
 }

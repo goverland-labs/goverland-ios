@@ -81,7 +81,7 @@ fileprivate struct _ProfileView: View {
                 ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = dataSource.profile {
-                ProfileHeaderView(user: profile.accounts.first!)
+                ProfileHeaderView(user: profile.account)
                 ProfileListView(profile: profile)
             }
         }
@@ -94,14 +94,20 @@ fileprivate struct _ProfileView: View {
 }
 
 fileprivate struct ProfileHeaderView: View {
-    let user: User
+    let user: User?
 
     var body: some View {
         VStack(alignment: .center) {
-            RoundPictureView(image: user.avatar, imageSize: 70)
+            if let user {
+                RoundPictureView(image: user.avatar, imageSize: 70)
+            } else {
+                Circle()
+                    .frame(width: 70, height: 70)
+                    .foregroundColor(.containerBright)
+            }
 
             ZStack {
-                if let name = user.resolvedName {
+                if let name = user?.resolvedName {
                     Text(name)
                         .truncationMode(.tail)
                 } else {
@@ -134,8 +140,8 @@ fileprivate struct ShimmerProfileHeaderView: View {
 fileprivate struct ProfileListView: View {
     let profile: Profile
 
-    var user: User {
-        profile.accounts.first!
+    var user: User? {
+        profile.account
     }
 
     @State private var isDeleteProfilePopoverPresented = false
@@ -147,34 +153,36 @@ fileprivate struct ProfileListView: View {
                 NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
+            
+            if let user {
+                Section {
+                    HStack {
+                        Text("Account")
+                        Spacer()
+                    }
+                    .foregroundColor(Color.onPrimary)
+                    .listRowBackground(Color.primaryDim)
 
-            Section {
-                HStack {
-                    Text("Account")
-                    Spacer()
-                }
-                .foregroundColor(Color.onPrimary)
-                .listRowBackground(Color.primaryDim)
+                    HStack(spacing: 8) {
+                        UserPictureView(user: user, imageSize: 20)
 
-                HStack(spacing: 8) {
-                    UserPictureView(user: user, imageSize: 20)
-
-                    if let name = user.resolvedName {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(name)
+                        if let name = user.resolvedName {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(name)
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+                                Text(user.address.short)
+                                    .font(.сaptionRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+                        } else {
+                            Text(user.address.short)
                                 .font(.bodyRegular)
                                 .foregroundColor(.textWhite)
-                            Text(user.address.short)
-                                .font(.сaptionRegular)
-                                .foregroundColor(.textWhite60)
                         }
-                    } else {
-                        Text(user.address.short)
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
-                    }
 
-                    Spacer()
+                        Spacer()
+                    }
                 }
             }
 
@@ -182,7 +190,7 @@ fileprivate struct ProfileListView: View {
                 ForEach(profile.sessions) { s in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(s.device)
+                            Text(s.deviceName)
                                 .font(.bodyRegular)
                                 .foregroundColor(.textWhite)
                             

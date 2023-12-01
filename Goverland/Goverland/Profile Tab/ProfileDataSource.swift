@@ -47,6 +47,9 @@ class ProfileDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
+                Task {
+                    try? await UserProfile.update(with: profile)
+                }
                 completion(profile)
             }
             .store(in: &cancellables)

@@ -91,12 +91,12 @@ class CastYourVoteModel: ObservableObject {
         clear()
 
         if let profile {
-            _validate(address: profile.address)
+            _validate(address: profile.address!)
         } else {
             ProfileDataSource.shared.refresh { [weak self] optionalProfile in
                 guard let `self` = self else { return }
                 if let profile = optionalProfile {
-                    self._validate(address: profile.address)
+                    self._validate(address: profile.address!)
                 } else {
                     self.failedToValidate = true
                     self.errorMessage = self.failedToLoadProfileMessage
