@@ -25,7 +25,7 @@ struct SignInView: View {
             .padding(.horizontal)
             .onAppear() { Tracker.track(.screenSignIn) }
         }
-        .onChange(of: authToken) { token in
+        .onChange(of: authToken) { _, token in
             if !token.isEmpty && isPresented {
                 dismiss()
             }

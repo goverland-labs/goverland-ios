@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InboxView: View {
-    @Setting(\.authToken) var authToken
+    @Setting(\.authToken) private var authToken
 
     var body: some View {
         if authToken.isEmpty {

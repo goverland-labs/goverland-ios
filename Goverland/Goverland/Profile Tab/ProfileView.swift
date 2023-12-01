@@ -23,7 +23,7 @@ enum ProfileScreen {
 
 struct ProfileView: View {
     @Binding var path: [ProfileScreen]
-    @Setting(\.authToken) var authToken
+    @Setting(\.authToken) private var authToken
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -161,7 +161,7 @@ fileprivate struct ProfileListView: View {
 
                     if let name = user.resolvedName {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(user.resolvedName!)
+                            Text(name)
                                 .font(.bodyRegular)
                                 .foregroundColor(.textWhite)
                             Text(user.address.short)

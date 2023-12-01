@@ -12,6 +12,7 @@ import SwiftData
 
 struct AdvancedSettingView: View {
     @Query private var appSettings: [AppSettings]
+    @Query private var profile: [UserProfile]
     @State private var accepted = false
 
     var body: some View {
@@ -44,15 +45,17 @@ struct AdvancedSettingView: View {
                 }
             }
 
-            Section(header: Text("Auth token")) {
-                LabeledContent(SettingKeys.shared.authToken) {
-                    Button {
-                        UIPasteboard.general.string = SettingKeys.shared.authToken
-                        showToast("Copied")
-                    } label: {
-                        Image(systemName: "doc.on.doc")
+            if let id = profile.first(where: { $0.selected })?.deviceId {
+                Section(header: Text("Support Token Id")) {
+                    LabeledContent(id) {
+                        Button {
+                            UIPasteboard.general.string = id
+                            showToast("Copied")
+                        } label: {
+                            Image(systemName: "doc.on.doc")
+                        }
+                        .foregroundColor(.primaryDim)
                     }
-                    .foregroundColor(.primaryDim)
                 }
             }
 

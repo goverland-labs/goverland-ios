@@ -16,13 +16,19 @@ class SignInDataSource: ObservableObject {
 
     func guestAuth() {
         loading = true
-        APIService.guestAuth(guestId: UUID().uuidString, defaultErrorDisplay: true)
-            .sink { [weak self] _ in
-                self?.loading = false
-            } receiveValue: { response, headers in
-                SettingKeys.shared.authToken = response.sessionId
-                logInfo("Auth token: \(response.sessionId)")
-            }
-            .store(in: &cancellables)
+        Task {
+            let profile = try! await UserProfile.getOrCreateGuestProfile()
+            APIService.guestAuth(guestId: profile.deviceId, defaultErrorDisplay: true)
+                .sink { [weak self] _ in
+                    self?.loading = false
+                } receiveValue: { response, headers in
+                    Task {
+                        try! await profile.select()
+                        try! await UserProfile.updateSessionIdForSelectedProfile(with: response.sessionId)
+                    }
+                    logInfo("[App] Auth Token: \(response.sessionId)")
+                }
+                .store(in: &cancellables)
+        }
     }
 }

@@ -14,11 +14,10 @@ def request(flow: http.HTTPFlow) -> None:
     # if counter % 2 == 0:
     #     time.sleep(3)
 
-    # 404 simulation
-
+    # 401 simulation
     # if counter % 2 == 0:
     #     flow.response = http.Response.make(
-    #         404,
+    #         401,
     #         json.dumps(""),  # (optional) content
     #         {"Content-Type": "application/json"},  # (optional) headers
     #     )
