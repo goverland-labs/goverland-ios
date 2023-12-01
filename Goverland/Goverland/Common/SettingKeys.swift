@@ -21,6 +21,7 @@ class SettingKeys: ObservableObject {
     
     static func reset() {
         SettingKeys.shared.authToken = ""
+        // TODO: store session meta in Model
         WC_Manager.shared.sessionMeta = nil
     }
 }

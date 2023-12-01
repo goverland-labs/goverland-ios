@@ -87,7 +87,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     func storeUnreadEventsCount(headers: HttpHeaders) {
         Task {
             let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
-            await AppSettingsWrite.setUnreadEvents(unreadEvents)
+            await AppSettings.setUnreadEvents(unreadEvents)
         }
     }
 
@@ -137,9 +137,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
                     // fool protection
                     Task {
-                        let currentUnreadEvents = await AppSettingsRead.unreadEvents
+                        let currentUnreadEvents = await AppSettings.unreadEvents
                         if currentUnreadEvents > 0 {
-                            await AppSettingsWrite.setUnreadEvents(currentUnreadEvents - 1)
+                            await AppSettings.setUnreadEvents(currentUnreadEvents - 1)
                         }
                     }
                 }
@@ -180,9 +180,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                     if let event = self.events?[index], event.readAt == nil {
                         // fool protection
                         Task {
-                            let currentUnreadEvents = await AppSettingsRead.unreadEvents
+                            let currentUnreadEvents = await AppSettings.unreadEvents
                             if currentUnreadEvents > 0 {
-                                await AppSettingsWrite.setUnreadEvents(currentUnreadEvents - 1)
+                                await AppSettings.setUnreadEvents(currentUnreadEvents - 1)
                             }
                         }                       
                     }

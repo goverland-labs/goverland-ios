@@ -15,8 +15,8 @@ struct Profile: Codable {
     let sessions: [Session]
 
     enum Role: String, Codable {
-        case guest
-        case regular
+        case guest = "GEUST"
+        case regular = "REGULAR"
     }
 }
 

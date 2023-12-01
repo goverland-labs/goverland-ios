@@ -49,7 +49,7 @@ class NotificationsManager {
     func enableNotifications() {
         // verify that token is there and user enabled notifications
         Task {
-            guard let token = Messaging.messaging().fcmToken, await AppSettingsRead.notificationsEnabled else { return }
+            guard let token = Messaging.messaging().fcmToken, await AppSettings.notificationsEnabled else { return }
             logInfo("[App] Enabling push notifications")
             APIService.enableNotifications(token, defaultErrorDisplay: false)
                 .retry(3)

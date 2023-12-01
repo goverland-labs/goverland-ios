@@ -14,16 +14,18 @@ struct AdvancedSettingView: View {
     @Query private var appSettings: [AppSettings]
     @Query private var profile: [UserProfile]
     @State private var accepted = false
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         List {
             #if STAGE
             Section(header: Text("Debug")) {
                 Button("RESET") {
-                    // TODO: store in Model
-                    WC_Manager.shared.sessionMeta = nil
-
-                    appSettings.first!.reset()
+                    SettingKeys.reset()
+                    try! modelContext.delete(model: UserProfile.self)
+                    try! modelContext.delete(model: AppSettings.self)
+                    try! modelContext.save()
+                    fatalError("Reset the app")
                 }
                 .accentColor(.dangerText)
 
