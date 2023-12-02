@@ -37,7 +37,7 @@ def request(flow: http.HTTPFlow) -> None:
     # Profile simulation
 
     if flow.request.pretty_url.startswith("https://inbox.staging.goverland.xyz/me"):
-        with open("./proxy/guest_profile.json") as f:
+        with open("./proxy/regular_profile.json") as f:
             data = json.load(f)
         flow.response = http.Response.make(
             200,

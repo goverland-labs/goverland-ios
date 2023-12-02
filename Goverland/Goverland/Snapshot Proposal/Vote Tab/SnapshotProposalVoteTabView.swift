@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum SnapshotVoteTabType: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -50,11 +51,21 @@ struct SnapshotProposalVoteTabView: View {
     @Namespace var namespace    
     @Environment(\.presentationMode) private var presentationMode
     @Setting(\.authToken) private var authToken
+    @Query private var profiles: [UserProfile]
 
     @State private var choice: AnyObject?
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
     @State private var showVote = false
+
+    private var selectedProfileIsGuest: Bool {
+        profiles.first(where: { $0.selected })?.address.isEmpty ?? false
+    }
+
+    private var wcSessionIsExpired: Bool {
+        // TODO: implement proper logic, if session is expired for the selected profile
+        false
+    }
 
     var body: some View {
         VStack {
@@ -106,16 +117,18 @@ struct SnapshotProposalVoteTabView: View {
                 }
 
                 if proposal.state == .active {
-                    if authToken.isEmpty {
-                        // TODO: detect if this is a guest user
+                    if authToken.isEmpty || selectedProfileIsGuest {
                         VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
                             showSignIn = true
                         }
-                        // TODO: check here if session is expired and offer to connect wallet
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
                             Tracker.track(.snpDetailsVote)
-                            showVote = true
+                            if wcSessionIsExpired {
+                                // TODO: show modal to connect Wallet
+                            } else {
+                                showVote = true
+                            }
                         }
                     }
                 }

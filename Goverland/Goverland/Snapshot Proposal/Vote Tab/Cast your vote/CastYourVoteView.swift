@@ -8,20 +8,29 @@
 	
 
 import SwiftUI
+import SwiftData
 
 struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteModel
+    @Query private var profiles: [UserProfile]
     @Environment(\.dismiss) private var dismiss
 
     init(proposal: Proposal, choice: AnyObject) {
         self._model = StateObject(wrappedValue: CastYourVoteModel(proposal: proposal, choice: choice))        
     }
 
-    var vpSymbol: String {
+    private var vpSymbol: String {
         if let symbol = model.proposal.symbol, !symbol.isEmpty {
             return symbol
         }
         return "VOTE"
+    }
+
+    private var user: User {
+        let profile = profiles.first(where: { $0.selected })!
+        return User(address: Address(profile.address),
+                    resolvedName: profile.resolvedName,
+                    avatar: profile.avatar)
     }
 
     var body: some View {
@@ -33,17 +42,7 @@ struct CastYourVoteView: View {
                 Text("Account")
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                // TODO: use IdentityView
-                if let address = model.profile?.address {
-                    Text(address)
-                } else if model.failedToValidate {
-                    Text("-")
-                        .foregroundStyle(Color.textWhite)
-                } else {
-                    ProgressView()
-                        .foregroundColor(.textWhite20)
-                        .controlSize(.mini)
-                }
+                IdentityView(user: user)                
             }
 
             HStack {
@@ -112,7 +111,7 @@ struct CastYourVoteView: View {
                     dismiss()
                 }
                 PrimaryButton("Sign", isEnabled: (model.validated ?? false) && !model.isPreparing) {
-                    model.prepareVote()
+                    model.prepareVote(address: user.address.value)
                 }
             }
             .padding(.horizontal)
@@ -121,7 +120,7 @@ struct CastYourVoteView: View {
         .padding(.vertical, 16)
         .onAppear {
             // TODO: track
-            model.validate()
+            model.validate(address: user.address.value)
         }
     }
 }

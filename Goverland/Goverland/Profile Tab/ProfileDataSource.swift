@@ -22,12 +22,7 @@ class ProfileDataSource: ObservableObject, Refreshable {
 
     func refresh() {
         clear()
-        loadProfile() { _ in }
-    }
-
-    func refresh(completion: @escaping (Profile?) -> Void) {
-        clear()
-        loadProfile(completion: completion)
+        loadProfile()
     }
 
     private func clear() {
@@ -36,21 +31,19 @@ class ProfileDataSource: ObservableObject, Refreshable {
         cancellables = Set<AnyCancellable>()
     }
 
-    private func loadProfile(completion: @escaping (Profile?) -> Void) {
+    private func loadProfile() {
         APIService.profile()
             .sink { [weak self] respCompletion in
                 switch respCompletion {
                 case .finished: break
                 case .failure(_): 
                     self?.failedToLoadInitialData = true
-                    completion(nil)
                 }
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
                 Task {
                     try? await UserProfile.softUpdateExisting(profile: profile)
                 }
-                completion(profile)
             }
             .store(in: &cancellables)
     }

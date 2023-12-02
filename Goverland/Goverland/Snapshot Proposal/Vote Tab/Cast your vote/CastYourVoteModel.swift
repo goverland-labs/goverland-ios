@@ -28,15 +28,10 @@ class CastYourVoteModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
 
-    private let failedToLoadProfileMessage = "Failed to load user profile. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
 
     private var voteRequestId: Int?
-
-    var profile: Profile? {
-        ProfileDataSource.shared.profile
-    }
 
     var choiceStr: String {
         switch proposal.type {
@@ -87,25 +82,8 @@ class CastYourVoteModel: ObservableObject {
         // do not clear cancellables
     }
 
-    func validate() {
+    func validate(address: String) {
         clear()
-
-        if let profile {
-            _validate(address: profile.address!)
-        } else {
-            ProfileDataSource.shared.refresh { [weak self] optionalProfile in
-                guard let `self` = self else { return }
-                if let profile = optionalProfile {
-                    self._validate(address: profile.address!)
-                } else {
-                    self.failedToValidate = true
-                    self.errorMessage = self.failedToLoadProfileMessage
-                }
-            }
-        }
-    }
-
-    private func _validate(address: String) {
         APIService.validate(proposalID: proposal.id, voter: address)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
@@ -129,9 +107,7 @@ class CastYourVoteModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func prepareVote() {
-        guard let address = profile?.address else { return }
-
+    func prepareVote(address: String) {
         isPreparing = true
         voteRequestId = nil
         APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
@@ -168,7 +144,7 @@ class CastYourVoteModel: ObservableObject {
             try? await Sign.instance.request(params: request)
         }
 
-        // TODO: code duplicate. Move to Utils
+        // TODO: code duplicate. Refactor how we store session and move to Utils.
         if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
            let redirectUrlStr = meta.session.peer.redirect?.universal,
            let redirectUrl = URL(string: redirectUrlStr) {
@@ -214,7 +190,8 @@ class CastYourVoteModel: ObservableObject {
                 }
             } receiveValue: { [weak self] resp, _ in
                 guard let `self` = self else { return }
-                logInfo("RESPONSE: \(resp)")
+                // TODO: show end the flow, show success screen
+                logInfo("[SUBMIT VOTE RESPONSE]: \(resp)")
             }
             .store(in: &cancellables)
     }
