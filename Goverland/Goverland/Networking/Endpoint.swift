@@ -100,10 +100,11 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    init(address: String, device: String, message: String, signature: String) {
+    init(address: String, deviceId: String, deviceName: String, message: String, signature: String) {
         self.body = try! JSONEncoder().encode([
             "address": address,
-            "device": device,
+            "device_id": deviceId,
+            "device_name": deviceName,
             "message": message,
             "singature": signature
         ])

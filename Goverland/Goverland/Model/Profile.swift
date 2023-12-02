@@ -46,6 +46,7 @@ struct Session: Codable, Identifiable {
 
 extension Profile {
     var address: String? {
-        account?.address.value
+        // don't change for UserProfile model consistency
+        account?.address.value.lowercased()
     }
 }

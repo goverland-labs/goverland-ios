@@ -48,7 +48,7 @@ class ProfileDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
                 Task {
-                    try? await UserProfile.update(with: profile)
+                    try? await UserProfile.softUpdateExisting(profile: profile)
                 }
                 completion(profile)
             }

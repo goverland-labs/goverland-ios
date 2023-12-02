@@ -2,8 +2,12 @@
     "session_id": "0ac742e8-8f71-4a05-bbe0-5b5ccb2cf111",
     "profile": {
         "id": "20f660e9-770d-48b5-94a6-e710fc9073fe",
-        "role": "GUEST",
-        "account": null,
+        "role": "REGULAR",
+        "account": {
+            "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+            "resolved_name": "vitalik.eth",
+            "avatar": "https://metadata.ens.domains/mainnet/avatar/vitalik.eth"
+        },
         "last_sessions": [
             {
                 "id": "0ac742e8-8f71-4a05-bbe0-5b5ccb2cf111",

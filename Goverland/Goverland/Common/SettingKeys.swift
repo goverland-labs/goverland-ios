@@ -29,6 +29,9 @@ class SettingKeys: ObservableObject {
         }
     }
 
+    /// If a user logs out from a guest profile and then logs in again as a guest, we want to preserve it.
+    @AppStorage("guestDeviceId") var guestDeviceId = UUID().uuidString
+
     static var shared = SettingKeys()
 
     private init() {}

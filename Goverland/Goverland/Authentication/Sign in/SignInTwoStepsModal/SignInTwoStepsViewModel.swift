@@ -26,7 +26,7 @@ class SignInTwoStepsViewModel: ObservableObject {
     }
 
     var address: String? {
-        WC_Manager.shared.sessionMeta?.session.accounts.first?.address
+        WC_Manager.shared.sessionMeta?.session.accounts.first?.address.lowercased()
     }
 
     private func listen_WC_Responses() {
@@ -53,18 +53,48 @@ class SignInTwoStepsViewModel: ObservableObject {
 
     private func signIn(signature: String) {
         guard let address = address else { return }
-        APIService.regularAuth(address: address,
-                               device: UIDevice.current.name,
-                               message: siweMessage(address: address),
-                               signature: signature)
-            .sink { _ in
-                // do nothing, error will be displayed to user
-            } receiveValue: { response, _ in
-                SettingKeys.shared.authToken = "cbea06c9-2fad-49b3-815f-41584d1744fd"
-                ProfileDataSource.shared.profile = response.profile
-                logInfo("Auth token: \(response.sessionId); Profile: \(response.profile)")
+        let deviceName = UIDevice.current.name
+
+        Task {
+            // First, try to get a regular profile by address if it already exists (in case a user
+            // tries to sign in with already signed in profile).
+            //
+            // If not, meaning we signing in with a
+            // a) guest user, then take guest deviceId
+            // b) new user, then generate a new deviceId
+            //
+            // Different profiles should have different deviceIds for privacy considerations.
+            let deviceId: String
+            if let p = try! await UserProfile.getByAddress(address) {
+                // regular user exists
+                deviceId = p.deviceId
+            } else if let p = try! await UserProfile.getByAddress("") {
+                // guest user exists
+                deviceId = p.deviceId
+            } else {
+                // new app user
+                deviceId = UUID().uuidString
             }
-            .store(in: &cancellables)
+
+            APIService.regularAuth(address: address,
+                                   deviceId: deviceId,
+                                   deviceName: deviceName,
+                                   message: siweMessage(address: address),
+                                   signature: signature)
+                .sink { _ in
+                    // do nothing, error will be displayed to user
+                } receiveValue: { response, headers in
+                    Task {
+                        let profile = try! await UserProfile.upsert(profile: response.profile,
+                                                                    deviceId: deviceId,
+                                                                    sessionId: response.sessionId)
+                        try! await profile.select()
+                    }
+                    ProfileDataSource.shared.profile = response.profile
+                    logInfo("[SIWE] Auth token: \(response.sessionId); Profile: \(address)")
+                }
+                .store(in: &cancellables)
+        }
     }
 
     func authenticate() {
@@ -82,12 +112,12 @@ class SignInTwoStepsViewModel: ObservableObject {
 
         Task {
             try? await Sign.instance.request(params: request)
-        }
 
-        if let meta = wcSessionMeta, meta.walletOnSameDevice,
-           let redirectUrlStr = meta.session.peer.redirect?.universal,
-           let redirectUrl = URL(string: redirectUrlStr) {
-            openUrl(redirectUrl)
+            if let meta = wcSessionMeta, meta.walletOnSameDevice,
+               let redirectUrlStr = meta.session.peer.redirect?.universal,
+               let redirectUrl = URL(string: redirectUrlStr) {
+                openUrl(redirectUrl)
+            }
         }
     }
 

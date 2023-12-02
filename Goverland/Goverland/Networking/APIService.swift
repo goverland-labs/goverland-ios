@@ -46,7 +46,7 @@ class APIService {
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
                         Task {
-                            try? await UserProfile.updateSessionIdForSelectedProfile(with: nil)
+                            try! await UserProfile.logoutSelected()
                         }
                     }
                     if defaultErrorDisplay {
@@ -73,10 +73,15 @@ extension APIService {
     }
 
     static func regularAuth(address: String,
-                            device: String,
+                            deviceId: String,
+                            deviceName: String,
                             message: String,
                             signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = RegularAuthTokenEndpoint(address: address, device: device, message: message, signature: signature)
+        let endpoint = RegularAuthTokenEndpoint(address: address, 
+                                                deviceId: deviceId,
+                                                deviceName: deviceName,
+                                                message: message,
+                                                signature: signature)
         return shared.request(endpoint)
     }
 
