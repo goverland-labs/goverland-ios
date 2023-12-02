@@ -85,10 +85,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func storeUnreadEventsCount(headers: HttpHeaders) {
-        Task {
-            let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
-            await AppSettings.setUnreadEvents(unreadEvents)
-        }
+        let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
+        SettingKeys.shared.unreadEvents = unreadEvents
     }
 
     func hasMore() -> Bool {
@@ -136,11 +134,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                     self.events?[index].readAt = Date()
 
                     // fool protection
-                    Task {
-                        let currentUnreadEvents = await AppSettings.unreadEvents
-                        if currentUnreadEvents > 0 {
-                            await AppSettings.setUnreadEvents(currentUnreadEvents - 1)
-                        }
+                    if SettingKeys.shared.unreadEvents > 0 {
+                        SettingKeys.shared.unreadEvents -= 1
                     }
                 }
             }
@@ -179,12 +174,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
                     if let event = self.events?[index], event.readAt == nil {
                         // fool protection
-                        Task {
-                            let currentUnreadEvents = await AppSettings.unreadEvents
-                            if currentUnreadEvents > 0 {
-                                await AppSettings.setUnreadEvents(currentUnreadEvents - 1)
-                            }
-                        }                       
+                        if SettingKeys.shared.unreadEvents > 0 {
+                            SettingKeys.shared.unreadEvents -= 1
+                        }
                     }
                     self.events?.remove(at: index)
                 }

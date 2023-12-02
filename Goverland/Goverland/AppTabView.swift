@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 class TabManager: ObservableObject {
     enum Tab {
@@ -50,9 +49,11 @@ class TabManager: ObservableObject {
 }
 
 struct AppTabView: View {
-    @Query private var appSettings: [AppSettings]
     @StateObject private var tabManager = TabManager.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Setting(\.unreadEvents) private var unreadEvents
+    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
+    @Setting(\.notificationsEnabled) private var notificationsEnabled
 
     @State var currentInboxViewId: UUID?
     
@@ -74,7 +75,7 @@ struct AppTabView: View {
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                     .tag(TabManager.Tab.inbox)
-                    .badge(appSettings.first!.unreadEvents)
+                    .badge(unreadEvents)
             } else {
                 Spacer()
                     .tabItem {
@@ -85,7 +86,7 @@ struct AppTabView: View {
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                     .tag(TabManager.Tab.inbox)
-                    .badge(appSettings.first!.unreadEvents)
+                    .badge(unreadEvents)
             }
             
             SearchView()
@@ -111,12 +112,10 @@ struct AppTabView: View {
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
 
-            if now - appSettings.first!.lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval
-                && !appSettings.first!.notificationsEnabled {
-
+            if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
-                    appSettings.first!.lastPromotedPushNotificationsTime = now
+                    lastPromotedPushNotificationsTime = now
                     activeSheetManager.activeSheet = .subscribeToNotifications
                 }
             }

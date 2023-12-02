@@ -7,14 +7,9 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Query private var appSettings: [AppSettings]
-
-    var termsAccepted: Bool {
-        appSettings.first?.termsAccepted ?? false
-    }
+    @Setting(\.termsAccepted) var termsAccepted
 
     var body: some View {
         if !termsAccepted {

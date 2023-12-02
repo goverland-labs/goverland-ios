@@ -11,7 +11,6 @@ import SwiftUI
 import SwiftData
 
 struct AdvancedSettingView: View {
-    @Query private var appSettings: [AppSettings]
     @Query private var profile: [UserProfile]
     @State private var accepted = false
     @Environment(\.modelContext) private var modelContext
@@ -23,7 +22,6 @@ struct AdvancedSettingView: View {
                 Button("RESET") {
                     SettingKeys.reset()
                     try! modelContext.delete(model: UserProfile.self)
-                    try! modelContext.delete(model: AppSettings.self)
                     try! modelContext.save()
                     fatalError("Reset the app")
                 }
@@ -71,10 +69,10 @@ struct AdvancedSettingView: View {
             if !newValue {
                 Tracker.track(.settingsDisableTracking)
             }
-            appSettings.first!.setTrackingAccepted(newValue)
+            SettingKeys.shared.trackingAccepted = accepted
         }
         .onAppear() {
-            accepted = appSettings.first!.trackingAccepted
+            accepted = SettingKeys.shared.trackingAccepted
             Tracker.track(.screenAdvancedSettings)
         }
     }

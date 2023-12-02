@@ -48,19 +48,18 @@ class NotificationsManager {
 
     func enableNotifications() {
         // verify that token is there and user enabled notifications
-        Task {
-            guard let token = Messaging.messaging().fcmToken, await AppSettings.notificationsEnabled else { return }
-            logInfo("[App] Enabling push notifications")
-            APIService.enableNotifications(token, defaultErrorDisplay: false)
-                .retry(3)
-                .sink { completion in
-                    switch completion {
-                    case .finished: break
-                    case .failure(_): break // Token will be requested on every app start, so no need to retry for now
-                    }
-                } receiveValue: { response, headers in }
-                .store(in: &cancellables)
-        }
+        guard let token = Messaging.messaging().fcmToken, SettingKeys.shared.notificationsEnabled else { return }
+
+        logInfo("[App] Enabling push notifications")
+        APIService.enableNotifications(token, defaultErrorDisplay: false)
+            .retry(3)
+            .sink { completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): break // Token will be requested on every app start, so no need to retry for now
+                }
+            } receiveValue: { response, headers in }
+            .store(in: &cancellables)
     }
 
     func disableNotifications(completion: @escaping (Bool) -> Void) {

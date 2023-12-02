@@ -8,11 +8,9 @@
 	
 
 import SwiftUI
-import SwiftData
 
 struct PushNotificationsSettingView: View {
-    @Query private var appSettings: [AppSettings]
-    @State private var notificationsEnabled = false
+    @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
     @State private var showAlert = false
     @State private var skipTrackingOnce = false
 
@@ -29,7 +27,7 @@ struct PushNotificationsSettingView: View {
                         Tracker.track(.settingsEnableGlbNotifications)
                         NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                             DispatchQueue.main.async {
-                                appSettings.first!.notificationsEnabled = granted
+                                SettingKeys.shared.notificationsEnabled = granted
                                 notificationsEnabled = granted
                             }
                         }
@@ -53,7 +51,7 @@ struct PushNotificationsSettingView: View {
                         } else {
                             skipTrackingOnce = false
                         }
-                        appSettings.first!.notificationsEnabled = true
+                        SettingKeys.shared.notificationsEnabled = true
                         NotificationsManager.shared.enableNotifications()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
@@ -64,7 +62,7 @@ struct PushNotificationsSettingView: View {
                                 notificationsEnabled = true
                                 return
                             }
-                            appSettings.first!.notificationsEnabled = false
+                            SettingKeys.shared.notificationsEnabled = false
                         }
                     }
                 }
@@ -79,7 +77,6 @@ struct PushNotificationsSettingView: View {
             )
         }
         .onAppear() {
-            notificationsEnabled = appSettings.first!.notificationsEnabled
             Tracker.track(.screenNotifications)
         }
     }

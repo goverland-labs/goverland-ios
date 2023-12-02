@@ -14,6 +14,20 @@ class SettingKeys: ObservableObject {
     /// UserProfile @Model `.sessionId` property can be accesses only asynchronously.
     /// it leads to usage difficulties in many places.
     @AppStorage("authToken") var authToken = ""
+    @AppStorage("termsAccepted") var termsAccepted = false
+    @AppStorage("trackingAccepted") var trackingAccepted = false {
+        didSet {
+            Tracker.setTrackingEnabled(trackingAccepted)
+        }
+    }
+    @AppStorage("notificationsEnabled") var notificationsEnabled = false
+    @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
+
+    @AppStorage("unreadEvents") var unreadEvents = 0 {
+        didSet {
+            UNUserNotificationCenter.current().setBadgeCount(unreadEvents)
+        }
+    }
 
     static var shared = SettingKeys()
 
@@ -21,6 +35,12 @@ class SettingKeys: ObservableObject {
     
     static func reset() {
         SettingKeys.shared.authToken = ""
+        SettingKeys.shared.termsAccepted = false
+        SettingKeys.shared.trackingAccepted = false
+        SettingKeys.shared.notificationsEnabled = false
+        SettingKeys.shared.lastPromotedPushNotificationsTime = 0
+        SettingKeys.shared.unreadEvents = 0
+
         // TODO: store session meta in Model
         WC_Manager.shared.sessionMeta = nil
     }

@@ -7,10 +7,10 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct TermsView: View {
-    @Query private var appSettings: [AppSettings]
+    @Setting(\.termsAccepted) var termsAccepted
+    @Setting(\.trackingAccepted) var trackingAccepted
     @Binding var termsViewIsPresented: Bool
     
     var body: some View {
@@ -58,18 +58,17 @@ struct TermsView: View {
             Spacer()
 
             PrimaryButton("Get Started") {
-                appSettings.first!.termsAccepted = true
-                appSettings.first!.setTrackingAccepted(true)
+                termsAccepted = true
+                trackingAccepted = true
             }
             
             Button("Accept without sharing data") {
-                appSettings.first!.termsAccepted = true
-                appSettings.first!.setTrackingAccepted(false)
+                termsAccepted = true
+                trackingAccepted = false
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)
             .accentColor(.primaryDim)
-            
         }
         .padding(.horizontal, 16)
     }

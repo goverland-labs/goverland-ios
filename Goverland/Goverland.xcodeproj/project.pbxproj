@@ -98,7 +98,6 @@
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
-		55DE41B52B17B96B008617F5 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B42B17B96B008617F5 /* AppSettings.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
 		55E800A42AF825D900A43D5F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A32AF825D900A43D5F /* SignInView.swift */; };
 		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
@@ -295,7 +294,6 @@
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
-		55DE41B42B17B96B008617F5 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E800A32AF825D900A43D5F /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		55E800A52AF8419E00A43D5F /* SignInDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataSource.swift; sourceTree = "<group>"; };
@@ -740,7 +738,6 @@
 		55DE41B12B17B8DD008617F5 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				55DE41B42B17B96B008617F5 /* AppSettings.swift */,
 				55DE41B62B193882008617F5 /* UserProfile.swift */,
 			);
 			path = Persistence;
@@ -1371,7 +1368,6 @@
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
-				55DE41B52B17B96B008617F5 /* AppSettings.swift in Sources */,
 				55FD731D2AB75DC60081C38D /* SignInTwoStepsModalView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
