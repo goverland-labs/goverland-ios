@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SignInTwoStepsView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = SignInTwoStepsDataSource()
+    @StateObject private var dataSource = SignInTwoStepsDataSource()
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
 
@@ -39,7 +39,7 @@ struct SignInTwoStepsView: View {
                 Text("1")
                 Text("Connect wallet")
                 Spacer()
-                if let sessionMeta = model.wcSessionMeta {
+                if let sessionMeta = dataSource.wcSessionMeta {
                     VStack(alignment: .trailing) {
                         HStack {
                             if let iconStr = sessionMeta.session.peer.icons.first,
@@ -65,13 +65,13 @@ struct SignInTwoStepsView: View {
 
             Spacer()
 
-            if model.wcSessionMeta == nil {
+            if dataSource.wcSessionMeta == nil {
                 PrimaryButton("Connect Wallet") {
                     showSelectWallet = true
                 }
             } else {
                 PrimaryButton("Sign message to sign in") {
-                    model.authenticate()
+                    dataSource.authenticate()
                 }
             }
         }
