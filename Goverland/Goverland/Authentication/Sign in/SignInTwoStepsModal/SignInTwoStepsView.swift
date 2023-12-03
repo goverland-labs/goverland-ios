@@ -1,5 +1,5 @@
 //
-//  SignInTwoStepsModalView.swift
+//  SignInTwoStepsView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct SignInTwoStepsModalView: View {
+struct SignInTwoStepsView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = SignInTwoStepsViewModel()
+    @StateObject private var dataSource = SignInTwoStepsDataSource()
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
 
@@ -39,7 +39,7 @@ struct SignInTwoStepsModalView: View {
                 Text("1")
                 Text("Connect wallet")
                 Spacer()
-                if let sessionMeta = model.wcSessionMeta {
+                if let sessionMeta = dataSource.wcSessionMeta {
                     VStack(alignment: .trailing) {
                         HStack {
                             if let iconStr = sessionMeta.session.peer.icons.first,
@@ -65,13 +65,13 @@ struct SignInTwoStepsModalView: View {
 
             Spacer()
 
-            if model.wcSessionMeta == nil {
+            if dataSource.wcSessionMeta == nil {
                 PrimaryButton("Connect Wallet") {
                     showSelectWallet = true
                 }
             } else {
-                PrimaryButton("Sign Message to Sign In") {
-                    model.authenticate()
+                PrimaryButton("Sign message to sign in") {
+                    dataSource.authenticate()
                 }
             }
         }
@@ -85,7 +85,7 @@ struct SignInTwoStepsModalView: View {
                 ToastView()
             }
         }
-        .onChange(of: authToken) { token in
+        .onChange(of: authToken) { _, token in
             if !token.isEmpty {
                 presentationMode.wrappedValue.dismiss()
             }

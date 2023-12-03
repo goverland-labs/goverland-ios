@@ -10,35 +10,42 @@ import Foundation
 import SwiftUI
 
 class SettingKeys: ObservableObject {
+    /// We need to store authToken in user defaults for convenience as
+    /// UserProfile @Model `.sessionId` property can be accesses only asynchronously.
+    /// it leads to usage difficulties in many places.
+    @AppStorage("authToken") var authToken = ""
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("trackingAccepted") var trackingAccepted = false {
         didSet {
             Tracker.setTrackingEnabled(trackingAccepted)
         }
     }
-
-    @AppStorage("authToken") var authToken = ""
-
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
 
     @AppStorage("unreadEvents") var unreadEvents = 0 {
         didSet {
-            UIApplication.shared.applicationIconBadgeNumber = unreadEvents
+            UNUserNotificationCenter.current().setBadgeCount(unreadEvents)
         }
     }
+
+    /// If a user logs out from a guest profile and then logs in again as a guest, we want to preserve it.
+    @AppStorage("guestDeviceId") var guestDeviceId = UUID().uuidString
 
     static var shared = SettingKeys()
 
     private init() {}
     
     static func reset() {
+        SettingKeys.shared.authToken = ""
         SettingKeys.shared.termsAccepted = false
         SettingKeys.shared.trackingAccepted = false
-        SettingKeys.shared.authToken = ""
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.unreadEvents = 0
+
+        // TODO: store session meta in Model
+        WC_Manager.shared.sessionMeta = nil
     }
 }
 

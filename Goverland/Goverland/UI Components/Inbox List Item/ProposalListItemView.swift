@@ -248,12 +248,3 @@ struct ShimmerProposalListItemView: View {
         .frame(height: 160)
     }
 }
-
-struct InboxListItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProposalListItemView(proposal: .aaveTest,
-                             isSelected: false,
-                             isRead: false,
-                             displayUnreadIndicator: true) {}
-    }
-}

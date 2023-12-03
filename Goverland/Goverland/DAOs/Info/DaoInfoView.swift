@@ -54,7 +54,7 @@ struct DaoInfoView: View {
                     .controlSize(.regular)
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAO information")
             } else if let dao = dao {
                 VStack(spacing: 0) {
                     DaoInfoScreenHeaderView(dao: dao)
@@ -119,7 +119,7 @@ struct DaoInfoView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+            if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
                     lastPromotedPushNotificationsTime = now

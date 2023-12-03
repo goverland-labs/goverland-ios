@@ -10,22 +10,6 @@ import SwiftUI
 import QRCode
 import WalletConnectModal
 
-fileprivate func viewHeight() -> CGFloat {
-    if UIScreen.screenWidth < UIScreen.screenHeight {
-        return UIScreen.screenWidth * 1.1
-    } else {
-        return UIScreen.screenHeight * 0.8
-    }
-}
-
-fileprivate func qrEdge() -> CGFloat {
-    if UIScreen.screenWidth < UIScreen.screenHeight {
-        return UIScreen.screenWidth * 0.6
-    } else {
-        return viewHeight() * 0.5
-    }
-}
-
 struct WC_QRView: View {
     let connectWalletModel: ConnectWalletModel
 
@@ -46,7 +30,7 @@ struct WC_QRView: View {
                 Rectangle()
                     .id(orientationManager.currentOrientation)
                     .foregroundColor(.containerBright)
-                    .frame(maxWidth: .infinity, maxHeight: viewHeight())
+                    .frame(maxWidth: .infinity, maxHeight: viewHeight)
                     .mask(TopRoundedCornerShape(radius: 40))
                     .overlay(
                         VStack {
@@ -67,9 +51,9 @@ struct WC_QRView: View {
                                 .foregroundColor(.textWhite)
 
                             if let uri = model.uri {
-                                QRView(content: uri)
+                                QRView(content: uri, edge: qrEdge)
                             } else {
-                                QRView.LoadingView()
+                                QRView.LoadingView(edge: qrEdge)
                             }
 
                             Text("\u{20F0} Wallet should support WalletConnect")
@@ -95,10 +79,12 @@ struct WC_QRView: View {
     // https://github.com/WalletConnect/QRCode
     struct QRView: View {
         let content: String
+        let edge: CGFloat
 
         struct LoadingView: View {
+            let edge: CGFloat
+
             var body: some View {
-                let edge = qrEdge()
                 ProgressView()
                     .progressViewStyle(.circular)
                     .tint(.textWhite20)
@@ -107,7 +93,6 @@ struct WC_QRView: View {
         }
 
         var body: some View {
-            let edge = qrEdge()
             qrImage(content: content, size: CGSize(width: edge, height: edge))
         }
 
@@ -137,6 +122,22 @@ struct WC_QRView: View {
             )!
         }
     }
+
+    var viewHeight: CGFloat {
+        if UIScreen.screenWidth < UIScreen.screenHeight {
+            return UIScreen.screenWidth * 1.1
+        } else {
+            return UIScreen.screenHeight * 0.8
+        }
+    }
+
+    var qrEdge: CGFloat {
+        if UIScreen.screenWidth < UIScreen.screenHeight {
+            return UIScreen.screenWidth * 0.6
+        } else {
+            return viewHeight * 0.5
+        }
+    }
 }
 
 fileprivate class QRViewModel: ObservableObject {
@@ -149,8 +150,10 @@ fileprivate class QRViewModel: ObservableObject {
         Task {
             do {
                 guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil) else { return }
-                uri = wcUri.absoluteString
-                logInfo("[WC] URI: \(uri)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.uri = wcUri.absoluteString
+                }
+                logInfo("[WC] URI: \(uri?.description ?? "None")")
             } catch {
                 showToast("Failed to connect. Please try again later.")
                 DispatchQueue.main.async { [weak self] in

@@ -108,7 +108,7 @@ fileprivate struct DaosListView: View {
                     }
                 }
             } else {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAOs list")
             }
         } else {
             CategoryDaosSearchListView(dataSource: dataSource,

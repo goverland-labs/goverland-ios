@@ -24,7 +24,7 @@ class NetworkManager {
         if let bodyData = urlRequest.httpBody {
             body = String(data: bodyData, encoding: .utf8)!
         }
-        logInfo("[REQUEST] \(urlRequest.description); \(body)")
+        logInfo("[REQUEST \(urlRequest.httpMethod ?? "")] \(urlRequest.description); \(body)")
         #endif
 
         return session

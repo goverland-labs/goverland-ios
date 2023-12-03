@@ -27,5 +27,7 @@
 	</array>
 	<key>WC_PROJECT_ID</key>
 	<string>$(WC_PROJECT_ID)</string>
+	<key>ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL</key>
+	<string>$(ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL)</string>
 </dict>
 </plist>

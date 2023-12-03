@@ -44,8 +44,10 @@ class APIService {
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
-                    if case .notAuthorized = apiError {                        
-                        SettingKeys.shared.authToken = ""
+                    if case .notAuthorized = apiError {
+                        Task {
+                            try! await UserProfile.logoutSelected()
+                        }
                     }
                     if defaultErrorDisplay {
                         showToast(apiError.localizedDescription)
@@ -64,17 +66,29 @@ extension APIService {
 
     // MARK: - Auth
 
-    static func guestAuth(guestId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = GuestAuthTokenEndpoint(guestId: guestId)
+    static func guestAuth(guestId: String, deviceName: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GuestAuthTokenEndpoint(guestId: guestId, deviceName: deviceName)
         logInfo("Guest ID: \(guestId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }
 
     static func regularAuth(address: String,
-                            device: String,
+                            deviceId: String,
+                            deviceName: String,
                             message: String,
                             signature: String) -> AnyPublisher<(RegularAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = RegularAuthTokenEndpoint(address: address, device: device, message: message, signature: signature)
+        let endpoint = RegularAuthTokenEndpoint(address: address, 
+                                                deviceId: deviceId,
+                                                deviceName: deviceName,
+                                                message: message,
+                                                signature: signature)
+        return shared.request(endpoint)
+    }
+
+    // MARK: - Profile
+
+    static func profile() -> AnyPublisher<(ProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProfileEndpoint()
         return shared.request(endpoint)
     }
 
@@ -200,7 +214,9 @@ extension APIService {
         let endpoint = ProposalEndpoint(proposalID: id)
         return shared.request(endpoint)
     }
-    
+
+    // MARK: - Voting & Votes
+
     static func votes<ChoiceType: Decodable>(proposalID: String,
                                              offset: Int = 0,
                                              limit: Int = ConfigurationManager.defaultPaginationCount,
@@ -211,6 +227,26 @@ extension APIService {
         ]
         
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func validate(proposalID: String, voter: String) -> AnyPublisher<(ProposalValidateAddressEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalValidateAddressEndpoint(proposalID: proposalID, voter: voter)
+        return shared.request(endpoint)
+    }
+
+    static func prepareVote(proposal: Proposal,
+                            voter: String,
+                            choice: AnyObject,
+                            reason: String?) -> AnyPublisher<(ProposalPrepareVoteEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalPrepareVoteEndpoint(proposal: proposal, voter: voter, choice: choice, reason: reason)
+        return shared.request(endpoint)
+    }
+
+    static func submitVote(proposal: Proposal,
+                           id: Int,
+                           signature: String) -> AnyPublisher<(ProposalSubmitVoteEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalSubmitVoteEndpoint(proposal: proposal, id: id, signature: signature)
         return shared.request(endpoint)
     }
 

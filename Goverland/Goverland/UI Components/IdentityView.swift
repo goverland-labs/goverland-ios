@@ -20,7 +20,7 @@ struct IdentityView: View {
     }
 }
 
-fileprivate struct UserPictureView: View {
+struct UserPictureView: View {
     let user: User
     let imageSize: Int
     var body: some View {

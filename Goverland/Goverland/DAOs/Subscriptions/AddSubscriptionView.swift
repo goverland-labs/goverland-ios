@@ -42,7 +42,7 @@ struct AddSubscriptionView: View {
 
                                     onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) })
                 } else {
-                    RetryInitialLoadingView(dataSource: dataSource)
+                    RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAOs list")
                 }
             } else {
                 DaosSearchListView(onSelectDao: { dao in
@@ -103,7 +103,7 @@ struct AddSubscriptionView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+            if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
                     lastPromotedPushNotificationsTime = now

@@ -19,7 +19,7 @@ struct SignOutPopoverView: View {
         
         Spacer()
         
-        HStack(spacing: 20) {
+        HStack(spacing: 16) {
             SecondaryButton("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }
