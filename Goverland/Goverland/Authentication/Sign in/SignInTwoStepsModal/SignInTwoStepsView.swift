@@ -1,5 +1,5 @@
 //
-//  SignInTwoStepsModalView.swift
+//  SignInTwoStepsView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct SignInTwoStepsModalView: View {
+struct SignInTwoStepsView: View {
     @Environment(\.presentationMode) private var presentationMode
-    @StateObject private var model = SignInTwoStepsViewModel()
+    @StateObject private var model = SignInTwoStepsDataSource()
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
 

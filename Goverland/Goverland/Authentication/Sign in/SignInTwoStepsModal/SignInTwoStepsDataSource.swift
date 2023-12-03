@@ -1,5 +1,5 @@
 //
-//  SignInTwoStepsViewModel.swift
+//  SignInTwoStepsDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 25.08.23.
@@ -11,7 +11,7 @@ import Combine
 import UIKit
 import WalletConnectSign
 
-class SignInTwoStepsViewModel: ObservableObject {
+class SignInTwoStepsDataSource: ObservableObject {
     @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
 
     private var cancellables = Set<AnyCancellable>()

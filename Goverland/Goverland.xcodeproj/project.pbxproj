@@ -110,12 +110,12 @@
 		55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */; };
 		55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730E2AB75DC60081C38D /* WC_Manager.swift */; };
 		55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730F2AB75DC60081C38D /* SIWE_Message.swift */; };
-		55FD731D2AB75DC60081C38D /* SignInTwoStepsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73122AB75DC60081C38D /* SignInTwoStepsModalView.swift */; };
+		55FD731D2AB75DC60081C38D /* SignInTwoStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73122AB75DC60081C38D /* SignInTwoStepsView.swift */; };
 		55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73142AB75DC60081C38D /* ConnectWalletModel.swift */; };
 		55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73152AB75DC60081C38D /* WC_QRView.swift */; };
 		55FD73202AB75DC60081C38D /* ConnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73162AB75DC60081C38D /* ConnectWalletView.swift */; };
 		55FD73212AB75DC60081C38D /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73172AB75DC60081C38D /* Wallet.swift */; };
-		55FD73222AB75DC60081C38D /* SignInTwoStepsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73182AB75DC60081C38D /* SignInTwoStepsViewModel.swift */; };
+		55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */; };
 		55FD73252AB75DF80081C38D /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73242AB75DF80081C38D /* Starscream */; };
 		55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
@@ -305,12 +305,12 @@
 		55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WC_SocketFactory.swift; sourceTree = "<group>"; };
 		55FD730E2AB75DC60081C38D /* WC_Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WC_Manager.swift; sourceTree = "<group>"; };
 		55FD730F2AB75DC60081C38D /* SIWE_Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIWE_Message.swift; sourceTree = "<group>"; };
-		55FD73122AB75DC60081C38D /* SignInTwoStepsModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsModalView.swift; sourceTree = "<group>"; };
+		55FD73122AB75DC60081C38D /* SignInTwoStepsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsView.swift; sourceTree = "<group>"; };
 		55FD73142AB75DC60081C38D /* ConnectWalletModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectWalletModel.swift; sourceTree = "<group>"; };
 		55FD73152AB75DC60081C38D /* WC_QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WC_QRView.swift; sourceTree = "<group>"; };
 		55FD73162AB75DC60081C38D /* ConnectWalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectWalletView.swift; sourceTree = "<group>"; };
 		55FD73172AB75DC60081C38D /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
-		55FD73182AB75DC60081C38D /* SignInTwoStepsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsViewModel.swift; sourceTree = "<group>"; };
+		55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsDataSource.swift; sourceTree = "<group>"; };
 		55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRoundedCornerShape.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
@@ -868,8 +868,8 @@
 		55FD73112AB75DC60081C38D /* SignInTwoStepsModal */ = {
 			isa = PBXGroup;
 			children = (
-				55FD73122AB75DC60081C38D /* SignInTwoStepsModalView.swift */,
-				55FD73182AB75DC60081C38D /* SignInTwoStepsViewModel.swift */,
+				55FD73122AB75DC60081C38D /* SignInTwoStepsView.swift */,
+				55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */,
 			);
 			path = SignInTwoStepsModal;
 			sourceTree = "<group>";
@@ -1263,7 +1263,7 @@
 				55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
-				55FD73222AB75DC60081C38D /* SignInTwoStepsViewModel.swift in Sources */,
+				55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */,
 				55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */,
 				BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */,
@@ -1368,7 +1368,7 @@
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
-				55FD731D2AB75DC60081C38D /* SignInTwoStepsModalView.swift in Sources */,
+				55FD731D2AB75DC60081C38D /* SignInTwoStepsView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,

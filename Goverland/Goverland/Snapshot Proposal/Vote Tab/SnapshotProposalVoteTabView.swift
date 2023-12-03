@@ -154,7 +154,7 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsModalView()
+            SignInTwoStepsView()
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showVote) {

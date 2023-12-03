@@ -96,7 +96,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
             .padding(.bottom)
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsModalView()
+            SignInTwoStepsView()
                 .presentationDetents([.medium, .large])
         }
     }
