@@ -42,7 +42,7 @@ class ProfileDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] profile, _ in
                 self?.profile = profile
                 Task {
-                    try? await UserProfile.softUpdateExisting(profile: profile)
+                    try! await UserProfile.softUpdateExisting(profile: profile)
                 }
             }
             .store(in: &cancellables)

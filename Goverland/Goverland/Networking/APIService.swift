@@ -66,8 +66,8 @@ extension APIService {
 
     // MARK: - Auth
 
-    static func guestAuth(guestId: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = GuestAuthTokenEndpoint(guestId: guestId)
+    static func guestAuth(guestId: String, deviceName: String, defaultErrorDisplay: Bool) -> AnyPublisher<(GuestAuthTokenEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GuestAuthTokenEndpoint(guestId: guestId, deviceName: deviceName)
         logInfo("Guest ID: \(guestId)")
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
     }

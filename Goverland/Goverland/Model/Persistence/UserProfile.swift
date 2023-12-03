@@ -33,9 +33,11 @@ final class UserProfile {
 
     /// Only one profile can be selected at once.
     private(set) var selected: Bool
+
     private(set) var resolvedName: String?
     private(set) var avatar: URL?
 
+    @Transient
     private var addressDescription: String {
         address.isEmpty ? "GUEST" : address
     }
@@ -69,12 +71,11 @@ extension UserProfile {
             logInfo("[UserProfile] Selecting a new profile: \(self.addressDescription). Prev. selected: \(selectedProfile.addressDescription)")
             selectedProfile.selected = false
             self.selected = true
-            try context.save()
         } else {
             logInfo("[UserProfile] No selected profile found. Selecting \(self.addressDescription)")
             self.selected = true
-            try context.save()
         }
+        try context.save()
 
         // Update authToken with profile sessionId
         SettingKeys.shared.authToken = self.sessionId
@@ -128,7 +129,6 @@ extension UserProfile {
             fatalError("[UserProfile] Developer error. Could not find a profile for update.")
         }
         logInfo("[UserProfile] Update existing user profile \(userProfile.addressDescription).")
-        userProfile.address = normalizedAddress
         userProfile.resolvedName = profile.account?.resolvedName
         userProfile.avatar = profile.account?.avatar
         try context.save()

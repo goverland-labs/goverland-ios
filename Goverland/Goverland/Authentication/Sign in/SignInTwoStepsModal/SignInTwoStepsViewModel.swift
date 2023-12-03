@@ -85,6 +85,7 @@ class SignInTwoStepsViewModel: ObservableObject {
                     // do nothing, error will be displayed to user
                 } receiveValue: { response, headers in
                     Task {
+                        // TODO: kill guest profile if exists
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
                                                                     sessionId: response.sessionId)

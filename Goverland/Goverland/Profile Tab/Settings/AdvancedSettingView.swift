@@ -11,7 +11,7 @@ import SwiftUI
 import SwiftData
 
 struct AdvancedSettingView: View {
-    @Query private var profile: [UserProfile]
+    @Query private var profiles: [UserProfile]
     @State private var accepted = false
     @Environment(\.modelContext) private var modelContext
 
@@ -45,8 +45,8 @@ struct AdvancedSettingView: View {
                 }
             }
 
-            if let id = profile.first(where: { $0.selected })?.deviceId {
-                Section(header: Text("Support Token Id")) {
+            if let id = profiles.first(where: { $0.selected })?.deviceId {
+                Section(header: Text("Support Secret Id")) {
                     LabeledContent(id) {
                         Button {
                             UIPasteboard.general.string = id

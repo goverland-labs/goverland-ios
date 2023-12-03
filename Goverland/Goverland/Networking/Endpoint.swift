@@ -72,9 +72,11 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    // TODO: change parameter name for guest token
-    init(guestId: String) {
-        self.body = try! JSONEncoder().encode(["device_id": guestId])
+    init(guestId: String, deviceName: String) {
+        self.body = try! JSONEncoder().encode([
+            "device_id": guestId,
+            "device_name": deviceName
+        ])
     }
 }
 
@@ -365,7 +367,7 @@ fileprivate enum TypedValue: Encodable {
 
 fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> TypedValue {
     switch proposal.type {
-    case .singleChoice, .basic: return .int((choice as! Int) + 1) // enumeration starts with 1
+    case .singleChoice, .basic: return .int((choice as! Int) + 1) // enumeration starts with 1 in Snapshot
     case .approval, .rankedChoice: return .intArray((choice as! [Int]).map { $0 + 1 })
     case .weighted, .quadratic: return .intDictionary(choice as! [String: Int])
     }
