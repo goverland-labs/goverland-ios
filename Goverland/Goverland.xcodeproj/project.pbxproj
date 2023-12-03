@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		550ACFAF2AFED63F006EF5BB /* CastYourVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */; };
-		550ACFB12AFED65C006EF5BB /* CastYourVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */; };
+		550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */; };
 		550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */; };
 		550ACFB52AFEED3A006EF5BB /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB42AFEED3A006EF5BB /* Profile.swift */; };
 		550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */; };
@@ -206,7 +206,7 @@
 
 /* Begin PBXFileReference section */
 		550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteView.swift; sourceTree = "<group>"; };
-		550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteModel.swift; sourceTree = "<group>"; };
+		550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteDataSource.swift; sourceTree = "<group>"; };
 		550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalAddressValidation.swift; sourceTree = "<group>"; };
 		550ACFB42AFEED3A006EF5BB /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataSource.swift; sourceTree = "<group>"; };
@@ -436,7 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */,
-				550ACFB02AFED65C006EF5BB /* CastYourVoteModel.swift */,
+				550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */,
 			);
 			path = "Cast your vote";
 			sourceTree = "<group>";
@@ -1342,7 +1342,7 @@
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
-				550ACFB12AFED65C006EF5BB /* CastYourVoteModel.swift in Sources */,
+				550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */,
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,

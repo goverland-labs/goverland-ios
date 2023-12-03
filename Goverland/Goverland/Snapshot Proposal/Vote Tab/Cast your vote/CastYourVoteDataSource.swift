@@ -1,5 +1,5 @@
 //
-//  CastYourVoteModel.swift
+//  CastYourVoteDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 10.11.23.
@@ -11,7 +11,7 @@ import Foundation
 import Combine
 import WalletConnectSign
 
-class CastYourVoteModel: ObservableObject {
+class CastYourVoteDataSource: ObservableObject {
     let proposal: Proposal
     let choice: AnyObject
 

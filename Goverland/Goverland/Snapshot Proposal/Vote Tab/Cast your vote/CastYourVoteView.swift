@@ -11,12 +11,12 @@ import SwiftUI
 import SwiftData
 
 struct CastYourVoteView: View {
-    @StateObject private var model: CastYourVoteModel
+    @StateObject private var model: CastYourVoteDataSource
     @Query private var profiles: [UserProfile]
     @Environment(\.dismiss) private var dismiss
 
     init(proposal: Proposal, choice: AnyObject) {
-        self._model = StateObject(wrappedValue: CastYourVoteModel(proposal: proposal, choice: choice))        
+        self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice))        
     }
 
     private var vpSymbol: String {
