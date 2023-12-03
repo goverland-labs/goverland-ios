@@ -25,9 +25,11 @@ class SignInTwoStepsViewModel: ObservableObject {
         wcSessionMeta = WC_Manager.shared.sessionMeta
     }
 
-    var address: String? {
+    private var address: String? {
         WC_Manager.shared.sessionMeta?.session.accounts.first?.address.lowercased()
     }
+
+    private var siweMessage: String?
 
     private func listen_WC_Responses() {
         Sign.instance.sessionResponsePublisher
@@ -79,7 +81,7 @@ class SignInTwoStepsViewModel: ObservableObject {
             APIService.regularAuth(address: address,
                                    deviceId: deviceId,
                                    deviceName: deviceName,
-                                   message: siweMessage(address: address),
+                                   message: siweMessage!,
                                    signature: signature)
                 .sink { _ in
                     // do nothing, error will be displayed to user
@@ -102,7 +104,9 @@ class SignInTwoStepsViewModel: ObservableObject {
         guard let session = WC_Manager.shared.sessionMeta?.session,
             let address = address else { return }
 
-        let dataStr = Data(siweMessage(address: address).utf8).toHexString()
+        formSiweMessage(address: address)
+
+        let dataStr = Data(siweMessage!.utf8).toHexString()
         let params = AnyCodable([dataStr, address])
 
         let request = Request(
@@ -122,7 +126,7 @@ class SignInTwoStepsViewModel: ObservableObject {
         }
     }
 
-    private func siweMessage(address: String) -> String {
-        SIWE_Message.goverland(walletAddress: address).message()
+    private func formSiweMessage(address: String) {
+        self.siweMessage = SIWE_Message.goverland(walletAddress: address).message()
     }
 }
