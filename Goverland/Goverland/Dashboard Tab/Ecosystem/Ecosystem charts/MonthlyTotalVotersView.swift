@@ -11,12 +11,7 @@ import SwiftUI
 import Charts
 
 struct MonthlyTotalVotersView: View {
-    @StateObject private var dataSource: MonthlyTotalVotersDataSource
-    
-    init() {
-        let dataSource = MonthlyTotalVotersDataSource()
-        _dataSource = StateObject(wrappedValue: dataSource)
-    }
+    @StateObject private var dataSource = MonthlyTotalVotersDataSource()
     
     var body: some View {
         GraphView(header: "Monthly active voters",

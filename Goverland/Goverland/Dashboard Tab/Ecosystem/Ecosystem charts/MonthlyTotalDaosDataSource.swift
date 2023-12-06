@@ -20,9 +20,7 @@ class MonthlyTotalDaosDataSource: ObservableObject, Refreshable {
         [(daosType: "Returning DAOs", data: getReturningDaos()),
          (daosType: "New DAOs", data: getNewDaos())]
     }
-    
-    init() {}
-    
+        
     func refresh() {
         monthlyTotalDaos = []
         failedToLoadInitialData = false

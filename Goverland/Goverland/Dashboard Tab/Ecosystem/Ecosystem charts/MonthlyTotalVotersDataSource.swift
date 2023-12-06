@@ -20,9 +20,7 @@ class MonthlyTotalVotersDataSource: ObservableObject, Refreshable {
         [(votersType: "Returning voters", data: getReturningTotalVoters()),
          (votersType: "New voters", data: getNewTotalVoters())]
     }
-    
-    init() {}
-    
+        
     func refresh() {
         monthlyTotalVoters = []
         failedToLoadInitialData = false

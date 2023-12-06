@@ -11,12 +11,7 @@ import SwiftUI
 import Charts
 
 struct MonthlyTotalDaosView: View {
-    @StateObject private var dataSource: MonthlyTotalDaosDataSource
-    
-    init() {
-        let dataSource = MonthlyTotalDaosDataSource()
-        _dataSource = StateObject(wrappedValue: dataSource)
-    }
+    @StateObject private var dataSource = MonthlyTotalDaosDataSource()
     
     var body: some View {
         GraphView(header: "Monthly active DAOs",

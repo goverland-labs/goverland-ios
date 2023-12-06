@@ -15,9 +15,7 @@ class MonthlyTotalNewProposalsDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    
-    init() {}
-    
+        
     func refresh() {
         monthlyTotalNewProposals = []
         failedToLoadInitialData = false

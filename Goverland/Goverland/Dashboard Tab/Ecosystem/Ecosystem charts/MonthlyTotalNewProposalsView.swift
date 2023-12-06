@@ -12,12 +12,7 @@ import Charts
 import SwiftDate
 
 struct MonthlyTotalNewProposalsView: View {
-    @StateObject private var dataSource: MonthlyTotalNewProposalsDataSource
-    
-    init() {
-        let dataSource = MonthlyTotalNewProposalsDataSource()
-        _dataSource = StateObject(wrappedValue: dataSource)
-    }
+    @StateObject private var dataSource = MonthlyTotalNewProposalsDataSource()
     
     var body: some View {
         GraphView(header: "Monthly new proposals",
