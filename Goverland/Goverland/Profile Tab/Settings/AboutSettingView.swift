@@ -45,17 +45,6 @@ struct AboutSettingView: View {
                 }
             }
         }
-//        .environment(\.openURL, OpenURLAction { url in
-//            openUrl(url)
-//
-//            switch url.absoluteString {
-//            case "http://goverland.xyz/privacy": Tracker.track(.settingsOpenPrivacyPolicy)
-//            case "http://goverland.xyz/terms": Tracker.track(.settingsOpenTerms)
-//            default: break
-//            }
-//
-//            return .handled
-//        })
         .accentColor(.textWhite)
         .onAppear() { Tracker.track(.screenAbout) }
     }

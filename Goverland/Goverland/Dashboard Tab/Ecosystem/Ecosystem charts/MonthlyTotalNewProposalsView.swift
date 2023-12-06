@@ -82,6 +82,7 @@ struct MonthlyTotalNewProposalsView: View {
         }
     }
     
+    // TODO: refactor to remove code duplication
     private struct AnnotationView: View {
         let date: Date
         let dataSource: MonthlyTotalNewProposalsDataSource
