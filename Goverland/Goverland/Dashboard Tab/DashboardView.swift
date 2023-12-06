@@ -33,21 +33,21 @@ struct DashboardView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    SectionHeader(header: "Recently Viewed DAOs", icon: nil, onTap: nil)
+                    SectionHeader(header: "Recently Viewed DAOs")
                     DashboardRecentlyViewedDaosView()
                 }
 
-                SectionHeader(header: "Hot Proposals", icon: nil) {
+                SectionHeader(header: "Hot Proposals") {
                     path.append(Path.hotProposals)
                 }
                 DashboardHotProposalsView(path: $path)
 
-                SectionHeader(header: "New DAOs", icon: nil) {
+                SectionHeader(header: "New DAOs") {
                     path.append(Path.newDaos)
                 }
                 DashboardNewDaosView()
 
-                SectionHeader(header: "Popular DAOs", icon: nil) {
+                SectionHeader(header: "Popular DAOs") {
                     path.append(Path.popularDaos)
                 }
                 DashboardPopularDaosView()
@@ -134,8 +134,16 @@ struct DashboardView: View {
 
 fileprivate struct SectionHeader: View {
     let header: String
-    let icon: Image?
+    let icon: Image
     let onTap: (() -> Void)?
+
+    init(header: String, 
+         icon: Image = Image(systemName: "arrow.right"),
+         onTap: (() -> Void)? = nil) {
+        self.header = header
+        self.icon = icon
+        self.onTap = onTap
+    }
 
     var body: some View {
         VStack {
@@ -147,7 +155,7 @@ fileprivate struct SectionHeader: View {
                     .font(.title2Semibold)
                 Spacer()
                 if onTap != nil {
-                    (icon ?? Image(systemName: "arrow.right"))
+                    icon
                         .font(.title2)
                 }
             }
