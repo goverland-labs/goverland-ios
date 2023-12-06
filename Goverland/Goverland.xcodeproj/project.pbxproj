@@ -170,6 +170,9 @@
 		BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */; };
 		BAD5225E2A279A950097068F /* TwitterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* TwitterSettingsView.swift */; };
 		BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD522612A279B4E0097068F /* DiscordSettingsView.swift */; };
+		BADB16692B2019DF00CB99CC /* MonthlyTotalVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */; };
+		BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */; };
+		BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
 		BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */; };
 		BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */; };
@@ -366,6 +369,9 @@
 		BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBucketsGraphView.swift; sourceTree = "<group>"; };
 		BAD5225D2A279A950097068F /* TwitterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSettingsView.swift; sourceTree = "<group>"; };
 		BAD522612A279B4E0097068F /* DiscordSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordSettingsView.swift; sourceTree = "<group>"; };
+		BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVoters.swift; sourceTree = "<group>"; };
+		BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersDataSource.swift; sourceTree = "<group>"; };
+		BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
 		BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
 		BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersView.swift; sourceTree = "<group>"; };
@@ -908,6 +914,8 @@
 			children = (
 				BA36DEF82B178E98002EBEB0 /* MonthlyTotalDaosView.swift */,
 				BA36DEFA2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift */,
+				BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */,
+				BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */,
 				BA36DF002B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift */,
 				BA36DF022B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift */,
 			);
@@ -990,6 +998,7 @@
 				BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */,
 				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
 				BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */,
+				BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1325,6 +1334,7 @@
 				55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
+				BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */,
 				BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */,
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
@@ -1359,6 +1369,7 @@
 				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
+				BADB16692B2019DF00CB99CC /* MonthlyTotalVoters.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				BAE1AB2B2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift in Sources */,
 				554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */,
@@ -1376,6 +1387,7 @@
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
 				BA36DEFB2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift in Sources */,
+				BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */,
 				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* DashboardRecentlyViewedDaosView.swift in Sources */,

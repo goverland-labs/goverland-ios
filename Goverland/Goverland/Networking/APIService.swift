@@ -151,6 +151,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func monthlyTotalVoters() -> AnyPublisher<(MonthlyTotalVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyTotalVotersEndpoint()
+        return shared.request(endpoint)
+    }
+    
     static func monthlyTotalNewProposals() -> AnyPublisher<(MonthlyTotalNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MonthlyTotalNewProposalsEndpoint()
         return shared.request(endpoint)

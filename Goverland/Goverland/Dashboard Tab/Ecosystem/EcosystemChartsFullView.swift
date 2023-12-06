@@ -35,7 +35,7 @@ struct EcosystemChartsFullView: View {
                 
                 switch filter {
                 case .daos: MonthlyTotalDaosView()
-                case .voters:EmptyView()
+                case .voters:MonthlyTotalVotersView()
                 case .proposals: MonthlyTotalNewProposalsView()
                 }
             }

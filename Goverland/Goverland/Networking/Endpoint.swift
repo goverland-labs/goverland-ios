@@ -378,6 +378,13 @@ struct MonthlyTotalDaosEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
+struct MonthlyTotalVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalVoters]
+
+    var path: String { "analytics/monthly-totals/voters" }
+    var method: HttpMethod = .get
+}
+
 struct MonthlyTotalNewProposalsEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyTotalNewProposals]
 
