@@ -485,6 +485,40 @@ struct RecentlyViewedDaosEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
+struct EcosystemDashboardChartsEndpoint: APIEndpoint {
+    typealias ResponseType = EcosystemChart
+    
+    let days: Int
+
+    var path: String { "analytics/ecosystem-totals/\(days)" }
+    var method: HttpMethod = .get
+    
+    init(days: Int) {
+        self.days = days
+    }
+}
+
+struct MonthlyTotalDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalDaos]
+
+    var path: String { "analytics/monthly-totals/daos" }
+    var method: HttpMethod = .get
+}
+
+struct MonthlyTotalVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalVoters]
+
+    var path: String { "analytics/monthly-totals/voters" }
+    var method: HttpMethod = .get
+}
+
+struct MonthlyTotalNewProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalNewProposals]
+
+    var path: String { "analytics/monthly-totals/proposals" }
+    var method: HttpMethod = .get
+}
+
 struct MarkEventReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

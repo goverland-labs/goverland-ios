@@ -160,6 +160,21 @@ extension APIService {
         return shared.request(endpoint)
     }
     
+    static func monthlyTotalDaos() -> AnyPublisher<(MonthlyTotalDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyTotalDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
+    static func monthlyTotalVoters() -> AnyPublisher<(MonthlyTotalVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyTotalVotersEndpoint()
+        return shared.request(endpoint)
+    }
+    
+    static func monthlyTotalNewProposals() -> AnyPublisher<(MonthlyTotalNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MonthlyTotalNewProposalsEndpoint()
+        return shared.request(endpoint)
+    }
+    
     // MARK: - Subscriptions
     
     static func subscriptions(offset: Int = 0,
@@ -264,6 +279,11 @@ extension APIService {
     
     static func recentlyViewedDaos() -> AnyPublisher<(RecentlyViewedDaosEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = RecentlyViewedDaosEndpoint()
+        return shared.request(endpoint)
+    }
+    
+    static func ecosystemCharts(days: Int) -> AnyPublisher<(EcosystemDashboardChartsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = EcosystemDashboardChartsEndpoint(days: days)
         return shared.request(endpoint)
     }
     

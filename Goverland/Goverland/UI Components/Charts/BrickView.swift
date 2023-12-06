@@ -12,6 +12,7 @@ struct BrickView: View {
     let header: String
     let data: String
     let metadata: String
+    let metadataColor: Color
 
     let width: CGFloat?
     let height: CGFloat?
@@ -22,6 +23,7 @@ struct BrickView: View {
     init(header: String,
          data: String,
          metadata: String,
+         metadataColor: Color = Color.textWhite60,
          width: CGFloat? = nil,
          height: CGFloat? = 80,
          isLoading: Bool,
@@ -30,6 +32,7 @@ struct BrickView: View {
         self.header = header
         self.data = data
         self.metadata = metadata
+        self.metadataColor = metadataColor
         self.width = width
         self.height = height
         self.isLoading = isLoading
@@ -69,7 +72,7 @@ struct BrickView: View {
                         .foregroundStyle(Color.textWhite)
                     Text(metadata)
                         .font(.subheadlineRegular)
-                        .foregroundStyle(Color.textWhite60)
+                        .foregroundStyle(metadataColor)
                 }
             }
         }
