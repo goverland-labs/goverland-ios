@@ -26,6 +26,7 @@ struct DashboardView: View {
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
+        EcosystemDashboardDataSource.shared.refresh()
     }
 
     var body: some View {
@@ -85,6 +86,10 @@ struct DashboardView: View {
 
                 if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
                     GroupedDaosDataSource.popularDaos.refresh()
+                }
+
+                if EcosystemDashboardDataSource.shared.charts == nil {
+                    EcosystemDashboardDataSource.shared.refresh()
                 }
             }
             .refreshable {

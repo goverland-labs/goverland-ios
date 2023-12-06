@@ -10,13 +10,8 @@
 import SwiftUI
 
 struct EcosystemDashboardView: View {
-    @StateObject private var dataSource: EcosystemDashboardDataSource
+    @StateObject private var dataSource = EcosystemDashboardDataSource.shared
     @State private var selectedDuration = 7
-    
-    init() {
-        let dataSource = EcosystemDashboardDataSource()
-        _dataSource = StateObject(wrappedValue: dataSource)
-    }
 
     var body: some View {
         VStack {
@@ -28,7 +23,7 @@ struct EcosystemDashboardView: View {
             .padding(.bottom)
             .onChange(of: selectedDuration) { newValue in
                 dataSource.periodInDays = newValue
-                dataSource.refresh()
+                dataSource.refreshWithCache()
             }
             
             if dataSource.failedToLoadInitialData {
@@ -36,10 +31,11 @@ struct EcosystemDashboardView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading {
+                // TODO: make shimmer view
                 Spacer()
                 ProgressView()
                     .foregroundColor(.textWhite20)
-                    .controlSize(.large)
+                    .controlSize(.regular)
                 Spacer()
             } else {
                 HStack {
@@ -79,10 +75,5 @@ struct EcosystemDashboardView: View {
             
         }
         .padding([.horizontal, .bottom])
-        .onAppear() {
-            if dataSource.charts == nil {
-               dataSource.refresh()
-            }
-        }
     }
 }

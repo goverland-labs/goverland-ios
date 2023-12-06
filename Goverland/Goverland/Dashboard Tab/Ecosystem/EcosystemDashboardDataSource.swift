@@ -9,17 +9,22 @@
 
 import SwiftUI
 import Combine
+import SwiftDate
 
 class EcosystemDashboardDataSource: ObservableObject {
     @Published var periodInDays = 7
-    @Published var charts:EcosystemChart?
+    @Published var charts: EcosystemChart?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
-    private var cashCharts7Days:EcosystemChart? = nil
-    private var cashCharts30Days:EcosystemChart? = nil
-    
+    private var cashCharts7Days: EcosystemChart? = nil
+    private var cashCharts30Days: EcosystemChart? = nil
+    private var cachedDate = Date.now
+
+    static let shared = EcosystemDashboardDataSource()
+    private init() {}
+
     private func formattedDataString(current: Int?, previous: Int?) -> String {
         guard let current = current else {
             return ""
@@ -89,22 +94,26 @@ class EcosystemDashboardDataSource: ObservableObject {
     var metadataColorForTotalVotes: Color {
         return metadataColor(current: charts?.votes.current, previous: charts?.votes.previous)
     }
-    
-    func refresh() {
+
+    func refreshWithCache() {
         if periodInDays == 7 {
             charts = cashCharts7Days
         } else if periodInDays == 30 {
             charts = cashCharts30Days
         }
-        
-        if charts == nil {
-            failedToLoadInitialData = false
-            isLoading = true
-            cancellables = Set<AnyCancellable>()
-            loadInitialData()
+
+        if charts == nil || cachedDate > .now - 1.days {
+            refresh()
         }
     }
-    
+
+    func refresh() {
+        failedToLoadInitialData = false
+        isLoading = true
+        cancellables = Set<AnyCancellable>()
+        loadInitialData()
+    }
+
     private func loadInitialData() {
         APIService.ecosystemCharts(days: periodInDays)
             .sink { [weak self] completion in
@@ -120,6 +129,7 @@ class EcosystemDashboardDataSource: ObservableObject {
                 } else if self?.periodInDays == 30 {
                     self?.cashCharts30Days = data
                 }
+                self?.cachedDate = .now
             }
             .store(in: &cancellables)
     }
