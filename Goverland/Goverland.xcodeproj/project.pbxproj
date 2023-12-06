@@ -501,6 +501,7 @@
 		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				BADB166E2B2022FA00CB99CC /* Charts */,
 				55B527302AF2A7E00038B6B5 /* View Extensions */,
 				552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
@@ -801,8 +802,6 @@
 			isa = PBXGroup;
 			children = (
 				BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */,
-				55F700242AB05149008EA30C /* GraphView.swift */,
-				BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */,
 				55B5272F2AF2A4BB0038B6B5 /* Successful proposals */,
 				55B5272E2AF2A4A30038B6B5 /* Exclusive voters */,
 				55B5272B2AF2A4490038B6B5 /* Monthly active voters */,
@@ -999,6 +998,15 @@
 				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
 				BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */,
 				BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		BADB166E2B2022FA00CB99CC /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				55F700242AB05149008EA30C /* GraphView.swift */,
+				BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
