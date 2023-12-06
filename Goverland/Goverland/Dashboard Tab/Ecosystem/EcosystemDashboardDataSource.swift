@@ -12,10 +12,13 @@ import Combine
 
 class EcosystemDashboardDataSource: ObservableObject {
     @Published var periodInDays = 7
-    @Published var charts: EcosystemChart?
+    @Published var charts:EcosystemChart?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
+    
+    private var cashCharts7Days:EcosystemChart? = nil
+    private var cashCharts30Days:EcosystemChart? = nil
     
     private func formattedDataString(current: Int?, previous: Int?) -> String {
         guard let current = current else {
@@ -88,11 +91,18 @@ class EcosystemDashboardDataSource: ObservableObject {
     }
     
     func refresh() {
-        charts = nil
-        failedToLoadInitialData = false
-        isLoading = true
-        cancellables = Set<AnyCancellable>()
-        loadInitialData()
+        if periodInDays == 7 {
+            charts = cashCharts7Days
+        } else if periodInDays == 30 {
+            charts = cashCharts30Days
+        }
+        
+        if charts == nil {
+            failedToLoadInitialData = false
+            isLoading = true
+            cancellables = Set<AnyCancellable>()
+            loadInitialData()
+        }
     }
     
     private func loadInitialData() {
@@ -105,6 +115,11 @@ class EcosystemDashboardDataSource: ObservableObject {
                 }
             } receiveValue: { [weak self] data, headers in
                 self?.charts = data
+                if self?.periodInDays == 7 {
+                    self?.cashCharts7Days = data
+                } else if self?.periodInDays == 30 {
+                    self?.cashCharts30Days = data
+                }
             }
             .store(in: &cancellables)
     }
