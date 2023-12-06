@@ -19,4 +19,11 @@ struct MonthlyTotalDaos: Decodable {
         case totalDaos = "total"
         case newDaos = "total_of_new"
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.date = try container.decode(Date.self, forKey: .date)
+        self.totalDaos = try container.decode(Int.self, forKey: .totalDaos)
+        self.newDaos = try container.decodeIfPresent(Int.self, forKey: .newDaos) ?? 0
+    }
 }
