@@ -34,6 +34,7 @@ struct RetryInitialLoadingView: View {
                 Text(message)
                     .font(.callout)
                     .foregroundColor(.textWhite)
+                Spacer()
                 PrimaryButton("Try again") {
                     dataSource.refresh()
                 }

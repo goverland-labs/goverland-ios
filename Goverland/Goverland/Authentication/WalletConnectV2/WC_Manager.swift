@@ -28,7 +28,7 @@ class WC_Manager {
     private let sessionMetaKey = "xyz.goverland.wc_session_meta"
 
     struct SessionMeta: Codable {
-        let session: Session
+        let session: WalletConnectSign.Session
         let walletOnSameDevice: Bool
     }
 
@@ -38,12 +38,18 @@ class WC_Manager {
                let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
                // check session is valid and not finishing soon
                sessionMeta.session.expiryDate > .now + 5.minutes {
+                logInfo("[WC] found stored session meta")
                 return sessionMeta
             }
+            logInfo("[WC] no stored session meta found")
             return nil
         }
 
         set {
+            if newValue == nil {
+                UserDefaults.standard.removeObject(forKey: sessionMetaKey)
+                return
+            }
             let encodedSessionMeta = try! JSONEncoder().encode(newValue)
             UserDefaults.standard.set(encodedSessionMeta, forKey: sessionMetaKey)
         }
@@ -67,6 +73,7 @@ class WC_Manager {
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
+            sessionParams: SessionParams.goverland,
             excludedWalletIds: Wallet.recommended.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
@@ -78,7 +85,8 @@ class WC_Manager {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { session in
-                logInfo("[WC] Sessions: \(session)")
+                // TODO: beautify log
+                //logInfo("[WC] Sessions: \(session)")
             }
             .store(in: &cancellables)
 
@@ -91,4 +99,25 @@ class WC_Manager {
             }
             .store(in: &cancellables)
     }
+}
+
+extension SessionParams {
+    static let goverland: Self = {
+        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData", "eth_signTypedData_v4"]
+        let events: Set<String> = ["chainChanged", "accountsChanged"]
+        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!]
+        let namespaces: [String: ProposalNamespace] = [
+            "eip155": ProposalNamespace(
+                chains: blockchains,
+                methods: methods,
+                events: events
+            )
+        ]
+
+        return SessionParams(
+            requiredNamespaces: namespaces,
+            optionalNamespaces: nil,
+            sessionProperties: nil
+        )
+    }()
 }

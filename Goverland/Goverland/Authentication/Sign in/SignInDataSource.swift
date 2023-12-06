@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class SignInDataSource: ObservableObject {
     @Published var loading = false
@@ -16,12 +17,19 @@ class SignInDataSource: ObservableObject {
 
     func guestAuth() {
         loading = true
-        APIService.guestAuth(guestId: UUID().uuidString, defaultErrorDisplay: true)
+        APIService.guestAuth(guestId: SettingKeys.shared.guestDeviceId,
+                             deviceName: UIDevice.current.name,
+                             defaultErrorDisplay: true)
             .sink { [weak self] _ in
                 self?.loading = false
             } receiveValue: { response, headers in
-                SettingKeys.shared.authToken = response.sessionId
-                logInfo("Auth token: \(response.sessionId)")
+                Task {
+                    let profile = try! await UserProfile.upsert(profile: response.profile,
+                                                                deviceId: SettingKeys.shared.guestDeviceId,
+                                                                sessionId: response.sessionId)
+                    try! await profile.select()
+                    logInfo("[App] Auth Token: \(response.sessionId)")
+                }
             }
             .store(in: &cancellables)
     }

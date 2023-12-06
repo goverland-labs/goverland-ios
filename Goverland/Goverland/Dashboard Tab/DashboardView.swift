@@ -17,7 +17,6 @@ fileprivate enum Path {
 
 struct DashboardView: View {
     @Binding var path: NavigationPath
-    @Setting(\.unreadEvents) private var unreadEvents
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 

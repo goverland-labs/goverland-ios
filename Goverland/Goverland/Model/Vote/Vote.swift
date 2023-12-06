@@ -6,8 +6,7 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import SwiftUI
-
+import Foundation
 
 struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
     let id: String
@@ -35,4 +34,9 @@ struct Vote<ChoiceType: Decodable>: Identifiable, Decodable {
         case choice
         case message = "reason"
     }
+}
+
+struct VoteSubmission: Decodable {
+    let id: String
+    let ipfs: String
 }

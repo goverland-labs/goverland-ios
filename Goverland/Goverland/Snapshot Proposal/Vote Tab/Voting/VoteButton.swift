@@ -10,6 +10,7 @@ import SwiftUI
 
 struct VoteButton: View {
     @Binding var disabled: Bool
+    let title: String
 
     let action: () -> Void
 
@@ -19,7 +20,7 @@ struct VoteButton: View {
         }) {
             HStack {
                 Spacer()
-                Text("Vote")
+                Text(title)
                 Spacer()
             }
             .padding()
@@ -30,11 +31,5 @@ struct VoteButton: View {
             .cornerRadius(20)
         }
         .disabled(disabled)
-    }
-}
-
-struct VoteButton_Previews: PreviewProvider {
-    static var previews: some View {
-        VoteButton(disabled: .constant(false), action: {})
     }
 }

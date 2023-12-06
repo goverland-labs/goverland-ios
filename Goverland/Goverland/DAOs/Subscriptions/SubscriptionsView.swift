@@ -22,7 +22,7 @@ struct SubscriptionsView: View {
                     Spacer()
                 }
             } else if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource)
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAOs list")
             } else if dataSource.subscriptions.isEmpty {
                 NoSubscriptionsView()
             } else {
@@ -91,6 +91,7 @@ fileprivate struct NoSubscriptionsView: View {
                 PrimaryButton("Explore DAOs") {
                     activeSheetManager.activeSheet = .followDaos
                 }
+                Spacer()
             }
             // this is needed as on iPad GeometryReader breaks VStack layout
             .frame(width: geometry.size.width - 32)

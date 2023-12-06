@@ -64,11 +64,11 @@ struct TermsView: View {
             
             Button("Accept without sharing data") {
                 termsAccepted = true
+                trackingAccepted = false
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)
             .accentColor(.primaryDim)
-            
         }
         .padding(.horizontal, 16)
     }
@@ -80,11 +80,5 @@ fileprivate struct BulletedListsDot: View {
             .fill(Color.primaryDim)
             .frame(width: 8, height: 8)
             .padding(.top, 6)
-    }
-}
-
-struct TermsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TermsView(termsViewIsPresented: .constant(true))
     }
 }

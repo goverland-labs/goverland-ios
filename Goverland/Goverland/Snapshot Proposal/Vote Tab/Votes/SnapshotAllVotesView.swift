@@ -21,7 +21,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     var body: some View {
         Group {
             if data.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: data)
+                RetryInitialLoadingView(dataSource: data, message: "Sorry, we couldn’t load the votes list")
             } else {
                 if data.isLoading {
                     List(0..<5, id: \.self) { _ in

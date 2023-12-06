@@ -14,6 +14,7 @@ class ConfigurationManager {
         case wcProjectId = "WC_PROJECT_ID"
         case defaultPaginationCount = "DEFAULT_PAGINATION_COUNT"
         case timeout = "TIMEOUT"
+        case enablePushNotificationsRequestInterval = "ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL"
     }
 
     static func value(for key: ConfigKeys) -> String {
@@ -48,5 +49,12 @@ class ConfigurationManager {
             fatalError("Invalid timeout")
         }
         return timeout
+    }
+
+    static var enablePushNotificationsRequestInterval: TimeInterval {
+        guard let interval = TimeInterval(self.value(for: .enablePushNotificationsRequestInterval)) else {
+            fatalError("Invalid interval")
+        }
+        return interval
     }
 }

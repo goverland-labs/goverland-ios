@@ -40,11 +40,10 @@ struct PrimaryButton: View {
                 Spacer()
             }
             .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
-            .background(Color.primary)
+            .background(isEnabled ? Color.primary : Color.disabled12)
             .clipShape(Capsule())
             .tint(.onPrimary)
             .font(.headlineSemibold)
-            .opacity(isEnabled ? 1.0 : 0.3)
         }
         .disabled(!isEnabled)
     }

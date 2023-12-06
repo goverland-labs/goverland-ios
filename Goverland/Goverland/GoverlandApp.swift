@@ -8,13 +8,24 @@
 
 import SwiftUI
 import Firebase
+import SwiftData
+
+@MainActor
+let appContainer: ModelContainer = {
+    do {
+        return try ModelContainer(for: UserProfile.self)
+    } catch {
+        fatalError("Failed to create App container")
+    }
+}()
+
 
 @main
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
-    @Setting(\.authToken) var authToken
+    @Setting(\.authToken) private var authToken
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -25,7 +36,7 @@ struct GoverlandApp: App {
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
-                .onChange(of: scenePhase) { newPhase in
+                .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
                     case .inactive:
                         logInfo("[App] Did become inactive")
@@ -34,7 +45,10 @@ struct GoverlandApp: App {
 
                         // Also called when closing system dialogue to enable push notifications.
                         if !authToken.isEmpty {
+                            logInfo("[App] Auth Token: \(authToken)")
                             InboxDataSource.shared.refresh()
+                        } else {
+                            logInfo("[App] Auth Token is empty")
                         }
                     case .background:
                         logInfo("[App] Did enter background")
@@ -75,6 +89,7 @@ struct GoverlandApp: App {
                     ToastView()
                 }
         }
+        .modelContainer(appContainer)
     }
 }
 
@@ -84,6 +99,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Setup App Tracking
         Tracker.append(handler: ConsoleTrackingHandler())
         Tracker.append(handler: FirebaseTrackingHandler())
+
         // Very important line of code. Do not remove it.
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
 

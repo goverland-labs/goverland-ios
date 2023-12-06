@@ -132,6 +132,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.events?[index].readAt = Date()
+
                     // fool protection
                     if SettingKeys.shared.unreadEvents > 0 {
                         SettingKeys.shared.unreadEvents -= 1
@@ -152,9 +153,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                     // do nothing, error will be displayed to user if any
                 }
             } receiveValue: { [weak self] _, _ in
-                guard let `self` = self else { return }
-                SettingKeys.shared.unreadEvents = 0
-                refresh()
+                self?.refresh()
             }
             .store(in: &cancellables)
     }
@@ -172,6 +171,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
+
                     if let event = self.events?[index], event.readAt == nil {
                         // fool protection
                         if SettingKeys.shared.unreadEvents > 0 {
