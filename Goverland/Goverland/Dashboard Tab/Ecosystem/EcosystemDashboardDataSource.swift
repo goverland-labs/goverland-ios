@@ -35,7 +35,7 @@ class EcosystemDashboardDataSource: ObservableObject {
         return current > previous ? Color.primaryDim : Color.dangerText
     }
     
-    // DAOs Chart Data
+    // MARK: - DAOs Chart Data
     var dataActiveDaos: String {
         return formattedDataString(current: charts?.daos.current, previous: nil)
     }
@@ -74,7 +74,7 @@ class EcosystemDashboardDataSource: ObservableObject {
         return metadataColor(current: charts?.proposals.current, previous: charts?.proposals.previous)
     }
 
-    // Votes Chart Data
+    // MARK: - Votes Chart Data
     var dataTotalVotes: String {
         return formattedDataString(current: charts?.votes.current, previous: nil)
     }

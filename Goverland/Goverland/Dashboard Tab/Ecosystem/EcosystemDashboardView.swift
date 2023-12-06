@@ -31,39 +31,52 @@ struct EcosystemDashboardView: View {
                 dataSource.refresh()
             }
             
-            HStack {
-                BrickView(header: "Active DAOs",
-                          data: dataSource.dataActiveDaos,
-                          metadata: dataSource.metadataActiveDaos,
-                          metadataColor: dataSource.metadataColorForActiveDaos,
-                          isLoading: dataSource.isLoading,
-                          failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                          onRefresh: dataSource.refresh)
-                BrickView(header: "Active voters",
-                          data: dataSource.dataActiveVoters,
-                          metadata: dataSource.metadataActiveVoters,
-                          metadataColor: dataSource.metadataColorForActiveVoters,
-                          isLoading: dataSource.isLoading,
-                          failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                          onRefresh: dataSource.refresh)
+            if dataSource.failedToLoadInitialData {
+                RefreshIcon {
+                    dataSource.refresh()
+                }
+            } else if dataSource.isLoading {
+                Spacer()
+                ProgressView()
+                    .foregroundColor(.textWhite20)
+                    .controlSize(.large)
+                Spacer()
+            } else {
+                HStack {
+                    BrickView(header: "Active DAOs",
+                              data: dataSource.dataActiveDaos,
+                              metadata: dataSource.metadataActiveDaos,
+                              metadataColor: dataSource.metadataColorForActiveDaos,
+                              isLoading: dataSource.isLoading,
+                              failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                              onRefresh: dataSource.refresh)
+                    BrickView(header: "Active voters",
+                              data: dataSource.dataActiveVoters,
+                              metadata: dataSource.metadataActiveVoters,
+                              metadataColor: dataSource.metadataColorForActiveVoters,
+                              isLoading: dataSource.isLoading,
+                              failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                              onRefresh: dataSource.refresh)
+                }
+                
+                HStack {
+                    BrickView(header: "Created proposals",
+                              data: dataSource.dataCreatedProposals,
+                              metadata: dataSource.metadataCreatedProposals,
+                              metadataColor: dataSource.metadataColorForCreatedProposals,
+                              isLoading: dataSource.isLoading,
+                              failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                              onRefresh: dataSource.refresh)
+                    BrickView(header: "Total votes",
+                              data: dataSource.dataTotalVotes,
+                              metadata: dataSource.metadataTotalVotes,
+                              metadataColor: dataSource.metadataColorForTotalVotes,
+                              isLoading: dataSource.isLoading,
+                              failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                              onRefresh: dataSource.refresh)
+                }
             }
             
-            HStack {
-                BrickView(header: "Created proposals",
-                          data: dataSource.dataCreatedProposals,
-                          metadata: dataSource.metadataCreatedProposals,
-                          metadataColor: dataSource.metadataColorForCreatedProposals,
-                          isLoading: dataSource.isLoading,
-                          failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                          onRefresh: dataSource.refresh)
-                BrickView(header: "Total votes",
-                          data: dataSource.dataTotalVotes,
-                          metadata: dataSource.metadataTotalVotes,
-                          metadataColor: dataSource.metadataColorForTotalVotes,
-                          isLoading: dataSource.isLoading,
-                          failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                          onRefresh: dataSource.refresh)
-            }
         }
         .padding([.horizontal, .bottom])
         .onAppear() {
