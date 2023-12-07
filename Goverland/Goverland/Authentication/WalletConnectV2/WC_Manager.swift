@@ -84,17 +84,17 @@ class WC_Manager {
     private func listen() {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
-            .sink { session in
-                // TODO: beautify log
-                //logInfo("[WC] Sessions: \(session)")
+            .sink { sessions in
+                logInfo("[WC] Sessions count: \(sessions.count)")
             }
             .store(in: &cancellables)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { (str, reason) in
-                logInfo("[WC] Session deleted: String: \(str); Reason: \(reason)")
-                self.sessionMeta = nil
+            .sink { topic, reason in
+                logInfo("[WC] Session deleted: String: \(topic); Reason: \(reason)")
+                // TODO: clear stored session in user profile
+//                self.sessionMeta = nil
                 NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
             }
             .store(in: &cancellables)

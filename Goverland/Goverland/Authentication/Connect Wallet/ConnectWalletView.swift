@@ -125,9 +125,3 @@ fileprivate struct WalletRowView: View {
         }
     }
 }
-
-struct SelectWalletView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnectWalletView()
-    }
-}
