@@ -69,14 +69,16 @@ extension WC_SessionMeta {
     }
 
     static func from(data: Data) -> WC_SessionMeta? {
-        if let sessionMeta = try? JSONDecoder().decode(WC_SessionMeta.self, from: data),
-           // check session is valid and not finishing soon
-           sessionMeta.session.expiryDate > .now + 5.minutes {
+        if let sessionMeta = try? JSONDecoder().decode(WC_SessionMeta.self, from: data) {
             logInfo("[UserProfile] restored WC session from data")
             return sessionMeta
         }
-        logInfo("[UserProfile] WC session not found or not restored")
+        logInfo("[UserProfile] WC session not found")
         return nil
+    }
+
+    var isExpired: Bool {
+        return session.expiryDate < .now + 5.minutes
     }
 }
 
@@ -96,17 +98,27 @@ extension UserProfile {
             logInfo("[UserProfile] No selected profile found. Selecting \(self.addressDescription)")
             self.selected = true
         }
-        try context.save()
+
+        // Update WC_Manager in-memory session meta
+        if let wcSessionMetaData, let sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData) {
+            if !sessionMeta.isExpired {
+                logInfo("[UserProfile] Selected profile WC session restored.")
+                WC_Manager.shared.sessionMeta = sessionMeta
+            } else {
+                logInfo("[UserProfile] Selected profile WC session is expired (valid till \(sessionMeta.session.expiryDate). Removing it.")
+                self.wcSessionMetaData = nil
+                WC_Manager.shared.sessionMeta = nil
+            }
+        } else {
+            logInfo("[UserProfile] Selected profile has no WC session.")
+            self.wcSessionMetaData = nil
+            WC_Manager.shared.sessionMeta = nil
+        }
 
         // Update authToken with profile sessionId
         SettingKeys.shared.authToken = self.sessionId
 
-        // Update WC_Manager in-memory session meta
-        if let wcSessionMetaData {
-            WC_Manager.shared.sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
-        } else {
-            WC_Manager.shared.sessionMeta = nil
-        }
+        try context.save()
     }
 
     @MainActor
