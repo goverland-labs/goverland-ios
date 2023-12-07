@@ -10,7 +10,7 @@
 import Foundation
 
 struct VoteTypedData: Decodable {
-    let id: Int
+    let id: UUID
     let typedData: String
 
     enum CodingKeys: String, CodingKey {

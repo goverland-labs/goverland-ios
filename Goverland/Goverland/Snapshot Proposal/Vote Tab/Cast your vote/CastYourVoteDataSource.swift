@@ -31,7 +31,7 @@ class CastYourVoteDataSource: ObservableObject {
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
 
-    private var voteRequestId: Int?
+    private var voteRequestId: UUID?
 
     var choiceStr: String {
         switch proposal.type {
