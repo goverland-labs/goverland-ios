@@ -46,7 +46,7 @@ class APIService {
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
                         Task {
-                            try! await UserProfile.logoutSelected()
+                            try! await UserProfile.logoutSelected(logErrorIfNotFound: true)
                         }
                     }
                     if defaultErrorDisplay {

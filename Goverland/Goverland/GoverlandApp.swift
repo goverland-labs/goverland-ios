@@ -10,7 +10,6 @@ import SwiftUI
 import Firebase
 import SwiftData
 
-@MainActor
 let appContainer: ModelContainer = {
     do {
         return try ModelContainer(for: UserProfile.self)
@@ -18,7 +17,6 @@ let appContainer: ModelContainer = {
         fatalError("Failed to create App container")
     }
 }()
-
 
 @main
 struct GoverlandApp: App {
@@ -80,11 +78,11 @@ struct GoverlandApp: App {
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
                         ArchiveView()
-                    
+
                     case .subscribeToNotifications:
                         EnablePushNotificationsView()
                     }
-                }                
+                }
                 .overlay {
                     ToastView()
                 }
@@ -111,7 +109,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
-        
+
         // Setup appearance
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.containerBright)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .selected)

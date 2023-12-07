@@ -85,12 +85,15 @@ class SignInTwoStepsDataSource: ObservableObject {
                                    signature: signature)
                 .sink { _ in
                     // do nothing, error will be displayed to user
-                } receiveValue: { response, headers in
+                } receiveValue: { [weak self] response, headers in
+                    guard let `self` = self else { return }
+                    let wcSessionMeta = self.wcSessionMeta
                     Task {
-                        // TODO: kill guest profile if exists
+                        try! await UserProfile.logoutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
-                                                                    sessionId: response.sessionId)
+                                                                    sessionId: response.sessionId, 
+                                                                    wcSessionMeta: wcSessionMeta)
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile

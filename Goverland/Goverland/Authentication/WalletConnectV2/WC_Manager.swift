@@ -11,7 +11,11 @@ import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
-import SwiftDate
+
+struct WC_SessionMeta: Codable {
+    let session: WalletConnectSign.Session
+    let walletOnSameDevice: Bool
+}
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -25,33 +29,10 @@ class WC_Manager {
         icons: ["https://uploads-ssl.webflow.com/63f0e8f1e5b3e07d58817370/6480451361d81702d7d7ccae_goverland-logo-full.svg"]
     )
 
-    private let sessionMetaKey = "xyz.goverland.wc_session_meta"
-
-    struct SessionMeta: Codable {
-        let session: WalletConnectSign.Session
-        let walletOnSameDevice: Bool
-    }
-
-    var sessionMeta: SessionMeta? {
-        get {
-            if let encodedSessionMeta = UserDefaults.standard.data(forKey: sessionMetaKey),
-               let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
-               // check session is valid and not finishing soon
-               sessionMeta.session.expiryDate > .now + 5.minutes {
-                logInfo("[WC] found stored session meta")
-                return sessionMeta
-            }
-            logInfo("[WC] no stored session meta found")
-            return nil
-        }
-
-        set {
-            if newValue == nil {
-                UserDefaults.standard.removeObject(forKey: sessionMetaKey)
-                return
-            }
-            let encodedSessionMeta = try! JSONEncoder().encode(newValue)
-            UserDefaults.standard.set(encodedSessionMeta, forKey: sessionMetaKey)
+    /// At any moment of time there can be only one WC session that the App works with
+    var sessionMeta: WC_SessionMeta? {
+        didSet {
+            NotificationCenter.default.post(name: .wcSessionUpdated, object: sessionMeta)
         }
     }
 
@@ -64,6 +45,7 @@ class WC_Manager {
     private init() {
         configure()
         listen()
+        getStoredSessionMeta()
     }
 
     private func configure() {
@@ -93,11 +75,20 @@ class WC_Manager {
             .receive(on: DispatchQueue.main)
             .sink { topic, reason in
                 logInfo("[WC] Session deleted: String: \(topic); Reason: \(reason)")
-                // TODO: clear stored session in user profile
-//                self.sessionMeta = nil
-                NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
+                Task {
+                    try! await UserProfile.clear_WC_Sessions(topic: topic)
+                }
             }
             .store(in: &cancellables)
+    }
+
+    private func getStoredSessionMeta() {
+        Task {
+            if let selectedProfile = try? await UserProfile.selected(), 
+                let wcSessionMetaData = selectedProfile.wcSessionMetaData {
+                self.sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+            }
+        }
     }
 }
 
