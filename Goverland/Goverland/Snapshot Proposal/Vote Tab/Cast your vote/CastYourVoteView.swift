@@ -12,12 +12,24 @@ import SwiftData
 
 struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteDataSource
-    @Query private var profiles: [UserProfile]
-    @Environment(\.dismiss) private var dismiss
 
     init(proposal: Proposal, choice: AnyObject) {
         self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice))        
     }
+
+    var body: some View {
+        if model.submitted {
+            _SuccessView()
+        } else {
+            _VoteView(model: model)
+        }
+    }
+}
+
+fileprivate struct _VoteView: View {
+    @StateObject var model: CastYourVoteDataSource
+    @Query private var profiles: [UserProfile]
+    @Environment(\.dismiss) private var dismiss
 
     private var vpSymbol: String {
         if let symbol = model.proposal.symbol, !symbol.isEmpty {
@@ -38,11 +50,12 @@ struct CastYourVoteView: View {
             Text("Cast your vote")
                 .foregroundStyle(Color.textWhite)
                 .font(.title3Semibold)
+
             HStack {
                 Text("Account")
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                IdentityView(user: user)                
+                IdentityView(user: user)
             }
 
             HStack {
@@ -106,11 +119,31 @@ struct CastYourVoteView: View {
 
             Spacer()
 
+            if let message = model.infoMessage {
+                VStack(spacing: 0) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(.textWhite)
+                        Text(message)
+                            .font(.bodyRegular)
+                            .foregroundStyle(Color.textWhite)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 16)
+                }
+                .background {
+                    RoundedRectangle(cornerRadius: 13)
+                        .fill(Color.containerBright)
+                }
+                .padding(.bottom, 16)
+            }
+
             HStack(spacing: 16) {
                 SecondaryButton("Cancel") {
                     dismiss()
                 }
-                PrimaryButton("Sign", isEnabled: (model.validated ?? false) && !model.isPreparing) {
+                PrimaryButton("Sign",
+                              isEnabled: (model.validated ?? false) && !model.isPreparing && !model.isSubmitting) {
                     model.prepareVote(address: user.address.value)
                 }
             }
@@ -121,6 +154,39 @@ struct CastYourVoteView: View {
         .onAppear {
             // TODO: track
             model.validate(address: user.address.value)
+        }
+    }
+}
+
+fileprivate struct _SuccessView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Your vote is in!")
+                .foregroundStyle(Color.textWhite)
+                .font(.title3Semibold)
+
+            Spacer()
+
+            Text("Votes can be changed while the proposal is active")
+                .foregroundStyle(Color.textWhite60)
+                .font(.footnoteRegular)
+
+            VStack(spacing: 16) {
+                SecondaryButton("Share on X") {
+                    // TODO: implement
+                }
+                PrimaryButton("Done") {
+                    dismiss()
+                }
+            }
+            .padding(.horizontal, 8)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 16)
+        .onAppear {
+            // TODO: track
         }
     }
 }
