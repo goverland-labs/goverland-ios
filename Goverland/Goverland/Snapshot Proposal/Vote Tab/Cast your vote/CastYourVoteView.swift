@@ -13,8 +13,8 @@ import SwiftData
 struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteDataSource
 
-    init(proposal: Proposal, choice: AnyObject) {
-        self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice))        
+    init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
     }
 
     var body: some View {
@@ -50,6 +50,11 @@ fileprivate struct _VoteView: View {
             Text("Cast your vote")
                 .foregroundStyle(Color.textWhite)
                 .font(.title3Semibold)
+
+            Image("cast-your-vote")
+                .padding(.vertical, 32)
+                .frame(width: 186)
+                .scaledToFit()
 
             HStack {
                 Text("Account")

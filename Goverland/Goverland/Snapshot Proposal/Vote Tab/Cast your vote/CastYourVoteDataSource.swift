@@ -13,7 +13,8 @@ import WalletConnectSign
 
 class CastYourVoteDataSource: ObservableObject {
     let proposal: Proposal
-    let choice: AnyObject
+    let choice: AnyObject?
+    let onSuccess: () -> Void
 
     @Published var validated: Bool?
 
@@ -38,6 +39,7 @@ class CastYourVoteDataSource: ObservableObject {
     private var voteRequestId: UUID?
 
     var choiceStr: String {
+        guard let choice else { return "" }
         switch proposal.type {
         case .singleChoice, .basic:
             return proposal.choices[choice as! Int]
@@ -71,9 +73,10 @@ class CastYourVoteDataSource: ObservableObject {
         }
     }
 
-    init(proposal: Proposal, choice: AnyObject) {
+    init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
         self.proposal = proposal
         self.choice = choice
+        self.onSuccess = onSuccess
         listen_WC_Responses()
     }
 
@@ -117,7 +120,7 @@ class CastYourVoteDataSource: ObservableObject {
         infoMessage = nil
         isPreparing = true
         voteRequestId = nil
-        APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
+        APIService.prepareVote(proposal: proposal, voter: address, choice: choice!, reason: nil)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isPreparing = false
@@ -198,6 +201,7 @@ class CastYourVoteDataSource: ObservableObject {
             } receiveValue: { [weak self] resp, _ in
                 logInfo("[VOTE]: Succesfully submitted: \(resp)")
                 self?.submitted = true
+                self?.onSuccess()
             }
             .store(in: &cancellables)
     }

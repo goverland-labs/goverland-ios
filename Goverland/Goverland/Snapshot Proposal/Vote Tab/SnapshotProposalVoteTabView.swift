@@ -58,6 +58,8 @@ struct SnapshotProposalVoteTabView: View {
     @State private var showSignIn = false
     @State private var showVote = false
 
+    @State private var viewId = UUID()
+
     private var selectedProfileIsGuest: Bool {
         profiles.first(where: { $0.selected })?.address.isEmpty ?? false
     }
@@ -153,15 +155,20 @@ struct SnapshotProposalVoteTabView: View {
                 SnapshotProposalInfoView(proposal: proposal)
             }
         }
+        .id(viewId)
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showVote) {
-            CastYourVoteView(proposal: proposal, choice: choice!)
-                .overlay {
-                    ToastView()
-                }
+            CastYourVoteView(proposal: proposal, choice: choice) {
+                choice = nil
+                voteButtonDisabled = true
+                viewId = UUID() // to redraw the whole view
+            }
+            .overlay {
+                ToastView()
+            }
         }
     }
 
