@@ -48,7 +48,7 @@ fileprivate struct _VoteView: View {
     var body: some View {
         VStack(spacing: 8) {
             Text("Cast your vote")
-                .foregroundStyle(Color.textWhite)
+                .foregroundColor(.textWhite)
                 .font(.title3Semibold)
 
             Image("cast-your-vote")
@@ -58,17 +58,17 @@ fileprivate struct _VoteView: View {
 
             HStack {
                 Text("Account")
-                    .foregroundStyle(Color.textWhite)
+                    .foregroundColor(.textWhite)
                 Spacer()
                 IdentityView(user: user)
             }
 
             HStack {
                 Text("Voting power")
-                    .foregroundStyle(Color.textWhite)
+                    .foregroundColor(.textWhite)
                 Spacer()
                 Text("\(model.votingPower) \(vpSymbol)" )
-                    .foregroundStyle(Color.textWhite)
+                    .foregroundColor(.textWhite)
             }
 
             RoundedRectangle(cornerRadius: 20)
@@ -77,10 +77,10 @@ fileprivate struct _VoteView: View {
 
             HStack {
                 Text("Choice")
-                    .foregroundStyle(Color.textWhite)
+                    .foregroundColor(.textWhite)
                 Spacer()
                 Text(model.choiceStr)
-                    .foregroundStyle(Color.textWhite)
+                    .foregroundColor(.textWhite)
             }
 
             HStack {
@@ -89,17 +89,17 @@ fileprivate struct _VoteView: View {
 
                 if model.failedToValidate {
                     Text("-")
-                        .foregroundStyle(Color.textWhite)
+                        .foregroundColor(.textWhite)
                 } else if model.validated == nil { // validation in progress
                     ProgressView()
                         .foregroundColor(.textWhite20)
                         .controlSize(.mini)
                 } else if model.validated! {
                     Image(systemName: "checkmark")
-                        .foregroundStyle(Color.primaryDim)
+                        .foregroundColor(.primaryDim)
                 } else {
                     Image(systemName: "xmark")
-                        .foregroundStyle(Color.dangerText)
+                        .foregroundColor(.dangerText)
                 }
             }
 
@@ -110,7 +110,7 @@ fileprivate struct _VoteView: View {
                             .foregroundColor(.dangerText)
                         Text(errorMessage)
                             .font(.bodyRegular)
-                            .foregroundStyle(Color.textWhite)
+                            .foregroundColor(.textWhite)
                     }
                     .padding(.horizontal, 8)
                     .padding(.vertical, 16)
@@ -131,7 +131,7 @@ fileprivate struct _VoteView: View {
                             .foregroundColor(.textWhite)
                         Text(message)
                             .font(.bodyRegular)
-                            .foregroundStyle(Color.textWhite)
+                            .foregroundColor(.textWhite)
                     }
                     .padding(.horizontal, 8)
                     .padding(.vertical, 16)
@@ -169,13 +169,13 @@ fileprivate struct _SuccessView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text("Your vote is in!")
-                .foregroundStyle(Color.textWhite)
+                .foregroundColor(.textWhite)
                 .font(.title3Semibold)
 
             Spacer()
 
             Text("Votes can be changed while the proposal is active")
-                .foregroundStyle(Color.textWhite60)
+                .foregroundColor(.textWhite60)
                 .font(.footnoteRegular)
 
             VStack(spacing: 16) {

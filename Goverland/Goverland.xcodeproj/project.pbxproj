@@ -101,6 +101,7 @@
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
 		55E800A42AF825D900A43D5F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A32AF825D900A43D5F /* SignInView.swift */; };
 		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
+		55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87D2B237EE600242817 /* ScreenExtention.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
@@ -310,6 +311,7 @@
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E800A32AF825D900A43D5F /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		55E800A52AF8419E00A43D5F /* SignInDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataSource.swift; sourceTree = "<group>"; };
+		55EEA87D2B237EE600242817 /* ScreenExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenExtention.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 			children = (
 				551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */,
 				55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */,
+				55EEA87D2B237EE600242817 /* ScreenExtention.swift */,
 			);
 			path = "View Extensions";
 			sourceTree = "<group>";
@@ -1400,6 +1403,7 @@
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
+				55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
 				BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
