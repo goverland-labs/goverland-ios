@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SignInTwoStepsView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource = SignInTwoStepsDataSource()
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
@@ -19,7 +19,7 @@ struct SignInTwoStepsView: View {
             HStack {
                 Spacer()
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.textWhite40)
@@ -94,7 +94,7 @@ struct SignInTwoStepsView: View {
             Spacer()
 
             if dataSource.wcSessionMeta == nil {
-                PrimaryButton("Connect Wallet") {
+                PrimaryButton("Connect wallet") {
                     showSelectWallet = true
                 }
             } else {
@@ -115,7 +115,7 @@ struct SignInTwoStepsView: View {
         }
         .onChange(of: authToken) { _, token in
             if !token.isEmpty {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
     }

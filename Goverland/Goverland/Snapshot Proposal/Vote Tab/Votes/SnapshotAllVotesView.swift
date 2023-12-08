@@ -11,8 +11,8 @@ import SwiftUI
 struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
-    @Environment(\.presentationMode) private var presentationMode
-    
+    @Environment(\.dismiss) private var dismiss
+
     init(proposal: Proposal) {
         self.proposal = proposal
         _data = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
@@ -67,7 +67,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.textWhite)

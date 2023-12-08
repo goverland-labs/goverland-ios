@@ -26,7 +26,7 @@ enum DaoInfoFilter: Int, FilterOptions {
 }
 
 struct DaoInfoView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
@@ -77,7 +77,7 @@ struct DaoInfoView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 /// This view is always presented in a popover
 struct AddSubscriptionView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource = GroupedDaosDataSource.addSubscription
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
@@ -63,7 +63,7 @@ struct AddSubscriptionView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.textWhite)

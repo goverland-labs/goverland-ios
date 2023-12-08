@@ -57,6 +57,7 @@ struct SnapshotProposalVoteTabView: View {
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
     @State private var showVote = false
+    @State private var showReconnectWallet = false
 
     @State private var viewId = UUID()
 
@@ -136,8 +137,7 @@ struct SnapshotProposalVoteTabView: View {
                             if wcSessionExistsAndNotExpired {
                                 showVote = true
                             } else {
-                                // TODO: show modal to connect Wallet
-                                logInfo("Show sign in modal")
+                                showReconnectWallet = true
                             }
                         }
                     }
@@ -166,7 +166,7 @@ struct SnapshotProposalVoteTabView: View {
         .id(viewId)
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
-                .presentationDetents([.medium, .large])
+                .presentationDetents(UIScreen.isSmall ? [.large, .large] : [.medium, .large])
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {
@@ -177,6 +177,9 @@ struct SnapshotProposalVoteTabView: View {
             .overlay {
                 ToastView()
             }
+        }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: selectedProfile!.user)
         }
     }
 

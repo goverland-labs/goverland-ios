@@ -36,6 +36,7 @@ final class UserProfile {
     private(set) var selected: Bool
 
     private(set) var resolvedName: String?
+    // TODO: we will have 4 sizes of an avatar
     private(set) var avatar: URL?
 
     private(set) var wcSessionMetaData: Data?
@@ -63,6 +64,14 @@ final class UserProfile {
     }
 }
 
+extension UserProfile {
+    var user: User {
+        User(address: Address(address), resolvedName: resolvedName, avatar: avatar)
+    }
+}
+
+// MARK: - WC_SessionMeta extension
+
 extension WC_SessionMeta {
     var data: Data {
         return try! JSONEncoder().encode(self)
@@ -81,6 +90,8 @@ extension WC_SessionMeta {
         return session.expiryDate < .now + 5.minutes
     }
 }
+
+// MARK: - Interactions with SwiftData
 
 extension UserProfile {
     @MainActor
