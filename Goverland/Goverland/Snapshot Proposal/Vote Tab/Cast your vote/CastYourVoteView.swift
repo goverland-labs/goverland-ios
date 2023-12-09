@@ -9,6 +9,7 @@
 
 import SwiftUI
 import SwiftData
+import StoreKit
 
 struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteDataSource
@@ -19,7 +20,7 @@ struct CastYourVoteView: View {
 
     var body: some View {
         if model.submitted {
-            _SuccessView()
+            _SuccessView(dao: model.proposal.dao)
         } else {
             _VoteView(model: model)
         }
@@ -258,7 +259,9 @@ fileprivate struct _InfoMessageView: View {
 }
 
 fileprivate struct _SuccessView: View {
+    let dao: Dao
     @Environment(\.dismiss) private var dismiss
+    @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
 
     var body: some View {
         VStack(spacing: 16) {
@@ -274,10 +277,25 @@ fileprivate struct _SuccessView: View {
 
             VStack(spacing: 16) {
                 SecondaryButton("Share on X") {
-                    // TODO: implement
+                    let tweetText = "I just voted in \(dao.name) using the Goverland Mobile App! 🚀"
+                    let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                    let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
+
+                    if let url = twitterUrl {
+                        openUrl(url)
+                    }
+                    // TODO: track
                 }
                 PrimaryButton("Done") {
                     dismiss()
+
+                    let now = Date().timeIntervalSinceReferenceDate
+                    if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
+                        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                            SKStoreReviewController.requestReview(in: scene)
+                            lastSuggestedToRateTime = now
+                        }
+                    }                    
                 }
             }
             .padding(.horizontal, 8)

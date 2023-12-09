@@ -25,3 +25,6 @@ TIMEOUT = 30
 
 // Push Notifications request interval: 60 days (60 * 60 * 24 * 60)
 ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL = 5184000
+
+// Suggest to rate after voting request intervel: 90 days (60 * 60 * 24 * 90)
+SUGGEST_TO_RATE_REQUEST_INTERVAL = 7776000

@@ -33,7 +33,7 @@ struct HelpUsGrowSettingView: View {
             Button(action: {
                 let tweetText = "Check out Goverland App by @goverland_xyz!"
                 let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                let twitterUrl = URL(string: "https://twitter.com/intent/tweet?text=\(tweetUrl ?? "")")
+                let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
 
                 if let url = twitterUrl {
                     openUrl(url)
