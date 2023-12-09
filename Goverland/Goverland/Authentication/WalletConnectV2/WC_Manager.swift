@@ -41,6 +41,13 @@ class WC_Manager {
         WalletConnectModal.present()
     }
 
+    static func disconnect(topic: String) {
+        logInfo("[WC] App disconnecting from session with topic: \(topic)")
+        Task {
+            try? await WalletConnectModal.instance.disconnect(topic: topic)
+        }
+    }
+
     private var cancellables = Set<AnyCancellable>()
 
     private init() {
@@ -75,7 +82,7 @@ class WC_Manager {
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { topic, reason in
-                logInfo("[WC] Session deleted: String: \(topic); Reason: \(reason)")
+                logInfo("[WC] Session deleted: Topic: \(topic); Reason: \(reason)")
                 Task {
                     try! await UserProfile.clear_WC_Sessions(topic: topic)
                 }

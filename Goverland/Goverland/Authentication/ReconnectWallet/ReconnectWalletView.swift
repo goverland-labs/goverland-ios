@@ -47,7 +47,7 @@ struct ReconnectWalletView: View {
                     HStack(spacing: 8) {
                         Image(systemName: "info.circle.fill")
                             .foregroundColor(.textWhite)
-                        Text("Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please log in with another profile.")
+                        Text("Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please sign in with another profile.")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
                     }
@@ -58,6 +58,7 @@ struct ReconnectWalletView: View {
                     RoundedRectangle(cornerRadius: 13)
                         .fill(Color.containerBright)
                 }
+                .padding(16)
 
                 Spacer()
             }
@@ -90,10 +91,16 @@ struct ReconnectWalletView: View {
 
             if sessionMeta.session.accounts.first?.address.lowercased() != user.address.value.lowercased() {
                 wrongWalletConnected = true
+                WC_Manager.disconnect(topic: sessionMeta.session.topic)
+                WC_Manager.shared.sessionMeta = nil
                 return
             }
 
             dismiss()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                showToast("Profile wallet successfully reconnected")
+            }
         }
     }
 }
