@@ -39,7 +39,7 @@ struct PrimaryButton: View {
                 Text(isEnabled ? text : (disabledText ?? text))
                 Spacer()
             }
-            .frame(minWidth: maxWidth * 2/3,
+            .frame(minWidth: maxWidth * 1/3,
                    maxWidth: maxWidth,
                    minHeight: height,
                    maxHeight: height,

@@ -39,6 +39,10 @@ class CastYourVoteDataSource: ObservableObject {
 
     private var voteRequestId: UUID?
 
+    var isShieldedVoting: Bool {
+        proposal.privacy == .shutter
+    }
+
     var choiceStr: String {
         guard let choice else { return "" }
         switch proposal.type {
@@ -121,7 +125,11 @@ class CastYourVoteDataSource: ObservableObject {
         infoMessage = nil
         isPreparing = true
         voteRequestId = nil
-        APIService.prepareVote(proposal: proposal, voter: address, choice: choice!, reason: nil)
+
+        let normalizedReason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
+        let reason = normalizedReason.isEmpty ? nil : normalizedReason
+
+        APIService.prepareVote(proposal: proposal, voter: address, choice: choice!, reason: reason)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isPreparing = false
