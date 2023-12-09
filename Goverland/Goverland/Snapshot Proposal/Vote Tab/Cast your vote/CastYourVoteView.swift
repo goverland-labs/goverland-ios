@@ -30,6 +30,7 @@ fileprivate struct _VoteView: View {
     @StateObject var model: CastYourVoteDataSource
     @Query private var profiles: [UserProfile]
     @Environment(\.dismiss) private var dismiss
+    @FocusState private var isTextEditorFocused: Bool
 
     private var vpSymbol: String {
         if let symbol = model.proposal.symbol, !symbol.isEmpty {
@@ -103,6 +104,27 @@ fileprivate struct _VoteView: View {
                 }
             }
 
+            if model.validated ?? false {
+                ZStack(alignment: .topLeading) {
+                    TextEditor(text: $model.reason)
+                        .focused($isTextEditorFocused)
+                        .frame(height: 96)
+                        .foregroundColor(.textWhite)
+                        .accentColor(.textWhite40)
+                        .scrollContentBackground(.hidden)
+                        .background(Color.containerBright)
+                        .cornerRadius(20)
+
+                    // TextEditor doesn't have a placeholder support yet
+                    if !isTextEditorFocused && model.reason.isEmpty {
+                        Text("Share your reason (optional)")
+                            .foregroundColor(.textWhite20)
+                            .padding(16)
+                    }
+                }
+                .padding(.top, 16)
+            }
+
             if let errorMessage = model.errorMessage {
                 VStack(spacing: 0) {
                     HStack(spacing: 8) {
@@ -154,7 +176,7 @@ fileprivate struct _VoteView: View {
             }
             .padding(.horizontal)
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 16)
         .padding(.vertical, 16)
         .onAppear {
             // TODO: track

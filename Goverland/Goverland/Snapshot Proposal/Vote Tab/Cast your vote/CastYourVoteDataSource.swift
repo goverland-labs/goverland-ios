@@ -18,6 +18,8 @@ class CastYourVoteDataSource: ObservableObject {
 
     @Published var validated: Bool?
 
+    @Published var reason = ""
+
     @Published var isPreparing = false
     @Published var infoMessage: String?
 

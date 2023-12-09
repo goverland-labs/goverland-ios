@@ -115,6 +115,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.textWhite)], for: .normal)
 
+        UITextView.appearance().textContainerInset = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
+
         return true
     }
 
