@@ -24,9 +24,7 @@ class WC_Manager {
         name: "Goverland",
         description: "Mobile App for all DAOs",
         url: "https://goverland.xyz",
-
-        // TODO: provide proper url
-        icons: ["https://uploads-ssl.webflow.com/63f0e8f1e5b3e07d58817370/6480451361d81702d7d7ccae_goverland-logo-full.svg"]
+        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"]
     )
 
     /// At any moment of time there can be only one WC session that the App works with.
