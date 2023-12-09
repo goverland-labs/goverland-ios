@@ -90,7 +90,7 @@ fileprivate struct _VoteView: View {
                             }
                         }
                         .id(bottomElementId)
-                        .padding(.bottom, 50)
+                        .padding(.bottom, 74)
                     }
                 }
                 .scrollIndicators(.hidden)

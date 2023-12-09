@@ -75,6 +75,7 @@ struct ReconnectWalletView: View {
                         showSelectWallet = true
                     }
                 }
+                .padding(.bottom, 16)
             }
         }
         .sheet(isPresented: $showSelectWallet) {
