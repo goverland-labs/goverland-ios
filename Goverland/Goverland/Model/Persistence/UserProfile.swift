@@ -278,4 +278,22 @@ extension UserProfile {
             logInfo("[UserProfile] No profile with WC topic \(topic) found.")
         }
     }
+
+    @MainActor
+    /// Update stored session in selected profile with a value from cached session meta.
+    /// It is used when reconnecting an expired session for the selected profile.
+    static func update_WC_SessionForSelectedProfile() throws {
+        let sessionMeta = WC_Manager.shared.sessionMeta
+        let fetchDescriptor = FetchDescriptor<UserProfile>(
+            predicate: #Predicate { $0.selected == true }
+        )
+        let context = appContainer.mainContext
+        if let profile = try appContainer.mainContext.fetch(fetchDescriptor).first {
+            logInfo("[UserProfile] Updating WC session for selected profile \(profile.addressDescription).")
+            profile.wcSessionMetaData = sessionMeta?.data
+            try context.save()
+        } else {
+            logError(GError.appInconsistency(reason: "[UserProfile] No selected profile found to update WC session."))
+        }
+    }
 }

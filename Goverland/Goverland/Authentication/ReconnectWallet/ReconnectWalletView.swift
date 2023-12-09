@@ -96,6 +96,8 @@ struct ReconnectWalletView: View {
                 return
             }
 
+            try! UserProfile.update_WC_SessionForSelectedProfile()
+
             dismiss()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
