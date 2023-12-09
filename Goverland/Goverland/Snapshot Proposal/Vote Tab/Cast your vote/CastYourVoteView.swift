@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 10.11.23.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 import SwiftData
@@ -13,11 +13,11 @@ import StoreKit
 
 struct CastYourVoteView: View {
     @StateObject private var model: CastYourVoteDataSource
-
+    
     init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
         self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
     }
-
+    
     var body: some View {
         if model.submitted {
             _SuccessView(dao: model.proposal.dao)
@@ -32,25 +32,25 @@ fileprivate struct _VoteView: View {
     @Query private var profiles: [UserProfile]
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isTextEditorFocused: Bool
-
+    
     let bottomElementId = UUID()
-
+    
     private var user: User {
         let profile = profiles.first(where: { $0.selected })!
         return User(address: Address(profile.address),
                     resolvedName: profile.resolvedName,
                     avatar: profile.avatar)
     }
-
+    
     var body: some View {
         ZStack {
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 8) {
                         _HeaderView(model: model, user: user)
-
+                        
                         // Reason Text Input
-
+                        
                         if (model.validated ?? false) && !model.isShieldedVoting {
                             ZStack(alignment: .topLeading) {
                                 TextEditor(text: $model.reason)
@@ -61,7 +61,7 @@ fileprivate struct _VoteView: View {
                                     .scrollContentBackground(.hidden)
                                     .background(Color.containerBright)
                                     .cornerRadius(20)
-
+                                
                                 // TextEditor doesn't have a placeholder support yet
                                 if !isTextEditorFocused && model.reason.isEmpty {
                                     Text("Share your reason (optional)")
@@ -72,17 +72,17 @@ fileprivate struct _VoteView: View {
                             }
                             .padding(.top, 16)
                         }
-
+                        
                         // Error message
-
+                        
                         if let errorMessage = model.errorMessage {
                             _ErrorMessageView(message: errorMessage)
                         }
-
+                        
                         Spacer()
-
+                        
                         // Info message
-
+                        
                         Group {
                             if let message = model.infoMessage {
                                 _InfoMessageView(message: message)
@@ -111,7 +111,7 @@ fileprivate struct _VoteView: View {
                     }
                 }
             }
-
+            
             // Attach buttons to the bottom of the screen
             VStack {
                 Spacer()
@@ -137,39 +137,38 @@ fileprivate struct _VoteView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
-
     }
 }
 
 fileprivate struct _HeaderView: View {
     @StateObject var model: CastYourVoteDataSource
     let user: User
-
+    
     private var vpSymbol: String {
         if let symbol = model.proposal.symbol, !symbol.isEmpty {
             return symbol
         }
         return "VOTE"
     }
-
+    
     var body: some View {
         VStack {
             Text("Cast your vote")
                 .foregroundColor(.textWhite)
                 .font(.title3Semibold)
-
+            
             Image("cast-your-vote")
                 .padding(.vertical, 32)
                 .frame(width: 186)
                 .scaledToFit()
-
+            
             HStack {
                 Text("Account")
                     .foregroundColor(.textWhite)
                 Spacer()
                 IdentityView(user: user)
             }
-
+            
             HStack {
                 Text("Voting power")
                     .foregroundColor(.textWhite)
@@ -177,11 +176,11 @@ fileprivate struct _HeaderView: View {
                 Text("\(model.votingPower) \(vpSymbol)" )
                     .foregroundColor(.textWhite)
             }
-
+            
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.secondaryContainer)
                 .frame(height: 2)
-
+            
             HStack {
                 Text("Choice")
                     .foregroundColor(.textWhite)
@@ -189,11 +188,11 @@ fileprivate struct _HeaderView: View {
                 Text(model.choiceStr)
                     .foregroundColor(.textWhite)
             }
-
+            
             HStack {
                 Text("Validation")
                 Spacer()
-
+                
                 if model.failedToValidate {
                     Text("-")
                         .foregroundColor(.textWhite)
@@ -215,7 +214,7 @@ fileprivate struct _HeaderView: View {
 
 fileprivate struct _ErrorMessageView: View {
     let message: String
-
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
@@ -238,7 +237,7 @@ fileprivate struct _ErrorMessageView: View {
 
 fileprivate struct _InfoMessageView: View {
     let message: String
-
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
@@ -262,25 +261,25 @@ fileprivate struct _SuccessView: View {
     let dao: Dao
     @Environment(\.dismiss) private var dismiss
     @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
-
+    
     var body: some View {
         VStack(spacing: 16) {
             Text("Your vote is in!")
                 .foregroundColor(.textWhite)
                 .font(.title3Semibold)
-
+            
             Spacer()
-
+            
             Text("Votes can be changed while the proposal is active")
                 .foregroundColor(.textWhite60)
                 .font(.footnoteRegular)
-
+            
             VStack(spacing: 16) {
                 SecondaryButton("Share on X") {
                     let tweetText = "I just voted in \(dao.name) using the Goverland Mobile App! 🚀"
                     let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
                     let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
-
+                    
                     if let url = twitterUrl {
                         openUrl(url)
                     }
@@ -288,14 +287,14 @@ fileprivate struct _SuccessView: View {
                 }
                 PrimaryButton("Done") {
                     dismiss()
-
+                    
                     let now = Date().timeIntervalSinceReferenceDate
                     if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
                         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                             SKStoreReviewController.requestReview(in: scene)
                             lastSuggestedToRateTime = now
                         }
-                    }                    
+                    }
                 }
             }
             .padding(.horizontal, 8)

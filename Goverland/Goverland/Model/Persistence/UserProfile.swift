@@ -161,7 +161,6 @@ extension UserProfile {
     }
 
     @MainActor
-    // TODO: In the future select the next available profile.
     static func logoutSelected(logErrorIfNotFound: Bool = false) throws {
         let fetchDescriptor = FetchDescriptor<UserProfile>(
             predicate: #Predicate { $0.selected == true }

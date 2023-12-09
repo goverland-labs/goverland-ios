@@ -917,9 +917,9 @@
 		55FD73132AB75DC60081C38D /* Connect Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				55FD73162AB75DC60081C38D /* ConnectWalletView.swift */,
 				55FD73142AB75DC60081C38D /* ConnectWalletModel.swift */,
 				55FD73152AB75DC60081C38D /* WC_QRView.swift */,
-				55FD73162AB75DC60081C38D /* ConnectWalletView.swift */,
 				55FD73172AB75DC60081C38D /* Wallet.swift */,
 			);
 			path = "Connect Wallet";
