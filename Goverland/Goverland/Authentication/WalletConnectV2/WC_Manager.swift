@@ -48,6 +48,15 @@ class WC_Manager {
         }
     }
 
+    static var walletRedirectUrl: URL? {
+        if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
+           let redirectUrlStr = meta.session.peer.redirect?.universal,
+           let redirectUrl = URL(string: redirectUrlStr) {
+            return redirectUrl
+        }
+        return nil
+    }
+
     private var cancellables = Set<AnyCancellable>()
 
     private init() {

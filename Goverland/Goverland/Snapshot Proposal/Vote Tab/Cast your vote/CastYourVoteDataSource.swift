@@ -28,7 +28,6 @@ class CastYourVoteDataSource: ObservableObject {
     @Published var errorMessage: String?
     
     @Published var failedToValidate = false
-    @Published var failedToPrepare = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -86,7 +85,6 @@ class CastYourVoteDataSource: ObservableObject {
         errorMessage = nil
         infoMessage = nil
         failedToValidate = false
-        failedToPrepare = false
         submitted = false
         // do not clear cancellables
     }
@@ -117,6 +115,7 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     func prepareVote(address: String) {
+        errorMessage = nil
         infoMessage = nil
         isPreparing = true
         voteRequestId = nil
@@ -127,7 +126,6 @@ class CastYourVoteDataSource: ObservableObject {
                 switch completion {
                 case .finished: break
                 case .failure(_):
-                    self.failedToPrepare = true
                     self.errorMessage = self.failedToVoteMessage
                 }
             } receiveValue: { [weak self] prep, _ in
@@ -154,10 +152,7 @@ class CastYourVoteDataSource: ObservableObject {
             try? await Sign.instance.request(params: request)
         }
 
-        // TODO: code duplicate. Refactor how we store session and move to Utils.
-        if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
-           let redirectUrlStr = meta.session.peer.redirect?.universal,
-           let redirectUrl = URL(string: redirectUrlStr) {
+        if let redirectUrl = WC_Manager.walletRedirectUrl {
             openUrl(redirectUrl)
         } else {
             infoMessage = openWalletMessage

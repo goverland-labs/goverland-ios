@@ -121,9 +121,7 @@ class SignInTwoStepsDataSource: ObservableObject {
         Task {
             try? await Sign.instance.request(params: request)
 
-            if let meta = wcSessionMeta, meta.walletOnSameDevice,
-               let redirectUrlStr = meta.session.peer.redirect?.universal,
-               let redirectUrl = URL(string: redirectUrlStr) {
+            if let redirectUrl = WC_Manager.walletRedirectUrl {
                 openUrl(redirectUrl)
             }
         }
