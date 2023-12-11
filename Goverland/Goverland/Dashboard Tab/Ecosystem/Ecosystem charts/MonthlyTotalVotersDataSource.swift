@@ -57,20 +57,20 @@ class MonthlyTotalVotersDataSource: ObservableObject, Refreshable {
         monthlyTotalVoters.map { MonthlyTotalVotersGraphData(date: $0.date, voters: $0.newVoters) }
     }
 
-    func returningVoters(date: Date) -> Int {
+    func returningVoters(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyTotalVoters.first(where: { $0.date == date }) {
-            return data.totalVoters - data.newVoters
+            return Utils.decimalNumber(from: data.totalVoters - data.newVoters)
         }
-        return 0
+        return "0"
     }
 
-    func newVoters(date: Date) -> Int {
+    func newVoters(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyTotalVoters.first(where: { $0.date == date }) {
-            return data.newVoters
+            return Utils.decimalNumber(from: data.newVoters)
         }
-        return 0
+        return "0"
     }
 }
 

@@ -66,19 +66,19 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
         monthlyActiveUsers.map { MonthlyActiveVotersGraphData(date: $0.date, voters: $0.newUsers) }
     }
 
-    func returningVoters(date: Date) -> Int {
+    func returningVoters(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
-            return data.activeUsers - data.newUsers
+            return Utils.decimalNumber(from: data.activeUsers - data.newUsers)
         }
-        return 0
+        return "0"
     }
 
-    func newVoters(date: Date) -> Int {
+    func newVoters(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
-            return data.newUsers
+            return Utils.decimalNumber(from: data.newUsers)
         }
-        return 0
+        return "0"
     }
 }
