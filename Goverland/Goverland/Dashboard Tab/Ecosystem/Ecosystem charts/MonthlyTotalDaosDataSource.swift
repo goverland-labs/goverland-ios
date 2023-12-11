@@ -57,20 +57,20 @@ class MonthlyTotalDaosDataSource: ObservableObject, Refreshable {
         monthlyTotalDaos.map { MonthlyTotalDaosGraphData(date: $0.date, daos: $0.newDaos) }
     }
 
-    func returningDaos(date: Date) -> Int {
+    func returningDaos(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyTotalDaos.first(where: { $0.date == date }) {
-            return data.totalDaos - data.newDaos
+            return Utils.decimalNumber(from: data.totalDaos - data.newDaos)
         }
-        return 0
+        return "0"
     }
 
-    func newDaos(date: Date) -> Int {
+    func newDaos(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyTotalDaos.first(where: { $0.date == date }) {
-            return data.newDaos
+            return Utils.decimalNumber(from: data.newDaos)
         }
-        return 0
+        return "0"
     }
 }
 

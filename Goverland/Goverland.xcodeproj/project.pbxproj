@@ -179,6 +179,7 @@
 		BADB16692B2019DF00CB99CC /* MonthlyTotalVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */; };
 		BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */; };
 		BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */; };
+		BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166F2B275F0C00CB99CC /* AnnotationView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
 		BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */; };
 		BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */; };
@@ -384,6 +385,7 @@
 		BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVoters.swift; sourceTree = "<group>"; };
 		BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersDataSource.swift; sourceTree = "<group>"; };
 		BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersView.swift; sourceTree = "<group>"; };
+		BADB166F2B275F0C00CB99CC /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
 		BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
 		BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersView.swift; sourceTree = "<group>"; };
@@ -1049,6 +1051,7 @@
 			children = (
 				55F700242AB05149008EA30C /* GraphView.swift */,
 				BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */,
+				BADB166F2B275F0C00CB99CC /* AnnotationView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1357,6 +1360,7 @@
 				5597E73F2A0A5C8800E2FAE4 /* ToastView.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
+				BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */,
 				BAF651C329AE5F8700C78A8A /* ColorSchemeManager.swift in Sources */,
 				BAE1AB3A2AF3E6AC001B89F3 /* MutualDao.swift in Sources */,
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,

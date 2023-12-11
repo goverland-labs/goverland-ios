@@ -38,11 +38,11 @@ class MonthlyTotalNewProposalsDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
     
-    func totalNewProposalsCount(date: Date) -> Int {
+    func totalNewProposalsCount(date: Date) -> String {
         let date = Utils.formatDateToStartOfMonth(date)
         if let data = monthlyTotalNewProposals.first(where: { $0.date == date }) {
-            return data.newProposals
+            return Utils.formattedNumber(Double(data.newProposals))
         }
-        return 0
+        return "0"
     }
 }

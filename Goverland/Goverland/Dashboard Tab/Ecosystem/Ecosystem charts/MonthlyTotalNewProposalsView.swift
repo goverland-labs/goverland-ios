@@ -69,7 +69,11 @@ struct MonthlyTotalNewProposalsView: View {
                             position: selectedDate <= midDate ? .trailing : .leading,
                             alignment: .center, spacing: 4
                         ) {
-                            AnnotationView(date: selectedDate, dataSource: dataSource)
+                            AnnotationView(firstPlaceholderValue: dataSource.totalNewProposalsCount(date: selectedDate),
+                                           firstPlaceholderTitle: "New proposals",
+                                           secondPlaceholderValue: nil,
+                                           secondPlaceholderTitle: nil,
+                                           description: Utils.monthAndYear(from: selectedDate))
                         }
                 }
             }
@@ -79,43 +83,6 @@ struct MonthlyTotalNewProposalsView: View {
                 "New proposals": Color.primaryDim
             ])
             .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
-        }
-    }
-    
-    // TODO: refactor to remove code duplication
-    private struct AnnotationView: View {
-        let date: Date
-        let dataSource: MonthlyTotalNewProposalsDataSource
-
-        var count: Int {
-            dataSource.totalNewProposalsCount(date: date)
-        }
-
-        var body: some View {
-            VStack(alignment: .leading, spacing: 5) {
-                HStack {
-                    HStack(alignment: .bottom, spacing: 4) {
-                        Text(String(Utils.formattedNumber(Double(count))))
-                            .font(.title3Regular)
-                            .foregroundColor(.textWhite)
-                        Text("New proposals")
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite60)
-                    }
-                    Spacer()
-                }
-                HStack {
-                    HStack(spacing: 4) {
-                        Text(Utils.monthAndYear(from: date))
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite60)
-                    }
-                    Spacer()
-                }
-            }
-            .padding(8)
-            .background(Color.containerBright)
-            .cornerRadius(10)
         }
     }
 }

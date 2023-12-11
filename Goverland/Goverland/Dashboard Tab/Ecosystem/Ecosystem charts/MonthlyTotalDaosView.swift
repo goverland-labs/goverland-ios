@@ -69,7 +69,11 @@ struct MonthlyTotalDaosView: View {
                                     position: selectedDate <= midDate ? .trailing : .leading,
                                     alignment: .center, spacing: 4
                                 ) {
-                                    AnnotationView(date: selectedDate, dataSource: dataSource)
+                                    AnnotationView(firstPlaceholderValue: dataSource.newDaos(date: selectedDate),
+                                                   firstPlaceholderTitle: "New daos",
+                                                   secondPlaceholderValue: dataSource.returningDaos(date: selectedDate),
+                                                   secondPlaceholderTitle: "Returning daos",
+                                                   description: Utils.monthAndYear(from: selectedDate))
                                 }
                         }
                     }
@@ -82,55 +86,6 @@ struct MonthlyTotalDaosView: View {
                 "Returning DAOs": Color.primaryDim, "New DAOs": Color.cyan
             ])
             .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
-        }
-    }
-
-    private struct AnnotationView: View {
-        let date: Date
-        let dataSource: MonthlyTotalDaosDataSource
-
-        var returningDaos: Int {
-            dataSource.returningDaos(date: date)
-        }
-
-        var newDaos: Int {
-            dataSource.newDaos(date: date)
-        }
-
-        var body: some View {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    HStack(alignment: .bottom, spacing: 4) {
-                        Text(Utils.decimalNumber(from: newDaos))
-                            .font(.title3Regular)
-                            .foregroundColor(.textWhite)
-                        Text("New daos")
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite60)
-                    }
-                    Spacer()
-                }
-                
-                HStack {
-                    HStack(spacing: 4) {
-                        Text(Utils.decimalNumber(from: returningDaos))
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite)
-                        Text("Returning daos")
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite60)
-                    }
-                    Spacer()
-                }
-                
-                Text(Utils.monthAndYear(from: date))
-                    .font(.captionSemibold)
-                    .foregroundColor(.textWhite60)
-
-            }
-            .padding(8)
-            .background(Color.containerBright)
-            .cornerRadius(10)
         }
     }
 }
