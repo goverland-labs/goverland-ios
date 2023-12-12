@@ -58,9 +58,9 @@ class WC_Manager {
     private var cancellables = Set<AnyCancellable>()
 
     private init() {
+        getStoredSessionMeta()
         configure()
         listen()
-        getStoredSessionMeta()
     }
 
     private func configure() {

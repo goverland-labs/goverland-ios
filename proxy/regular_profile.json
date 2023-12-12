@@ -3,7 +3,7 @@
     "role": "REGULAR",
     "account": {
         "address": "0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893",
-        "resolved_name": "vitalik.eth",
+        "resolved_name": "test-goverland.eth",
         "avatar": "https://metadata.ens.domains/mainnet/avatar/vitalik.eth"
     },
     "last_sessions": [
