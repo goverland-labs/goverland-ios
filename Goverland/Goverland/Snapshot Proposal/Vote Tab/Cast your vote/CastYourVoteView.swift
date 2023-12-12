@@ -12,17 +12,17 @@ import SwiftData
 import StoreKit
 
 struct CastYourVoteView: View {
-    @StateObject private var model: CastYourVoteDataSource
+    @StateObject private var dataSource: CastYourVoteDataSource
     
     init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
+        self._dataSource = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
     }
     
     var body: some View {
-        if model.submitted {
-            _SuccessView(dao: model.proposal.dao)
+        if dataSource.submitted {
+            _SuccessView(dao: dataSource.proposal.dao)
         } else {
-            _VoteView(model: model)
+            _VoteView(model: dataSource)
         }
     }
 }
