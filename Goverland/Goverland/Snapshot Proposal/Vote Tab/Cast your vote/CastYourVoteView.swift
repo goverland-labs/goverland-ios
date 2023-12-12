@@ -22,13 +22,13 @@ struct CastYourVoteView: View {
         if dataSource.submitted {
             _SuccessView(dao: dataSource.proposal.dao)
         } else {
-            _VoteView(model: dataSource)
+            _VoteView(dataSource: dataSource)
         }
     }
 }
 
 fileprivate struct _VoteView: View {
-    @StateObject var model: CastYourVoteDataSource
+    @StateObject var dataSource: CastYourVoteDataSource
     @Query private var profiles: [UserProfile]
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isTextEditorFocused: Bool
@@ -47,13 +47,13 @@ fileprivate struct _VoteView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 8) {
-                        _HeaderView(model: model, user: user)
+                        _HeaderView(dataSource: dataSource, user: user)
                         
                         // Reason Text Input
                         
-                        if (model.validated ?? false) && !model.isShieldedVoting {
+                        if (dataSource.validated ?? false) && !dataSource.isShieldedVoting {
                             ZStack(alignment: .topLeading) {
-                                TextEditor(text: $model.reason)
+                                TextEditor(text: $dataSource.reason)
                                     .focused($isTextEditorFocused)
                                     .frame(height: 96)
                                     .foregroundColor(.textWhite)
@@ -63,7 +63,7 @@ fileprivate struct _VoteView: View {
                                     .cornerRadius(20)
                                 
                                 // TextEditor doesn't have a placeholder support yet
-                                if !isTextEditorFocused && model.reason.isEmpty {
+                                if !isTextEditorFocused && dataSource.reason.isEmpty {
                                     Text("Share your reason (optional)")
                                         .allowsHitTesting(false)
                                         .foregroundColor(.textWhite20)
@@ -75,7 +75,7 @@ fileprivate struct _VoteView: View {
                         
                         // Error message
                         
-                        if let errorMessage = model.errorMessage {
+                        if let errorMessage = dataSource.errorMessage {
                             _ErrorMessageView(message: errorMessage)
                         }
                         
@@ -84,7 +84,7 @@ fileprivate struct _VoteView: View {
                         // Info message
                         
                         Group {
-                            if let message = model.infoMessage {
+                            if let message = dataSource.infoMessage {
                                 _InfoMessageView(message: message)
                             } else {
                                 Spacer()
@@ -121,8 +121,8 @@ fileprivate struct _VoteView: View {
                             dismiss()
                         }
                         PrimaryButton("Sign",
-                                      isEnabled: (model.validated ?? false) && !model.isPreparing && !model.isSubmitting) {
-                            model.prepareVote(address: user.address.value)
+                                      isEnabled: (dataSource.validated ?? false) && !dataSource.isPreparing && !dataSource.isSubmitting) {
+                            dataSource.prepareVote(address: user.address.value)
                             isTextEditorFocused = false
                         }
                     }
@@ -133,7 +133,7 @@ fileprivate struct _VoteView: View {
         }
         .onAppear {
             // TODO: track
-            model.validate(address: user.address.value)
+            dataSource.validate(address: user.address.value)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
@@ -141,11 +141,11 @@ fileprivate struct _VoteView: View {
 }
 
 fileprivate struct _HeaderView: View {
-    @StateObject var model: CastYourVoteDataSource
+    @StateObject var dataSource: CastYourVoteDataSource
     let user: User
     
     private var vpSymbol: String {
-        if let symbol = model.proposal.symbol, !symbol.isEmpty {
+        if let symbol = dataSource.proposal.symbol, !symbol.isEmpty {
             return symbol
         }
         return "VOTE"
@@ -173,7 +173,7 @@ fileprivate struct _HeaderView: View {
                 Text("Voting power")
                     .foregroundColor(.textWhite)
                 Spacer()
-                Text("\(model.votingPower) \(vpSymbol)" )
+                Text("\(dataSource.votingPower) \(vpSymbol)" )
                     .foregroundColor(.textWhite)
             }
             
@@ -185,7 +185,7 @@ fileprivate struct _HeaderView: View {
                 Text("Choice")
                     .foregroundColor(.textWhite)
                 Spacer()
-                Text(model.choiceStr)
+                Text(dataSource.choiceStr)
                     .foregroundColor(.textWhite)
             }
             
@@ -193,14 +193,14 @@ fileprivate struct _HeaderView: View {
                 Text("Validation")
                 Spacer()
                 
-                if model.failedToValidate {
+                if dataSource.failedToValidate {
                     Text("-")
                         .foregroundColor(.textWhite)
-                } else if model.validated == nil { // validation in progress
+                } else if dataSource.validated == nil { // validation in progress
                     ProgressView()
                         .foregroundColor(.textWhite20)
                         .controlSize(.mini)
-                } else if model.validated! {
+                } else if dataSource.validated! {
                     Image(systemName: "checkmark")
                         .foregroundColor(.primaryDim)
                 } else {
