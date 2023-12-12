@@ -19,7 +19,7 @@ struct Wallet: Identifiable {
     // MARK: - Recommended default wallets
 
     private static let _required: [Wallet] = [.zerion, .rainbow]
-    private static let _recommended: [Wallet] = [.metamask, .uniswap, .oneInch]
+    private static let _recommended: [Wallet] = [.metamask, .uniswap]
 
     static var recommended: [Wallet] {
         var wallets = _required
@@ -61,6 +61,8 @@ struct Wallet: Identifiable {
         scheme: "uniswap",
         id: "c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a"
     )
+
+    // MARK: - Poor support of sign typed data requests
 
     static let oneInch = Wallet(
         image: "oneInch",
