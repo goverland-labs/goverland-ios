@@ -20,7 +20,7 @@ struct CastYourVoteView: View {
     
     var body: some View {
         if dataSource.submitted {
-            _SuccessView(dao: dataSource.proposal.dao)
+            _SuccessView(proposal: dataSource.proposal, choice: dataSource.choiceStr, reason: dataSource.reason)
         } else {
             _VoteView(dataSource: dataSource)
         }
@@ -258,7 +258,9 @@ fileprivate struct _InfoMessageView: View {
 }
 
 fileprivate struct _SuccessView: View {
-    let dao: Dao
+    let proposal: Proposal
+    let choice: String
+    let reason: String?
     @Environment(\.dismiss) private var dismiss
     @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
     
@@ -276,7 +278,15 @@ fileprivate struct _SuccessView: View {
             
             VStack(spacing: 16) {
                 SecondaryButton("Share on X") {
-                    let tweetText = "I just voted in \(dao.name) using the Goverland Mobile App! 🚀"
+                    var tweetText = """
+I just voted in \(proposal.dao.name) using the Goverland Mobile App! 🚀
+Proposal: \(proposal.title)
+My choice: \(choice)
+"""
+                    if let reason {
+                        tweetText += "\nMy reason: \(reason)"
+                    }
+
                     let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
                     let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
                     

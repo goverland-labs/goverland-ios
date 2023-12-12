@@ -62,8 +62,6 @@ struct Wallet: Identifiable {
         id: "c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a"
     )
 
-    // MARK: - Poor support of sign typed data requests
-
     static let oneInch = Wallet(
         image: "oneInch",
         name: "1Inch",
@@ -71,4 +69,20 @@ struct Wallet: Identifiable {
         scheme: "oneinch",
         id: "c286eebc742a537cd1d6818363e9dc53b21759a1e8e5d9b263d0c03ec7703576"
     )
+
+    // MARK: - Doesn't support eth_signTypedData(_v4)
+
+    // - MEW Wallet
+
+    // MARK: - Unstable with WalletConnect
+
+    // - Uniswap Wallet
+
+    // MARK: - Poor support of SIWE
+
+    // - Rainbow, 1Inch, Trust
+
+    // MARK: - Tested SIWE + eth_signTypedData_v4
+
+    // - MetaMask, Zerion, Rainbow, Trust, 1Inch
 }
