@@ -53,7 +53,6 @@ class ConnectWalletModel: ObservableObject {
                 logInfo("[WC] Session settle: \(session)")
                 guard let `self` = self else { return }
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
-                NotificationCenter.default.post(name: .wcSessionUpdated, object: WC_Manager.shared.sessionMeta)
             }
             .store(in: &cancellables)
     }

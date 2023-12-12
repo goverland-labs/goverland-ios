@@ -40,7 +40,7 @@ fileprivate struct PushNotificationBackgroundView: View {
 
 fileprivate struct PushNotificationFooterControlsView: View {
     @Setting(\.notificationsEnabled) var notificationsEnabled
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 20) {
@@ -49,14 +49,14 @@ fileprivate struct PushNotificationFooterControlsView: View {
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
                         notificationsEnabled = granted
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }
                 }
             }
             
             Button("No, thanks") {
                 Tracker.track(.notificationsNo)
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
             .fontWeight(.semibold)
             .padding(.bottom)

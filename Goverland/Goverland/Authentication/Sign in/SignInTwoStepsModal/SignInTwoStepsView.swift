@@ -9,38 +9,47 @@
 import SwiftUI
 
 struct SignInTwoStepsView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource = SignInTwoStepsDataSource()
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             HStack {
                 Spacer()
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.textWhite40)
-                        .font(.system(size: 26))
+                        .font(.system(size: 24))
                 }
             }
 
-            Spacer()
-
             Text("Sign In")
-                .fontWeight(.bold)
-                .font(.title3)
+                .font(.title3Semibold)
+                .foregroundColor(.textWhite)
 
-            Text("Connect your wallet and sign a message to sign in.")            
+            Image("wallet")
+                .frame(minWidth: 128, maxWidth: 192)
+                .scaledToFit()
+                .padding(16)
 
             HStack(alignment: .top) {
-                Text("1")
-                Text("Connect wallet")
+                HStack {
+                    Text("1.")
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 24)
+                    Text("Connect wallet")
+                }
+                .font(.bodySemibold)
+                .foregroundColor(.textWhite)
+
                 Spacer()
+
                 if let sessionMeta = dataSource.wcSessionMeta {
-                    VStack(alignment: .trailing) {
+                    VStack(alignment: .trailing, spacing: 4) {
                         HStack {
                             if let iconStr = sessionMeta.session.peer.icons.first,
                                let iconUrl = URL(string: iconStr) {
@@ -48,25 +57,44 @@ struct SignInTwoStepsView: View {
                             }
                             Image(systemName: "checkmark.circle.fill")
                                 .accentColor(.primaryDim)
+                                .font(.system(size: 24))
                         }
-                        Button("Change Wallet") {
+                        Button(action: {
                             showSelectWallet = true
+                        }) {
+                            Text("Change wallet")
+                                .foregroundColor(.primaryDim)
+                                .font(.footnoteRegular)
                         }
-                        .accentColor(.primaryDim)
                     }
+                } else {
+                    Circle()
+                        .stroke(Color.textWhite, lineWidth: 2)
+                        .frame(width: 24)
                 }
             }
 
             HStack {
-                Text("2")
-                Text("Sign message")
+                HStack {
+                    Text("2.")
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 24)
+                    Text("Sign message")
+                }
+                .font(.bodySemibold)
+                .foregroundColor(.textWhite)
+
                 Spacer()
+
+                Circle()
+                    .stroke(Color.textWhite, lineWidth: 2)
+                    .frame(width: 24)
             }
 
             Spacer()
 
             if dataSource.wcSessionMeta == nil {
-                PrimaryButton("Connect Wallet") {
+                PrimaryButton("Connect wallet") {
                     showSelectWallet = true
                 }
             } else {
@@ -87,7 +115,7 @@ struct SignInTwoStepsView: View {
         }
         .onChange(of: authToken) { _, token in
             if !token.isEmpty {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
     }

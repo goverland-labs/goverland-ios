@@ -85,12 +85,16 @@ class SignInTwoStepsDataSource: ObservableObject {
                                    signature: signature)
                 .sink { _ in
                     // do nothing, error will be displayed to user
-                } receiveValue: { response, headers in
+                } receiveValue: { [weak self] response, headers in
+                    guard let `self` = self else { return }
+                    let wcSessionMeta = self.wcSessionMeta
                     Task {
-                        // TODO: kill guest profile if exists
+                        // TODO: rework when we have a multi-profile. Logout should not be called.
+                        try! await UserProfile.logoutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
-                                                                    sessionId: response.sessionId)
+                                                                    sessionId: response.sessionId, 
+                                                                    wcSessionMeta: wcSessionMeta)
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile
@@ -118,9 +122,7 @@ class SignInTwoStepsDataSource: ObservableObject {
         Task {
             try? await Sign.instance.request(params: request)
 
-            if let meta = wcSessionMeta, meta.walletOnSameDevice,
-               let redirectUrlStr = meta.session.peer.redirect?.universal,
-               let redirectUrl = URL(string: redirectUrlStr) {
+            if let redirectUrl = WC_Manager.walletRedirectUrl {
                 openUrl(redirectUrl)
             }
         }

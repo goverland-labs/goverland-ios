@@ -28,9 +28,3 @@ struct TwitterSettingsView: View {
         Tracker.track(.settingsOpenTwitter)
     }
 }
-
-struct TwitterSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TwitterSettingsView()
-    }
-}

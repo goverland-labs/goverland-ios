@@ -46,7 +46,7 @@ class APIService {
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
                         Task {
-                            try! await UserProfile.logoutSelected()
+                            try! await UserProfile.logoutSelected(logErrorIfNotFound: true)
                         }
                     }
                     if defaultErrorDisplay {
@@ -259,7 +259,7 @@ extension APIService {
     }
 
     static func submitVote(proposal: Proposal,
-                           id: Int,
+                           id: UUID,
                            signature: String) -> AnyPublisher<(ProposalSubmitVoteEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = ProposalSubmitVoteEndpoint(proposal: proposal, id: id, signature: signature)
         return shared.request(endpoint)

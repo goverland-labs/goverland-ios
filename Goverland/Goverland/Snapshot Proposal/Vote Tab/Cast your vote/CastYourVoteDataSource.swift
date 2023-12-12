@@ -13,27 +13,38 @@ import WalletConnectSign
 
 class CastYourVoteDataSource: ObservableObject {
     let proposal: Proposal
-    let choice: AnyObject
+    let choice: AnyObject?
+    let onSuccess: () -> Void
 
     @Published var validated: Bool?
 
+    @Published var reason = ""
+
     @Published var isPreparing = false
-    @Published var prepared: Bool?
+    @Published var infoMessage: String?
+
+    @Published var isSubmitting = false
+    @Published var submitted = false
 
     @Published var votingPower = 0
     @Published var errorMessage: String?
     
     @Published var failedToValidate = false
-    @Published var failedToPrepare = false
-    
+
     private var cancellables = Set<AnyCancellable>()
 
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
-    private let failedToPrepareMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
+    private let failedToVoteMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
+    private let openWalletMessage = "Please open your wallet to sign the vote."
 
-    private var voteRequestId: Int?
+    private var voteRequestId: UUID?
+
+    var isShieldedVoting: Bool {
+        proposal.privacy == .shutter
+    }
 
     var choiceStr: String {
+        guard let choice else { return "" }
         switch proposal.type {
         case .singleChoice, .basic:
             return proposal.choices[choice as! Int]
@@ -67,9 +78,10 @@ class CastYourVoteDataSource: ObservableObject {
         }
     }
 
-    init(proposal: Proposal, choice: AnyObject) {
+    init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
         self.proposal = proposal
         self.choice = choice
+        self.onSuccess = onSuccess
         listen_WC_Responses()
     }
 
@@ -77,8 +89,9 @@ class CastYourVoteDataSource: ObservableObject {
         validated = nil
         votingPower = 0
         errorMessage = nil
+        infoMessage = nil
         failedToValidate = false
-        failedToPrepare = false
+        submitted = false
         // do not clear cancellables
     }
 
@@ -108,17 +121,22 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     func prepareVote(address: String) {
+        errorMessage = nil
+        infoMessage = nil
         isPreparing = true
         voteRequestId = nil
-        APIService.prepareVote(proposal: proposal, voter: address, choice: choice, reason: nil)
+
+        let normalizedReason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
+        let reason = normalizedReason.isEmpty ? nil : normalizedReason
+
+        APIService.prepareVote(proposal: proposal, voter: address, choice: choice!, reason: reason)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isPreparing = false
                 switch completion {
                 case .finished: break
                 case .failure(_):
-                    self.failedToPrepare = true
-                    self.errorMessage = self.failedToPrepareMessage
+                    self.errorMessage = self.failedToVoteMessage
                 }
             } receiveValue: { [weak self] prep, _ in
                 guard let `self` = self else { return }
@@ -144,11 +162,10 @@ class CastYourVoteDataSource: ObservableObject {
             try? await Sign.instance.request(params: request)
         }
 
-        // TODO: code duplicate. Refactor how we store session and move to Utils.
-        if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
-           let redirectUrlStr = meta.session.peer.redirect?.universal,
-           let redirectUrl = URL(string: redirectUrlStr) {
+        if let redirectUrl = WC_Manager.walletRedirectUrl {
             openUrl(redirectUrl)
+        } else {
+            infoMessage = openWalletMessage
         }
     }
 
@@ -175,23 +192,21 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     private func submiteVote(signature: String) {
-        // TODO: isSubmitting
+        isSubmitting = true
         guard let voteRequestId else { return }
         APIService.submitVote(proposal: proposal, id: voteRequestId, signature: signature)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
+                self.isSubmitting = false
                 switch completion {
                 case .finished: break
                 case .failure(_):
-                    break
-                    // TODO: impl
-//                    self.failedToPrepare = true
-//                    self.errorMessage = self.failedToPrepareMessage
+                    self.errorMessage = self.failedToVoteMessage
                 }
             } receiveValue: { [weak self] resp, _ in
-                guard let `self` = self else { return }
-                // TODO: show end the flow, show success screen
-                logInfo("[SUBMIT VOTE RESPONSE]: \(resp)")
+                logInfo("[VOTE]: Succesfully submitted: \(resp)")
+                self?.submitted = true
+                self?.onSuccess()
             }
             .store(in: &cancellables)
     }

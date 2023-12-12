@@ -26,7 +26,8 @@ class SignInDataSource: ObservableObject {
                 Task {
                     let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                 deviceId: SettingKeys.shared.guestDeviceId,
-                                                                sessionId: response.sessionId)
+                                                                sessionId: response.sessionId, 
+                                                                wcSessionMeta: nil)
                     try! await profile.select()
                     logInfo("[App] Auth Token: \(response.sessionId)")
                 }

@@ -430,18 +430,13 @@ struct ProposalPrepareVoteEndpoint: APIEndpoint {
 struct ProposalSubmitVoteEndpoint: APIEndpoint {
     typealias ResponseType = VoteSubmission
 
-    let proposalID: String
-
-//    var path: String { "proposals/\(proposalID)/votes" }
     var path: String { "proposals/votes" }
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, id: Int, signature: String) {
-        self.proposalID = proposal.id
-
+    init(proposal: Proposal, id: UUID, signature: String) {
         let body: [String: TypedValue] = [
-            "id": .int(id),
+            "id": .str(id.uuidString),
             "sig": .str(signature)
         ]
 

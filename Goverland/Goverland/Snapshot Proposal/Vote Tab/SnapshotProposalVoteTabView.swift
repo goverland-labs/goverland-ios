@@ -57,14 +57,24 @@ struct SnapshotProposalVoteTabView: View {
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
     @State private var showVote = false
+    @State private var showReconnectWallet = false
 
-    private var selectedProfileIsGuest: Bool {
-        profiles.first(where: { $0.selected })?.address.isEmpty ?? false
+    @State private var viewId = UUID()
+
+    private var selectedProfile: UserProfile? {
+        profiles.first(where: { $0.selected })
     }
 
-    private var wcSessionIsExpired: Bool {
-        // TODO: implement proper logic, if session is expired for the selected profile
-        false
+    private var selectedProfileIsGuest: Bool {
+        selectedProfile?.address.isEmpty ?? false
+    }
+
+    private var wcSessionExistsAndNotExpired: Bool {
+        if let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired {
+            return true
+        }
+        logInfo("[WC] Session expiration date: \(WC_Manager.shared.sessionMeta?.session.expiryDate.toISO() ?? "NO SESSION")")
+        return false
     }
 
     var body: some View {
@@ -124,10 +134,10 @@ struct SnapshotProposalVoteTabView: View {
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
                             Tracker.track(.snpDetailsVote)
-                            if wcSessionIsExpired {
-                                // TODO: show modal to connect Wallet
-                            } else {
+                            if wcSessionExistsAndNotExpired {
                                 showVote = true
+                            } else {
+                                showReconnectWallet = true
                             }
                         }
                     }
@@ -153,15 +163,23 @@ struct SnapshotProposalVoteTabView: View {
                 SnapshotProposalInfoView(proposal: proposal)
             }
         }
+        .id(viewId)
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
-                .presentationDetents([.medium, .large])
+                .presentationDetents(UIScreen.isSmall ? [.large, .large] : [.medium, .large])
         }
         .sheet(isPresented: $showVote) {
-            CastYourVoteView(proposal: proposal, choice: choice!)
-                .overlay {
-                    ToastView()
-                }
+            CastYourVoteView(proposal: proposal, choice: choice) {
+                choice = nil
+                voteButtonDisabled = true
+                viewId = UUID() // to redraw the whole view
+            }
+            .overlay {
+                ToastView()
+            }
+        }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: selectedProfile!.user)
         }
     }
 

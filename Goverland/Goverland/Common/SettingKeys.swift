@@ -22,6 +22,7 @@ class SettingKeys: ObservableObject {
     }
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
+    @AppStorage("lastSuggestedToRateTime") var lastSuggestedToRateTime: TimeInterval = 0
 
     @AppStorage("unreadEvents") var unreadEvents = 0 {
         didSet {
@@ -42,6 +43,7 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.trackingAccepted = false
         SettingKeys.shared.notificationsEnabled = false
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
+        SettingKeys.shared.lastSuggestedToRateTime = 0
         SettingKeys.shared.unreadEvents = 0
 
         // TODO: store session meta in Model

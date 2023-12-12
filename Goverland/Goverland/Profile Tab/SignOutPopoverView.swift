@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct SignOutPopoverView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         Text("Do you want to sign out?")
             .font(.title3Semibold)
@@ -21,7 +21,7 @@ struct SignOutPopoverView: View {
         
         HStack(spacing: 16) {
             SecondaryButton("Cancel") {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
             PrimaryButton("Sign out") {
                 // sign out logic
