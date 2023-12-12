@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+        <string>zerion</string>
+        <string>metamask</string>
+        <string>rainbow</string>
+		<string>trust</string>
+        <string>uniswap</string>
+        <string>oneinch</string>
+        <string>mewwallet</string>
+        <string>bnc</string>
+        <string>exodus</string>
+        <string>ledgerlive</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is required to scan QR codes.</string>
 	<key>BASE_URL</key>

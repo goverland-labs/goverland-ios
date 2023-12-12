@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "uniswap32.jpeg",
+      "filename" : "metamask32.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "uniswap64.jpeg",
+      "filename" : "metamask64.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "uniswap96.jpeg",
+      "filename" : "metamask96.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

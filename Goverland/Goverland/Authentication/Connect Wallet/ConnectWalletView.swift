@@ -25,7 +25,7 @@ struct ConnectWalletView: View {
 
                     Section {
                         ForEach(Wallet.recommended) { wallet in
-                            WalletRowView(wallet: wallet, model: model)                            
+                            WalletRowView(wallet: wallet, model: model)              
                         }
                     }
 
