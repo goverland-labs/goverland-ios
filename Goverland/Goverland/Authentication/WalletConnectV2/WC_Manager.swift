@@ -46,7 +46,7 @@ class WC_Manager {
         }
     }
 
-    static var walletRedirectUrl: URL? {
+    static var sessionWalletRedirectUrl: URL? {
         if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
            let redirectUrlStr = meta.session.peer.redirect?.universal,
            let redirectUrl = URL(string: redirectUrlStr) {

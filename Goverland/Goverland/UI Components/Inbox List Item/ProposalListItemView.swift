@@ -134,6 +134,7 @@ struct ProposalListItemBodyView: View {
             
             Spacer()
             RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
+                .allowsHitTesting(onDaoTap == nil ? false : true)
                 .onTapGesture {
                     onDaoTap?()
                 }

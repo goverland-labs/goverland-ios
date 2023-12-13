@@ -122,7 +122,7 @@ class SignInTwoStepsDataSource: ObservableObject {
         Task {
             try? await Sign.instance.request(params: request)
 
-            if let redirectUrl = WC_Manager.walletRedirectUrl {
+            if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
             }
         }
