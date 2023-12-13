@@ -55,6 +55,7 @@ struct DashboardView: View {
                     path.append(Path.ecosystemCharts)
                 }
                 EcosystemDashboardView()
+                    .padding(.bottom, 40)
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
