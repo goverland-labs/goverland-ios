@@ -27,6 +27,8 @@ class RecentlyViewedDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
+        
         APIService.recentlyViewedDaos()
             .sink { [weak self] completion in
                 switch completion {
