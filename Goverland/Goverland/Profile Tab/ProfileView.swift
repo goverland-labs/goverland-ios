@@ -99,7 +99,8 @@ fileprivate struct ProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             if let user {
-                RoundPictureView(image: user.avatar, imageSize: 70)
+                RoundPictureView(image: user.avatars.first { $0.size == .l }?.link,
+                                 imageSize: User.AvatarSize.l.imageSize)
             } else {
                 Circle()
                     .frame(width: 70, height: 70)
@@ -152,38 +153,6 @@ fileprivate struct ProfileListView: View {
             Section {
                 NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
-            
-            if let user {
-                Section {
-                    HStack {
-                        Text("Account")
-                        Spacer()
-                    }
-                    .foregroundColor(Color.onPrimary)
-                    .listRowBackground(Color.primaryDim)
-
-                    HStack(spacing: 8) {
-                        UserPictureView(user: user, imageSize: 20)
-
-                        if let name = user.resolvedName {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(name)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-                                Text(user.address.short)
-                                    .font(.сaptionRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-                        } else {
-                            Text(user.address.short)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                        }
-
-                        Spacer()
-                    }
-                }
             }
 
             Section(header: Text("Devices")) {

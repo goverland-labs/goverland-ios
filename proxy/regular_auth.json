@@ -6,7 +6,24 @@
         "account": {
             "address": "0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893",
             "resolved_name": "test-goverland.eth",
-            "avatar": "https://metadata.ens.domains/mainnet/avatar/vitalik.eth"
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893?s=128"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0xd0BCe10c5f48cC788b18EcdDf3cAe67c2021E893?s=256"
+                }
+            ]
         },
         "last_sessions": [
             {

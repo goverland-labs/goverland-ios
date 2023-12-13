@@ -36,8 +36,11 @@ final class UserProfile {
     private(set) var selected: Bool
 
     private(set) var resolvedName: String?
-    // TODO: we will have 4 sizes of an avatar
-    private(set) var avatar: URL?
+
+    private(set) var avatarXS: URL?
+    private(set) var avatarS: URL?
+    private(set) var avatarM: URL?
+    private(set) var avatarL: URL?
 
     private(set) var wcSessionMetaData: Data?
 
@@ -51,7 +54,7 @@ final class UserProfile {
          address: String,
          selected: Bool,
          resolvedName: String?,
-         avatar: URL?,
+         avatars: [User.Avatar]?,
          wcSessionMeta: WC_SessionMeta?)
     {
         self.deviceId = deviceId
@@ -59,14 +62,36 @@ final class UserProfile {
         self.address = address
         self.selected = selected
         self.resolvedName = resolvedName
-        self.avatar = avatar
+
+        if let avatars {
+            self.avatarXS = avatars.first { $0.size == .xs }?.link
+            self.avatarS = avatars.first { $0.size == .s }?.link
+            self.avatarM = avatars.first { $0.size == .m }?.link
+            self.avatarL = avatars.first { $0.size == .l }?.link
+        }
+
         self.wcSessionMetaData = wcSessionMeta?.data
     }
 }
 
 extension UserProfile {
     var user: User {
-        User(address: Address(address), resolvedName: resolvedName, avatar: avatar)
+        var avatars = [User.Avatar]()
+        if let avatarXS {
+            avatars.append(.init(size: .xs, link: avatarXS))
+        }
+        if let avatarS {
+            avatars.append(.init(size: .s, link: avatarS))
+        }
+        if let avatarM {
+            avatars.append(.init(size: .m, link: avatarM))
+        }
+        if let avatarL {
+            avatars.append(.init(size: .l, link: avatarL))
+        }
+        return User(address: Address(address),
+                    resolvedName: resolvedName,
+                    avatars: avatars)
     }
 }
 
@@ -200,7 +225,14 @@ extension UserProfile {
         }
         logInfo("[UserProfile] Update existing user profile \(userProfile.addressDescription).")
         userProfile.resolvedName = profile.account?.resolvedName
-        userProfile.avatar = profile.account?.avatar
+
+        if let avatars = profile.account?.avatars {
+            userProfile.avatarXS = avatars.first { $0.size == .xs }?.link
+            userProfile.avatarS = avatars.first { $0.size == .s }?.link
+            userProfile.avatarM = avatars.first { $0.size == .m }?.link
+            userProfile.avatarL = avatars.first { $0.size == .l }?.link
+        }
+        
         try context.save()
     }
 
@@ -228,7 +260,12 @@ extension UserProfile {
             userProfile.sessionId = sessionId
             userProfile.address = normalizedAddress
             userProfile.resolvedName = profile.account?.resolvedName
-            userProfile.avatar = profile.account?.avatar
+            if let avatars = profile.account?.avatars {
+                userProfile.avatarXS = avatars.first { $0.size == .xs }?.link
+                userProfile.avatarS = avatars.first { $0.size == .s }?.link
+                userProfile.avatarM = avatars.first { $0.size == .m }?.link
+                userProfile.avatarL = avatars.first { $0.size == .l }?.link
+            }
             userProfile.wcSessionMetaData = wcSessionMeta?.data
             try context.save()
             return userProfile
@@ -239,7 +276,7 @@ extension UserProfile {
                                       address: normalizedAddress,
                                       selected: false,
                                       resolvedName: profile.account?.resolvedName,
-                                      avatar: profile.account?.avatar, 
+                                      avatars: profile.account?.avatars, 
                                       wcSessionMeta: wcSessionMeta)
         context.insert(userProfile)
         try context.save()
