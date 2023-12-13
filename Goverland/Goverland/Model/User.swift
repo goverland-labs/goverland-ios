@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct User: Decodable {
+struct User: Codable {
     let address: Address
     let resolvedName: String?
     let avatar: URL?

@@ -14,6 +14,8 @@ class ConfigurationManager {
         case wcProjectId = "WC_PROJECT_ID"
         case defaultPaginationCount = "DEFAULT_PAGINATION_COUNT"
         case timeout = "TIMEOUT"
+        case enablePushNotificationsRequestInterval = "ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL"
+        case suggestToRateRequestInterval = "SUGGEST_TO_RATE_REQUEST_INTERVAL"
     }
 
     static func value(for key: ConfigKeys) -> String {
@@ -32,10 +34,6 @@ class ConfigurationManager {
         return url
     }
 
-    static var wcProjectId: String {
-        return self.value(for: .wcProjectId)        
-    }
-
     static var defaultPaginationCount: Int {
         guard let count = Int(self.value(for: .defaultPaginationCount)) else {
             fatalError("Invalid pagination count")
@@ -48,5 +46,29 @@ class ConfigurationManager {
             fatalError("Invalid timeout")
         }
         return timeout
+    }
+
+    // - MARK: WalletConnect
+
+    static var wcProjectId: String {
+        return self.value(for: .wcProjectId)
+    }
+
+    // - MARK: Push Notifications
+
+    static var enablePushNotificationsRequestInterval: TimeInterval {
+        guard let interval = TimeInterval(self.value(for: .enablePushNotificationsRequestInterval)) else {
+            fatalError("Invalid interval")
+        }
+        return interval
+    }
+
+    // - MARK: Rate the App
+
+    static var suggestToRateRequestInterval: TimeInterval {
+        guard let interval = TimeInterval(self.value(for: .suggestToRateRequestInterval)) else {
+            fatalError("Invalid interval")
+        }
+        return interval
     }
 }

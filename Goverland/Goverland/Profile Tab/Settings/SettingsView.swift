@@ -11,10 +11,6 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         List {
-            Section {
-                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
-
             Section(header: Text("Contact Us")) {
                 TwitterSettingsView()
                 DiscordSettingsView()

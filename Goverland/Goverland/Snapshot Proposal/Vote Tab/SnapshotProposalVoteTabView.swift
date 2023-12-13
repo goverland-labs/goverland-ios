@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum SnapshotVoteTabType: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -48,15 +49,32 @@ struct SnapshotProposalVoteTabView: View {
     }
 
     @Namespace var namespace    
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
+    @Setting(\.authToken) private var authToken
+    @Query private var profiles: [UserProfile]
 
+    @State private var choice: AnyObject?
     @State private var voteButtonDisabled: Bool = true
-    @State private var warningViewIsPresented = false {
-        didSet {
-            if warningViewIsPresented {
-                Tracker.track(.snpDetailsVote)
-            }
+    @State private var showSignIn = false
+    @State private var showVote = false
+    @State private var showReconnectWallet = false
+
+    @State private var viewId = UUID()
+
+    private var selectedProfile: UserProfile? {
+        profiles.first(where: { $0.selected })
+    }
+
+    private var selectedProfileIsGuest: Bool {
+        selectedProfile?.address.isEmpty ?? false
+    }
+
+    private var wcSessionExistsAndNotExpired: Bool {
+        if let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired {
+            return true
         }
+        logInfo("[WC] Session expiration date: \(WC_Manager.shared.sessionMeta?.session.expiryDate.toISO() ?? "NO SESSION")")
+        return false
     }
 
     var body: some View {
@@ -96,15 +114,32 @@ struct SnapshotProposalVoteTabView: View {
             switch chosenTab {
             case .vote:
                 switch proposal.type {
-                case .basic: SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled)
-                case .singleChoice: SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
-                case .approval: SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
-                case .rankedChoice: SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
-                case .weighted, .quadratic : SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled)
+                case .basic: 
+                    SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .singleChoice: 
+                    SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                case .approval: 
+                    SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
+                case .rankedChoice: 
+                    SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
+                case .weighted, .quadratic:
+                    SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Int]>())
                 }
+
                 if proposal.state == .active {
-                    VoteButton(disabled: $voteButtonDisabled) {
-                        warningViewIsPresented = true
+                    if authToken.isEmpty || selectedProfileIsGuest {
+                        VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
+                            showSignIn = true
+                        }
+                    } else {
+                        VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
+                            Tracker.track(.snpDetailsVote)
+                            if wcSessionExistsAndNotExpired {
+                                showVote = true
+                            } else {
+                                showReconnectWallet = true
+                            }
+                        }
                     }
                 }
             case .results:
@@ -128,13 +163,40 @@ struct SnapshotProposalVoteTabView: View {
                 SnapshotProposalInfoView(proposal: proposal)
             }
         }
-        .sheet(isPresented: $warningViewIsPresented) {
-            VoteWarningPopupView(proposal: proposal, warningViewIsPresented: $warningViewIsPresented)
-                .presentationDetents([.medium, .large])
+        .id(viewId)
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView()
+                .presentationDetents(UIScreen.isSmall ? [.large, .large] : [.medium, .large])
+        }
+        .sheet(isPresented: $showVote) {
+            CastYourVoteView(proposal: proposal, choice: choice) {
+                choice = nil
+                voteButtonDisabled = true
+                viewId = UUID() // to redraw the whole view
+            }
+            .overlay {
+                ToastView()
+            }
+        }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: selectedProfile!.user)
         }
     }
 
     private func skipTab(_ tab: SnapshotVoteTabType) -> Bool {
         return (proposal.state == .pending && tab == .results) || (proposal.state != .active && tab == .vote)
+    }
+}
+
+extension Binding where Value == AnyObject? {
+    func asOptionalTypedBinding<T>() -> Binding<T?> {
+        Binding<T?>(
+            get: {
+                return self.wrappedValue as? T
+            },
+            set: { newValue in
+                self.wrappedValue = newValue as AnyObject?
+            }
+        )
     }
 }

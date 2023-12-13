@@ -59,7 +59,7 @@ struct SnapshotProposalDescriptionView: View {
                 }
                 .frame(width: 100, height: 30, alignment: .center)
                 .background(Capsule(style: .circular)
-                    .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                    .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 2)))
                 .tint(.onSecondaryContainer)
                 .font(.footnoteSemibold)
             }

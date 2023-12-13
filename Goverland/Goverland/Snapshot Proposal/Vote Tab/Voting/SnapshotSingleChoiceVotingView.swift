@@ -11,20 +11,20 @@ import SwiftUI
 struct SnapshotSingleChoiceVotingView: View {
     let proposal: Proposal
     @Binding var voteButtonDisabled: Bool
+    @Binding var choice: Int?
 
     var body: some View {
-        ChoicesView(choices: proposal.choices, voteButtonDisabled: $voteButtonDisabled)
+        ChoicesView(choices: proposal.choices, selectedChoiceIndex: $choice, voteButtonDisabled: $voteButtonDisabled)
     }
 }
 
 struct ChoicesView: View {
-    @State var selectedChoiceIndex: Int? {
+    let choices: [String]
+    @Binding var selectedChoiceIndex: Int? {
         didSet {
             voteButtonDisabled = selectedChoiceIndex == nil
         }
     }
-
-    let choices: [String]
     @Binding var voteButtonDisabled: Bool
 
     var body: some View {

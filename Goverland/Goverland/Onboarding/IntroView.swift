@@ -34,8 +34,7 @@ struct IntroView: View {
 }
 
 fileprivate func getPadding() -> CGFloat {
-    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.screenHeight <= 667.0 {
-        // iPhone SE or smaller
+    if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.isSmall {
         return 20
     } else {
         return 40

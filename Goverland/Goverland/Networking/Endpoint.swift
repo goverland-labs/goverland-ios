@@ -55,9 +55,11 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
 
     struct AuthTokenResponse: Decodable {
         let sessionId: String
+        let profile: Profile
 
         enum CodingKeys: String, CodingKey {
             case sessionId = "session_id"
+            case profile
         }
     }
 
@@ -70,9 +72,11 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    // TODO: change parameter name for guest token
-    init(guestId: String) {
-        self.body = try! JSONEncoder().encode(["device_id": guestId])
+    init(guestId: String, deviceName: String) {
+        self.body = try! JSONEncoder().encode([
+            "device_id": guestId,
+            "device_name": deviceName
+        ])
     }
 }
 
@@ -81,9 +85,11 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
 
     struct AuthTokenResponse: Decodable {
         let sessionId: String
+        let profile: Profile
 
         enum CodingKeys: String, CodingKey {
             case sessionId = "session_id"
+            case profile
         }
     }
 
@@ -96,14 +102,38 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
 
     var body: Data?
 
-    init(address: String, device: String, message: String, signature: String) {
+    init(address: String, deviceId: String, deviceName: String, message: String, signature: String) {
         self.body = try! JSONEncoder().encode([
             "address": address,
-            "device": device,
+            "device_id": deviceId,
+            "device_name": deviceName,
             "message": message,
             "singature": signature
         ])
     }
+}
+
+// MARK: - Profile
+
+struct ProfileEndpoint: APIEndpoint {
+    typealias ResponseType = Profile
+
+    var path: String = "me"
+    var method: HttpMethod = .get
+}
+
+struct LogoutEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "logout"
+    var method: HttpMethod = .post
+}
+
+struct DeleteProfileEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "me"
+    var method: HttpMethod = .delete
 }
 
 // MARK: - DAOs
@@ -319,6 +349,42 @@ struct ProposalEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - Voting & Votes
+
+fileprivate enum TypedValue: Encodable {
+    case str(String)
+    case int(Int)
+    case intArray([Int])
+    case intDictionary([String: Int])
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .str(let value):
+            try container.encode(value)
+        case .int(let value):
+            try container.encode(value)
+        case .intArray(let array):
+            try container.encode(array)
+        case .intDictionary(let dictionary):
+            let jsonData = try JSONEncoder().encode(dictionary)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                try container.encode(jsonString)
+            } else {
+                throw EncodingError.invalidValue(dictionary, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Failed to convert JSON data to String."))
+            }
+        }
+    }
+}
+
+fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> TypedValue {
+    switch proposal.type {
+    case .singleChoice, .basic: return .int((choice as! Int) + 1) // enumeration starts with 1 in Snapshot
+    case .approval, .rankedChoice: return .intArray((choice as! [Int]).map { $0 + 1 })
+    case .weighted, .quadratic: return .intDictionary(choice as! [String: Int])
+    }
+}
+
 struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     typealias ResponseType = [Vote<ChoiceType>]
 
@@ -331,6 +397,62 @@ struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     init(proposalID: String, queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
         self.proposalID = proposalID
+    }
+}
+
+struct ProposalValidateAddressEndpoint: APIEndpoint {
+    typealias ResponseType = ProposalAddressValidation
+
+    let proposalID: String
+
+    var path: String { "proposals/\(proposalID)/votes/validate" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(proposalID: String, voter: String) {
+        self.proposalID = proposalID
+        self.body = try! JSONEncoder().encode(["voter": voter])
+    }
+}
+
+struct ProposalPrepareVoteEndpoint: APIEndpoint {
+    typealias ResponseType = VoteTypedData
+
+    let proposalID: String
+
+    var path: String { "proposals/\(proposalID)/votes/prepare" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(proposal: Proposal, voter: String, choice: AnyObject, reason: String?) {
+        self.proposalID = proposal.id
+
+        var body: [String: TypedValue] = [
+            "voter": .str(voter),
+            "choice": choiceForProposal(proposal, choice: choice)
+        ]
+        if let reason {
+            body["reason"] = .str(reason)
+        }
+
+        self.body = try! JSONEncoder().encode(body)
+    }
+}
+
+struct ProposalSubmitVoteEndpoint: APIEndpoint {
+    typealias ResponseType = VoteSubmission
+
+    var path: String { "proposals/votes" }
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(proposal: Proposal, id: UUID, signature: String) {
+        let body: [String: TypedValue] = [
+            "id": .str(id.uuidString),
+            "sig": .str(signature)
+        ]
+
+        self.body = try! JSONEncoder().encode(body)
     }
 }
 
@@ -367,6 +489,40 @@ struct RecentlyViewedDaosEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]
 
     var path: String { "dao/recent" }
+    var method: HttpMethod = .get
+}
+
+struct EcosystemDashboardChartsEndpoint: APIEndpoint {
+    typealias ResponseType = EcosystemChart
+    
+    let days: Int
+
+    var path: String { "analytics/ecosystem-totals/\(days)" }
+    var method: HttpMethod = .get
+    
+    init(days: Int) {
+        self.days = days
+    }
+}
+
+struct MonthlyTotalDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalDaos]
+
+    var path: String { "analytics/monthly-totals/daos" }
+    var method: HttpMethod = .get
+}
+
+struct MonthlyTotalVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalVoters]
+
+    var path: String { "analytics/monthly-totals/voters" }
+    var method: HttpMethod = .get
+}
+
+struct MonthlyTotalNewProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [MonthlyTotalNewProposals]
+
+    var path: String { "analytics/monthly-totals/proposals" }
     var method: HttpMethod = .get
 }
 

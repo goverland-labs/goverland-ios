@@ -11,8 +11,8 @@ import SwiftUI
 struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
-    @Environment(\.presentationMode) private var presentationMode
-    
+    @Environment(\.dismiss) private var dismiss
+
     init(proposal: Proposal) {
         self.proposal = proposal
         _data = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
@@ -21,7 +21,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
     var body: some View {
         Group {
             if data.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: data)
+                RetryInitialLoadingView(dataSource: data, message: "Sorry, we couldn’t load the votes list")
             } else {
                 if data.isLoading {
                     List(0..<5, id: \.self) { _ in
@@ -67,7 +67,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.textWhite)

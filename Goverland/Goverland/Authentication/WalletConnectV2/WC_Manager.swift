@@ -11,7 +11,11 @@ import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
-import SwiftDate
+
+struct WC_SessionMeta: Codable {
+    let session: WalletConnectSign.Session
+    let walletOnSameDevice: Bool
+}
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -20,32 +24,14 @@ class WC_Manager {
         name: "Goverland",
         description: "Mobile App for all DAOs",
         url: "https://goverland.xyz",
-
-        // TODO: provide proper url
-        icons: ["https://uploads-ssl.webflow.com/63f0e8f1e5b3e07d58817370/6480451361d81702d7d7ccae_goverland-logo-full.svg"]
+        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"]
     )
 
-    private let sessionMetaKey = "xyz.goverland.wc_session_meta"
-
-    struct SessionMeta: Codable {
-        let session: Session
-        let walletOnSameDevice: Bool
-    }
-
-    var sessionMeta: SessionMeta? {
-        get {
-            if let encodedSessionMeta = UserDefaults.standard.data(forKey: sessionMetaKey),
-               let sessionMeta = try? JSONDecoder().decode(SessionMeta.self, from: encodedSessionMeta),
-               // check session is valid and not finishing soon
-               sessionMeta.session.expiryDate > .now + 5.minutes {
-                return sessionMeta
-            }
-            return nil
-        }
-
-        set {
-            let encodedSessionMeta = try! JSONEncoder().encode(newValue)
-            UserDefaults.standard.set(encodedSessionMeta, forKey: sessionMetaKey)
+    /// At any moment of time there can be only one WC session that the App works with.
+    /// It is always the session of selected UserProfile.
+    var sessionMeta: WC_SessionMeta? {
+        didSet {
+            NotificationCenter.default.post(name: .wcSessionUpdated, object: sessionMeta)
         }
     }
 
@@ -53,9 +39,26 @@ class WC_Manager {
         WalletConnectModal.present()
     }
 
+    static func disconnect(topic: String) {
+        logInfo("[WC] App disconnecting from session with topic: \(topic)")
+        Task {
+            try? await WalletConnectModal.instance.disconnect(topic: topic)
+        }
+    }
+
+    static var walletRedirectUrl: URL? {
+        if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
+           let redirectUrlStr = meta.session.peer.redirect?.universal,
+           let redirectUrl = URL(string: redirectUrlStr) {
+            return redirectUrl
+        }
+        return nil
+    }
+
     private var cancellables = Set<AnyCancellable>()
 
     private init() {
+        getStoredSessionMeta()
         configure()
         listen()
     }
@@ -67,6 +70,7 @@ class WC_Manager {
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
+            sessionParams: SessionParams.goverland,
             excludedWalletIds: Wallet.recommended.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
@@ -77,18 +81,49 @@ class WC_Manager {
     private func listen() {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
-            .sink { session in
-                logInfo("[WC] Sessions: \(session)")
+            .sink { sessions in
+                logInfo("[WC] Sessions count: \(sessions.count)")
             }
             .store(in: &cancellables)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { (str, reason) in
-                logInfo("[WC] Session deleted: String: \(str); Reason: \(reason)")
-                self.sessionMeta = nil
-                NotificationCenter.default.post(name: .wcSessionUpdated, object: nil)
+            .sink { topic, reason in
+                logInfo("[WC] Session deleted: Topic: \(topic); Reason: \(reason)")
+                Task {
+                    try! await UserProfile.clear_WC_Sessions(topic: topic)
+                }
             }
             .store(in: &cancellables)
     }
+
+    private func getStoredSessionMeta() {
+        Task {
+            if let selectedProfile = try? await UserProfile.selected(), 
+                let wcSessionMetaData = selectedProfile.wcSessionMetaData {
+                self.sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+            }
+        }
+    }
+}
+
+extension SessionParams {
+    static let goverland: Self = {
+        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData", "eth_signTypedData_v4"]
+        let events: Set<String> = ["chainChanged", "accountsChanged"]
+        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!]
+        let namespaces: [String: ProposalNamespace] = [
+            "eip155": ProposalNamespace(
+                chains: blockchains,
+                methods: methods,
+                events: events
+            )
+        ]
+
+        return SessionParams(
+            requiredNamespaces: namespaces,
+            optionalNamespaces: nil,
+            sessionProperties: nil
+        )
+    }()
 }

@@ -11,21 +11,21 @@ import SwiftUI
 struct PrimaryButton: View {
     let text: String
     let maxWidth: CGFloat
-    let maxHeight: CGFloat
+    let height: CGFloat
     let isEnabled: Bool
     let disabledText: String?
     let action: () -> Void
 
     init(_ text: String,
          maxWidth: CGFloat = 400,
-         maxHeight: CGFloat = 54,
+         height: CGFloat = 54,
          isEnabled: Bool = true,
          disabledText: String? = nil,
          action: @escaping () -> Void) {
         self.text = text
         self.action = action
         self.maxWidth = maxWidth
-        self.maxHeight = maxHeight
+        self.height = height
         self.isEnabled = isEnabled
         self.disabledText = disabledText
     }
@@ -39,12 +39,15 @@ struct PrimaryButton: View {
                 Text(isEnabled ? text : (disabledText ?? text))
                 Spacer()
             }
-            .frame(maxWidth: maxWidth, maxHeight: maxHeight, alignment: .center)
-            .background(Color.primary)
+            .frame(minWidth: maxWidth * 1/3,
+                   maxWidth: maxWidth,
+                   minHeight: height,
+                   maxHeight: height,
+                   alignment: .center)
+            .background(isEnabled ? Color.primary : Color.disabled12)
             .clipShape(Capsule())
             .tint(.onPrimary)
             .font(.headlineSemibold)
-            .opacity(isEnabled ? 1.0 : 0.3)
         }
         .disabled(!isEnabled)
     }

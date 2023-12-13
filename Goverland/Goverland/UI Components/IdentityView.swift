@@ -11,18 +11,42 @@ import Kingfisher
 
 struct IdentityView: View {
     var user: User
+    let size: Size
+
+    enum Size {
+        case small, medium
+
+        var imageSize: CGFloat {
+            switch self {
+            case .small: return 16
+            case .medium: return 32
+            }
+        }
+
+        var textFont: Font {
+            switch self {
+            case .small: return .footnoteRegular
+            case .medium: return .bodySemibold
+            }
+        }
+    }
+
+    init(user: User, size: Size = .small) {
+        self.user = user
+        self.size = size
+    }
 
     var body: some View {
         HStack(spacing: 6) {
-            UserPictureView(user: user, imageSize: 16)
-            UserNameView(user: user)
+            UserPictureView(user: user, imageSize: size.imageSize)
+            UserNameView(user: user, font: size.textFont)
         }
     }
 }
 
-fileprivate struct UserPictureView: View {
+struct UserPictureView: View {
     let user: User
-    let imageSize: Int
+    let imageSize: CGFloat
     var body: some View {
         KFImage(user.avatar)
             .placeholder {
@@ -32,14 +56,15 @@ fileprivate struct UserPictureView: View {
             }
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
+            .frame(width: imageSize, height: imageSize)
             .clipShape(Circle())
             .foregroundColor(.containerBright)
     }
 }
 
 fileprivate struct UserNameView: View {
-    var user: User
+    let user: User
+    let font: Font
 
     var body: some View {
         ZStack {
@@ -50,9 +75,8 @@ fileprivate struct UserNameView: View {
                 Text(user.address.short)
             }
         }
-        .font(.footnoteRegular)
+        .font(font)
         .lineLimit(1)
-        .fontWeight(.medium)
         .foregroundColor(.textWhite)        
     }
 }

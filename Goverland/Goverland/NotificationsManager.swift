@@ -49,7 +49,8 @@ class NotificationsManager {
     func enableNotifications() {
         // verify that token is there and user enabled notifications
         guard let token = Messaging.messaging().fcmToken, SettingKeys.shared.notificationsEnabled else { return }
-        
+
+        logInfo("[App] Enabling push notifications")
         APIService.enableNotifications(token, defaultErrorDisplay: false)
             .retry(3)
             .sink { completion in
@@ -62,6 +63,7 @@ class NotificationsManager {
     }
 
     func disableNotifications(completion: @escaping (Bool) -> Void) {
+        logInfo("[App] Disabling push notifications")
         APIService.disableNotifications()
             .sink { _completion in
                 switch _completion {

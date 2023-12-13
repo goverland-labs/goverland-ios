@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct ConnectWalletView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var model = ConnectWalletModel()
 
     var body: some View {
@@ -45,7 +45,7 @@ struct ConnectWalletView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundColor(.textWhite)
@@ -62,7 +62,7 @@ struct ConnectWalletView: View {
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
             guard notification.object != nil else { return }
             // session settled
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
 }
@@ -123,11 +123,5 @@ fileprivate struct WalletRowView: View {
             guard !model.connecting else { return }
             model.connect(wallet: wallet)
         }
-    }
-}
-
-struct SelectWalletView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnectWalletView()
     }
 }

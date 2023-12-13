@@ -98,7 +98,7 @@ struct AppTabView: View {
             
             ProfileView(path: $tabManager.profilePath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .profile ? "settings-active" : "settings-inactive")
+                    Image(tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.profile)
@@ -111,7 +111,8 @@ struct AppTabView: View {
             guard let subscribed = notification.object as? Bool, subscribed else { return }
             // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
             let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > 60 * 60 * 24 * 60 && !notificationsEnabled {
+
+            if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
                 // don't promore if some active sheet already displayed
                 if activeSheetManager.activeSheet == nil {
                     lastPromotedPushNotificationsTime = now

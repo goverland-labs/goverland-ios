@@ -9,8 +9,9 @@
 import SwiftUI
 import BlockiesSwift
 
-struct Address: Decodable, CustomStringConvertible {
+struct Address: Codable, CustomStringConvertible {
     let value: String
+    
     var blockie: Image? {
         let blockie = Blockies(seed: value.lowercased(),
                                size: 8,

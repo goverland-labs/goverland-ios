@@ -9,24 +9,27 @@
 import SwiftUI
 
 struct SnapshotApprovalVotingView: View {
-    @State var selectedChoicesIndex: Set<Int> = [] {
-        didSet {
-            voteButtonDisabled = selectedChoicesIndex == []
-        }
-    }
-
     let proposal: Proposal
     @Binding var voteButtonDisabled: Bool
+    @Binding var choice: [Int]? {
+        didSet {
+            voteButtonDisabled = choice == [] || choice == nil
+        }
+    }
 
     var body: some View {
         VStack {
             let choices = proposal.choices
             ForEach(choices.indices, id: \.self) { index in
-                SnapshotApprovalVotingButtonView(choice: choices[index], isSelected: selectedChoicesIndex.contains(index)) {
-                    if selectedChoicesIndex.contains(index) {
-                        selectedChoicesIndex.remove(index)
+                SnapshotApprovalVotingButtonView(choice: choices[index], isSelected: choice?.contains(index) ?? false) {
+                    if let idx = choice?.firstIndex(of: index) {
+                        choice!.remove(at: idx)
                     } else {
-                        selectedChoicesIndex.insert(index)
+                        if choice == nil {
+                            choice = []
+                        }
+                        choice!.append(index)
+                        choice!.sort()
                     }
                 }
             }

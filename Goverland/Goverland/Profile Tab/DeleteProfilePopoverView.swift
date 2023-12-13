@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct DeleteProfilePopoverView: View {
-    @Environment(\.presentationMode) private var presentationMode
-    
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack {
             Text("Are you sure?")
@@ -38,7 +38,7 @@ struct DeleteProfilePopoverView: View {
         
         HStack(spacing: 20) {
             SecondaryButton("Cancel") {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
             PrimaryButton("Delete") {
                 // delete profile logic

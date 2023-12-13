@@ -12,11 +12,11 @@ fileprivate enum Path {
     case hotProposals
     case newDaos
     case popularDaos
+    case ecosystemCharts
 }
 
 struct DashboardView: View {
     @Binding var path: NavigationPath
-    @Setting(\.unreadEvents) private var unreadEvents
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
 
@@ -25,13 +25,14 @@ struct DashboardView: View {
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
+        EcosystemDashboardDataSource.shared.refresh()
     }
 
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
                 if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    SectionHeader(header: "Recently Viewed DAOs", onTap: nil)
+                    SectionHeader(header: "Recently Viewed DAOs")
                     DashboardRecentlyViewedDaosView()
                 }
 
@@ -49,6 +50,11 @@ struct DashboardView: View {
                     path.append(Path.popularDaos)
                 }
                 DashboardPopularDaosView()
+                
+                SectionHeader(header: "Ecosystem charts", icon: Image(systemName: "chart.xyaxis.line")) {
+                    path.append(Path.ecosystemCharts)
+                }
+                EcosystemDashboardView()
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -80,12 +86,18 @@ struct DashboardView: View {
                 if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
                     GroupedDaosDataSource.popularDaos.refresh()
                 }
+
+                if EcosystemDashboardDataSource.shared.charts == nil {
+                    EcosystemDashboardDataSource.shared.refresh()
+                }
             }
             .refreshable {
                 Self.refresh()
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
+                case .ecosystemCharts:
+                    EcosystemChartsFullView()
                 case .hotProposals:
                     TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
                                          path: $path,
@@ -121,7 +133,16 @@ struct DashboardView: View {
 
 fileprivate struct SectionHeader: View {
     let header: String
+    let icon: Image
     let onTap: (() -> Void)?
+
+    init(header: String, 
+         icon: Image = Image(systemName: "arrow.right"),
+         onTap: (() -> Void)? = nil) {
+        self.header = header
+        self.icon = icon
+        self.onTap = onTap
+    }
 
     var body: some View {
         VStack {
@@ -133,7 +154,7 @@ fileprivate struct SectionHeader: View {
                     .font(.title2Semibold)
                 Spacer()
                 if onTap != nil {
-                    Image(systemName: "arrow.right")
+                    icon
                         .font(.title2)
                 }
             }

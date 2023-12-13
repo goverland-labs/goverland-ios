@@ -16,9 +16,10 @@ struct PushNotificationsSettingView: View {
 
     var body: some View {
         List {
+            // TODO: can we use here appSettings directly?
             Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
         }
-        .onChange(of: notificationsEnabled) { toggleEnabled in
+        .onChange(of: notificationsEnabled) { _, toggleEnabled in
             NotificationsManager.shared.getNotificationsStatus { status in
                 switch status {
                 case .notDetermined:
@@ -75,7 +76,9 @@ struct PushNotificationsSettingView: View {
                 secondaryButton: .cancel()
             )
         }
-        .onAppear() { Tracker.track(.screenNotifications) }
+        .onAppear() {
+            Tracker.track(.screenNotifications)
+        }
     }
 
     private func showAppSettings() {
