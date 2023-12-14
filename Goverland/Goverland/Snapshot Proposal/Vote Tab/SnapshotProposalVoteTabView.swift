@@ -166,7 +166,7 @@ struct SnapshotProposalVoteTabView: View {
         .id(viewId)
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
-                .presentationDetents(UIScreen.isSmall ? [.large, .large] : [.medium, .large])
+                .presentationDetents([.height(500)])
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {

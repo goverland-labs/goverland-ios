@@ -32,7 +32,7 @@ struct SignInTwoStepsView: View {
                 .foregroundColor(.textWhite)
 
             Image("wallet")
-                .frame(minWidth: 128, maxWidth: 192)
+                .frame(width: 192)
                 .scaledToFit()
                 .padding(16)
 
@@ -59,6 +59,7 @@ struct SignInTwoStepsView: View {
                                 .accentColor(.primaryDim)
                                 .font(.system(size: 24))
                         }
+
                         Button(action: {
                             showSelectWallet = true
                         }) {
@@ -68,9 +69,19 @@ struct SignInTwoStepsView: View {
                         }
                     }
                 } else {
-                    Circle()
-                        .stroke(Color.textWhite, lineWidth: 2)
-                        .frame(width: 24)
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Circle()
+                            .stroke(Color.textWhite, lineWidth: 2)
+                            .frame(width: 24, height: 24)
+
+                        Button(action: {
+                            // Do nothing. This is a placeholder button for proper spacing.
+                        }) {
+                            Text("")
+                                .foregroundColor(.primaryDim)
+                                .font(.footnoteRegular)
+                        }
+                    }
                 }
             }
 
@@ -88,7 +99,7 @@ struct SignInTwoStepsView: View {
 
                 Circle()
                     .stroke(Color.textWhite, lineWidth: 2)
-                    .frame(width: 24)
+                    .frame(width: 24, height: 24)
             }
 
             Spacer()

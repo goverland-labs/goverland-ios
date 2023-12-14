@@ -292,6 +292,8 @@ extension UserProfile {
         let profiles = try appContainer.mainContext.fetch(fetchDescriptor)
         if profiles.isEmpty {
             logInfo("[UserProfile] No profiles found in clearProfile_WC_Session.")
+            // Possible use case: when a user signs in, and kills the session from a wallet after establishing it.
+            WC_Manager.shared.sessionMeta = nil
             return
         }
 
