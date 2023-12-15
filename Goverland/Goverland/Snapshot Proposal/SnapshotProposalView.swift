@@ -208,9 +208,3 @@ fileprivate struct SnapshotProposalTimelineView: View {
         }
     }
 }
-
-struct SnapshotProposalView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
-    }
-}

@@ -310,6 +310,7 @@ My choice: \(choice)
         .padding(.horizontal, 8)
         .padding(.vertical, 16)
         .onAppear {
+            logInfo("[VOTE] SUCCESS SCREEN")
             // TODO: track
         }
     }

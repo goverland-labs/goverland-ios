@@ -44,7 +44,13 @@ struct GoverlandApp: App {
                         // Also called when closing system dialogue to enable push notifications.
                         if !authToken.isEmpty {
                             logInfo("[App] Auth Token: \(authToken)")
-                            InboxDataSource.shared.refresh()
+                            // If the app was not used for a while and a user opens it
+                            // try to get a new counter for unread messages.
+                            if TabManager.shared.selectedTab != .inbox && activeSheetManger.activeSheet == nil {
+                                // We make this check not to dismiss Cast Your Vote Success View
+                                // Which can be done from InboxView or from DaoInfoView
+                                InboxDataSource.shared.refresh()
+                            }
                         } else {
                             logInfo("[App] Auth Token is empty")
                         }

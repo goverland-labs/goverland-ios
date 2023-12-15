@@ -162,7 +162,7 @@ fileprivate struct _InboxView: View {
                 EmptyView()
             }
         }
-        .onChange(of: selectedEventIndex) { _ in
+        .onChange(of: selectedEventIndex) { _, _ in
             if let index = selectedEventIndex, events.count > index {
                 let event = events[index]
                 Tracker.track(.inboxEventOpen)
