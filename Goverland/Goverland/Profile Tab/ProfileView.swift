@@ -233,16 +233,28 @@ fileprivate struct ProfileListView: View {
                                 .font(.bodyRegular)
                                 .foregroundColor(.textWhite)
                             
-                            if s.lastActivity + 10.minutes > .now {
+                            // TODO: change in 0.6
+                            if s.id.uuidString.lowercased() == SettingKeys.shared.authToken.lowercased() {
                                 Text("Online")
                                     .font(.footnoteRegular)
                                     .foregroundColor(.textWhite60)
                             } else {
-                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Last activity \(activity)")
+                                let created = s.created.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                Text("Session created \(created)")
                                     .font(.footnoteRegular)
                                     .foregroundColor(.textWhite60)
                             }
+
+//                            if s.lastActivity + 10.minutes > .now {
+//                                Text("Online")
+//                                    .font(.footnoteRegular)
+//                                    .foregroundColor(.textWhite60)
+//                            } else {
+//                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+//                                Text("Last activity \(activity)")
+//                                    .font(.footnoteRegular)
+//                                    .foregroundColor(.textWhite60)
+//                            }
                         }
                         Spacer()
                     }
