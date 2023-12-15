@@ -46,7 +46,7 @@ class APIService {
                 if let apiError = error as? APIError {
                     if case .notAuthorized = apiError {
                         Task {
-                            try! await UserProfile.logoutSelected(logErrorIfNotFound: true)
+                            try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
                         }
                     }
                     if defaultErrorDisplay {
@@ -89,6 +89,16 @@ extension APIService {
 
     static func profile() -> AnyPublisher<(ProfileEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = ProfileEndpoint()
+        return shared.request(endpoint)
+    }
+
+    static func signOut(sessionId: String) -> AnyPublisher<(SignOutEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = SignOutEndpoint(sessionId: sessionId)
+        return shared.request(endpoint)
+    }
+
+    static func deleteProfile() -> AnyPublisher<(DeleteProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DeleteProfileEndpoint()
         return shared.request(endpoint)
     }
 

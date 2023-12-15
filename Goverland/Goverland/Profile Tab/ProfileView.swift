@@ -260,7 +260,7 @@ fileprivate struct ProfileListView: View {
                     }
                     .swipeActions {
                         Button {
-                            print("Kill session")
+                            ProfileDataSource.shared.signOut(sessionId: s.id.uuidString)
                             // TODO: track
                         } label: {
                             Text("Sign out")

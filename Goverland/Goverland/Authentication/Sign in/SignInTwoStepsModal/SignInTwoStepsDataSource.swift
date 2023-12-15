@@ -90,7 +90,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                     let wcSessionMeta = self.wcSessionMeta
                     Task {
                         // TODO: rework when we have a multi-profile. Logout should not be called.
-                        try! await UserProfile.logoutSelected()
+                        try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
                                                                     sessionId: response.sessionId, 
