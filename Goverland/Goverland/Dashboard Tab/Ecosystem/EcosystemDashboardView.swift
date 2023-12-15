@@ -74,6 +74,6 @@ struct EcosystemDashboardView: View {
             }
             
         }
-        .padding([.horizontal, .bottom])
+        .padding(.horizontal, 8)
     }
 }

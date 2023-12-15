@@ -74,6 +74,7 @@ struct SignInTwoStepsView: View {
                             .stroke(Color.textWhite, lineWidth: 2)
                             .frame(width: 24, height: 24)
 
+                        // TODO: rework
                         Button(action: {
                             // Do nothing. This is a placeholder button for proper spacing.
                         }) {

@@ -12,28 +12,24 @@ struct SignOutPopoverView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        Text("Do you want to sign out?")
-            .font(.title3Semibold)
-            .foregroundColor(.textWhite)
-            .padding(.top, 20)
-        
-        Spacer()
-        
-        HStack(spacing: 16) {
-            SecondaryButton("Cancel") {
-                dismiss()
-            }
-            PrimaryButton("Sign out") {
-                // sign out logic
+        VStack {
+            Text("Do you want to sign out?")
+                .font(.title3Semibold)
+                .foregroundColor(.textWhite)
+                .padding(.top, 20)
+                .padding(.bottom, 16)
+
+            Spacer()
+
+            HStack(spacing: 16) {
+                PrimaryButton("Sign out") {
+                    // sign out logic
+                }
+                SecondaryButton("Cancel") {
+                    dismiss()
+                }
             }
         }
-        .padding(.horizontal)
-        
-    }
-}
-
-struct SignOutPopoverView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignOutPopoverView()
+        .padding(.horizontal, 16)
     }
 }

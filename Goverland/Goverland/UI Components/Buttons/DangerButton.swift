@@ -1,14 +1,15 @@
 //
-//  PrimaryButton.swift
+//  DangerButton.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 30.06.23.
+//  Created by Andrey Scherbovich on 15.12.23.
 //  Copyright © Goverland Inc. All rights reserved.
 //
+	
 
 import SwiftUI
 
-struct PrimaryButton: View {
+struct DangerButton: View {
     let text: String
     let maxWidth: CGFloat
     let height: CGFloat
@@ -44,9 +45,9 @@ struct PrimaryButton: View {
                    minHeight: height,
                    maxHeight: height,
                    alignment: .center)
-            .background(isEnabled ? Color.primary : Color.disabled12)
+            .background(Color.red)
             .clipShape(Capsule())
-            .tint(.onPrimary)
+            .tint(.textWhite)
             .font(.headlineSemibold)
         }
         .disabled(!isEnabled)

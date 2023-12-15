@@ -16,41 +16,28 @@ struct DeleteProfilePopoverView: View {
             Text("Are you sure?")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
-            
-            Image("settings-partnership-background")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 100)
-                .clipped()
-                .padding()
-            
+                .padding([.top, .bottom], 32)
+
             VStack(alignment: .leading, spacing: 20) {
                 Text("This profile will no longer be available, and all your saved data will be permanently deleted from all connected devices.")
-                
+
                 Text("Deleting your account can’t be undone.")
             }
             .font(.bodyRegular)
             .foregroundColor(.textWhite)
-        }
-        .padding(.top, 30)
-        
-        Spacer()
-        
-        HStack(spacing: 20) {
-            SecondaryButton("Cancel") {
-                dismiss()
-            }
-            PrimaryButton("Delete") {
-                // delete profile logic
-            }
-        }
-        .padding(.horizontal)
-        
-    }
-}
 
-struct DeleteProfilePopoverView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeleteProfilePopoverView()
+            Spacer()
+
+            HStack(spacing: 16) {
+                DangerButton("Delete") {
+                    // delete profile logic
+                }
+
+                SecondaryButton("Cancel") {
+                    dismiss()
+                }
+            }
+        }
+        .padding(.horizontal, 16)
     }
 }
