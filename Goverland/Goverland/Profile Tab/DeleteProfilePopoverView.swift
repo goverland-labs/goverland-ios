@@ -28,7 +28,7 @@ struct DeleteProfilePopoverView: View {
 
             Spacer()
 
-            HStack(spacing: 20) {
+            HStack(spacing: 16) {
                 DangerButton("Delete") {
                     // delete profile logic
                 }
@@ -39,11 +39,5 @@ struct DeleteProfilePopoverView: View {
             }
         }
         .padding(.horizontal, 16)
-    }
-}
-
-struct DeleteProfilePopoverView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeleteProfilePopoverView()
     }
 }

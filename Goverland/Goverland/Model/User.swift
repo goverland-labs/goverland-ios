@@ -29,7 +29,7 @@ struct User: Codable {
             case .xs: return 16
             case .s: return 24
             case .m: return 32
-            case .l: return 40
+            case .l: return 76
             }
         }
     }

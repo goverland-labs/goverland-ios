@@ -98,30 +98,65 @@ fileprivate struct ProfileHeaderView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            if let user {
-                RoundPictureView(image: user.avatars.first { $0.size == .l }?.link,
-                                 imageSize: User.AvatarSize.l.imageSize)
-            } else {
-                Circle()
-                    .frame(width: 70, height: 70)
-                    .foregroundColor(.containerBright)
-            }
-
-            ZStack {
-                if let name = user?.resolvedName {
-                    Text(name)
-                        .truncationMode(.tail)
-                } else {
-                    Text("Unnamed")
+            VStack(spacing: 12) {
+                if let user {
+                    RoundPictureView(image: user.avatars.first { $0.size == .l }?.link,
+                                     imageSize: User.AvatarSize.l.imageSize)
+                    ZStack {
+                        if let name = user.resolvedName {
+                            Text(name)
+                                .truncationMode(.tail)
+                        } else {
+                            Text("Unnamed")
+                        }
+                    }
+                    .font(.title3Semibold)
+                    .lineLimit(1)
+                    .foregroundStyle(Color.textWhite)
+                } else { // Guest profile
+                    Image("guest-profile")
+                        .frame(width: User.AvatarSize.l.imageSize, height: User.AvatarSize.l.imageSize)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                    Text("Guest")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
-            .font(.title3Semibold)
-            .lineLimit(1)
-            .foregroundColor(.textWhite)
+            .padding(.bottom, 16)
+
+            // TODO: get the real data
+            HStack {
+                Spacer()
+                CounterView(counter: 0, title: "Votes")
+                Spacer()
+                Spacer()
+                    .frame(width: 1)
+                Spacer()
+                CounterView(counter: 12, title: "Following DAOs")
+                Spacer()
+            }
         }
         .padding(24)
     }
+
+    struct CounterView: View {
+        let counter: Int
+        let title: String
+
+        var body: some View {
+            VStack(spacing: 4) {
+                Text("\(counter)")
+                    .font(.bodySemibold)
+                    .foregroundStyle(Color.textWhite)
+                Text(title)
+                    .font(.bodyRegular)
+                    .foregroundStyle(Color.textWhite60)
+            }
+        }
+    }
 }
+
 
 fileprivate struct ShimmerProfileHeaderView: View {
     var body: some View {
@@ -183,8 +218,6 @@ fileprivate struct ProfileListView: View {
                     isSignOutPopoverPresented.toggle()
                 }
                 .tint(Color.textWhite)
-
-
             }
         }
         .refreshable {
@@ -192,7 +225,7 @@ fileprivate struct ProfileListView: View {
         }
         .popover(isPresented: $isSignOutPopoverPresented) {
             SignOutPopoverView()
-                .presentationDetents([.fraction(0.15)])
+                .presentationDetents([.height(128)])
         }
     }
 }
