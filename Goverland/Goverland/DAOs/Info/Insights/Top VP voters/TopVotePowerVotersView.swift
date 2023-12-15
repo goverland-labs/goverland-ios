@@ -33,10 +33,10 @@ struct TopVotePowerVotersView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.topVotePowerVoters.isEmpty {
-                Text("Loading...")
-                    .font(.body)
-                    .foregroundColor(.textWhite)
-                    .padding()
+                ProgressView()
+                    .foregroundColor(.textWhite20)
+                    .controlSize(.regular)
+                    .frame(height: 120)
             } else {
                 TopVotePowerVotersGraphView(dataSource: dataSource)
                     .padding(.horizontal)
