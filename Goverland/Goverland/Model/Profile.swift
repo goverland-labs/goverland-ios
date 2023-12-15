@@ -16,8 +16,8 @@ struct Profile: Codable {
     let sessions: [Session]
 
     enum Role: String, Codable {
-        case guest = "GUEST"
-        case regular = "REGULAR"
+        case guest = "guest"
+        case regular = "regular"
     }
 
     enum CodingKeys: String, CodingKey {
@@ -36,7 +36,7 @@ struct Session: Codable, Identifiable {
     let deviceName: String
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case id = "session_id"
         case created = "created_at"
         case lastActivity = "last_activity_at"
         case deviceId = "device_id"
