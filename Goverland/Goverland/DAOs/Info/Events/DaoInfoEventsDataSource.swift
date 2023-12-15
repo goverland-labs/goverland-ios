@@ -29,4 +29,6 @@ class DaoInfoEventsDataSource: InboxDataSource {
     override func subscriptionDidToggle(_ notification: Notification) {}
 
     override func eventUnarchived(_ notification: Notification) {}
+
+    override func authTokenChanged(_ notification: Notification) {}
 }

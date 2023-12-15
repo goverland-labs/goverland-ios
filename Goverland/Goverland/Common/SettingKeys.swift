@@ -13,7 +13,11 @@ class SettingKeys: ObservableObject {
     /// We need to store authToken in user defaults for convenience as
     /// UserProfile @Model `.sessionId` property can be accesses only asynchronously.
     /// it leads to usage difficulties in many places.
-    @AppStorage("authToken") var authToken = ""
+    @AppStorage("authToken") var authToken = "" {
+        didSet {
+            NotificationCenter.default.post(name: .authTokenChanged, object: nil)
+        }
+    }
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("trackingAccepted") var trackingAccepted = false {
         didSet {

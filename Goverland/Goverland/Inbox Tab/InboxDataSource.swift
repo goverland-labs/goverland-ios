@@ -50,6 +50,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
     }
 
     func refresh() {
@@ -190,5 +191,15 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     @objc func eventUnarchived(_ notification: Notification) {
         refresh()
+    }
+
+    @objc func authTokenChanged(_ notification: Notification) {
+        let authToken = SettingKeys.shared.authToken
+        logInfo("[App] Auth token changed to \(authToken)")
+        if !authToken.isEmpty {
+            refresh()
+        } else {
+            SettingKeys.shared.unreadEvents = 0
+        }
     }
 }

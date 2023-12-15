@@ -24,6 +24,7 @@ struct GoverlandApp: App {
     @StateObject private var activeSheetManger = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
+    @Setting(\.unreadEvents) private var unreadEvents
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -53,6 +54,7 @@ struct GoverlandApp: App {
                             }
                         } else {
                             logInfo("[App] Auth Token is empty")
+                            unreadEvents = 0
                         }
                     case .background:
                         logInfo("[App] Did enter background")
