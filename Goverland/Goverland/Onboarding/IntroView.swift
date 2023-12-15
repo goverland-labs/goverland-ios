@@ -28,7 +28,7 @@ struct IntroView: View {
         .ignoresSafeArea()
         .sheet(isPresented: $termsViewIsPresented) {
             TermsView(termsViewIsPresented: $termsViewIsPresented)
-                .presentationDetents([.height(540)])
+                .presentationDetents([.height(540), .large])
         }        
     }
 }

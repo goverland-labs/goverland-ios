@@ -23,7 +23,6 @@ struct DashboardNewDaosView: View {
                                      onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
                                      onFollowToggle: { if $0 { Tracker.track(.dashNewDaoFollow) } })
             .padding(.leading, 8)
-            .padding(.bottom, 16)
         }
     }
 }
