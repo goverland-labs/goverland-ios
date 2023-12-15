@@ -246,6 +246,16 @@ fileprivate struct ProfileListView: View {
                         }
                         Spacer()
                     }
+                    .swipeActions {
+                        Button {
+                            print("Kill session")
+                            // TODO: track
+                        } label: {
+                            Text("Sign out")
+                                .font(.bodyRegular)
+                        }
+                        .tint(.red)
+                    }
                 }
             }
             if profile.role == .regular {
