@@ -145,7 +145,6 @@ fileprivate struct ProfileListView: View {
         profile.account
     }
 
-    @State private var isDeleteProfilePopoverPresented = false
     @State private var isSignOutPopoverPresented = false
 
     var body: some View {
@@ -185,18 +184,11 @@ fileprivate struct ProfileListView: View {
                 }
                 .tint(Color.textWhite)
 
-                Button("Delete profile") {
-                    isDeleteProfilePopoverPresented.toggle()
-                }
-                .tint(Color.textWhite)
+
             }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
-        }
-        .sheet(isPresented: $isDeleteProfilePopoverPresented) {
-            DeleteProfilePopoverView()
-                .presentationDetents([.medium, .large])
         }
         .popover(isPresented: $isSignOutPopoverPresented) {
             SignOutPopoverView()
