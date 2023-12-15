@@ -63,7 +63,7 @@ struct ArchiveView: View {
                                                  displayUnreadIndicator: archive.readAt == nil) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions {
                                 Button {
                                     data.unarchive(eventID: archive.id)
                                     Tracker.track(.archiveEventUnarchive)

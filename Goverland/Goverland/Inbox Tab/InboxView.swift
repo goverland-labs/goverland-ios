@@ -92,7 +92,7 @@ fileprivate struct _InboxView: View {
                             }) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions {
                                 Button {
                                     data.archive(eventID: event.id)
                                     Tracker.track(.inboxEventArchive)

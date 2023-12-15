@@ -30,7 +30,9 @@ struct DeleteProfilePopoverView: View {
 
             HStack(spacing: 16) {
                 DangerButton("Delete") {
-                    // delete profile logic
+                    ProfileDataSource.shared.deleteProfile()
+                    dismiss()
+                    // TODO: track
                 }
 
                 SecondaryButton("Cancel") {

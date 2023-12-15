@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Setting(\.authToken) private var authToken
     @State private var isDeleteProfilePopoverPresented = false
 
     var body: some View {
@@ -27,17 +28,19 @@ struct SettingsView: View {
                 LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
             }
 
-            Section {
-                Button("Delete profile") {
-                    isDeleteProfilePopoverPresented.toggle()
+            if !authToken.isEmpty {
+                Section {
+                    Button("Delete profile") {
+                        isDeleteProfilePopoverPresented.toggle()
+                    }
+                    .tint(Color.textWhite)
+                } header: {
+                    Text("Dangerous area")
+                } footer: {
+                    Text("This profile will no longer be available. All your saved data will be permanently deleted.")
+                        .font(.footnoteRegular)
+                        .foregroundColor(.textWhite40)
                 }
-                .tint(Color.textWhite)
-            } header: {
-                Text("Dangerous area")
-            } footer: {
-                Text("This profile will no longer be available. All your saved data will be permanently deleted.")
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite40)
             }
         }
         .sheet(isPresented: $isDeleteProfilePopoverPresented) {

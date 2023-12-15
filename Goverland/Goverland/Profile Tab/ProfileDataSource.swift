@@ -64,4 +64,19 @@ class ProfileDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+
+    func deleteProfile() {
+        APIService.deleteProfile()
+            .sink { _ in
+                // Do nothing. Error will be displayed if any.
+            } receiveValue: { _, _ in
+                Task {
+                    try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
+                    DispatchQueue.main.async {
+                        showToast("Profile deleted.")
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
