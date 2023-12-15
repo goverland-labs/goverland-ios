@@ -72,6 +72,7 @@ struct ProfileView: View {
 
 fileprivate struct _ProfileView: View {
     @StateObject private var dataSource = ProfileDataSource.shared
+    @State private var showSignIn = false
 
     var body: some View {
         Group {
@@ -82,12 +83,47 @@ fileprivate struct _ProfileView: View {
                 Spacer()
             } else if let profile = dataSource.profile {
                 ProfileHeaderView(user: profile.account)
+
+                if profile.role == .guest {
+                    SignInToVoteButton {
+                        showSignIn = true
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 20)
+                }
+
                 ProfileListView(profile: profile)
             }
         }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView()
+                .presentationDetents([.height(500), .large])
+        }
         .onAppear {
+            // TODO: track
             if dataSource.profile == nil {
                 dataSource.refresh()
+            }
+        }
+    }
+
+    struct SignInToVoteButton: View {
+        let action: () -> Void
+
+        var body: some View {
+            Button(action: {
+                action()
+            }) {
+                HStack {
+                    Text("Sign in to vote")
+                    Spacer()
+                }
+                .frame(height: 54)
+                .padding(.horizontal, 18)
+                .background(Color.primary)
+                .cornerRadius(12)
+                .tint(.onPrimary)
+                .font(.headlineSemibold)
             }
         }
     }
@@ -162,8 +198,8 @@ fileprivate struct ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()
-                .frame(width: 70, height: 70)
-                .cornerRadius(35)
+                .frame(width: 72, height: 72)
+                .cornerRadius(36)
 
             ShimmerView()
                 .cornerRadius(24)
@@ -184,12 +220,12 @@ fileprivate struct ProfileListView: View {
 
     var body: some View {
         List {
-            Section {
+            Section("Goverland") {
                 NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 
-            Section(header: Text("Devices")) {
+            Section("Devices") {
                 ForEach(profile.sessions) { s in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
@@ -212,12 +248,13 @@ fileprivate struct ProfileListView: View {
                     }
                 }
             }
-
-            Section() {
-                Button("Sign out") {
-                    isSignOutPopoverPresented.toggle()
+            if profile.role == .regular {
+                Section() {
+                    Button("Sign out") {
+                        isSignOutPopoverPresented.toggle()
+                    }
+                    .tint(Color.textWhite)
                 }
-                .tint(Color.textWhite)
             }
         }
         .refreshable {
