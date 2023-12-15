@@ -21,6 +21,7 @@ struct AdvancedSettingView: View {
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
+                    WC_Manager.shared.sessionMeta = nil
                     try! modelContext.delete(model: UserProfile.self)
                     try! modelContext.save()
                     fatalError("Reset the app")

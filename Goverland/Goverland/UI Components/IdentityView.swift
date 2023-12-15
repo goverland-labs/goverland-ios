@@ -9,36 +9,27 @@
 import SwiftUI
 import Kingfisher
 
-struct IdentityView: View {
-    var user: User
-    let size: Size
-
-    enum Size {
-        case small, medium
-
-        var imageSize: CGFloat {
-            switch self {
-            case .small: return 16
-            case .medium: return 32
-            }
-        }
-
-        var textFont: Font {
-            switch self {
-            case .small: return .footnoteRegular
-            case .medium: return .bodySemibold
-            }
+fileprivate extension User.AvatarSize {
+    var textFont: Font {
+        switch self {
+        case .xs, .s: return .footnoteRegular
+        case .m, .l: return .bodySemibold
         }
     }
+}
 
-    init(user: User, size: Size = .small) {
+struct IdentityView: View {
+    var user: User
+    let size: User.AvatarSize
+
+    init(user: User, size: User.AvatarSize = .xs) {
         self.user = user
         self.size = size
     }
 
     var body: some View {
         HStack(spacing: 6) {
-            UserPictureView(user: user, imageSize: size.imageSize)
+            UserPictureView(user: user, size: size)
             UserNameView(user: user, font: size.textFont)
         }
     }
@@ -46,17 +37,20 @@ struct IdentityView: View {
 
 struct UserPictureView: View {
     let user: User
-    let imageSize: CGFloat
+    let size: User.AvatarSize
+
+    var avatarUrl: URL {
+        user.avatars.first { $0.size == size }!.link
+    }
+
     var body: some View {
-        KFImage(user.avatar)
+        KFImage(avatarUrl)
             .placeholder {
-                user.avatar == nil ?
-                (user.address.blockie ?? Image(systemName: "circle.fill")) :
-                Image(systemName: "circle.fill")
+                user.address.blockie ?? Image(systemName: "circle.fill")
             }
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: imageSize, height: imageSize)
+            .frame(width: size.imageSize, height: size.imageSize)
             .clipShape(Circle())
             .foregroundColor(.containerBright)
     }

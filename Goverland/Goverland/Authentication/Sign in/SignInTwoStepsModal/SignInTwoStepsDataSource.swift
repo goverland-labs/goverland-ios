@@ -129,6 +129,7 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     private func formSiweMessage(address: String) {
-        self.siweMessage = SIWE_Message.goverland(walletAddress: address).message()
+        let checksumAddress = Address(address).checksum!
+        self.siweMessage = SIWE_Message.goverland(walletAddress: checksumAddress).message()
     }
 }

@@ -103,6 +103,7 @@
 		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
 		55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87D2B237EE600242817 /* ScreenExtention.swift */; };
 		55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */; };
+		55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 55EEC0332B2BB326007962BD /* CryptoSwift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
@@ -436,6 +437,7 @@
 				55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
+				55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
@@ -1179,6 +1181,7 @@
 				55FD73052AB75DAB0081C38D /* WalletConnectModal */,
 				55FD73242AB75DF80081C38D /* Starscream */,
 				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
+				55EEC0332B2BB326007962BD /* CryptoSwift */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -1222,6 +1225,7 @@
 				55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */,
 				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
+				55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -1930,6 +1934,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
 		55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/goverland-labs/WalletConnectSwiftV2/";
@@ -2002,6 +2014,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
 			productName = MarkdownUI;
+		};
+		55EEC0332B2BB326007962BD /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 		55FD73052AB75DAB0081C38D /* WalletConnectModal */ = {
 			isa = XCSwiftPackageProductDependency;

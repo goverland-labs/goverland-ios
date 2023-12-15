@@ -21,7 +21,7 @@ struct EcosystemDashboardView: View {
             }
             .pickerStyle(.segmented)
             .padding(.bottom)
-            .onChange(of: selectedDuration) { newValue in
+            .onChange(of: selectedDuration) { _, newValue in
                 dataSource.periodInDays = newValue
                 dataSource.refreshWithCache()
             }

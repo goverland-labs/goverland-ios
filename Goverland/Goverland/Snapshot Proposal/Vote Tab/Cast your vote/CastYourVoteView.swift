@@ -37,9 +37,7 @@ fileprivate struct _VoteView: View {
     
     private var user: User {
         let profile = profiles.first(where: { $0.selected })!
-        return User(address: Address(profile.address),
-                    resolvedName: profile.resolvedName,
-                    avatar: profile.avatar)
+        return profile.user
     }
     
     var body: some View {

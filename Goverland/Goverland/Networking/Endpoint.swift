@@ -108,7 +108,7 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
             "device_id": deviceId,
             "device_name": deviceName,
             "message": message,
-            "singature": signature
+            "signature": signature
         ])
     }
 }

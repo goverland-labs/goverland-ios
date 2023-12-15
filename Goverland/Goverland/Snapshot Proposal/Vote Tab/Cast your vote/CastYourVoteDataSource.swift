@@ -38,6 +38,7 @@ class CastYourVoteDataSource: ObservableObject {
     private let openWalletMessage = "Please open your wallet to sign the vote."
 
     private var voteRequestId: UUID?
+    private var wcRequestId: Int64?
 
     var isShieldedVoting: Bool {
         proposal.privacy == .shutter
@@ -125,6 +126,7 @@ class CastYourVoteDataSource: ObservableObject {
         infoMessage = nil
         isPreparing = true
         voteRequestId = nil
+        wcRequestId = nil
 
         let normalizedReason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
         let reason = normalizedReason.isEmpty ? nil : normalizedReason
@@ -158,6 +160,8 @@ class CastYourVoteDataSource: ObservableObject {
             params: params,
             chainId: Blockchain("eip155:1")!)
 
+        self.wcRequestId = request.id.integer
+
         Task {
             try? await Sign.instance.request(params: request)
         }
@@ -173,7 +177,18 @@ class CastYourVoteDataSource: ObservableObject {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] response in
+                guard let self = `self` else { return }
+
+                guard response.id.integer == self.wcRequestId else {
+                    // Might happen when a user sends request twice, but wallet signs the first message
+                    // that is already invalidated.
+                    logInfo("[WC] Response id doesn't match expected id")
+                    showToast("The app received a signature for an invalidated request. Please sign the latest message.")
+                    return
+                }
+
                 logInfo("[WC] Response: \(response)")
+
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
@@ -185,7 +200,7 @@ class CastYourVoteDataSource: ObservableObject {
                         return
                     }
                     logInfo("[WC] Signature: \(signatureStr)")
-                    self?.submiteVote(signature: signatureStr)
+                    self.submiteVote(signature: signatureStr)
                 }
             }
             .store(in: &cancellables)
