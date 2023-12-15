@@ -62,16 +62,14 @@ class SignInTwoStepsDataSource: ObservableObject {
             // tries to sign in with already signed in profile).
             //
             // If not, meaning we signing in with a
-            // a) guest user, then take guest deviceId
-            // b) new user, then generate a new deviceId
+            // a) guest user
+            // b) new user
+            // then generate a new deviceId
             //
             // Different profiles should have different deviceIds for privacy considerations.
             let deviceId: String
             if let p = try! await UserProfile.getByAddress(address) {
                 // regular user exists
-                deviceId = p.deviceId
-            } else if let p = try! await UserProfile.getByAddress("") {
-                // guest user exists
                 deviceId = p.deviceId
             } else {
                 // new app user
