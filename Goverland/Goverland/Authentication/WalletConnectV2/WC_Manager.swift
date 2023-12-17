@@ -100,9 +100,18 @@ class WC_Manager {
 
     private func getStoredSessionMeta() {
         Task {
-            if let selectedProfile = try? await UserProfile.selected(), 
-                let wcSessionMetaData = selectedProfile.wcSessionMetaData {
-                self.sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+            if let selectedProfile = try? await UserProfile.selected(),
+                let wcSessionMetaData = selectedProfile.wcSessionMetaData
+            {
+                let sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+                if sessionMeta?.isExpired ?? false {
+                    // clear session in selected profile if it is expired
+                    self.sessionMeta = nil
+                    try? await UserProfile.update_WC_SessionForSelectedProfile()
+                } else {
+                    // all good. Set sessionMeta from stored data in selected profile
+                    self.sessionMeta = sessionMeta
+                }
             }
         }
     }
