@@ -221,7 +221,16 @@ fileprivate struct ProfileListView: View {
         profile.account
     }
 
+    struct ConnectedWallet {
+        let image: Image?
+        let imageURL: URL?
+        let name: String
+        let sessionExpiryDate: Date
+    }
+
     @State private var isSignOutPopoverPresented = false
+    @State private var showReconnectWallet = false
+    @State private var wcViewId = UUID()
 
     var body: some View {
         List {
@@ -275,8 +284,59 @@ fileprivate struct ProfileListView: View {
                     }
                 }
             }
-            if profile.role == .regular {
-                Section() {
+
+            if user != nil {
+                Section("Connected wallet") {
+                    if let wallet = connectedWallet() {
+                        HStack(spacing: 12) {
+                            if let image = wallet.image {
+                                image
+                                    .frame(width: 32, height: 32)
+                                    .scaledToFit()
+                                    .cornerRadius(4)
+                            } else if let imageUrl = wallet.imageURL {
+                                SquarePictureView(image: imageUrl, imageSize: 32)
+                            }
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(wallet.name)
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+
+                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                Text("Session expires \(date)")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+
+                            Spacer()
+                        }
+                        .swipeActions {
+                            Button {
+                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                                WC_Manager.disconnect(topic: topic)
+                                // It will disconnect and upate selected profile async that will clear the cached session
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    ProfileDataSource.shared.refresh()
+                                }
+                                // TODO: track
+                            } label: {
+                                Text("Disconnect")
+                                    .font(.bodyRegular)
+                            }
+                            .tint(.red)
+                        }
+                    } else {
+                        Button {
+                            showReconnectWallet = true
+                        } label: {
+                            Text("Reconnect wallet")
+                        }
+                    }
+                }
+                .id(wcViewId)
+
+                Section {
                     Button("Sign out") {
                         isSignOutPopoverPresented.toggle()
                     }
@@ -291,5 +351,35 @@ fileprivate struct ProfileListView: View {
             SignOutPopoverView()
                 .presentationDetents([.height(128)])
         }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: user!)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
+            // update "Connected wallet" view on session updates
+            wcViewId = UUID()
+        }
+    }
+
+    private func connectedWallet() -> ConnectedWallet? {
+        guard let session = WC_Manager.shared.sessionMeta?.session else { return nil }
+        let image: Image?
+        let imageUrl: URL?
+        
+        if let imageName = Wallet.by(name: session.peer.name)?.image {
+            image = Image(imageName)
+        } else {
+            image = nil
+        }
+
+        if let icon = session.peer.icons.first, let url = URL(string: icon) {
+            imageUrl = url
+        } else {
+            imageUrl = nil
+        }
+
+        return ConnectedWallet(image: image,
+                               imageURL: imageUrl,
+                               name: session.peer.name,
+                               sessionExpiryDate: session.expiryDate)
     }
 }

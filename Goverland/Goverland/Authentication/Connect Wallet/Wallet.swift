@@ -36,6 +36,15 @@ struct Wallet: Identifiable {
         return recommended // + [.mew, .uniswap]
     }
 
+    private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust]
+
+    static func by(name: String) -> Wallet? {
+        if name == "MetaMask Wallet" {
+            return .metamask
+        }
+        return _all.first { $0.name == name }
+    }
+
     static let zerion = Wallet(
         image: "zerion",
         name: "Zerion",

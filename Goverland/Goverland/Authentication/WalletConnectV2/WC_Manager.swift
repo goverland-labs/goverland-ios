@@ -44,6 +44,7 @@ class WC_Manager {
         logInfo("[WC] App disconnecting from session with topic: \(topic)")
         Task {
             try? await WalletConnectModal.instance.disconnect(topic: topic)
+            try! await UserProfile.clear_WC_Sessions(topic: topic)
         }
     }
 
@@ -90,7 +91,7 @@ class WC_Manager {
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { topic, reason in
-                logInfo("[WC] Session deleted: Topic: \(topic); Reason: \(reason)")
+                logInfo("[WC] Session deleted by wallet: Topic: \(topic); Reason: \(reason)")
                 Task {
                     try! await UserProfile.clear_WC_Sessions(topic: topic)
                 }

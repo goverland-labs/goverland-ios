@@ -143,9 +143,3 @@ struct DaoInfoAboutDaoView: View {
         }
     }
 }
-
-struct DaoInfoAboutDaoView_Previews: PreviewProvider {
-    static var previews: some View {
-        DaoInfoAboutDaoView(dao: .aave)
-    }
-}
