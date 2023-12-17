@@ -35,6 +35,9 @@ struct GoverlandApp: App {
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
+                .onOpenURL { url in
+                    handleDeepLink(url)
+                }
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
                     case .inactive:
@@ -96,6 +99,12 @@ struct GoverlandApp: App {
                 }
         }
         .modelContainer(appContainer)
+    }
+
+    // MARK: - Universal & Deep links support
+
+    private func handleDeepLink(_ url: URL) {
+        logInfo("[App] Open via a link: \(url.absoluteString)")
     }
 }
 
