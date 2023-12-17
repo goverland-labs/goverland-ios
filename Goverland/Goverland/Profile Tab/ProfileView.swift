@@ -143,7 +143,12 @@ fileprivate struct ProfileHeaderView: View {
                             Text(name)
                                 .truncationMode(.tail)
                         } else {
-                            Text("Unnamed")
+                            Button {
+                                UIPasteboard.general.string = user.address.value
+                                showToast("Copied")
+                            } label: {
+                                Text(user.address.short)
+                            }
                         }
                     }
                     .font(.title3Semibold)
