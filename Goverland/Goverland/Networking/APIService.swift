@@ -50,6 +50,7 @@ class APIService {
                         }
                     }
                     if defaultErrorDisplay {
+                        logInfo("[App] Backend error: \(apiError.localizedDescription)")
                         showToast(apiError.localizedDescription)
                     }
                     return apiError
