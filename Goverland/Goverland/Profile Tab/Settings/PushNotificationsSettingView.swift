@@ -19,6 +19,8 @@ struct PushNotificationsSettingView: View {
             // TODO: can we use here appSettings directly?
             Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Notifications")
         .onChange(of: notificationsEnabled) { _, toggleEnabled in
             NotificationsManager.shared.getNotificationsStatus { status in
                 switch status {
