@@ -110,8 +110,7 @@ class SignInTwoStepsDataSource: ObservableObject {
 
         formSiweMessage(address: address)
 
-        let dataStr = Data(siweMessage!.utf8).toHexString()
-        let params = AnyCodable([dataStr, address])
+        let params = AnyCodable([siweMessage, address])
 
         let request = Request(
             topic: session.topic,

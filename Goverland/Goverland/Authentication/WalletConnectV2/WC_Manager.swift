@@ -67,12 +67,12 @@ class WC_Manager {
     private func configure() {
         Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
 
-        // Pair.configure happens inside Modal
+        // Pair.configure happens inside the Modal
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
             sessionParams: SessionParams.goverland,
-            excludedWalletIds: Wallet.recommended.map { $0.id },
+            excludedWalletIds: Wallet.excluded.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
