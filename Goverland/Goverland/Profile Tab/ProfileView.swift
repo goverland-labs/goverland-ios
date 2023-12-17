@@ -315,10 +315,6 @@ fileprivate struct ProfileListView: View {
                             Button {
                                 guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
                                 WC_Manager.disconnect(topic: topic)
-                                // It will disconnect and upate selected profile async that will clear the cached session
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    ProfileDataSource.shared.refresh()
-                                }
                                 // TODO: track
                             } label: {
                                 Text("Disconnect")
