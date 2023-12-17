@@ -39,7 +39,8 @@ class SignInTwoStepsDataSource: ObservableObject {
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
-                    showToast(rpcError.localizedDescription)                    
+                    showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request", delay: 1)
+                    showToast(rpcError.localizedDescription)
                 case .response(let signature):
                     // signature here is AnyCodable
                     guard let signatureStr = signature.value as? String else {
@@ -47,6 +48,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                         return
                     }
                     logInfo("[WC] Signature: \(signatureStr)")
+                    showLocalNotification(title: "Signature response received", body: "Open the App to proceed", delay: 1)
                     self?.signIn(signature: signatureStr)
                 }
             }

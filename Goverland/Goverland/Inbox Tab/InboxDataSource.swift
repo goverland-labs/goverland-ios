@@ -65,6 +65,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     private func loadInitialData() {
+        // Fool protection
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
+        
         isLoading = true
         initialLoadingPublisher
             .sink { [weak self] completion in

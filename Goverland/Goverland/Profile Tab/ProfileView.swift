@@ -119,7 +119,7 @@ fileprivate struct _ProfileView: View {
                     Spacer()
                 }
                 .frame(height: 54)
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 .background(Color.primary)
                 .cornerRadius(12)
                 .tint(.onPrimary)

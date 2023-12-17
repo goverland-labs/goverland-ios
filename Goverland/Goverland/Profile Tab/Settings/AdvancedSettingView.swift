@@ -39,14 +39,9 @@ struct AdvancedSettingView: View {
                 .accentColor(.dangerText)
 
                 Button("Show test notification in 3 sec.") {
-                    let content = UNMutableNotificationContent()
-                    content.title = "Test local notification"
-                    content.body = "Local notification body"
-                    // show this notification three seconds from now
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
-                    let uuidString = UUID().uuidString
-                    let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-                    UNUserNotificationCenter.current().add(request)
+                    showLocalNotification(title: "Test local notification",
+                                          body: "Local notification body",
+                                          delay: 3.0)                    
                 }
             }
             #endif

@@ -43,6 +43,20 @@ func openUrl(_ url: URL) {
     }
 }
 
+func showLocalNotification(title: String, body: String?, delay: TimeInterval) {
+    DispatchQueue.main.async {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        if let body {
+            content.body = body
+        }
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+}
+
 enum Utils {
     // MARK: -HTTP Headers
 
