@@ -24,7 +24,8 @@ class WC_Manager {
         name: "Goverland",
         description: "Mobile App for all DAOs",
         url: "https://goverland.xyz",
-        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"]
+        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"],
+        redirect: AppMetadata.Redirect(native: nil, universal: "https://links.goverland.xyz/")
     )
 
     /// At any moment of time there can be only one WC session that the App works with.
