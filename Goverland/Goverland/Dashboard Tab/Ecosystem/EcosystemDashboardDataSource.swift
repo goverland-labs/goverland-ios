@@ -102,7 +102,7 @@ class EcosystemDashboardDataSource: ObservableObject {
             charts = cashCharts30Days
         }
 
-        if charts == nil || cachedDate > .now - 1.days {
+        if charts == nil || cachedDate < .now - 1.days {
             refresh()
         }
     }

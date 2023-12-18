@@ -9,6 +9,7 @@
 import Foundation
 
 extension Notification.Name {
+    static let authTokenChanged = Notification.Name("AuthTokenChanged")
     static let unauthorizedActionAttempt = Notification.Name("UnauthorizedActionAttempt")
     static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")
     static let eventUnarchived = Notification.Name("EventUnarchived")

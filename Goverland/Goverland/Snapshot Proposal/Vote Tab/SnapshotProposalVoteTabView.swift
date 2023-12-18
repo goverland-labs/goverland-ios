@@ -59,8 +59,6 @@ struct SnapshotProposalVoteTabView: View {
     @State private var showVote = false
     @State private var showReconnectWallet = false
 
-    @State private var viewId = UUID()
-
     private var selectedProfile: UserProfile? {
         profiles.first(where: { $0.selected })
     }
@@ -163,16 +161,14 @@ struct SnapshotProposalVoteTabView: View {
                 SnapshotProposalInfoView(proposal: proposal)
             }
         }
-        .id(viewId)
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
                 .presentationDetents([.height(500), .large])
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {
-                choice = nil
-                voteButtonDisabled = true
-                viewId = UUID() // to redraw the whole view
+                // TODO: decide if we need a completion here later.
+                // For now no logic here yet.                                
             }
             .overlay {
                 ToastView()

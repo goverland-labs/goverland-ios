@@ -47,4 +47,36 @@ class ProfileDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+
+    func signOut(sessionId: String) {
+        let signOutSelectedProfile = sessionId.lowercased() == SettingKeys.shared.authToken.lowercased()
+        APIService.signOut(sessionId: sessionId)
+            .sink { _ in
+                // Do nothing. Error will be displayed if any.
+            } receiveValue: { [weak self] _, _ in
+                if signOutSelectedProfile {
+                    Task {
+                        try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
+                    }
+                } else {
+                    self?.refresh()
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func deleteProfile() {
+        APIService.deleteProfile()
+            .sink { _ in
+                // Do nothing. Error will be displayed if any.
+            } receiveValue: { _, _ in
+                Task {
+                    try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
+                    DispatchQueue.main.async {
+                        showToast("Profile deleted.")
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
 }

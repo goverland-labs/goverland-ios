@@ -18,8 +18,8 @@ struct Wallet: Identifiable {
 
     // MARK: - Recommended default wallets
 
-    private static let _required: [Wallet] = [.zerion, .rainbow]
-    private static let _recommended: [Wallet] = [.metamask, .uniswap]
+    private static let _required: [Wallet] = [.zerion]
+    private static let _recommended: [Wallet] = [.metamask, .rainbow, .trust]
 
     static var recommended: [Wallet] {
         var wallets = _required
@@ -29,6 +29,20 @@ struct Wallet: Identifiable {
             }
         }
         return Array(wallets.prefix(4))
+    }
+
+    static var excluded: [Wallet] {
+        // here we will exclude all wallets that poorly work
+        return recommended // + [.mew, .uniswap]
+    }
+
+    private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust]
+
+    static func by(name: String) -> Wallet? {
+        if name == "MetaMask Wallet" {
+            return .metamask
+        }
+        return _all.first { $0.name == name }
     }
 
     static let zerion = Wallet(
@@ -70,6 +84,13 @@ struct Wallet: Identifiable {
         id: "c286eebc742a537cd1d6818363e9dc53b21759a1e8e5d9b263d0c03ec7703576"
     )
 
+    static let trust = Wallet(
+        image: "trust",
+        name: "Trust Wallet",
+        link: URL(string: "https://link.trustwallet.com")!,
+        scheme: "trust",
+        id: "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0")
+
     // MARK: - Doesn't support eth_signTypedData(_v4)
 
     // - MEW Wallet
@@ -78,9 +99,6 @@ struct Wallet: Identifiable {
 
     // - Uniswap Wallet
 
-    // MARK: - Poor support of SIWE
-
-    // - Rainbow, 1Inch, Trust
 
     // MARK: - Tested SIWE + eth_signTypedData_v4
 

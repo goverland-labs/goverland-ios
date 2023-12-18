@@ -108,7 +108,7 @@ fileprivate struct WalletRowView: View {
             Image(wallet.image)
                 .frame(width: 32, height: 32)
                 .scaledToFit()
-                .cornerRadius(6)
+                .cornerRadius(4)
             Text(wallet.name)
             Spacer()
             if model.connecting {

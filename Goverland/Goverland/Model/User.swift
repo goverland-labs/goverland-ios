@@ -13,6 +13,12 @@ struct User: Codable {
     let resolvedName: String?
     let avatars: [Avatar]
 
+    init(address: Address, resolvedName: String?, avatars: [Avatar]) {
+        self.address = address
+        self.resolvedName = resolvedName
+        self.avatars = avatars
+    }
+
     struct Avatar: Codable {
         let size: AvatarSize
         let link: URL
@@ -38,6 +44,23 @@ struct User: Codable {
         case address
         case resolvedName = "resolved_name"
         case avatars
+    }
+
+    // TODO: remove once backend is ready
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.address = try container.decode(Address.self, forKey: .address)
+        self.resolvedName = try container.decodeIfPresent(String.self, forKey: .resolvedName)
+        if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
+            self.avatars = avatars
+        } else {
+            self.avatars = [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=16")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=24")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=32")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=76")!)
+            ]
+        }
     }
 }
 

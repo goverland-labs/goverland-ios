@@ -32,7 +32,17 @@ class NetworkManager {
             .tryMap { data, response in
                 if let httpResponse = response as? HTTPURLResponse,
                     let headers = httpResponse.allHeaderFields as? HttpHeaders {
-                    if httpResponse.statusCode == 401 {
+                    if httpResponse.statusCode == 400 {
+                        let errorString: String
+                        if let json = try? JSONSerialization.jsonObject(with: data, options: []),
+                           let dictionary = json as? [String: Any],
+                           let errorMessage = dictionary["error"] as? String {
+                               errorString = errorMessage
+                        } else {
+                            errorString = "Unknown error"
+                        }                        
+                        throw APIError.badRequest(error: errorString)
+                    } else if httpResponse.statusCode == 401 {
                         throw APIError.notAuthorized
                     } else if httpResponse.statusCode == 404 {
                         throw APIError.notFound

@@ -186,7 +186,7 @@ extension UserProfile {
     }
 
     @MainActor
-    static func logoutSelected(logErrorIfNotFound: Bool = false) throws {
+    static func signOutSelected(logErrorIfNotFound: Bool = false) throws {
         let fetchDescriptor = FetchDescriptor<UserProfile>(
             predicate: #Predicate { $0.selected == true }
         )
@@ -203,9 +203,8 @@ extension UserProfile {
             }
         }
 
-        // Clean authToken and wcSessionMeta
+        // Clean authToken but keep WalletConnect in-memory session meta
         SettingKeys.shared.authToken = ""
-        WC_Manager.shared.sessionMeta = nil
     }
 
     @MainActor

@@ -39,7 +39,8 @@ class SignInTwoStepsDataSource: ObservableObject {
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
-                    showToast(rpcError.localizedDescription)                    
+                    showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request", delay: 1)
+                    showToast(rpcError.localizedDescription)
                 case .response(let signature):
                     // signature here is AnyCodable
                     guard let signatureStr = signature.value as? String else {
@@ -47,6 +48,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                         return
                     }
                     logInfo("[WC] Signature: \(signatureStr)")
+                    showLocalNotification(title: "Signature response received", body: "Open the App to proceed", delay: 1)
                     self?.signIn(signature: signatureStr)
                 }
             }
@@ -62,16 +64,14 @@ class SignInTwoStepsDataSource: ObservableObject {
             // tries to sign in with already signed in profile).
             //
             // If not, meaning we signing in with a
-            // a) guest user, then take guest deviceId
-            // b) new user, then generate a new deviceId
+            // a) guest user
+            // b) new user
+            // then generate a new deviceId
             //
             // Different profiles should have different deviceIds for privacy considerations.
             let deviceId: String
             if let p = try! await UserProfile.getByAddress(address) {
                 // regular user exists
-                deviceId = p.deviceId
-            } else if let p = try! await UserProfile.getByAddress("") {
-                // guest user exists
                 deviceId = p.deviceId
             } else {
                 // new app user
@@ -90,7 +90,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                     let wcSessionMeta = self.wcSessionMeta
                     Task {
                         // TODO: rework when we have a multi-profile. Logout should not be called.
-                        try! await UserProfile.logoutSelected()
+                        try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
                                                                     sessionId: response.sessionId, 
@@ -110,8 +110,7 @@ class SignInTwoStepsDataSource: ObservableObject {
 
         formSiweMessage(address: address)
 
-        let dataStr = Data(siweMessage!.utf8).toHexString()
-        let params = AnyCodable([dataStr, address])
+        let params = AnyCodable([siweMessage, address])
 
         let request = Request(
             topic: session.topic,

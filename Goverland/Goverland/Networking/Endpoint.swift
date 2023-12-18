@@ -122,11 +122,24 @@ struct ProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
-struct LogoutEndpoint: APIEndpoint {
+struct SignOutEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
+
+    let sessionId: String
 
     var path: String = "logout"
     var method: HttpMethod = .post
+
+    var headers: [String: String] {
+        return [
+            "Authorization": sessionId,
+            "Content-Type": "application/json"
+        ]
+    }
+
+    init(sessionId: String) {
+        self.sessionId = sessionId
+    }
 }
 
 struct DeleteProfileEndpoint: APIEndpoint {

@@ -29,8 +29,9 @@ class SignInDataSource: ObservableObject {
                                                                 sessionId: response.sessionId, 
                                                                 wcSessionMeta: nil)
                     try! await profile.select()
-                    logInfo("[App] Auth Token: \(response.sessionId)")
                 }
+                ProfileDataSource.shared.profile = response.profile
+                logInfo("[App] Auth Token: \(response.sessionId); Profile: Guest")
             }
             .store(in: &cancellables)
     }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SignOutPopoverView: View {
     @Environment(\.dismiss) private var dismiss
+    @Setting(\.authToken) private var authToken
 
     var body: some View {
         VStack {
@@ -23,7 +24,8 @@ struct SignOutPopoverView: View {
 
             HStack(spacing: 16) {
                 PrimaryButton("Sign out") {
-                    // sign out logic
+                    ProfileDataSource.shared.signOut(sessionId: authToken)
+                    // TODO: track
                 }
                 SecondaryButton("Cancel") {
                     dismiss()

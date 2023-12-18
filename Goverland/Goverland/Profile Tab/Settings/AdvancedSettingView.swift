@@ -37,6 +37,12 @@ struct AdvancedSettingView: View {
                     logError(GError.appInconsistency(reason: "Debug test error logging"))
                 }
                 .accentColor(.dangerText)
+
+                Button("Show test notification in 3 sec.") {
+                    showLocalNotification(title: "Test local notification",
+                                          body: "Local notification body",
+                                          delay: 3.0)                    
+                }
             }
             #endif
 
