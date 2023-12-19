@@ -144,7 +144,7 @@ fileprivate struct ProfileHeaderView: View {
                         } else {
                             Button {
                                 UIPasteboard.general.string = user.address.value
-                                showToast("Copied")
+                                showToast("Address copied")
                             } label: {
                                 Text(user.address.short)
                             }
