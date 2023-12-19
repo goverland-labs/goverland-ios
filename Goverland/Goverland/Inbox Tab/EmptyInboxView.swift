@@ -7,11 +7,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EmptyInboxView: View {
+    @Query private var profiles: [UserProfile]
+
+    var newUser: Bool {
+        guard let selected = profiles.first(where: { $0.selected }) else { return false }
+        return selected.subscriptionsCount == 0
+    }
+
     var body: some View {
-        // TODO: change once we have subscriptions_count in Profile from backend
-        if true {
+        if newUser {
             _WelcomeView()
         } else {
             _EmptyInboxView()
@@ -25,6 +32,7 @@ fileprivate struct _WelcomeView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
+
             Text("Now, you will see new proposals here!")
                 .multilineTextAlignment(.center)
                 .font(.title3Semibold)
@@ -57,26 +65,29 @@ fileprivate struct _WelcomeView: View {
 
 fileprivate struct _EmptyInboxView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 24) {
+        VStack(spacing: 32) {
             Spacer()
-            VStack(spacing: 20) {
-                HStack {
-                    Text("Your inbox is empty")
-                    Image(systemName: "envelope.open.fill")
-                }
-                .font(.titleSemibold)
+
+            Text("Your inbox is empty")
+                .multilineTextAlignment(.center)
+                .font(.title3Semibold)
                 .foregroundColor(.textWhite)
 
-                Text("Follow new DAOs to receive updates!")
-                    .font(.body)
-                    .foregroundColor(.textWhite)
+            Image("empty-inbox")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 176)
 
-            }
-            Spacer()
+            Text("There are no new proposals from the followed DAOs")
+                .multilineTextAlignment(.center)
+                .font(.calloutRegular)
+                .foregroundColor(.textWhite)
+
             PrimaryButton("My followed DAOs") {
                 TabManager.shared.selectedTab = .profile
                 TabManager.shared.profilePath = [.subscriptions]
             }
+
             Spacer()
         }
         .padding([.horizontal, .bottom], 16)

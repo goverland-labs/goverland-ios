@@ -165,17 +165,17 @@ fileprivate struct ProfileHeaderView: View {
             }
             .padding(.bottom, 16)
 
-            // TODO: get the real data
-            HStack {
-                Spacer()
-                CounterView(counter: 0, title: "Votes")
-                Spacer()
-                Spacer()
-                    .frame(width: 1)
-                Spacer()
-                CounterView(counter: 12, title: "Following DAOs")
-                Spacer()
-            }
+            // TODO: enable once backend is ready
+//            HStack {
+//                Spacer()
+//                CounterView(counter: 0, title: "Votes")
+//                Spacer()
+//                Spacer()
+//                    .frame(width: 1)
+//                Spacer()
+//                CounterView(counter: 12, title: "Following DAOs")
+//                Spacer()
+//            }
         }
         .padding(24)
     }
@@ -234,7 +234,7 @@ fileprivate struct ProfileListView: View {
     var body: some View {
         List {
             Section("Goverland") {
-                NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
+                NavigationLink("My followed DAOs (\(profile.subscriptionsCount))", value: ProfileScreen.subscriptions)
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 
@@ -372,9 +372,15 @@ fileprivate struct ProfileListView: View {
             imageUrl = nil
         }
 
+        // custom adjustment for popular wallets
+        var name = session.peer.name
+        if name == "🌈 Rainbow" {
+            name = "Rainbow"
+        }
+
         return ConnectedWallet(image: image,
                                imageURL: imageUrl,
-                               name: session.peer.name,
+                               name: name,
                                sessionExpiryDate: session.expiryDate)
     }
 }

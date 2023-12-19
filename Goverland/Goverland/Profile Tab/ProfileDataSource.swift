@@ -18,7 +18,9 @@ class ProfileDataSource: ObservableObject, Refreshable {
 
     static let shared = ProfileDataSource()
 
-    private init() {}
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
+    }
 
     func refresh() {
         clear()
@@ -78,5 +80,9 @@ class ProfileDataSource: ObservableObject, Refreshable {
                 }
             }
             .store(in: &cancellables)
+    }
+
+    @objc func subscriptionDidToggle(_ notification: Notification) {
+        refresh()
     }
 }
