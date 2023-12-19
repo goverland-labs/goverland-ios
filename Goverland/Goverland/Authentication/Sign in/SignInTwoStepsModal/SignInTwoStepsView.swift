@@ -51,10 +51,15 @@ struct SignInTwoStepsView: View {
                 if let sessionMeta = dataSource.wcSessionMeta {
                     VStack(alignment: .trailing, spacing: 4) {
                         HStack {
-                            if let iconStr = sessionMeta.session.peer.icons.first,
-                               let iconUrl = URL(string: iconStr) {
-                                RoundPictureView(image: iconUrl, imageSize: 24)
+                            if let walletImage = sessionMeta.walletImage {
+                                walletImage
+                                    .frame(width: 24, height: 24)
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else if let walletImageUrl = sessionMeta.walletImageUrl {
+                                RoundPictureView(image: walletImageUrl, imageSize: 24)
                             }
+
                             Image(systemName: "checkmark.circle.fill")
                                 .accentColor(.primaryDim)
                                 .font(.system(size: 24))
@@ -74,14 +79,8 @@ struct SignInTwoStepsView: View {
                             .stroke(Color.textWhite, lineWidth: 2)
                             .frame(width: 24, height: 24)
 
-                        // TODO: rework
-                        Button(action: {
-                            // Do nothing. This is a placeholder button for proper spacing.
-                        }) {
-                            Text("")
-                                .foregroundColor(.primaryDim)
-                                .font(.footnoteRegular)
-                        }
+                        Spacer()
+                            .frame(height: 16)
                     }
                 }
             }
