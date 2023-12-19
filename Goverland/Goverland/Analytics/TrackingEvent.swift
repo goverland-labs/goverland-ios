@@ -77,7 +77,7 @@ enum TrackingEvent: String, Trackable {
     case daoOpenWebsite = "dao_open_website"
     case daoOpenShapshot = "dao_open_shapshot"
     case daoOpenCoingecko = "dao_open_coingecko"
-    case daoOpenTwitter = "dao_open_twitter"
+    case daoOpenX = "dao_open_X"
     case daoOpenGithub = "dao_open_github"
     case daoOpenTerms = "dao_open_terms"
     
@@ -140,7 +140,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Settings
     case screenSettings = "screen_settings"
-    case settingsOpenTwitter = "settings_open_twitter"
+    case settingsOpenX = "settings_open_X"
     case settingsOpenDiscord = "settings_open_discord"
     case settingsOpenEmail = "settings_open_email"
 
@@ -154,7 +154,7 @@ enum TrackingEvent: String, Trackable {
 
     case screenHelpUsGrow = "screen_help_us_grow"
     case settingsRateTheApp = "settings_rate_the_app"
-    case settingsShareTweet = "settings_share_a_tweet"
+    case settingsShareXPost = "settings_share_X_post"
 
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"

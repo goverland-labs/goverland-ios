@@ -15,10 +15,11 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section(header: Text("Contact Us")) {
-                TwitterSettingsView()
+                XSettingsView()
                 DiscordSettingsView()
                 MailSettingView()
             }
+            .ignoresSafeArea(edges: .horizontal)
 
             Section {
                 NavigationLink("About", value: ProfileScreen.about)
