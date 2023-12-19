@@ -13,7 +13,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let alias: String
     let name: String
-    let avatar: URL?
+    let avatars: [Avatar]
     let createdAt: Date
     let activitySince: Date?
     let about: [DaoBody]?
@@ -30,7 +30,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     init(id: UUID,
          alias: String,
          name: String,
-         image: URL?,
+         avatars: [Avatar],
          createdAt: Date,
          activitySince: Date?,
          about: [DaoBody]?,
@@ -46,7 +46,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.id = id
         self.alias = alias
         self.name = name
-        self.avatar = image
+        self.avatars = avatars
         self.createdAt = createdAt
         self.activitySince = activitySince
         self.about = about
@@ -65,7 +65,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case id
         case alias
         case name
-        case avatar
+        case avatars
         case createdAt = "created_at"
         case activitySince = "activity_since"
         case about
@@ -87,8 +87,19 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
 
-        // TODO: figure our with backend why sometimes avatar is Invalid URL string.
-        self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
+        // falback
+        if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
+            self.avatars = avatars
+        } else {
+            self.avatars = [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.xs.daoImageSize * 2)")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.s.daoImageSize * 2)")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.m.daoImageSize * 2)")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.l.daoImageSize * 2)")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.xl.daoImageSize * 2)")!)
+            ]
+        }
+
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.activitySince = try container.decodeIfPresent(Date.self, forKey: .activitySince)
 
@@ -140,6 +151,14 @@ struct Dao: Identifiable, Decodable, Equatable {
     
     static func == (lhs: Dao, rhs: Dao) -> Bool {
         lhs.id == rhs.id
+    }
+
+    func avatar(size: Avatar.Size) -> URL {
+        if let avatar = avatars.first(where: { $0.size == size }) {
+            return avatar.link
+        } else {
+            return URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(size.daoImageSize * 2)")!
+        }
     }
 }
 
@@ -201,7 +220,7 @@ extension Dao {
         id: UUID(),
         alias: "gnosis.eth",
         name: "Gnosis DAO",
-        image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 
@@ -218,7 +237,7 @@ extension Dao {
         id: UUID(),
         alias: "aave.eth",
         name: "Aave",
-        image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 

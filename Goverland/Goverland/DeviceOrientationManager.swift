@@ -11,7 +11,9 @@ import SwiftUI
 class DeviceOrientationManager: ObservableObject {
     @Published var currentOrientation: UIDeviceOrientation = UIDevice.current.orientation
 
-    init() {
+    static let shared = DeviceOrientationManager()
+
+    private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 

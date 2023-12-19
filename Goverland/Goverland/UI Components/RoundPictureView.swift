@@ -27,8 +27,6 @@ struct RoundPictureView: View {
                     failedToLoad = true
                 }
                 .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize),
-                                                     mode: .aspectFill))
                 .frame(width: imageSize, height: imageSize)
                 .cornerRadius(imageSize / 2)
 

@@ -52,7 +52,7 @@ class ConnectWalletModel: ObservableObject {
             .sink { [weak self] session in
                 guard let `self` = self else { return }
                 logInfo("[WC] Session settle: \(session)")
-                showLocalNotification(title: "Wallet connected", body: "Open the App to proceed", delay: 1)
+                showLocalNotification(title: "Wallet connected", body: "Open the App to proceed")
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
             }
             .store(in: &cancellables)

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IntroView: View {
     @State var termsViewIsPresented = false
-    @StateObject private var orientationManager = DeviceOrientationManager()
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
     
     var body: some View {
         ZStack {
