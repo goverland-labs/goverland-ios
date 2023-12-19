@@ -29,13 +29,15 @@ struct User: Codable {
         case s
         case m
         case l
+        case xl
 
         var imageSize: CGFloat {
             switch self {
             case .xs: return 16
-            case .s: return 24
-            case .m: return 32
+            case .s: return 26
+            case .m: return 46
             case .l: return 76
+            case .xl: return 90
             }
         }
     }
@@ -46,19 +48,20 @@ struct User: Codable {
         case avatars
     }
 
-    // TODO: remove once backend is ready
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.address = try container.decode(Address.self, forKey: .address)
         self.resolvedName = try container.decodeIfPresent(String.self, forKey: .resolvedName)
+        // falback
         if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
             self.avatars = avatars
         } else {
             self.avatars = [
-                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=16")!),
-                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=24")!),
-                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=32")!),
-                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=76")!)
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=32")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=52")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=92")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=152")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=180")!)
             ]
         }
     }

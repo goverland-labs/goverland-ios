@@ -13,7 +13,7 @@ fileprivate extension User.AvatarSize {
     var textFont: Font {
         switch self {
         case .xs, .s: return .footnoteRegular
-        case .m, .l: return .bodySemibold
+        case .m, .l, .xl: return .bodySemibold
         }
     }
 }

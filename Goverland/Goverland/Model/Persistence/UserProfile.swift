@@ -37,10 +37,7 @@ final class UserProfile {
 
     private(set) var resolvedName: String?
 
-    private(set) var avatarXS: URL?
-    private(set) var avatarS: URL?
-    private(set) var avatarM: URL?
-    private(set) var avatarL: URL?
+    private(set) var avatarsData: Data?
 
     private(set) var wcSessionMetaData: Data?
 
@@ -62,14 +59,7 @@ final class UserProfile {
         self.address = address
         self.selected = selected
         self.resolvedName = resolvedName
-
-        if let avatars {
-            self.avatarXS = avatars.first { $0.size == .xs }?.link
-            self.avatarS = avatars.first { $0.size == .s }?.link
-            self.avatarM = avatars.first { $0.size == .m }?.link
-            self.avatarL = avatars.first { $0.size == .l }?.link
-        }
-
+        self.avatarsData = avatars?.data
         self.wcSessionMetaData = wcSessionMeta?.data
     }
 }
@@ -77,21 +67,29 @@ final class UserProfile {
 extension UserProfile {
     var user: User {
         var avatars = [User.Avatar]()
-        if let avatarXS {
-            avatars.append(.init(size: .xs, link: avatarXS))
-        }
-        if let avatarS {
-            avatars.append(.init(size: .s, link: avatarS))
-        }
-        if let avatarM {
-            avatars.append(.init(size: .m, link: avatarM))
-        }
-        if let avatarL {
-            avatars.append(.init(size: .l, link: avatarL))
+        if let avatarsData {
+            avatars = [User.Avatar].from(data: avatarsData) ?? []
         }
         return User(address: Address(address),
                     resolvedName: resolvedName,
                     avatars: avatars)
+    }
+}
+
+// MARK: - Avatar extension
+
+extension Array where Element == User.Avatar {
+    var data: Data {
+        return try! JSONEncoder().encode(self)
+    }
+
+    static func from(data: Data) -> [User.Avatar]? {
+        if let avatars = try? JSONDecoder().decode([User.Avatar].self, from: data) {
+            logInfo("[UserProfile] restored avatars array data")
+            return avatars
+        }
+        logInfo("[UserProfile] avatars not found")
+        return nil
     }
 }
 
@@ -224,14 +222,7 @@ extension UserProfile {
         }
         logInfo("[UserProfile] Update existing user profile \(userProfile.addressDescription).")
         userProfile.resolvedName = profile.account?.resolvedName
-
-        if let avatars = profile.account?.avatars {
-            userProfile.avatarXS = avatars.first { $0.size == .xs }?.link
-            userProfile.avatarS = avatars.first { $0.size == .s }?.link
-            userProfile.avatarM = avatars.first { $0.size == .m }?.link
-            userProfile.avatarL = avatars.first { $0.size == .l }?.link
-        }
-        
+        userProfile.avatarsData = profile.account?.avatars.data
         try context.save()
     }
 
@@ -259,12 +250,7 @@ extension UserProfile {
             userProfile.sessionId = sessionId
             userProfile.address = normalizedAddress
             userProfile.resolvedName = profile.account?.resolvedName
-            if let avatars = profile.account?.avatars {
-                userProfile.avatarXS = avatars.first { $0.size == .xs }?.link
-                userProfile.avatarS = avatars.first { $0.size == .s }?.link
-                userProfile.avatarM = avatars.first { $0.size == .m }?.link
-                userProfile.avatarL = avatars.first { $0.size == .l }?.link
-            }
+            userProfile.avatarsData = profile.account?.avatars.data
             userProfile.wcSessionMetaData = wcSessionMeta?.data
             try context.save()
             return userProfile
