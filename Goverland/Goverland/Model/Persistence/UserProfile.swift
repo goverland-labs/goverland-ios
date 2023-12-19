@@ -51,7 +51,7 @@ final class UserProfile {
          address: String,
          selected: Bool,
          resolvedName: String?,
-         avatars: [User.Avatar]?,
+         avatars: [Avatar]?,
          wcSessionMeta: WC_SessionMeta?)
     {
         self.deviceId = deviceId
@@ -66,9 +66,9 @@ final class UserProfile {
 
 extension UserProfile {
     var user: User {
-        var avatars = [User.Avatar]()
+        var avatars = [Avatar]()
         if let avatarsData {
-            avatars = [User.Avatar].from(data: avatarsData) ?? []
+            avatars = [Avatar].from(data: avatarsData) ?? []
         }
         return User(address: Address(address),
                     resolvedName: resolvedName,
@@ -78,13 +78,13 @@ extension UserProfile {
 
 // MARK: - Avatar extension
 
-extension Array where Element == User.Avatar {
+extension Array where Element == Avatar {
     var data: Data {
         return try! JSONEncoder().encode(self)
     }
 
-    static func from(data: Data) -> [User.Avatar]? {
-        if let avatars = try? JSONDecoder().decode([User.Avatar].self, from: data) {
+    static func from(data: Data) -> [Avatar]? {
+        if let avatars = try? JSONDecoder().decode([Avatar].self, from: data) {
             logInfo("[UserProfile] restored avatars array data")
             return avatars
         }
