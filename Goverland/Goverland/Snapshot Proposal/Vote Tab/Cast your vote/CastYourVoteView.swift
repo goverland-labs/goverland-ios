@@ -134,7 +134,8 @@ fileprivate struct _VoteView: View {
             dataSource.validate(address: user.address.value)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
     }
 }
 
@@ -150,7 +151,7 @@ fileprivate struct _HeaderView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             Text("Cast your vote")
                 .foregroundColor(.textWhite)
                 .font(.title3Semibold)
@@ -161,29 +162,46 @@ fileprivate struct _HeaderView: View {
                 .scaledToFit()
             
             HStack {
-                Text("Account")
+                Text("Selected wallet")
+                    .font(.bodyRegular)
                     .foregroundColor(.textWhite)
+
                 Spacer()
-                IdentityView(user: user)
+                
+                if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+                    walletImage
+                        .frame(width: Avatar.Size.s.profileImageSize, height: Avatar.Size.s.profileImageSize)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                    RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
+                }
+
+                IdentityView(user: user, size: .s)
             }
             
             HStack {
                 Text("Voting power")
+                    .font(.bodyRegular)
                     .foregroundColor(.textWhite)
                 Spacer()
                 Text("\(dataSource.votingPower) \(vpSymbol)" )
+                    .font(.bodySemibold)
                     .foregroundColor(.textWhite)
             }
             
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 1)
                 .fill(Color.secondaryContainer)
-                .frame(height: 2)
-            
+                .frame(height: 1)
+                .padding(.vertical, 8)
+
             HStack {
                 Text("Choice")
+                    .font(.bodyRegular)
                     .foregroundColor(.textWhite)
                 Spacer()
                 Text(dataSource.choiceStr)
+                    .font(.bodySemibold)
                     .foregroundColor(.textWhite)
             }
             
@@ -201,9 +219,11 @@ fileprivate struct _HeaderView: View {
                 } else if dataSource.validated! {
                     Image(systemName: "checkmark")
                         .foregroundColor(.primaryDim)
+                        .font(.bodySemibold)
                 } else {
                     Image(systemName: "xmark")
                         .foregroundColor(.dangerText)
+                        .font(.bodySemibold)
                 }
             }
         }
@@ -222,7 +242,8 @@ fileprivate struct _ErrorMessageView: View {
                     .font(.bodyRegular)
                     .foregroundColor(.textWhite)
             }
-            .padding(.horizontal, 8)
+            .padding(.leading, 8)
+            .padding(.trailing, 16)
             .padding(.vertical, 16)
         }
         .background {
@@ -245,7 +266,8 @@ fileprivate struct _InfoMessageView: View {
                     .font(.bodyRegular)
                     .foregroundColor(.textWhite)
             }
-            .padding(.horizontal, 8)
+            .padding(.leading, 8)
+            .padding(.trailing, 16)
             .padding(.vertical, 16)
         }
         .background {

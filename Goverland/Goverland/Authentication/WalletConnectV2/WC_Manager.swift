@@ -6,16 +6,10 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import Foundation
 import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
-
-struct WC_SessionMeta: Codable {
-    let session: WalletConnectSign.Session
-    let walletOnSameDevice: Bool
-}
 
 class WC_Manager {
     static let shared = WC_Manager()

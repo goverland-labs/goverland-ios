@@ -9,7 +9,6 @@
 
 import Foundation
 import SwiftData
-import SwiftDate
 
 /// Model to store user profiles.
 /// The App can have one guest profile and many profiles attached to different addresses.
@@ -107,10 +106,6 @@ extension WC_SessionMeta {
         }
         logInfo("[UserProfile] WC session not found")
         return nil
-    }
-
-    var isExpired: Bool {
-        return session.expiryDate < .now + 5.minutes
     }
 }
 
