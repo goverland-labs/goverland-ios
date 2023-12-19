@@ -19,6 +19,7 @@ struct SettingsView: View {
                 DiscordSettingsView()
                 MailSettingView()
             }
+            .ignoresSafeArea(edges: .horizontal)
 
             Section {
                 NavigationLink("About", value: ProfileScreen.about)

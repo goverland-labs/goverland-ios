@@ -74,7 +74,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case voters = "voters_count"
         case subscriptionMeta = "subscription_info"
         case website
-        case X
+        case X = "twitter"
         case github
         case coingecko
         case email
