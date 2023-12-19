@@ -34,17 +34,17 @@ struct DaoInfoAboutDaoView: View {
             }
             
             HStack(spacing: 16) {
-                if let twitter = dao.twitter {
-                    Image("dao-info-twitter")
+                if let X = dao.X {
+                    Image("dao-info-x")
                         .resizable()
                         .scaledToFit()
                         .frame(height: frameH)
                         .onTapGesture {
                             openURL(
-                                URL(string: "https://twitter.com/\(twitter)") ??
-                                URL(string: "https://twitter.com/")!
+                                URL(string: "https://x.com/\(X)") ??
+                                URL(string: "https://x.com/")!
                             )
-                            Tracker.track(.daoOpenTwitter)
+                            Tracker.track(.daoOpenX)
                         }
                 }
                 

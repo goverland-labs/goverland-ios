@@ -1,5 +1,5 @@
 //
-//  TwitterSettingsView.swift
+//  XSettingsView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-05-31.
@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct TwitterSettingsView: View {
+struct XSettingsView: View {
     var body: some View {
         HStack {
-            Image("twitter")
+            Image("x")
                 .foregroundColor(.primaryDim)
                 .frame(width: 30)
-            Button("Twitter", action: openTwitterApp)
+            Button("Follow on X", action: openXApp)
             Spacer()
             Image(systemName: "arrow.up.right")
                 .foregroundColor(.textWhite40)
@@ -22,9 +22,9 @@ struct TwitterSettingsView: View {
         .accentColor(.textWhite)
     }
     
-    private func openTwitterApp() {
-        let url = URL(string: "https://twitter.com/goverland_xyz")!
+    private func openXApp() {
+        let url = URL(string: "https://x.com/goverland_xyz")!
         openUrl(url)
-        Tracker.track(.settingsOpenTwitter)
+        Tracker.track(.settingsOpenX)
     }
 }

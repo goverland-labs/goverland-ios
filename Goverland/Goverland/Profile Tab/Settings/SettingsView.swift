@@ -15,7 +15,7 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section(header: Text("Contact Us")) {
-                TwitterSettingsView()
+                XSettingsView()
                 DiscordSettingsView()
                 MailSettingView()
             }

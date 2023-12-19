@@ -31,22 +31,22 @@ struct HelpUsGrowSettingView: View {
             }
 
             Button(action: {
-                let tweetText = "Check out Goverland App by @goverland_xyz!"
-                let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
+                let postText = "Check out Goverland App by @goverland_xyz!"
+                let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                let XUrl = URL(string: "https://x.com/intent/tweet?text=\(postUrl ?? "")")
 
-                if let url = twitterUrl {
+                if let url = XUrl {
                     openUrl(url)
                 }
 
-                Tracker.track(.settingsShareTweet)
+                Tracker.track(.settingsShareXPost)
             }) {
                 HStack {
                     HStack {
-                        Image("share-tweet")
+                        Image("share-x-post")
                             .foregroundColor(.primaryDim)
                             .frame(width: 30)
-                        Text("Share a tweet")
+                        Text("Share a post")
                         Spacer()
                         Image(systemName: "square.and.arrow.up")
                             .foregroundColor(.textWhite40)

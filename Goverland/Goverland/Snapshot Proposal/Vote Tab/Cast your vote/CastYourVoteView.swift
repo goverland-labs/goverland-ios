@@ -276,19 +276,19 @@ fileprivate struct _SuccessView: View {
             
             VStack(spacing: 16) {
                 SecondaryButton("Share on X") {
-                    var tweetText = """
+                    var postText = """
 I just voted in \(proposal.dao.name) using the Goverland Mobile App! 🚀
 Proposal: \(proposal.title)
 My choice: \(choice)
 """
                     if let reason {
-                        tweetText += "\nMy reason: \(reason)"
+                        postText += "\nMy reason: \(reason)"
                     }
 
-                    let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                    let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
+                    let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                    let XUrl = URL(string: "https://x.com/intent/tweet?text=\(postUrl ?? "")")
                     
-                    if let url = twitterUrl {
+                    if let url = XUrl {
                         openUrl(url)
                     }
                     // TODO: track
