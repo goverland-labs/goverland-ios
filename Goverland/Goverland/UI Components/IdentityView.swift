@@ -50,7 +50,7 @@ struct UserPictureView: View {
             }
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: size.imageSize, height: size.imageSize)
+            .frame(width: size.profileImageSize, height: size.profileImageSize)
             .clipShape(Circle())
             .foregroundColor(.containerBright)
     }

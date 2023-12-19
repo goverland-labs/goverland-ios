@@ -14,6 +14,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let alias: String
     let name: String
     let avatar: URL?
+    let avatars: [Avatar]
     let createdAt: Date
     let activitySince: Date?
     let about: [DaoBody]?
@@ -31,6 +32,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          alias: String,
          name: String,
          image: URL?,
+         avatars: [Avatar],
          createdAt: Date,
          activitySince: Date?,
          about: [DaoBody]?,
@@ -47,6 +49,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.alias = alias
         self.name = name
         self.avatar = image
+        self.avatars = avatars
         self.createdAt = createdAt
         self.activitySince = activitySince
         self.about = about
@@ -66,6 +69,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case alias
         case name
         case avatar
+        case avatars
         case createdAt = "created_at"
         case activitySince = "activity_since"
         case about
@@ -89,6 +93,20 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         // TODO: figure our with backend why sometimes avatar is Invalid URL string.
         self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
+
+        // falback
+        if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
+            self.avatars = avatars
+        } else {
+            self.avatars = [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=32")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=64")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=92")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=152")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=180")!)
+            ]
+        }
+
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.activitySince = try container.decodeIfPresent(Date.self, forKey: .activitySince)
 
@@ -201,7 +219,8 @@ extension Dao {
         id: UUID(),
         alias: "gnosis.eth",
         name: "Gnosis DAO",
-        image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
+        image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!, 
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 
@@ -218,7 +237,8 @@ extension Dao {
         id: UUID(),
         alias: "aave.eth",
         name: "Aave",
-        image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
+        image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"), 
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 

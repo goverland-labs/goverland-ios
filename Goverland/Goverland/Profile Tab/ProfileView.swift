@@ -137,7 +137,7 @@ fileprivate struct ProfileHeaderView: View {
             VStack(spacing: 12) {
                 if let user {
                     RoundPictureView(image: user.avatars.first { $0.size == .l }?.link,
-                                     imageSize: Avatar.AvatarSize.l.imageSize)
+                                     imageSize: Avatar.AvatarSize.l.profileImageSize)
                     ZStack {
                         if let name = user.resolvedName {
                             Text(name)
@@ -156,7 +156,7 @@ fileprivate struct ProfileHeaderView: View {
                     .foregroundStyle(Color.textWhite)
                 } else { // Guest profile
                     Image("guest-profile")
-                        .frame(width: Avatar.AvatarSize.l.imageSize, height: Avatar.AvatarSize.l.imageSize)
+                        .frame(width: Avatar.AvatarSize.l.profileImageSize, height: Avatar.AvatarSize.l.profileImageSize)
                         .scaledToFit()
                         .clipShape(Circle())
                     Text("Guest")
