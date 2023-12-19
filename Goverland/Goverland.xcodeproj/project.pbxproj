@@ -555,6 +555,7 @@
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
 				5542437E2ADF32FC00504E97 /* RefreshIcon.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
+				553AA6292B2F94A6000402F0 /* SquarePictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */,
@@ -566,7 +567,6 @@
 				55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
 				BAAA526D2953ABF9003177BC /* Inbox List Item */,
-				553AA6292B2F94A6000402F0 /* SquarePictureView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
