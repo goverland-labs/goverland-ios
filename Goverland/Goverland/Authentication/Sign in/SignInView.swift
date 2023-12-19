@@ -36,6 +36,8 @@ struct SignInView: View {
 fileprivate struct SignInOnboardingBackgroundView: View {
     var body: some View {
         Image("onboarding-sign-in")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 }
 
