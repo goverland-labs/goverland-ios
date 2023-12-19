@@ -12,8 +12,8 @@ import UIKit
 import WalletConnectSign
 
 class SignInTwoStepsDataSource: ObservableObject {
-    @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
-    @Published var infoMessage: String?
+    @Published private(set) var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published private(set) var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -23,7 +23,9 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
-        wcSessionMeta = WC_Manager.shared.sessionMeta
+        DispatchQueue.main.async {
+            self.wcSessionMeta = WC_Manager.shared.sessionMeta
+        }
     }
 
     private var address: String? {
@@ -127,7 +129,9 @@ class SignInTwoStepsDataSource: ObservableObject {
             if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
             } else {
-                infoMessage = "Please open your wallet to sign in"
+                DispatchQueue.main.async {
+                    self.infoMessage = "Please open your wallet to sign in"
+                }
             }
         }
     }
