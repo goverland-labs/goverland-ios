@@ -192,7 +192,7 @@ class CastYourVoteDataSource: ObservableObject {
                 switch response.result {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
-                    showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request", delay: 1)
+                    showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
                     showToast(rpcError.localizedDescription)
                 case .response(let signature):
                     // signature here is AnyCodable
@@ -201,7 +201,7 @@ class CastYourVoteDataSource: ObservableObject {
                         return
                     }
                     logInfo("[WC] Signature: \(signatureStr)")
-                    showLocalNotification(title: "Signature response received", body: "Open the App to proceed", delay: 1)
+                    showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
                     self.submiteVote(signature: signatureStr)
                 }
             }
