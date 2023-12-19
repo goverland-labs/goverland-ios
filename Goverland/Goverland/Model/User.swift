@@ -34,12 +34,20 @@ struct User: Codable {
             self.avatars = avatars
         } else {
             self.avatars = [
-                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=32")!),
-                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=52")!),
-                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=92")!),
-                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=152")!),
-                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=180")!)
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.xs.profileImageSize * 2)")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.s.profileImageSize * 2)")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.m.profileImageSize * 2)")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.l.profileImageSize * 2)")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.xl.profileImageSize * 2)")!)
             ]
+        }
+    }
+
+    func avatar(size: Avatar.Size) -> URL {
+        if let avatar = avatars.first(where: { $0.size == size }) {
+            return avatar.link
+        } else {
+            return URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(size.profileImageSize * 2)")!
         }
     }
 }

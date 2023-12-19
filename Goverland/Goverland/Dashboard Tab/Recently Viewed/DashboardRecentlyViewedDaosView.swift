@@ -23,12 +23,12 @@ struct DashboardRecentlyViewedDaosView: View {
                     if dataSource.recentlyViewedDaos.isEmpty { // initial loading
                         ForEach(0..<3) { _ in
                             ShimmerView()
-                                .frame(width: 45, height: 45)
-                                .cornerRadius(45 / 2)
+                                .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                                .cornerRadius(Avatar.Size.m.daoImageSize / 2)
                         }
                     } else {
                         ForEach(dataSource.recentlyViewedDaos) { dao in
-                            RoundPictureView(image: dao.avatar, imageSize: 45)
+                            RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                                 .onTapGesture {
                                     activeSheetManger.activeSheet = .daoInfo(dao)
                                     Tracker.track(.dashRecentDaoOpen)

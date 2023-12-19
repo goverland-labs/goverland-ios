@@ -10,10 +10,10 @@
 import Foundation
 
 struct Avatar: Codable {
-    let size: AvatarSize
+    let size: Size
     let link: URL
 
-    enum AvatarSize: String, Codable {
+    enum Size: String, Codable {
         case xs
         case s
         case m

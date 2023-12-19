@@ -133,7 +133,7 @@ struct ProposalListItemBodyView: View {
             }
             
             Spacer()
-            RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
+            RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                 .allowsHitTesting(onDaoTap == nil ? false : true)
                 .onTapGesture {
                     onDaoTap?()
@@ -230,8 +230,8 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 250)
                     Spacer()
                     ShimmerView()
-                        .cornerRadius(25)
-                        .frame(width: 50, height: 50)
+                        .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                        .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
                 

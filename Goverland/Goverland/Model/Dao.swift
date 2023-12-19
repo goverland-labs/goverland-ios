@@ -98,13 +98,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
             self.avatars = avatars
         } else {
-            self.avatars = [
-                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=32")!),
-                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=64")!),
-                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=92")!),
-                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=152")!),
-                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=180")!)
-            ]
+            self.avatars = []
         }
 
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
@@ -158,6 +152,19 @@ struct Dao: Identifiable, Decodable, Equatable {
     
     static func == (lhs: Dao, rhs: Dao) -> Bool {
         lhs.id == rhs.id
+    }
+
+    func avatar(size: Avatar.Size) -> URL {
+        // TODO: rework once backend is ready.
+        // As for now we can't use stamp server to request DAO avatar
+        // by DAO ENS name as DAO image there is not always uploaded
+        if let avatar = avatar {
+            return avatar
+        } else if let avatar = avatars.first(where: { $0.size == size }) {
+            return avatar.link
+        } else {
+            return URL(string: "https://cdn.stamp.fyi/avatar/\(alias)?s=\(size.daoImageSize * 2)")!
+        }
     }
 }
 

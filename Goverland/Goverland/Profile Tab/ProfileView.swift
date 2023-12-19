@@ -136,8 +136,7 @@ fileprivate struct ProfileHeaderView: View {
         VStack(alignment: .center) {
             VStack(spacing: 12) {
                 if let user {
-                    RoundPictureView(image: user.avatars.first { $0.size == .l }?.link,
-                                     imageSize: Avatar.AvatarSize.l.profileImageSize)
+                    RoundPictureView(image: user.avatar(size: .l), imageSize: Avatar.Size.l.profileImageSize)
                     ZStack {
                         if let name = user.resolvedName {
                             Text(name)
@@ -156,7 +155,7 @@ fileprivate struct ProfileHeaderView: View {
                     .foregroundStyle(Color.textWhite)
                 } else { // Guest profile
                     Image("guest-profile")
-                        .frame(width: Avatar.AvatarSize.l.profileImageSize, height: Avatar.AvatarSize.l.profileImageSize)
+                        .frame(width: Avatar.Size.l.profileImageSize, height: Avatar.Size.l.profileImageSize)
                         .scaledToFit()
                         .clipShape(Circle())
                     Text("Guest")
@@ -203,8 +202,8 @@ fileprivate struct ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()
-                .frame(width: 72, height: 72)
-                .cornerRadius(36)
+                .frame(width: Avatar.Size.l.profileImageSize, height: Avatar.Size.l.profileImageSize)
+                .cornerRadius(Avatar.Size.l.profileImageSize / 2)
 
             ShimmerView()
                 .cornerRadius(24)

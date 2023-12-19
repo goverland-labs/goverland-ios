@@ -101,7 +101,7 @@ fileprivate struct SnapshotProposalCreatorView: View {
         HStack(spacing: 5) {
             // DAO identity view
             HStack(spacing: 6) {
-                RoundPictureView(image: dao.avatar, imageSize: 16)
+                RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
                 Text(dao.name)
                     .font(.footnoteRegular)
                     .lineLimit(1)
@@ -156,8 +156,8 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             }
 
             HStack(spacing: 15) {
-                RoundPictureView(image: proposal.dao.avatar, imageSize: 35)
-                
+                RoundPictureView(image: proposal.dao.avatar(size: .s), imageSize: Avatar.Size.s.daoImageSize)
+
                 if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
                     Link(destination: unwrappedURL) {
                         Text(proposal.title)

@@ -9,7 +9,7 @@
 import SwiftUI
 import Kingfisher
 
-fileprivate extension Avatar.AvatarSize {
+fileprivate extension Avatar.Size {
     var textFont: Font {
         switch self {
         case .xs, .s: return .footnoteRegular
@@ -20,9 +20,9 @@ fileprivate extension Avatar.AvatarSize {
 
 struct IdentityView: View {
     var user: User
-    let size: Avatar.AvatarSize
+    let size: Avatar.Size
 
-    init(user: User, size: Avatar.AvatarSize = .xs) {
+    init(user: User, size: Avatar.Size = .xs) {
         self.user = user
         self.size = size
     }
@@ -37,7 +37,7 @@ struct IdentityView: View {
 
 struct UserPictureView: View {
     let user: User
-    let size: Avatar.AvatarSize
+    let size: Avatar.Size
 
     var avatarUrl: URL {
         user.avatars.first { $0.size == size }!.link
