@@ -19,47 +19,35 @@ struct User: Codable {
         self.avatars = avatars
     }
 
-    struct Avatar: Codable {
-        let size: AvatarSize
-        let link: URL
-    }
-
-    enum AvatarSize: String, Codable {
-        case xs
-        case s
-        case m
-        case l
-
-        var imageSize: CGFloat {
-            switch self {
-            case .xs: return 16
-            case .s: return 24
-            case .m: return 32
-            case .l: return 76
-            }
-        }
-    }
-
     enum CodingKeys: String, CodingKey {
         case address
         case resolvedName = "resolved_name"
         case avatars
     }
 
-    // TODO: remove once backend is ready
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.address = try container.decode(Address.self, forKey: .address)
         self.resolvedName = try container.decodeIfPresent(String.self, forKey: .resolvedName)
+        // falback
         if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
             self.avatars = avatars
         } else {
             self.avatars = [
-                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=16")!),
-                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=24")!),
-                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=32")!),
-                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=76")!)
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.xs.profileImageSize * 2)")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.s.profileImageSize * 2)")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.m.profileImageSize * 2)")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.l.profileImageSize * 2)")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(Avatar.Size.xl.profileImageSize * 2)")!)
             ]
+        }
+    }
+
+    func avatar(size: Avatar.Size) -> URL {
+        if let avatar = avatars.first(where: { $0.size == size }) {
+            return avatar.link
+        } else {
+            return URL(string: "https://cdn.stamp.fyi/avatar/\(address.value)?s=\(size.profileImageSize * 2)")!
         }
     }
 }

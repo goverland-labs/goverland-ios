@@ -25,8 +25,8 @@ struct DashboardPopularDaosView: View {
                     if dataSource.categoryDaos[category] == nil { // initial loading
                         ForEach(0..<3) { _ in
                             ShimmerView()
-                                .frame(width: 45, height: 45)
-                                .cornerRadius(45/2)
+                                .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                                .cornerRadius(Avatar.Size.m.daoImageSize / 2)
                         }
                     } else {
                         let count = dataSource.categoryDaos[category]!.count
@@ -35,8 +35,8 @@ struct DashboardPopularDaosView: View {
                             if index == count - 1 && dataSource.hasMore(category: category) {
                                 if !dataSource.failedToLoad(category: category) { // try to paginate
                                     ShimmerView()
-                                        .frame(width: 45, height: 45)
-                                        .cornerRadius(45/2)
+                                        .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                                        .cornerRadius(Avatar.Size.m.daoImageSize/2)
                                         .onAppear {
                                             dataSource.loadMore(category: category)
                                         }
@@ -46,7 +46,7 @@ struct DashboardPopularDaosView: View {
                                     }
                                 }
                             } else {
-                                RoundPictureView(image: dao.avatar, imageSize: 45)
+                                RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                                     .onTapGesture {
                                         activeSheetManger.activeSheet = .daoInfo(dao)
                                         Tracker.track(.dashPopularDaoOpen)

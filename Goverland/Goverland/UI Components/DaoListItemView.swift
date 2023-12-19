@@ -49,7 +49,7 @@ struct DaoListItemView: View {
 
     var body: some View {
         HStack {
-            RoundPictureView(image: dao.avatar, imageSize: 50)
+            RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
             VStack(alignment: .leading, spacing: 4) {
                 Text(dao.name)
                     .font(.headlineRegular)
@@ -73,8 +73,8 @@ struct ShimmerDaoListItemView: View {
     var body: some View {
         HStack {
             ShimmerView()
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
+                .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                .cornerRadius(Avatar.Size.m.daoImageSize / 2)
             VStack(alignment: .leading, spacing: 4) {
                 ShimmerView()
                     .frame(width: 150, height: 18)

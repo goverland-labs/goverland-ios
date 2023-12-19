@@ -43,14 +43,17 @@ func openUrl(_ url: URL) {
     }
 }
 
-func showLocalNotification(title: String, body: String?, delay: TimeInterval) {
+func showLocalNotification(title: String, body: String?, delay: TimeInterval? = nil) {
     DispatchQueue.main.async {
         let content = UNMutableNotificationContent()
         content.title = title
         if let body {
             content.body = body
         }
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        var trigger: UNTimeIntervalNotificationTrigger?
+        if let delay {
+            trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        }
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)

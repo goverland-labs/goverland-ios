@@ -70,8 +70,8 @@ struct ShimmerProposalListItemCondensedView: View {
                         .frame(width: 250)
                     Spacer()
                     ShimmerView()
-                        .cornerRadius(25)
-                        .frame(width: 50, height: 50)
+                        .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                        .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
             }

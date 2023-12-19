@@ -40,7 +40,7 @@ struct DaoCardView: View {
 
     var body: some View {
         VStack {
-            RoundPictureView(image: dao.avatar, imageSize: 90)
+            RoundPictureView(image: dao.avatar(size: .xl), imageSize: Avatar.Size.xl.daoImageSize)
                 .padding(.top, 18)
                 .onTapGesture {
                     onSelectDao?(dao)
@@ -89,8 +89,8 @@ struct ShimmerDaoCardView: View {
     var body: some View {
         VStack {
             ShimmerView()
-                .frame(width: 90, height: 90)
-                .cornerRadius(45)
+                .frame(width: Avatar.Size.xl.daoImageSize, height: Avatar.Size.xl.daoImageSize)
+                .cornerRadius(Avatar.Size.xl.daoImageSize / 2)
                 .padding(.top, 17)
 
             VStack(spacing: 3) {
