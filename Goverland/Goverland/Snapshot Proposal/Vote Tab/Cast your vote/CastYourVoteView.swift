@@ -284,10 +284,9 @@ fileprivate struct _SuccessView: View {
 
                 VStack(spacing: 16) {
                     SecondaryButton("Share on X") {
-                        let tweetText = messageToShare()
-                        let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-                        let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl)")
-                        if let url = twitterUrl {
+                        let postText = messageToShare()
+                        let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                        if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
                             openUrl(url)
                         }
                         // TODO: track
