@@ -16,20 +16,10 @@ struct SignInTwoStepsView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.textWhite40)
-                        .font(.system(size: 24))
-                }
-            }
-
             Text("Sign In")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
+                .padding(.top, 8)
 
             Image("wallet")
                 .frame(width: 192)
@@ -100,6 +90,10 @@ struct SignInTwoStepsView: View {
                 Circle()
                     .stroke(Color.textWhite, lineWidth: 2)
                     .frame(width: 24, height: 24)
+            }
+
+            if let message = dataSource.infoMessage {
+                InfoMessageView(message: message)
             }
 
             Spacer()

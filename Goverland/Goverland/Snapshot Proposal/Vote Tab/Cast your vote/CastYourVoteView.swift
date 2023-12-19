@@ -83,7 +83,7 @@ fileprivate struct _VoteView: View {
                         
                         Group {
                             if let message = dataSource.infoMessage {
-                                _InfoMessageView(message: message)
+                                InfoMessageView(message: message)
                             } else {
                                 Spacer()
                             }
@@ -251,29 +251,6 @@ fileprivate struct _ErrorMessageView: View {
                 .fill(Color.containerBright)
         }
         .padding(.top, 24)
-    }
-}
-
-fileprivate struct _InfoMessageView: View {
-    let message: String
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                Image(systemName: "info.circle.fill")
-                    .foregroundColor(.textWhite)
-                Text(message)
-                    .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
-            }
-            .padding(.leading, 8)
-            .padding(.trailing, 16)
-            .padding(.vertical, 16)
-        }
-        .background {
-            RoundedRectangle(cornerRadius: 13)
-                .fill(Color.containerBright)
-        }
     }
 }
 

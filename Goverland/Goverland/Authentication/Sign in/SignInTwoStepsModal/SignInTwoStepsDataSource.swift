@@ -13,6 +13,7 @@ import WalletConnectSign
 
 class SignInTwoStepsDataSource: ObservableObject {
     @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -105,6 +106,8 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     func authenticate() {
+        infoMessage = nil
+
         guard let session = WC_Manager.shared.sessionMeta?.session,
             let address = address else { return }
 
@@ -123,6 +126,8 @@ class SignInTwoStepsDataSource: ObservableObject {
 
             if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
+            } else {
+                infoMessage = "Please open your wallet to sign in"
             }
         }
     }
