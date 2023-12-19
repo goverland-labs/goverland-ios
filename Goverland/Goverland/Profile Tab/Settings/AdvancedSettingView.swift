@@ -41,7 +41,7 @@ struct AdvancedSettingView: View {
                 Button("Show test notification in 3 sec.") {
                     showLocalNotification(title: "Test local notification",
                                           body: "Local notification body",
-                                          delay: 3.0)                    
+                                          delay: 3.0)
                 }
             }
             #endif

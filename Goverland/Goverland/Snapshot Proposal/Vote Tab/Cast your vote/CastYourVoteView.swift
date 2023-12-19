@@ -261,57 +261,82 @@ fileprivate struct _SuccessView: View {
     let reason: String?
     @Environment(\.dismiss) private var dismiss
     @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
-    
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
+
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Your vote is in!")
-                .foregroundColor(.textWhite)
-                .font(.title3Semibold)
-            
-            Spacer()
-            
-            Text("Votes can be changed while the proposal is active")
-                .foregroundColor(.textWhite60)
-                .font(.footnoteRegular)
-            
+        GeometryReader { geometry in
             VStack(spacing: 16) {
-                SecondaryButton("Share on X") {
-                    var tweetText = """
+                Text("Your vote is in!")
+                    .foregroundColor(.textWhite)
+                    .font(.title3Semibold)
+
+                Spacer()
+
+                SuccessVoteLottieView()
+                    .frame(width: geometry.size.width * 4/5, height: geometry.size.width * 4/5)
+                    .id(orientationManager.currentOrientation)
+
+                Spacer()
+
+                Text("Votes can be changed while the proposal is active")
+                    .foregroundColor(.textWhite60)
+                    .font(.footnoteRegular)
+
+                VStack(spacing: 16) {
+                    SecondaryButton("Share on X") {
+                        let tweetText = messageToShare()
+                        let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                        let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl)")
+                        if let url = twitterUrl {
+                            openUrl(url)
+                        }
+                        // TODO: track
+                    }
+
+                    SecondaryButton("Share on Warpcast") {
+                        let castText = messageToShare()
+                        let castUrl = castText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                        let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(castUrl)")
+                        if let url = warpcastUrl {
+                            openUrl(url)
+                        }
+                        // TODO: track
+                    }
+
+                    PrimaryButton("Done") {
+                        dismiss()
+
+                        let now = Date().timeIntervalSinceReferenceDate
+                        if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
+                            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                SKStoreReviewController.requestReview(in: scene)
+                                lastSuggestedToRateTime = now
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 8)
+            }
+            .padding(.horizontal, 8)
+            .padding(.bottom, 16)
+            .padding(.top, 24)
+            .onAppear {
+                logInfo("[VOTE] SUCCESS SCREEN")
+                // TODO: track
+            }
+        }
+    }
+
+    func messageToShare() -> String {
+        var message =
+                    """
 I just voted in \(proposal.dao.name) using the Goverland Mobile App! 🚀
 Proposal: \(proposal.title)
 My choice: \(choice)
 """
-                    if let reason {
-                        tweetText += "\nMy reason: \(reason)"
-                    }
-
-                    let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                    let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
-                    
-                    if let url = twitterUrl {
-                        openUrl(url)
-                    }
-                    // TODO: track
-                }
-                PrimaryButton("Done") {
-                    dismiss()
-                    
-                    let now = Date().timeIntervalSinceReferenceDate
-                    if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
-                        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                            SKStoreReviewController.requestReview(in: scene)
-                            lastSuggestedToRateTime = now
-                        }
-                    }
-                }
-            }
-            .padding(.horizontal, 8)
+        if let reason, !reason.isEmpty {
+            message += "\nMy reason: \(reason)"
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 16)
-        .onAppear {
-            logInfo("[VOTE] SUCCESS SCREEN")
-            // TODO: track
-        }
+        return message
     }
 }

@@ -14,7 +14,7 @@ struct WC_QRView: View {
     let connectWalletModel: ConnectWalletModel
 
     @StateObject private var model = QRViewModel()
-    @StateObject private var orientationManager = DeviceOrientationManager()
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
 
     var body: some View {
         ZStack {
