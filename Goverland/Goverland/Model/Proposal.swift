@@ -235,7 +235,8 @@ struct Proposal: Decodable, Hashable, Identifiable {
         do {
             self.timeline = try container.decode([TimelineEvent].self, forKey: .timeline)
         } catch {
-            throw(GError.errorDecodingData(error: error, context: "Decoding `timeline`. Proposal ID: \(id)"))
+            logError(GError.errorDecodingData(error: error, context: "Decoding `timeline`. Proposal ID: \(id)"))
+            self.timeline = []
         }
     }
 }
