@@ -22,7 +22,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let voters: Int
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
-    let twitter: String?
+    let X: String?
     let github: String?
     let coingecko: String?
     var terms: URL?
@@ -39,7 +39,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          voters: Int,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
-         twitter: String?,
+         X: String?,
          github: String?,
          coingecko: String?,
          terms: URL?) {
@@ -55,7 +55,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.voters = voters
         self.subscriptionMeta = subscriptionMeta
         self.website = website
-        self.twitter = twitter
+        self.X = X
         self.github = github
         self.coingecko = coingecko
         self.terms = terms
@@ -74,7 +74,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case voters = "voters_count"
         case subscriptionMeta = "subscription_info"
         case website
-        case twitter
+        case X = "twitter"
         case github
         case coingecko
         case email
@@ -125,7 +125,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         }
 
         self.website = try? container.decodeIfPresent(URL.self, forKey: .website)
-        self.twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
+        self.X = try container.decodeIfPresent(String.self, forKey: .X)
         self.github = try container.decodeIfPresent(String.self, forKey: .github)
         self.coingecko = try container.decodeIfPresent(String.self, forKey: .coingecko)
 
@@ -229,7 +229,7 @@ extension Dao {
         voters: 4567,
         subscriptionMeta: nil,
         website: URL(string: "https://gnosis.io"),
-        twitter: "gnosisdao",
+        X: "gnosisdao",
         github: "gnosis",
         coingecko: "gnosis",
         terms: nil)
@@ -246,7 +246,7 @@ extension Dao {
         voters: 45678,
         subscriptionMeta: nil,
         website: nil,
-        twitter: "AaveAave",
+        X: "AaveAave",
         github: "aave",
         coingecko: "aave",
         terms: nil)
