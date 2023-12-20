@@ -31,12 +31,15 @@ struct EcosystemDashboardView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading {
-                // TODO: make shimmer view
-                Spacer()
-                ProgressView()
-                    .foregroundColor(.textWhite20)
-                    .controlSize(.regular)
-                Spacer()
+                HStack {
+                    ShimmerBrickView()
+                    ShimmerBrickView()
+                }
+                
+                HStack {
+                    ShimmerBrickView()
+                    ShimmerBrickView()
+                }
             } else {
                 HStack {
                     BrickView(header: "Active DAOs",

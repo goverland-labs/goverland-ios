@@ -82,3 +82,28 @@ struct BrickView: View {
         .cornerRadius(20)
     }
 }
+
+struct ShimmerBrickView: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                ShimmerView()
+                    .frame(width: 90, height: 16)
+                    .cornerRadius(8)
+                Spacer()
+            }
+            ShimmerView()
+                .frame(width: 100, height: 36)
+                .cornerRadius(10)
+            ShimmerView()
+                .frame(width: 50, height: 16)
+                .cornerRadius(8)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .frame(height: 112)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.container))
+    }
+}
