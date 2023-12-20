@@ -31,12 +31,35 @@ struct EcosystemDashboardView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading {
-                // TODO: make shimmer view
-                Spacer()
-                ProgressView()
-                    .foregroundColor(.textWhite20)
-                    .controlSize(.regular)
-                Spacer()
+                HStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.containerBright)
+                        .frame(width: nil, height: 112)
+                        .overlay() {
+                            ProgressView()
+                        }
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.containerBright)
+                        .frame(width: nil, height: 112)
+                        .overlay() {
+                            ProgressView()
+                        }
+                }
+                
+                HStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.containerBright)
+                        .frame(width: nil, height: 112)
+                        .overlay() {
+                            ProgressView()
+                        }
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.containerBright)
+                        .frame(width: nil, height: 112)
+                        .overlay() {
+                            ProgressView()
+                        }
+                }
             } else {
                 HStack {
                     BrickView(header: "Active DAOs",
