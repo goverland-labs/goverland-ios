@@ -32,33 +32,13 @@ struct EcosystemDashboardView: View {
                 }
             } else if dataSource.isLoading {
                 HStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.containerBright)
-                        .frame(width: nil, height: 112)
-                        .overlay() {
-                            ProgressView()
-                        }
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.containerBright)
-                        .frame(width: nil, height: 112)
-                        .overlay() {
-                            ProgressView()
-                        }
+                    ShimmerBrickView()
+                    ShimmerBrickView()
                 }
                 
                 HStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.containerBright)
-                        .frame(width: nil, height: 112)
-                        .overlay() {
-                            ProgressView()
-                        }
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.containerBright)
-                        .frame(width: nil, height: 112)
-                        .overlay() {
-                            ProgressView()
-                        }
+                    ShimmerBrickView()
+                    ShimmerBrickView()
                 }
             } else {
                 HStack {
