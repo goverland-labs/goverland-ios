@@ -101,6 +101,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile
+                    Tracker.track(.twoStepsSignedIn)
                     logInfo("[SIWE] Auth token: \(response.sessionId); Profile: \(address)")
                 }
                 .store(in: &cancellables)

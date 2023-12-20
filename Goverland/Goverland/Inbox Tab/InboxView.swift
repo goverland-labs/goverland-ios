@@ -14,7 +14,7 @@ struct InboxView: View {
     var body: some View {
         if authToken.isEmpty {
             NavigationView {
-                SignInView()
+                SignInView(source: .inbox)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {

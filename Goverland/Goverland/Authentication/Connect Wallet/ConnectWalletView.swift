@@ -20,6 +20,7 @@ struct ConnectWalletView: View {
                     Section(header: Text("If connecting from other device")) {
                         QRRowView {
                             model.showQR()
+                            Tracker.track(.connectWalletShowQR)
                         }
                     }
 
@@ -63,6 +64,9 @@ struct ConnectWalletView: View {
             guard notification.object != nil else { return }
             // session settled
             dismiss()
+        }
+        .onAppear {
+            Tracker.track(.screencConnectWallet)
         }
     }
 }

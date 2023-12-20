@@ -19,6 +19,11 @@ enum TrackingEvent: String, Trackable {
     case screenSignIn = "screen_sign_in"
     case signInWithWallet = "sign_in_with_wallet"
     case signInAsGuest = "sign_in_as_guest"
+    case twoStepsSignedIn = "two_steps_signed_in"
+
+    case screencConnectWallet = "screen_connect_wallet"
+    case connectWalletShowQR = "connect_wallet_show_qr"
+    case walletConnected = "wallet_connected"
 
     // MARK: - Push Notifications
     case screenPushNotifications = "screen_push_notifications"

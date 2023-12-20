@@ -29,7 +29,7 @@ struct ProfileView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 if authToken.isEmpty {
-                    SignInView()
+                    SignInView(source: .profile)
                 } else {
                     _ProfileView()
                 }

@@ -54,6 +54,7 @@ class ConnectWalletModel: ObservableObject {
                 logInfo("[WC] Session settle: \(session)")
                 showLocalNotification(title: "Wallet connected", body: "Open the App to proceed")
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
+                Tracker.track(.walletConnected)
             }
             .store(in: &cancellables)
     }
