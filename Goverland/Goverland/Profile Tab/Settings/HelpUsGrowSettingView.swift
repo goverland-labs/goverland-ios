@@ -46,9 +46,9 @@ struct HelpUsGrowSettingView: View {
                         Image("share-x-post")
                             .foregroundColor(.primaryDim)
                             .frame(width: 30)
-                        Text("Share a post")
+                        Text("Share a post on X")
                         Spacer()
-                        Image(systemName: "square.and.arrow.up")
+                        Image(systemName: "arrow.up.right")
                             .foregroundColor(.textWhite40)
                     }
                 }

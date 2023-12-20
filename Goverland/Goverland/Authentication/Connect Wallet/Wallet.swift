@@ -42,6 +42,9 @@ struct Wallet: Identifiable {
         if name == "MetaMask Wallet" {
             return .metamask
         }
+        if name == "🌈 Rainbow" {
+            return .rainbow
+        }
         return _all.first { $0.name == name }
     }
 

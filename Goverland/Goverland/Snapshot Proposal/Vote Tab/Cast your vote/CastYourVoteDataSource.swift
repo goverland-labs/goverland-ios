@@ -35,7 +35,7 @@ class CastYourVoteDataSource: ObservableObject {
 
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToVoteMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
-    private let openWalletMessage = "Please open your wallet to sign the vote."
+    private let openWalletMessage = "Please open your wallet to sign the vote"
 
     private var voteRequestId: UUID?
     private var wcRequestId: Int64?

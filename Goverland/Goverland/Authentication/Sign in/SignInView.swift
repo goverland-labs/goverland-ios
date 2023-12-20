@@ -12,6 +12,14 @@ struct SignInView: View {
     @Environment(\.dismiss) private var dismiss
     @Setting(\.authToken) private var authToken
 
+    let source: Source
+
+    enum Source: String {
+        case popover
+        case inbox
+        case profile
+    }
+
     var body: some View {
         ZStack {
             SignInOnboardingBackgroundView()
@@ -23,7 +31,9 @@ struct SignInView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenSignIn) }
+            .onAppear() {
+                Tracker.track(.screenSignIn, parameters: ["source" : source.rawValue])
+            }
         }
         .onChange(of: authToken) { _, token in
             if !token.isEmpty && isPresented {

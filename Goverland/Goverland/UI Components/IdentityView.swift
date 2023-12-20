@@ -12,8 +12,9 @@ import Kingfisher
 fileprivate extension Avatar.Size {
     var textFont: Font {
         switch self {
-        case .xs, .s: return .footnoteRegular
-        case .m, .l, .xl: return .bodySemibold
+        case .xs: return .footnoteRegular
+        case .s: return .bodySemibold
+        case .m, .l, .xl: return .bodySemibold // not used atm
         }
     }
 }

@@ -19,6 +19,15 @@ enum TrackingEvent: String, Trackable {
     case screenSignIn = "screen_sign_in"
     case signInWithWallet = "sign_in_with_wallet"
     case signInAsGuest = "sign_in_as_guest"
+    case twoStepsSignedIn = "two_steps_signed_in"
+
+    case screencConnectWallet = "screen_connect_wallet"
+    case connectWalletShowQR = "connect_wallet_show_qr"
+    case walletConnected = "wallet_connected"
+
+    case screenReconnectWallet = "screen_reconnect_wallet"
+    case reconnectWalletWrongWallet = "reconnect_wallet_wrong_wallet"
+    case reconnectWalletSuccess = "reconnect_wallet_success"
 
     // MARK: - Push Notifications
     case screenPushNotifications = "screen_push_notifications"
@@ -54,6 +63,7 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
     case screenInboxEmpty = "screen_inbox_empty"
+    case screenInboxWelcome = "screen_inbox_welcome"
     case inboxEventOpen = "inbox_event_open"
     case inboxEventOpenDao = "inbox_event_open_dao"
     case inboxEventArchive = "inbox_event_archive"
@@ -97,6 +107,12 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Snapshot Proposal Votes
     case screenSnpVoters = "screen_snp_voters"
 
+    // MARK: - Cast your vote
+    case screenSnpCastVote = "screen_snp_cast_vote"
+    case screenSnpVoteSuccess = "screen_snp_vote_success"
+    case snpSuccessVoteShareX = "snp_success_vote_share_x"
+    case snpSuccessVoteShareWarpcast = "snp_success_vote_share_warpcast"
+
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
@@ -137,6 +153,13 @@ enum TrackingEvent: String, Trackable {
     case followedAddOpenDaoFromCard = "followed_add_open_dao_from_card"
     case followedAddOpenDaoFromCtgList = "followed_add_open_dao_from_ctg_list"
     case followedAddOpenDaoFromCtgSearch = "followed_add_open_dao_from_ctg_search"
+
+    // MARK: - Profile
+    case screenProfile = "screen_profile"
+    case signOut = "sign_out"
+    case deleteProfile = "delete_profile"
+    case signOutDevice = "sign_out_device"
+    case disconnect_WC_session = "disconnect_wc_session"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

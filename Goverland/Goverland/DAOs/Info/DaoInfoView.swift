@@ -98,7 +98,7 @@ struct DaoInfoView: View {
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
             case .signIn:
-                SignInView()
+                SignInView(source: .popover)
             case .daoInfo(let dao):
                 NavigationStack {
                     DaoInfoView(dao: dao)

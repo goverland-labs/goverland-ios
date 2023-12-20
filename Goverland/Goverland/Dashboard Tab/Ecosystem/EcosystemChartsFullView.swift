@@ -44,7 +44,7 @@ struct EcosystemChartsFullView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("Ecosystem charts")
+                    Text("Ecosystem")
                         .font(.title2Semibold)
                         .foregroundColor(Color.textWhite)
                 }

@@ -9,7 +9,6 @@
 
 import Foundation
 import SwiftData
-import SwiftDate
 
 /// Model to store user profiles.
 /// The App can have one guest profile and many profiles attached to different addresses.
@@ -39,6 +38,8 @@ final class UserProfile {
 
     private(set) var avatarsData: Data?
 
+    private(set) var subscriptionsCount: Int
+
     private(set) var wcSessionMetaData: Data?
 
     @Transient
@@ -52,6 +53,7 @@ final class UserProfile {
          selected: Bool,
          resolvedName: String?,
          avatars: [Avatar]?,
+         subscriptionsCount: Int,
          wcSessionMeta: WC_SessionMeta?)
     {
         self.deviceId = deviceId
@@ -60,6 +62,7 @@ final class UserProfile {
         self.selected = selected
         self.resolvedName = resolvedName
         self.avatarsData = avatars?.data
+        self.subscriptionsCount = subscriptionsCount
         self.wcSessionMetaData = wcSessionMeta?.data
     }
 }
@@ -107,10 +110,6 @@ extension WC_SessionMeta {
         }
         logInfo("[UserProfile] WC session not found")
         return nil
-    }
-
-    var isExpired: Bool {
-        return session.expiryDate < .now + 5.minutes
     }
 }
 
@@ -223,6 +222,7 @@ extension UserProfile {
         logInfo("[UserProfile] Update existing user profile \(userProfile.addressDescription).")
         userProfile.resolvedName = profile.account?.resolvedName
         userProfile.avatarsData = profile.account?.avatars.data
+        userProfile.subscriptionsCount = profile.subscriptionsCount
         try context.save()
     }
 
@@ -251,6 +251,7 @@ extension UserProfile {
             userProfile.address = normalizedAddress
             userProfile.resolvedName = profile.account?.resolvedName
             userProfile.avatarsData = profile.account?.avatars.data
+            userProfile.subscriptionsCount = profile.subscriptionsCount
             userProfile.wcSessionMetaData = wcSessionMeta?.data
             try context.save()
             return userProfile
@@ -262,6 +263,7 @@ extension UserProfile {
                                       selected: false,
                                       resolvedName: profile.account?.resolvedName,
                                       avatars: profile.account?.avatars, 
+                                      subscriptionsCount: profile.subscriptionsCount,
                                       wcSessionMeta: wcSessionMeta)
         context.insert(userProfile)
         try context.save()

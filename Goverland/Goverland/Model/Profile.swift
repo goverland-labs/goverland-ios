@@ -13,7 +13,8 @@ struct Profile: Codable {
     let id: UUID
     let role: Role
     let account: User?
-    let sessions: [Session]
+    let sessions: [Session]    
+    let subscriptionsCount: Int
 
     enum Role: String, Codable {
         case guest = "guest"
@@ -25,6 +26,7 @@ struct Profile: Codable {
         case role
         case account
         case sessions = "last_sessions"
+        case subscriptionsCount = "subscriptions_count"
     }
 }
 

@@ -22,13 +22,15 @@ struct SearchView: View {
     private var searchPrompt: String {
         switch model.filter {
         case .daos:
-            if let total = daos.totalDaos.map(String.init) {
-                return "Search for \(total) DAOs by name"
+            if let total = daos.totalDaos {
+                let totalStr = Utils.formattedNumber(Double(total))
+                return "Search for \(totalStr) DAOs by name"
             }
             return ""
         case .proposals:
-            if let total = proposals.totalProposals.map(String.init) {
-                return "Search for \(total) proposals by name"
+            if let total = proposals.totalProposals {
+                let totalStr = Utils.formattedNumber(Double(total))
+                return "Search for \(totalStr) proposals by name"
             }
             return ""
         }

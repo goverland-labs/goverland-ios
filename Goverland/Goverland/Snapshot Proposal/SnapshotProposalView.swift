@@ -160,14 +160,18 @@ fileprivate struct SnapshotProposalDiscussionView: View {
 
                 if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
                     Link(destination: unwrappedURL) {
-                        Text(proposal.title)
-                            .foregroundColor(.textWhite)
-                        +
-                        Text(" ")
-                        +
-                        Text(Image(systemName: "arrow.up.right"))
-                            .foregroundColor(.textWhite40)
-                        
+                        Group {
+                            Text(proposal.title)
+                                .foregroundColor(.textWhite)
+                            +
+                            Text(" ")
+                            +
+                            Text(Image(systemName: "arrow.up.right"))
+                                .foregroundColor(.textWhite40)
+
+                        }
+                        .multilineTextAlignment(.leading)
+
                         Spacer()
                     }
                 }

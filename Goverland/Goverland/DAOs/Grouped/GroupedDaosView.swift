@@ -60,7 +60,7 @@ struct GroupedDaosView: View {
                     VStack(spacing: 8) {
                         HStack {
                             let total = dataSource.totalInCategory[category] ?? 0
-                            Text(total != 0 ? "\(category.name) (\(total))" : category.name)
+                            Text(total != 0 ? "\(category.name) (\(Utils.formattedNumber(Double(total))))" : category.name)
                                 .font(.subheadlineSemibold)
                                 .foregroundColor(.textWhite)
                             Spacer()

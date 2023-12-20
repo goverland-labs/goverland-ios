@@ -43,21 +43,7 @@ struct ReconnectWalletView: View {
                     .stroke(Color.textWhite40, style: StrokeStyle(lineWidth: 1)))
 
             if wrongWalletConnected {
-                VStack(spacing: 0) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "info.circle.fill")
-                            .foregroundColor(.textWhite)
-                        Text("Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please sign in with another profile.")
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 16)
-                }
-                .background {
-                    RoundedRectangle(cornerRadius: 13)
-                        .fill(Color.containerBright)
-                }
+                InfoMessageView(message: "Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please sign in with another profile.")
                 .padding(16)
 
                 Spacer()
@@ -94,16 +80,21 @@ struct ReconnectWalletView: View {
                 wrongWalletConnected = true
                 WC_Manager.disconnect(topic: sessionMeta.session.topic)
                 WC_Manager.shared.sessionMeta = nil
+                Tracker.track(.reconnectWalletWrongWallet)
                 return
             }
 
             try! UserProfile.update_WC_SessionForSelectedProfile()
+            Tracker.track(.reconnectWalletSuccess)
 
             dismiss()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 showToast("Profile wallet successfully reconnected")
             }
+        }
+        .onAppear {
+            Tracker.track(.screenReconnectWallet)
         }
     }
 }

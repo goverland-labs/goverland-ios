@@ -51,9 +51,11 @@ struct DashboardView: View {
                 }
                 DashboardPopularDaosView()
                 
-                SectionHeader(header: "Ecosystem charts", icon: Image(systemName: "chart.xyaxis.line")) {
-                    path.append(Path.ecosystemCharts)
-                }
+                SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
+                // Enable in public release
+//                {
+//                    path.append(Path.ecosystemCharts)
+//                }
                 EcosystemDashboardView()
                     .padding(.bottom, 40)
             }

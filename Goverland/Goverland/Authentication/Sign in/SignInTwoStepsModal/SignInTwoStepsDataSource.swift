@@ -12,7 +12,8 @@ import UIKit
 import WalletConnectSign
 
 class SignInTwoStepsDataSource: ObservableObject {
-    @Published var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published private(set) var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published private(set) var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -22,7 +23,9 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
-        wcSessionMeta = WC_Manager.shared.sessionMeta
+        DispatchQueue.main.async {
+            self.wcSessionMeta = WC_Manager.shared.sessionMeta
+        }
     }
 
     private var address: String? {
@@ -98,6 +101,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile
+                    Tracker.track(.twoStepsSignedIn)
                     logInfo("[SIWE] Auth token: \(response.sessionId); Profile: \(address)")
                 }
                 .store(in: &cancellables)
@@ -105,6 +109,8 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     func authenticate() {
+        infoMessage = nil
+
         guard let session = WC_Manager.shared.sessionMeta?.session,
             let address = address else { return }
 
@@ -123,6 +129,10 @@ class SignInTwoStepsDataSource: ObservableObject {
 
             if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
+            } else {
+                DispatchQueue.main.async {
+                    self.infoMessage = "Please open your wallet to sign in"
+                }
             }
         }
     }

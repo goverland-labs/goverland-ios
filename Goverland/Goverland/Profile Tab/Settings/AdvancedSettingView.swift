@@ -38,7 +38,7 @@ struct AdvancedSettingView: View {
                 }
                 .accentColor(.dangerText)
 
-                Button("Show test notification in 3 sec.") {
+                Button("Show test notification in 3 sec") {
                     showLocalNotification(title: "Test local notification",
                                           body: "Local notification body",
                                           delay: 3.0)
@@ -46,14 +46,20 @@ struct AdvancedSettingView: View {
             }
             #endif
 
-            Section(header: Text("Share anonymized data")) {
+            Section {
                 Toggle(isOn: $accepted) {
-                    Text("Allow App to Track Activity")
+                    Text("Allow app to track activity")
                 }
+            } header: {
+                Text("Share anonymized data")
+            } footer: {
+                Text("To ensure the quality of our app, we collect anonymized app usage data and crash reports.")
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite40)
             }
 
             if let id = profiles.first(where: { $0.selected })?.deviceId {
-                Section(header: Text("Support Secret Id")) {
+                Section {
                     LabeledContent(id) {
                         Button {
                             UIPasteboard.general.string = id
@@ -63,6 +69,12 @@ struct AdvancedSettingView: View {
                         }
                         .foregroundColor(.primaryDim)
                     }
+                } header: {
+                    Text("Support id")
+                } footer: {
+                    Text("If you contact our support team regarding a technical issue, be ready to share this id.")
+                        .font(.footnoteRegular)
+                        .foregroundColor(.textWhite40)
                 }
             }
 

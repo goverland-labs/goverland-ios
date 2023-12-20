@@ -102,9 +102,3 @@ fileprivate struct NoSubscriptionsView: View {
         }
     }
 }
-
-struct FollowDaosListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubscriptionsView()
-    }
-}

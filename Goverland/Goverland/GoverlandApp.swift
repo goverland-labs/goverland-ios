@@ -50,9 +50,9 @@ struct GoverlandApp: App {
                             logInfo("[App] Auth Token: \(authToken)")
                             // If the app was not used for a while and a user opens it
                             // try to get a new counter for unread messages.
-                            if TabManager.shared.selectedTab != .inbox && activeSheetManger.activeSheet == nil {
+                            if TabManager.shared.selectedTab != .inbox {
                                 // We make this check not to dismiss Cast Your Vote Success View
-                                // Which can be done from InboxView or from DaoInfoView
+                                // Which can be done from InboxView
                                 InboxDataSource.shared.refresh()
                             }
                         } else {
@@ -67,7 +67,7 @@ struct GoverlandApp: App {
                 .sheet(item: $activeSheetManger.activeSheet) { item in
                     switch item {
                     case .signIn:
-                        SignInView()
+                        SignInView(source: .popover)
                     case .daoInfo(let dao):
                         NavigationStack {
                             DaoInfoView(dao: dao)
