@@ -172,6 +172,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): break
                 }
             } receiveValue: { [weak self] _, _ in
+                showToast("Moved to Archive")
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
