@@ -25,7 +25,7 @@ struct SignOutPopoverView: View {
             HStack(spacing: 16) {
                 PrimaryButton("Sign out") {
                     ProfileDataSource.shared.signOut(sessionId: authToken)
-                    // TODO: track
+                    Tracker.track(.signOut)
                 }
                 SecondaryButton("Cancel") {
                     dismiss()

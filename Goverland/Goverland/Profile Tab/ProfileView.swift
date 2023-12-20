@@ -100,7 +100,7 @@ fileprivate struct _ProfileView: View {
                 .presentationDetents([.height(500), .large])
         }
         .onAppear {
-            // TODO: track
+            Tracker.track(.screenProfile)
             if dataSource.profile == nil {
                 dataSource.refresh()
             }
@@ -275,7 +275,7 @@ fileprivate struct ProfileListView: View {
                             Button {
                                 guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
                                 WC_Manager.disconnect(topic: topic)
-                                // TODO: track
+                                Tracker.track(.disconnect_WC_session)
                             } label: {
                                 Text("Disconnect")
                                     .font(.bodyRegular)
@@ -329,7 +329,7 @@ fileprivate struct ProfileListView: View {
                     .swipeActions {
                         Button {
                             ProfileDataSource.shared.signOut(sessionId: s.id.uuidString)
-                            // TODO: track
+                            Tracker.track(.signOutDevice)
                         } label: {
                             Text("Sign out")
                                 .font(.bodyRegular)

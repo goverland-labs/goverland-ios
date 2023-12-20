@@ -138,6 +138,13 @@ enum TrackingEvent: String, Trackable {
     case followedAddOpenDaoFromCtgList = "followed_add_open_dao_from_ctg_list"
     case followedAddOpenDaoFromCtgSearch = "followed_add_open_dao_from_ctg_search"
 
+    // MARK: - Profile
+    case screenProfile = "screen_profile"
+    case signOut = "sign_out"
+    case deleteProfile = "delete_profile"
+    case signOutDevice = "sign_out_device"
+    case disconnect_WC_session = "disconnect_wc_session"
+
     // MARK: - Settings
     case screenSettings = "screen_settings"
     case settingsOpenX = "settings_open_X"
