@@ -243,8 +243,8 @@ fileprivate struct _ErrorMessageView: View {
                     .foregroundColor(.textWhite)
             }
             .padding(.leading, 8)
-            .padding(.trailing, 16)
-            .padding(.vertical, 16)
+            .padding(.trailing, 12)
+            .padding(.vertical, 12)
         }
         .background {
             RoundedRectangle(cornerRadius: 13)

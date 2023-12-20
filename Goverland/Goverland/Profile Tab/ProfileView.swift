@@ -234,7 +234,14 @@ fileprivate struct ProfileListView: View {
     var body: some View {
         List {
             Section("Goverland") {
-                NavigationLink("My followed DAOs (\(profile.subscriptionsCount))", value: ProfileScreen.subscriptions)
+                NavigationLink(value: ProfileScreen.subscriptions) {
+                    HStack {
+                        Text("My followed DAOs")
+                        Spacer()
+                        Text("\(profile.subscriptionsCount)")
+                            .foregroundStyle(Color.textWhite60)
+                    }
+                }
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 

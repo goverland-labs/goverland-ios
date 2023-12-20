@@ -43,21 +43,7 @@ struct ReconnectWalletView: View {
                     .stroke(Color.textWhite40, style: StrokeStyle(lineWidth: 1)))
 
             if wrongWalletConnected {
-                VStack(spacing: 0) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "info.circle.fill")
-                            .foregroundColor(.textWhite)
-                        Text("Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please sign in with another profile.")
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 16)
-                }
-                .background {
-                    RoundedRectangle(cornerRadius: 13)
-                        .fill(Color.containerBright)
-                }
+                InfoMessageView(message: "Please connect your profile wallet with the address displayed above. If you want to vote with another wallet, please sign in with another profile.")
                 .padding(16)
 
                 Spacer()
