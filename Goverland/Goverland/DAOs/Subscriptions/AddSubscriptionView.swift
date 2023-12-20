@@ -20,8 +20,9 @@ struct AddSubscriptionView: View {
     @StateObject private var activeSheetManager = ActiveSheetManager()
 
     private var searchPrompt: String {
-        if let total = dataSource.totalDaos.map(String.init) {
-            return "Search for \(total) DAOs by name"
+        if let total = dataSource.totalDaos {
+            let totalStr = Utils.formattedNumber(Double(total))
+            return "Search for \(totalStr) DAOs by name"
         }
         return ""
     }

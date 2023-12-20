@@ -21,8 +21,9 @@ struct FollowCategoryDaosListView: View {
     let onCategoryListAppear: (() -> Void)?
     
     private var searchPrompt: String {
-        if let total = dataSource.total.map(String.init) {
-            return "Search for \(total) DAOs by name"
+        if let total = dataSource.total {
+            let totalStr = Utils.formattedNumber(Double(total))
+            return "Search for \(totalStr) DAOs by name"
         }
         return ""
     }
