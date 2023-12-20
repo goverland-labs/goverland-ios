@@ -44,6 +44,8 @@ class NetworkManager {
                         throw APIError.badRequest(error: errorString)
                     } else if httpResponse.statusCode == 401 {
                         throw APIError.notAuthorized
+                    } else if httpResponse.statusCode == 403 {
+                        throw APIError.forbidden
                     } else if httpResponse.statusCode == 404 {
                         throw APIError.notFound
                     } else if (500...599).contains(httpResponse.statusCode) {
