@@ -245,6 +245,54 @@ fileprivate struct ProfileListView: View {
                 NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
 
+            if user != nil {
+                Section("Connected wallet") {
+                    if let wallet = connectedWallet() {
+                        HStack(spacing: 12) {
+                            if let image = wallet.image {
+                                image
+                                    .frame(width: 32, height: 32)
+                                    .scaledToFit()
+                                    .cornerRadius(4)
+                            } else if let imageUrl = wallet.imageURL {
+                                SquarePictureView(image: imageUrl, imageSize: 32)
+                            }
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(wallet.name)
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+
+                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                Text("Session expires \(date)")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+
+                            Spacer()
+                        }
+                        .swipeActions {
+                            Button {
+                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                                WC_Manager.disconnect(topic: topic)
+                                // TODO: track
+                            } label: {
+                                Text("Disconnect")
+                                    .font(.bodyRegular)
+                            }
+                            .tint(.red)
+                        }
+                    } else {
+                        Button {
+                            showReconnectWallet = true
+                        } label: {
+                            Text("Reconnect wallet")
+                        }
+                    }
+                }
+                .id(wcViewId)
+            }
+
             Section("Devices") {
                 ForEach(profile.sessions) { s in
                     HStack {
@@ -292,52 +340,6 @@ fileprivate struct ProfileListView: View {
             }
 
             if user != nil {
-                Section("Connected wallet") {
-                    if let wallet = connectedWallet() {
-                        HStack(spacing: 12) {
-                            if let image = wallet.image {
-                                image
-                                    .frame(width: 32, height: 32)
-                                    .scaledToFit()
-                                    .cornerRadius(4)
-                            } else if let imageUrl = wallet.imageURL {
-                                SquarePictureView(image: imageUrl, imageSize: 32)
-                            }
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(wallet.name)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-
-                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session expires \(date)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-
-                            Spacer()
-                        }
-                        .swipeActions {
-                            Button {
-                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                WC_Manager.disconnect(topic: topic)
-                                // TODO: track
-                            } label: {
-                                Text("Disconnect")
-                                    .font(.bodyRegular)
-                            }
-                            .tint(.red)
-                        }
-                    } else {
-                        Button {
-                            showReconnectWallet = true
-                        } label: {
-                            Text("Reconnect wallet")
-                        }
-                    }
-                }
-                .id(wcViewId)
-
                 Section {
                     Button("Sign out") {
                         isSignOutPopoverPresented.toggle()
