@@ -17,7 +17,15 @@ struct PushNotificationsSettingView: View {
     var body: some View {
         List {
             // TODO: can we use here appSettings directly?
-            Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
+            Section {
+                Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
+            } header: {
+                Text("Push notifications")
+            } footer: {
+                Text("Get notifications about new proposals and proposal outcomes.")
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite40)
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Notifications")
