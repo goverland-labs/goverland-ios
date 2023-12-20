@@ -58,7 +58,7 @@ fileprivate struct _WelcomeView: View {
         }
         .padding(.bottom, 16)
         .onAppear {
-            // TODO: track
+            Tracker.track(.screenInboxWelcome)
         }
     }
 }

@@ -80,16 +80,21 @@ struct ReconnectWalletView: View {
                 wrongWalletConnected = true
                 WC_Manager.disconnect(topic: sessionMeta.session.topic)
                 WC_Manager.shared.sessionMeta = nil
+                Tracker.track(.reconnectWalletWrongWallet)
                 return
             }
 
             try! UserProfile.update_WC_SessionForSelectedProfile()
+            Tracker.track(.reconnectWalletSuccess)
 
             dismiss()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 showToast("Profile wallet successfully reconnected")
             }
+        }
+        .onAppear {
+            Tracker.track(.screenReconnectWallet)
         }
     }
 }
