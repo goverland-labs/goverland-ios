@@ -21,7 +21,8 @@ struct PartnershipSettingView: View {
             .kerning(-2.5)
             
             VStack(alignment: .leading, spacing: 15) {
-                Text("For potential partnership discussions, feel free to reach out to us on our Discord or drop us an email at partnership@goverland.xyz.")
+                Text("For potential partnership discussions, feel free to reach out to us on our Discord or drop us an email at [partnership@goverland.xyz](mailto:partnership@goverland.xyz).")
+                    .tint(.primary)
                 Text("We're excited to explore possibilities with you!")
             }
             .lineLimit(5)

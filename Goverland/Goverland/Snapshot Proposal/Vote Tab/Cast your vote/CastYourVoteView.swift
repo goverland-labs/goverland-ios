@@ -130,7 +130,7 @@ fileprivate struct _VoteView: View {
             }
         }
         .onAppear {
-            // TODO: track
+            Tracker.track(.screenSnpCastVote)
             dataSource.validate(address: user.address.value)
         }
         .padding(.horizontal, 16)
@@ -288,7 +288,7 @@ fileprivate struct _SuccessView: View {
                         if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
                             openUrl(url)
                         }
-                        // TODO: track
+                        Tracker.track(.snpSuccessVoteShareX)
                     }
 
                     SecondaryButton("Share on Warpcast") {
@@ -298,7 +298,7 @@ fileprivate struct _SuccessView: View {
                         if let url = warpcastUrl {
                             openUrl(url)
                         }
-                        // TODO: track
+                        Tracker.track(.snpSuccessVoteShareWarpcast)
                     }
 
                     PrimaryButton("Done") {
@@ -319,8 +319,7 @@ fileprivate struct _SuccessView: View {
             .padding(.bottom, 16)
             .padding(.top, 24)
             .onAppear {
-                logInfo("[VOTE] SUCCESS SCREEN")
-                // TODO: track
+                Tracker.track(.screenSnpVoteSuccess)
             }
         }
     }
