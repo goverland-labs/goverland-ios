@@ -185,8 +185,7 @@ fileprivate struct VoteFooterView: View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-
-                Text(String(votes))
+                Text(Utils.formattedNumber(Double(votes)))
                     .fontWeight(.medium)
             }
             .font(.footnoteRegular)
