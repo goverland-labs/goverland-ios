@@ -25,7 +25,7 @@ struct ExclusiveVotersView: View {
 
     private var metadata: String {
         if let voters = dataSource.voters?.exclusive {
-            return "\(voters) voters"
+            return "\(Utils.formattedNumber(Double(voters))) voters"
         }
         return ""
     }
