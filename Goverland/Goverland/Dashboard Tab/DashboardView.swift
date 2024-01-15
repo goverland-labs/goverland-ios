@@ -19,6 +19,7 @@ struct DashboardView: View {
     @Binding var path: NavigationPath
     @State private var animate = false
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @Setting(\.authToken) private var authToken
 
     static func refresh() {
         RecentlyViewedDaosDataSource.dashboard.refresh()
@@ -31,34 +32,13 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    SectionHeader(header: "Recently Viewed DAOs")
-                    DashboardRecentlyViewedDaosView()
+                if !authToken.isEmpty {
+                    SignedInUserDashboardView(path: $path)
+                } else {
+                    SignedOutUserDashboardView(path: $path)
                 }
-
-                SectionHeader(header: "Hot Proposals") {
-                    path.append(Path.hotProposals)
-                }
-                DashboardHotProposalsView(path: $path)
-
-                SectionHeader(header: "New DAOs") {
-                    path.append(Path.newDaos)
-                }
-                DashboardNewDaosView()
-
-                SectionHeader(header: "Popular DAOs") {
-                    path.append(Path.popularDaos)
-                }
-                DashboardPopularDaosView()
-                
-                SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-                // Enable in public release
-//                {
-//                    path.append(Path.ecosystemCharts)
-//                }
-                EcosystemDashboardView()
-                    .padding(.bottom, 40)
             }
+            .id(authToken) // redraw completely on auth token change
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -131,6 +111,80 @@ struct DashboardView: View {
                                      navigationTitle: proposal.dao.name)
             }
         }
+    }
+}
+
+fileprivate struct SignedOutUserDashboardView: View {
+    @Binding var path: NavigationPath
+
+    var body: some View {
+        WelcomeDashboardView()
+
+        SectionHeader(header: "Popular DAOs") {
+            path.append(Path.popularDaos)
+        }
+        DashboardPopularDaosCardsView()
+
+        // TODO: proposal of the day section
+
+        SectionHeader(header: "Hot Proposals") {
+            path.append(Path.hotProposals)
+        }
+        DashboardHotProposalsView(path: $path)
+
+        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
+        // Enable after public launch
+//                {
+//                    path.append(Path.ecosystemCharts)
+//                }
+        EcosystemDashboardView()
+            .padding(.bottom, 40)
+    }
+}
+
+fileprivate struct SignedInUserDashboardView: View {
+    @Binding var path: NavigationPath
+
+    var body: some View {
+        // TODO: ProposalOfDayView section
+
+        // TODO: WaitingForYourVoteView section
+
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
+        }
+        DashboardNewDaosView()
+
+        // TODO: You have voting power
+
+        SectionHeader(header: "Popular DAOs") {
+            path.append(Path.popularDaos)
+        }
+        DashboardPopularDaosView()
+
+        SectionHeader(header: "Hot Proposals") {
+            path.append(Path.hotProposals)
+        }
+        DashboardHotProposalsView(path: $path)
+
+//        if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
+//            SectionHeader(header: "Recently Viewed DAOs")
+//            DashboardRecentlyViewedDaosView()
+//        }
+
+        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
+        // Enable after public launch
+//                {
+//                    path.append(Path.ecosystemCharts)
+//                }
+        EcosystemDashboardView()
+            .padding(.bottom, 40)
+    }
+}
+
+fileprivate struct WelcomeDashboardView: View {
+    var body: some View {
+        Text("Welcome to Goverland!")
     }
 }
 

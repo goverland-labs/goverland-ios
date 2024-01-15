@@ -63,3 +63,22 @@ struct DashboardPopularDaosView: View {
         }
     }
 }
+
+struct DashboardPopularDaosCardsView: View {
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
+
+    var body: some View {
+        if dataSource.failedToLoadInitialData {
+            RefreshIcon {
+                dataSource.refresh()
+            }
+        } else {
+            DaoThreadForCategoryView(dataSource: dataSource,
+                                     category: DaoCategory.popular,
+                                     onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpen) },
+                                     onFollowToggle: { if $0 { Tracker.track(.dashPopularDaoFollow) } })
+            .padding(.leading, 8)
+        }
+    }
+}
