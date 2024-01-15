@@ -14,7 +14,7 @@ class RecentlyViewedDaosDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
 
-    static let dashboard = RecentlyViewedDaosDataSource()
+    static let search = RecentlyViewedDaosDataSource()
 
     private init() {}
 

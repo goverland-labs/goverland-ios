@@ -22,7 +22,6 @@ struct DashboardView: View {
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
-        RecentlyViewedDaosDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
@@ -53,10 +52,6 @@ struct DashboardView: View {
             .onAppear {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
-
-                if RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-                    RecentlyViewedDaosDataSource.dashboard.refresh()
-                }
 
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
@@ -166,11 +161,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
-
-//        if !RecentlyViewedDaosDataSource.dashboard.recentlyViewedDaos.isEmpty {
-//            SectionHeader(header: "Recently Viewed DAOs")
-//            DashboardRecentlyViewedDaosView()
-//        }
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
         // Enable after public launch

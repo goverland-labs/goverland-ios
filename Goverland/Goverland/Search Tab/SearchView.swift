@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
@@ -56,6 +55,7 @@ struct SearchView: View {
                         ZStack {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
+                                                showRecentlyViewed: true,
                                                 activeSheetManager: activeSheetManger,
                                                 onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
@@ -116,6 +116,7 @@ struct SearchView: View {
                     proposals.refresh()
                 case .daos:
                     daos.refresh()
+                    RecentlyViewedDaosDataSource.search.refresh()
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -130,6 +131,7 @@ struct SearchView: View {
             }
             .onAppear() {
                 daos.refresh()
+                RecentlyViewedDaosDataSource.search.refresh()
             }
         }
     }

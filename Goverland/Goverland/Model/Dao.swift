@@ -177,7 +177,7 @@ enum DaoCategory: String, Identifiable, Decodable {
     var id: Self { self }
     
     static var values: [DaoCategory] {[
-        .new, .popular, .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
+        .popular, .new, .protocol, .grant, .service, .social, .media, .creator, .investment, .collector
     ]}
     
     var name: String {
