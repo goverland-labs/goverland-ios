@@ -34,6 +34,7 @@ struct ProfileView: View {
                     _ProfileView()
                 }
             }
+            .id(authToken) // to forse proper refresh on sign out / sign in
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

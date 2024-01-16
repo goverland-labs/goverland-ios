@@ -54,6 +54,7 @@ struct AppTabView: View {
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
     @Setting(\.notificationsEnabled) private var notificationsEnabled
+    @Setting(\.authToken) private var authToken
 
     @State var currentInboxViewId: UUID?
     
@@ -66,27 +67,30 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.home)
             
-            // The magic below is to simulate view update by view id.
-            // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
-            if tabManager.inboxViewId == currentInboxViewId {
-                InboxView()
-                    .tabItem {
-                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                    }
-                    .toolbarBackground(.visible, for: .tabBar)
-                    .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
-            } else {
-                Spacer()
-                    .tabItem {
-                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                    }
-                    .onAppear {
-                        currentInboxViewId = tabManager.inboxViewId
-                    }
-                    .toolbarBackground(.visible, for: .tabBar)
-                    .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
+            // Don't display Inbox tab for signed out users
+            if !authToken.isEmpty {
+                // The magic below is to simulate view update by view id.
+                // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
+                if tabManager.inboxViewId == currentInboxViewId {
+                    InboxView()
+                        .tabItem {
+                            Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                        }
+                        .toolbarBackground(.visible, for: .tabBar)
+                        .tag(TabManager.Tab.inbox)
+                        .badge(unreadEvents)
+                } else {
+                    Spacer()
+                        .tabItem {
+                            Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                        }
+                        .onAppear {
+                            currentInboxViewId = tabManager.inboxViewId
+                        }
+                        .toolbarBackground(.visible, for: .tabBar)
+                        .tag(TabManager.Tab.inbox)
+                        .badge(unreadEvents)
+                }
             }
             
             SearchView()
@@ -103,6 +107,7 @@ struct AppTabView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.profile)
         }
+        .id(authToken) // to force proper tab bar refresh, otherwise an exception appears on sign in/sign out
         .accentColor(.textWhite)
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
             // TODO: check if we can make it better with macros

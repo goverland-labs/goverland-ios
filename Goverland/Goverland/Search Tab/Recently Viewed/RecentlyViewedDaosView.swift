@@ -1,5 +1,5 @@
 //
-//  DashboardRecentlyViewedDaosView.swift
+//  RecentlyViewedDaosView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-27.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct DashboardRecentlyViewedDaosView: View {
+struct RecentlyViewedDaosView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    @StateObject var dataSource = RecentlyViewedDaosDataSource.dashboard
+    @StateObject var dataSource = RecentlyViewedDaosDataSource.search
 
     var body: some View {
         if dataSource.failedToLoadInitialData {

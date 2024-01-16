@@ -11,6 +11,7 @@ import SwiftUI
 struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
 
+    private let showRecentlyViewedDAOs: Bool
     private let activeSheetManager: ActiveSheetManager
     private let bottomPadding: CGFloat
 
@@ -25,6 +26,7 @@ struct GroupedDaosView: View {
     private let onCategoryListAppear: (() -> Void)?
 
     init(dataSource: GroupedDaosDataSource,
+         showRecentlyViewedDAOs: Bool = false,
          activeSheetManager: ActiveSheetManager,
          bottomPadding: CGFloat = 0,
 
@@ -39,6 +41,7 @@ struct GroupedDaosView: View {
          onCategoryListAppear: (() -> Void)? = nil
     ) {
         self.dataSource = dataSource
+        self.showRecentlyViewedDAOs = showRecentlyViewedDAOs
         self.activeSheetManager = activeSheetManager
         self.bottomPadding = bottomPadding
 
@@ -55,7 +58,18 @@ struct GroupedDaosView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack {                
+            VStack(alignment: .leading) {
+                if showRecentlyViewedDAOs && !RecentlyViewedDaosDataSource.search.recentlyViewedDaos.isEmpty {
+                    Text("Recently viewed")
+                        .font(.subheadlineSemibold)
+                        .foregroundColor(.textWhite)
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
+                        .padding(.horizontal, 16)
+
+                    RecentlyViewedDaosView()
+                }
+
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
