@@ -42,9 +42,12 @@ class ConnectWalletModel: ObservableObject {
                     logInfo("[CoinbaseWallet] Response:\n \(response)")
                     guard let account = account else { return }
                     logInfo("[CoinbaseWallet] Account:\n \(account)")
+                    CoinbaseWalletManager.shared.account = account
+                    showLocalNotification(title: "Wallet connected", body: "Open the App to proceed")
+                    Tracker.track(.walletConnected)
                 case .failure(let error):
-                    logInfo("Error: \(error)")
-                }                
+                    logInfo("[CoinbaseWallet] Error: \(error)")
+                }
             }
         } else {
             Task {

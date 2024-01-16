@@ -131,9 +131,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ = WC_Manager.shared
 
         // Configure CoinbaseWalletSDK
-        CoinbaseWalletSDK.configure(
-            callback: URL(string: "https://links.goverland.xyz")!
-        )
+        _ = CoinbaseWalletManager.shared
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)

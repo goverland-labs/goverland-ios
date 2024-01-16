@@ -26,6 +26,7 @@
 		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
 		55143B562A585AC8003103B1 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B552A585AC8003103B1 /* Vote.swift */; };
 		5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5515241D2B565165005FBF86 /* CoinbaseWalletSDK */; };
+		551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */; };
 		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
 		551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
@@ -247,6 +248,7 @@
 		550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalInfoView.swift; sourceTree = "<group>"; };
 		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
 		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseWalletManager.swift; sourceTree = "<group>"; };
 		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
@@ -552,6 +554,14 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		5515241F2B565FF0005FBF86 /* Coinbase Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */,
+			);
+			path = "Coinbase Wallet";
+			sourceTree = "<group>";
+		};
 		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,12 +819,12 @@
 			path = "Sign in";
 			sourceTree = "<group>";
 		};
-		55EEA8812B2389B900242817 /* ReconnectWallet */ = {
+		55EEA8812B2389B900242817 /* Reconnect Wallet */ = {
 			isa = PBXGroup;
 			children = (
 				55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */,
 			);
-			path = ReconnectWallet;
+			path = "Reconnect Wallet";
 			sourceTree = "<group>";
 		};
 		55F143D0294B1DDA00D00B73 = {
@@ -911,9 +921,10 @@
 			isa = PBXGroup;
 			children = (
 				55E800A22AF825D900A43D5F /* Sign in */,
-				55EEA8812B2389B900242817 /* ReconnectWallet */,
 				55FD730C2AB75DC60081C38D /* WalletConnectV2 */,
+				5515241F2B565FF0005FBF86 /* Coinbase Wallet */,
 				55FD73132AB75DC60081C38D /* Connect Wallet */,
+				55EEA8812B2389B900242817 /* Reconnect Wallet */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -1541,6 +1552,7 @@
 				557C26562B31B2E800AAF26C /* Avatar.swift in Sources */,
 				BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */,
 				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
+				551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,

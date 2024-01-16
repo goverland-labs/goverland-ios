@@ -10,26 +10,41 @@ import Foundation
 import Combine
 import UIKit
 import WalletConnectSign
+import CoinbaseWalletSDK
 
 class SignInTwoStepsDataSource: ObservableObject {
     @Published private(set) var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published private(set) var cbWalletAccount = CoinbaseWalletManager.shared.account
     @Published private(set) var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(wcSessionUpdated(_:)), name: .wcSessionUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(cbWalletAccountUpdated(_:)), name: .cbWalletAccountUpdated, object: nil)
         listen_WC_Responses()
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
         DispatchQueue.main.async {
             self.wcSessionMeta = WC_Manager.shared.sessionMeta
+            self.cbWalletAccount = nil
         }
     }
 
-    private var address: String? {
+    @objc private func cbWalletAccountUpdated(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.cbWalletAccount = CoinbaseWalletManager.shared.account
+            self.wcSessionMeta = nil
+        }
+    }
+
+    private var wcAddress: String? {
         WC_Manager.shared.sessionMeta?.session.accounts.first?.address.lowercased()
+    }
+
+    private var cbAddress: String? {
+        CoinbaseWalletManager.shared.account?.address.lowercased()
     }
 
     private var siweMessage: String?
@@ -59,7 +74,7 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     private func signIn(signature: String) {
-        guard let address = address else { return }
+        guard let address = wcAddress else { return }
         let deviceName = UIDevice.current.name
 
         Task {
@@ -111,11 +126,17 @@ class SignInTwoStepsDataSource: ObservableObject {
     func authenticate() {
         infoMessage = nil
 
+        if wcSessionMeta != nil {
+            wcAuthenticate()
+        } else if cbAddress != nil {
+            cbAuthenticate()
+        }
+    }
+
+    private func wcAuthenticate() {
         guard let session = WC_Manager.shared.sessionMeta?.session,
-            let address = address else { return }
-
+           let address = wcAddress else { return }
         formSiweMessage(address: address)
-
         let params = AnyCodable([siweMessage, address])
 
         let request = Request(
@@ -133,6 +154,41 @@ class SignInTwoStepsDataSource: ObservableObject {
                 DispatchQueue.main.async {
                     self.infoMessage = "Please open your wallet to sign in"
                 }
+            }
+        }
+    }
+
+    private func cbAuthenticate() {
+        guard let address = cbAddress else { return }
+        formSiweMessage(address: address)
+
+        CoinbaseWalletSDK.shared.makeRequest(
+            Request(actions: [
+                Action(
+                    jsonRpc: .personal_sign(
+                        address: address,
+                        message: siweMessage!
+                    )
+                )
+            ])
+        ) { result in
+            switch result {
+            case .success(let message):
+                logInfo("[CoinbaseWallet] Authenticate response: \(message)")
+                guard let result = message.content.first,
+                      case .success(let signature) = result else {
+                    logError(GError.appInconsistency(reason: "Expected signature from Coinbase Wallet. Got \(message)"))
+                    return
+                }
+                logInfo("[CoinbaseWallet] Signature: \(signature)")
+                showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
+
+//                self?.signIn(signature: signature)
+
+            case .failure(let error):
+                logInfo("[CoinbaseWallet] Authenticate error: \(error)")
+                showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
+                showToast(error.localizedDescription)
             }
         }
     }
