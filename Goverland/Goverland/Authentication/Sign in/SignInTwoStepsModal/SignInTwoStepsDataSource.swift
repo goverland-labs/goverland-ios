@@ -74,7 +74,8 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     private func signIn(signature: String) {
-        guard let address = wcAddress else { return }
+        guard let address = (wcAddress ?? cbAddress) else { return }
+
         let deviceName = UIDevice.current.name
 
         Task {
@@ -101,18 +102,23 @@ class SignInTwoStepsDataSource: ObservableObject {
                                    deviceName: deviceName,
                                    message: siweMessage!,
                                    signature: signature)
-                .sink { _ in
+                .sink { response in
+                    logInfo("Response: \(response)")
                     // do nothing, error will be displayed to user
                 } receiveValue: { [weak self] response, headers in
                     guard let `self` = self else { return }
+
                     let wcSessionMeta = self.wcSessionMeta
+                    let cbAccount = self.cbWalletAccount
+
                     Task {
-                        // TODO: rework when we have a multi-profile. Logout should not be called.
+                        // TODO: rework when we have a multi-profile. Sign out should not be called.
                         try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
-                                                                    sessionId: response.sessionId, 
-                                                                    wcSessionMeta: wcSessionMeta)
+                                                                    sessionId: response.sessionId,
+                                                                    wcSessionMeta: wcSessionMeta, 
+                                                                    cbAccount: cbAccount)
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile
@@ -171,19 +177,19 @@ class SignInTwoStepsDataSource: ObservableObject {
                     )
                 )
             ])
-        ) { result in
+        ) { [weak self] result in
             switch result {
             case .success(let message):
                 logInfo("[CoinbaseWallet] Authenticate response: \(message)")
                 guard let result = message.content.first,
-                      case .success(let signature) = result else {
+                      case .success(let signature_JSONString) = result else {
                     logError(GError.appInconsistency(reason: "Expected signature from Coinbase Wallet. Got \(message)"))
                     return
                 }
+                let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
                 logInfo("[CoinbaseWallet] Signature: \(signature)")
                 showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
-
-//                self?.signIn(signature: signature)
+                self?.signIn(signature: signature)
 
             case .failure(let error):
                 logInfo("[CoinbaseWallet] Authenticate error: \(error)")
