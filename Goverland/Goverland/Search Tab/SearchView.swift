@@ -55,7 +55,7 @@ struct SearchView: View {
                         ZStack {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
-                                                showRecentlyViewed: true,
+                                                showRecentlyViewedDAOs: true,
                                                 activeSheetManager: activeSheetManger,
                                                 onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
