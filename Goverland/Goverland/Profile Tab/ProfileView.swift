@@ -225,7 +225,7 @@ fileprivate struct ProfileListView: View {
         let image: Image?
         let imageURL: URL?
         let name: String
-        let sessionExpiryDate: Date
+        let sessionExpiryDate: Date?
     }
 
     @State private var isSignOutPopoverPresented = false
@@ -264,10 +264,11 @@ fileprivate struct ProfileListView: View {
                                     .font(.bodyRegular)
                                     .foregroundColor(.textWhite)
 
-                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session expires \(date)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
+                                if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+                                    Text("Session expires \(date)")
+                                        .font(.footnoteRegular)
+                                        .foregroundColor(.textWhite60)
+                                }
                             }
 
                             Spacer()
@@ -366,6 +367,15 @@ fileprivate struct ProfileListView: View {
     }
 
     private func connectedWallet() -> ConnectedWallet? {
+        if let cbAccount = CoinbaseWalletManager.shared.account {
+            let cbWallet = Wallet.coinbase
+            return ConnectedWallet(
+                image: Image(cbWallet.image),
+                imageURL: nil,
+                name: cbWallet.name,
+                sessionExpiryDate: nil)
+        }
+
         guard let session = WC_Manager.shared.sessionMeta?.session else { return nil }
         let image: Image?
         let imageUrl: URL?

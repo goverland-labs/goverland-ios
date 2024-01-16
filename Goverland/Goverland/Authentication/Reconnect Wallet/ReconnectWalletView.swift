@@ -30,7 +30,7 @@ struct ReconnectWalletView: View {
             }
             .padding(16)
 
-            Text("Your WalletConnect session expired. Please reconnect your wallet.")
+            Text("Your wallet session expired.\n Please reconnect.")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
                 .multilineTextAlignment(.center)

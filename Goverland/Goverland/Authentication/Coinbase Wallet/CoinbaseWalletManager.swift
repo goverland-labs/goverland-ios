@@ -15,6 +15,7 @@ class CoinbaseWalletManager {
 
     private init() {
         configure()
+        getStoredAccount()
     }
 
     var account: Account? {
@@ -27,5 +28,16 @@ class CoinbaseWalletManager {
         CoinbaseWalletSDK.configure(
             callback: URL(string: "https://links.goverland.xyz")!
         )
+    }
+
+    private func getStoredAccount() {
+        Task {
+            if let selectedProfile = try? await UserProfile.selected(),
+                let cbAccountData = selectedProfile.cbAccountData,
+                let account = Account.from(data: cbAccountData)
+            {
+                self.account = account
+            }
+        }
     }
 }
