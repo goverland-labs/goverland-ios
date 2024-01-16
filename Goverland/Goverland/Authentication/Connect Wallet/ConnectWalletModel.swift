@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import WalletConnectModal
+import CoinbaseWalletSDK
 
 class ConnectWalletModel: ObservableObject {
     @Published private(set) var connecting = false
@@ -30,17 +31,34 @@ class ConnectWalletModel: ObservableObject {
 
     func connect(wallet: Wallet) {
         connecting = true
-        Task {
-            do {
-                guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
-                        let url = URL(string: "\(wallet.link)/wc?uri=\(wcUri.deeplinkUri)")
-                else {
-                    return
+        if wallet == .coinbase {
+            CoinbaseWalletSDK.shared.initiateHandshake(
+                initialActions: [
+                    Action(jsonRpc: .eth_requestAccounts)
+                ]
+            ) { result, account in
+                switch result {
+                case .success(let response):
+                    logInfo("[CoinbaseWallet] Response:\n \(response)")
+                    guard let account = account else { return }
+                    logInfo("[CoinbaseWallet] Account:\n \(account)")
+                case .failure(let error):
+                    logInfo("Error: \(error)")
+                }                
+            }
+        } else {
+            Task {
+                do {
+                    guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
+                          let url = URL(string: "\(wallet.link)/wc?uri=\(wcUri.deeplinkUri)")
+                    else {
+                        return
+                    }
+                    logInfo("[WC] URI: \(String(describing: wcUri))")
+                    openUrl(url)
+                } catch {
+                    showToast("Failed to connect. Please try again later.")
                 }
-                logInfo("[WC] URI: \(String(describing: wcUri))")
-                openUrl(url)
-            } catch {
-                showToast("Failed to connect. Please try again later.")
             }
         }
         connecting = false

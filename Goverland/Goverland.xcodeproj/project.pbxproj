@@ -25,6 +25,7 @@
 		550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */; };
 		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
 		55143B562A585AC8003103B1 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B552A585AC8003103B1 /* Vote.swift */; };
+		5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5515241D2B565165005FBF86 /* CoinbaseWalletSDK */; };
 		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
 		551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
@@ -450,6 +451,7 @@
 				55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */,
+				5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
@@ -1200,6 +1202,7 @@
 				55FD73242AB75DF80081C38D /* Starscream */,
 				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 				55EEC0332B2BB326007962BD /* CryptoSwift */,
+				5515241D2B565165005FBF86 /* CoinbaseWalletSDK */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -1244,6 +1247,7 @@
 				55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */,
 				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 				55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -1928,6 +1932,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MobileWalletProtocol/wallet-mobile-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
 		551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/quassum/SwiftUI-Tooltip.git";
@@ -2011,6 +2023,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5515241D2B565165005FBF86 /* CoinbaseWalletSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */;
+			productName = CoinbaseWalletSDK;
+		};
 		551E4A122AC85A9800C5F87A /* SwiftUITooltip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */;
