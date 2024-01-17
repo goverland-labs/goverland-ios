@@ -24,6 +24,14 @@ class CoinbaseWalletManager {
         }
     }
 
+    static func disconnect() {
+        logInfo("[CoinbaseWallet] App disconnecting from wallet")
+        CoinbaseWalletSDK.shared.resetSession()
+        Task {
+            try! await UserProfile.clearCoinbaseAccounts()
+        }
+    }
+
     private func configure() {
         CoinbaseWalletSDK.configure(
             callback: URL(string: "https://links.goverland.xyz")!

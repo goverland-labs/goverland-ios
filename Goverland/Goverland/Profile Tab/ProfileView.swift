@@ -275,9 +275,14 @@ fileprivate struct ProfileListView: View {
                         }
                         .swipeActions {
                             Button {
-                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                WC_Manager.disconnect(topic: topic)
-                                Tracker.track(.disconnect_WC_session)
+                                if wallet.name == Wallet.coinbase.name {
+                                    CoinbaseWalletManager.disconnect()
+                                    Tracker.track(.disconnectCoinbaseWallet)
+                                } else {
+                                    guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                                    WC_Manager.disconnect(topic: topic)
+                                    Tracker.track(.disconnect_WC_session)
+                                }
                             } label: {
                                 Text("Disconnect")
                                     .font(.bodyRegular)
@@ -364,10 +369,14 @@ fileprivate struct ProfileListView: View {
             // update "Connected wallet" view on session updates
             wcViewId = UUID()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
+            // update "Connected wallet" view on session updates
+            wcViewId = UUID()
+        }
     }
 
     private func connectedWallet() -> ConnectedWallet? {
-        if let cbAccount = CoinbaseWalletManager.shared.account {
+        if CoinbaseWalletManager.shared.account != nil {
             let cbWallet = Wallet.coinbase
             return ConnectedWallet(
                 image: Image(cbWallet.image),

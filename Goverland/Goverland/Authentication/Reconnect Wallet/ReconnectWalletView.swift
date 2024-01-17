@@ -89,7 +89,27 @@ struct ReconnectWalletView: View {
 
             dismiss()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showToast("Profile wallet successfully reconnected")
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
+            guard let account = CoinbaseWalletManager.shared.account else { return }
+            
+            if account.address.lowercased() != user.address.value.lowercased() {
+                wrongWalletConnected = true
+                CoinbaseWalletManager.disconnect()
+                CoinbaseWalletManager.shared.account = nil
+                Tracker.track(.reconnectWalletWrongWallet)
+                return
+            }
+
+            try! UserProfile.updateCoinbaseWalletAccountForSelectedProfile()
+            Tracker.track(.reconnectWalletSuccess)
+
+            dismiss()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 showToast("Profile wallet successfully reconnected")
             }
         }

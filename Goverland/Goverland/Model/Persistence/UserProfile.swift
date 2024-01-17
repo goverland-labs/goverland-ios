@@ -306,7 +306,7 @@ extension UserProfile {
     }
 
     @MainActor
-    /// Clears wcSessionMetaData for a profile.
+    /// Clears wcSessionMetaData for profiles.
     /// - Parameter topic: WalletConnect Session topic
     static func clear_WC_Sessions(topic: String) throws {
         let fetchDescriptor = FetchDescriptor<UserProfile>()
@@ -338,6 +338,38 @@ extension UserProfile {
             logInfo("[UserProfile] No profile with WC topic \(topic) found.")
         }
     }
+    
+    @MainActor
+    /// Clears cbAccountData for profiles.
+    static func clearCoinbaseAccounts() throws {
+        let fetchDescriptor = FetchDescriptor<UserProfile>()
+        let context = appContainer.mainContext
+        let profiles = try appContainer.mainContext.fetch(fetchDescriptor)
+        if profiles.isEmpty {
+            logInfo("[UserProfile] No profiles found in clearCoinbaseAccounts.")
+            CoinbaseWalletManager.shared.account = nil
+            return
+        }
+
+        var foundCount = 0
+
+        for profile in profiles {
+            if let data = profile.cbAccountData {
+                profile.cbAccountData = nil
+                foundCount += 1
+                if profile.selected {
+                    CoinbaseWalletManager.shared.account = nil
+                }
+            }
+        }
+
+        if foundCount > 0 {
+            logInfo("[UserProfile] Removed all Coinbase Wallet accounts from profiles. Found profiles: \(foundCount)")
+            try context.save()
+        } else {
+            logInfo("[UserProfile] No profile with Coinbase Wallet account found.")
+        }
+    }
 
     @MainActor
     /// Update stored session in selected profile with a value from cached session meta.
@@ -354,6 +386,24 @@ extension UserProfile {
             try context.save()
         } else {
             logError(GError.appInconsistency(reason: "[UserProfile] No selected profile found to update WC session."))
+        }
+    }
+
+    @MainActor
+    /// Update stored account in selected profile with a value from connected Coinbase Wallet account.
+    /// It is used when reconnecting an expired session for the selected profile.
+    static func updateCoinbaseWalletAccountForSelectedProfile() throws {
+        let account = CoinbaseWalletManager.shared.account
+        let fetchDescriptor = FetchDescriptor<UserProfile>(
+            predicate: #Predicate { $0.selected == true }
+        )
+        let context = appContainer.mainContext
+        if let profile = try appContainer.mainContext.fetch(fetchDescriptor).first {
+            logInfo("[UserProfile] Updating Coinbase Wallet account for selected profile \(profile.addressDescription).")
+            profile.cbAccountData = account?.data
+            try context.save()
+        } else {
+            logError(GError.appInconsistency(reason: "[UserProfile] No selected profile found to update Coinbase Wallet account."))
         }
     }
 }
