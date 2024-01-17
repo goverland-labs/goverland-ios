@@ -176,19 +176,26 @@ class CastYourVoteDataSource: ObservableObject {
             case .success(let message):
                 logInfo("[CoinbaseWallet] Signing vote response: \(message)")
 
-                guard let result = message.content.first,
-                      case .success(let signature_JSONString) = result else {
-                    logError(GError.appInconsistency(reason: "[CoinbaseWallet] Expected vote signature. Got \(message)"))
+                guard let result = message.content.first else {
+                    logInfo("[CoinbaseWallet] Did not get any result for vote signing")
                     return
                 }
-                let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
-                logInfo("[CoinbaseWallet] Vote signature: \(signature)")
 
-                self?.submiteVote(signature: signature)
+                switch result {
+                case .success(let signature_JSONString):
+                    let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                    logInfo("[CoinbaseWallet] Vote signature: \(signature)")
+                    self?.submiteVote(signature: signature)
+
+                case .failure(let actionError):
+                    logInfo("[CoinbaseWallet] Signing vote action error: \(actionError)")
+                    showToast(actionError.message)
+                }
 
             case .failure(let error):
                 logInfo("[CoinbaseWallet] Signing vote error: \(error)")
-                showToast(error.localizedDescription)
+                CoinbaseWalletManager.disconnect()
+                showToast("Please reconnect Coinbase Wallet")
             }
         }
     }

@@ -181,21 +181,26 @@ class SignInTwoStepsDataSource: ObservableObject {
             switch result {
             case .success(let message):
                 logInfo("[CoinbaseWallet] Authenticate response: \(message)")
-                guard let result = message.content.first,
-                      case .success(let signature_JSONString) = result else {
-                    logError(GError.appInconsistency(reason: "[CoinbaseWallet] Expected SIWE signature. Got \(message)"))
+
+                guard let result = message.content.first else {
+                    logInfo("[CoinbaseWallet] Did not get any result for SIWE signing")
                     return
                 }
-                let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
-                logInfo("[CoinbaseWallet] SIWE signature: \(signature)")
 
-                showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
-                self?.signIn(signature: signature)
+                switch result {
+                case .success(let signature_JSONString):
+                    let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                    logInfo("[CoinbaseWallet] SIWE signature: \(signature)")
+                    self?.signIn(signature: signature)
+                case .failure(let actionError):
+                    logInfo("[CoinbaseWallet] SIWE action error: \(actionError)")
+                    showToast(actionError.message)
+                }
 
             case .failure(let error):
                 logInfo("[CoinbaseWallet] SIWE error: \(error)")
-                showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
-                showToast(error.localizedDescription)
+                CoinbaseWalletManager.disconnect()
+                showToast("Please reconnect Coinbase Wallet")                
             }
         }
     }
