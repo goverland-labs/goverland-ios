@@ -10,6 +10,7 @@
 import Foundation
 import Combine
 import WalletConnectSign
+import CoinbaseWalletSDK
 
 class CastYourVoteDataSource: ObservableObject {
     let proposal: Proposal
@@ -149,13 +150,55 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     private func signTypedData(_ typedData: String, address: String) {
-        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
-        guard let session = WC_Manager.shared.sessionMeta?.session else { return }
-        let params = AnyCodable([address, typedData])
+        if let account = CoinbaseWalletManager.shared.account, account.address.lowercased() == address.lowercased() {
+            signTypedData_CoinbaseWallet(typedData, address: address)
+        } else if let session = WC_Manager.shared.sessionMeta?.session {
+            signTypedData_WC(typedData, address: address, topic: session.topic)
+        } else {
+            logInfo("[App] No wallet connected to sign typed data")
+        }
+    }
 
-        // TODO: check if all popular wallets support eth_sighTypedData_v4
+    private func signTypedData_CoinbaseWallet(_ typedData: String, address: String) {
+        logInfo("[CoinbaseWallet] eth_signTypedData(_v4): \(typedData)")
+
+        CoinbaseWalletSDK.shared.makeRequest(
+            Request(actions: [
+                Action(
+                    jsonRpc: .eth_signTypedData_v4(
+                        address: address,
+                        typedDataJson: JSONString(rawValue: typedData)!
+                    )
+                )
+            ])
+        ) { [weak self] result in
+            switch result {
+            case .success(let message):
+                logInfo("[CoinbaseWallet] Signing vote response: \(message)")
+
+                guard let result = message.content.first,
+                      case .success(let signature_JSONString) = result else {
+                    logError(GError.appInconsistency(reason: "[CoinbaseWallet] Expected vote signature. Got \(message)"))
+                    return
+                }
+                let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                logInfo("[CoinbaseWallet] Vote signature: \(signature)")
+
+                self?.submiteVote(signature: signature)
+
+            case .failure(let error):
+                logInfo("[CoinbaseWallet] Signing vote error: \(error)")
+                showToast(error.localizedDescription)
+            }
+        }
+    }
+
+    private func signTypedData_WC(_ typedData: String, address: String, topic: String) {
+        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
+
+        let params = AnyCodable([address, typedData])
         let request = Request(
-            topic: session.topic,
+            topic: topic,
             method: "eth_signTypedData_v4",
             params: params,
             chainId: Blockchain("eip155:1")!)
@@ -187,20 +230,20 @@ class CastYourVoteDataSource: ObservableObject {
                     return
                 }
 
-                logInfo("[WC] Response: \(response)")
+                logInfo("[WC] Vote signing response: \(response)")
 
                 switch response.result {
                 case .error(let rpcError):
-                    logInfo("[WC] Error: \(rpcError)")
+                    logInfo("[WC] Vote signing error: \(rpcError)")
                     showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
                     showToast(rpcError.localizedDescription)
                 case .response(let signature):
                     // signature here is AnyCodable
                     guard let signatureStr = signature.value as? String else {
-                        logError(GError.appInconsistency(reason: "Expected signature as string. Got \(signature)"))
+                        logError(GError.appInconsistency(reason: "Expected vote signature as string. Got \(signature)"))
                         return
                     }
-                    logInfo("[WC] Signature: \(signatureStr)")
+                    logInfo("[WC] Vote signature: \(signatureStr)")
                     showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
                     self.submiteVote(signature: signatureStr)
                 }

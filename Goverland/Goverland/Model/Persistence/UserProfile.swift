@@ -92,8 +92,7 @@ extension Array where Element == Avatar {
     }
 
     static func from(data: Data) -> [Avatar]? {
-        if let avatars = try? JSONDecoder().decode([Avatar].self, from: data) {
-            logInfo("[UserProfile] restored avatars array data")
+        if let avatars = try? JSONDecoder().decode([Avatar].self, from: data) {            
             return avatars
         }
         logInfo("[UserProfile] avatars not found")

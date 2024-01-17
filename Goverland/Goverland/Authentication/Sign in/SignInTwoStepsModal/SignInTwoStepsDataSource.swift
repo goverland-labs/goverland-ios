@@ -183,16 +183,17 @@ class SignInTwoStepsDataSource: ObservableObject {
                 logInfo("[CoinbaseWallet] Authenticate response: \(message)")
                 guard let result = message.content.first,
                       case .success(let signature_JSONString) = result else {
-                    logError(GError.appInconsistency(reason: "Expected signature from Coinbase Wallet. Got \(message)"))
+                    logError(GError.appInconsistency(reason: "[CoinbaseWallet] Expected SIWE signature. Got \(message)"))
                     return
                 }
                 let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
-                logInfo("[CoinbaseWallet] Signature: \(signature)")
+                logInfo("[CoinbaseWallet] SIWE signature: \(signature)")
+
                 showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
                 self?.signIn(signature: signature)
 
             case .failure(let error):
-                logInfo("[CoinbaseWallet] Authenticate error: \(error)")
+                logInfo("[CoinbaseWallet] SIWE error: \(error)")
                 showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
                 showToast(error.localizedDescription)
             }
