@@ -39,6 +39,10 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
     private var totalSkipped: Int?
 
+    // Computed var properties overrided in DaoInfoEventsDataSource
+
+    var authRequired: Bool  { true }
+
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
         APIService.inboxEvents()
     }
@@ -66,8 +70,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     private func loadInitialData() {
         // Fool protection
-        guard !SettingKeys.shared.authToken.isEmpty else { return }
-        
+        guard !authRequired || !SettingKeys.shared.authToken.isEmpty else { return }
+
         isLoading = true
         initialLoadingPublisher
             .sink { [weak self] completion in
