@@ -11,6 +11,7 @@
 
 APP_ICON_NAME = AppIcon-Staging
 PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.staging
+NOTIFICATION_EXTENSION_BUNDLE_IDENTIFIER = xyz.goverland.ios.staging.NotificationExtension
 
 // Firebase
 FIREBASE_CONFIG = GoogleService-Info.Staging
