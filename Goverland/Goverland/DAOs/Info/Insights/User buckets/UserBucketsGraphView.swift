@@ -52,7 +52,7 @@ struct UserBucketsGraphView: View {
                         .foregroundStyle(Color.textWhite)
                         .lineStyle(.init(lineWidth: 1, dash: [2]))
                         .annotation(
-                            position: ["8-12", "13+"].contains(selectedBucket) ? .leading : .trailing,
+                            position: annotationPositionForBucket(bucket: selectedBucket),
                             alignment: .center, spacing: 4
                         ) {
                             AnnotationView(bucket: selectedBucket, dataSource: dataSource)
@@ -64,6 +64,12 @@ struct UserBucketsGraphView: View {
                 "Voters": Color.primaryDim
             ])
             .chartSelected_X_String($selectedBucket)
+        }
+
+        private func annotationPositionForBucket(bucket: String) -> AnnotationPosition {
+            let groups = dataSource.groups.split(separator: ",").map(String.init)
+            guard let bucketIndex = groups.firstIndex(of: bucket) else { return .trailing}
+            return bucketIndex < groups.count / 2 ? .trailing : .leading
         }
     }
     

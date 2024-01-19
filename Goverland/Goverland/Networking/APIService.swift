@@ -145,8 +145,8 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func userBuckets(id: UUID) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoUserBucketsEndpoint(daoID: id)
+    static func userBuckets(id: UUID, groups: String) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoUserBucketsEndpoint(daoID: id, groups: groups)
         return shared.request(endpoint)
     }
     
