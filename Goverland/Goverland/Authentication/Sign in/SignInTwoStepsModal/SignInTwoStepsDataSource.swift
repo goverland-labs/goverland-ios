@@ -28,14 +28,18 @@ class SignInTwoStepsDataSource: ObservableObject {
     @objc private func wcSessionUpdated(_ notification: Notification) {
         DispatchQueue.main.async {
             self.wcSessionMeta = WC_Manager.shared.sessionMeta
-            self.cbWalletAccount = nil
+            if self.wcSessionMeta != nil {
+                self.cbWalletAccount = nil
+            }
         }
     }
 
     @objc private func cbWalletAccountUpdated(_ notification: Notification) {
         DispatchQueue.main.async {
             self.cbWalletAccount = CoinbaseWalletManager.shared.account
-            self.wcSessionMeta = nil
+            if self.cbWalletAccount != nil {
+                self.wcSessionMeta = nil
+            }
         }
     }
 
