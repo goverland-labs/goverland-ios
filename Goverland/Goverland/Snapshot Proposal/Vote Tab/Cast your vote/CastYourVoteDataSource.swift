@@ -211,7 +211,7 @@ class CastYourVoteDataSource: ObservableObject {
     private func submiteVote(signature: String) {
         isSubmitting = true
         guard let voteRequestId else { return }
-        APIService.submitVote(proposal: proposal, id: voteRequestId, signature: signature)
+        APIService.submitVote(id: voteRequestId, signature: signature)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isSubmitting = false

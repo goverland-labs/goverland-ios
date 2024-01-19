@@ -447,7 +447,7 @@ struct ProposalSubmitVoteEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, id: UUID, signature: String) {
+    init(id: UUID, signature: String) {
         let body: [String: TypedValue] = [
             "id": .str(id.uuidString),
             "sig": .str(signature)

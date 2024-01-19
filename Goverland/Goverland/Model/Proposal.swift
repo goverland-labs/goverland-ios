@@ -35,6 +35,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let scores: [Double]
     let scoresTotal: Double
     let votes: Int
+    let userVote: AnyVote?
     let dao: Dao
     let timeline: [TimelineEvent]
 
@@ -54,6 +55,14 @@ struct Proposal: Decodable, Hashable, Identifiable {
         enum BodyType: String, Decodable {
             case markdown
             case html
+        }
+    }
+
+    struct AnyVote {
+        var base: Any
+
+        init<Base: Decodable>(base: Base) {
+            self.base = base
         }
     }
 
@@ -108,6 +117,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case scores
         case scoresTotal = "scores_total"
         case votes
+        case userVote = "user_vote"
         case dao
         case timeline
     }
@@ -140,6 +150,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          scores: [Double],
          scoresTotal: Double,
          votes: Int,
+         userVote: AnyVote?,
          dao: Dao,
          timeline: [TimelineEvent])
     {
@@ -163,6 +174,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scores = scores
         self.scoresTotal = scoresTotal
         self.votes = votes
+        self.userVote = userVote
         self.dao = dao
         self.timeline = timeline
     }
@@ -222,6 +234,20 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scoresTotal = try container.decode(Double.self, forKey: .scoresTotal)
         self.votes = try container.decode(Int.self, forKey: .votes)
 
+        // Decoding properly user vote depending of privacy and type of the proposal
+        if self.privacy == .shutter {
+            self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<String>.self, forKey: .userVote))
+        } else {
+            switch self.type {
+            case .singleChoice, .basic:
+                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<Int>.self, forKey: .userVote))
+            case .approval, .rankedChoice:
+                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<[Int]>.self, forKey: .userVote))
+            case .weighted, .quadratic:
+                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: .userVote))
+            }
+        }
+
         do {
             self.dao = try container.decode(Dao.self, forKey: .dao)
         } catch {
@@ -268,7 +294,8 @@ extension Proposal {
         link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
-        votes: 731,
+        votes: 731, 
+        userVote: nil,
         dao: .aave,
         timeline: [])
 }
