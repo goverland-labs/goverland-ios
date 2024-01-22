@@ -9,6 +9,7 @@
 import SwiftUI
 import Firebase
 import SwiftData
+import CoinbaseWalletSDK
 
 let appContainer: ModelContainer = {
     do {
@@ -105,6 +106,11 @@ struct GoverlandApp: App {
 
     private func handleDeepLink(_ url: URL) {
         logInfo("[App] Open via a link: \(url.absoluteString)")
+
+        if (try? CoinbaseWalletSDK.shared.handleResponse(url)) == true {
+            logInfo("[CoinbaseWallet] Handled universal link")
+            return
+        }
     }
 }
 
@@ -123,6 +129,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
         _ = WC_Manager.shared
+
+        // Configure CoinbaseWalletSDK
+        _ = CoinbaseWalletManager.shared
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)

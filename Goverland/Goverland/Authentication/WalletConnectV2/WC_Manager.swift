@@ -26,7 +26,12 @@ class WC_Manager {
     /// It is always the session of selected UserProfile.
     var sessionMeta: WC_SessionMeta? {
         didSet {
-            NotificationCenter.default.post(name: .wcSessionUpdated, object: sessionMeta)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .wcSessionUpdated, object: self.sessionMeta)
+            }
+            if sessionMeta != nil {
+                CoinbaseWalletManager.shared.account = nil
+            }
         }
     }
 
@@ -39,6 +44,7 @@ class WC_Manager {
         Task {
             try? await WalletConnectModal.instance.disconnect(topic: topic)
             try! await UserProfile.clear_WC_Sessions(topic: topic)
+            WC_Manager.shared.sessionMeta = nil
         }
     }
 

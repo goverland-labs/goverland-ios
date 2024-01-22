@@ -67,6 +67,10 @@ struct SnapshotProposalVoteTabView: View {
         selectedProfile?.address.isEmpty ?? false
     }
 
+    private var coinbaseWalletConnected: Bool {
+        return CoinbaseWalletManager.shared.account != nil
+    }
+
     private var wcSessionExistsAndNotExpired: Bool {
         if let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired {
             return true
@@ -132,7 +136,7 @@ struct SnapshotProposalVoteTabView: View {
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
                             Tracker.track(.snpDetailsVote)
-                            if wcSessionExistsAndNotExpired {
+                            if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
                                 showVote = true
                             } else {
                                 showReconnectWallet = true

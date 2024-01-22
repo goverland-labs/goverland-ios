@@ -225,7 +225,7 @@ fileprivate struct ProfileListView: View {
         let image: Image?
         let imageURL: URL?
         let name: String
-        let sessionExpiryDate: Date
+        let sessionExpiryDate: Date?
     }
 
     @State private var isSignOutPopoverPresented = false
@@ -264,19 +264,25 @@ fileprivate struct ProfileListView: View {
                                     .font(.bodyRegular)
                                     .foregroundColor(.textWhite)
 
-                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session expires \(date)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
+                                if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+                                    Text("Session expires \(date)")
+                                        .font(.footnoteRegular)
+                                        .foregroundColor(.textWhite60)
+                                }
                             }
 
                             Spacer()
                         }
                         .swipeActions {
                             Button {
-                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                WC_Manager.disconnect(topic: topic)
-                                Tracker.track(.disconnect_WC_session)
+                                if wallet.name == Wallet.coinbase.name {
+                                    CoinbaseWalletManager.disconnect()
+                                    Tracker.track(.disconnectCoinbaseWallet)
+                                } else {
+                                    guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                                    WC_Manager.disconnect(topic: topic)
+                                    Tracker.track(.disconnect_WC_session)
+                                }
                             } label: {
                                 Text("Disconnect")
                                     .font(.bodyRegular)
@@ -363,9 +369,22 @@ fileprivate struct ProfileListView: View {
             // update "Connected wallet" view on session updates
             wcViewId = UUID()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
+            // update "Connected wallet" view on session updates
+            wcViewId = UUID()
+        }
     }
 
     private func connectedWallet() -> ConnectedWallet? {
+        if CoinbaseWalletManager.shared.account != nil {
+            let cbWallet = Wallet.coinbase
+            return ConnectedWallet(
+                image: Image(cbWallet.image),
+                imageURL: nil,
+                name: cbWallet.name,
+                sessionExpiryDate: nil)
+        }
+
         guard let session = WC_Manager.shared.sessionMeta?.session else { return nil }
         let image: Image?
         let imageUrl: URL?

@@ -65,6 +65,11 @@ struct ConnectWalletView: View {
             // session settled
             dismiss()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
+            guard notification.object != nil else { return }
+            // account received
+            dismiss()
+        }
         .onAppear {
             Tracker.track(.screencConnectWallet)
         }
