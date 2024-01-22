@@ -20,7 +20,12 @@ class CoinbaseWalletManager {
 
     var account: Account? {
         didSet {
-            NotificationCenter.default.post(name: .cbWalletAccountUpdated, object: account)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .cbWalletAccountUpdated, object: self.account)
+            }
+            if account != nil {
+                WC_Manager.shared.sessionMeta = nil
+            }
         }
     }
 
@@ -29,6 +34,7 @@ class CoinbaseWalletManager {
         CoinbaseWalletSDK.shared.resetSession()
         Task {
             try! await UserProfile.clearCoinbaseAccounts()
+            CoinbaseWalletManager.shared.account = nil
         }
     }
 

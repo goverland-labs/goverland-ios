@@ -79,7 +79,6 @@ struct ReconnectWalletView: View {
             if sessionMeta.session.accounts.first?.address.lowercased() != user.address.value.lowercased() {
                 wrongWalletConnected = true
                 WC_Manager.disconnect(topic: sessionMeta.session.topic)
-                WC_Manager.shared.sessionMeta = nil
                 Tracker.track(.reconnectWalletWrongWallet)
                 return
             }
@@ -99,7 +98,6 @@ struct ReconnectWalletView: View {
             if account.address.lowercased() != user.address.value.lowercased() {
                 wrongWalletConnected = true
                 CoinbaseWalletManager.disconnect()
-                CoinbaseWalletManager.shared.account = nil
                 Tracker.track(.reconnectWalletWrongWallet)
                 return
             }
