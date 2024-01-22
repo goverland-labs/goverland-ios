@@ -68,7 +68,10 @@ struct UserBucketsGraphView: View {
 
         private func annotationPositionForBucket(bucket: String) -> AnnotationPosition {
             let groups = dataSource.groups.split(separator: ",").map(String.init)
-            guard let bucketIndex = groups.firstIndex(of: bucket) else { return .trailing}
+            guard let bucketIndex = groups.firstIndex(of: bucket) else {
+                // last item from backend returned with `+` suffix
+                return .leading
+            }
             return bucketIndex < groups.count / 2 ? .trailing : .leading
         }
     }

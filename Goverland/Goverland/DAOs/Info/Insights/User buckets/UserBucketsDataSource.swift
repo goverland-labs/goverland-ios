@@ -18,8 +18,9 @@ class UserBucketsDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     var groups: String {
-        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000]
-        return arr.dropFirst().reduce("1") { r, next in
+        let arr = Array(stride(from: 1, through: 15, by: 1))
+        let first = arr[0]
+        return arr.dropFirst().reduce("\(first)") { r, next in
             if next <= dao.proposals {
                 return "\(r),\(next)"
             }
