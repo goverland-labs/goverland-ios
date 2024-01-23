@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Wallet: Identifiable {
+struct Wallet: Identifiable, Equatable {
     let image: String
     let name: String
     let link: URL
@@ -19,7 +19,7 @@ struct Wallet: Identifiable {
     // MARK: - Recommended default wallets
 
     private static let _required: [Wallet] = [.zerion]
-    private static let _recommended: [Wallet] = [.metamask, .rainbow, .trust]
+    private static let _recommended: [Wallet] = [.metamask, .coinbase, .rainbow, .trust]
 
     static var recommended: [Wallet] {
         var wallets = _required
@@ -70,6 +70,15 @@ struct Wallet: Identifiable {
         link: URL(string: "https://metamask.app.link")!,
         scheme: "metamask",
         id: "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96")
+
+    // CoinbaseWalletSDK
+    static let coinbase = Wallet(
+        image: "coinbase",
+        name: "Coinbase Wallet",
+        link: URL(string: "https://www.coinbase.com/wallet")!,
+        scheme: "cbwallet",
+        id: "none"
+    )
 
     static let uniswap = Wallet(
         image: "uniswap",

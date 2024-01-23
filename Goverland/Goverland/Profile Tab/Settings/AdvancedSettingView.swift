@@ -22,6 +22,7 @@ struct AdvancedSettingView: View {
                 Button("RESET") {
                     SettingKeys.reset()
                     WC_Manager.shared.sessionMeta = nil
+                    CoinbaseWalletManager.shared.account = nil
                     try! modelContext.delete(model: UserProfile.self)
                     try! modelContext.save()
                     fatalError("Reset the app")

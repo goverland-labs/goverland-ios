@@ -63,6 +63,27 @@ struct SignInTwoStepsView: View {
                                 .font(.footnoteRegular)
                         }
                     }
+                } else if let account = dataSource.cbWalletAccount {
+                    VStack(alignment: .trailing, spacing: 4) {
+                        HStack {
+                            Image(Wallet.coinbase.image)
+                                .frame(width: 24, height: 24)
+                                .scaledToFit()
+                                .clipShape(Circle())
+
+                            Image(systemName: "checkmark.circle.fill")
+                                .accentColor(.primaryDim)
+                                .font(.system(size: 24))
+                        }
+
+                        Button(action: {
+                            showSelectWallet = true
+                        }) {
+                            Text("Change wallet")
+                                .foregroundColor(.primaryDim)
+                                .font(.footnoteRegular)
+                        }
+                    }
                 } else {
                     VStack(alignment: .trailing, spacing: 4) {
                         Circle()
@@ -98,7 +119,7 @@ struct SignInTwoStepsView: View {
 
             Spacer()
 
-            if dataSource.wcSessionMeta == nil {
+            if dataSource.wcSessionMeta == nil && dataSource.cbWalletAccount == nil {
                 PrimaryButton("Connect wallet") {
                     showSelectWallet = true
                 }

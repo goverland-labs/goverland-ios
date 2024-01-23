@@ -10,26 +10,45 @@ import Foundation
 import Combine
 import UIKit
 import WalletConnectSign
+import CoinbaseWalletSDK
 
 class SignInTwoStepsDataSource: ObservableObject {
     @Published private(set) var wcSessionMeta = WC_Manager.shared.sessionMeta
+    @Published private(set) var cbWalletAccount = CoinbaseWalletManager.shared.account
     @Published private(set) var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(wcSessionUpdated(_:)), name: .wcSessionUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(cbWalletAccountUpdated(_:)), name: .cbWalletAccountUpdated, object: nil)
         listen_WC_Responses()
     }
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
         DispatchQueue.main.async {
             self.wcSessionMeta = WC_Manager.shared.sessionMeta
+            if self.wcSessionMeta != nil {
+                self.cbWalletAccount = nil
+            }
         }
     }
 
-    private var address: String? {
+    @objc private func cbWalletAccountUpdated(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.cbWalletAccount = CoinbaseWalletManager.shared.account
+            if self.cbWalletAccount != nil {
+                self.wcSessionMeta = nil
+            }
+        }
+    }
+
+    private var wcAddress: String? {
         WC_Manager.shared.sessionMeta?.session.accounts.first?.address.lowercased()
+    }
+
+    private var cbAddress: String? {
+        CoinbaseWalletManager.shared.account?.address.lowercased()
     }
 
     private var siweMessage: String?
@@ -59,7 +78,8 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     private func signIn(signature: String) {
-        guard let address = address else { return }
+        guard let address = (wcAddress ?? cbAddress) else { return }
+
         let deviceName = UIDevice.current.name
 
         Task {
@@ -86,18 +106,23 @@ class SignInTwoStepsDataSource: ObservableObject {
                                    deviceName: deviceName,
                                    message: siweMessage!,
                                    signature: signature)
-                .sink { _ in
+                .sink { response in
+                    logInfo("Response: \(response)")
                     // do nothing, error will be displayed to user
                 } receiveValue: { [weak self] response, headers in
                     guard let `self` = self else { return }
+
                     let wcSessionMeta = self.wcSessionMeta
+                    let cbAccount = self.cbWalletAccount
+
                     Task {
-                        // TODO: rework when we have a multi-profile. Logout should not be called.
+                        // TODO: rework when we have a multi-profile. Sign out should not be called.
                         try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
-                                                                    sessionId: response.sessionId, 
-                                                                    wcSessionMeta: wcSessionMeta)
+                                                                    sessionId: response.sessionId,
+                                                                    wcSessionMeta: wcSessionMeta, 
+                                                                    cbAccount: cbAccount)
                         try! await profile.select()
                     }
                     ProfileDataSource.shared.profile = response.profile
@@ -111,11 +136,17 @@ class SignInTwoStepsDataSource: ObservableObject {
     func authenticate() {
         infoMessage = nil
 
+        if wcSessionMeta != nil {
+            wcAuthenticate()
+        } else if cbAddress != nil {
+            cbAuthenticate()
+        }
+    }
+
+    private func wcAuthenticate() {
         guard let session = WC_Manager.shared.sessionMeta?.session,
-            let address = address else { return }
-
+           let address = wcAddress else { return }
         formSiweMessage(address: address)
-
         let params = AnyCodable([siweMessage, address])
 
         let request = Request(
@@ -133,6 +164,47 @@ class SignInTwoStepsDataSource: ObservableObject {
                 DispatchQueue.main.async {
                     self.infoMessage = "Please open your wallet to sign in"
                 }
+            }
+        }
+    }
+
+    private func cbAuthenticate() {
+        guard let address = cbAddress else { return }
+        formSiweMessage(address: address)
+
+        CoinbaseWalletSDK.shared.makeRequest(
+            Request(actions: [
+                Action(
+                    jsonRpc: .personal_sign(
+                        address: address,
+                        message: siweMessage!
+                    )
+                )
+            ])
+        ) { [weak self] result in
+            switch result {
+            case .success(let message):
+                logInfo("[CoinbaseWallet] Authenticate response: \(message)")
+
+                guard let result = message.content.first else {
+                    logInfo("[CoinbaseWallet] Did not get any result for SIWE signing")
+                    return
+                }
+
+                switch result {
+                case .success(let signature_JSONString):
+                    let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                    logInfo("[CoinbaseWallet] SIWE signature: \(signature)")
+                    self?.signIn(signature: signature)
+                case .failure(let actionError):
+                    logInfo("[CoinbaseWallet] SIWE action error: \(actionError)")
+                    showToast(actionError.message)
+                }
+
+            case .failure(let error):
+                logInfo("[CoinbaseWallet] SIWE error: \(error)")
+                CoinbaseWalletManager.disconnect()
+                showToast("Please reconnect Coinbase Wallet")                
             }
         }
     }
