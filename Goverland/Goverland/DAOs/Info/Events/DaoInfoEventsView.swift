@@ -60,8 +60,7 @@ struct DaoInfoEventsView: View {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: false,
-                                                 displayUnreadIndicator: false) {
+                                                 isRead: false) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
                             .listRowSeparator(.hidden)

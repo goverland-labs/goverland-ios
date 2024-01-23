@@ -85,7 +85,6 @@ fileprivate struct _InboxView: View {
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: selectedEventIndex == index,
                                                  isRead: event.readAt != nil,
-                                                 displayUnreadIndicator: event.readAt == nil,
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)

@@ -59,8 +59,7 @@ struct ArchiveView: View {
                             let proposal = archive.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: archive.readAt != nil,
-                                                 displayUnreadIndicator: archive.readAt == nil) {
+                                                 isRead: archive.readAt != nil) {
                                 ProposalSharingMenu(link: proposal.link)
                             }
                             .swipeActions {

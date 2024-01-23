@@ -72,25 +72,27 @@ struct Proposal: Decodable, Hashable, Identifiable {
     }
 
     enum State: String, Decodable {
+        case pending
         case active
-        case closed
         case failed
         case succeeded
         case defeated
-        case queued
-        case pending
-        case executed
+        case canceled
+//        case queued
+//        case executed
+//        case closed
 
         var localizedName: String {
             switch self {
+            case .pending: return "Pending"
             case .active: return "Active vote"
-            case .closed: return "Closed"
             case .failed: return "Failed"
             case .succeeded: return "Succeeded"
             case .defeated: return "Defeated"
-            case .queued: return "Queued"
-            case .pending: return "Pending"
-            case .executed: return "Executed"
+            case .canceled: return "Cancelled"
+//            case .queued: return "Queued"
+//            case .executed: return "Executed"
+//            case .closed: return "Closed"
             }
         }
     }
@@ -235,18 +237,32 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.votes = try container.decode(Int.self, forKey: .votes)
 
         // Decoding properly user vote depending of privacy and type of the proposal
-        if self.privacy == .shutter {
-            self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<String>.self, forKey: .userVote))
-        } else {
-            switch self.type {
-            case .singleChoice, .basic:
-                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<Int>.self, forKey: .userVote))
-            case .approval, .rankedChoice:
-                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<[Int]>.self, forKey: .userVote))
-            case .weighted, .quadratic:
-                self.userVote = AnyVote(base: try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: .userVote))
+        var _userVote: AnyVote?
+        do {
+            if self.privacy == .shutter {
+                if let vote = try container.decodeIfPresent(Vote<String>.self, forKey: .userVote) {
+                    _userVote = AnyVote(base: vote)
+                }
+            } else {
+                switch self.type {
+                case .singleChoice, .basic:
+                    if let vote = try container.decodeIfPresent(Vote<Int>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                case .approval, .rankedChoice:
+                    if let vote = try container.decodeIfPresent(Vote<[Int]>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                case .weighted, .quadratic:
+                    if let vote = try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                }
             }
+        } catch {
+            logError(GError.errorDecodingData(error: error, context: "Decoding `user_vote`: Proposal ID: \(id)"))
         }
+        self.userVote = _userVote
 
         do {
             self.dao = try container.decode(Dao.self, forKey: .dao)
