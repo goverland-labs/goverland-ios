@@ -540,6 +540,19 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkEventUnreadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/mark-as-unread" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
 struct MarkAllEventsReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
