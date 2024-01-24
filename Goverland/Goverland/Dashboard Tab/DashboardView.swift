@@ -22,6 +22,7 @@ struct DashboardView: View {
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
+        FollowedDAOsActiveVoteDataSource.shared.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
@@ -53,6 +54,10 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
 
+                if FollowedDAOsActiveVoteDataSource.shared.daos.isEmpty {
+                    FollowedDAOsActiveVoteDataSource.shared.refresh()
+                }
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
@@ -74,8 +79,6 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
-                case .ecosystemCharts:
-                    EcosystemChartsFullView()
                 case .hotProposals:
                     TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
                                          path: $path,
@@ -98,6 +101,8 @@ struct DashboardView: View {
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
+                case .ecosystemCharts:
+                    EcosystemChartsFullView()
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
@@ -143,7 +148,8 @@ fileprivate struct SignedInUserDashboardView: View {
     var body: some View {
         // TODO: ProposalOfDayView section
 
-        // TODO: WaitingForYourVoteView section
+        SectionHeader(header: "Followed DAOs with active vote")
+        DashboardFollowedDAOsActiveVote()
 
         SectionHeader(header: "New DAOs") {
             path.append(Path.newDaos)
@@ -163,7 +169,7 @@ fileprivate struct SignedInUserDashboardView: View {
         DashboardHotProposalsView(path: $path)
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-        // Enable after public launch
+        // TODO: PRO subscription feature
 //                {
 //                    path.append(Path.ecosystemCharts)
 //                }

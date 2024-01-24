@@ -128,6 +128,17 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func daosWithActiveVote() -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "followed", value: "true"),
+            URLQueryItem(name: "activeVote", value: "true"),
+            URLQueryItem(name: "offset", value: "0"),
+            URLQueryItem(name: "limit", value: "100")
+        ]
+        let endpoint = DaoListEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     static func topDaos() -> AnyPublisher<(DaoTopEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DaoTopEndpoint()
         return shared.request(endpoint)
