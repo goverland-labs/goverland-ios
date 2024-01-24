@@ -145,8 +145,11 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func userBuckets(id: UUID) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoUserBucketsEndpoint(daoID: id)
+    static func userBuckets(id: UUID, groups: String) -> AnyPublisher<(DaoUserBucketsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "groups", value: groups)
+        ]
+        let endpoint = DaoUserBucketsEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
     
@@ -167,7 +170,7 @@ extension APIService {
     
     static func mutualDaos(id: UUID,
                            limit: Int = 21) -> AnyPublisher<(MutualDaosEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         let endpoint = MutualDaosEndpoint(daoID: id, queryParameters: queryParameters)

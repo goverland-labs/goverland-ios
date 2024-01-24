@@ -211,11 +211,13 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     typealias ResponseType = [UserBuckets]
     
     let daoID: UUID
-    var path: String { "analytics/voter-buckets/\(daoID)" }
+    var path: String { "analytics/voter-buckets-groups/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 

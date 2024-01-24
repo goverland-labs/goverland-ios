@@ -10,19 +10,26 @@ import SwiftUI
 import Combine
 
 class UserBucketsDataSource: ObservableObject, Refreshable {
-    private let daoID: UUID
-    
+    private let dao: Dao
+
     @Published var userBuckets: [UserBuckets] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    
-    init(daoID: UUID) {
-        self.daoID = daoID
+
+    var groups: String {
+        let arr = Array(stride(from: 1, through: 15, by: 1))
+        let first = arr[0]
+        return arr.dropFirst().reduce("\(first)") { r, next in
+            if next <= dao.proposals {
+                return "\(r),\(next)"
+            }
+            return r
+        }
     }
-    
-    convenience init(dao: Dao) {
-        self.init(daoID: dao.id)
+
+    init(dao: Dao) {
+        self.dao = dao
     }
     
     func refresh() {
@@ -34,7 +41,7 @@ class UserBucketsDataSource: ObservableObject, Refreshable {
     }
     
     private func loadInitialData() {
-        APIService.userBuckets(id: daoID)
+        APIService.userBuckets(id: dao.id, groups: groups)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
