@@ -1,8 +1,8 @@
 //
-//  FollowedDAOsActiveVoteDataSource.swift
+//  ProfileHasVotingPowerDataSource.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 24.01.24.
+//  Created by Andrey Scherbovich on 25.01.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 	
@@ -10,34 +10,37 @@
 import Foundation
 import Combine
 
-class FollowedDAOsActiveVoteDataSource: ObservableObject, Refreshable {
-    @Published var daos: [Dao] = []
-    @Published var failedToLoadInitialData: Bool = false
+class ProfileHasVotingPowerDataSource: ObservableObject, Refreshable {
+    @Published var proposals: [Proposal] = []
+    @Published var failedToLoadInitialData = false
+    @Published var isLoading = false
+
     private var cancellables = Set<AnyCancellable>()
 
-    static let dashboard = FollowedDAOsActiveVoteDataSource()
-    
+    static let dashboard = ProfileHasVotingPowerDataSource()
+
     private init() {}
 
     func refresh() {
-        daos = []
+        proposals = []
         failedToLoadInitialData = false
+        isLoading = false
         cancellables = Set<AnyCancellable>()
 
         loadInitialData()
     }
 
     private func loadInitialData() {
-        guard !SettingKeys.shared.authToken.isEmpty else { return }
-
-        APIService.daosWithActiveVote()
+        isLoading = true
+        APIService.profileHasVotingPower()
             .sink { [weak self] completion in
+                self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] result, _ in
-                self?.daos = result
+            } receiveValue: { [weak self] proposals, headers in
+                self?.proposals = proposals
             }
             .store(in: &cancellables)
     }

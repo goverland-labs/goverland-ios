@@ -10,7 +10,34 @@
 import SwiftUI
 
 struct ProfileHasVotingPowerView: View {
+    @StateObject var dataSource = ProfileHasVotingPowerDataSource.dashboard
+    @Binding var path: NavigationPath
+    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+
     var body: some View {
-        Text("Hello, World!")
+        Group {
+            if dataSource.failedToLoadInitialData {
+                RefreshIcon {
+                    dataSource.refresh()
+                }
+            } else if dataSource.isLoading && dataSource.proposals.count == 0 {
+                ForEach(0..<3) { _ in
+                    ShimmerProposalListItemCondensedView()
+                        .padding(.horizontal, 12)
+                }
+            } else {
+                ForEach(dataSource.proposals.prefix(3)) { proposal in
+                    ProposalListItemCondensedView(proposal: proposal) {
+                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                        Tracker.track(.dashCanVoteOpenDao)
+                    }
+                    .padding(.horizontal, 12)
+                    .onTapGesture {
+                        Tracker.track(.dashCanVoteOpenPrp)
+                        path.append(proposal)
+                    }
+                }
+            }
+        }
     }
 }

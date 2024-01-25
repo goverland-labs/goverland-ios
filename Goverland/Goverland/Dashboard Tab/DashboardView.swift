@@ -23,10 +23,11 @@ struct DashboardView: View {
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
-        FollowedDAOsActiveVoteDataSource.shared.refresh()
+        FollowedDAOsActiveVoteDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
+        ProfileHasVotingPowerDataSource.dashboard.refresh()
         EcosystemDashboardDataSource.shared.refresh()
     }
 
@@ -55,8 +56,8 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
 
-                if FollowedDAOsActiveVoteDataSource.shared.daos.isEmpty {
-                    FollowedDAOsActiveVoteDataSource.shared.refresh()
+                if FollowedDAOsActiveVoteDataSource.dashboard.daos.isEmpty {
+                    FollowedDAOsActiveVoteDataSource.dashboard.refresh()
                 }
 
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
@@ -69,6 +70,10 @@ struct DashboardView: View {
 
                 if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
                     GroupedDaosDataSource.popularDaos.refresh()
+                }
+
+                if ProfileHasVotingPowerDataSource.dashboard.proposals.isEmpty {
+                    ProfileHasVotingPowerDataSource.dashboard.refresh()
                 }
 
                 if EcosystemDashboardDataSource.shared.charts == nil {
@@ -103,7 +108,7 @@ struct DashboardView: View {
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
                 case .profileHasVotingPower:
-                    ProfileHasVotingPowerFullView()
+                    ProfileHasVotingPowerFullView(path: $path)
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
                 }
@@ -162,7 +167,7 @@ fileprivate struct SignedInUserDashboardView: View {
         SectionHeader(header: "You have voting power") {
             path.append(Path.profileHasVotingPower)
         }
-        ProfileHasVotingPowerView()
+        ProfileHasVotingPowerView(path: $path)
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)

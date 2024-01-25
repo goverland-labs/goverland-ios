@@ -154,6 +154,11 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
 
     var path: String = "me/can-vote"
     var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
 }
 
 // MARK: - DAOs

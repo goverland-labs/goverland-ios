@@ -36,12 +36,12 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"
-    case screenDashHotList = "screen_dash_hot_list"
     // Followed DAOs with active vote
     case dashFollowedDaoActiveVoteOpenDao = "dash_followed_av_open_dao"
     // Hot Proposals
-    case dashHotOpenPrp = "dash_hot_open_prp"
     case dashHotOpenDao = "dash_hot_open_dao"
+    case dashHotOpenPrp = "dash_hot_open_prp"
+    case screenDashHotList = "screen_dash_hot_list"
     case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
     case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
     // New DAOs
@@ -60,6 +60,12 @@ enum TrackingEvent: String, Trackable {
     case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
     case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
     case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
+    // Profile has voting power
+    case dashCanVoteOpenDao = "dash_can_vote_open_dao"
+    case dashCanVoteOpenPrp = "dash_can_vote_open_prp"
+    case screenDashCanVote = "screen_dash_can_vote"
+    case dashCanVoteOpenPrpFromList = "dash_can_vote_open_prp_from_list"
+    case dashCanVoteOpenDaoFromList = "dash_can_vote_open_dao_from_list"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"

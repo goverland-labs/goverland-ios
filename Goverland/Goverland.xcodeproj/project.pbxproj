@@ -41,6 +41,7 @@
 		552ACFD32B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD22B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift */; };
 		552ACFD62B623CE30038A09F /* ProfileHasVotingPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD52B623CE30038A09F /* ProfileHasVotingPowerView.swift */; };
 		552ACFD82B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */; };
+		552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
@@ -267,6 +268,7 @@
 		552ACFD22B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DAORoundViewWithActiveVotes.swift; path = "Goverland/UI Components/DAORoundViewWithActiveVotes.swift"; sourceTree = SOURCE_ROOT; };
 		552ACFD52B623CE30038A09F /* ProfileHasVotingPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerView.swift; sourceTree = "<group>"; };
 		552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerFullView.swift; sourceTree = "<group>"; };
+		552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerDataSource.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 			children = (
 				552ACFD52B623CE30038A09F /* ProfileHasVotingPowerView.swift */,
 				552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */,
+				552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */,
 			);
 			path = "Can Vote";
 			sourceTree = "<group>";
@@ -1553,6 +1556,7 @@
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
+				552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */,
 				BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */,
 				557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */,
 				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,

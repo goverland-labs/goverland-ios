@@ -106,8 +106,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func profileHasVotingPower() -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = ProfileHasVotingPowerEndpoint()
+    static func profileHasVotingPower(offset: Int = 0,
+                                      limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = ProfileHasVotingPowerEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

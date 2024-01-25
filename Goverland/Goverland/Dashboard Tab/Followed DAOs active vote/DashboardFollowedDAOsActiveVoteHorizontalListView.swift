@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DashboardFollowedDAOsActiveVoteHorizontalListView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    @ObservedObject var dataSource = FollowedDAOsActiveVoteDataSource.shared
+    @ObservedObject var dataSource = FollowedDAOsActiveVoteDataSource.dashboard
 
     var body: some View {
         if dataSource.failedToLoadInitialData {
