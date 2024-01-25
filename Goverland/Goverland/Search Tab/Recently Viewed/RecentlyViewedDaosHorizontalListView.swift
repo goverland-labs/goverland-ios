@@ -1,17 +1,16 @@
 //
-//  DashboardFollowedDAOsActiveVoteView.swift
+//  RecentlyViewedDaosView.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 24.01.24.
+//  Created by Jenny Shalai on 2023-10-27.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
 
 import SwiftUI
 
-struct DashboardFollowedDAOsActiveVoteView: View {
+struct RecentlyViewedDaosHorizontalListView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
-    @ObservedObject var dataSource = FollowedDAOsActiveVoteDataSource.shared
+    @StateObject var dataSource = RecentlyViewedDaosDataSource.search
 
     var body: some View {
         if dataSource.failedToLoadInitialData {
@@ -21,18 +20,18 @@ struct DashboardFollowedDAOsActiveVoteView: View {
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    if dataSource.daos.isEmpty { // initial loading
+                    if dataSource.recentlyViewedDaos.isEmpty { // initial loading
                         ForEach(0..<3) { _ in
                             ShimmerView()
                                 .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                                 .cornerRadius(Avatar.Size.m.daoImageSize / 2)
                         }
                     } else {
-                        ForEach(dataSource.daos) { dao in
+                        ForEach(dataSource.recentlyViewedDaos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
                                 activeSheetManger.activeSheet = .daoInfo(dao)
-                                Tracker.track(.dashFollowedDaoActiveVoteOpenDao)
-                            }
+                                Tracker.track(.searchRecentDaoOpen)
+                            }                            
                         }
                     }
                 }

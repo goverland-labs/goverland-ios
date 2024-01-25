@@ -106,6 +106,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func profileHasVotingPower() -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProfileHasVotingPowerEndpoint()
+        return shared.request(endpoint)
+    }
+
     // MARK: - DAOs
     
     static func daos(offset: Int = 0,

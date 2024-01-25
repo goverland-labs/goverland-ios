@@ -12,6 +12,7 @@ fileprivate enum Path {
     case hotProposals
     case newDaos
     case popularDaos
+    case profileHasVotingPower
     case ecosystemCharts
 }
 
@@ -101,6 +102,8 @@ struct DashboardView: View {
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
+                case .profileHasVotingPower:
+                    ProfileHasVotingPowerFullView()
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
                 }
@@ -149,19 +152,22 @@ fileprivate struct SignedInUserDashboardView: View {
         // TODO: ProposalOfDayView section
 
         SectionHeader(header: "Followed DAOs with active vote")
-        DashboardFollowedDAOsActiveVoteView()
+        DashboardFollowedDAOsActiveVoteHorizontalListView()
 
         SectionHeader(header: "New DAOs") {
             path.append(Path.newDaos)
         }
         DashboardNewDaosView()
 
-        // TODO: You have voting power
+        SectionHeader(header: "You have voting power") {
+            path.append(Path.profileHasVotingPower)
+        }
+        ProfileHasVotingPowerView()
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
         }
-        DashboardPopularDaosListView()
+        DashboardPopularDaosHorizontalListView()
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)

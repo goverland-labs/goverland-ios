@@ -149,6 +149,13 @@ struct DeleteProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .delete
 }
 
+struct ProfileHasVotingPowerEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/can-vote"
+    var method: HttpMethod = .get
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {

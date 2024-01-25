@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct DashboardPopularDaosListView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+struct DashboardPopularDaosHorizontalListView: View {
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
 
     let category: DaoCategory = .popular
@@ -47,7 +47,7 @@ struct DashboardPopularDaosListView: View {
                                 }
                             } else {
                                 DAORoundViewWithActiveVotes(dao: dao) {
-                                    activeSheetManger.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfo(dao)
                                     Tracker.track(.dashPopularDaoOpen)
                                 }
                             }
