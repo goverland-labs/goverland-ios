@@ -31,6 +31,8 @@ class ProfileHasVotingPowerDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
+        
         isLoading = true
         APIService.profileHasVotingPower()
             .sink { [weak self] completion in
