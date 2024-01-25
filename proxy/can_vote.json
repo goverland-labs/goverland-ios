@@ -1,0 +1,957 @@
+[
+    {
+        "id": "0x808c1dc3ea8086552e764f7a4b2763cbc1aace2492c51c8a94c65e5e71cd35d0",
+        "ipfs": "bafkreifwt4krpws3morgxeq5im2v5fr7awhiamblg5n3hx4ywfm35hsecy",
+        "author": {
+            "address": "0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e",
+            "resolved_name": null,
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e?s=52"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/avatar/0xCff5be1cf3C7Cfe073Ade82d1dC27be33c998D6e?s=180"
+                }
+            ]
+        },
+        "created": "2024-01-25T02:51:36Z",
+        "network": "1",
+        "symbol": "veSTG",
+        "type": "single-choice",
+        "strategies": [
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "1",
+                "params": {
+                    "address": "0x9485DbDa44B279311e3eEe374CED60b5364A97d9",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "sveSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "1",
+                "params": {
+                    "address": "0x0e42acBD23FAee03249DAFF896b78d7e79fBD58E",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "56",
+                "params": {
+                    "address": "0xD4888870C8686c748232719051b677791dBDa26D",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "43114",
+                "params": {
+                    "address": "0xCa0F57D295bbcE554DA2c07b005b7d6565a58fCE",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "137",
+                "params": {
+                    "address": "0x3AB2DA31bBD886A7eDF68a6b60D3CDe657D3A15D",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "10",
+                "params": {
+                    "address": "0x43d2761ed16C89A2C4342e2B16A3C61Ccf88f05B",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "42161",
+                "params": {
+                    "address": "0xfBd849E6007f9BC3CC2D6Eb159c045B8dc660268",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            },
+            {
+                "name": "erc20-balance-of-with-delegation",
+                "network": "250",
+                "params": {
+                    "address": "0x933421675cDC8c280e5F21f0e061E77849293dba",
+                    "decimals": 18,
+                    "delegationNetwork": "1",
+                    "delegationSpace": "stgdao.eth",
+                    "symbol": "veSTG"
+                }
+            }
+        ],
+        "validation": null,
+        "title": "A.P.D. - mETH Request",
+        "body": [
+            {
+                "type": "markdown",
+                "body": "Issue Statement:\nMantle Network is an optimistic Ethereum layer-2 (L2) solution with an EVM-compatible execution environment. Mantle is DAO-governed and employs a modular approach to execution, consensus, settlement, and data availability.\n\nMantle has recently launched its Mantle Liquid Staking Protocol (LSP), a permissionless, non-custodial ETH liquid staking protocol deployed on Ethereum L1 and governed by Mantle. Mantle Staked Ether (mETH) serves as the value-accumulating receipt token.\n\nmETH is currently the 5th biggest ETH liquid-staked token with over $754 million Total Value Locked (TVL) on Ethereum as of 18 January 2024.\n\nThe Mantle Core Contributor Team wishes to make the bridging of mETH more accessible to the broader community by enabling cross-chain transfers between Ethereum and Mantle.\n\nSolution:\nAdd mETH to Stargate for the following chains:\n-Ethereum\n-Mantle\n\nMantle will deposit a total of 10,000 mETH across Stargate’s mETH pools, and will continue to provide added liquidity in response to demand for bridging as authorized under MIP-25.\n\nSuccess:\nmETH can be bridged and allow liquidity to seamlessly move between Ethereum and Mantle.\n\nSummary:\n-mETH is the value-accumulating receipt token of Mantle LSP, a permissionless, non-custodial ETH liquid staking protocol deployed on Ethereum L1 and governed by Mantle.\n-mETH aims to become the most widely adopted and capital-efficient ETH staking token. Adoption priorities include Mantle L2 DeFi applications, Mantle L2 core technology partners, and centralized exchange partners.\n-The Mantle Core Contributor Team would like to integrate mETH onto Stargate to enable seamless cross-chain transfers of mETH between Ethereum and Mantle.\n-For more information on Mantle and mETH, please visit the respective docs here: https://docs.mantle.xyz/, https://docs.mantle.xyz/meth/introduction/overview"
+            }
+        ],
+        "discussion": "https://commonwealth.im/stargatetoken/discussion/14902-apd-meth-request",
+        "choices": [
+            "Yes",
+            "No",
+            "Abstain"
+        ],
+        "voting_start": "2024-01-25T02:51:35Z",
+        "voting_end": "2024-01-28T02:51:35Z",
+        "quorum": 30,
+        "privacy": "",
+        "snapshot": "19080760",
+        "state": "active",
+        "link": "https://snapshot.org/#/stgdao.eth/proposal/0x808c1dc3ea8086552e764f7a4b2763cbc1aace2492c51c8a94c65e5e71cd35d0",
+        "app": "snapshot",
+        "scores": [
+            207908.78125,
+            783.7202758789062,
+            424.6100769042969
+        ],
+        "scores_by_strategy": null,
+        "scores_state": "pending",
+        "scores_total": 209117.109375,
+        "scores_updated": 1706155764,
+        "votes": 3019,
+        "flagged": false,
+        "dao": {
+            "id": "defa3b7b-34fd-48c7-93a0-2a07f396945f",
+            "alias": "stgdao.eth",
+            "created_at": "2023-09-29T19:16:48Z",
+            "updated_at": "2024-01-25T02:52:52Z",
+            "name": "Stargate DAO",
+            "avatar": "https://cdn.stamp.fyi/space/stgdao.eth?s=180",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/space/stgdao.eth?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/space/stgdao.eth?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/space/stgdao.eth?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/space/stgdao.eth?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/space/stgdao.eth?s=180"
+                }
+            ],
+            "symbol": "veSTG",
+            "network": "1",
+            "categories": [
+                "protocol",
+                "popular_daos"
+            ],
+            "followers_count": 1094917,
+            "voters_count": 1094917,
+            "proposals_count": 78,
+            "subscription_info": null
+        }
+    },
+    {
+        "id": "0x7e8723dcb72e4f98c25de8bccb3e979eec86022a1c7c94201243ba49c68aad7c",
+        "ipfs": "bafkreihe3s27zsrzlvo6fjexoxjec3qvmmq3zaen3o7gdtlof75befa5tu",
+        "author": {
+            "address": "0xF634d8EDff28146ec049DA11f601E8da6F921938",
+            "resolved_name": null,
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0xF634d8EDff28146ec049DA11f601E8da6F921938?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0xF634d8EDff28146ec049DA11f601E8da6F921938?s=52"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0xF634d8EDff28146ec049DA11f601E8da6F921938?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0xF634d8EDff28146ec049DA11f601E8da6F921938?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/avatar/0xF634d8EDff28146ec049DA11f601E8da6F921938?s=180"
+                }
+            ]
+        },
+        "created": "2024-01-24T09:10:32Z",
+        "network": "1",
+        "symbol": "GAL",
+        "type": "basic",
+        "strategies": [
+            {
+                "name": "erc20-balance-of",
+                "network": "1",
+                "params": {
+                    "address": "0x5fAa989Af96Af85384b8a938c2EdE4A7378D9875",
+                    "decimals": 18,
+                    "symbol": "GAL"
+                }
+            },
+            {
+                "name": "erc20-balance-of",
+                "network": "56",
+                "params": {
+                    "address": "0xe4Cc45Bb5DBDA06dB6183E8bf016569f40497Aa5",
+                    "decimals": 18,
+                    "symbol": "GAL"
+                }
+            },
+            {
+                "name": "erc20-balance-of-delegation",
+                "network": "1",
+                "params": {
+                    "address": "0x5fAa989Af96Af85384b8a938c2EdE4A7378D9875",
+                    "decimals": 18,
+                    "delegationSpace": "gal.eth",
+                    "symbol": "GAL"
+                }
+            },
+            {
+                "name": "erc20-balance-of-delegation",
+                "network": "56",
+                "params": {
+                    "address": "0xe4Cc45Bb5DBDA06dB6183E8bf016569f40497Aa5",
+                    "decimals": 18,
+                    "delegationSpace": "gal.eth",
+                    "symbol": "GAL"
+                }
+            }
+        ],
+        "validation": null,
+        "title": "[GP20] Galxe Contributor Program Rewards 2024 ",
+        "body": [
+            {
+                "type": "markdown",
+                "body": "### Abstract\nThis proposal is seeking funds for the Galxe Contributor Program Rewards for the duration of 2024. Building upon the successes achieved in 2023, our goal is to maintain recognition and incentives for participants in the Contributor Program, known as Space Cadets. This expansion aims to foster increased engagement, community growth and education, active involvement, responsibility, and transparency within the Galxe community.\n\n### Motivation\nThe Contributor Program has played a pivotal role in the growth of the Galxe community and its Discord server. Previous contributions have significantly enhanced community engagement and participation.\n\nThe Space Cadet program has seen amazing growth and contributions to the Galxe ecosystem in 2023. Below are some of the program highlights:\n\n- Total received applications: 3795\n- Contributors from 11 separate countries and counting\n- From 25 to 58 Cadets by the end of 2023 (132% increase)\n- Over 22,000 Discord support tickets resolved\n- Over 5,000 social media content about Galxe\n- Countless community-organized events\n\nSpace Cadets Contribution Points (2023):\n![e99a31ef91e4c89612b72f7b2b42d7855ef42e23.png](https://snapshot.4everland.link/ipfs/bafkreifyu72rmanqtofd2r42hn6i5ygomhvhgigf3hkyfsv77p42mb5xzi)\n   \n\n\n### Specification\n#### Overview\nExtending the rewards program for 2024 will uphold its existing structure, including manual contributions tracking, internal evaluation, and GAL token distribution based on contribution performance. Furthermore, the program will seek community input and recommendations to align with the Galxe community’s needs and expectations.\n\n#### Scope\nThis proposal encompasses the following key aspects:\n\n1. Extending the Contributor Program rewards into 2024.\n2. Continue to promote the Space Cadet program and actively encourage participation among new and existing members.\n3. Ongoing collection of community feedback and suggestions, with adjustments implemented to the program as necessary.\n\n#### Success Criteria\nThe successful execution of this proposal will yield the following outcomes:\n\n1. Sustained recognition and rewards for Contributors, fostering increased engagement and contributions from community members.\n2. Ongoing expansion and maturation of the Galxe community.\n3. Elevated engagement, activity, and growth levels within the Galxe community.\n4. Streamlined program operations and exceptional Contributor performance.\n\n#### Timeline/Budget\nThe following budget covers the whole duration of 2024, with the budget increasing around 10% each quarter due to the forecasted program growth.\n\nQ1, 2024\n- January → 8000 GAL tokens\n- February → 8000 GAL tokens\n- March → 8000 GAL tokens\n\nQ2, 2024\n- April → 8800 GAL tokens\n- May → 8800 GAL tokens\n- June → 8800 GAL tokens\n\nQ3, 2024\n- July → 9700 GAL tokens\n- August → 9700 GAL tokens\n- September → 9700 GAL tokens\n\nQ4, 2024\n- October → 10,650 GAL tokens\n- November → 10,650 GAL tokens\n- December → 10,650 GAL tokens\nBonus budget, distributed based on Contributor performance: 8550 GAL\n\nTotal requested budget: 120,000 GAL\n\nImplementation will begin upon Snapshot approval and will be sustained throughout 2024. Specifically, the Contributor Program rewards will be distributed monthly after the end of each month in 2024.\n\n#### References (Links)\n- [Galxe Contributor Program Overview](https://blog.galxe.com/galxe-contributor-program-5d96ac75e4ae)\n- [[GP12] Galxe Contributor Program Rewards (Q4 of 2023)](https://snapshot.org/#/gal.eth/proposal/0xb17bbb0e2f62c5c770ac7ea11c19c64d3c3848c4119b598eddebae6c137ddb1e)\n- [Apply now to become a Galxe Space Cadet - Galxe Contributor Program](https://gal.xyz/GalxeContributorProgram)"
+            }
+        ],
+        "discussion": "https://community.galxe.org/t/proposal-galxe-contributor-program-rewards-2024/30784",
+        "choices": [
+            "For",
+            "Against",
+            "Abstain"
+        ],
+        "voting_start": "2024-01-24T10:00:00Z",
+        "voting_end": "2024-01-29T10:00:00Z",
+        "quorum": 0,
+        "privacy": "",
+        "snapshot": "19075505",
+        "state": "active",
+        "link": "https://snapshot.org/#/gal.eth/proposal/0x7e8723dcb72e4f98c25de8bccb3e979eec86022a1c7c94201243ba49c68aad7c",
+        "app": "snapshot",
+        "scores": [
+            25896.521484375,
+            1538.74755859375,
+            1960.8292236328125
+        ],
+        "scores_by_strategy": null,
+        "scores_state": "pending",
+        "scores_total": 29396.09765625,
+        "scores_updated": 1706133541,
+        "votes": 5078,
+        "flagged": false,
+        "dao": {
+            "id": "7986cb8f-24f0-4b80-b9c1-fa14813e6cc7",
+            "alias": "gal.eth",
+            "created_at": "2023-09-29T19:21:12Z",
+            "updated_at": "2024-01-24T23:11:20Z",
+            "name": "Galxe",
+            "avatar": "https://cdn.stamp.fyi/space/gal.eth?s=180",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/space/gal.eth?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/space/gal.eth?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/space/gal.eth?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/space/gal.eth?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/space/gal.eth?s=180"
+                }
+            ],
+            "symbol": "GAL",
+            "network": "1",
+            "categories": [
+                "protocol",
+                "popular_daos"
+            ],
+            "followers_count": 13907,
+            "voters_count": 13907,
+            "proposals_count": 22,
+            "subscription_info": null
+        }
+    },
+    {
+        "id": "0xc591f79422bf26faf13055df098142569785c04316fdae5be993e282721eb717",
+        "ipfs": "bafkreidy5jwr5xaerzipvdn65lrqdirsw43xagr3nnhacio2kqzx2kx7um",
+        "author": {
+            "address": "0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD",
+            "resolved_name": "delegate.l2beat.eth",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD?s=52"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/avatar/0x1B686eE8E31c5959D9F5BBd8122a58682788eeaD?s=180"
+                }
+            ]
+        },
+        "created": "2024-01-18T21:33:47Z",
+        "network": "42161",
+        "symbol": "ARB",
+        "type": "single-choice",
+        "strategies": [
+            {
+                "name": "erc20-votes",
+                "network": "42161",
+                "params": {
+                    "address": "0x912CE59144191C1204E64559FE8253a0e49E6548",
+                    "decimals": 18,
+                    "symbol": "ARB"
+                }
+            }
+        ],
+        "validation": null,
+        "title": "Constitutional AIP - Security Council Improvement Proposal",
+        "body": [
+            {
+                "type": "markdown",
+                "body": "### **Abstract**\n\nThis AIP seeks to propose changes to the structure of the security council so Arbitrum can maintain the “Stage 1” designation as per L2BEAT and not fall back to “Stage 0” designation.\n\n### **Motivation**\n\nOn December 7, [L2BEAT published an update](https://medium.com/l2beat/stages-update-security-council-requirements-4c79cea8ef52) to the security council requirements for the [Stages Framework](https://medium.com/l2beat/introducing-stages-a-framework-to-evaluate-rollups-maturity-d290bb22befe). The requirements were updated after a lot of research and feedback to make Stages more formal and precise. \n\n### **Rationale**\n\nUpgrading the security council as per the Stage 1 requirements set by L2BEAT, will help ensure Arbitrum remains decentralized, but properly secured. See ‘Specifications’ for more details.\n\n### **Key Terms**\n\n**Stages:** A framework, inspired by [Vitalik’s proposed milestones](https://ethereum-magicians.org/t/proposed-milestones-for-rollups-taking-off-training-wheels/11571), that categorises rollups into three distinct stages based on their reliance on these training wheels. You can learn [more about the Stages framework here](https://medium.com/l2beat/introducing-stages-a-framework-to-evaluate-rollups-maturity-d290bb22befe).\n\n**Security Council:** A group of 12 individuals who are responsible for addressing risks to the Arbitrum ecosystem through the selective application of **e**mergency actions and non-emergency actions. Learn more in [the ArbitrumDAO Docs](https://docs.arbitrum.foundation/concepts/security-council).\n\n**Timelock:** Smart contracts which implement a delay between an upgrade confirmation and execution.\n\n**Exit Window:** The actual time users have to exit the system in case of an unwanted upgrade.\n\n### **Specifications**\n\nArbitrum currently has two multisigs and they both contain the same set of members:\n\na) A 9/12 multisig with instant upgrade power \n\nb) A 7/12 multisig that can upgrade with a 3+7+3 days delay \n\nWhile the higher threshold multisig can be classified as a Security Council, the lower one is below the minimum threshold and it’s considered a simple multisig according to the Stages framework introduced above.\n\nFor normal multisigs, L2BEAT requires at least a 7 days exit window for users. The current exit window for Arbitrum is 2 days (see [this thread](https://x.com/stonecoldpat0/status/1737840485967032739?s=20) for a quick explanation).\n\nMoreover, the higher threshold multisig is supposed to stop malicious upgrades attempted by the lower threshold multisig. However, since the member set is the same, if the lower threshold agrees on something there are not enough members in the higher threshold to stop them, which means that the actual security of the upgradeability mechanism boils down to the 7/12 threshold.\n\nFor the above reason, technically, with the updated requirements for Stages, Arbitrum falls back to the Stage 0 designation. Since we know that it takes time to upgrade Arbitrum, we decided to leave the Stage 1 designation with the promise of addressing the above issues in a timely manner. This proposal is about addressing the issues and moving them to be voted on by the DAO.\n\n**Proposed Solutions**\n\n1) The **first solution** would be to remove the lower threshold (7/12) multisig entirely. This can be done in two ways:\n\n1. The contract is removed which requires an on-chain upgrade, or,\n2. The lower threshold multisig increases its threshold from 7/12 to 9/12 which requires no upgrade.\n\nIncreasing the threshold gives us the flexibility to restore a lower threshold in the future should the need arise, and it’s also a very quick and easy fix since it doesn’t require an on-chain upgrade.\n\nOn the other hand, removing the dependency on the lower threshold mutlisig for all the contracts in Arbitrum is a broad and potentially risky change. Therefore we suggest raising the threshold for the time being and revisiting the removal of all the dependencies at a later date if needed.\n\n2) The **second solution** would be to leave the lower threshold multisig as it is, but to increase the exit window to 7 days. In practice, this involves increasing the L2 timelock delay from 3 days to 8 days, since there is a 1 day max delay to force transactions on Arbitrum via L1 using the ‘DelayedInbox’. Increasing the L1 Timelock would not be very beneficial due to delay attacks on the fraud proof systems, since, even with BoLD,  the challenge period would end up being up to [16 days](https://x.com/DZack23/status/1737864854059335905?s=20).\n\n3) The **third solution**, which is not strictly required by the Stages Framework for the Stage 1 designation, is to both remove the lower threshold multisig entirely and increase the L2 Timelock delay so users have more time to exit in case of unwanted upgrades, increasing the security of the system even more.\n\n### Steps to Implement\n\nFollowing a week of discussion of this RFC, the proposal will go for a vote on Snapshot with the following 6 options (as they are or slightly adjusted), and/or any additional ones, should they arise from the discussion during the RFC phase:\n\n1. Increase the threshold from 7/12 to 9/12.\n2. Increase the L2 timelock delay from 3 days to 8 days.\n3. Increase the threshold and the L2 timelock delay.\n4. Make no changes.\n\nFollowing the temp-check, if any of the aforementioned options apart from No.4 is the most popular, the proposal will move to on-chain vote to execute the proposal.\n\n### **Overall Cost**\n\nThere’s no overhead to the DAO for the implementation of this proposal.\n\n### **Timeline**\n\n**RFC -** January 11th to January 18th\n\n**Snapshot -** January 18th to January 25th\n\n**On-Chain Vote:** January 30th to February 13th\n\n**Execution Delay:**\n\n- February 13th to February 16th - L2 Waiting Period\n- February 16th to February 23rd - L2-to-L1 Message\n- February 23rd to February 27th - L1 Waiting Period\n\n**Please note the aforementioned timeline is tentative and the actual timeline might be slightly different.**"
+            }
+        ],
+        "discussion": "https://forum.arbitrum.foundation/t/constitutional-aip-security-council-improvement-proposal/20541",
+        "choices": [
+            "Increase the threshold to 9/12",
+            "Increase the L2 timelock delay",
+            "Increase the threshold and delay",
+            "Make no changes.",
+            "Abstain"
+        ],
+        "voting_start": "2024-01-18T21:33:46Z",
+        "voting_end": "2024-01-25T21:33:46Z",
+        "quorum": 0,
+        "privacy": "",
+        "snapshot": "171801739",
+        "state": "active",
+        "link": "https://snapshot.org/#/arbitrumfoundation.eth/proposal/0xc591f79422bf26faf13055df098142569785c04316fdae5be993e282721eb717",
+        "app": "snapshot",
+        "scores": [
+            92644696,
+            536224.3125,
+            19736268,
+            161043.46875,
+            958016.3125
+        ],
+        "scores_by_strategy": null,
+        "scores_state": "pending",
+        "scores_total": 114036248,
+        "scores_updated": 1706144784,
+        "votes": 32211,
+        "flagged": false,
+        "dao": {
+            "id": "c8c85359-9056-4b42-9311-f13de2051389",
+            "alias": "arbitrumfoundation.eth",
+            "created_at": "2023-09-29T19:24:04Z",
+            "updated_at": "2024-01-24T23:11:20Z",
+            "name": "Arbitrum DAO",
+            "avatar": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=180",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/space/arbitrumfoundation.eth?s=180"
+                }
+            ],
+            "symbol": "ARB",
+            "network": "42161",
+            "categories": [
+                "protocol",
+                "popular_daos"
+            ],
+            "followers_count": 151163,
+            "voters_count": 151163,
+            "proposals_count": 134,
+            "subscription_info": {
+                "id": "bec12325-3cdb-44f6-9e30-85f65698b128",
+                "created_at": "2024-01-23T14:32:55Z"
+            }
+        }
+    },
+    {
+        "id": "0x7efa9dcc5d8a248944f55289907700339f03ffc365768b73f487387edbca791e",
+        "ipfs": "bafkreif2tf4oys42ypkapx2iwgw3isyhm3tc7x3letc6i4orot6qc63pw4",
+        "author": {
+            "address": "0xf43235b37bc431dDA61Cd94900bf20C6f7D76740",
+            "resolved_name": null,
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0xf43235b37bc431dDA61Cd94900bf20C6f7D76740?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0xf43235b37bc431dDA61Cd94900bf20C6f7D76740?s=52"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0xf43235b37bc431dDA61Cd94900bf20C6f7D76740?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0xf43235b37bc431dDA61Cd94900bf20C6f7D76740?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/avatar/0xf43235b37bc431dDA61Cd94900bf20C6f7D76740?s=180"
+                }
+            ]
+        },
+        "created": "2023-06-14T09:23:52Z",
+        "network": "56",
+        "symbol": "Magic Store Vote",
+        "type": "single-choice",
+        "strategies": [
+            {
+                "name": "api-v2",
+                "network": "56",
+                "params": {
+                    "type": "api-post",
+                    "url": "https://snap-strat.magic.store/check"
+                }
+            }
+        ],
+        "validation": null,
+        "title": "Magic Square Community Validation: Simulator Validation on the Magic Store Voting",
+        "body": [
+            {
+                "type": "markdown",
+                "body": "Welcome to the Magic Square Community Validation for Project Simulator Validation on the Magic Store Voting. As a platform dedicated to discovering, rating, and validating the finest Web3 projects, we require your input in determining if Project Simulator Validation meets the necessary criteria to be validated on the Magic Store, Web3 App Store.\n\n**Project Simulator Validation Overview:**\r\nValidation Experience Demo: Magic Store provides an easy-to-use demo setting for users to explore and learn the validation process. Gain hands-on experience with Magic Store's Validation features and gain a clear understanding of the steps involved. Prepare yourself to confidently participate in a real project's validation process after mastering the demo\n\nFor a comprehensive guide on how to participate in the project validation, including evaluation criteria, tips, and steps, please refer to our [Knowledge Base](https://docs.magic.store/magic-features/app-validation).\n\nOnly users with a fully validated MagicID account on the Magic Store (connected wallet, verified email, and selected username) can participate in the voting process.\nIf you have not completed these steps, please visit the [Magic Store](https://magic.store/) to do so before casting your vote.\n\nFor further discussion on Project Simulator Validation validation, join our [Discord](https://discord.com/invite/magicsquare) Server to connect with fellow community members.\n\nFor detailed information on Project Simulator Validation, please visit the project page on the Magic Store [here](https://magic.store/app/simulator-validation)."
+            }
+        ],
+        "discussion": "https://magic.store/app/simulator-validation",
+        "choices": [
+            "Yes",
+            "No"
+        ],
+        "voting_start": "2023-06-14T09:23:52Z",
+        "voting_end": "2032-06-13T15:23:52Z",
+        "quorum": 0,
+        "privacy": "",
+        "snapshot": "29090483",
+        "state": "active",
+        "link": "https://snapshot.org/#/magicappstore.eth/proposal/0x7efa9dcc5d8a248944f55289907700339f03ffc365768b73f487387edbca791e",
+        "app": "simulator-validation",
+        "scores": [
+            310814,
+            74985
+        ],
+        "scores_by_strategy": null,
+        "scores_state": "pending",
+        "scores_total": 385799,
+        "scores_updated": 1701438204,
+        "votes": 385799,
+        "flagged": false,
+        "dao": {
+            "id": "4f5aeabe-6b65-48ba-bf34-daceade9cd18",
+            "alias": "magicappstore.eth",
+            "created_at": "2023-09-29T19:22:38Z",
+            "updated_at": "2024-01-24T23:11:20Z",
+            "name": "Magic Square",
+            "avatar": "https://cdn.stamp.fyi/space/magicappstore.eth?s=180",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/space/magicappstore.eth?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/space/magicappstore.eth?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/space/magicappstore.eth?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/space/magicappstore.eth?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/space/magicappstore.eth?s=180"
+                }
+            ],
+            "symbol": "Magic Store Vote",
+            "network": "56",
+            "categories": [
+                "service",
+                "popular_daos"
+            ],
+            "followers_count": 669627,
+            "voters_count": 669627,
+            "proposals_count": 319,
+            "subscription_info": null
+        },
+        "timeline": [
+            {
+                "created_at": "2023-06-14T09:23:52Z",
+                "event": "proposal.created"
+            },
+            {
+                "created_at": "2023-06-14T09:23:52Z",
+                "event": "proposal.voting.started"
+            },
+            {
+                "created_at": "2023-12-01T14:02:04Z",
+                "event": "proposal.updated"
+            }
+        ]
+    },
+    {
+        "id": "0xdaac375d7a6f77b3a185a5aacfee51a99e0ec4248c9421aa1f0abd48abb69799",
+        "ipfs": "bafkreiftclw4bgy4zfbz2oukczeone5jcuaq7rkbyzvxuj22jd6w3ielhi",
+        "author": {
+            "address": "0x5Be0feE0f748c1737793172D42c14E4810D2038E",
+            "resolved_name": "radiantcapital.eth",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/avatar/0x5Be0feE0f748c1737793172D42c14E4810D2038E?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/avatar/0x5Be0feE0f748c1737793172D42c14E4810D2038E?s=52"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/avatar/0x5Be0feE0f748c1737793172D42c14E4810D2038E?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/avatar/0x5Be0feE0f748c1737793172D42c14E4810D2038E?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/avatar/0x5Be0feE0f748c1737793172D42c14E4810D2038E?s=180"
+                }
+            ]
+        },
+        "created": "2024-01-24T00:53:14Z",
+        "network": "1",
+        "symbol": "RDNT",
+        "type": "single-choice",
+        "strategies": [
+            {
+                "name": "with-delegation",
+                "network": "56",
+                "params": {
+                    "delegationSpace": "radiantcapital.eth",
+                    "strategies": [
+                        {
+                            "name": "erc20-balance-of",
+                            "params": {
+                                "address": "0xf7DE7E8A6bd59ED41a4b5fe50278b3B7f31384dF",
+                                "decimals": 18,
+                                "symbol": "Loose RDNT"
+                            }
+                        },
+                        {
+                            "name": "contract-call",
+                            "params": {
+                                "address": "0x4FD9F7C5ca0829A656561486baDA018505dfcB5E",
+                                "decimals": 18,
+                                "methodABI": {
+                                    "inputs": [
+                                        {
+                                            "internalType": "address",
+                                            "name": "user",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "name": "earnedBalances",
+                                    "outputs": [
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "total",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "unlocked",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "components": [
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "amount",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "unlockTime",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "penalty",
+                                                    "type": "uint256"
+                                                }
+                                            ],
+                                            "internalType": "struct EarnedBalance[]",
+                                            "name": "earningsData",
+                                            "type": "tuple[]"
+                                        }
+                                    ],
+                                    "stateMutability": "view",
+                                    "type": "function"
+                                },
+                                "output": "unlocked",
+                                "symbol": "Fully Vested RDNT"
+                            }
+                        },
+                        {
+                            "name": "rdnt-capital-voting",
+                            "params": {
+                                "lockingContract": "0x4FD9F7C5ca0829A656561486baDA018505dfcB5E",
+                                "lpToken": "0x346575fc7f07e6994d76199e41d13dc1575322e1",
+                                "rdnt": "0xf7DE7E8A6bd59ED41a4b5fe50278b3B7f31384dF"
+                            }
+                        }
+                    ],
+                    "symbol": "RDNT (BNB Chain)"
+                }
+            },
+            {
+                "name": "with-delegation",
+                "network": "42161",
+                "params": {
+                    "delegationSpace": "radiantcapital.eth",
+                    "strategies": [
+                        {
+                            "name": "erc20-balance-of",
+                            "params": {
+                                "address": "0x3082cc23568ea640225c2467653db90e9250aaa0",
+                                "decimals": 18,
+                                "symbol": "Loose RDNT"
+                            }
+                        },
+                        {
+                            "name": "contract-call",
+                            "params": {
+                                "address": "0x76ba3eC5f5adBf1C58c91e86502232317EeA72dE",
+                                "decimals": 18,
+                                "methodABI": {
+                                    "inputs": [
+                                        {
+                                            "internalType": "address",
+                                            "name": "user",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "name": "earnedBalances",
+                                    "outputs": [
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "total",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "unlocked",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "components": [
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "amount",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "unlockTime",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "penalty",
+                                                    "type": "uint256"
+                                                }
+                                            ],
+                                            "internalType": "struct EarnedBalance[]",
+                                            "name": "earningsData",
+                                            "type": "tuple[]"
+                                        }
+                                    ],
+                                    "stateMutability": "view",
+                                    "type": "function"
+                                },
+                                "output": "unlocked",
+                                "symbol": "Fully Vested RDNT"
+                            }
+                        },
+                        {
+                            "name": "rdnt-capital-voting",
+                            "params": {
+                                "balancerPoolId": "0x32df62dc3aed2cd6224193052ce665dc181658410002000000000000000003bd",
+                                "balancerVault": "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+                                "lockingContract": "0x76ba3eC5f5adBf1C58c91e86502232317EeA72dE",
+                                "lpToken": "0x32DF62DC3AED2CD6224193052CE665DC18165841",
+                                "rdnt": "0x3082cc23568ea640225c2467653db90e9250aaa0"
+                            }
+                        }
+                    ],
+                    "symbol": "RDNT (Arbitrum)"
+                }
+            },
+            {
+                "name": "with-delegation",
+                "network": "1",
+                "params": {
+                    "delegationSpace": "radiantcapital.eth",
+                    "strategies": [
+                        {
+                            "name": "erc20-balance-of",
+                            "params": {
+                                "address": "0x137dDB47Ee24EaA998a535Ab00378d6BFa84F893",
+                                "decimals": 18,
+                                "symbol": "Loose RDNT"
+                            }
+                        },
+                        {
+                            "name": "contract-call",
+                            "params": {
+                                "address": "0x28E395a54a64284DBA39652921Cd99924f4e3797",
+                                "decimals": 18,
+                                "methodABI": {
+                                    "inputs": [
+                                        {
+                                            "internalType": "address",
+                                            "name": "user",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "name": "earnedBalances",
+                                    "outputs": [
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "total",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "internalType": "uint256",
+                                            "name": "unlocked",
+                                            "type": "uint256"
+                                        },
+                                        {
+                                            "components": [
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "amount",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "unlockTime",
+                                                    "type": "uint256"
+                                                },
+                                                {
+                                                    "internalType": "uint256",
+                                                    "name": "penalty",
+                                                    "type": "uint256"
+                                                }
+                                            ],
+                                            "internalType": "struct EarnedBalance[]",
+                                            "name": "earningsData",
+                                            "type": "tuple[]"
+                                        }
+                                    ],
+                                    "stateMutability": "view",
+                                    "type": "function"
+                                },
+                                "output": "unlocked",
+                                "symbol": "Fully Vested RDNT"
+                            }
+                        },
+                        {
+                            "name": "rdnt-capital-voting",
+                            "params": {
+                                "balancerPoolId": "0xcf7b51ce5755513d4be016b0e28d6edeffa1d52a000200000000000000000617",
+                                "balancerVault": "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+                                "lockingContract": "0x28E395a54a64284DBA39652921Cd99924f4e3797",
+                                "lpToken": "0xcF7b51ce5755513d4bE016b0e28D6EDEffa1d52a",
+                                "rdnt": "0x137dDB47Ee24EaA998a535Ab00378d6BFa84F893"
+                            }
+                        }
+                    ],
+                    "symbol": "RDNT (Mainnet)"
+                }
+            }
+        ],
+        "validation": null,
+        "title": "RFP-31: Earmarking Funds for Radiant v3 Educational Video",
+        "body": [
+            {
+                "type": "markdown",
+                "body": "## Abstract\n\nRFP-31 proposes the allocation of $30,000 from Radiant's Operating Expenses (OpEx) for the creation of an educational explainer video for Radiant v3. This project will be one of the first tasks for the marketing agency selected through [RFP-30](https://dao.radiant.capital/#/proposal/0x09e809553671d3e4d8ac3cdf1370197dddc776a18a6e36d82e6a6351271e2c31). The video aims to provide a clear, engaging, and comprehensive overview of the new features in Radiant v3, fostering excitement and understanding about the platform's upcoming enhancements.\n\n_Note: The execution of this proposal is contingent upon the successful passage of RFP-30 and the selection of a marketing agency. Should RFP-30 be rejected, RFP-31 will be rendered moot._\n\n\n## Motivation\n\nWith the imminent selection of a marketing agency via RFP-30, this RFP seeks to ensure that the chosen agency has the necessary resources to produce a high-quality educational video for Radiant v3.  \\\n \\\nThis additional provision aims to ensure that the launch of Radiant v3 is accompanied by engaging and informative content, crucial for enhancing user understanding and engagement with the platform’s new functionalities and advancements.\n\n\n## Rationale\n\nAn explainer video created by the selected marketing agency will ensure consistency in messaging and branding. It will also leverage the agency’s expertise in communication and marketing, ensuring that the video effectively reaches and resonates with its intended audience. This alignment of video production with the agency’s broader marketing strategy for Radiant is crucial for a cohesive and impactful promotional campaign.\n\n\n## Specifications\n\nThe $30,000 budget will cover various production aspects, including:\n\n\n\n* **Scriptwriting:** Collaborating with the agency to craft a narrative that encapsulates the essence of Radiant v3.\n* **Video Editing and Production:** Ensuring professional-quality video production that aligns with Radiant’s branding.\n* **Copywriting:** Developing engaging text elements within the video to complement the visual content.\n* **Voiceovers:** Hiring professional voice talent to narrate the video, enhancing its appeal and clarity.\n* **Voiceover Rights:** Securing necessary permissions for the use of voice-over content.\n\n\n## Steps to Implement\n\n\n\n1. **Agency Collaboration:** Work closely with the marketing agency selected from RFP-30 to define the video’s scope and content.\n\n2. **Production Planning:** Develop a detailed plan for video production, including timelines, script, storyboard, and voice-over selection.\n3. **Video Creation:** Oversee the production process, ensuring that it aligns with the agreed-upon plan and Radiant's brand guidelines.\n4. **Review and Feedback:** Conduct iterative reviews with both the marketing agency and internal stakeholders, refining the video based on feedback.\n5. **Finalization and Release:** Complete post-production edits and officially release the explainer video in coordination with the marketing efforts for Radiant v3.\n\n\n## Timeline\n\nThe timeline for the video production will be synchronized with the marketing agency's overall strategy for Radiant v3, ensuring timely delivery and maximum impact upon release. The expected stages are:\n\n\n\n1. **Initial Planning** (0-7 days post-agency selection): Conceptualization and scriptwriting.\n\n2. **Production Phase** (7-14 days): Video shooting, editing, and voice-over recording.\n3. **Review and Revision** (14-21 days): Incorporating feedback and finalizing the video.\n4. **Launch Readiness** (21-30 days): Preparing for release alongside Radiant v3 launch activities.\n\n\n## Voting\n\n**In Favor:** Approve allocation for the production of the Radiant v3 explainer video by the marketing agency selected in RFP-30.\n\n**Against:** Disapprove the allocation of funds for the explainer video.\n\n**Abstain:** Neutral or undecided, yet participating in the quorum."
+            }
+        ],
+        "discussion": "",
+        "choices": [
+            "In Favor",
+            "Against",
+            "Abstain"
+        ],
+        "voting_start": "2024-01-24T03:53:14Z",
+        "voting_end": "2024-01-27T03:53:14Z",
+        "quorum": 55,
+        "privacy": "",
+        "snapshot": "19073044",
+        "state": "active",
+        "link": "https://snapshot.org/#/radiantcapital.eth/proposal/0xdaac375d7a6f77b3a185a5aacfee51a99e0ec4248c9421aa1f0abd48abb69799",
+        "app": "snapshot",
+        "scores": [
+            5475347,
+            1020538.8125,
+            59129.03515625
+        ],
+        "scores_by_strategy": null,
+        "scores_state": "pending",
+        "scores_total": 6555015,
+        "scores_updated": 1706148514,
+        "votes": 703,
+        "flagged": false,
+        "dao": {
+            "id": "8aa065ec-1d1b-4993-aafe-84a1aa594d74",
+            "alias": "radiantcapital.eth",
+            "created_at": "2023-09-29T19:20:09Z",
+            "updated_at": "2024-01-24T23:11:20Z",
+            "name": "Radiant Capital",
+            "avatar": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=180",
+            "avatars": [
+                {
+                    "size": "xs",
+                    "link": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=32"
+                },
+                {
+                    "size": "s",
+                    "link": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=64"
+                },
+                {
+                    "size": "m",
+                    "link": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=92"
+                },
+                {
+                    "size": "l",
+                    "link": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=152"
+                },
+                {
+                    "size": "xl",
+                    "link": "https://cdn.stamp.fyi/space/radiantcapital.eth?s=180"
+                }
+            ],
+            "symbol": "RDNT",
+            "network": "42161",
+            "categories": [
+                "protocol",
+                "investment",
+                "popular_daos"
+            ],
+            "followers_count": 16281,
+            "voters_count": 16281,
+            "proposals_count": 25,
+            "subscription_info": null
+        }
+    }
+]

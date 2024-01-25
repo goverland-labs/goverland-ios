@@ -52,6 +52,7 @@ struct ProfileHasVotingPowerFullView: View {
                 dataSource.refresh()
             }
         }
+        .navigationTitle("You have voting power")
         .listStyle(.plain)
         .scrollIndicators(.hidden)
     }
