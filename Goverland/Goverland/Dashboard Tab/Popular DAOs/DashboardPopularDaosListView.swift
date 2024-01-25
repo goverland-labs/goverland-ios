@@ -1,5 +1,5 @@
 //
-//  DashboardPopularDaosView.swift
+//  DashboardPopularDaosListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DashboardPopularDaosView: View {
+struct DashboardPopularDaosListView: View {
     @EnvironmentObject private var activeSheetManger: ActiveSheetManager
     @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
 

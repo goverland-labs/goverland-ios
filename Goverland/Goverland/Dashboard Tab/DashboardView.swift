@@ -149,7 +149,7 @@ fileprivate struct SignedInUserDashboardView: View {
         // TODO: ProposalOfDayView section
 
         SectionHeader(header: "Followed DAOs with active vote")
-        DashboardFollowedDAOsActiveVote()
+        DashboardFollowedDAOsActiveVoteView()
 
         SectionHeader(header: "New DAOs") {
             path.append(Path.newDaos)
@@ -161,7 +161,7 @@ fileprivate struct SignedInUserDashboardView: View {
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
         }
-        DashboardPopularDaosView()
+        DashboardPopularDaosListView()
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)

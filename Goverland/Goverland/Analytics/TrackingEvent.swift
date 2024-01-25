@@ -37,6 +37,8 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"
     case screenDashHotList = "screen_dash_hot_list"
+    // Followed DAOs with active vote
+    case dashFollowedDaoActiveVoteOpenDao = "dash_followed_av_open_dao"
     // Hot Proposals
     case dashHotOpenPrp = "dash_hot_open_prp"
     case dashHotOpenDao = "dash_hot_open_dao"

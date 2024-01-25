@@ -37,9 +37,3 @@ struct RoundPictureView: View {
         }
     }
 }
-
-struct UIComponents_Previews: PreviewProvider {
-    static var previews: some View {
-        RoundPictureView(image: URL(string: ""), imageSize: 50)
-    }
-}
