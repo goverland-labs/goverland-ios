@@ -46,11 +46,10 @@ struct DashboardPopularDaosListView: View {
                                     }
                                 }
                             } else {
-                                RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-                                    .onTapGesture {
-                                        activeSheetManger.activeSheet = .daoInfo(dao)
-                                        Tracker.track(.dashPopularDaoOpen)
-                                    }
+                                DAORoundViewWithActiveVotes(dao: dao) {
+                                    activeSheetManger.activeSheet = .daoInfo(dao)
+                                    Tracker.track(.dashPopularDaoOpen)
+                                }
                             }
                         }
                     }

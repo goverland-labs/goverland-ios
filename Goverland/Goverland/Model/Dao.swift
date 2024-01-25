@@ -121,7 +121,7 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
-        self.activeVotes = try container.decodeIfPresent(Int.self, forKey: .activeVotes)        
+        self.activeVotes = try container.decodeIfPresent(Int.self, forKey: .activeVotes)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)

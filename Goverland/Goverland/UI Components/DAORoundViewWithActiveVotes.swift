@@ -20,7 +20,7 @@ struct DAORoundViewWithActiveVotes: View {
                     onDaoOpen()
                 }
 
-            if let activeVotes = dao.activeVotes {
+            if let activeVotes = dao.activeVotes, activeVotes > 0 {
                 Text("\(activeVotes)")
                     .font(.сaption2Regular)
                     .padding(.horizontal, 5)

@@ -201,7 +201,7 @@
 		BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */; };
 		BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */; };
 		BAE1AB1E2AE59619001B89F3 /* DashboardPopularDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosListView.swift */; };
-		BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosView.swift */; };
+		BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosListView.swift */; };
 		BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */; };
 		BAE1AB292AF03583001B89F3 /* MonthlyNewProposalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */; };
 		BAE1AB2B2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */; };
@@ -419,7 +419,7 @@
 		BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVoters.swift; sourceTree = "<group>"; };
 		BAE1AB1A2AE36F8F001B89F3 /* BrickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickView.swift; sourceTree = "<group>"; };
 		BAE1AB1D2AE59619001B89F3 /* DashboardPopularDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPopularDaosListView.swift; sourceTree = "<group>"; };
-		BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosView.swift; sourceTree = "<group>"; };
+		BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosListView.swift; sourceTree = "<group>"; };
 		BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedDaosDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB282AF03583001B89F3 /* MonthlyNewProposalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposalsView.swift; sourceTree = "<group>"; };
 		BAE1AB2A2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNewProposalsDataSource.swift; sourceTree = "<group>"; };
@@ -1141,7 +1141,7 @@
 		BAE1AB212AEBEC80001B89F3 /* Recently Viewed */ = {
 			isa = PBXGroup;
 			children = (
-				BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosView.swift */,
+				BAE1AB222AEBEF7A001B89F3 /* RecentlyViewedDaosListView.swift */,
 				BAE1AB242AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift */,
 			);
 			path = "Recently Viewed";
@@ -1526,7 +1526,7 @@
 				BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */,
 				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
-				BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosView.swift in Sources */,
+				BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosListView.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
 				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,

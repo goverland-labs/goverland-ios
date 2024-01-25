@@ -60,8 +60,6 @@ enum TrackingEvent: String, Trackable {
     case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
     case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
     case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
-    // Recently Viewed DAOs
-    case dashRecentDaoOpen = "dash_recentdao_open"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
@@ -118,6 +116,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
+
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
     case searchDaosFollowFromCard = "search_daos_follow_from_card"
 
@@ -129,6 +128,9 @@ enum TrackingEvent: String, Trackable {
     case searchDaosOpenDaoFromCard = "search_daos_open_dao_from_card"
     case searchDaosOpenDaoFromCtgList = "search_daos_open_dao_from_ctg_list"
     case searchDaosOpenDaoFromCtgSearch = "search_daos_open_dao_from_ctg_search"
+
+    // Recently Viewed DAOs
+    case searchRecentDaoOpen = "search_recentdao_open"
 
     // MARK: - Search Proposal
     case screenSearchPrp = "screen_search_prp"
