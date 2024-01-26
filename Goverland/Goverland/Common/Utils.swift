@@ -169,10 +169,4 @@ enum Utils {
         }
         return nil
     }
-
-    static func randomNumber_8_dgts() -> Int {
-        let lowerBound = 10000000  // Minimum 8-digit number
-        let upperBound = 99999999  // Maximum 8-digit number
-        return Int(arc4random_uniform(UInt32(upperBound - lowerBound + 1))) + lowerBound
-    }
 }
