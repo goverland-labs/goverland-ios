@@ -307,29 +307,17 @@ fileprivate struct ProfileListView: View {
                             Text(s.deviceName)
                                 .font(.bodyRegular)
                                 .foregroundColor(.textWhite)
-                            
-                            // TODO: change in 0.6
-                            if s.id.uuidString.lowercased() == SettingKeys.shared.authToken.lowercased() {
+
+                            if s.lastActivity + 10.minutes > .now {
                                 Text("Online")
                                     .font(.footnoteRegular)
                                     .foregroundColor(.textWhite60)
                             } else {
-                                let created = s.created.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session created \(created)")
+                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                Text("Last activity \(activity)")
                                     .font(.footnoteRegular)
                                     .foregroundColor(.textWhite60)
                             }
-
-//                            if s.lastActivity + 10.minutes > .now {
-//                                Text("Online")
-//                                    .font(.footnoteRegular)
-//                                    .foregroundColor(.textWhite60)
-//                            } else {
-//                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-//                                Text("Last activity \(activity)")
-//                                    .font(.footnoteRegular)
-//                                    .foregroundColor(.textWhite60)
-//                            }
                         }
                         Spacer()
                     }
