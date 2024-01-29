@@ -124,9 +124,14 @@ struct DashboardView: View {
 
 fileprivate struct SignedOutUserDashboardView: View {
     @Binding var path: NavigationPath
+    @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
 
     var body: some View {
-        WelcomeDashboardView()
+        if !welcomeBlockIsRead {
+            WelcomeBlockView()
+                .padding(.horizontal, 12)
+                .padding(.vertical, 16)
+        }
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
@@ -191,9 +196,56 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 }
 
-fileprivate struct WelcomeDashboardView: View {
+fileprivate struct WelcomeBlockView: View {
+    @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
+
     var body: some View {
-        Text("Welcome to Goverland!")
+        VStack {
+            Text("Welcome to Goverland,\nYour App for all DAOs!")
+                .font(.title3Semibold)
+                .foregroundStyle(Color.textWhite)
+                .padding(.bottom, 16)
+
+            VStack(alignment: .leading, spacing: 8) {
+                BulletItem(image: "fireworks", text: "This is your Home page with personalized recommendations")
+                BulletItem(image: "globe", text: "Discover new trends")
+                BulletItem(image: "checkmark.bubble", text: "Follow DAOs to be up to date")
+                BulletItem(image: "flag.checkered", text: "Sign in with your Wallet and vote")
+            }
+
+            HStack {
+                Spacer()
+                PrimaryButton("Okay, let's go!", 
+                              maxWidth: 140,
+                              height: 32,
+                              font: .footnoteSemibold) {
+                    welcomeBlockIsRead = true
+                }
+                Spacer()
+            }
+            .padding(.top, 16)
+        }
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.container)
+        )
+    }
+
+    struct BulletItem: View {
+        let image: String
+        let text: String
+
+        var body: some View {
+            HStack(alignment: .top, spacing: 8) {
+                Image(image)
+                    .frame(width: 20, height: 20)
+                    .scaledToFit()
+                Text(text)
+                    .font(.subheadlineRegular)
+                    .foregroundStyle(Color.textWhite)
+            }
+        }
     }
 }
 
