@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 class ProfileHasVotingPowerDataSource: ObservableObject, Refreshable {
-    @Published var proposals: [Proposal] = []
+    @Published var proposals: [Proposal]?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
 
@@ -22,7 +22,7 @@ class ProfileHasVotingPowerDataSource: ObservableObject, Refreshable {
     private init() {}
 
     func refresh() {
-        proposals = []
+        proposals = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()

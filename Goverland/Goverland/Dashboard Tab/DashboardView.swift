@@ -72,7 +72,7 @@ struct DashboardView: View {
                     GroupedDaosDataSource.popularDaos.refresh()
                 }
 
-                if ProfileHasVotingPowerDataSource.dashboard.proposals.isEmpty {
+                if ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? true {
                     ProfileHasVotingPowerDataSource.dashboard.refresh()
                 }
 
@@ -164,10 +164,12 @@ fileprivate struct SignedInUserDashboardView: View {
         }
         DashboardNewDaosView()
 
-        SectionHeader(header: "You have voting power") {
-            path.append(Path.profileHasVotingPower)
+        if !(ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? false) {
+            SectionHeader(header: "You have voting power") {
+                path.append(Path.profileHasVotingPower)
+            }
+            ProfileHasVotingPowerView(path: $path)
         }
-        ProfileHasVotingPowerView(path: $path)
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)

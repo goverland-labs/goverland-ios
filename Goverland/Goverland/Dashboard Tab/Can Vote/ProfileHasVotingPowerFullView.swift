@@ -18,7 +18,9 @@ struct ProfileHasVotingPowerFullView: View {
 
     var body: some View {
         Group {
-            if dataSource.isLoading && dataSource.proposals.count == 0 {
+            if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the proposals list")
+            } else if dataSource.isLoading && dataSource.proposals == nil {
                 ScrollView {
                     ForEach(0..<5) { _ in
                         ShimmerProposalListItemCondensedView()
@@ -27,28 +29,32 @@ struct ProfileHasVotingPowerFullView: View {
                 }
                 .padding(.top, 4)
             } else {
-                List(0..<dataSource.proposals.count, id: \.self, selection: $selectedProposalIndex) { index in
-                    let proposal = dataSource.proposals[index]
-                    ProposalListItemCondensedView(proposal: proposal) {
-                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
-                        Tracker.track(.dashCanVoteOpenDaoFromList)
+                if let count = dataSource.proposals?.count, count > 0 {
+                    List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
+                        let proposal = dataSource.proposals![index]
+                        ProposalListItemCondensedView(proposal: proposal) {
+                            activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                            Tracker.track(.dashCanVoteOpenDaoFromList)
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                        .listRowBackground(Color.clear)
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
-                    .listRowBackground(Color.clear)
+                } else {
+                    Text("No recommended proposals found.")
                 }
             }
         }
         .onChange(of: selectedProposalIndex) { _, _ in
-            if let index = selectedProposalIndex, dataSource.proposals.count > index {
-                path.append(dataSource.proposals[index])
+            if let index = selectedProposalIndex, (dataSource.proposals?.count ?? 0) > index {
+                path.append(dataSource.proposals![index])
                 Tracker.track(.dashCanVoteOpenPrpFromList)
             }
         }
         .onAppear {
             selectedProposalIndex = nil
             Tracker.track(.screenDashCanVote)
-            if dataSource.proposals.isEmpty {
+            if dataSource.proposals?.isEmpty ?? true {
                 dataSource.refresh()
             }
         }
