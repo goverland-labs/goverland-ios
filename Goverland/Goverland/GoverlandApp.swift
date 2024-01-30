@@ -120,6 +120,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Setup Firebase
         FirebaseConfig.setUp()
+        
+        UNUserNotificationCenter.current().delegate = self
 
         // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
         _ = WC_Manager.shared
@@ -165,6 +167,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
+        
+        if response.actionIdentifier == "action1" {
+            print("func application action 1")
+        }
+        
+        switch response.actionIdentifier {
+        case "action1":
+            print("action 1 should be running")
+            break
+        case "action2":
+            print("action 2 should be running")
+            break
+        default:
+            print("unknowen action item")
+            break
+        }
+        
         completionHandler()
     }
 }

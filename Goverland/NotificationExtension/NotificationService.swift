@@ -8,8 +8,12 @@
 	
 
 import UserNotifications
+import UniformTypeIdentifiers
+import MobileCoreServices
+
 
 class NotificationService: UNNotificationServiceExtension {
+    
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -18,11 +22,44 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
+        // custom push notification
         if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-            contentHandler(bestAttemptContent)
+            bestAttemptContent.title = "\(bestAttemptContent.title) [!modified]"
+            let data = bestAttemptContent.userInfo as NSDictionary
+            print("---\(data)=====")
+            let imageURLString = data["fcm_options"] as? [String: String]
+            
+//            contentHandler(bestAttemptContent)
+            
+            if let attachmentString = imageURLString!["image"], let attachmentUrl = URL(string: attachmentString) {
+                let session = URLSession(configuration: URLSessionConfiguration.default)
+                let downloadTask = session.downloadTask(with: attachmentUrl, completionHandler: { url, _, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else if let url = url {
+                        let attachment = try! UNNotificationAttachment(identifier: attachmentString, url: url, options: [UNNotificationAttachmentOptionsTypeHintKey: kUTTypePNG])
+                        bestAttemptContent.attachments = [attachment]
+                    }
+                    contentHandler(bestAttemptContent)
+                })
+                downloadTask.resume()
+            }
         }
+        
+        // action controls in expanded custom push notification
+        let action1 = UNNotificationAction(identifier: "action1",
+                                           title: "Action 1",
+                                           options: .foreground)
+        let action2 = UNNotificationAction(identifier: "action2",
+                                           title: "Action 2",
+                                           options: .destructive)
+        
+        let category = UNNotificationCategory(identifier: "myCategory",
+                                              actions: [action1, action2],
+                                              intentIdentifiers: [],
+                                              options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        bestAttemptContent?.categoryIdentifier = "myCategory"
     }
     
     override func serviceExtensionTimeWillExpire() {
