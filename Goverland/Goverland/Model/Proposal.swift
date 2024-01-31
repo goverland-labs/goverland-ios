@@ -26,6 +26,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let quorum: Int
     let privacy: Privacy?
     let snapshot: String
+    let network: String
     let state: State
 
     // Swift can automatically decode urls with special characters.
@@ -102,6 +103,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case quorum
         case privacy
         case snapshot
+        case network
         case state
        // case strategies
         case link
@@ -135,6 +137,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          quorum: Int,
          privacy: Privacy?,
          snapshot: String,
+         network: String,
          state: State,
          link: String,
          scores: [Double],
@@ -158,6 +161,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.quorum = quorum
         self.privacy = privacy
         self.snapshot = snapshot
+        self.network = network
         self.state = state
         self.link = link
         self.scores = scores
@@ -210,7 +214,8 @@ struct Proposal: Decodable, Hashable, Identifiable {
         }
 
         self.snapshot = try container.decode(String.self, forKey: .snapshot)
-        
+        self.network = try container.decode(String.self, forKey: .network)
+
         do {
             self.state = try container.decode(State.self, forKey: .state)
         } catch {
@@ -263,6 +268,7 @@ extension Proposal {
         quorum: 0,
         privacy: Proposal.Privacy.none,
         snapshot: "43600919",
+        network: "1",
         state: .active,
         //strategies: [],
         link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",

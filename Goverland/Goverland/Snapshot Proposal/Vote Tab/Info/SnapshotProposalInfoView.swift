@@ -10,15 +10,37 @@ import SwiftUI
 
 struct SnapshotProposalInfoView: View {
     let proposal: Proposal
-    
+
+    var ipfs: String {
+        String(proposal.ipfs.prefix(7))
+    }
+
+    var ipfsUrl: URL? {
+        URL(string: "https://snapshot.4everland.link/ipfs/\(proposal.ipfs)")
+    }
+
+    var snapshot: String {
+        if let _snapshot = Int(proposal.snapshot) {
+            return Utils.decimalNumber(from: _snapshot)
+        } else {
+            return proposal.snapshot
+        }
+    }
+
+    var snapshotUrl: URL? {
+        if let network = Network.from(id: proposal.network) {
+            return URL(string: network.blockUrlTemplate.replacingOccurrences(of: "{}", with: proposal.snapshot))
+        }
+        return nil
+    }
+
     var body: some View {
-        let ipfs = String(proposal.ipfs.prefix(7))
-        let ipfsUrl = URL(string: "https://snapshot.4everland.link/ipfs/\(proposal.ipfs)")
         VStack(alignment: .leading, spacing: 15) {
             InfoLine(leading: Text("IPFS"), trailing: Text("#\(ipfs)"), url: ipfsUrl)
             InfoLine(leading: Text("Voting system"), trailing: Text(proposal.type.rawValue))
             InfoLine(leading: Text("Start date"), trailing: Text(Utils.mediumDate(proposal.votingStart)))
             InfoLine(leading: Text("End date"), trailing: Text(Utils.mediumDate(proposal.votingEnd)))
+            InfoLine(leading: Text("Snapshot Block"), trailing: Text(snapshot), url: snapshotUrl)
         }
     }
 }
