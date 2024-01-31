@@ -59,11 +59,11 @@ struct AdvancedSettingView: View {
                     .foregroundColor(.textWhite40)
             }
 
-            if let id = profiles.first(where: { $0.selected })?.deviceId {
+            if let id = profiles.first(where: { $0.selected })?.deviceId.prefix(8) {
                 Section {
                     LabeledContent(id) {
                         Button {
-                            UIPasteboard.general.string = id
+                            UIPasteboard.general.string = String(id)
                             showToast("Copied")
                         } label: {
                             Image(systemName: "doc.on.doc")
