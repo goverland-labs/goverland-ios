@@ -63,7 +63,7 @@ struct SignInTwoStepsView: View {
                                 .font(.footnoteRegular)
                         }
                     }
-                } else if let account = dataSource.cbWalletAccount {
+                } else if dataSource.cbWalletAccount != nil {
                     VStack(alignment: .trailing, spacing: 4) {
                         HStack {
                             Image(Wallet.coinbase.image)
