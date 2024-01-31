@@ -46,7 +46,7 @@ class NotificationsManager {
         }
     }
 
-    func enableNotifications() {
+    func enableNotificationsIfNeeded() {
         // verify that token is there and user enabled notifications
         guard let token = Messaging.messaging().fcmToken, SettingKeys.shared.notificationsEnabled else { return }
         guard !SettingKeys.shared.authToken.isEmpty else { return }

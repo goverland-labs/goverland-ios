@@ -124,6 +124,9 @@ class SignInTwoStepsDataSource: ObservableObject {
                                                                     wcSessionMeta: wcSessionMeta, 
                                                                     cbAccount: cbAccount)
                         try! await profile.select()
+
+                        // Send Firebase token to backend for this profile
+                        NotificationsManager.shared.enableNotificationsIfNeeded()
                     }
                     ProfileDataSource.shared.profile = response.profile
                     Tracker.track(.twoStepsSignedIn)
