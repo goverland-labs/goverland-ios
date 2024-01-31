@@ -62,7 +62,7 @@ struct PushNotificationsSettingView: View {
                             skipTrackingOnce = false
                         }
                         SettingKeys.shared.notificationsEnabled = true
-                        NotificationsManager.shared.enableNotifications()
+                        NotificationsManager.shared.enableNotificationsIfNeeded()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
                         NotificationsManager.shared.disableNotifications { disabled in

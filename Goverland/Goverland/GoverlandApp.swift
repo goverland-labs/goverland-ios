@@ -182,6 +182,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
-        NotificationsManager.shared.enableNotifications()
+        NotificationsManager.shared.enableNotificationsIfNeeded()
     }
 }

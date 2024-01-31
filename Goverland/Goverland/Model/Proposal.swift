@@ -15,6 +15,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let author: User
     let created: Date
     let type: ProposalType
+    let strategies: [Strategy]
     let title: String
     let body: [ProposalBody]
     // TODO: fix after sync with backend
@@ -26,6 +27,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let quorum: Int
     let privacy: Privacy?
     let snapshot: String
+    let network: String
     let state: State
 
     // Swift can automatically decode urls with special characters.
@@ -86,12 +88,17 @@ struct Proposal: Decodable, Hashable, Identifiable {
         }
     }
 
+    struct Strategy: Decodable {
+        let name: String
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case ipfs
         case author
         case created
         case type
+        case strategies
         case title
         case body
         case discussion
@@ -102,6 +109,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case quorum
         case privacy
         case snapshot
+        case network
         case state
        // case strategies
         case link
@@ -125,6 +133,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          author: User,
          created: Date,
          type: ProposalType,
+         strategies: [Strategy],
          title: String,
          body: [ProposalBody],
          discussion: String?,
@@ -135,6 +144,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          quorum: Int,
          privacy: Privacy?,
          snapshot: String,
+         network: String,
          state: State,
          link: String,
          scores: [Double],
@@ -148,6 +158,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.author = author
         self.created = created
         self.type = type
+        self.strategies = strategies
         self.title = title
         self.body = body
         self.discussion = discussion
@@ -158,6 +169,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.quorum = quorum
         self.privacy = privacy
         self.snapshot = snapshot
+        self.network = network
         self.state = state
         self.link = link
         self.scores = scores
@@ -187,6 +199,13 @@ struct Proposal: Decodable, Hashable, Identifiable {
             throw GError.errorDecodingData(error: error, context: "Decoding `type`: Proposal ID: \(id)")
         }
 
+        do {
+            self.strategies = try container.decode([Strategy].self, forKey: .strategies)
+        } catch {
+            logError(GError.errorDecodingData(error: error, context: "Decoding `strategies`: Proposal ID: \(id)"))
+            self.strategies = []
+        }
+
         self.title = try container.decode(String.self, forKey: .title)
 
         do {
@@ -210,7 +229,8 @@ struct Proposal: Decodable, Hashable, Identifiable {
         }
 
         self.snapshot = try container.decode(String.self, forKey: .snapshot)
-        
+        self.network = try container.decode(String.self, forKey: .network)
+
         do {
             self.state = try container.decode(State.self, forKey: .state)
         } catch {
@@ -250,6 +270,7 @@ extension Proposal {
         author: .aaveChan,
         created: .now - 5.days,
         type: .weighted,
+        strategies: [],
         title: "Schedule all Act 1 Parcel Surveys (re-rolls)",
         body: [
             ProposalBody(type: .markdown, body: "Authors: Dr Wagmi | Forge | Vault#6629\nGotchiIDs: 16635\nQuorum requirement: 20% (9M)\nVote duration: 5 days\nDiscourse Thread: https://discord.com/channels/732491344970383370/1111329507987701871/1111329507987701871\n\nI propose that Parcel Re-rolls be scheduled and recurring every 12 weeks to complete ACT 1. Further survey rolls and tokenomics of Acts 2 and 3 can be proposed by Pixelcraft or the Aavegotchi DAO. This predictability will ensure investors have prior investment decisions honored and to be more confident in future investments. The Pixelcraft team continues to develop the Gotchiverse and GotchiGuardians which will create further sinks and a healthy, sustainable ecosystem. This will continue to push alchemica emissions away from channeling and into farming. It will allow Pixelcraft clear dates around which to target a Great Battle or similar climactic experience for the rounds. It also affords more confident participation in the alchemica spending competitions which have been very successful to date. \n\nHistorical Survey Dates: \nSurvey #1 (Initial Farm release): 7/20/2022 (25% of alchemica in act 1) \nSurvey #2: 3/3/2023 \n\nProposed Survey rolls (estimate based on Pixelcraft Shipping Fridays): 8.33% each: \nSurvey #3: 6/16/2023 \nSurvey #4: 9/8/2023 \nSurvey #5: 12/1/2023 \nSurvey #6: 2/24/2024 \nSurvey #7: 5/18/2024 \nSurvey #8: 8/10/2024 \nSurvey #9: 11/2/2024 (final survey of Act 1) \n\nReferences: Aavegotchi Medium Alchemica Report: https://aavegotchi.medium.com/top-secret-gotchus-alchemica-tokenomics-report-fc588cda9896 \nAavegotchi Bible Chapter 2 Alchemica Tokenomics: https://blog.aavegotchi.com/the-gotchiverse-game-bible-chapter-2/\n\n\nThanks\nDr Wagmi"),
@@ -263,6 +284,7 @@ extension Proposal {
         quorum: 0,
         privacy: Proposal.Privacy.none,
         snapshot: "43600919",
+        network: "1",
         state: .active,
         //strategies: [],
         link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
