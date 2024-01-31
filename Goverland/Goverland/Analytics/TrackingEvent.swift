@@ -36,10 +36,12 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"
-    case screenDashHotList = "screen_dash_hot_list"
+    // Followed DAOs with active vote
+    case dashFollowedDaoActiveVoteOpenDao = "dash_followed_av_open_dao"
     // Hot Proposals
-    case dashHotOpenPrp = "dash_hot_open_prp"
     case dashHotOpenDao = "dash_hot_open_dao"
+    case dashHotOpenPrp = "dash_hot_open_prp"
+    case screenDashHotList = "screen_dash_hot_list"
     case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
     case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
     // New DAOs
@@ -58,8 +60,12 @@ enum TrackingEvent: String, Trackable {
     case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
     case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
     case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
-    // Recently Viewed DAOs
-    case dashRecentDaoOpen = "dash_recentdao_open"
+    // Profile has voting power
+    case dashCanVoteOpenDao = "dash_can_vote_open_dao"
+    case dashCanVoteOpenPrp = "dash_can_vote_open_prp"
+    case screenDashCanVote = "screen_dash_can_vote"
+    case dashCanVoteOpenPrpFromList = "dash_can_vote_open_prp_from_list"
+    case dashCanVoteOpenDaoFromList = "dash_can_vote_open_dao_from_list"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
@@ -116,6 +122,7 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
+
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
     case searchDaosFollowFromCard = "search_daos_follow_from_card"
 
@@ -127,6 +134,9 @@ enum TrackingEvent: String, Trackable {
     case searchDaosOpenDaoFromCard = "search_daos_open_dao_from_card"
     case searchDaosOpenDaoFromCtgList = "search_daos_open_dao_from_ctg_list"
     case searchDaosOpenDaoFromCtgSearch = "search_daos_open_dao_from_ctg_search"
+
+    // Recently Viewed DAOs
+    case searchRecentDaoOpen = "search_recentdao_open"
 
     // MARK: - Search Proposal
     case screenSearchPrp = "screen_search_prp"

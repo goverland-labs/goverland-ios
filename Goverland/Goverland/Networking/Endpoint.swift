@@ -149,6 +149,18 @@ struct DeleteProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .delete
 }
 
+struct ProfileHasVotingPowerEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/can-vote"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {

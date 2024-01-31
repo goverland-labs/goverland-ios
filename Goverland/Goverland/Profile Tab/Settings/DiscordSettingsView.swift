@@ -19,7 +19,7 @@ struct DiscordSettingsView: View {
             Image(systemName: "arrow.up.right")
                 .foregroundColor(.textWhite40)
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
     }
     
     private func openDiscordApp() {

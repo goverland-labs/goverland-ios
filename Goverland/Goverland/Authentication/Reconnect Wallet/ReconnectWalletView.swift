@@ -68,7 +68,7 @@ struct ReconnectWalletView: View {
             NavigationStack {
                 ConnectWalletView()
             }
-            .accentColor(.textWhite)
+            .tint(.textWhite)
             .overlay {
                 ToastView()
             }

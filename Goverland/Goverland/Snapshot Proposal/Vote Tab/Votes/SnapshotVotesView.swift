@@ -58,7 +58,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
             NavigationStack {
                 SnapshotAllVotesView<ChoiceType>(proposal: proposal)
             }
-            .accentColor(.textWhite)
+            .tint(.textWhite)
             .overlay {
                 ToastView()
             }

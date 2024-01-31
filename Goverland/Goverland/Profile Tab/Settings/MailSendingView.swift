@@ -39,7 +39,7 @@ struct MailSettingView: View {
                 .foregroundColor(.textWhite40)
             
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
     }
     
     private func getSettingsEmailAddressAlert() -> Alert {

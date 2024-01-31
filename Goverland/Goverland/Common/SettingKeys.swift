@@ -24,6 +24,7 @@ class SettingKeys: ObservableObject {
             Tracker.setTrackingEnabled(trackingAccepted)
         }
     }
+    @AppStorage("welcomeBlockIsRead") var welcomeBlockIsRead = false
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
     @AppStorage("lastSuggestedToRateTime") var lastSuggestedToRateTime: TimeInterval = 0

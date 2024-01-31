@@ -20,6 +20,7 @@ struct Dao: Identifiable, Decodable, Equatable {
     let categories: [DaoCategory]
     let proposals: Int
     let voters: Int
+    let activeVotes: Int?
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
     let X: String?
@@ -37,6 +38,7 @@ struct Dao: Identifiable, Decodable, Equatable {
          categories: [DaoCategory],
          proposals: Int,
          voters: Int,
+         activeVotes: Int?,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
          X: String?,
@@ -53,6 +55,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.categories = categories
         self.proposals = proposals
         self.voters = voters
+        self.activeVotes = activeVotes
         self.subscriptionMeta = subscriptionMeta
         self.website = website
         self.X = X
@@ -72,6 +75,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case categories
         case proposals = "proposals_count"
         case voters = "voters_count"
+        case activeVotes = "active_votes"
         case subscriptionMeta = "subscription_info"
         case website
         case X = "twitter"
@@ -117,6 +121,7 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
+        self.activeVotes = try container.decodeIfPresent(Int.self, forKey: .activeVotes)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
@@ -226,7 +231,8 @@ extension Dao {
         about: [], 
         categories: [.protocol],
         proposals: 100,
-        voters: 4567,
+        voters: 4567, 
+        activeVotes: 2,
         subscriptionMeta: nil,
         website: URL(string: "https://gnosis.io"),
         X: "gnosisdao",
@@ -243,7 +249,8 @@ extension Dao {
         about: [], 
         categories: [.protocol],
         proposals: 150,
-        voters: 45678,
+        voters: 45678, 
+        activeVotes: 20,
         subscriptionMeta: nil,
         website: nil,
         X: "AaveAave",

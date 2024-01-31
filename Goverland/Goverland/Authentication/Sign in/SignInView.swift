@@ -91,8 +91,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                 }
                 .disabled(dataSource.loading)
                 .fontWeight(.semibold)
-
-                .accentColor(.secondaryContainer)
+                .tint(.secondaryContainer)
 
                 HStack {
                     if dataSource.loading {
