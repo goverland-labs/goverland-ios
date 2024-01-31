@@ -73,7 +73,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             DaoInfoView(dao: dao)
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -82,7 +82,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             AddSubscriptionView()
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }

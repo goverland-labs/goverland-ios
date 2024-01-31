@@ -54,7 +54,7 @@ struct HelpUsGrowSettingView: View {
                 }
             }
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .onAppear() { Tracker.track(.screenHelpUsGrow) }
     }
 }

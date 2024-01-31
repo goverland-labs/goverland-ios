@@ -27,17 +27,17 @@ struct AdvancedSettingView: View {
                     try! modelContext.save()
                     fatalError("Reset the app")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("CRASH") {
                     fatalError("Crash the App")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("LOG ERROR") {
                     logError(GError.appInconsistency(reason: "Debug test error logging"))
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("Show test notification in 3 sec") {
                     showLocalNotification(title: "Test local notification",

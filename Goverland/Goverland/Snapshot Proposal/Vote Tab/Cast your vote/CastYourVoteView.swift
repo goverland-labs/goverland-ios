@@ -55,7 +55,7 @@ fileprivate struct _VoteView: View {
                                     .focused($isTextEditorFocused)
                                     .frame(height: 96)
                                     .foregroundColor(.textWhite)
-                                    .accentColor(.textWhite40)
+                                    .tint(.textWhite40)
                                     .scrollContentBackground(.hidden)
                                     .background(Color.containerBright)
                                     .cornerRadius(20)
