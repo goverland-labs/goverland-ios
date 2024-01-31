@@ -26,7 +26,7 @@ class NotificationService: UNNotificationServiceExtension {
         if let bestAttemptContent = bestAttemptContent {
             bestAttemptContent.title = "\(bestAttemptContent.title) [!modified]"
             let data = bestAttemptContent.userInfo as NSDictionary
-            print("---\(data)=====")
+            //print("---\(data)=====")
             let imageURLString = data["fcm_options"] as? [String: String]
             
 //            contentHandler(bestAttemptContent)
