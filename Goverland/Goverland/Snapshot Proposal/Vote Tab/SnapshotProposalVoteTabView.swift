@@ -144,8 +144,10 @@ struct SnapshotProposalVoteTabView: View {
                         }
                     }
                 }
+
             case .results:
                 SnapshopVotingResultView(proposal: proposal)
+
             case .votes:
                 if proposal.privacy == .shutter && proposal.state == .active {
                     // Votes are encrypted
