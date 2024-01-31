@@ -11,6 +11,14 @@ import SwiftUI
 struct SnapshotProposalInfoView: View {
     let proposal: Proposal
 
+    var strategiesCount: Int {
+        proposal.strategies.count
+    }
+
+    var strategiesUrl: URL? {
+        Utils.urlFromString(proposal.link)
+    }
+
     var ipfs: String {
         String(proposal.ipfs.prefix(7))
     }
@@ -36,6 +44,10 @@ struct SnapshotProposalInfoView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
+            if strategiesCount > 0 {
+                let strategies = strategiesCount == 1 ? "strategy" : "strategies"
+                InfoLine(leading: Text("Strategies"), trailing: Text("\(strategiesCount) \(strategies)"), url: strategiesUrl)
+            }
             InfoLine(leading: Text("IPFS"), trailing: Text("#\(ipfs)"), url: ipfsUrl)
             InfoLine(leading: Text("Voting system"), trailing: Text(proposal.type.rawValue))
             InfoLine(leading: Text("Start date"), trailing: Text(Utils.mediumDate(proposal.votingStart)))
