@@ -1,5 +1,5 @@
 //
-//  DaoTermsAgreementView.swift
+//  DaoTermsAgreementPopoverView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 01.02.24.
@@ -10,7 +10,7 @@
 import SwiftUI
 import SwiftData
 
-struct DaoTermsAgreementView: View {
+struct DaoTermsAgreementPopoverView: View {
     let dao: Dao
     let onAgree: () -> Void
     @Environment(\.dismiss) private var dismiss
@@ -21,7 +21,7 @@ struct DaoTermsAgreementView: View {
             Text("Terms of Service")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
-                .padding(.top, 20)
+                .padding(.top, 8)
 
             Spacer()
 
@@ -52,5 +52,6 @@ struct DaoTermsAgreementView: View {
             }
         }
         .padding(.horizontal, 16)
+        .padding(.vertical, 16)
     }
 }

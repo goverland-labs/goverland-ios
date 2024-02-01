@@ -181,7 +181,7 @@ struct SnapshotProposalVoteTabView: View {
                 .presentationDetents([.height(500), .large])
         }
         .sheet(isPresented: $showAgreeWithDaoTerms) {
-            DaoTermsAgreementView(dao: proposal.dao) {
+            DaoTermsAgreementPopoverView(dao: proposal.dao) {
                 vote()
             }
             .presentationDetents([.height(220), .large])

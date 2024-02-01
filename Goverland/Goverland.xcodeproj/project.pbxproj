@@ -117,7 +117,7 @@
 		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
 		55E9D9882B6A7F4500697A12 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D9872B6A7F4500697A12 /* Network.swift */; };
 		55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D9892B6B638E00697A12 /* DaoTermsAgreement.swift */; };
-		55E9D98D2B6B669100697A12 /* DaoTermsAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D98C2B6B669100697A12 /* DaoTermsAgreementView.swift */; };
+		55E9D98D2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D98C2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift */; };
 		55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87D2B237EE600242817 /* ScreenExtention.swift */; };
 		55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */; };
 		55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 55EEC0332B2BB326007962BD /* CryptoSwift */; };
@@ -347,7 +347,7 @@
 		55E800A52AF8419E00A43D5F /* SignInDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataSource.swift; sourceTree = "<group>"; };
 		55E9D9872B6A7F4500697A12 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55E9D9892B6B638E00697A12 /* DaoTermsAgreement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoTermsAgreement.swift; sourceTree = "<group>"; };
-		55E9D98C2B6B669100697A12 /* DaoTermsAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoTermsAgreementView.swift; sourceTree = "<group>"; };
+		55E9D98C2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoTermsAgreementPopoverView.swift; sourceTree = "<group>"; };
 		55EEA87D2B237EE600242817 /* ScreenExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenExtention.swift; sourceTree = "<group>"; };
 		55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectWalletView.swift; sourceTree = "<group>"; };
 		55EEC0352B2C93AF007962BD /* DangerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangerButton.swift; sourceTree = "<group>"; };
@@ -866,7 +866,7 @@
 		55E9D98B2B6B667D00697A12 /* Agree with DAO terms */ = {
 			isa = PBXGroup;
 			children = (
-				55E9D98C2B6B669100697A12 /* DaoTermsAgreementView.swift */,
+				55E9D98C2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift */,
 			);
 			path = "Agree with DAO terms";
 			sourceTree = "<group>";
@@ -1577,7 +1577,7 @@
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
-				55E9D98D2B6B669100697A12 /* DaoTermsAgreementView.swift in Sources */,
+				55E9D98D2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
 				552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */,
 				BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */,
