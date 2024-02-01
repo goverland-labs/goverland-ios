@@ -43,6 +43,7 @@ struct DaoTermsAgreementPopoverView: View {
                 }
 
                 PrimaryButton("I agree") {
+                    Tracker.track(.snpDaoTermsAgree)
                     Task {
                         try! DaoTermsAgreement.upsert(dao: dao)
                         onAgree()
@@ -53,5 +54,8 @@ struct DaoTermsAgreementPopoverView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
+        .onAppear {
+            Tracker.track(.screenSnpDaoTerms)
+        }
     }
 }

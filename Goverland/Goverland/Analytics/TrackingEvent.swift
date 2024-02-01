@@ -114,6 +114,10 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Snapshot Proposal Votes
     case screenSnpVoters = "screen_snp_voters"
 
+    // MARK: - Terms view
+    case screenSnpDaoTerms = "screen_snp_dao_terms"
+    case snpDaoTermsAgree = "snp_dao_terms_agree"
+
     // MARK: - Cast your vote
     case screenSnpCastVote = "screen_snp_cast_vote"
     case screenSnpVoteSuccess = "screen_snp_vote_success"
