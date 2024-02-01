@@ -373,7 +373,9 @@ fileprivate struct ProfileListView: View {
                 sessionExpiryDate: nil)
         }
 
-        guard let session = WC_Manager.shared.sessionMeta?.session else { return nil }
+        guard let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired else { return nil }
+
+        let session = sessionMeta.session
         let image: Image?
         let imageUrl: URL?
         
