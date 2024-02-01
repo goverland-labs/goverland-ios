@@ -41,6 +41,9 @@ struct DashboardView: View {
                 }
             }
             .id(authToken) // redraw completely on auth token change
+            .onChange(of: authToken) { _, _ in
+                Self.refresh()
+            }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
