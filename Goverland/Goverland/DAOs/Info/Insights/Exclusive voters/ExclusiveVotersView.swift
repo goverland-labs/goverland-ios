@@ -31,7 +31,8 @@ struct ExclusiveVotersView: View {
     }
 
     var body: some View {
-        BrickView(header: "Exclusive voters",
+        BrickView(header: "Exclusive voters", 
+                  description: "Number of voters participating only in this DAO and no any other DAO.",
                   data: data,
                   metadata: metadata,
                   isLoading: dataSource.isLoading,

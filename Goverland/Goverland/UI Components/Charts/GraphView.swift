@@ -38,40 +38,10 @@ struct GraphView<Content: GraphViewContent>: View {
         self.onRefresh = onRefresh
         self.content = content()
     }
-    
-    @State private var isTooltipVisible = false
-    
+
     var body: some View {
         VStack {
-            HStack {
-                Text(header)
-                    .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
-                Spacer()
-                if let subheader {
-                    Image(systemName: "questionmark.circle")
-                        .foregroundColor(.textWhite40)
-                        .padding(.trailing)
-                        .tooltip($isTooltipVisible) {
-                            Text(subheader)
-                                .foregroundColor(.textWhite60)
-                                .font(.сaptionRegular)
-                        }
-                        .onTapGesture() {
-                            withAnimation {
-                                isTooltipVisible.toggle()
-                                // Shoe tooltip for 5 sec only
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                    if isTooltipVisible {
-                                        isTooltipVisible.toggle()
-                                    }
-                                }
-                            }
-                        }
-                }
-            }
-            .padding([.top, .horizontal])
-            
+            GraphHeaderView(header: header, subheader: subheader)
             if isLoading {
                 Spacer()
                 ProgressView()
