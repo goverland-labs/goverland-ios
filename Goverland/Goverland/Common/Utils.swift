@@ -61,7 +61,7 @@ func showLocalNotification(title: String, body: String?, delay: TimeInterval? = 
 }
 
 enum Utils {
-    // MARK: -HTTP Headers
+    // - MARK: HTTP Headers
 
     static func getTotal(from headers: HttpHeaders) -> Int? {
         guard let totalStr = headers["x-total-count"] as? String,
@@ -112,7 +112,7 @@ enum Utils {
         return calendar.date(from: components)!
     }
 
-    // MARK: -Numbers
+    // - MARK: Numbers
 
     static func formattedNumber(_ number: Double) -> String {
         let formatter = MetricNumberFormatter()
@@ -160,7 +160,7 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
-    // MARK: - Misc
+    //  - MARK: Misc
 
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),

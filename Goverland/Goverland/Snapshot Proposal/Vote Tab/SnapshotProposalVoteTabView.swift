@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SwiftData
-import SwiftDate
 
 enum SnapshotVoteTabType: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -74,8 +73,7 @@ struct SnapshotProposalVoteTabView: View {
     private var userAgreedWithDaoTerms: Bool {
         guard proposal.dao.terms != nil else { return true }
         if let found = termsAgreements.first(where: { $0.daoId == proposal.dao.id }) {
-            // re-request every 3 months
-            if Date.now - 3.months > found.confirmationDate {
+            if Date.now - ConfigurationManager.daoTermsAgreementRequestInterval > found.confirmationDate {
                 return false
             }
             return true
