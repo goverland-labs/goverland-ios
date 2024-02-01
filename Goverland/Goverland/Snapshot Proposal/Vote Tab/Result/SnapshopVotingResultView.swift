@@ -33,12 +33,27 @@ struct SnapshopVotingResultView: View {
                     }
                 }
             }
-        }
-    }
-}
 
-struct SnapshopVotingResultView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshopVotingResultView(proposal: .aaveTest)
+            if proposal.quorum > 0 {
+                GeometryReader { geometry in
+                    VStack(spacing: 2) {
+                        HStack {
+                            Text("Quorum")
+                                .font(.footnoteSemibold)
+                                .foregroundColor(.onSecondaryContainer)
+                            Spacer()
+                            Text(Utils.percentage(of: proposal.quorum, in: 100))
+                                .font(.footnoteSemibold)
+                                .foregroundColor(.textWhite)
+                        }
+
+                        ProposalResultProcessBarView(
+                            score: Double(proposal.quorum < 100 ? proposal.quorum : 100),
+                            totalScore: 100,
+                            width: geometry.size.width)
+                    }
+                }
+            }
+        }
     }
 }

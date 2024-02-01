@@ -32,9 +32,3 @@ struct ProposalResultProcessBarLabelView: View {
         }
     }
 }
-
-struct ProposalResultProcessBarLabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProposalResultProcessBarLabelView(choice: "", score: 0, totalScore: 0, symbol: nil)
-    }
-}

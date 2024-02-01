@@ -31,7 +31,8 @@ struct SuccessfulProposalsView: View {
     }
     
     var body: some View {
-        BrickView(header: "Successful proposals",
+        BrickView(header: "Successful proposals", 
+                  description: "Proposals that reached the quorum and concluded with positive outcomes. Basic-type proposals with the 'No' winning option are considered as Defeated.",
                   data: data,
                   metadata: metadata,
                   isLoading: dataSource.isLoading,

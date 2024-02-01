@@ -16,7 +16,9 @@ struct DeleteProfilePopoverView: View {
             Text("Are you sure?")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
-                .padding([.top, .bottom], 32)
+                .padding(.top, 16)                
+
+            Spacer()
 
             VStack(alignment: .leading, spacing: 20) {
                 Text("This profile will no longer be available, and all your saved data will be permanently deleted from all connected devices.")
@@ -41,5 +43,6 @@ struct DeleteProfilePopoverView: View {
             }
         }
         .padding(.horizontal, 16)
+        .padding(.vertical, 16)
     }
 }

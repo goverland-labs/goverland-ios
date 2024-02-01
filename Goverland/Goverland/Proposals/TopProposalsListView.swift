@@ -57,7 +57,7 @@ struct TopProposalsListView: View {
                 }
             }
         }
-        .onChange(of: selectedProposalIndex) { _ in
+        .onChange(of: selectedProposalIndex) { _, _ in
             if let index = selectedProposalIndex, dataSource.proposals.count > index {
                 path.append(dataSource.proposals[index])
                 Tracker.track(openProposalFromListItemTrackingEvent)

@@ -124,7 +124,7 @@ struct ArchiveView: View {
                                      navigationTitle: proposal.dao.name)
             }
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .overlay {
             ToastView()
         }

@@ -13,7 +13,7 @@ import CoinbaseWalletSDK
 
 let appContainer: ModelContainer = {
     do {
-        return try ModelContainer(for: UserProfile.self)
+        return try ModelContainer(for: UserProfile.self, DaoTermsAgreement.self)
     } catch {
         fatalError("Failed to create App container")
     }
@@ -73,7 +73,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             DaoInfoView(dao: dao)
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -82,7 +82,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             AddSubscriptionView()
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -182,6 +182,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
-        NotificationsManager.shared.enableNotifications()
+        NotificationsManager.shared.enableNotificationsIfNeeded()
     }
 }

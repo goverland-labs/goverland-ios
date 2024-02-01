@@ -27,6 +27,10 @@ class SignInTwoStepsDataSource: ObservableObject {
 
     @objc private func wcSessionUpdated(_ notification: Notification) {
         DispatchQueue.main.async {
+            if self.wcSessionMeta?.session.peer.name != WC_Manager.shared.sessionMeta?.session.peer.name {
+                // Hide info message when a user changes wallet
+                self.infoMessage = nil
+            }
             self.wcSessionMeta = WC_Manager.shared.sessionMeta
             if self.wcSessionMeta != nil {
                 self.cbWalletAccount = nil
@@ -78,7 +82,8 @@ class SignInTwoStepsDataSource: ObservableObject {
     }
 
     private func signIn(signature: String) {
-        guard let address = (wcAddress ?? cbAddress) else { return }
+        guard let address = (wcAddress ?? cbAddress),
+              let siweMessage = siweMessage else { return }
 
         let deviceName = UIDevice.current.name
 
@@ -104,7 +109,7 @@ class SignInTwoStepsDataSource: ObservableObject {
             APIService.regularAuth(address: address,
                                    deviceId: deviceId,
                                    deviceName: deviceName,
-                                   message: siweMessage!,
+                                   message: siweMessage,
                                    signature: signature)
                 .sink { response in
                     logInfo("Response: \(response)")
@@ -116,7 +121,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                     let cbAccount = self.cbWalletAccount
 
                     Task {
-                        // TODO: rework when we have a multi-profile. Sign out should not be called.
+                        // Rework when we have a multi-profile. Sign out should not be called.
                         try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
@@ -124,6 +129,9 @@ class SignInTwoStepsDataSource: ObservableObject {
                                                                     wcSessionMeta: wcSessionMeta, 
                                                                     cbAccount: cbAccount)
                         try! await profile.select()
+
+                        // Send Firebase token to backend for this profile
+                        NotificationsManager.shared.enableNotificationsIfNeeded()
                     }
                     ProfileDataSource.shared.profile = response.profile
                     Tracker.track(.twoStepsSignedIn)

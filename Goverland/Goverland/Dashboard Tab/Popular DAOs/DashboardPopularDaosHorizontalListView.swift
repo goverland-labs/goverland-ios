@@ -1,5 +1,5 @@
 //
-//  DashboardPopularDaosView.swift
+//  DashboardPopularDaosListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-10-22.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct DashboardPopularDaosView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+struct DashboardPopularDaosHorizontalListView: View {
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
 
     let category: DaoCategory = .popular
@@ -46,11 +46,10 @@ struct DashboardPopularDaosView: View {
                                     }
                                 }
                             } else {
-                                RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-                                    .onTapGesture {
-                                        activeSheetManger.activeSheet = .daoInfo(dao)
-                                        Tracker.track(.dashPopularDaoOpen)
-                                    }
+                                DAORoundViewWithActiveVotes(dao: dao) {
+                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    Tracker.track(.dashPopularDaoOpen)
+                                }
                             }
                         }
                     }

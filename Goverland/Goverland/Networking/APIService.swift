@@ -106,6 +106,16 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func profileHasVotingPower(offset: Int = 0,
+                                      limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = ProfileHasVotingPowerEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     // MARK: - DAOs
     
     static func daos(offset: Int = 0,
@@ -124,6 +134,17 @@ extension APIService {
         if let query = query {
             queryParameters.append(URLQueryItem(name: "query", value: query))
         }
+        let endpoint = DaoListEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func daosWithActiveVote() -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
+        var queryParameters = [
+            URLQueryItem(name: "followed", value: "true"),
+            URLQueryItem(name: "activeVote", value: "true"),
+            URLQueryItem(name: "offset", value: "0"),
+            URLQueryItem(name: "limit", value: "100")
+        ]
         let endpoint = DaoListEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }

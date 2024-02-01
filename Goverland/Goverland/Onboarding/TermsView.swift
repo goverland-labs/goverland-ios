@@ -52,7 +52,7 @@ struct TermsView: View {
                     Text(" and ") +
                     Text("[Terms of Service.](https://www.goverland.xyz/terms)").underline()
                 }
-                .accentColor(.primaryDim)
+                .tint(.primaryDim)
             }
 
             Spacer()
@@ -68,13 +68,13 @@ struct TermsView: View {
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)
-            .accentColor(.primaryDim)
+            .tint(.primaryDim)
         }
         .padding(.horizontal, 16)
     }
 }
 
-fileprivate struct BulletedListsDot: View {
+struct BulletedListsDot: View {
     var body: some View {
         Circle()
             .fill(Color.primaryDim)

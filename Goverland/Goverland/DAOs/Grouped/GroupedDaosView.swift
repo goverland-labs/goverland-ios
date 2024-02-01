@@ -67,7 +67,7 @@ struct GroupedDaosView: View {
                         .padding(.bottom, 8)
                         .padding(.horizontal, 16)
 
-                    RecentlyViewedDaosView()
+                    RecentlyViewedDaosHorizontalListView()
                 }
 
                 ForEach(DaoCategory.values) { category in

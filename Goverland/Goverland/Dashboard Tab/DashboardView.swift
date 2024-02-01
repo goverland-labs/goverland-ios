@@ -12,6 +12,7 @@ fileprivate enum Path {
     case hotProposals
     case newDaos
     case popularDaos
+    case profileHasVotingPower
     case ecosystemCharts
 }
 
@@ -22,9 +23,11 @@ struct DashboardView: View {
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
+        FollowedDAOsActiveVoteDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.newDaos.refresh()
         GroupedDaosDataSource.popularDaos.refresh()
+        ProfileHasVotingPowerDataSource.dashboard.refresh()
         EcosystemDashboardDataSource.shared.refresh()
     }
 
@@ -38,6 +41,9 @@ struct DashboardView: View {
                 }
             }
             .id(authToken) // redraw completely on auth token change
+            .onChange(of: authToken) { _, _ in
+                Self.refresh()
+            }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -53,6 +59,10 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
 
+                if FollowedDAOsActiveVoteDataSource.dashboard.daos.isEmpty {
+                    FollowedDAOsActiveVoteDataSource.dashboard.refresh()
+                }
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
@@ -65,6 +75,10 @@ struct DashboardView: View {
                     GroupedDaosDataSource.popularDaos.refresh()
                 }
 
+                if ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? true {
+                    ProfileHasVotingPowerDataSource.dashboard.refresh()
+                }
+
                 if EcosystemDashboardDataSource.shared.charts == nil {
                     EcosystemDashboardDataSource.shared.refresh()
                 }
@@ -74,8 +88,6 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Path.self) { path in
                 switch path {
-                case .ecosystemCharts:
-                    EcosystemChartsFullView()
                 case .hotProposals:
                     TopProposalsListView(dataSource: TopProposalsDataSource.dashboard,
                                          path: $path,
@@ -98,6 +110,10 @@ struct DashboardView: View {
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
+                case .profileHasVotingPower:
+                    ProfileHasVotingPowerFullView(path: $path)
+                case .ecosystemCharts:
+                    EcosystemChartsFullView()
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
@@ -111,9 +127,14 @@ struct DashboardView: View {
 
 fileprivate struct SignedOutUserDashboardView: View {
     @Binding var path: NavigationPath
+    @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
 
     var body: some View {
-        WelcomeDashboardView()
+        if !welcomeBlockIsRead {
+            WelcomeBlockView()
+                .padding(.horizontal, 12)
+                .padding(.vertical, 16)
+        }
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
@@ -143,19 +164,25 @@ fileprivate struct SignedInUserDashboardView: View {
     var body: some View {
         // TODO: ProposalOfDayView section
 
-        // TODO: WaitingForYourVoteView section
+        SectionHeader(header: "Followed DAOs with active vote")
+        DashboardFollowedDAOsActiveVoteHorizontalListView()
 
         SectionHeader(header: "New DAOs") {
             path.append(Path.newDaos)
         }
         DashboardNewDaosView()
 
-        // TODO: You have voting power
+        if !(ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? false) {
+            SectionHeader(header: "You have voting power") {
+                path.append(Path.profileHasVotingPower)
+            }
+            ProfileHasVotingPowerView(path: $path)
+        }
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
         }
-        DashboardPopularDaosView()
+        DashboardPopularDaosHorizontalListView()
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)
@@ -163,7 +190,7 @@ fileprivate struct SignedInUserDashboardView: View {
         DashboardHotProposalsView(path: $path)
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-        // Enable after public launch
+        // TODO: PRO subscription feature
 //                {
 //                    path.append(Path.ecosystemCharts)
 //                }
@@ -172,9 +199,56 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 }
 
-fileprivate struct WelcomeDashboardView: View {
+fileprivate struct WelcomeBlockView: View {
+    @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
+
     var body: some View {
-        Text("Welcome to Goverland!")
+        VStack {
+            Text("Welcome to Goverland,\nYour App for all DAOs!")
+                .font(.title3Semibold)
+                .foregroundStyle(Color.textWhite)
+                .padding(.bottom, 16)
+
+            VStack(alignment: .leading, spacing: 8) {
+                BulletItem(image: "fireworks", text: "This is your Home page with personalized recommendations")
+                BulletItem(image: "globe", text: "Discover new trends")
+                BulletItem(image: "checkmark.bubble", text: "Follow DAOs to be up to date")
+                BulletItem(image: "flag.checkered", text: "Sign in with your Wallet and vote")
+            }
+
+            HStack {
+                Spacer()
+                PrimaryButton("Okay, let's go!", 
+                              maxWidth: 140,
+                              height: 32,
+                              font: .footnoteSemibold) {
+                    welcomeBlockIsRead = true
+                }
+                Spacer()
+            }
+            .padding(.top, 16)
+        }
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.container)
+        )
+    }
+
+    struct BulletItem: View {
+        let image: String
+        let text: String
+
+        var body: some View {
+            HStack(alignment: .top, spacing: 8) {
+                Image(image)
+                    .frame(width: 20, height: 20)
+                    .scaledToFit()
+                Text(text)
+                    .font(.subheadlineRegular)
+                    .foregroundStyle(Color.textWhite)
+            }
+        }
     }
 }
 

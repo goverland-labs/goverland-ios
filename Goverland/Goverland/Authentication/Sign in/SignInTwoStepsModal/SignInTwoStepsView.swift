@@ -51,7 +51,7 @@ struct SignInTwoStepsView: View {
                             }
 
                             Image(systemName: "checkmark.circle.fill")
-                                .accentColor(.primaryDim)
+                                .tint(.primaryDim)
                                 .font(.system(size: 24))
                         }
 
@@ -63,7 +63,7 @@ struct SignInTwoStepsView: View {
                                 .font(.footnoteRegular)
                         }
                     }
-                } else if let account = dataSource.cbWalletAccount {
+                } else if dataSource.cbWalletAccount != nil {
                     VStack(alignment: .trailing, spacing: 4) {
                         HStack {
                             Image(Wallet.coinbase.image)
@@ -72,7 +72,7 @@ struct SignInTwoStepsView: View {
                                 .clipShape(Circle())
 
                             Image(systemName: "checkmark.circle.fill")
-                                .accentColor(.primaryDim)
+                                .tint(.primaryDim)
                                 .font(.system(size: 24))
                         }
 
@@ -134,7 +134,7 @@ struct SignInTwoStepsView: View {
             NavigationStack {
                 ConnectWalletView()
             }
-            .accentColor(.textWhite)
+            .tint(.textWhite)
             .overlay {
                 ToastView()
             }
