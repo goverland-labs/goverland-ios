@@ -13,7 +13,7 @@ import CoinbaseWalletSDK
 
 let appContainer: ModelContainer = {
     do {
-        return try ModelContainer(for: UserProfile.self)
+        return try ModelContainer(for: UserProfile.self, DaoTermsAgreement.self)
     } catch {
         fatalError("Failed to create App container")
     }
