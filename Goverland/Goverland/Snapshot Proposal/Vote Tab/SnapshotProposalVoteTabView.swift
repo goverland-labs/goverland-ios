@@ -37,17 +37,6 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
-    @State private var chosenTab: SnapshotVoteTabType
-
-    init(proposal: Proposal) {
-        self.proposal = proposal
-        if proposal.state == .active || proposal.state == .pending {
-            _chosenTab = State(wrappedValue: .vote)
-        } else {
-            _chosenTab = State(wrappedValue: .results)
-        }
-    }
-
     @Namespace var namespace    
     @Environment(\.presentationMode) private var presentationMode
     @Setting(\.authToken) private var authToken
@@ -55,12 +44,39 @@ struct SnapshotProposalVoteTabView: View {
     @Query private var profiles: [UserProfile]
     @Query private var termsAgreements: [DaoTermsAgreement]
 
+    @State private var chosenTab: SnapshotVoteTabType
     @State private var choice: AnyObject?
-    @State private var voteButtonDisabled: Bool = true
+    @State private var voteButtonDisabled: Bool
+
     @State private var showSignIn = false
     @State private var showAgreeWithDaoTerms = false
     @State private var showVote = false
     @State private var showReconnectWallet = false
+
+    init(proposal: Proposal) {
+        self.proposal = proposal
+
+        if proposal.state == .active || proposal.state == .pending {
+            _chosenTab = State(wrappedValue: .vote)
+        } else {
+            _chosenTab = State(wrappedValue: .results)
+        }
+
+        if let userVote = proposal.userVote, proposal.privacy != .shutter {
+            // enumeration starts with 1 in Snapshot
+            switch proposal.type {
+            case .singleChoice, .basic:
+                _choice = State(wrappedValue: (userVote.base as! Vote<Int>).choice - 1 as AnyObject)
+            case .approval, .rankedChoice:
+                _choice = State(wrappedValue: (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject)
+            case .weighted, .quadratic:
+                _choice = State(wrappedValue: (userVote.base as! Vote<[String: Int]>).choice as AnyObject)
+            }
+            _voteButtonDisabled = State(wrappedValue: false)
+        } else {
+            _voteButtonDisabled = State(wrappedValue: true)
+        }
+    }
 
     private var selectedProfile: UserProfile? {
         profiles.first(where: { $0.selected })
