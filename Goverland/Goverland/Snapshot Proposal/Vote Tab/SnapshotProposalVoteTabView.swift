@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SwiftData
+import SwiftDate
 
 enum SnapshotVoteTabType: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -51,11 +52,14 @@ struct SnapshotProposalVoteTabView: View {
     @Namespace var namespace    
     @Environment(\.presentationMode) private var presentationMode
     @Setting(\.authToken) private var authToken
+
     @Query private var profiles: [UserProfile]
+    @Query private var termsAgreements: [DaoTermsAgreement]
 
     @State private var choice: AnyObject?
     @State private var voteButtonDisabled: Bool = true
     @State private var showSignIn = false
+    @State private var showAgreeWithDaoTerms = false
     @State private var showVote = false
     @State private var showReconnectWallet = false
 
@@ -65,6 +69,18 @@ struct SnapshotProposalVoteTabView: View {
 
     private var selectedProfileIsGuest: Bool {
         selectedProfile?.address.isEmpty ?? false
+    }
+
+    private var userAgreedWithDaoTerms: Bool {
+        guard proposal.dao.terms != nil else { return true }
+        if let found = termsAgreements.first(where: { $0.daoId == proposal.dao.id }) {
+            // re-request every 3 months
+            if Date.now - 3.months > found.confirmationDate {
+                return false
+            }
+            return true
+        }
+        return false
     }
 
     private var coinbaseWalletConnected: Bool {
@@ -136,7 +152,9 @@ struct SnapshotProposalVoteTabView: View {
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
                             Tracker.track(.snpDetailsVote)
-                            if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
+                            if !userAgreedWithDaoTerms {
+                                showAgreeWithDaoTerms = true
+                            } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
                                 showVote = true
                             } else {
                                 showReconnectWallet = true
@@ -170,6 +188,10 @@ struct SnapshotProposalVoteTabView: View {
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
                 .presentationDetents([.height(500), .large])
+        }
+        .sheet(isPresented: $showAgreeWithDaoTerms) {
+            DaoTermsAgreementView(dao: proposal.dao)
+                .presentationDetents([.height(220), .large])
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {

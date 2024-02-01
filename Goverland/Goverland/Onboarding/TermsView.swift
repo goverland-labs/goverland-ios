@@ -74,7 +74,7 @@ struct TermsView: View {
     }
 }
 
-fileprivate struct BulletedListsDot: View {
+struct BulletedListsDot: View {
     var body: some View {
         Circle()
             .fill(Color.primaryDim)

@@ -160,7 +160,7 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
-    // MARK: -Misc
+    // MARK: - Misc
 
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
