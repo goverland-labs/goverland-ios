@@ -149,14 +149,7 @@ struct SnapshotProposalVoteTabView: View {
                         }
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
-                            Tracker.track(.snpDetailsVote)
-                            if !userAgreedWithDaoTerms {
-                                showAgreeWithDaoTerms = true
-                            } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
-                                showVote = true
-                            } else {
-                                showReconnectWallet = true
-                            }
+                            vote()
                         }
                     }
                 }
@@ -188,13 +181,15 @@ struct SnapshotProposalVoteTabView: View {
                 .presentationDetents([.height(500), .large])
         }
         .sheet(isPresented: $showAgreeWithDaoTerms) {
-            DaoTermsAgreementView(dao: proposal.dao)
-                .presentationDetents([.height(220), .large])
+            DaoTermsAgreementView(dao: proposal.dao) {
+                vote()
+            }
+            .presentationDetents([.height(220), .large])
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {
-                // TODO: decide if we need a completion here later.
-                // For now no logic here yet.                                
+                // decide if we need a completion here later.
+                // For now no logic here yet.
             }
             .overlay {
                 ToastView()
@@ -207,6 +202,17 @@ struct SnapshotProposalVoteTabView: View {
 
     private func skipTab(_ tab: SnapshotVoteTabType) -> Bool {
         return (proposal.state == .pending && tab == .results) || (proposal.state != .active && tab == .vote)
+    }
+
+    private func vote() {
+        Tracker.track(.snpDetailsVote)
+        if !userAgreedWithDaoTerms {
+            showAgreeWithDaoTerms = true
+        } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
+            showVote = true
+        } else {
+            showReconnectWallet = true
+        }
     }
 }
 

@@ -24,6 +24,7 @@ final class DaoTermsAgreement {
 
 extension DaoTermsAgreement {
     @MainActor
+    @discardableResult
     static func upsert(dao: Dao) throws -> DaoTermsAgreement {
         let id = dao.id
         let fetchDescriptor = FetchDescriptor<DaoTermsAgreement>(

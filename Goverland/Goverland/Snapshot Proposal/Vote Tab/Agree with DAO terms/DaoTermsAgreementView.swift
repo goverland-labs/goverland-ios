@@ -12,6 +12,7 @@ import SwiftData
 
 struct DaoTermsAgreementView: View {
     let dao: Dao
+    let onAgree: () -> Void
     @Environment(\.dismiss) private var dismiss
     @Query private var termsAgreements: [DaoTermsAgreement]
 
@@ -44,6 +45,7 @@ struct DaoTermsAgreementView: View {
                 PrimaryButton("I agree") {
                     Task {
                         try! DaoTermsAgreement.upsert(dao: dao)
+                        onAgree()
                     }
                     dismiss()
                 }
