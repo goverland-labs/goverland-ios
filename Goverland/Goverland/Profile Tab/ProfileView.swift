@@ -231,7 +231,7 @@ fileprivate struct _ProfileSubscriptionsView: View {
 
     var body: some View {
         if profile.subscriptionsCount > 0 {
-            VStack(spacing: 8) {
+            VStack(spacing: 12) {
                 HStack {
                     Text("My followed DAOs (\(profile.subscriptionsCount))")
                         .font(.subheadlineSemibold)
@@ -272,61 +272,68 @@ fileprivate struct _ConnectedWalletView: View {
     }
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("Connected wallet")
                 .font(.subheadlineSemibold)
                 .foregroundColor(.textWhite)
                 .padding(.top, 16)
                 .padding(.horizontal, 16)
 
-            if let wallet = connectedWallet() {
-                HStack(spacing: 12) {
-                    if let image = wallet.image {
-                        image
-                            .frame(width: 32, height: 32)
-                            .scaledToFit()
-                            .cornerRadius(4)
-                    } else if let imageUrl = wallet.imageURL {
-                        SquarePictureView(image: imageUrl, imageSize: 32)
-                    }
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(wallet.name)
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
-
-                        if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
-                            Text("Session expires \(date)")
-                                .font(.footnoteRegular)
-                                .foregroundColor(.textWhite60)
+            Group {
+                if let wallet = connectedWallet() {
+                    HStack(spacing: 12) {
+                        if let image = wallet.image {
+                            image
+                                .frame(width: 32, height: 32)
+                                .scaledToFit()
+                                .cornerRadius(4)
+                        } else if let imageUrl = wallet.imageURL {
+                            SquarePictureView(image: imageUrl, imageSize: 32)
                         }
-                    }
 
-                    Spacer()
-                }
-                .swipeActions {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(wallet.name)
+                                .font(.bodyRegular)
+                                .foregroundColor(.textWhite)
+
+                            if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+                                Text("Session expires \(date)")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+                        }
+
+                        Spacer()
+                    }
+                    .padding(16)
+                    .swipeActions {
+                        Button {
+                            if wallet.name == Wallet.coinbase.name {
+                                CoinbaseWalletManager.disconnect()
+                                Tracker.track(.disconnectCoinbaseWallet)
+                            } else {
+                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                                WC_Manager.disconnect(topic: topic)
+                                Tracker.track(.disconnect_WC_session)
+                            }
+                        } label: {
+                            Text("Disconnect")
+                                .font(.bodyRegular)
+                        }
+                        .tint(.red)
+                    }
+                } else {
                     Button {
-                        if wallet.name == Wallet.coinbase.name {
-                            CoinbaseWalletManager.disconnect()
-                            Tracker.track(.disconnectCoinbaseWallet)
-                        } else {
-                            guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                            WC_Manager.disconnect(topic: topic)
-                            Tracker.track(.disconnect_WC_session)
-                        }
+                        showReconnectWallet = true
                     } label: {
-                        Text("Disconnect")
-                            .font(.bodyRegular)
+                        Text("Reconnect wallet")
                     }
-                    .tint(.red)
-                }
-            } else {
-                Button {
-                    showReconnectWallet = true
-                } label: {
-                    Text("Reconnect wallet")
+                    .padding(16)
                 }
             }
+            .background(Color.container)
+            .cornerRadius(12)
+            .padding(.horizontal, 8)
         }
         .id(wcViewId)
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in

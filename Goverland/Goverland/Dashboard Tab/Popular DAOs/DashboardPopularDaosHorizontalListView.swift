@@ -58,7 +58,7 @@ struct DashboardPopularDaosHorizontalListView: View {
             }
             .background(Color.container)
             .cornerRadius(20)
-            .padding(.horizontal, 8)            
+            .padding(.horizontal, 8)
         }
     }
 }
