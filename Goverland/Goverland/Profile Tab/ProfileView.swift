@@ -264,7 +264,7 @@ fileprivate struct _ConnectedWalletView: View {
     @State private var wcViewId = UUID()
     @State private var showReconnectWallet = false
 
-    struct ConnectedWallet {
+    private struct ConnectedWallet {
         let image: Image?
         let imageURL: URL?
         let name: String
@@ -281,47 +281,48 @@ fileprivate struct _ConnectedWalletView: View {
 
             Group {
                 if let wallet = connectedWallet() {
-                    HStack(spacing: 12) {
-                        if let image = wallet.image {
-                            image
-                                .frame(width: 32, height: 32)
-                                .scaledToFit()
-                                .cornerRadius(4)
-                        } else if let imageUrl = wallet.imageURL {
-                            SquarePictureView(image: imageUrl, imageSize: 32)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(wallet.name)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-
-                            if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
-                                Text("Session expires \(date)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-                        }
-
-                        Spacer()
-                    }
-                    .padding(16)
-                    .swipeActions {
-                        Button {
-                            if wallet.name == Wallet.coinbase.name {
-                                CoinbaseWalletManager.disconnect()
-                                Tracker.track(.disconnectCoinbaseWallet)
-                            } else {
-                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                WC_Manager.disconnect(topic: topic)
-                                Tracker.track(.disconnect_WC_session)
-                            }
-                        } label: {
-                            Text("Disconnect")
-                                .font(.bodyRegular)
-                        }
-                        .tint(.red)
-                    }
+                    _SwipeableConnectedWalletView(wallet: wallet)
+//                    HStack(spacing: 12) {
+//                        if let image = wallet.image {
+//                            image
+//                                .frame(width: 32, height: 32)
+//                                .scaledToFit()
+//                                .cornerRadius(4)
+//                        } else if let imageUrl = wallet.imageURL {
+//                            SquarePictureView(image: imageUrl, imageSize: 32)
+//                        }
+//
+//                        VStack(alignment: .leading, spacing: 4) {
+//                            Text(wallet.name)
+//                                .font(.bodyRegular)
+//                                .foregroundColor(.textWhite)
+//
+//                            if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+//                                Text("Session expires \(date)")
+//                                    .font(.footnoteRegular)
+//                                    .foregroundColor(.textWhite60)
+//                            }
+//                        }
+//
+//                        Spacer()
+//                    }
+//                    .padding(16)
+//                    .swipeActions {
+//                        Button {
+//                            if wallet.name == Wallet.coinbase.name {
+//                                CoinbaseWalletManager.disconnect()
+//                                Tracker.track(.disconnectCoinbaseWallet)
+//                            } else {
+//                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+//                                WC_Manager.disconnect(topic: topic)
+//                                Tracker.track(.disconnect_WC_session)
+//                            }
+//                        } label: {
+//                            Text("Disconnect")
+//                                .font(.bodyRegular)
+//                        }
+//                        .tint(.red)
+//                    }
                 } else {
                     Button {
                         showReconnectWallet = true
@@ -387,5 +388,89 @@ fileprivate struct _ConnectedWalletView: View {
                                imageURL: imageUrl,
                                name: name,
                                sessionExpiryDate: session.expiryDate)
+    }
+    
+    /// Simulation of system List swipeActions
+    private struct _SwipeableConnectedWalletView: View {
+        let wallet: ConnectedWallet
+        @State private var offset = CGFloat.zero
+        let buttonWidth: CGFloat = 72
+        let height: CGFloat = 72
+
+        var body: some View {
+            GeometryReader { geometry in
+                HStack {
+                    HStack(spacing: 12) {
+                        if let image = wallet.image {
+                            image
+                                .frame(width: 32, height: 32)
+                                .scaledToFit()
+                                .cornerRadius(4)
+                        } else if let imageUrl = wallet.imageURL {
+                            SquarePictureView(image: imageUrl, imageSize: 32)
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(wallet.name)
+                                .font(.bodyRegular)
+                                .foregroundColor(.textWhite)
+
+                            if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+                                Text("Session expires \(date)")
+                                    .font(.footnoteRegular)
+                                    .foregroundColor(.textWhite60)
+                            }
+                        }
+
+                        Spacer()
+                    }
+                    .contentShape(Rectangle())
+                    .padding(16)
+                    .frame(width: geometry.size.width, alignment: .leading)
+                    .offset(x: self.offset, y: 0)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                if gesture.translation.width < 0 { // swipe left
+                                    offset = min(offset, gesture.translation.width)
+                                } else { // swipe right
+                                    if gesture.translation.width > 10 {
+                                        withAnimation {
+                                            self.offset = CGFloat.zero
+                                        }
+                                    }
+                                }
+                            }
+                            .onEnded { _ in
+                                if offset < -buttonWidth {
+                                    withAnimation {
+                                        offset = -buttonWidth
+                                    }
+                                } else {
+                                    withAnimation {
+                                        offset = .zero
+                                    }
+                                }
+                            }
+                    )
+
+                    HStack {
+                        Spacer()
+                        Image(systemName: "network.slash")
+                            .foregroundStyle(Color.textWhite)
+                            .font(.system(size: 26))
+                        Spacer()
+                    }
+                    .frame(width: -offset > buttonWidth ? -offset : buttonWidth, height: height)
+                    .contentShape(Rectangle())
+                    .background(Color.red)
+                    .offset(x: offset)
+                    .onTapGesture {
+                        logInfo("DID TAP")
+                    }
+                }
+            }
+            .frame(height: height)
+        }
     }
 }
