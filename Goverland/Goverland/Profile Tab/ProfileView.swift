@@ -223,24 +223,11 @@ fileprivate struct ProfileListView: View {
         let sessionExpiryDate: Date?
     }
 
-    @State private var isSignOutPopoverPresented = false
     @State private var showReconnectWallet = false
     @State private var wcViewId = UUID()
 
     var body: some View {
         List {
-            Section("Goverland") {
-                NavigationLink(value: ProfileScreen.subscriptions) {
-                    HStack {
-                        Text("My followed DAOs")
-                        Spacer()
-                        Text("\(profile.subscriptionsCount)")
-                            .foregroundStyle(Color.textWhite60)
-                    }
-                }
-                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
-
             if user != nil {
                 Section("Connected wallet") {
                     if let wallet = connectedWallet() {
@@ -294,56 +281,9 @@ fileprivate struct ProfileListView: View {
                 }
                 .id(wcViewId)
             }
-
-            Section("Devices") {
-                ForEach(profile.sessions) { s in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(s.deviceName)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-
-                            if s.lastActivity + 10.minutes > .now {
-                                Text("Online")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            } else {
-                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Last activity \(activity)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-                        }
-                        Spacer()
-                    }
-                    .swipeActions {
-                        Button {
-                            ProfileDataSource.shared.signOut(sessionId: s.id.uuidString)
-                            Tracker.track(.signOutDevice)
-                        } label: {
-                            Text("Sign out")
-                                .font(.bodyRegular)
-                        }
-                        .tint(.red)
-                    }
-                }
-            }
-
-            if user != nil {
-                Section {
-                    Button("Sign out") {
-                        isSignOutPopoverPresented.toggle()
-                    }
-                    .tint(Color.textWhite)
-                }
-            }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
-        }
-        .popover(isPresented: $isSignOutPopoverPresented) {
-            SignOutPopoverView()
-                .presentationDetents([.height(128)])
         }
         .sheet(isPresented: $showReconnectWallet) {
             ReconnectWalletView(user: user!)
