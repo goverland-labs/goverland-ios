@@ -253,8 +253,16 @@ fileprivate struct _ProfileSubscriptionsView: View {
                     Spacer()
                     Text("\(profile.subscriptionsCount)")
                         .foregroundStyle(Color.textWhite60)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color.textWhite60)
                 }
+                .padding(16)
             }
+            .background(Color.container)
+            .cornerRadius(12)
+            .padding(.horizontal, 8)
+            .padding(.top, 16)
         }
     }
 }
