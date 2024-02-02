@@ -33,15 +33,14 @@ struct Profile: Codable {
 struct Session: Codable, Identifiable {
     let id: UUID
     let created: Date
-    // TODO: add in 0.6
-//    let lastActivity: Date
+    let lastActivity: Date
     let deviceId: String
     let deviceName: String
 
     enum CodingKeys: String, CodingKey {
         case id = "session_id"
         case created = "created_at"
-//        case lastActivity = "last_activity_at"
+        case lastActivity = "last_activity_at"
         case deviceId = "device_id"
         case deviceName = "device_name"
     }

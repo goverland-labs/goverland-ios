@@ -13,62 +13,40 @@ struct ProposalStatusView: View {
 
     var body: some View {
         switch state {
+        case .pending:
+            BubbleView(
+                image: Image(systemName: "clock"),
+                text: Text(state.localizedName),
+                textColor: .textWhite,
+                backgroundColor: .warning)
+
         case .active:
             BubbleView(
                 image: Image(systemName: "bolt.fill"),
                 text: Text(state.localizedName),
                 textColor: .onPrimary,
                 backgroundColor: .primary)
-            
-        case .defeated, .closed:
-            BubbleView(
-                image: Image(systemName: "xmark"),
-                text: Text(state.localizedName),
-                textColor: .textWhite,
-                backgroundColor: .danger)
-            
+
         case .failed:
             BubbleView(
                 image: Image(systemName: "bolt.slash.fill"),
                 text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .fail)
-            
-        case .succeeded, .executed:
+
+        case .succeeded:
             BubbleView(
                 image: Image(systemName: "checkmark"),
                 text: Text(state.localizedName),
                 textColor: .textWhite,
                 backgroundColor: .success)
-            
-        case .queued, .pending:
+
+        case .defeated, .canceled:
             BubbleView(
-                image: Image(systemName: "clock"),
+                image: Image(systemName: "xmark"),
                 text: Text(state.localizedName),
                 textColor: .textWhite,
-                backgroundColor: .warning)
+                backgroundColor: .danger)
         }
-    }
-}
-
-fileprivate struct BubbleView: View {
-    var image: Image?
-    var text: Text
-    var textColor: Color
-    var backgroundColor: Color
-
-    var body: some View {
-        HStack(spacing: 3) {
-            image
-                .font(.system(size: 9))
-                .foregroundColor(textColor)
-            text
-                .font(.caption2Semibold)
-                .foregroundColor(textColor)
-                .lineLimit(1)
-        }
-        .padding([.leading, .trailing], 9)
-        .padding([.top, .bottom], 5)
-        .background(Capsule().fill(backgroundColor))
     }
 }

@@ -63,7 +63,7 @@ struct SnapshotProposalView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    ProposalSharingMenu(link: proposal.link)
+                    ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.textWhite)

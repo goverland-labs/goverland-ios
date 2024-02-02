@@ -38,7 +38,7 @@ struct ProposalListItemCondensedView: View {
                 .fill(backgroundColor)
 
             VStack(spacing: 15) {                
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: false)
+                ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: false, onDaoTap: onDaoTap)
             }
             .padding([.horizontal, .vertical], 12)
@@ -79,11 +79,5 @@ struct ShimmerProposalListItemCondensedView: View {
             .padding(.vertical, 12)
         }
         .frame(height: 110)
-    }
-}
-
-struct ProposalListItemCondensedView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProposalListItemCondensedView(proposal: .aaveTest)
     }
 }

@@ -1,0 +1,1025 @@
+[
+    {
+        "id": "9b428329-c3da-4925-9226-b3114805d093",
+        "created_at": "2024-01-22T06:10:28Z",
+        "updated_at": "2024-01-22T06:10:29Z",
+        "read_at": null,
+        "archived_at": null,
+        "dao_id": "c68eae15-2a6e-40b4-bd17-7613c1175a45",
+        "proposal_id": "0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9010",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.voting.ends_soon",
+        "proposal": {
+            "id": "0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9010",
+            "ipfs": "bafkreigdxt4fojqcjqv7eevkfudzu2ophcah2vyg43xsv36wyjlfntyc4m",
+            "author": {
+                "address": "0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B",
+                "resolved_name": "cowtesting.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=180"
+                    }
+                ]
+            },
+            "created": "2024-01-15T12:09:35Z",
+            "network": "1",
+            "symbol": "vCOW",
+            "type": "basic",
+            "strategies": [
+                {
+                    "name": "erc20-balance-of",
+                    "network": "1",
+                    "params": {
+                        "address": "0xd057b63f5e69cf1b929b356b579cba08d7688048",
+                        "decimals": 18,
+                        "symbol": "vCOW (mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "100",
+                    "params": {
+                        "address": "0xc20C9C13E853fc64d054b73fF21d3636B2d97eaB",
+                        "decimals": 18,
+                        "symbol": "vCOW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "1",
+                    "params": {
+                        "address": "0xd057b63f5e69cf1b929b356b579cba08d7688048",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegated vCOW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "100",
+                    "params": {
+                        "address": "0xc20C9C13E853fc64d054b73fF21d3636B2d97eaB",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegated vCOW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "1",
+                    "params": {
+                        "address": "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB",
+                        "decimals": 18,
+                        "symbol": "COW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "100",
+                    "params": {
+                        "address": "0x177127622c4A00F3d409B75571e12cB3c8973d3c",
+                        "decimals": 18,
+                        "symbol": "COW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "1",
+                    "params": {
+                        "address": "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegate COW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "100",
+                    "params": {
+                        "address": "0x177127622c4A00F3d409B75571e12cB3c8973d3c",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegate COW (GC)"
+                    }
+                }
+            ],
+            "validation": null,
+            "title": "CIP-35: Renewing the CoW Grants Program",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "```\nCIP: 35\ntitle: Renewing the CoW Grants Program\nauthor: @middleway.eth, @Kubesqrt, @notsoformal, @Chim9, @Master_CoW, @mfw78, @fairlight \nstatus: Active\ncreated: 2023-01-04\n```\n\n## Simple Summary\n\nOver the past 12 months, CoW Protocol and the Grants Committee have seen substantial progress, successfully approving and implementing several impactful grants. These initiatives have strengthened our integration with prominent DeFi platforms and furthered CoW Protocol's features.\n\nThe CoW Grants Program, whose first renewal occurred in January 2023 under CIP-18, has proven to be a vital component in advancing CoW Protocol. As we approach the end of CIP-18 term, we would like to propose extending the program. We're reaching out to the community for support to renew the CoW Grants Program for another 12 months, aiming to continue supporting grants that grow CoW Protocol.\n\n## Motivation\n### Past Grants\n\nThe CoW Grants Program has been actively supporting the growth of CoW Protocol, reviewing and funding a variety of applications over the past year. These projects have made significant contributions in different areas, enhancing the overall functionality and reach of the protocol.\n\nBelow are some of the impactful contributions funded in 2023:\n\n-   **Safe Composable Conditional Orders**: Significantly enhanced CoW Swap's functionality by allowing developers and integrators to create their own custom orders with unique conditions that get enforced onchain. This contribution enabled the launch of the \"Programmatic Orders'' framework.\n\n-   **Dump.services**: Streamlined the process of consolidating multiple tokens into a single asset, making portfolio management simpler and more efficient.\n\n-   **Balancer and CoW Swap Integration Bounty**: Played a key role in strengthening the integration between Balancer and CoW Swap. This grant focused on encouraging solvers to integrate the fee discount mechanism into their solver infrastructure.\n\n-   **CoW DeFi Hook Interface**: Currently under development, this initiative aims to make CoW Protocol services that are based on hooks more user-friendly and widely accessible, enhancing the overall user experience.\n\n-   **Composable CoW Framework Treasure Hunt**: Introduced by MasterCow, this unique approach engages the community through a treasure hunt, fostering interaction and creativity in exploring the Composable CoW Framework.\n\n-   **Core contributors**: At the time of writing there are three full time core contributors funded by the CoW Grants program: Content writer, Backend developer, Designer. Their contributions are ongoing and invaluable. These costs account for 272k xDAI from the yearly Grants program budget.\n\n### Volume rewards program\n\nOver the past 12 months, the CoW Grants Program successfully implemented the Volume-based Partner Reward Program, initially introduced with the Shapeshift Integration Grant. This program aligns incentives for partners by offering rewards based on actual performance, measured in terms of the trading volume they drive to CoW Protocol.\n\nThe grants committee has approved 8 applications related to this program, two of them during December. Three applications achieved milestones and therefore became eligible for rewards. \n\nIn aggregate the program rewarded 550k COW vested linearly over 12 months across 3 eligible partners based on $910M worth of added trading volume. The main contributor being DeFi Llama with all three volume milestones achieved. \n\nBesides incentivizing higher volumes, the program also provides partners with exposure to the COW token, fostering a mutually beneficial relationship between CoW DAO and its integrators.\n\nMore information about grants can be found at:\n\n- [Grants Program forum section](https://forum.cow.fi/c/cow-grants-program/10)\n- [Grant Status Tracker](https://docs.google.com/spreadsheets/d/1qnAegZR-JCKEAqeUHO4Gs8uQoLn2KO_f3xfAe0WhePM/edit?usp=sharing)\n- [Grants Program Snapshot space](https://snapshot.org/#/cowgrants.eth)\n\n## Grant program financial position\n\nAs we approach the end of the current term, here's a summary of the CoW Grants Committee's financial commitments and disbursements (excluding the January monthly payment):\n![Financial position](https://snapshot.4everland.link/ipfs/bafkreiatpqojgc6zqbsnchy3u4ouqeps7gqubatrwvdutcsut44bpwbs3e)\n    \n-   **Payouts Completed**: So far, the Grants DAO has distributed a total of 499k XDAI and 1.2M COW, of which 530k was for the Volume program.\n-   **Total Commitments**: The Committee has committed 615k XDAI and over 4M COW to various projects and initiatives. These commitments account for 55.92% of the XDAI budget and 80.54% of the COW budget.\n-   **Volume-Based Grants**: Of the 3,000,000 COW allocated for volume-based grants, 88% has been committed. To date, two bounties have met the criteria and are eligible for payout under this category.\n\n## CoW Grants Committee Structure and Operations\n\n### Committee Members\n\nThe current CoW Grants Committee, consisting of seven members (three from the core team and four from the community) is structured as a Gnosis Safe with 5/7 quorum for approving grants.\n\n### Compensation for community committee members\n\nThe stipend structure for the community members of the Grant Committee defined in CIP-18 is 8,000 COW plus an additional $150 in $XDAI monthly. This arrangement was designed to compensate the committee members appropriately, taking into account their responsibilities and the variable value of $COW.\n\nAs the COW token price increased, it is proposed to add a quarterly cap adjustment for the COW compensation component to $1k worth.\nFor Q1 2024:\n-   4400 COW (Calculation: $1k / 0.23, will be revised quarterly)\n-   150 xDAI\n\n### Proposing new committee member for nomination \n\nRecognizing the increasing scope of work, the committee advocates for adding an eighth member, making the approval quorum 5/8. This addition aims to distribute the workload more effectively and enhance the committee's capacity for thorough grant management and decision-making.\n\n[Brett](https://twitter.com/sohkai) is an active technical contributor to the Ethereum ecosystem who currently co-leads Cherry Crypto. Brett is also active committee member at the Safe Grants Program, and has proven his contribution to the CoW team over the years. We propose to nominate Brett for a technical committee member seat. More information about Brett can be found in a comment down below, together with the specified address to be added to the Grants Committee Safe.\n\n## Specification\n\n### Budget\n\nFor the upcoming term, we propose the following funding structure:\n\n1.  **700k xDAI, on top of remaining funds in the Grants Safe** (executed by the Treasury team on demand)\n    a.  An increased amount given the number of Core Contributors which are associated with the Program.\n    b. Paid quarterly or on demand to the Treasury Core Team.\n    c. Sources to be funded from the Treasury Operation.\n\n2.  **1M COW, on top of remaining funds in the Grants Safe** (executed by CoW DAO using the attached payload)\n    a. Given that current commitments are expected to exceed the current CoW remaining balance.\n    b. Paid once at renewal of the Program from the [CoW DAO safe](https://app.safe.global/home?safe=eth:0xcA771eda0c70aA7d053aB1B25004559B918FE662)\n\n3.  **Up to 3M CoW allocation for the Volume Program**  (executed by CoW DAO using the attached payload)\n    a.  Giving mandate to the Grants DAO to commit up to a total of 3M CoW extra to the current allocation.\n\n4. A new community committee member will be added to the Committee Safe with the address [`0x57C2570F1a4228a3aEff4fE533826C2A04a2D52f`](https://gnosisscan.io/address/0x57C2570F1a4228a3aEff4fE533826C2A04a2D52f), ([brettsun.eth](https://app.ens.domains/brettsun.eth)) - Will be executed by the Grants Committee upon approval of this proposal. \n\n### Grants Program Duration\n\nThe CoW Grants Program continues on a rolling 12-month term, up to Jan '25, subject to yearly reviews and renewals by CoW DAO. This structure allows the program to adapt dynamically to the changing needs of CoW Protocol.\n\n## Safe Transaction Data\n```\n[\n  {\n    \"to\": \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n    \"value\": \"0\",\n    \"method\": \"approve(address,uint256)\",\n    \"params\": [\n      \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n      \"4000000000000000000000000\"\n    ]\n  },\n  {\n    \"to\": \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n    \"value\": \"0\",\n    \"method\": \"relayTokens(address,address,uint256)\",\n    \"params\": [\n      \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n      \"0xDA00000B30dCf0C3f5d968e4451Ebdee6950d63e\",\n      \"1000000000000000000000000\"\n    ]\n  },\n  {\n    \"to\": \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n    \"value\": \"0\",\n    \"method\": \"relayTokens(address,address,uint256)\",\n    \"params\": [\n      \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n      \"0xbD96C4Fe53f1d89a8Bdb3522BCEDfB20b5601b69\",\n      \"3000000000000000000000000\"\n    ]\n  }\n]\n```\n\n### Tenderly Simulation\n<[Link](https://dashboard.tenderly.co/public/safe/safe-apps/simulator/6e84d20c-406b-42ea-8609-e703d4599434)> to Tenderly simulation"
+                }
+            ],
+            "discussion": "https://forum.cow.fi/t/cip-35-renewing-the-cow-grants-program/2202",
+            "choices": [
+                "For",
+                "Against",
+                "Abstain"
+            ],
+            "voting_start": "2024-01-15T12:09:35Z",
+            "voting_end": "2024-01-22T12:09:35Z",
+            "quorum": 103,
+            "privacy": "",
+            "snapshot": "19012182",
+            "state": "active",
+            "link": "https://snapshot.org/#/cow.eth/proposal/0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9014",
+            "app": "snapshot",
+            "scores": [
+                36008232,
+                737.180419921875,
+                4006067.75
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 40015040,
+            "scores_updated": 1705791744,
+            "votes": 273,
+            "flagged": false,
+            "dao": {
+                "id": "c68eae15-2a6e-40b4-bd17-7613c1175a45",
+                "alias": "cow.eth",
+                "created_at": "2023-09-29T19:16:31Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "CoW DAO",
+                "avatar": "https://cdn.stamp.fyi/space/cow.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=180"
+                    }
+                ],
+                "symbol": "vCOW",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 13944,
+                "voters_count": 13944,
+                "proposals_count": 51,
+                "subscription_info": null
+            },
+            "user_vote": {
+                "id": "0x1ce26799d",
+                "voter": {
+                    "address": "0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B",
+                    "resolved_name": "cowtesting.eth",
+                    "avatars": [
+                        {
+                            "size": "xs",
+                            "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=32"
+                        },
+                        {
+                            "size": "s",
+                            "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=52"
+                        },
+                        {
+                            "size": "m",
+                            "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=92"
+                        },
+                        {
+                            "size": "l",
+                            "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=152"
+                        },
+                        {
+                            "size": "xl",
+                            "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=180"
+                        }
+                    ]
+                },
+                "vp": 11.5,
+                "choice": 2,
+                "reason": "Test"
+            },
+            "timeline": [
+                {
+                    "created_at": "2024-01-15T12:09:35Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2024-01-15T12:09:35Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-22T06:10:28Z",
+                    "event": "proposal.voting.ends_soon"
+                }
+            ]
+        }
+    },
+    {
+        "id": "8b9c4aef-4518-46b4-bcad-89f9165e6e90",
+        "created_at": "2024-01-21T21:49:14Z",
+        "updated_at": "2024-01-21T21:49:15Z",
+        "read_at": "2024-01-17T07:51:06Z",
+        "archived_at": null,
+        "dao_id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+        "proposal_id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.updated",
+        "proposal": {
+            "id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "ipfs": "bafkreih334nebobut2xgxs5k7gjw6nnv7losjn7itrm76fsm54qviv7eqm",
+            "author": {
+                "address": "0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a",
+                "resolved_name": "nathanvdh.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=180"
+                    }
+                ]
+            },
+            "created": "2022-10-12T15:13:36Z",
+            "network": "1",
+            "symbol": "SHOT",
+            "type": "single-choice",
+            "strategies": [
+                {
+                    "name": "ticket",
+                    "network": "1",
+                    "params": null
+                }
+            ],
+            "validation": null,
+            "title": "Shielded voting demo",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "Shielded Voting will encrypt individual votes until the proposal reaches its end. While the proposal is ongoing, the only available information for anyone, including Snapshot itself, will be the total amount of voting power already deployed. Once the proposal reaches its end, all the votes will be automatically revealed along with their respective addresses, and the results will be calculated."
+                }
+            ],
+            "discussion": "",
+            "choices": [
+                "Alice",
+                "Bob",
+                "Carol",
+                "David"
+            ],
+            "voting_start": "2022-10-12T15:13:33Z",
+            "voting_end": "2026-11-20T15:13:33Z",
+            "quorum": 0,
+            "privacy": "shutter",
+            "snapshot": "15732843",
+            "state": "pending",
+            "link": "https://snapshot.org/#/pistachiodao.eth/proposal/0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "app": "snapshot",
+            "scores": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 10615,
+            "scores_updated": 1705870846,
+            "votes": 10615,
+            "flagged": false,
+            "dao": {
+                "id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+                "alias": "pistachiodao.eth",
+                "created_at": "2023-09-29T19:16:58Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "Pistachio DAO",
+                "avatar": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180"
+                    }
+                ],
+                "symbol": "SHOT",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 27787,
+                "voters_count": 27787,
+                "proposals_count": 7,
+                "subscription_info": null
+            },
+            "timeline": [
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-21T21:49:14Z",
+                    "event": "proposal.updated"
+                }
+            ]
+        }
+    },
+    {
+        "id": "9b428329-c3da-4925-9226-b3114805d093",
+        "created_at": "2024-01-22T06:10:28Z",
+        "updated_at": "2024-01-22T06:10:29Z",
+        "read_at": null,
+        "archived_at": null,
+        "dao_id": "c68eae15-2a6e-40b4-bd17-7613c1175a45",
+        "proposal_id": "0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9011",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.voting.ends_soon",
+        "proposal": {
+            "id": "0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9011",
+            "ipfs": "bafkreigdxt4fojqcjqv7eevkfudzu2ophcah2vyg43xsv36wyjlfntyc4m",
+            "author": {
+                "address": "0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B",
+                "resolved_name": "cowtesting.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0x387FE763dDaC7a6B568Ee344fEfC31F626Bc837B?s=180"
+                    }
+                ]
+            },
+            "created": "2024-01-15T12:09:35Z",
+            "network": "1",
+            "symbol": "vCOW",
+            "type": "basic",
+            "strategies": [
+                {
+                    "name": "erc20-balance-of",
+                    "network": "1",
+                    "params": {
+                        "address": "0xd057b63f5e69cf1b929b356b579cba08d7688048",
+                        "decimals": 18,
+                        "symbol": "vCOW (mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "100",
+                    "params": {
+                        "address": "0xc20C9C13E853fc64d054b73fF21d3636B2d97eaB",
+                        "decimals": 18,
+                        "symbol": "vCOW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "1",
+                    "params": {
+                        "address": "0xd057b63f5e69cf1b929b356b579cba08d7688048",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegated vCOW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "100",
+                    "params": {
+                        "address": "0xc20C9C13E853fc64d054b73fF21d3636B2d97eaB",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegated vCOW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "1",
+                    "params": {
+                        "address": "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB",
+                        "decimals": 18,
+                        "symbol": "COW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of",
+                    "network": "100",
+                    "params": {
+                        "address": "0x177127622c4A00F3d409B75571e12cB3c8973d3c",
+                        "decimals": 18,
+                        "symbol": "COW (GC)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "1",
+                    "params": {
+                        "address": "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegate COW (Mainnet)"
+                    }
+                },
+                {
+                    "name": "erc20-balance-of-delegation",
+                    "network": "100",
+                    "params": {
+                        "address": "0x177127622c4A00F3d409B75571e12cB3c8973d3c",
+                        "decimals": 18,
+                        "delegationSpace": "cow.eth",
+                        "symbol": "Delegate COW (GC)"
+                    }
+                }
+            ],
+            "validation": null,
+            "title": "CIP-35: Renewing the CoW Grants Program",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "```\nCIP: 35\ntitle: Renewing the CoW Grants Program\nauthor: @middleway.eth, @Kubesqrt, @notsoformal, @Chim9, @Master_CoW, @mfw78, @fairlight \nstatus: Active\ncreated: 2023-01-04\n```\n\n## Simple Summary\n\nOver the past 12 months, CoW Protocol and the Grants Committee have seen substantial progress, successfully approving and implementing several impactful grants. These initiatives have strengthened our integration with prominent DeFi platforms and furthered CoW Protocol's features.\n\nThe CoW Grants Program, whose first renewal occurred in January 2023 under CIP-18, has proven to be a vital component in advancing CoW Protocol. As we approach the end of CIP-18 term, we would like to propose extending the program. We're reaching out to the community for support to renew the CoW Grants Program for another 12 months, aiming to continue supporting grants that grow CoW Protocol.\n\n## Motivation\n### Past Grants\n\nThe CoW Grants Program has been actively supporting the growth of CoW Protocol, reviewing and funding a variety of applications over the past year. These projects have made significant contributions in different areas, enhancing the overall functionality and reach of the protocol.\n\nBelow are some of the impactful contributions funded in 2023:\n\n-   **Safe Composable Conditional Orders**: Significantly enhanced CoW Swap's functionality by allowing developers and integrators to create their own custom orders with unique conditions that get enforced onchain. This contribution enabled the launch of the \"Programmatic Orders'' framework.\n\n-   **Dump.services**: Streamlined the process of consolidating multiple tokens into a single asset, making portfolio management simpler and more efficient.\n\n-   **Balancer and CoW Swap Integration Bounty**: Played a key role in strengthening the integration between Balancer and CoW Swap. This grant focused on encouraging solvers to integrate the fee discount mechanism into their solver infrastructure.\n\n-   **CoW DeFi Hook Interface**: Currently under development, this initiative aims to make CoW Protocol services that are based on hooks more user-friendly and widely accessible, enhancing the overall user experience.\n\n-   **Composable CoW Framework Treasure Hunt**: Introduced by MasterCow, this unique approach engages the community through a treasure hunt, fostering interaction and creativity in exploring the Composable CoW Framework.\n\n-   **Core contributors**: At the time of writing there are three full time core contributors funded by the CoW Grants program: Content writer, Backend developer, Designer. Their contributions are ongoing and invaluable. These costs account for 272k xDAI from the yearly Grants program budget.\n\n### Volume rewards program\n\nOver the past 12 months, the CoW Grants Program successfully implemented the Volume-based Partner Reward Program, initially introduced with the Shapeshift Integration Grant. This program aligns incentives for partners by offering rewards based on actual performance, measured in terms of the trading volume they drive to CoW Protocol.\n\nThe grants committee has approved 8 applications related to this program, two of them during December. Three applications achieved milestones and therefore became eligible for rewards. \n\nIn aggregate the program rewarded 550k COW vested linearly over 12 months across 3 eligible partners based on $910M worth of added trading volume. The main contributor being DeFi Llama with all three volume milestones achieved. \n\nBesides incentivizing higher volumes, the program also provides partners with exposure to the COW token, fostering a mutually beneficial relationship between CoW DAO and its integrators.\n\nMore information about grants can be found at:\n\n- [Grants Program forum section](https://forum.cow.fi/c/cow-grants-program/10)\n- [Grant Status Tracker](https://docs.google.com/spreadsheets/d/1qnAegZR-JCKEAqeUHO4Gs8uQoLn2KO_f3xfAe0WhePM/edit?usp=sharing)\n- [Grants Program Snapshot space](https://snapshot.org/#/cowgrants.eth)\n\n## Grant program financial position\n\nAs we approach the end of the current term, here's a summary of the CoW Grants Committee's financial commitments and disbursements (excluding the January monthly payment):\n![Financial position](https://snapshot.4everland.link/ipfs/bafkreiatpqojgc6zqbsnchy3u4ouqeps7gqubatrwvdutcsut44bpwbs3e)\n    \n-   **Payouts Completed**: So far, the Grants DAO has distributed a total of 499k XDAI and 1.2M COW, of which 530k was for the Volume program.\n-   **Total Commitments**: The Committee has committed 615k XDAI and over 4M COW to various projects and initiatives. These commitments account for 55.92% of the XDAI budget and 80.54% of the COW budget.\n-   **Volume-Based Grants**: Of the 3,000,000 COW allocated for volume-based grants, 88% has been committed. To date, two bounties have met the criteria and are eligible for payout under this category.\n\n## CoW Grants Committee Structure and Operations\n\n### Committee Members\n\nThe current CoW Grants Committee, consisting of seven members (three from the core team and four from the community) is structured as a Gnosis Safe with 5/7 quorum for approving grants.\n\n### Compensation for community committee members\n\nThe stipend structure for the community members of the Grant Committee defined in CIP-18 is 8,000 COW plus an additional $150 in $XDAI monthly. This arrangement was designed to compensate the committee members appropriately, taking into account their responsibilities and the variable value of $COW.\n\nAs the COW token price increased, it is proposed to add a quarterly cap adjustment for the COW compensation component to $1k worth.\nFor Q1 2024:\n-   4400 COW (Calculation: $1k / 0.23, will be revised quarterly)\n-   150 xDAI\n\n### Proposing new committee member for nomination \n\nRecognizing the increasing scope of work, the committee advocates for adding an eighth member, making the approval quorum 5/8. This addition aims to distribute the workload more effectively and enhance the committee's capacity for thorough grant management and decision-making.\n\n[Brett](https://twitter.com/sohkai) is an active technical contributor to the Ethereum ecosystem who currently co-leads Cherry Crypto. Brett is also active committee member at the Safe Grants Program, and has proven his contribution to the CoW team over the years. We propose to nominate Brett for a technical committee member seat. More information about Brett can be found in a comment down below, together with the specified address to be added to the Grants Committee Safe.\n\n## Specification\n\n### Budget\n\nFor the upcoming term, we propose the following funding structure:\n\n1.  **700k xDAI, on top of remaining funds in the Grants Safe** (executed by the Treasury team on demand)\n    a.  An increased amount given the number of Core Contributors which are associated with the Program.\n    b. Paid quarterly or on demand to the Treasury Core Team.\n    c. Sources to be funded from the Treasury Operation.\n\n2.  **1M COW, on top of remaining funds in the Grants Safe** (executed by CoW DAO using the attached payload)\n    a. Given that current commitments are expected to exceed the current CoW remaining balance.\n    b. Paid once at renewal of the Program from the [CoW DAO safe](https://app.safe.global/home?safe=eth:0xcA771eda0c70aA7d053aB1B25004559B918FE662)\n\n3.  **Up to 3M CoW allocation for the Volume Program**  (executed by CoW DAO using the attached payload)\n    a.  Giving mandate to the Grants DAO to commit up to a total of 3M CoW extra to the current allocation.\n\n4. A new community committee member will be added to the Committee Safe with the address [`0x57C2570F1a4228a3aEff4fE533826C2A04a2D52f`](https://gnosisscan.io/address/0x57C2570F1a4228a3aEff4fE533826C2A04a2D52f), ([brettsun.eth](https://app.ens.domains/brettsun.eth)) - Will be executed by the Grants Committee upon approval of this proposal. \n\n### Grants Program Duration\n\nThe CoW Grants Program continues on a rolling 12-month term, up to Jan '25, subject to yearly reviews and renewals by CoW DAO. This structure allows the program to adapt dynamically to the changing needs of CoW Protocol.\n\n## Safe Transaction Data\n```\n[\n  {\n    \"to\": \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n    \"value\": \"0\",\n    \"method\": \"approve(address,uint256)\",\n    \"params\": [\n      \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n      \"4000000000000000000000000\"\n    ]\n  },\n  {\n    \"to\": \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n    \"value\": \"0\",\n    \"method\": \"relayTokens(address,address,uint256)\",\n    \"params\": [\n      \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n      \"0xDA00000B30dCf0C3f5d968e4451Ebdee6950d63e\",\n      \"1000000000000000000000000\"\n    ]\n  },\n  {\n    \"to\": \"0x88ad09518695c6c3712AC10a214bE5109a655671\",\n    \"value\": \"0\",\n    \"method\": \"relayTokens(address,address,uint256)\",\n    \"params\": [\n      \"0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB\",\n      \"0xbD96C4Fe53f1d89a8Bdb3522BCEDfB20b5601b69\",\n      \"3000000000000000000000000\"\n    ]\n  }\n]\n```\n\n### Tenderly Simulation\n<[Link](https://dashboard.tenderly.co/public/safe/safe-apps/simulator/6e84d20c-406b-42ea-8609-e703d4599434)> to Tenderly simulation"
+                }
+            ],
+            "discussion": "https://forum.cow.fi/t/cip-35-renewing-the-cow-grants-program/2202",
+            "choices": [
+                "For",
+                "Against",
+                "Abstain"
+            ],
+            "voting_start": "2024-01-15T12:09:35Z",
+            "voting_end": "2024-01-22T12:09:35Z",
+            "quorum": 103,
+            "privacy": "",
+            "snapshot": "19012182",
+            "state": "failed",
+            "link": "https://snapshot.org/#/cow.eth/proposal/0x1ce26799df80625cb8de5e985920b5f50e890290da03776bdd934e8bd03d9014",
+            "app": "snapshot",
+            "scores": [
+                36008232,
+                737.180419921875,
+                4006067.75
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 40015040,
+            "scores_updated": 1705791744,
+            "votes": 273,
+            "flagged": false,
+            "dao": {
+                "id": "c68eae15-2a6e-40b4-bd17-7613c1175a45",
+                "alias": "cow.eth",
+                "created_at": "2023-09-29T19:16:31Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "CoW DAO",
+                "avatar": "https://cdn.stamp.fyi/space/cow.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/cow.eth?s=180"
+                    }
+                ],
+                "symbol": "vCOW",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 13944,
+                "voters_count": 13944,
+                "proposals_count": 51,
+                "subscription_info": null
+            },
+            "user_vote": null,
+            "timeline": [
+                {
+                    "created_at": "2024-01-15T12:09:35Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2024-01-15T12:09:35Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-22T06:10:28Z",
+                    "event": "proposal.voting.ends_soon"
+                }
+            ]
+        }
+    },
+    {
+        "id": "8b9c4aef-4518-46b4-bcad-89f9165e6e90",
+        "created_at": "2024-01-21T21:49:14Z",
+        "updated_at": "2024-01-21T21:49:15Z",
+        "read_at": "2024-01-17T07:51:06Z",
+        "archived_at": null,
+        "dao_id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+        "proposal_id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.updated",
+        "proposal": {
+            "id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "ipfs": "bafkreih334nebobut2xgxs5k7gjw6nnv7losjn7itrm76fsm54qviv7eqm",
+            "author": {
+                "address": "0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a",
+                "resolved_name": "nathanvdh.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=180"
+                    }
+                ]
+            },
+            "created": "2022-10-12T15:13:36Z",
+            "network": "1",
+            "symbol": "SHOT",
+            "type": "single-choice",
+            "strategies": [
+                {
+                    "name": "ticket",
+                    "network": "1",
+                    "params": null
+                }
+            ],
+            "validation": null,
+            "title": "Shielded voting demo",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "Shielded Voting will encrypt individual votes until the proposal reaches its end. While the proposal is ongoing, the only available information for anyone, including Snapshot itself, will be the total amount of voting power already deployed. Once the proposal reaches its end, all the votes will be automatically revealed along with their respective addresses, and the results will be calculated."
+                }
+            ],
+            "discussion": "",
+            "choices": [
+                "Alice",
+                "Bob",
+                "Carol",
+                "David"
+            ],
+            "voting_start": "2022-10-12T15:13:33Z",
+            "voting_end": "2026-11-20T15:13:33Z",
+            "quorum": 0,
+            "privacy": "shutter",
+            "snapshot": "15732843",
+            "state": "succeeded",
+            "link": "https://snapshot.org/#/pistachiodao.eth/proposal/0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "app": "snapshot",
+            "scores": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 10615,
+            "scores_updated": 1705870846,
+            "votes": 10615,
+            "flagged": false,
+            "dao": {
+                "id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+                "alias": "pistachiodao.eth",
+                "created_at": "2023-09-29T19:16:58Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "Pistachio DAO",
+                "avatar": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180"
+                    }
+                ],
+                "symbol": "SHOT",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 27787,
+                "voters_count": 27787,
+                "proposals_count": 7,
+                "subscription_info": null
+            },
+            "timeline": [
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-21T21:49:14Z",
+                    "event": "proposal.updated"
+                }
+            ]
+        }
+    },
+    {
+        "id": "8b9c4aef-4518-46b4-bcad-89f9165e6e90",
+        "created_at": "2024-01-21T21:49:14Z",
+        "updated_at": "2024-01-21T21:49:15Z",
+        "read_at": "2024-01-17T07:51:06Z",
+        "archived_at": null,
+        "dao_id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+        "proposal_id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.updated",
+        "proposal": {
+            "id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "ipfs": "bafkreih334nebobut2xgxs5k7gjw6nnv7losjn7itrm76fsm54qviv7eqm",
+            "author": {
+                "address": "0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a",
+                "resolved_name": "nathanvdh.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=180"
+                    }
+                ]
+            },
+            "created": "2022-10-12T15:13:36Z",
+            "network": "1",
+            "symbol": "SHOT",
+            "type": "single-choice",
+            "strategies": [
+                {
+                    "name": "ticket",
+                    "network": "1",
+                    "params": null
+                }
+            ],
+            "validation": null,
+            "title": "Shielded voting demo",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "Shielded Voting will encrypt individual votes until the proposal reaches its end. While the proposal is ongoing, the only available information for anyone, including Snapshot itself, will be the total amount of voting power already deployed. Once the proposal reaches its end, all the votes will be automatically revealed along with their respective addresses, and the results will be calculated."
+                }
+            ],
+            "discussion": "",
+            "choices": [
+                "Alice",
+                "Bob",
+                "Carol",
+                "David"
+            ],
+            "voting_start": "2022-10-12T15:13:33Z",
+            "voting_end": "2026-11-20T15:13:33Z",
+            "quorum": 0,
+            "privacy": "shutter",
+            "snapshot": "15732843",
+            "state": "defeated",
+            "link": "https://snapshot.org/#/pistachiodao.eth/proposal/0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "app": "snapshot",
+            "scores": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 10615,
+            "scores_updated": 1705870846,
+            "votes": 10615,
+            "flagged": false,
+            "dao": {
+                "id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+                "alias": "pistachiodao.eth",
+                "created_at": "2023-09-29T19:16:58Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "Pistachio DAO",
+                "avatar": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180"
+                    }
+                ],
+                "symbol": "SHOT",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 27787,
+                "voters_count": 27787,
+                "proposals_count": 7,
+                "subscription_info": null
+            },
+            "timeline": [
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-21T21:49:14Z",
+                    "event": "proposal.updated"
+                }
+            ]
+        }
+    },
+    {
+        "id": "8b9c4aef-4518-46b4-bcad-89f9165e6e90",
+        "created_at": "2024-01-21T21:49:14Z",
+        "updated_at": "2024-01-21T21:49:15Z",
+        "read_at": "2024-01-17T07:51:06Z",
+        "archived_at": null,
+        "dao_id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+        "proposal_id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+        "discussion_id": "",
+        "type": "proposal",
+        "action": "proposal.updated",
+        "proposal": {
+            "id": "0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "ipfs": "bafkreih334nebobut2xgxs5k7gjw6nnv7losjn7itrm76fsm54qviv7eqm",
+            "author": {
+                "address": "0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a",
+                "resolved_name": "nathanvdh.eth",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=52"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/avatar/0xf9551c66995eD3Ff9bb05C9Fd7ff148Bd75dc99a?s=180"
+                    }
+                ]
+            },
+            "created": "2022-10-12T15:13:36Z",
+            "network": "1",
+            "symbol": "SHOT",
+            "type": "single-choice",
+            "strategies": [
+                {
+                    "name": "ticket",
+                    "network": "1",
+                    "params": null
+                }
+            ],
+            "validation": null,
+            "title": "Shielded voting demo",
+            "body": [
+                {
+                    "type": "markdown",
+                    "body": "Shielded Voting will encrypt individual votes until the proposal reaches its end. While the proposal is ongoing, the only available information for anyone, including Snapshot itself, will be the total amount of voting power already deployed. Once the proposal reaches its end, all the votes will be automatically revealed along with their respective addresses, and the results will be calculated."
+                }
+            ],
+            "discussion": "",
+            "choices": [
+                "Alice",
+                "Bob",
+                "Carol",
+                "David"
+            ],
+            "voting_start": "2022-10-12T15:13:33Z",
+            "voting_end": "2026-11-20T15:13:33Z",
+            "quorum": 0,
+            "privacy": "shutter",
+            "snapshot": "15732843",
+            "state": "canceled",
+            "link": "https://snapshot.org/#/pistachiodao.eth/proposal/0xa5077ef17097b1d59304b110337bd1c7ce98d95d3ff81d138c3886a80074b4d9",
+            "app": "snapshot",
+            "scores": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "scores_by_strategy": null,
+            "scores_state": "pending",
+            "scores_total": 10615,
+            "scores_updated": 1705870846,
+            "votes": 10615,
+            "flagged": false,
+            "dao": {
+                "id": "00e5ea5b-754e-416e-be20-84a23f5f3fbd",
+                "alias": "pistachiodao.eth",
+                "created_at": "2023-09-29T19:16:58Z",
+                "updated_at": "2024-01-21T23:11:03Z",
+                "name": "Pistachio DAO",
+                "avatar": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180",
+                "avatars": [
+                    {
+                        "size": "xs",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=32"
+                    },
+                    {
+                        "size": "s",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=64"
+                    },
+                    {
+                        "size": "m",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=92"
+                    },
+                    {
+                        "size": "l",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=152"
+                    },
+                    {
+                        "size": "xl",
+                        "link": "https://cdn.stamp.fyi/space/pistachiodao.eth?s=180"
+                    }
+                ],
+                "symbol": "SHOT",
+                "network": "1",
+                "categories": [
+                    "protocol",
+                    "popular_daos"
+                ],
+                "followers_count": 27787,
+                "voters_count": 27787,
+                "proposals_count": 7,
+                "subscription_info": null
+            },
+            "timeline": [
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.created"
+                },
+                {
+                    "created_at": "2022-10-12T15:13:33Z",
+                    "event": "proposal.voting.started"
+                },
+                {
+                    "created_at": "2024-01-21T21:49:14Z",
+                    "event": "proposal.updated"
+                }
+            ]
+        }
+    }
+]

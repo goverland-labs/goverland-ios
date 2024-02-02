@@ -461,7 +461,7 @@ struct ProposalSubmitVoteEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, id: UUID, signature: String) {
+    init(id: UUID, signature: String) {
         let body: [String: TypedValue] = [
             "id": .str(id.uuidString),
             "sig": .str(signature)
@@ -547,6 +547,19 @@ struct MarkEventReadEndpoint: APIEndpoint {
     let eventID: UUID
 
     var path: String { "feed/\(eventID)/mark-as-read" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+struct MarkEventUnreadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/mark-as-unread" }
     var method: HttpMethod = .post
 
     init(eventID: UUID) {

@@ -296,10 +296,9 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func submitVote(proposal: Proposal,
-                           id: UUID,
+    static func submitVote(id: UUID,
                            signature: String) -> AnyPublisher<(ProposalSubmitVoteEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = ProposalSubmitVoteEndpoint(proposal: proposal, id: id, signature: signature)
+        let endpoint = ProposalSubmitVoteEndpoint(id: id, signature: signature)
         return shared.request(endpoint)
     }
 
@@ -352,7 +351,12 @@ extension APIService {
         let endpoint = MarkEventReadEndpoint(eventID: eventID)
         return shared.request(endpoint)
     }
-    
+
+    static func markEventUnread(eventID: UUID) -> AnyPublisher<(MarkEventUnreadEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkEventUnreadEndpoint(eventID: eventID)
+        return shared.request(endpoint)
+    }
+
     static func markAllEventsRead(before date: Date) -> AnyPublisher<(MarkAllEventsReadEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkAllEventsReadEndpoint(before: date)
         return shared.request(endpoint)

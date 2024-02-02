@@ -118,6 +118,7 @@
 		55E9D9882B6A7F4500697A12 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D9872B6A7F4500697A12 /* Network.swift */; };
 		55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D9892B6B638E00697A12 /* DaoTermsAgreement.swift */; };
 		55E9D98D2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D98C2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift */; };
+		55E9D98F2B6BE85900697A12 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D98E2B6BE85900697A12 /* BubbleView.swift */; };
 		55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87D2B237EE600242817 /* ScreenExtention.swift */; };
 		55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */; };
 		55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 55EEC0332B2BB326007962BD /* CryptoSwift */; };
@@ -348,6 +349,7 @@
 		55E9D9872B6A7F4500697A12 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55E9D9892B6B638E00697A12 /* DaoTermsAgreement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoTermsAgreement.swift; sourceTree = "<group>"; };
 		55E9D98C2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoTermsAgreementPopoverView.swift; sourceTree = "<group>"; };
+		55E9D98E2B6BE85900697A12 /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		55EEA87D2B237EE600242817 /* ScreenExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenExtention.swift; sourceTree = "<group>"; };
 		55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectWalletView.swift; sourceTree = "<group>"; };
 		55EEC0352B2C93AF007962BD /* DangerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangerButton.swift; sourceTree = "<group>"; };
@@ -590,6 +592,7 @@
 				55B527302AF2A7E00038B6B5 /* View Extensions */,
 				552885992A28EBF600ED2BCD /* RetryLoadingViews.swift */,
 				5521D27429EF137C00A09FD4 /* DateView.swift */,
+				55E9D98E2B6BE85900697A12 /* BubbleView.swift */,
 				5542437E2ADF32FC00504E97 /* RefreshIcon.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				552ACFD22B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift */,
@@ -1456,6 +1459,7 @@
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
+				55E9D98F2B6BE85900697A12 /* BubbleView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
 				BA36DF052B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift in Sources */,
 				BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */,

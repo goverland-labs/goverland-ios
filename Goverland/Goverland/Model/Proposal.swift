@@ -37,6 +37,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let scores: [Double]
     let scoresTotal: Double
     let votes: Int
+    let userVote: AnyVote?
     let dao: Dao
     let timeline: [TimelineEvent]
 
@@ -59,31 +60,41 @@ struct Proposal: Decodable, Hashable, Identifiable {
         }
     }
 
+    struct AnyVote {
+        var base: Any
+
+        init<Base: Decodable>(base: Base) {
+            self.base = base
+        }
+    }
+
     enum Privacy: String, Decodable {
         case shutter
         case none = ""
     }
 
     enum State: String, Decodable {
+        case pending
         case active
-        case closed
         case failed
         case succeeded
         case defeated
-        case queued
-        case pending
-        case executed
+        case canceled
+//        case queued
+//        case executed
+//        case closed
 
         var localizedName: String {
             switch self {
+            case .pending: return "Pending"
             case .active: return "Active vote"
-            case .closed: return "Closed"
             case .failed: return "Failed"
             case .succeeded: return "Succeeded"
             case .defeated: return "Defeated"
-            case .queued: return "Queued"
-            case .pending: return "Pending"
-            case .executed: return "Executed"
+            case .canceled: return "Cancelled"
+//            case .queued: return "Queued"
+//            case .executed: return "Executed"
+//            case .closed: return "Closed"
             }
         }
     }
@@ -116,6 +127,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case scores
         case scoresTotal = "scores_total"
         case votes
+        case userVote = "user_vote"
         case dao
         case timeline
     }
@@ -150,6 +162,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          scores: [Double],
          scoresTotal: Double,
          votes: Int,
+         userVote: AnyVote?,
          dao: Dao,
          timeline: [TimelineEvent])
     {
@@ -175,6 +188,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scores = scores
         self.scoresTotal = scoresTotal
         self.votes = votes
+        self.userVote = userVote
         self.dao = dao
         self.timeline = timeline
     }
@@ -242,6 +256,34 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scoresTotal = try container.decode(Double.self, forKey: .scoresTotal)
         self.votes = try container.decode(Int.self, forKey: .votes)
 
+        // Decoding properly user vote depending of privacy and type of the proposal
+        var _userVote: AnyVote?
+        do {
+            if self.privacy == .shutter {
+                if let vote = try container.decodeIfPresent(Vote<String>.self, forKey: .userVote) {
+                    _userVote = AnyVote(base: vote)
+                }
+            } else {
+                switch self.type {
+                case .singleChoice, .basic:
+                    if let vote = try container.decodeIfPresent(Vote<Int>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                case .approval, .rankedChoice:
+                    if let vote = try container.decodeIfPresent(Vote<[Int]>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                case .weighted, .quadratic:
+                    if let vote = try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: .userVote) {
+                        _userVote = AnyVote(base: vote)
+                    }
+                }
+            }
+        } catch {
+            logError(GError.errorDecodingData(error: error, context: "Decoding `user_vote`: Proposal ID: \(id)"))
+        }
+        self.userVote = _userVote
+
         do {
             self.dao = try container.decode(Dao.self, forKey: .dao)
         } catch {
@@ -290,7 +332,8 @@ extension Proposal {
         link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
-        votes: 731,
+        votes: 731, 
+        userVote: nil,
         dao: .aave,
         timeline: [])
 }
