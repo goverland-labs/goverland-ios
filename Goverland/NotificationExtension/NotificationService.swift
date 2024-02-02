@@ -24,12 +24,8 @@ class NotificationService: UNNotificationServiceExtension {
         
         // custom push notification
         if let bestAttemptContent = bestAttemptContent {
-            bestAttemptContent.title = "\(bestAttemptContent.title) [!modified]"
             let data = bestAttemptContent.userInfo as NSDictionary
-            //print("---\(data)=====")
             let imageURLString = data["fcm_options"] as? [String: String]
-            
-//            contentHandler(bestAttemptContent)
             
             if let attachmentString = imageURLString!["image"], let attachmentUrl = URL(string: attachmentString) {
                 let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -45,21 +41,21 @@ class NotificationService: UNNotificationServiceExtension {
                 downloadTask.resume()
             }
         }
-        
-        // action controls in expanded custom push notification
-        let action1 = UNNotificationAction(identifier: "action1",
-                                           title: "Action 1",
-                                           options: .foreground)
-        let action2 = UNNotificationAction(identifier: "action2",
-                                           title: "Action 2",
-                                           options: .destructive)
-        
-        let category = UNNotificationCategory(identifier: "myCategory",
-                                              actions: [action1, action2],
-                                              intentIdentifiers: [],
-                                              options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([category])
-        bestAttemptContent?.categoryIdentifier = "myCategory"
+        // paired with GoverlandApp
+//        // action controls in expanded custom push notification
+//        let action1 = UNNotificationAction(identifier: "action1",
+//                                           title: "Action 1",
+//                                           options: .foreground)
+//        let action2 = UNNotificationAction(identifier: "action2",
+//                                           title: "Action 2",
+//                                           options: .destructive)
+//        
+//        let category = UNNotificationCategory(identifier: "myCategory",
+//                                              actions: [action1, action2],
+//                                              intentIdentifiers: [],
+//                                              options: [])
+//        UNUserNotificationCenter.current().setNotificationCategories([category])
+//        bestAttemptContent?.categoryIdentifier = "myCategory"
     }
     
     override func serviceExtensionTimeWillExpire() {

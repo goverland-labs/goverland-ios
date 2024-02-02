@@ -157,6 +157,16 @@
 		BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */; };
 		BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */; };
 		BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA57D219295CB35400DB1963 /* ProposalListItemView.swift */; };
+		BA5D7A8E2B6D300300CD3FDB /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
+		BA5D7A902B6D303900CD3FDB /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
+		BA5D7A922B6D309D00CD3FDB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A912B6D309D00CD3FDB /* Logger.swift */; };
+		BA5D7A952B6D321100CD3FDB /* InfoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A942B6D321100CD3FDB /* InfoLogger.swift */; };
+		BA5D7A972B6D321C00CD3FDB /* ErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A962B6D321C00CD3FDB /* ErrorLogger.swift */; };
+		BA5D7A982B6D327900CD3FDB /* InfoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A942B6D321100CD3FDB /* InfoLogger.swift */; };
+		BA5D7A992B6D327E00CD3FDB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A912B6D309D00CD3FDB /* Logger.swift */; };
+		BA5D7A9B2B6D32FC00CD3FDB /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A9A2B6D32FC00CD3FDB /* Http.swift */; };
+		BA5D7A9C2B6D330F00CD3FDB /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A9A2B6D32FC00CD3FDB /* Http.swift */; };
+		BA5D7A9D2B6D332800CD3FDB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7382A0A5C8800E2FAE4 /* NetworkManager.swift */; };
 		BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */; };
 		BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B964A2A31056300851826 /* TopProposalsListView.swift */; };
 		BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B96502A376C7700851826 /* FollowButtonView.swift */; };
@@ -395,6 +405,10 @@
 		BA4A1C7C2A74238300AC7470 /* DaoInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInsightsView.swift; sourceTree = "<group>"; };
 		BA50AB2E29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerLoadingView.swift; sourceTree = "<group>"; };
 		BA57D219295CB35400DB1963 /* ProposalListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemView.swift; sourceTree = "<group>"; };
+		BA5D7A912B6D309D00CD3FDB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BA5D7A942B6D321100CD3FDB /* InfoLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogger.swift; sourceTree = "<group>"; };
+		BA5D7A962B6D321C00CD3FDB /* ErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogger.swift; sourceTree = "<group>"; };
+		BA5D7A9A2B6D32FC00CD3FDB /* Http.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
 		BA5D8D3C2A2E62D900F76DB3 /* GroupedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedDaosView.swift; sourceTree = "<group>"; };
 		BA6B964A2A31056300851826 /* TopProposalsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsListView.swift; sourceTree = "<group>"; };
 		BA6B96502A376C7700851826 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButtonView.swift; sourceTree = "<group>"; };
@@ -498,6 +512,7 @@
 		5508BBA72993FC93003E691A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BA5D7A932B6D320200CD3FDB /* Logger */,
 				BAB4B93F2A47490800D24110 /* Font */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
 				552885972A28EB1900ED2BCD /* Extentions.swift */,
@@ -694,6 +709,7 @@
 				5597E7372A0A5C8800E2FAE4 /* APIService.swift */,
 				5597E7382A0A5C8800E2FAE4 /* NetworkManager.swift */,
 				5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */,
+				BA5D7A9A2B6D32FC00CD3FDB /* Http.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1042,6 +1058,16 @@
 				553756F02AE070E600416381 /* EmptyArchiveView.swift */,
 			);
 			path = Archive;
+			sourceTree = "<group>";
+		};
+		BA5D7A932B6D320200CD3FDB /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				BA5D7A912B6D309D00CD3FDB /* Logger.swift */,
+				BA5D7A942B6D321100CD3FDB /* InfoLogger.swift */,
+				BA5D7A962B6D321C00CD3FDB /* ErrorLogger.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		BA6B964F2A376C4500851826 /* Follow Button */ = {
@@ -1458,6 +1484,7 @@
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
+				BA5D7A972B6D321C00CD3FDB /* ErrorLogger.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				BA6B96512A376C7700851826 /* FollowButtonView.swift in Sources */,
@@ -1498,6 +1525,7 @@
 				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
+				BA5D7A952B6D321100CD3FDB /* InfoLogger.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
 				55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */,
 				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
@@ -1528,6 +1556,7 @@
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
 				55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */,
 				BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */,
+				BA5D7A9B2B6D32FC00CD3FDB /* Http.swift in Sources */,
 				550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
@@ -1575,6 +1604,7 @@
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
+				BA5D7A922B6D309D00CD3FDB /* Logger.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
@@ -1624,7 +1654,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA5D7A982B6D327900CD3FDB /* InfoLogger.swift in Sources */,
+				BA5D7A992B6D327E00CD3FDB /* Logger.swift in Sources */,
+				BA5D7A902B6D303900CD3FDB /* ConfigurationManager.swift in Sources */,
+				BA5D7A9D2B6D332800CD3FDB /* NetworkManager.swift in Sources */,
 				BACF9FC42B5AC8F900D990F5 /* NotificationService.swift in Sources */,
+				BA5D7A8E2B6D300300CD3FDB /* ApiError.swift in Sources */,
+				BA5D7A9C2B6D330F00CD3FDB /* Http.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

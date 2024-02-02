@@ -8,28 +8,6 @@
 
 import Foundation
 import UIKit
-import FirebaseCrashlytics
-import OSLog
-
-fileprivate let logger = Logger()
-
-func logInfo(_ message: String) {
-    logger.info("\(message)")
-}
-
-func logError(_ error: Error, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
-    let filePath = "\(file)"
-    let fileName = (filePath as NSString).lastPathComponent
-    let description = (error as? GError)?.localizedDescription ?? error.localizedDescription
-    let msg = "[ERROR] \(fileName): \(line): \(function) \(description)"
-    logger.error("\(msg)")
-
-    let userInfo = [
-      NSLocalizedDescriptionKey: NSLocalizedString("Non-fatal error.", comment: ""),
-      NSLocalizedFailureReasonErrorKey: NSLocalizedString("\(msg)", comment: "")
-    ]
-    Crashlytics.crashlytics().record(error: error, userInfo: userInfo)
-}
 
 func showToast(_ message: String) {
     DispatchQueue.main.async {
