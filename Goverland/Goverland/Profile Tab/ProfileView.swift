@@ -269,6 +269,7 @@ fileprivate struct _ConnectedWalletView: View {
         let imageURL: URL?
         let name: String
         let sessionExpiryDate: Date?
+        let redirectUrl: URL?
     }
 
     var body: some View {
@@ -357,7 +358,8 @@ fileprivate struct _ConnectedWalletView: View {
                 image: Image(cbWallet.image),
                 imageURL: nil,
                 name: cbWallet.name,
-                sessionExpiryDate: nil)
+                sessionExpiryDate: nil, 
+                redirectUrl: cbWallet.link)
         }
 
         guard let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired else { return nil }
@@ -365,6 +367,7 @@ fileprivate struct _ConnectedWalletView: View {
         let session = sessionMeta.session
         let image: Image?
         let imageUrl: URL?
+        let redirectUrl: URL?
 
         if let imageName = Wallet.by(name: session.peer.name)?.image {
             image = Image(imageName)
@@ -384,16 +387,24 @@ fileprivate struct _ConnectedWalletView: View {
             name = "Rainbow"
         }
 
+        if let url = session.peer.redirect?.universal {
+            redirectUrl = URL(string: url)
+        } else {
+            redirectUrl = nil
+        }
+
         return ConnectedWallet(image: image,
                                imageURL: imageUrl,
                                name: name,
-                               sessionExpiryDate: session.expiryDate)
+                               sessionExpiryDate: session.expiryDate,
+                               redirectUrl: redirectUrl)
     }
     
     /// Simulation of system List swipeActions
     private struct _SwipeableConnectedWalletView: View {
         let wallet: ConnectedWallet
         @State private var offset = CGFloat.zero
+        @State private var showSheet = false
         let buttonWidth: CGFloat = 72
         let height: CGFloat = 72
 
@@ -453,6 +464,14 @@ fileprivate struct _ConnectedWalletView: View {
                                 }
                             }
                     )
+                    .simultaneousGesture(
+                        TapGesture()
+                            .onEnded {
+                                if offset == 0 {
+                                    showSheet = true
+                                }
+                            }
+                    )
 
                     HStack {
                         Spacer()
@@ -466,11 +485,44 @@ fileprivate struct _ConnectedWalletView: View {
                     .background(Color.red)
                     .offset(x: offset)
                     .onTapGesture {
-                        logInfo("DID TAP")
+                        disconnect()
                     }
                 }
             }
             .frame(height: height)
+            .actionSheet(isPresented: $showSheet) {
+                var alertButtons = [Alert.Button]()
+                if let redirectUrl = wallet.redirectUrl {
+                    alertButtons.append(
+                        .default(Text("Open wallet")) {
+                            openUrl(redirectUrl)
+                        }
+                    )
+                }
+                alertButtons.append(
+                    .destructive(Text("Disconnect")) {
+                        disconnect()
+                    }
+                )
+                alertButtons.append(.cancel())
+                return ActionSheet(title: Text(wallet.name),
+                                   message: nil,
+                                   buttons: alertButtons)
+            }
+        }
+
+        private func disconnect() {
+            let impactMed = UIImpactFeedbackGenerator(style: .medium)
+            impactMed.impactOccurred()
+
+//            if wallet.name == Wallet.coinbase.name {
+//                CoinbaseWalletManager.disconnect()
+//                Tracker.track(.disconnectCoinbaseWallet)
+//            } else {
+//                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+//                WC_Manager.disconnect(topic: topic)
+//                Tracker.track(.disconnect_WC_session)
+//            }
         }
     }
 }
