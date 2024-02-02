@@ -111,8 +111,12 @@ struct GoverlandApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Setup logging
+        GLogger.append(handler: SystemLogHandler())
+        GLogger.append(handler: CrashlyticsLogHandler())
+
         // Setup App Tracking
-        Tracker.append(handler: ConsoleTrackingHandler())
+        Tracker.append(handler: LogInfoTrackingHandler())
         Tracker.append(handler: FirebaseTrackingHandler())
 
         // Very important line of code. Do not remove it.
