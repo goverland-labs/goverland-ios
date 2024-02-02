@@ -85,15 +85,22 @@ fileprivate struct _ProfileView: View {
             } else if let profile = dataSource.profile {
                 ProfileHeaderView(user: profile.account)
 
-                if profile.role == .guest {
-                    SignInToVoteButton {
-                        showSignIn = true
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 20)
-                }
+                FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
 
-                ProfileListView(profile: profile)
+                switch dataSource.filter {
+                case .activity:
+                    if profile.role == .guest {
+                        SignInToVoteButton {
+                            showSignIn = true
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20)
+                    }
+
+                    ProfileListView(profile: profile)
+                case .achievements: 
+                    Spacer()
+                }
             }
         }
         .sheet(isPresented: $showSignIn) {
@@ -164,19 +171,7 @@ fileprivate struct ProfileHeaderView: View {
                         .foregroundStyle(Color.textWhite)
                 }
             }
-            .padding(.bottom, 16)
-
-            // TODO: enable once backend is ready
-//            HStack {
-//                Spacer()
-//                CounterView(counter: 0, title: "Votes")
-//                Spacer()
-//                Spacer()
-//                    .frame(width: 1)
-//                Spacer()
-//                CounterView(counter: 12, title: "Following DAOs")
-//                Spacer()
-//            }
+            .padding(.bottom, 6)
         }
         .padding(24)
     }
