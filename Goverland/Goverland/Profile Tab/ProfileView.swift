@@ -80,24 +80,24 @@ fileprivate struct _ProfileView: View {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
             } else if dataSource.profile == nil { // is loading
-                ShimmerProfileHeaderView()
+                _ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = dataSource.profile {
-                ProfileHeaderView(user: profile.account)
+                _ProfileHeaderView(user: profile.account)
 
                 FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
 
                 switch dataSource.filter {
                 case .activity:
                     if profile.role == .guest {
-                        SignInToVoteButton {
+                        _SignInToVoteButton {
                             showSignIn = true
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 20)
                     }
 
-                    ProfileListView(profile: profile)
+                    _ProfileListView(profile: profile)
                 case .achievements: 
                     Spacer()
                 }
@@ -115,7 +115,7 @@ fileprivate struct _ProfileView: View {
         }
     }
 
-    struct SignInToVoteButton: View {
+    struct _SignInToVoteButton: View {
         let action: () -> Void
 
         var body: some View {
@@ -137,7 +137,7 @@ fileprivate struct _ProfileView: View {
     }
 }
 
-fileprivate struct ProfileHeaderView: View {
+fileprivate struct _ProfileHeaderView: View {
     let user: User?
 
     var body: some View {
@@ -194,7 +194,7 @@ fileprivate struct ProfileHeaderView: View {
 }
 
 
-fileprivate struct ShimmerProfileHeaderView: View {
+fileprivate struct _ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()
@@ -209,12 +209,60 @@ fileprivate struct ShimmerProfileHeaderView: View {
     }
 }
 
-fileprivate struct ProfileListView: View {
+fileprivate struct _ProfileListView: View {
     let profile: Profile
 
-    var user: User? {
-        profile.account
+    var body: some View {
+        ScrollView {
+            _ProfileSubscriptionsView(profile: profile)
+
+            if let user = profile.account {
+                _ConnectedWalletView(user: user)
+            }
+        }
+        .refreshable {
+            ProfileDataSource.shared.refresh()
+        }
     }
+}
+
+fileprivate struct _ProfileSubscriptionsView: View {
+    let profile: Profile
+
+    var body: some View {
+        if profile.subscriptionsCount > 0 {
+            VStack(spacing: 8) {
+                HStack {
+                    Text("My followed DAOs (\(profile.subscriptionsCount))")
+                        .font(.subheadlineSemibold)
+                        .foregroundColor(.textWhite)
+                    Spacer()
+                    NavigationLink("See all", value: ProfileScreen.subscriptions)
+                        .font(.subheadlineSemibold)
+                        .foregroundColor(.primaryDim)
+                }
+                .padding(.top, 16)
+                .padding(.horizontal, 16)
+
+                DashboardPopularDaosHorizontalListView()
+            }
+        } else {
+            NavigationLink(value: ProfileScreen.subscriptions) {
+                HStack {
+                    Text("My followed DAOs")
+                    Spacer()
+                    Text("\(profile.subscriptionsCount)")
+                        .foregroundStyle(Color.textWhite60)
+                }
+            }
+        }
+    }
+}
+
+fileprivate struct _ConnectedWalletView: View {
+    let user: User
+    @State private var wcViewId = UUID()
+    @State private var showReconnectWallet = false
 
     struct ConnectedWallet {
         let image: Image?
@@ -223,71 +271,64 @@ fileprivate struct ProfileListView: View {
         let sessionExpiryDate: Date?
     }
 
-    @State private var showReconnectWallet = false
-    @State private var wcViewId = UUID()
-
     var body: some View {
-        List {
-            if user != nil {
-                Section("Connected wallet") {
-                    if let wallet = connectedWallet() {
-                        HStack(spacing: 12) {
-                            if let image = wallet.image {
-                                image
-                                    .frame(width: 32, height: 32)
-                                    .scaledToFit()
-                                    .cornerRadius(4)
-                            } else if let imageUrl = wallet.imageURL {
-                                SquarePictureView(image: imageUrl, imageSize: 32)
-                            }
+        VStack(spacing: 8) {
+            Text("Connected wallet")
+                .font(.subheadlineSemibold)
+                .foregroundColor(.textWhite)
+                .padding(.top, 16)
+                .padding(.horizontal, 16)
 
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(wallet.name)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
+            if let wallet = connectedWallet() {
+                HStack(spacing: 12) {
+                    if let image = wallet.image {
+                        image
+                            .frame(width: 32, height: 32)
+                            .scaledToFit()
+                            .cornerRadius(4)
+                    } else if let imageUrl = wallet.imageURL {
+                        SquarePictureView(image: imageUrl, imageSize: 32)
+                    }
 
-                                if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
-                                    Text("Session expires \(date)")
-                                        .font(.footnoteRegular)
-                                        .foregroundColor(.textWhite60)
-                                }
-                            }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(wallet.name)
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
 
-                            Spacer()
-                        }
-                        .swipeActions {
-                            Button {
-                                if wallet.name == Wallet.coinbase.name {
-                                    CoinbaseWalletManager.disconnect()
-                                    Tracker.track(.disconnectCoinbaseWallet)
-                                } else {
-                                    guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                    WC_Manager.disconnect(topic: topic)
-                                    Tracker.track(.disconnect_WC_session)
-                                }
-                            } label: {
-                                Text("Disconnect")
-                                    .font(.bodyRegular)
-                            }
-                            .tint(.red)
-                        }
-                    } else {
-                        Button {
-                            showReconnectWallet = true
-                        } label: {
-                            Text("Reconnect wallet")
+                        if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
+                            Text("Session expires \(date)")
+                                .font(.footnoteRegular)
+                                .foregroundColor(.textWhite60)
                         }
                     }
+
+                    Spacer()
                 }
-                .id(wcViewId)
+                .swipeActions {
+                    Button {
+                        if wallet.name == Wallet.coinbase.name {
+                            CoinbaseWalletManager.disconnect()
+                            Tracker.track(.disconnectCoinbaseWallet)
+                        } else {
+                            guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                            WC_Manager.disconnect(topic: topic)
+                            Tracker.track(.disconnect_WC_session)
+                        }
+                    } label: {
+                        Text("Disconnect")
+                            .font(.bodyRegular)
+                    }
+                    .tint(.red)
+                }
+            } else {
+                Button {
+                    showReconnectWallet = true
+                } label: {
+                    Text("Reconnect wallet")
+                }
             }
         }
-        .refreshable {
-            ProfileDataSource.shared.refresh()
-        }
-        .sheet(isPresented: $showReconnectWallet) {
-            ReconnectWalletView(user: user!)
-        }
+        .id(wcViewId)
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
             // update "Connected wallet" view on session updates
             wcViewId = UUID()
@@ -295,6 +336,9 @@ fileprivate struct ProfileListView: View {
         .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
             // update "Connected wallet" view on session updates
             wcViewId = UUID()
+        }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: user)
         }
     }
 
@@ -313,7 +357,7 @@ fileprivate struct ProfileListView: View {
         let session = sessionMeta.session
         let image: Image?
         let imageUrl: URL?
-        
+
         if let imageName = Wallet.by(name: session.peer.name)?.image {
             image = Image(imageName)
         } else {
