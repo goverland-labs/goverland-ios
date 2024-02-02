@@ -283,52 +283,14 @@ fileprivate struct _ConnectedWalletView: View {
             Group {
                 if let wallet = connectedWallet() {
                     _SwipeableConnectedWalletView(wallet: wallet)
-//                    HStack(spacing: 12) {
-//                        if let image = wallet.image {
-//                            image
-//                                .frame(width: 32, height: 32)
-//                                .scaledToFit()
-//                                .cornerRadius(4)
-//                        } else if let imageUrl = wallet.imageURL {
-//                            SquarePictureView(image: imageUrl, imageSize: 32)
-//                        }
-//
-//                        VStack(alignment: .leading, spacing: 4) {
-//                            Text(wallet.name)
-//                                .font(.bodyRegular)
-//                                .foregroundColor(.textWhite)
-//
-//                            if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
-//                                Text("Session expires \(date)")
-//                                    .font(.footnoteRegular)
-//                                    .foregroundColor(.textWhite60)
-//                            }
-//                        }
-//
-//                        Spacer()
-//                    }
-//                    .padding(16)
-//                    .swipeActions {
-//                        Button {
-//                            if wallet.name == Wallet.coinbase.name {
-//                                CoinbaseWalletManager.disconnect()
-//                                Tracker.track(.disconnectCoinbaseWallet)
-//                            } else {
-//                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-//                                WC_Manager.disconnect(topic: topic)
-//                                Tracker.track(.disconnect_WC_session)
-//                            }
-//                        } label: {
-//                            Text("Disconnect")
-//                                .font(.bodyRegular)
-//                        }
-//                        .tint(.red)
-//                    }
                 } else {
                     Button {
                         showReconnectWallet = true
                     } label: {
-                        Text("Reconnect wallet")
+                        HStack {
+                            Text("Reconnect wallet")
+                            Spacer()
+                        }
                     }
                     .padding(16)
                 }
@@ -445,10 +407,8 @@ fileprivate struct _ConnectedWalletView: View {
                                 if gesture.translation.width < 0 { // swipe left
                                     offset = min(offset, gesture.translation.width)
                                 } else { // swipe right
-                                    if gesture.translation.width > 10 {
-                                        withAnimation {
-                                            self.offset = CGFloat.zero
-                                        }
+                                    withAnimation {
+                                        self.offset = CGFloat.zero
                                     }
                                 }
                             }
@@ -515,14 +475,14 @@ fileprivate struct _ConnectedWalletView: View {
             let impactMed = UIImpactFeedbackGenerator(style: .medium)
             impactMed.impactOccurred()
 
-//            if wallet.name == Wallet.coinbase.name {
-//                CoinbaseWalletManager.disconnect()
-//                Tracker.track(.disconnectCoinbaseWallet)
-//            } else {
-//                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-//                WC_Manager.disconnect(topic: topic)
-//                Tracker.track(.disconnect_WC_session)
-//            }
+            if wallet.name == Wallet.coinbase.name {
+                CoinbaseWalletManager.disconnect()
+                Tracker.track(.disconnectCoinbaseWallet)
+            } else {
+                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
+                WC_Manager.disconnect(topic: topic)
+                Tracker.track(.disconnect_WC_session)
+            }
         }
     }
 }

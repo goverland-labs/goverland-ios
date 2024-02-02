@@ -75,7 +75,7 @@ struct Wallet: Identifiable, Equatable {
     static let coinbase = Wallet(
         image: "coinbase",
         name: "Coinbase Wallet",
-        link: URL(string: "https://www.coinbase.com/wallet")!,
+        link: URL(string: "https://go.cb-w.com")!,
         scheme: "cbwallet",
         id: "none"
     )
