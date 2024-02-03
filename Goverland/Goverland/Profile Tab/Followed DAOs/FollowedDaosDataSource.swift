@@ -15,6 +15,10 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
     @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
+    static let shared = FollowedDaosDataSource()
+
+    private init() {}
+
     func refresh() {
         subscriptions = []
         isLoading = false
