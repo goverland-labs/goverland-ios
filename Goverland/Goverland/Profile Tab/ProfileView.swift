@@ -213,7 +213,7 @@ fileprivate struct _ProfileListView: View {
 
     var body: some View {
         ScrollView {
-            _ProfileSubscriptionsView(profile: profile)
+            ProfileFollowedDAOsView(profile: profile)
 
             if let user = profile.account {
                 ConnectedWalletView(user: user)
@@ -224,46 +224,3 @@ fileprivate struct _ProfileListView: View {
         }
     }
 }
-
-fileprivate struct _ProfileSubscriptionsView: View {
-    let profile: Profile
-
-    var body: some View {
-        if profile.subscriptionsCount > 0 {
-            VStack(spacing: 12) {
-                HStack {
-                    Text("My followed DAOs (\(profile.subscriptionsCount))")
-                        .font(.subheadlineSemibold)
-                        .foregroundColor(.textWhite)
-                    Spacer()
-                    NavigationLink("See all", value: ProfileScreen.subscriptions)
-                        .font(.subheadlineSemibold)
-                        .foregroundColor(.primaryDim)
-                }
-                .padding(.top, 16)
-                .padding(.horizontal, 16)
-
-                DashboardPopularDaosHorizontalListView()
-            }
-        } else {
-            NavigationLink(value: ProfileScreen.subscriptions) {
-                HStack {
-                    Text("My followed DAOs")
-                    Spacer()
-                    Text("\(profile.subscriptionsCount)")
-                        .foregroundStyle(Color.textWhite60)
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color.textWhite60)
-                }
-                .padding(16)
-            }
-            .background(Color.container)
-            .cornerRadius(12)
-            .padding(.horizontal, 8)
-            .padding(.top, 16)
-        }
-    }
-}
-
-
