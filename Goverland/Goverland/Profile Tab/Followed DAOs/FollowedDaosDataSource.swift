@@ -1,5 +1,5 @@
 //
-//  SubscriptionsDataSource.swift
+//  FollowedDaosDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-17.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class SubscriptionsDataSource: ObservableObject, Refreshable {
+class FollowedDaosDataSource: ObservableObject, Refreshable {
     @Published var subscriptions: [Subscription] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading: Bool = true

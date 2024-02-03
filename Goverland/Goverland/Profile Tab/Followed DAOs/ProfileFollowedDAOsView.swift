@@ -20,7 +20,7 @@ struct ProfileFollowedDAOsView: View {
                         .font(.subheadlineSemibold)
                         .foregroundColor(.textWhite)
                     Spacer()
-                    NavigationLink("See all", value: ProfileScreen.subscriptions)
+                    NavigationLink("See all", value: ProfileScreen.followedDaos)
                         .font(.subheadlineSemibold)
                         .foregroundColor(.primaryDim)
                 }
@@ -30,7 +30,7 @@ struct ProfileFollowedDAOsView: View {
                 DashboardPopularDaosHorizontalListView()
             }
         } else {
-            NavigationLink(value: ProfileScreen.subscriptions) {
+            NavigationLink(value: ProfileScreen.followedDaos) {
                 HStack {
                     Text("My followed DAOs")
                     Spacer()

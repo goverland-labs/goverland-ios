@@ -10,7 +10,7 @@ import SwiftUI
 
 enum ProfileScreen {
     case settings
-    case subscriptions
+    case followedDaos
 
     // Settings
     case pushNofitications
@@ -56,7 +56,7 @@ struct ProfileView: View {
             .navigationDestination(for: ProfileScreen.self) { profileScreen in
                 switch profileScreen {
                 case .settings: SettingsView()
-                case .subscriptions: SubscriptionsView()
+                case .followedDaos: FollowedDaosView()
 
                     // Settings
                 case .pushNofitications: PushNotificationsSettingView()
