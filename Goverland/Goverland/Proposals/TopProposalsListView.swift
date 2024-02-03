@@ -14,7 +14,7 @@ struct TopProposalsListView: View {
     let screenTrackingEvent: TrackingEvent
     let openProposalFromListItemTrackingEvent: TrackingEvent
     let openDaoFromListItemTrackingEvent: TrackingEvent
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedProposalIndex: Int?
 
@@ -47,7 +47,7 @@ struct TopProposalsListView: View {
                     } else {
                         let proposal = dataSource.proposals[index]
                         ProposalListItemCondensedView(proposal: proposal) {
-                            activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(openDaoFromListItemTrackingEvent)
                         }
                         .listRowSeparator(.hidden)

@@ -11,7 +11,7 @@ import SwiftUI
 struct ProposalsSearchResultsListView: View {
     @StateObject var dataSource: ProposalsSearchDataSource
     @Binding var path: NavigationPath
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedProposalSearchIndex: Int?
 
@@ -35,7 +35,7 @@ struct ProposalsSearchResultsListView: View {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
                     ProposalListItemCondensedView(proposal: proposal) {
-                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.searchPrpOpenDaoFromSearch)
                     }
                     .listRowSeparator(.hidden)

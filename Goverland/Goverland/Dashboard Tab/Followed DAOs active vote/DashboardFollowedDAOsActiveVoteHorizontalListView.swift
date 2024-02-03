@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct DashboardFollowedDAOsActiveVoteHorizontalListView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @ObservedObject var dataSource = FollowedDAOsActiveVoteDataSource.dashboard
 
     var body: some View {
@@ -30,7 +30,7 @@ struct DashboardFollowedDAOsActiveVoteHorizontalListView: View {
                     } else {
                         ForEach(dataSource.daos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManger.activeSheet = .daoInfo(dao)
+                                activeSheetManager.activeSheet = .daoInfo(dao)
                                 Tracker.track(.dashFollowedDaoActiveVoteOpenDao)
                             }
                         }

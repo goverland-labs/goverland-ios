@@ -64,7 +64,7 @@ struct DashboardPopularDaosHorizontalListView: View {
 }
 
 struct DashboardPopularDaosCardsView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
 
     var body: some View {
@@ -75,7 +75,7 @@ struct DashboardPopularDaosCardsView: View {
         } else {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.popular,
-                                     onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpen) },
+                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpen) },
                                      onFollowToggle: { if $0 { Tracker.track(.dashPopularDaoFollow) } })
             .padding(.leading, 8)
         }

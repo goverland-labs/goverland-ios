@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DashboardNewDaosView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @ObservedObject var dataSource = GroupedDaosDataSource.newDaos
 
     var body: some View {
@@ -20,7 +20,7 @@ struct DashboardNewDaosView: View {
         } else {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.new,
-                                     onSelectDao: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
+                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
                                      onFollowToggle: { if $0 { Tracker.track(.dashNewDaoFollow) } })
             .padding(.leading, 8)
         }
