@@ -15,7 +15,8 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
     @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
-    static let shared = FollowedDaosDataSource()
+    static let followedDaos = FollowedDaosDataSource()
+    static let profileHorizontalList = FollowedDaosDataSource()
 
     private init() {}
 

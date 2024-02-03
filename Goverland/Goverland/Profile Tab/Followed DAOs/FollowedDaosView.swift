@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct FollowedDaosView: View {
-    @StateObject private var dataSource = FollowedDaosDataSource.shared
+    @StateObject private var dataSource = FollowedDaosDataSource.followedDaos
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
@@ -61,9 +61,7 @@ struct FollowedDaosView: View {
             dataSource.refresh()
         }
         .onAppear() {
-            if dataSource.subscriptions.isEmpty {
-                dataSource.refresh()
-            }
+            dataSource.refresh()            
             Tracker.track(.screenFollowedDaos)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in

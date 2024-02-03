@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct ProfileFollowedDAOsHorizontalListView: View {
-    @StateObject private var dataSource = FollowedDaosDataSource.shared
+    @StateObject private var dataSource = FollowedDaosDataSource.profileHorizontalList
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
@@ -50,10 +50,8 @@ struct ProfileFollowedDAOsHorizontalListView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            // refresh if some popover sheet is presented
-            if activeSheetManager.activeSheet != nil {
-                dataSource.refresh()
-            }
+            // always refresh
+            dataSource.refresh()
         }
     }
 }
