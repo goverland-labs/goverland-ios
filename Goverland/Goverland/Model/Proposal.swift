@@ -259,7 +259,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         // Decoding properly user vote depending of privacy and type of the proposal
         var _userVote: AnyVote?
         do {
-            if self.privacy == .shutter {
+            if self.privacy == .shutter && self.state == .active  {
                 if let vote = try container.decodeIfPresent(Vote<String>.self, forKey: .userVote) {
                     _userVote = AnyVote(base: vote)
                 }

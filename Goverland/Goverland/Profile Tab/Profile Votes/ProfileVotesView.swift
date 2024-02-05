@@ -10,9 +10,9 @@
 import SwiftUI
 
 struct ProfileVotesView: View {
+    @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileVotesDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
     @State private var selectedProposalIndex: Int?
 
     var votedProposals: [Proposal] {
@@ -62,5 +62,21 @@ struct ProfileVotesView: View {
                 }
             }
         }
+        .onChange(of: selectedProposalIndex) { _, _ in
+            if let index = selectedProposalIndex, votedProposals.count > index {
+                let proposal = dataSource.votedProposals![index]
+                path.append(ProfileScreen.vote(proposal))
+//                Tracker.track(openProposalFromListItemTrackingEvent)
+            }
+        }
+        .onAppear {
+            selectedProposalIndex = nil
+//            Tracker.track(screenTrackingEvent)
+            if votedProposals.isEmpty {
+                dataSource.refresh()
+            }
+        }
+        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
 }

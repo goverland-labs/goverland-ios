@@ -31,7 +31,7 @@ struct ProfileView: View {
                 if authToken.isEmpty {
                     SignInView(source: .profile)
                 } else {
-                    _ProfileView()
+                    _ProfileView(path: $path)
                 }
             }
             .id(authToken) // to forse proper refresh on sign out / sign in
@@ -63,7 +63,7 @@ struct ProfileView: View {
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
 
-                    // Settings
+                // Settings
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
@@ -76,6 +76,7 @@ struct ProfileView: View {
 }
 
 fileprivate struct _ProfileView: View {
+    @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
 
@@ -101,8 +102,8 @@ fileprivate struct _ProfileView: View {
                         .padding(.vertical, 20)
                     }
 
-                    _ProfileListView(profile: profile)
-                case .achievements: 
+                    _ProfileListView(profile: profile, path: $path)
+                case .achievements:
                     Spacer()
                 }
             }
@@ -215,6 +216,7 @@ fileprivate struct _ShimmerProfileHeaderView: View {
 
 fileprivate struct _ProfileListView: View {
     let profile: Profile
+    @Binding var path: [ProfileScreen]
 
     var body: some View {
         ScrollView {
@@ -224,10 +226,12 @@ fileprivate struct _ProfileListView: View {
                 ConnectedWalletView(user: user)
             }
 
-            ProfileVotesView()
+            ProfileVotesView(path: $path)
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
+            FollowedDaosDataSource.followedDaos.refresh()
+            ProfileVotesDataSource.shared.refresh()
         }
     }
 }
