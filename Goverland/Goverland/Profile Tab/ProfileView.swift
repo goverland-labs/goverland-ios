@@ -98,7 +98,7 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile)
                 case .achievements: 
-                    Spacer()
+                    AchievementsView()
                 }
             }
         }
