@@ -41,7 +41,7 @@ class NotificationService: UNNotificationServiceExtension {
                 downloadTask.resume()
             }
         }
-        // paired with GoverlandApp
+//        // paired with GoverlandApp
 //        // action controls in expanded custom push notification
 //        let action1 = UNNotificationAction(identifier: "action1",
 //                                           title: "Action 1",

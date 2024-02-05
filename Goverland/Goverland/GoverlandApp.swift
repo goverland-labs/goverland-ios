@@ -170,6 +170,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
         
+//        // paired with NotificationService
 //        switch response.actionIdentifier {
 //        case "action1":
 //            print("action 1 should be running")
