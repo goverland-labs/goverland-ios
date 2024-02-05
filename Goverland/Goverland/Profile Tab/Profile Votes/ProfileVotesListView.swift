@@ -45,6 +45,7 @@ struct ProfileVotesListView: View {
                         ZStack {
                             if !dataSource.failedToLoadMore { // try to paginate
                                 ShimmerProposalListItemView()
+                                    .padding(.bottom, 8)
                                     .onAppear {
                                         dataSource.loadMore()
                                     }
