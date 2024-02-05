@@ -49,17 +49,18 @@ struct ProfileVotesView: View {
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
                     ProposalListItemCondensedView(proposal: proposal) {
-                        // TODO: track
+                        Tracker.track(.prfVotesOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                     }
                     .padding(.horizontal, 8)
                     .onTapGesture {
-                        // TODO: track
+                        Tracker.track(.prfVotesOpenProposal)
                         path.append(.vote(proposal))
                     }
                 }
             }
         }
+        .padding(.bottom, 16)
         .onAppear {
             if votedProposals.isEmpty {
                 dataSource.refresh()

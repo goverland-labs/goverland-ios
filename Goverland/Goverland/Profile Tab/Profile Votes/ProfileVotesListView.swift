@@ -61,7 +61,7 @@ struct ProfileVotesListView: View {
                                              isSelected: false,
                                              isRead: false) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                            //                            Tracker.track(openDaoFromListItemTrackingEvent)
+                            Tracker.track(.prfVotesFullOpenDao)
                         } menuContent: {
                             ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                         }
@@ -74,14 +74,14 @@ struct ProfileVotesListView: View {
         }
         .onChange(of: selectedVoteIndex) { _, _ in
             if let index = selectedVoteIndex, votedProposals.count > index {
-                // TODO: track
+                Tracker.track(.prfVotesFullOpenProposal)
                 let proposal = dataSource.votedProposals![index]
                 path.append(.vote(proposal))
             }
         }
         .onAppear {
             selectedVoteIndex = nil
-            // TODO: track
+            Tracker.track(.screenProfileVotesFull)
             if votedProposals.isEmpty {
                 dataSource.refresh()
             }
