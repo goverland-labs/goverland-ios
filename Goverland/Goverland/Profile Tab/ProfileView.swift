@@ -100,8 +100,8 @@ fileprivate struct _ProfileView: View {
                         _SignInToVoteButton {
                             showSignIn = true
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 16)
                     }
 
                     _ProfileListView(profile: profile, path: $path)
@@ -226,9 +226,9 @@ fileprivate struct _ProfileListView: View {
 
             if let user = profile.account {
                 ConnectedWalletView(user: user)
-            }
 
-            ProfileVotesView(path: $path)
+                ProfileVotesView(path: $path)
+            }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
