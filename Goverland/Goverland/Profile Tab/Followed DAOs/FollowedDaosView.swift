@@ -1,5 +1,5 @@
 //
-//  SubscriptionsView.swift
+//  FollowedDaosView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-17.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct SubscriptionsView: View {
-    @StateObject private var dataSource = SubscriptionsDataSource()
+struct FollowedDaosView: View {
+    @StateObject private var dataSource = FollowedDaosDataSource.followedDaos
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
@@ -61,7 +61,7 @@ struct SubscriptionsView: View {
             dataSource.refresh()
         }
         .onAppear() {
-            dataSource.refresh()
+            dataSource.refresh()            
             Tracker.track(.screenFollowedDaos)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in

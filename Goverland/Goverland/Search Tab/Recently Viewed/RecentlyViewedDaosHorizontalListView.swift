@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RecentlyViewedDaosHorizontalListView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @StateObject var dataSource = RecentlyViewedDaosDataSource.search
 
     var body: some View {
@@ -29,7 +29,7 @@ struct RecentlyViewedDaosHorizontalListView: View {
                     } else {
                         ForEach(dataSource.recentlyViewedDaos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManger.activeSheet = .daoInfo(dao)
+                                activeSheetManager.activeSheet = .daoInfo(dao)
                                 Tracker.track(.searchRecentDaoOpen)
                             }                            
                         }

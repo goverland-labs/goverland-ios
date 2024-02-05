@@ -22,7 +22,7 @@ let appContainer: ModelContainer = {
 @main
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
     @Setting(\.unreadEvents) private var unreadEvents
@@ -32,7 +32,7 @@ struct GoverlandApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManger)
+                .environmentObject(activeSheetManager)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
@@ -65,7 +65,7 @@ struct GoverlandApp: App {
                     @unknown default: break
                     }
                 }
-                .sheet(item: $activeSheetManger.activeSheet) { item in
+                .sheet(item: $activeSheetManager.activeSheet) { item in
                     switch item {
                     case .signIn:
                         SignInView(source: .popover)

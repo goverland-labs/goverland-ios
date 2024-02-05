@@ -19,7 +19,7 @@ fileprivate enum Path {
 struct DashboardView: View {
     @Binding var path: NavigationPath
     @State private var animate = false
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
@@ -97,16 +97,16 @@ struct DashboardView: View {
                     .navigationTitle("Hot Proposals")
                 case .newDaos:
                     FollowCategoryDaosListView(category: .new,
-                                               onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashNewDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                     .navigationTitle("New DAOs")
                 case .popularDaos:
                     FollowCategoryDaosListView(category: .popular,
-                                               onSelectDaoFromList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
                                                onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })

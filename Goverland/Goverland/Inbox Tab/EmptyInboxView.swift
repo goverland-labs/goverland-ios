@@ -85,7 +85,7 @@ fileprivate struct _EmptyInboxView: View {
 
             PrimaryButton("My followed DAOs") {
                 TabManager.shared.selectedTab = .profile
-                TabManager.shared.profilePath = [.subscriptions]
+                TabManager.shared.profilePath = [.followedDaos]
             }
 
             Spacer()

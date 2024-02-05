@@ -12,7 +12,7 @@ import SwiftUI
 struct ProfileHasVotingPowerFullView: View {
     @StateObject var dataSource = ProfileHasVotingPowerDataSource.dashboard
     @Binding var path: NavigationPath
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var selectedProposalIndex: Int?
 
@@ -33,7 +33,7 @@ struct ProfileHasVotingPowerFullView: View {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = dataSource.proposals![index]
                         ProposalListItemCondensedView(proposal: proposal) {
-                            activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }
                         .listRowSeparator(.hidden)

@@ -16,7 +16,7 @@ struct SearchView: View {
     @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private var searchPrompt: String {
         switch model.filter {
@@ -56,10 +56,10 @@ struct SearchView: View {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
                                                 showRecentlyViewedDAOs: true,
-                                                activeSheetManager: activeSheetManger,
-                                                onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
-                                                onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
-                                                onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
+                                                activeSheetManager: activeSheetManager,
+                                                onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                                onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
+                                                onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
                                                 onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
                                                 onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
@@ -90,7 +90,7 @@ struct SearchView: View {
                     switch model.filter {
                     case .daos:
                         DaosSearchListView(onSelectDao: { dao in
-                            activeSheetManger.activeSheet = .daoInfo(dao)
+                            activeSheetManager.activeSheet = .daoInfo(dao)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
                                            onFollowToggle: { didFollow in

@@ -51,6 +51,7 @@ struct AdvancedSettingView: View {
                 Toggle(isOn: $accepted) {
                     Text("Allow app to track activity")
                 }
+                .tint(.green)
             } header: {
                 Text("Share anonymized data")
             } footer: {

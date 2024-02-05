@@ -27,6 +27,8 @@
 		55143B562A585AC8003103B1 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B552A585AC8003103B1 /* Vote.swift */; };
 		5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5515241D2B565165005FBF86 /* CoinbaseWalletSDK */; };
 		551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */; };
+		5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */; };
+		5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */; };
 		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
 		551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
@@ -140,6 +142,7 @@
 		55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */; };
 		55FD73252AB75DF80081C38D /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73242AB75DF80081C38D /* Starscream */; };
 		55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */; };
+		55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
 		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
 		BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */; };
@@ -202,8 +205,8 @@
 		BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */; };
 		BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */; };
 		BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166F2B275F0C00CB99CC /* AnnotationView.swift */; };
-		BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */; };
-		BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */; };
+		BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */; };
+		BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */; };
 		BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */; };
 		BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */; };
 		BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */; };
@@ -260,6 +263,8 @@
 		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
 		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseWalletManager.swift; sourceTree = "<group>"; };
+		5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedWalletView.swift; sourceTree = "<group>"; };
+		5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsView.swift; sourceTree = "<group>"; };
 		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
@@ -368,6 +373,7 @@
 		55FD73172AB75DC60081C38D /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsDataSource.swift; sourceTree = "<group>"; };
 		55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRoundedCornerShape.swift; sourceTree = "<group>"; };
+		55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsHorizontalListView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
 		BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemCondensedView.swift; sourceTree = "<group>"; };
@@ -428,8 +434,8 @@
 		BADB166A2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersDataSource.swift; sourceTree = "<group>"; };
 		BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersView.swift; sourceTree = "<group>"; };
 		BADB166F2B275F0C00CB99CC /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
-		BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsDataSource.swift; sourceTree = "<group>"; };
-		BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
+		BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosDataSource.swift; sourceTree = "<group>"; };
+		BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosView.swift; sourceTree = "<group>"; };
 		BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersView.swift; sourceTree = "<group>"; };
 		BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVoters.swift; sourceTree = "<group>"; };
@@ -583,6 +589,26 @@
 				551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */,
 			);
 			path = "Coinbase Wallet";
+			sourceTree = "<group>";
+		};
+		5518CA132B6E0C3700E6D243 /* Connected Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */,
+			);
+			path = "Connected Wallet";
+			sourceTree = "<group>";
+		};
+		5518CA162B6E0D1100E6D243 /* Followed DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */,
+				55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */,
+				BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */,
+				BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */,
+				55458AC92A4087E000739002 /* AddSubscriptionView.swift */,
+			);
+			path = "Followed DAOs";
 			sourceTree = "<group>";
 		};
 		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
@@ -789,6 +815,8 @@
 			isa = PBXGroup;
 			children = (
 				55BD8D4D2AFAA4820014982C /* ProfileView.swift */,
+				5518CA162B6E0D1100E6D243 /* Followed DAOs */,
+				5518CA132B6E0C3700E6D243 /* Connected Wallet */,
 				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
@@ -967,7 +995,6 @@
 				BAF651CA29B79E2200C78A8A /* Info */,
 				557C9D672A30ECED001C4DEA /* Grouped */,
 				557C9D682A30ED4E001C4DEA /* Category */,
-				BADB99CE2A3DFA470098C0D3 /* Subscriptions */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -1158,16 +1185,6 @@
 				BADB166F2B275F0C00CB99CC /* AnnotationView.swift */,
 			);
 			path = Charts;
-			sourceTree = "<group>";
-		};
-		BADB99CE2A3DFA470098C0D3 /* Subscriptions */ = {
-			isa = PBXGroup;
-			children = (
-				BADB99CF2A3DFAA40098C0D3 /* SubscriptionsDataSource.swift */,
-				BADB99D32A3DFF620098C0D3 /* SubscriptionsView.swift */,
-				55458AC92A4087E000739002 /* AddSubscriptionView.swift */,
-			);
-			path = Subscriptions;
 			sourceTree = "<group>";
 		};
 		BAE1AB1C2AE59601001B89F3 /* Popular DAOs */ = {
@@ -1435,6 +1452,7 @@
 				550ACFB52AFEED3A006EF5BB /* Profile.swift in Sources */,
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */,
+				5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */,
@@ -1453,7 +1471,7 @@
 				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
-				BADB99D02A3DFAA40098C0D3 /* SubscriptionsDataSource.swift in Sources */,
+				BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */,
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
@@ -1531,6 +1549,7 @@
 				55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */,
 				BA6B964B2A31056300851826 /* TopProposalsListView.swift in Sources */,
 				550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */,
+				5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
@@ -1562,6 +1581,7 @@
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
+				55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */,
 				55FD731D2AB75DC60081C38D /* SignInTwoStepsView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
@@ -1591,7 +1611,7 @@
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
-				BADB99D42A3DFF620098C0D3 /* SubscriptionsView.swift in Sources */,
+				BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProposalResultProcessBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */,

@@ -150,9 +150,3 @@ fileprivate struct CategoryDaosSearchListView: View {
         }
     }
 }
-
-struct FollowDaoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowCategoryDaosListView(category: .social)
-    }
-}
