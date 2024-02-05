@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-enum ProfileScreen {
+enum ProfileScreen: Hashable {
     case settings
     case followedDaos
+    case vote(Proposal)
 
     // Settings
     case pushNofitications
@@ -57,6 +58,10 @@ struct ProfileView: View {
                 switch profileScreen {
                 case .settings: SettingsView()
                 case .followedDaos: FollowedDaosView()
+                case .vote(let proposal):
+                    SnapshotProposalView(proposal: proposal,
+                                         allowShowingDaoInfo: true,
+                                         navigationTitle: proposal.dao.name)
 
                     // Settings
                 case .pushNofitications: PushNotificationsSettingView()
@@ -219,7 +224,7 @@ fileprivate struct _ProfileListView: View {
                 ConnectedWalletView(user: user)
             }
 
-            ProfileVotesView(profile: profile)
+            ProfileVotesView()
         }
         .refreshable {
             ProfileDataSource.shared.refresh()

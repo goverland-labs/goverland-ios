@@ -39,6 +39,16 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func profileVotes(offset: Int = 0,
+                             limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = ProfileVotesEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     static func signOut(sessionId: String) -> AnyPublisher<(SignOutEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = SignOutEndpoint(sessionId: sessionId)
         return shared.request(endpoint)
