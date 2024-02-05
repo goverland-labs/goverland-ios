@@ -19,7 +19,7 @@ class ProfileVotesDataSource: ObservableObject, Refreshable, Paginatable {
 
     static let shared = ProfileVotesDataSource()
 
-    private var total: Int?
+    private(set) var total: Int?
 
     private init() {}
 

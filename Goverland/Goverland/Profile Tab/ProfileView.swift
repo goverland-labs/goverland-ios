@@ -11,6 +11,7 @@ import SwiftUI
 enum ProfileScreen: Hashable {
     case settings
     case followedDaos
+    case votes
     case vote(Proposal)
 
     // Settings
@@ -58,6 +59,7 @@ struct ProfileView: View {
                 switch profileScreen {
                 case .settings: SettingsView()
                 case .followedDaos: FollowedDaosView()
+                case .votes: EmptyView()
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,

@@ -16,7 +16,7 @@ struct FollowedDaosView: View {
         Group {
             if dataSource.isLoading {
                 VStack(spacing: 12) {
-                    ForEach(0..<3, id: \.self) { _ in
+                    ForEach(0..<5, id: \.self) { _ in
                         ShimmerDaoListItemView()
                     }
                     Spacer()
