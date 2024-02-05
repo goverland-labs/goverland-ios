@@ -55,7 +55,7 @@ struct ProfileVotesView: View {
                     .padding(.horizontal, 8)
                     .onTapGesture {
                         // TODO: track
-                        path.append(ProfileScreen.vote(proposal))
+                        path.append(.vote(proposal))
                     }
                 }
             }
@@ -67,35 +67,3 @@ struct ProfileVotesView: View {
         }
     }
 }
-
-
-//List(0..<votedProposals.count, id: \.self, selection: $selectedProposalIndex) { index in
-//    if index == votedProposals.count - 1 && dataSource.hasMore() { // pagination
-//        ZStack {
-//            if !dataSource.failedToLoadMore { // try to paginate
-//                ShimmerProposalListItemView()
-//                    .onAppear {
-//                        dataSource.loadMore()
-//                    }
-//            } else { // retry pagination
-//                RetryLoadMoreListItemView(dataSource: dataSource)
-//            }
-//        }
-//        .listRowSeparator(.hidden)
-//        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
-//        .listRowBackground(Color.clear)
-//    } else {
-//        let proposal = votedProposals[index]
-//        ProposalListItemView(proposal: proposal,
-//                             isSelected: false,
-//                             isRead: false) {
-//            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-//            //                            Tracker.track(openDaoFromListItemTrackingEvent)
-//        } menuContent: {
-//            ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
-//        }
-//        .listRowSeparator(.hidden)
-//        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
-//        .listRowBackground(Color.clear)
-//    }
-//}

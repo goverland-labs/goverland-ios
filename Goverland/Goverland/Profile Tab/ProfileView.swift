@@ -59,7 +59,7 @@ struct ProfileView: View {
                 switch profileScreen {
                 case .settings: SettingsView()
                 case .followedDaos: FollowedDaosView()
-                case .votes: EmptyView()
+                case .votes: ProfileVotesListView(path: $path)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,
