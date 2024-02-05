@@ -218,6 +218,8 @@ fileprivate struct _ProfileListView: View {
             if let user = profile.account {
                 ConnectedWalletView(user: user)
             }
+
+            ProfileVotesView(profile: profile)
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
