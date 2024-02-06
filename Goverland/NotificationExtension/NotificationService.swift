@@ -69,7 +69,7 @@ class NotificationService: UNNotificationServiceExtension {
 //                                              intentIdentifiers: [],
 //                                              options: [])
 //        UNUserNotificationCenter.current().setNotificationCategories([category])
-        bestAttemptContent?.categoryIdentifier = "myCategory"
+        bestAttemptContent?.categoryIdentifier = "proposalsNotificationCategory"
     }
     
     override func serviceExtensionTimeWillExpire() {
