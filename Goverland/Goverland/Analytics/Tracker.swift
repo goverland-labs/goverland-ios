@@ -22,6 +22,8 @@ class Tracker {
     fileprivate static let shared = Tracker()
     private var trackingHandlers = [TrackingHandler]()
 
+    private init() {}
+
     fileprivate func append(handler: TrackingHandler) {
         guard !trackingHandlers.contains(where: { $0 === handler }) else { return }
         trackingHandlers.append(handler)
