@@ -74,7 +74,7 @@ struct AppTabView: View {
                 if tabManager.inboxViewId == currentInboxViewId {
                     InboxView()
                         .tabItem {
-                            Label("Inbox", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                         .tag(TabManager.Tab.inbox)
@@ -82,7 +82,7 @@ struct AppTabView: View {
                 } else {
                     Spacer()
                         .tabItem {
-                            Label("Inbox", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
                         }
                         .onAppear {
                             currentInboxViewId = tabManager.inboxViewId
@@ -95,7 +95,7 @@ struct AppTabView: View {
             
             SearchView()
                 .tabItem {
-                    Label("Explore", image: tabManager.selectedTab == .search ? "search-active" : "search-inactive")
+                    Label("Search", image: tabManager.selectedTab == .search ? "search-active" : "search-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
