@@ -13,8 +13,6 @@ import MobileCoreServices
 
 
 class NotificationService: UNNotificationServiceExtension {
-    
-
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
@@ -25,16 +23,22 @@ class NotificationService: UNNotificationServiceExtension {
         // custom push notification
         if let bestAttemptContent = bestAttemptContent {
             let data = bestAttemptContent.userInfo as NSDictionary
-            let imageURLString = data["fcm_options"] as? [String: String]
-            
-            if let attachmentString = imageURLString!["image"], let attachmentUrl = URL(string: attachmentString) {
+
+            if let imageURLString = data["fcm_options"] as? [String: String],
+               let attachmentString = imageURLString["image"], 
+                let attachmentUrl = URL(string: attachmentString)
+            {
                 let session = URLSession(configuration: URLSessionConfiguration.default)
                 let downloadTask = session.downloadTask(with: attachmentUrl, completionHandler: { url, _, error in
                     if let error = error {
+//                        logInfo("[NotificationService] Error: \(error.localizedDescription)")
                         print(error.localizedDescription)
-                    } else if let url = url {
-                        let attachment = try! UNNotificationAttachment(identifier: attachmentString, url: url, options: [UNNotificationAttachmentOptionsTypeHintKey: kUTTypePNG])
-                        bestAttemptContent.attachments = [attachment]
+                    } else if let url {
+                        if let attachment = try? UNNotificationAttachment(identifier: attachmentString,
+                                                                          url: url,
+                                                                          options: [UNNotificationAttachmentOptionsTypeHintKey: UTType.png]) {
+                            bestAttemptContent.attachments = [attachment]
+                        }
                     }
                     contentHandler(bestAttemptContent)
                 })
