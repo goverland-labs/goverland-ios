@@ -143,6 +143,10 @@
 		55FD73252AB75DF80081C38D /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73242AB75DF80081C38D /* Starscream */; };
 		55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */; };
 		55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */; };
+		55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */; };
+		55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */; };
+		55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */; };
+		55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
 		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
 		BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */; };
@@ -374,6 +378,10 @@
 		55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsDataSource.swift; sourceTree = "<group>"; };
 		55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRoundedCornerShape.swift; sourceTree = "<group>"; };
 		55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsHorizontalListView.swift; sourceTree = "<group>"; };
+		55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesView.swift; sourceTree = "<group>"; };
+		55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesDataSource.swift; sourceTree = "<group>"; };
+		55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Endpoint.swift"; sourceTree = "<group>"; };
+		55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesListView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
 		BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemCondensedView.swift; sourceTree = "<group>"; };
@@ -743,6 +751,7 @@
 			children = (
 				5597E7352A0A5C8800E2FAE4 /* ApiError.swift */,
 				5597E7372A0A5C8800E2FAE4 /* APIService.swift */,
+				55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */,
 				5597E7382A0A5C8800E2FAE4 /* NetworkManager.swift */,
 				5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */,
 			);
@@ -815,11 +824,10 @@
 			isa = PBXGroup;
 			children = (
 				55BD8D4D2AFAA4820014982C /* ProfileView.swift */,
+				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 				5518CA162B6E0D1100E6D243 /* Followed DAOs */,
 				5518CA132B6E0C3700E6D243 /* Connected Wallet */,
-				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
-				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
-				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
+				55FDC0E22B70AF3D00D1AD79 /* Profile Votes */,
 				55D632B729505C070073E04A /* Settings */,
 			);
 			path = "Profile Tab";
@@ -863,6 +871,7 @@
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
 				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
+				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				BAD5225D2A279A950097068F /* XSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
@@ -870,6 +879,7 @@
 				55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */,
 				55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */,
 				55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */,
+				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1039,6 +1049,16 @@
 				55FD73172AB75DC60081C38D /* Wallet.swift */,
 			);
 			path = "Connect Wallet";
+			sourceTree = "<group>";
+		};
+		55FDC0E22B70AF3D00D1AD79 /* Profile Votes */ = {
+			isa = PBXGroup;
+			children = (
+				55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */,
+				55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */,
+				55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */,
+			);
+			path = "Profile Votes";
 			sourceTree = "<group>";
 		};
 		BA09B3022A2A3B6600223049 /* Snapshot Proposal */ = {
@@ -1528,6 +1548,7 @@
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* ConsoleTrackingHandler.swift in Sources */,
+				55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
@@ -1536,6 +1557,7 @@
 				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
+				55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */,
 				55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */,
@@ -1567,6 +1589,7 @@
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				BADB16692B2019DF00CB99CC /* MonthlyTotalVoters.swift in Sources */,
+				55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				BAE1AB2B2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift in Sources */,
 				554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */,
@@ -1645,6 +1668,7 @@
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,
 				55F700252AB05149008EA30C /* GraphView.swift in Sources */,
 				55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */,
+				55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */,
 				55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */,
 				55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */,
 			);

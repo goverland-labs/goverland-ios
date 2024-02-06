@@ -122,6 +122,19 @@ struct ProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
+struct ProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/votes"
+    var method: HttpMethod = .get
+
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 struct SignOutEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
