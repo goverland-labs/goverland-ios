@@ -11,8 +11,6 @@
 
 APP_ICON_NAME = AppIcon
 PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios
-NOTIFICATION_EXTENSION_BUNDLE_IDENTIFIER = xyz.goverland.ios.NotificationExtension
-NOTIFICATION_CONTENT_EXTENSION_BUNDLE_IDENTIFIER = xyz.goverland.ios.NotificationContent
 
 // Firebase
 FIREBASE_CONFIG = GoogleService-Info.Production

@@ -58,8 +58,8 @@
       launchAutomaticallySubstyle = "2">
       <RemoteRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "xyz.goverland.ios"
-         RemotePath = "/var/containers/Bundle/Application/4459D2D3-A155-4CAE-917F-EE36395BE5A3/Goverland.app">
+         BundleIdentifier = "xyz.goverland.ios.staging"
+         RemotePath = "/var/containers/Bundle/Application/3A434733-713E-4C4D-B352-D57E47FFF075/Goverland.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference

@@ -16,13 +16,22 @@ class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
+    override init() {
+        super.init()
+        // Setup logging
+        GLogger.append(handler: SystemLogHandler())
+    }
+
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+        logInfo("[NotificationService] Did receive request")
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
         // custom push notification
         if let bestAttemptContent = bestAttemptContent {
             let data = bestAttemptContent.userInfo as NSDictionary
+
+            logInfo("[NotificationService] Data: \(data.description)")
 
             if let imageURLString = data["fcm_options"] as? [String: String],
                let attachmentString = imageURLString["image"], 
@@ -31,13 +40,14 @@ class NotificationService: UNNotificationServiceExtension {
                 let session = URLSession(configuration: URLSessionConfiguration.default)
                 let downloadTask = session.downloadTask(with: attachmentUrl, completionHandler: { url, _, error in
                     if let error = error {
-//                        logInfo("[NotificationService] Error: \(error.localizedDescription)")
-                        print(error.localizedDescription)
+                        logInfo("[NotificationService] Error downloading content: \(error.localizedDescription)")
                     } else if let url {
                         if let attachment = try? UNNotificationAttachment(identifier: attachmentString,
                                                                           url: url,
                                                                           options: [UNNotificationAttachmentOptionsTypeHintKey: UTType.png]) {
                             bestAttemptContent.attachments = [attachment]
+                        } else {
+                            logInfo("[NotificationService] Could not create attachment")
                         }
                     }
                     contentHandler(bestAttemptContent)
