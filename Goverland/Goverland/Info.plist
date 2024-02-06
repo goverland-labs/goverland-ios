@@ -21,6 +21,8 @@
 	<string>$(DEFAULT_PAGINATION_COUNT)</string>
 	<key>ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL</key>
 	<string>$(ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL)</string>
+	<key>DAO_TERMS_AGREEMENT_REQUEST_INTERVAL</key>
+	<string>$(DAO_TERMS_AGREEMENT_REQUEST_INTERVAL)</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -29,6 +31,7 @@
 	<array>
 		<string>zerion</string>
 		<string>metamask</string>
+		<string>cbwallet</string>
 		<string>rainbow</string>
 		<string>trust</string>
 		<string>uniswap</string>

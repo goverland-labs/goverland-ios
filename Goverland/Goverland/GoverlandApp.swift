@@ -9,10 +9,11 @@
 import SwiftUI
 import Firebase
 import SwiftData
+import CoinbaseWalletSDK
 
 let appContainer: ModelContainer = {
     do {
-        return try ModelContainer(for: UserProfile.self)
+        return try ModelContainer(for: UserProfile.self, DaoTermsAgreement.self)
     } catch {
         fatalError("Failed to create App container")
     }
@@ -21,7 +22,7 @@ let appContainer: ModelContainer = {
 @main
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
     @Setting(\.unreadEvents) private var unreadEvents
@@ -31,7 +32,7 @@ struct GoverlandApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManger)
+                .environmentObject(activeSheetManager)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
                 }
@@ -64,7 +65,7 @@ struct GoverlandApp: App {
                     @unknown default: break
                     }
                 }
-                .sheet(item: $activeSheetManger.activeSheet) { item in
+                .sheet(item: $activeSheetManager.activeSheet) { item in
                     switch item {
                     case .signIn:
                         SignInView(source: .popover)
@@ -72,7 +73,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             DaoInfoView(dao: dao)
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -81,7 +82,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             AddSubscriptionView()
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -105,6 +106,11 @@ struct GoverlandApp: App {
 
     private func handleDeepLink(_ url: URL) {
         logInfo("[App] Open via a link: \(url.absoluteString)")
+
+        if (try? CoinbaseWalletSDK.shared.handleResponse(url)) == true {
+            logInfo("[CoinbaseWallet] Handled universal link")
+            return
+        }
     }
 }
 
@@ -127,6 +133,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
         _ = WC_Manager.shared
+
+        // Configure CoinbaseWalletSDK
+        _ = CoinbaseWalletManager.shared
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
@@ -191,6 +200,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
-        NotificationsManager.shared.enableNotifications()
+        NotificationsManager.shared.enableNotificationsIfNeeded()
     }
 }

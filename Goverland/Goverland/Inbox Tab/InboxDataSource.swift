@@ -141,6 +141,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.events?[index].readAt = Date()
 
+                    // TODO: can we return in header total unread count?
+
                     // fool protection
                     if SettingKeys.shared.unreadEvents > 0 {
                         SettingKeys.shared.unreadEvents -= 1
@@ -149,7 +151,30 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             }
             .store(in: &cancellables)
     }
-    
+
+    func markUnread(eventID: UUID) {
+        guard let event = events?.first(where: { $0.id == eventID }), event.readAt != nil else { return }
+        APIService.markEventUnread(eventID: eventID)
+            .retry(3)
+            .sink { completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): break
+                    // do nothing, error will be displayed to user if any
+                }
+            } receiveValue: { [weak self] _, _ in
+                guard let `self` = self else { return }
+                if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                    self.events?[index].readAt = nil
+
+                    // TODO: can we return in header total unread count?
+
+                    SettingKeys.shared.unreadEvents += 1
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     func markAllEventsRead() {
         guard let latestEvent = events?.first else { return }
         APIService.markAllEventsRead(before: latestEvent.updatedAt)

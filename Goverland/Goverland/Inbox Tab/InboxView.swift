@@ -82,15 +82,23 @@ fileprivate struct _InboxView: View {
                         } else {
                             // For now we recognise only proposals
                             let proposal = event.eventData! as! Proposal
+                            let isRead = event.readAt != nil
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: selectedEventIndex == index,
-                                                 isRead: event.readAt != nil,
-                                                 displayUnreadIndicator: event.readAt == nil,
+                                                 isRead: isRead,
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)
                             }) {
-                                ProposalSharingMenu(link: proposal.link)
+                                ProposalSharingMenu(link: proposal.link, isRead: isRead) {
+                                    if isRead {
+                                        Tracker.track(.inboxEventMarkUnread)
+                                        data.markUnread(eventID: event.id)
+                                    } else {
+                                        Tracker.track(.inboxEventMarkRead)
+                                        data.markRead(eventID: event.id)
+                                    }
+                                }
                             }
                             .swipeActions {
                                 Button {
@@ -140,7 +148,7 @@ fileprivate struct _InboxView: View {
 
                         Button {
                             TabManager.shared.selectedTab = .profile
-                            TabManager.shared.profilePath = [.subscriptions]
+                            TabManager.shared.profilePath = [.followedDaos]
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
@@ -167,7 +175,6 @@ fileprivate struct _InboxView: View {
                 let event = events[index]
                 Tracker.track(.inboxEventOpen)
                 if event.readAt == nil {
-                    Tracker.track(.inboxEventMarkRead)
                     data.markRead(eventID: event.id)
                 }
             }

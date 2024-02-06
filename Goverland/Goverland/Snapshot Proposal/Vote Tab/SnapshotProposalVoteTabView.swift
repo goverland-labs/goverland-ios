@@ -37,27 +37,46 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
+    @Namespace var namespace    
+    @Environment(\.presentationMode) private var presentationMode
+    @Setting(\.authToken) private var authToken
+
+    @Query private var profiles: [UserProfile]
+    @Query private var termsAgreements: [DaoTermsAgreement]
+
     @State private var chosenTab: SnapshotVoteTabType
+    @State private var choice: AnyObject?
+    @State private var voteButtonDisabled: Bool
+
+    @State private var showSignIn = false
+    @State private var showAgreeWithDaoTerms = false
+    @State private var showVote = false
+    @State private var showReconnectWallet = false
 
     init(proposal: Proposal) {
         self.proposal = proposal
+
         if proposal.state == .active || proposal.state == .pending {
             _chosenTab = State(wrappedValue: .vote)
         } else {
             _chosenTab = State(wrappedValue: .results)
         }
+
+        if let userVote = proposal.userVote, proposal.privacy != .shutter {
+            // enumeration starts with 1 in Snapshot
+            switch proposal.type {
+            case .singleChoice, .basic:
+                _choice = State(wrappedValue: (userVote.base as! Vote<Int>).choice - 1 as AnyObject)
+            case .approval, .rankedChoice:
+                _choice = State(wrappedValue: (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject)
+            case .weighted, .quadratic:
+                _choice = State(wrappedValue: (userVote.base as! Vote<[String: Int]>).choice as AnyObject)
+            }
+            _voteButtonDisabled = State(wrappedValue: false)
+        } else {
+            _voteButtonDisabled = State(wrappedValue: true)
+        }
     }
-
-    @Namespace var namespace    
-    @Environment(\.presentationMode) private var presentationMode
-    @Setting(\.authToken) private var authToken
-    @Query private var profiles: [UserProfile]
-
-    @State private var choice: AnyObject?
-    @State private var voteButtonDisabled: Bool = true
-    @State private var showSignIn = false
-    @State private var showVote = false
-    @State private var showReconnectWallet = false
 
     private var selectedProfile: UserProfile? {
         profiles.first(where: { $0.selected })
@@ -65,6 +84,21 @@ struct SnapshotProposalVoteTabView: View {
 
     private var selectedProfileIsGuest: Bool {
         selectedProfile?.address.isEmpty ?? false
+    }
+
+    private var userAgreedWithDaoTerms: Bool {
+        guard proposal.dao.terms != nil else { return true }
+        if let found = termsAgreements.first(where: { $0.daoId == proposal.dao.id }) {
+            if Date.now - ConfigurationManager.daoTermsAgreementRequestInterval > found.confirmationDate {
+                return false
+            }
+            return true
+        }
+        return false
+    }
+
+    private var coinbaseWalletConnected: Bool {
+        return CoinbaseWalletManager.shared.account != nil
     }
 
     private var wcSessionExistsAndNotExpired: Bool {
@@ -131,17 +165,14 @@ struct SnapshotProposalVoteTabView: View {
                         }
                     } else {
                         VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
-                            Tracker.track(.snpDetailsVote)
-                            if wcSessionExistsAndNotExpired {
-                                showVote = true
-                            } else {
-                                showReconnectWallet = true
-                            }
+                            vote()
                         }
                     }
                 }
+
             case .results:
                 SnapshopVotingResultView(proposal: proposal)
+
             case .votes:
                 if proposal.privacy == .shutter && proposal.state == .active {
                     // Votes are encrypted
@@ -165,10 +196,16 @@ struct SnapshotProposalVoteTabView: View {
             SignInTwoStepsView()
                 .presentationDetents([.height(500), .large])
         }
+        .sheet(isPresented: $showAgreeWithDaoTerms) {
+            DaoTermsAgreementPopoverView(dao: proposal.dao) {
+                vote()
+            }
+            .presentationDetents([.height(220), .large])
+        }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {
-                // TODO: decide if we need a completion here later.
-                // For now no logic here yet.                                
+                // decide if we need a completion here later.
+                // For now no logic here yet.
             }
             .overlay {
                 ToastView()
@@ -181,6 +218,17 @@ struct SnapshotProposalVoteTabView: View {
 
     private func skipTab(_ tab: SnapshotVoteTabType) -> Bool {
         return (proposal.state == .pending && tab == .results) || (proposal.state != .active && tab == .vote)
+    }
+
+    private func vote() {
+        Tracker.track(.snpDetailsVote)
+        if !userAgreedWithDaoTerms {
+            showAgreeWithDaoTerms = true
+        } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
+            showVote = true
+        } else {
+            showReconnectWallet = true
+        }
     }
 }
 

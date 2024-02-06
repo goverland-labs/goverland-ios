@@ -15,6 +15,7 @@ class ConfigurationManager {
         case defaultPaginationCount = "DEFAULT_PAGINATION_COUNT"
         case timeout = "TIMEOUT"
         case enablePushNotificationsRequestInterval = "ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL"
+        case daoTermsAgreementRequestInterval = "DAO_TERMS_AGREEMENT_REQUEST_INTERVAL"
         case suggestToRateRequestInterval = "SUGGEST_TO_RATE_REQUEST_INTERVAL"
     }
 
@@ -58,6 +59,15 @@ class ConfigurationManager {
 
     static var enablePushNotificationsRequestInterval: TimeInterval {
         guard let interval = TimeInterval(self.value(for: .enablePushNotificationsRequestInterval)) else {
+            fatalError("Invalid interval")
+        }
+        return interval
+    }
+
+    // - MARK: DAO terms agreement
+
+    static var daoTermsAgreementRequestInterval: TimeInterval {
+        guard let interval = TimeInterval(self.value(for: .daoTermsAgreementRequestInterval)) else {
             fatalError("Invalid interval")
         }
         return interval

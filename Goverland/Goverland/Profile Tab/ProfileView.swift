@@ -7,11 +7,12 @@
 //
 
 import SwiftUI
-import SwiftDate
 
-enum ProfileScreen {
+enum ProfileScreen: Hashable {
     case settings
-    case subscriptions
+    case followedDaos
+    case votes
+    case vote(Proposal)
 
     // Settings
     case pushNofitications
@@ -31,7 +32,7 @@ struct ProfileView: View {
                 if authToken.isEmpty {
                     SignInView(source: .profile)
                 } else {
-                    _ProfileView()
+                    _ProfileView(path: $path)
                 }
             }
             .id(authToken) // to forse proper refresh on sign out / sign in
@@ -57,9 +58,14 @@ struct ProfileView: View {
             .navigationDestination(for: ProfileScreen.self) { profileScreen in
                 switch profileScreen {
                 case .settings: SettingsView()
-                case .subscriptions: SubscriptionsView()
+                case .followedDaos: FollowedDaosView()
+                case .votes: ProfileVotesListView(path: $path)
+                case .vote(let proposal):
+                    SnapshotProposalView(proposal: proposal,
+                                         allowShowingDaoInfo: true,
+                                         navigationTitle: proposal.dao.name)
 
-                    // Settings
+                // Settings
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
@@ -72,6 +78,7 @@ struct ProfileView: View {
 }
 
 fileprivate struct _ProfileView: View {
+    @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
 
@@ -80,20 +87,27 @@ fileprivate struct _ProfileView: View {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
             } else if dataSource.profile == nil { // is loading
-                ShimmerProfileHeaderView()
+                _ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = dataSource.profile {
-                ProfileHeaderView(user: profile.account)
+                _ProfileHeaderView(user: profile.account)
 
-                if profile.role == .guest {
-                    SignInToVoteButton {
-                        showSignIn = true
+                FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
+
+                switch dataSource.filter {
+                case .activity:
+                    if profile.role == .guest {
+                        _SignInToVoteButton {
+                            showSignIn = true
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 16)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 20)
-                }
 
-                ProfileListView(profile: profile)
+                    _ProfileListView(profile: profile, path: $path)
+                case .achievements:
+                    Spacer()
+                }
             }
         }
         .sheet(isPresented: $showSignIn) {
@@ -108,7 +122,7 @@ fileprivate struct _ProfileView: View {
         }
     }
 
-    struct SignInToVoteButton: View {
+    struct _SignInToVoteButton: View {
         let action: () -> Void
 
         var body: some View {
@@ -130,7 +144,7 @@ fileprivate struct _ProfileView: View {
     }
 }
 
-fileprivate struct ProfileHeaderView: View {
+fileprivate struct _ProfileHeaderView: View {
     let user: User?
 
     var body: some View {
@@ -164,19 +178,7 @@ fileprivate struct ProfileHeaderView: View {
                         .foregroundStyle(Color.textWhite)
                 }
             }
-            .padding(.bottom, 16)
-
-            // TODO: enable once backend is ready
-//            HStack {
-//                Spacer()
-//                CounterView(counter: 0, title: "Votes")
-//                Spacer()
-//                Spacer()
-//                    .frame(width: 1)
-//                Spacer()
-//                CounterView(counter: 12, title: "Following DAOs")
-//                Spacer()
-//            }
+            .padding(.bottom, 6)
         }
         .padding(24)
     }
@@ -199,7 +201,7 @@ fileprivate struct ProfileHeaderView: View {
 }
 
 
-fileprivate struct ShimmerProfileHeaderView: View {
+fileprivate struct _ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()
@@ -214,183 +216,24 @@ fileprivate struct ShimmerProfileHeaderView: View {
     }
 }
 
-fileprivate struct ProfileListView: View {
+fileprivate struct _ProfileListView: View {
     let profile: Profile
-
-    var user: User? {
-        profile.account
-    }
-
-    struct ConnectedWallet {
-        let image: Image?
-        let imageURL: URL?
-        let name: String
-        let sessionExpiryDate: Date
-    }
-
-    @State private var isSignOutPopoverPresented = false
-    @State private var showReconnectWallet = false
-    @State private var wcViewId = UUID()
+    @Binding var path: [ProfileScreen]
 
     var body: some View {
-        List {
-            Section("Goverland") {
-                NavigationLink(value: ProfileScreen.subscriptions) {
-                    HStack {
-                        Text("My followed DAOs")
-                        Spacer()
-                        Text("\(profile.subscriptionsCount)")
-                            .foregroundStyle(Color.textWhite60)
-                    }
-                }
-                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
+        ScrollView {
+            ProfileFollowedDAOsView(profile: profile)
 
-            if user != nil {
-                Section("Connected wallet") {
-                    if let wallet = connectedWallet() {
-                        HStack(spacing: 12) {
-                            if let image = wallet.image {
-                                image
-                                    .frame(width: 32, height: 32)
-                                    .scaledToFit()
-                                    .cornerRadius(4)
-                            } else if let imageUrl = wallet.imageURL {
-                                SquarePictureView(image: imageUrl, imageSize: 32)
-                            }
+            if let user = profile.account {
+                ConnectedWalletView(user: user)
 
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(wallet.name)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-
-                                let date = wallet.sessionExpiryDate.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session expires \(date)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-
-                            Spacer()
-                        }
-                        .swipeActions {
-                            Button {
-                                guard let topic = WC_Manager.shared.sessionMeta?.session.topic else { return }
-                                WC_Manager.disconnect(topic: topic)
-                                Tracker.track(.disconnect_WC_session)
-                            } label: {
-                                Text("Disconnect")
-                                    .font(.bodyRegular)
-                            }
-                            .tint(.red)
-                        }
-                    } else {
-                        Button {
-                            showReconnectWallet = true
-                        } label: {
-                            Text("Reconnect wallet")
-                        }
-                    }
-                }
-                .id(wcViewId)
-            }
-
-            Section("Devices") {
-                ForEach(profile.sessions) { s in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(s.deviceName)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                            
-                            // TODO: change in 0.6
-                            if s.id.uuidString.lowercased() == SettingKeys.shared.authToken.lowercased() {
-                                Text("Online")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            } else {
-                                let created = s.created.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Session created \(created)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-
-//                            if s.lastActivity + 10.minutes > .now {
-//                                Text("Online")
-//                                    .font(.footnoteRegular)
-//                                    .foregroundColor(.textWhite60)
-//                            } else {
-//                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-//                                Text("Last activity \(activity)")
-//                                    .font(.footnoteRegular)
-//                                    .foregroundColor(.textWhite60)
-//                            }
-                        }
-                        Spacer()
-                    }
-                    .swipeActions {
-                        Button {
-                            ProfileDataSource.shared.signOut(sessionId: s.id.uuidString)
-                            Tracker.track(.signOutDevice)
-                        } label: {
-                            Text("Sign out")
-                                .font(.bodyRegular)
-                        }
-                        .tint(.red)
-                    }
-                }
-            }
-
-            if user != nil {
-                Section {
-                    Button("Sign out") {
-                        isSignOutPopoverPresented.toggle()
-                    }
-                    .tint(Color.textWhite)
-                }
+                ProfileVotesView(path: $path)
             }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
+            FollowedDaosDataSource.followedDaos.refresh()
+            ProfileVotesDataSource.shared.refresh()
         }
-        .popover(isPresented: $isSignOutPopoverPresented) {
-            SignOutPopoverView()
-                .presentationDetents([.height(128)])
-        }
-        .sheet(isPresented: $showReconnectWallet) {
-            ReconnectWalletView(user: user!)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
-            // update "Connected wallet" view on session updates
-            wcViewId = UUID()
-        }
-    }
-
-    private func connectedWallet() -> ConnectedWallet? {
-        guard let session = WC_Manager.shared.sessionMeta?.session else { return nil }
-        let image: Image?
-        let imageUrl: URL?
-        
-        if let imageName = Wallet.by(name: session.peer.name)?.image {
-            image = Image(imageName)
-        } else {
-            image = nil
-        }
-
-        if let icon = session.peer.icons.first, let url = URL(string: icon) {
-            imageUrl = url
-        } else {
-            imageUrl = nil
-        }
-
-        // custom adjustment for popular wallets
-        var name = session.peer.name
-        if name == "🌈 Rainbow" {
-            name = "Rainbow"
-        }
-
-        return ConnectedWallet(image: image,
-                               imageURL: imageUrl,
-                               name: name,
-                               sessionExpiryDate: session.expiryDate)
     }
 }

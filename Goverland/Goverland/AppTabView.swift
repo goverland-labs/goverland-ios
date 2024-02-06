@@ -62,7 +62,7 @@ struct AppTabView: View {
         TabView(selection: $tabManager.selectedTab) {
             DashboardView(path: $tabManager.dashboardPath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .home ? "home-active" : "home-inactive")
+                    Label("Home", image: tabManager.selectedTab == .home ? "home-active" : "home-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.home)
@@ -74,7 +74,7 @@ struct AppTabView: View {
                 if tabManager.inboxViewId == currentInboxViewId {
                     InboxView()
                         .tabItem {
-                            Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                            Label("Inbox", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                         .tag(TabManager.Tab.inbox)
@@ -82,7 +82,7 @@ struct AppTabView: View {
                 } else {
                     Spacer()
                         .tabItem {
-                            Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                            Label("Inbox", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
                         }
                         .onAppear {
                             currentInboxViewId = tabManager.inboxViewId
@@ -95,20 +95,20 @@ struct AppTabView: View {
             
             SearchView()
                 .tabItem {
-                    Image(tabManager.selectedTab == .search ? "search-active" : "search-inactive")
+                    Label("Explore", image: tabManager.selectedTab == .search ? "search-active" : "search-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
             
             ProfileView(path: $tabManager.profilePath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
+                    Label("Profile", image: tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.profile)
         }
         .id(authToken) // to force proper tab bar refresh, otherwise an exception appears on sign in/sign out
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
             // TODO: check if we can make it better with macros
 

@@ -22,21 +22,22 @@ struct AdvancedSettingView: View {
                 Button("RESET") {
                     SettingKeys.reset()
                     WC_Manager.shared.sessionMeta = nil
+                    CoinbaseWalletManager.shared.account = nil
                     try! modelContext.delete(model: UserProfile.self)
                     try! modelContext.save()
                     fatalError("Reset the app")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("CRASH") {
                     fatalError("Crash the App")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("LOG ERROR") {
                     logError(GError.appInconsistency(reason: "Debug test error logging"))
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("Show test notification in 3 sec") {
                     showLocalNotification(title: "Test local notification",
@@ -50,6 +51,7 @@ struct AdvancedSettingView: View {
                 Toggle(isOn: $accepted) {
                     Text("Allow app to track activity")
                 }
+                .tint(.green)
             } header: {
                 Text("Share anonymized data")
             } footer: {
@@ -58,11 +60,11 @@ struct AdvancedSettingView: View {
                     .foregroundColor(.textWhite40)
             }
 
-            if let id = profiles.first(where: { $0.selected })?.deviceId {
+            if let id = profiles.first(where: { $0.selected })?.deviceId.prefix(8) {
                 Section {
                     LabeledContent(id) {
                         Button {
-                            UIPasteboard.general.string = id
+                            UIPasteboard.general.string = String(id)
                             showToast("Copied")
                         } label: {
                             Image(systemName: "doc.on.doc")

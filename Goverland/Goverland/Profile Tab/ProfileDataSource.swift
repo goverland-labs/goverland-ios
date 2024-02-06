@@ -10,9 +10,24 @@
 import Foundation
 import Combine
 
+enum ProfileFilter: Int, FilterOptions {
+    case activity = 0
+    case achievements
+
+    var localizedName: String {
+        switch self {
+        case .activity:
+            return "Activity"
+        case .achievements:
+            return "Achievements"
+        }
+    }
+}
+
 class ProfileDataSource: ObservableObject, Refreshable {
     @Published var profile: Profile?
     @Published var failedToLoadInitialData = false
+    @Published var filter: ProfileFilter = .activity
 
     private var cancellables = Set<AnyCancellable>()
 

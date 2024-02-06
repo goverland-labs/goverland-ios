@@ -16,9 +16,9 @@ struct PushNotificationsSettingView: View {
 
     var body: some View {
         List {
-            // TODO: can we use here appSettings directly?
             Section {
                 Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
+                    .tint(.green)
             } header: {
                 Text("Push notifications")
             } footer: {
@@ -62,7 +62,7 @@ struct PushNotificationsSettingView: View {
                             skipTrackingOnce = false
                         }
                         SettingKeys.shared.notificationsEnabled = true
-                        NotificationsManager.shared.enableNotifications()
+                        NotificationsManager.shared.enableNotificationsIfNeeded()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
                         NotificationsManager.shared.disableNotifications { disabled in

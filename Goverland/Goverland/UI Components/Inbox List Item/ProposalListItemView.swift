@@ -12,7 +12,6 @@ struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
-    let displayUnreadIndicator: Bool
     let onDaoTap: (() -> Void)?
     let menuContent: Content
 
@@ -21,13 +20,11 @@ struct ProposalListItemView<Content: View>: View {
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
-         displayUnreadIndicator: Bool,
          onDaoTap: (() -> Void)? = nil,
          @ViewBuilder menuContent: () -> Content) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
-        self.displayUnreadIndicator = displayUnreadIndicator
         self.onDaoTap = onDaoTap
         self.menuContent = menuContent()
     }
@@ -54,7 +51,7 @@ struct ProposalListItemView<Content: View>: View {
                 .fill(backgroundColor)
 
             VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
+                ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
                     menuContent
@@ -73,7 +70,10 @@ struct ProposalListItemView<Content: View>: View {
 
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
-    let displayReadIndicator: Bool
+
+    var voted: Bool {
+        proposal.userVote != nil
+    }
 
     var body: some View {
         HStack {
@@ -87,20 +87,16 @@ struct ProposalListItemHeaderView: View {
 
             Spacer()
             HStack(spacing: 6) {
-                if displayReadIndicator {
-                    ReadIndicatiorView()
+                if voted {
+                    BubbleView(
+                        image: Image(systemName: "checkmark"),
+                        text: nil,
+                        textColor: .onSecondaryContainer,
+                        backgroundColor: .secondaryContainer)
                 }
                 ProposalStatusView(state: proposal.state)
             }
         }
-    }
-}
-
-fileprivate struct ReadIndicatiorView: View {
-    var body: some View {
-        Circle()
-            .fill(Color.primary)
-            .frame(width: 5, height: 5)
     }
 }
 
@@ -243,8 +239,8 @@ struct ShimmerProposalListItemView: View {
                 .frame(height: 20)
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 12)
+            .padding(.vertical, 8)
         }
-        .frame(height: 160)
+        .frame(height: 148)
     }
 }

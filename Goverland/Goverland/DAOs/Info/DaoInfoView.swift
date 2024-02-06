@@ -103,7 +103,7 @@ struct DaoInfoView: View {
                 NavigationStack {
                     DaoInfoView(dao: dao)
                 }
-                .accentColor(.textWhite)
+                .tint(.textWhite)
                 .overlay {
                     ToastView()
                 }

@@ -20,7 +20,7 @@ struct MonthlyNewProposalsView: View {
     
     var body: some View {
         GraphView(header: "Monthly new proposals",
-                  subheader: nil,
+                  subheader: "Amount of proposals created in this DAO monthly.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   onRefresh: dataSource.refresh)

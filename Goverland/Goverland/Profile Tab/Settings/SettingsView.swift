@@ -7,19 +7,55 @@
 //
 
 import SwiftUI
+import SwiftDate
 
 struct SettingsView: View {
     @Setting(\.authToken) private var authToken
+    @StateObject private var dataSource = ProfileDataSource.shared
+    @State private var isSignOutPopoverPresented = false
     @State private var isDeleteProfilePopoverPresented = false
 
     var body: some View {
         List {
-            Section(header: Text("Contact Us")) {
-                XSettingsView()
-                DiscordSettingsView()
-                MailSettingView()
+            Section("Goverland") {
+                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
             }
-            .ignoresSafeArea(edges: .horizontal)
+
+            if let profile = dataSource.profile, !authToken.isEmpty {
+                Section("Devices") {
+                    ForEach(profile.sessions) { s in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(s.deviceName)
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+
+                                if s.lastActivity + 10.minutes > .now {
+                                    Text("Online")
+                                        .font(.footnoteRegular)
+                                        .foregroundColor(.textWhite60)
+                                } else {
+                                    let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
+                                    Text("Last activity \(activity)")
+                                        .font(.footnoteRegular)
+                                        .foregroundColor(.textWhite60)
+                                }
+                            }
+                            Spacer()
+                        }
+                        .swipeActions {
+                            Button {
+                                ProfileDataSource.shared.signOut(sessionId: s.id.uuidString)
+                                Tracker.track(.signOutDevice)
+                            } label: {
+                                Text("Sign out")
+                                    .font(.bodyRegular)
+                            }
+                            .tint(.red)
+                        }
+                    }
+                }
+            }
 
             Section {
                 NavigationLink("About", value: ProfileScreen.about)
@@ -28,6 +64,22 @@ struct SettingsView: View {
                 NavigationLink("Advanced", value: ProfileScreen.advanced)
                 LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
             }
+
+            if !authToken.isEmpty {
+                Section {
+                    Button("Sign out") {
+                        isSignOutPopoverPresented.toggle()
+                    }
+                    .tint(Color.textWhite)
+                }
+            }
+
+            Section(header: Text("Contact Us")) {
+                XSettingsView()
+                DiscordSettingsView()
+                MailSettingView()
+            }
+            .ignoresSafeArea(edges: .horizontal)
 
             if !authToken.isEmpty {
                 Section {
@@ -43,6 +95,10 @@ struct SettingsView: View {
                         .foregroundColor(.textWhite40)
                 }
             }
+        }
+        .popover(isPresented: $isSignOutPopoverPresented) {
+            SignOutPopoverView()
+                .presentationDetents([.height(128)])
         }
         .sheet(isPresented: $isDeleteProfilePopoverPresented) {
             DeleteProfilePopoverView()

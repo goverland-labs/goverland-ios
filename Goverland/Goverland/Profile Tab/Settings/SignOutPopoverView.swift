@@ -17,7 +17,7 @@ struct SignOutPopoverView: View {
             Text("Do you want to sign out?")
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
-                .padding(.top, 20)
+                .padding(.top, 8)
                 .padding(.bottom, 16)
 
             Spacer()
@@ -25,6 +25,7 @@ struct SignOutPopoverView: View {
             HStack(spacing: 16) {
                 PrimaryButton("Sign out") {
                     ProfileDataSource.shared.signOut(sessionId: authToken)
+                    dismiss()
                     Tracker.track(.signOut)
                 }
                 SecondaryButton("Cancel") {
@@ -33,5 +34,6 @@ struct SignOutPopoverView: View {
             }
         }
         .padding(.horizontal, 16)
+        .padding(.vertical, 16)
     }
 }

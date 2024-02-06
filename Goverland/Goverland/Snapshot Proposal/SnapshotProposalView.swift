@@ -63,7 +63,7 @@ struct SnapshotProposalView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    ProposalSharingMenu(link: proposal.link)
+                    ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.textWhite)
@@ -161,14 +161,8 @@ fileprivate struct SnapshotProposalDiscussionView: View {
                 if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
                     Link(destination: unwrappedURL) {
                         Group {
-                            Text(proposal.title)
+                            Text("\(proposal.title) \(Image(systemName: "arrow.up.right"))")
                                 .foregroundColor(.textWhite)
-                            +
-                            Text(" ")
-                            +
-                            Text(Image(systemName: "arrow.up.right"))
-                                .foregroundColor(.textWhite40)
-
                         }
                         .multilineTextAlignment(.leading)
 

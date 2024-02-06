@@ -27,7 +27,8 @@ class SignInDataSource: ObservableObject {
                     let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                 deviceId: SettingKeys.shared.guestDeviceId,
                                                                 sessionId: response.sessionId, 
-                                                                wcSessionMeta: nil)
+                                                                wcSessionMeta: nil,
+                                                                cbAccount: nil)
                     try! await profile.select()
                 }
                 ProfileDataSource.shared.profile = response.profile

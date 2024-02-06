@@ -60,7 +60,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
             }
             .fontWeight(.semibold)
             .padding(.bottom)
-            .accentColor(.secondaryContainer)
+            .tint(.secondaryContainer)
         }
     }
 }

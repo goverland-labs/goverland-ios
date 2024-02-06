@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BrickView: View {
     let header: String
+    let description: String
     let data: String
     let metadata: String
     let metadataColor: Color
@@ -19,8 +20,11 @@ struct BrickView: View {
     let isLoading: Bool
     let failedToLoadInitialData: Bool
     let onRefresh: () -> Void
-    
+
+    @State private var showAlert = false
+
     init(header: String,
+         description: String,
          data: String,
          metadata: String,
          metadataColor: Color = Color.textWhite60,
@@ -30,6 +34,7 @@ struct BrickView: View {
          failedToLoadInitialData: Bool,
          onRefresh: @escaping () -> Void) {
         self.header = header
+        self.description = description
         self.data = data
         self.metadata = metadata
         self.metadataColor = metadataColor
@@ -74,12 +79,23 @@ struct BrickView: View {
                         .font(.subheadlineRegular)
                         .foregroundStyle(metadataColor)
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showAlert = true
+                }
             }
         }
         .frame(width: width, height: height)
         .padding()
         .background(Color.containerBright)
         .cornerRadius(20)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text(header),
+                message: Text(description),
+                dismissButton: .default(Text("Got it!"))
+            )
+        }
     }
 }
 

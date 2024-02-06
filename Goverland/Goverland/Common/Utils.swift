@@ -39,7 +39,7 @@ func showLocalNotification(title: String, body: String?, delay: TimeInterval? = 
 }
 
 enum Utils {
-    // MARK: -HTTP Headers
+    // MARK: - HTTP Headers
 
     static func getTotal(from headers: HttpHeaders) -> Int? {
         guard let totalStr = headers["x-total-count"] as? String,
@@ -59,7 +59,7 @@ enum Utils {
         return total
     }
 
-    // MARK: -Dates
+    // MARK: - Dates
 
     static func mediumDate(_ date: Date) -> String {
         let formatter = DateFormatter()
@@ -90,7 +90,7 @@ enum Utils {
         return calendar.date(from: components)!
     }
 
-    // MARK: -Numbers
+    // MARK: - Numbers
 
     static func formattedNumber(_ number: Double) -> String {
         let formatter = MetricNumberFormatter()
@@ -138,7 +138,7 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
-    // MARK: -Misc
+    // MARK: - Misc
 
     static func urlFromString(_ string: String) -> URL? {
         if let percentEncodedString = string.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
@@ -146,11 +146,5 @@ enum Utils {
             return url
         }
         return nil
-    }
-
-    static func randomNumber_8_dgts() -> Int {
-        let lowerBound = 10000000  // Minimum 8-digit number
-        let upperBound = 99999999  // Maximum 8-digit number
-        return Int(arc4random_uniform(UInt32(upperBound - lowerBound + 1))) + lowerBound
     }
 }

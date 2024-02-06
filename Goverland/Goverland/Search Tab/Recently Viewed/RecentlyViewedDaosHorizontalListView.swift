@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct RecentlyViewedDaosView: View {
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+struct RecentlyViewedDaosHorizontalListView: View {
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @StateObject var dataSource = RecentlyViewedDaosDataSource.search
 
     var body: some View {
@@ -28,11 +28,10 @@ struct RecentlyViewedDaosView: View {
                         }
                     } else {
                         ForEach(dataSource.recentlyViewedDaos) { dao in
-                            RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-                                .onTapGesture {
-                                    activeSheetManger.activeSheet = .daoInfo(dao)
-                                    Tracker.track(.dashRecentDaoOpen)
-                                }
+                            DAORoundViewWithActiveVotes(dao: dao) {
+                                activeSheetManager.activeSheet = .daoInfo(dao)
+                                Tracker.track(.searchRecentDaoOpen)
+                            }                            
                         }
                     }
                 }

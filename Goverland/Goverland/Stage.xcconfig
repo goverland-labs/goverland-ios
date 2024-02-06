@@ -28,5 +28,8 @@ TIMEOUT = 5
 // Push Notifications request interval: 15 sec
 ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL = 15
 
+// Agree with DAO terms request interval: 1 hour
+DAO_TERMS_AGREEMENT_REQUEST_INTERVAL = 3600
+
 // Suggest to rate after voting request intervel: 15 sec
 SUGGEST_TO_RATE_REQUEST_INTERVAL = 15

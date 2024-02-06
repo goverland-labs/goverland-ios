@@ -115,6 +115,19 @@ struct ProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
+struct ProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/votes"
+    var method: HttpMethod = .get
+
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 struct SignOutEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -140,6 +153,18 @@ struct DeleteProfileEndpoint: APIEndpoint {
 
     var path: String = "me"
     var method: HttpMethod = .delete
+}
+
+struct ProfileHasVotingPowerEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/can-vote"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
 }
 
 // MARK: - DAOs
@@ -204,11 +229,13 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     typealias ResponseType = [UserBuckets]
     
     let daoID: UUID
-    var path: String { "analytics/voter-buckets/\(daoID)" }
+    var path: String { "analytics/voter-buckets-groups/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 
@@ -440,7 +467,7 @@ struct ProposalSubmitVoteEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, id: UUID, signature: String) {
+    init(id: UUID, signature: String) {
         let body: [String: TypedValue] = [
             "id": .str(id.uuidString),
             "sig": .str(signature)
@@ -526,6 +553,19 @@ struct MarkEventReadEndpoint: APIEndpoint {
     let eventID: UUID
 
     var path: String { "feed/\(eventID)/mark-as-read" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
+struct MarkEventUnreadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/mark-as-unread" }
     var method: HttpMethod = .post
 
     init(eventID: UUID) {

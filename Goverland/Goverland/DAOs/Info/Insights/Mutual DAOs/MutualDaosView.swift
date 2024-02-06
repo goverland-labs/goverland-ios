@@ -21,13 +21,7 @@ struct MutualDaosView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Text("Voters also participate in")
-                    .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
-                    .padding([.top, .horizontal])
-                Spacer()
-            }
+            GraphHeaderView(header: "Voters also participate in", subheader: "Other DAOs where voters of this DAO participate.", tooltipSide: .topLeft)
 
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
