@@ -36,7 +36,7 @@ struct Wallet: Identifiable, Equatable {
         return recommended // + [.mew, .uniswap]
     }
 
-    private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust]
+    private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust, .mew]
 
     static func by(name: String) -> Wallet? {
         if name == "MetaMask Wallet" {
@@ -69,7 +69,8 @@ struct Wallet: Identifiable, Equatable {
         name: "MetaMask",
         link: URL(string: "https://metamask.app.link")!,
         scheme: "metamask",
-        id: "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96")
+        id: "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96"
+    )
 
     // CoinbaseWalletSDK
     static let coinbase = Wallet(
@@ -101,7 +102,16 @@ struct Wallet: Identifiable, Equatable {
         name: "Trust Wallet",
         link: URL(string: "https://link.trustwallet.com")!,
         scheme: "trust",
-        id: "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0")
+        id: "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0"
+    )
+
+    static let mew = Wallet(
+        image: "mew",
+        name: "MEW wallet",
+        link: URL(string: "https://mewwallet.com")!,
+        scheme: "mewwallet",
+        id: "f5b4eeb6015d66be3f5940a895cbaa49ef3439e518cd771270e6b553b48f31d2"
+    )
 
     // MARK: - Doesn't support eth_signTypedData(_v4)
 
@@ -114,5 +124,5 @@ struct Wallet: Identifiable, Equatable {
 
     // MARK: - Tested SIWE + eth_signTypedData_v4
 
-    // - MetaMask, Zerion, Rainbow, Trust, 1Inch
+    // - MetaMask, Zerion, Rainbow, Trust, 1Inch, OKX
 }
