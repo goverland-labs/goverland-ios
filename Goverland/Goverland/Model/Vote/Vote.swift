@@ -40,3 +40,37 @@ struct VoteSubmission: Decodable {
     let id: String
     let ipfs: String
 }
+
+extension Vote {
+    var userName: String {
+        voter.resolvedName ?? voter.address.checksum ?? ""
+    }
+
+    func choiceStr(for proposal: Proposal) -> String? {
+        switch proposal.type {
+        case .basic, .singleChoice:
+            if let choice = choice as? Int, choice <= proposal.choices.count {
+                return String(proposal.choices[choice - 1])
+            }
+        case .approval, .rankedChoice:
+            if let choice = choice as? [Int] {
+                return choice.map { String($0) }.joined(separator: ", ")
+            }
+        case .weighted, .quadratic:
+            if let choice = choice as? [String: Int] {
+                let total = choice.values.reduce(0, +)
+                return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
+            }
+        }
+
+        if proposal.privacy == .shutter {
+            // result is encrepted. fallback case
+            if let choice = choice as? String {
+                return choice
+            }
+        }
+
+        logError(GError.failedVotesDecoding(proposalID: proposal.id))
+        return nil
+    }
+}

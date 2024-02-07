@@ -49,7 +49,7 @@ struct DaoListItemView: View {
 
     var body: some View {
         HStack {
-            RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
+            DAORoundViewWithActiveVotes(dao: dao) { onSelectDao?(dao) }
             VStack(alignment: .leading, spacing: 4) {
                 Text(dao.name)
                     .font(.headlineRegular)

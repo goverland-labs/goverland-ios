@@ -21,7 +21,13 @@ class ProfileVotesDataSource: ObservableObject, Refreshable, Paginatable {
 
     private(set) var total: Int?
 
-    private init() {}
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+    }
+
+    @objc func authTokenChanged(_ notification: Notification) {
+        refresh()
+    }
 
     func refresh() {
         votedProposals = nil

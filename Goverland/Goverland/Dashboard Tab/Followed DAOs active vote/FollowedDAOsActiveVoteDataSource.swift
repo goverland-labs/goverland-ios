@@ -30,7 +30,7 @@ class FollowedDAOsActiveVoteDataSource: ObservableObject, Refreshable {
     private func loadInitialData() {
         guard !SettingKeys.shared.authToken.isEmpty else { return }
 
-        APIService.daosWithActiveVote()
+        APIService.followedDaosWithActiveVote()
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

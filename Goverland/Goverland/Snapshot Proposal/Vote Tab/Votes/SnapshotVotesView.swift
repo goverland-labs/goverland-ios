@@ -70,34 +70,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     let vote: Vote<ChoiceType>
 
-    var choice: String? {
-        switch proposal.type {
-        case .basic, .singleChoice:
-            if let choice = vote.choice as? Int, choice <= proposal.choices.count {
-                return String(proposal.choices[choice - 1])
-            }
-        case .approval, .rankedChoice:
-            if let choice = vote.choice as? [Int] {
-                return choice.map { String($0) }.joined(separator: ", ")
-            }
-        case .weighted, .quadratic:
-            if let choice = vote.choice as? [String: Int] {
-                let total = choice.values.reduce(0, +)
-                return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
-            }
-        }
-
-        if proposal.privacy == .shutter {
-            // result is encrepted. fallback case
-            if let choice = vote.choice as? String {
-                return choice
-            }
-        }
-
-        logError(GError.failedVotesDecoding(proposalID: proposal.id))
-        return nil
-    }
-
+    @State private var showReasonAlert = false
 
     var body: some View {
         HStack {
@@ -110,7 +83,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 Image(systemName: "lock.fill")
                     .foregroundColor(.textWhite)
             } else {
-                Text(choice ?? "")
+                Text(vote.choiceStr(for: proposal) ?? "")
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite40)
@@ -121,7 +94,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.footnoteRegular)
                     .foregroundColor(.textWhite)
-                if vote.message != nil && !vote.message!.isEmpty {
+                if let reason = vote.message, !reason.isEmpty {
                     Image(systemName: "text.bubble.fill")
                         .foregroundColor(.secondaryContainer)
                 }
@@ -129,6 +102,20 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
         }
         .padding(.vertical, 4)
         .font(.footnoteRegular)
+        .contentShape(Rectangle())
+        .onTapGesture() {
+            if let reason = vote.message, !reason.isEmpty {
+                showReasonAlert = true
+            }
+        }
+        .alert(isPresented: $showReasonAlert) {
+            let resaon = vote.message ?? ""
+            return Alert(
+                title: Text("Reason"),
+                message: Text(resaon),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 
@@ -148,11 +135,5 @@ struct ShimmerVoteListItemView: View {
                 .cornerRadius(8)
         }
         .padding(.vertical, 4)
-    }
-}
-
-struct SnapshotVotersView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotVotesView<Int>(proposal: .aaveTest)
     }
 }
