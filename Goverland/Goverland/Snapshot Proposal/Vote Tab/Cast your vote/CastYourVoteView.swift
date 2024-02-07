@@ -185,7 +185,7 @@ fileprivate struct _HeaderView: View {
                     .font(.bodyRegular)
                     .foregroundColor(.textWhite)
                 Spacer()
-                Text("\(dataSource.votingPower) \(vpSymbol)" )
+                Text("\(Utils.formattedNumber(dataSource.votingPower)) \(vpSymbol)")
                     .font(.bodySemibold)
                     .foregroundColor(.textWhite)
             }
