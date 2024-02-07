@@ -51,9 +51,15 @@ struct DaoListItemView: View {
         HStack {
             DAORoundViewWithActiveVotes(dao: dao) { onSelectDao?(dao) }
             VStack(alignment: .leading, spacing: 4) {
-                Text(dao.name)
-                    .font(.headlineRegular)
-                    .foregroundColor(.textWhite)
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.headlineSemibold)
+                        .foregroundColor(.textWhite)
+                    if dao.verified ?? false {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
                 Text(voters)
                     .font(.caption2)
                     .foregroundColor(.textWhite60)
