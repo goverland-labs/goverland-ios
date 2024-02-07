@@ -37,7 +37,7 @@ struct ProposalListItemCondensedView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
 
-            VStack(spacing: 15) {                
+            VStack(spacing: 12) {
                 ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: false, onDaoTap: onDaoTap)
             }
@@ -52,15 +52,15 @@ struct ShimmerProposalListItemCondensedView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)
 
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 100)
+                        .frame(width: 180)
                     Spacer()
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 80)
+                        .frame(width: 90)
                 }
                 .frame(height: 20)
 
@@ -78,6 +78,6 @@ struct ShimmerProposalListItemCondensedView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
         }
-        .frame(height: 110)
+        .frame(height: 104)
     }
 }

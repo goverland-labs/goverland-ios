@@ -23,7 +23,7 @@ struct BubbleView: View {
                 .frame(height: 14)
             if let text {
                 text
-                    .font(.сaption2Regular)
+                    .font(.caption2Semibold)
                     .foregroundColor(textColor)
                     .lineLimit(1)
             }
