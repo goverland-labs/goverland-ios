@@ -98,9 +98,11 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile)
                 case .achievements: 
-                    //if profile.role != .guest {
+                    if profile.role != .guest {
                         AchievementsView()
-                    //}
+                    } else {
+                        GuestAchievementsView()
+                    }
                 }
             }
         }

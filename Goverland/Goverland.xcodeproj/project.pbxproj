@@ -182,6 +182,7 @@
 		BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */; };
 		BA789BCC2B73D2C50064D6FE /* AchievementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */; };
 		BA789BCE2B741DB80064D6FE /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCD2B741DB80064D6FE /* VisualEffectView.swift */; };
+		BA789BD02B7420C90064D6FE /* GuestAchievementsView().swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCF2B7420C90064D6FE /* GuestAchievementsView().swift */; };
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
@@ -416,6 +417,7 @@
 		BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsDataSource.swift; sourceTree = "<group>"; };
 		BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailView.swift; sourceTree = "<group>"; };
 		BA789BCD2B741DB80064D6FE /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		BA789BCF2B7420C90064D6FE /* GuestAchievementsView().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GuestAchievementsView().swift"; sourceTree = "<group>"; };
 		BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoDataSource.swift; sourceTree = "<group>"; };
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				BA5D7ACB2B71370300CD3FDB /* AchievementsView.swift */,
 				BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */,
 				BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */,
+				BA789BCF2B7420C90064D6FE /* GuestAchievementsView().swift */,
 			);
 			path = Achievements;
 			sourceTree = "<group>";
@@ -1554,6 +1557,7 @@
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
+				BA789BD02B7420C90064D6FE /* GuestAchievementsView().swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
 				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
