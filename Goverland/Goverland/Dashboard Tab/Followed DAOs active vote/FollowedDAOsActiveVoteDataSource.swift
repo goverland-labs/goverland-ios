@@ -11,33 +11,43 @@ import Foundation
 import Combine
 
 class FollowedDAOsActiveVoteDataSource: ObservableObject, Refreshable {
-    @Published var daos: [Dao] = []
+    @Published var subscriptions: [Subscription] = []
     @Published var failedToLoadInitialData: Bool = false
+    @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
     static let dashboard = FollowedDAOsActiveVoteDataSource()
     
-    private init() {}
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
+    }
+
+    @objc private func subscriptionDidToggle(_ notification: Notification) {
+        refresh()
+        logInfo("[AFTER REFRESH] \(subscriptions.count)")
+    }
 
     func refresh() {
-        daos = []
+        subscriptions = []
+        isLoading = false
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
-
         loadInitialData()
     }
 
     private func loadInitialData() {
         guard !SettingKeys.shared.authToken.isEmpty else { return }
 
-        APIService.followedDaosWithActiveVote()
+        isLoading = true
+        APIService.subscriptions()
             .sink { [weak self] completion in
+                self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] result, _ in
-                self?.daos = result
+            } receiveValue: { [weak self] subscriptions, _ in
+                self?.subscriptions = subscriptions.filter { ($0.dao.activeVotes ?? 0) > 0 }
             }
             .store(in: &cancellables)
     }
