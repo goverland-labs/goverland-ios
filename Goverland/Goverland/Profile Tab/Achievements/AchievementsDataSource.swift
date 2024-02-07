@@ -13,19 +13,24 @@ struct Achievement: Identifiable, Hashable {
     let id = UUID()
     let imageName: String
     let isVisible: Bool
-    let name: String
+    let title: String
+    let subtitle: String?
     let number: Int
 }
 
 class AchievementsDataSource: ObservableObject {
     
     let achievements = [
-        Achievement(imageName: "first-tester", isVisible: true, name: "First Tester", number: 1),
-        Achievement(imageName: "first-tester", isVisible: false, name: "Second Tester", number: 2),
-        Achievement(imageName: "first-tester", isVisible: false, name: "Third Tester", number: 3),
-        Achievement(imageName: "first-tester", isVisible: true, name: "Fourth Tester", number: 4),
-        Achievement(imageName: "first-tester", isVisible: false, name: "Fifth Tester", number: 5),
-        Achievement(imageName: "first-tester", isVisible: false, name: "Sixth Tester", number: 6)
+        Achievement(imageName: "first-tester", 
+                    isVisible: true,
+                    title: "First Tester",
+                    subtitle: "Awarded to users who participate in the initial testing phase of our platform.",
+                    number: 1),
+        Achievement(imageName: "first-tester", isVisible: false, title: "Second Tester", subtitle: nil, number: 2),
+        Achievement(imageName: "first-tester", isVisible: false, title: "Third Tester", subtitle: nil, number: 3),
+        Achievement(imageName: "first-tester", isVisible: false, title: "Fourth Tester", subtitle: nil, number: 4),
+        Achievement(imageName: "first-tester", isVisible: false, title: "Fifth Tester", subtitle: nil, number: 5),
+        Achievement(imageName: "first-tester", isVisible: false, title: "Sixth Tester", subtitle: nil, number: 6)
     ]
     
     init() {}

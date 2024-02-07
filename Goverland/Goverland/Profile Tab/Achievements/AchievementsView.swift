@@ -30,7 +30,7 @@ struct AchievementsView: View {
                                 
                                 HStack {
                                     Spacer()
-                                    Text(achievement.name)
+                                    Text(achievement.title)
                                         .font(.subheadlineSemibold)
                                         .foregroundColor(.textWhite)
                                         .padding(.bottom, 30)
@@ -66,8 +66,3 @@ struct AchievementsView: View {
     }
 }
 
-private struct VisualEffectView: UIViewRepresentable {
-    var effect: UIVisualEffect?
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
-}
