@@ -54,7 +54,6 @@ struct DaoInfoEventsView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
-                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
@@ -65,10 +64,10 @@ struct DaoInfoEventsView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
-                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         }
                     }
+                    .padding(.top, 6)
                 }
             }
             .listStyle(.plain)
