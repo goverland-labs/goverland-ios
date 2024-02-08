@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "early-tester.svg",
-      "idiom" : "universal"
+      "filename" : "early-tester-1x.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "early-tester-2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "early-tester-3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
