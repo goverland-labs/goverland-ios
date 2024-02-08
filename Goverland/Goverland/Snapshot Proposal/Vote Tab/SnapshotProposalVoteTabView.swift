@@ -126,7 +126,7 @@ struct SnapshotProposalVoteTabView: View {
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
                                     .font(.caption2Semibold)
-                                    .foregroundColor(.onSecondaryContainer)
+                                    .foregroundStyle(Color.onSecondaryContainer)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
                                             .stroke(Color.secondaryContainer, lineWidth: 1)

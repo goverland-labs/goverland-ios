@@ -40,11 +40,11 @@ struct SnapshopVotingResultView: View {
                         HStack {
                             Text("Quorum")
                                 .font(.footnoteSemibold)
-                                .foregroundColor(.onSecondaryContainer)
+                                .foregroundStyle(Color.onSecondaryContainer)
                             Spacer()
                             Text(Utils.percentage(of: proposal.quorum, in: 100))
                                 .font(.footnoteSemibold)
-                                .foregroundColor(.textWhite)
+                                .foregroundStyle(Color.textWhite)
                         }
 
                         ProposalResultProcessBarView(

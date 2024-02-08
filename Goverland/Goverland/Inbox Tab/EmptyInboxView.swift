@@ -36,7 +36,7 @@ fileprivate struct _WelcomeView: View {
             Text("Now, you will see new proposals here!")
                 .multilineTextAlignment(.center)
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.horizontal, 16)
 
             Image("welcome-illustration-inbox")
@@ -46,7 +46,7 @@ fileprivate struct _WelcomeView: View {
             Text("You're not following any DAO yet. Follow DAOs so you don't miss the updates!")
                 .multilineTextAlignment(.center)
                 .font(.calloutRegular)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.horizontal, 16)
 
             Spacer()
@@ -71,7 +71,7 @@ fileprivate struct _EmptyInboxView: View {
             Text("Your inbox is empty")
                 .multilineTextAlignment(.center)
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
             Image("empty-inbox")
                 .resizable()
@@ -81,7 +81,7 @@ fileprivate struct _EmptyInboxView: View {
             Text("There are no new proposals from the followed DAOs")
                 .multilineTextAlignment(.center)
                 .font(.calloutRegular)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
             PrimaryButton("My followed DAOs") {
                 TabManager.shared.selectedTab = .profile

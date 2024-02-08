@@ -67,14 +67,14 @@ struct AddSubscriptionView: View {
                     dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text("Explore DAOs")
                         .font(.title3Semibold)
-                        .foregroundColor(Color.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }

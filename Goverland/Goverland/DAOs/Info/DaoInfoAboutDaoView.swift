@@ -29,7 +29,7 @@ struct DaoInfoAboutDaoView: View {
             HStack {
                 Text(dao.name)
                     .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
             
@@ -117,7 +117,7 @@ struct DaoInfoAboutDaoView: View {
                 HStack {
                     Text("First activity \(date)")
                         .font(.footnoteRegular)
-                        .foregroundColor(.textWhite60)
+                        .foregroundStyle(Color.textWhite60)
                     Spacer()
                 }
             }
@@ -127,7 +127,7 @@ struct DaoInfoAboutDaoView: View {
                 let categories = dao.categories.dropFirst().reduce("#\(first)") { r, c in "\(r) #\(c.name.lowercased())"}
                 Text(categories)
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
 
             VStack(alignment: .leading) {

@@ -21,7 +21,7 @@ struct EmptyArchiveView: View {
                     .frame(width: geometry.size.width / 2)
                 Text("There are no archived events.")
                     .font(.callout)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 PrimaryButton("Close") {
                     onClose()

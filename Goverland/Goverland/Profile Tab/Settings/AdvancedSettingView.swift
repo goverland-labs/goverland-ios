@@ -57,7 +57,7 @@ struct AdvancedSettingView: View {
             } footer: {
                 Text("To ensure the quality of our app, we collect anonymized app usage data and crash reports.")
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite40)
+                    .foregroundStyle(Color.textWhite40)
             }
 
             if let id = profiles.first(where: { $0.selected })?.deviceId.prefix(8) {
@@ -69,14 +69,14 @@ struct AdvancedSettingView: View {
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                     }
                 } header: {
                     Text("Support id")
                 } footer: {
                     Text("If you contact our support team regarding a technical issue, be ready to share this id.")
                         .font(.footnoteRegular)
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
 

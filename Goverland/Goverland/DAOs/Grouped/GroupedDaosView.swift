@@ -62,7 +62,7 @@ struct GroupedDaosView: View {
                 if showRecentlyViewedDAOs && !RecentlyViewedDaosDataSource.search.recentlyViewedDaos.isEmpty {
                     Text("Recently viewed")
                         .font(.subheadlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                         .padding(.bottom, 8)
                         .padding(.horizontal, 16)
@@ -76,11 +76,11 @@ struct GroupedDaosView: View {
                             let total = dataSource.totalInCategory[category] ?? 0
                             Text(total != 0 ? "\(category.name) (\(Utils.formattedNumber(Double(total))))" : category.name)
                                 .font(.subheadlineSemibold)
-                                .foregroundColor(.textWhite)
+                                .foregroundStyle(Color.textWhite)
                             Spacer()
                             NavigationLink("See all", value: category)
                                 .font(.subheadlineSemibold)
-                                .foregroundColor(.primaryDim)
+                                .foregroundStyle(Color.primaryDim)
                         }
                         .padding(.top, 16)
                         .padding(.horizontal, 16)

@@ -54,7 +54,7 @@ struct DaoListItemView: View {
                 HStack(spacing: 4) {
                     Text(dao.name)
                         .font(.headlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     if dao.verified {
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundStyle(Color.textWhite)
@@ -62,7 +62,7 @@ struct DaoListItemView: View {
                 }
                 Text(voters)
                     .font(.caption2)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id, onFollowToggle: onFollowToggle)

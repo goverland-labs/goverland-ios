@@ -21,12 +21,12 @@ struct HelpUsGrowSettingView: View {
             }) {
                 HStack {
                     Image("rate-app")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                         .frame(width: 30)
                     Text("Rate the App")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
 
@@ -44,12 +44,12 @@ struct HelpUsGrowSettingView: View {
                 HStack {
                     HStack {
                         Image("share-x-post")
-                            .foregroundColor(.primaryDim)
+                            .foregroundStyle(Color.primaryDim)
                             .frame(width: 30)
                         Text("Share a post on X")
                         Spacer()
                         Image(systemName: "arrow.up.right")
-                            .foregroundColor(.textWhite40)
+                            .foregroundStyle(Color.textWhite40)
                     }
                 }
             }

@@ -159,10 +159,6 @@
 		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
 		BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
-		BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */; };
-		BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */; };
-		BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */; };
-		BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -440,10 +436,6 @@
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
 		BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemCondensedView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemView.swift; sourceTree = "<group>"; };
-		BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemHeaderView.swift; sourceTree = "<group>"; };
-		BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryStatusView.swift; sourceTree = "<group>"; };
-		BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasuryListItemContentView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1166,17 +1158,6 @@
 			path = "Snapshot Proposal";
 			sourceTree = "<group>";
 		};
-		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
-			isa = PBXGroup;
-			children = (
-				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
-				BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */,
-				BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */,
-				BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */,
-			);
-			path = "Treasury List Item";
-			sourceTree = "<group>";
-		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1288,7 +1269,6 @@
 				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
 				BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */,
 				BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */,
-				BA1EAD7129F32D0C008D92E9 /* Treasury List Item */,
 			);
 			path = "Inbox List Item";
 			sourceTree = "<group>";
@@ -1737,7 +1717,6 @@
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
 				55B7B4222A5AC28700A894AD /* NotificationsManager.swift in Sources */,
-				BA1EAD7B29F56881008D92E9 /* TreasuryStatusView.swift in Sources */,
 				552ACFD32B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift in Sources */,
 				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
 				BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */,
@@ -1786,7 +1765,6 @@
 				550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */,
 				BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
-				BA1EAD7929F56624008D92E9 /* TreasuryListItemHeaderView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				55CAC9CE2B6D3DC700767454 /* SystemLogHandler.swift in Sources */,
@@ -1844,7 +1822,6 @@
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				55CAC9D02B6D3EA200767454 /* CrashlyticsLogHandler.swift in Sources */,
-				BA1EAD7329F32D65008D92E9 /* TreasuryListItemView.swift in Sources */,
 				55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
@@ -1854,7 +1831,6 @@
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
-				BA1EAD7D29F5796A008D92E9 /* TreasuryListItemContentView.swift in Sources */,
 				550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */,
 				55DE41B72B193882008617F5 /* UserProfile.swift in Sources */,
 				5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */,

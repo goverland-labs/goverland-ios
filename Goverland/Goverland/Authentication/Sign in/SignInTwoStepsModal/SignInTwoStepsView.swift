@@ -18,7 +18,7 @@ struct SignInTwoStepsView: View {
         VStack(spacing: 16) {
             Text("Sign In")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.top, 8)
 
             Image("wallet")
@@ -34,7 +34,7 @@ struct SignInTwoStepsView: View {
                     Text("Connect wallet")
                 }
                 .font(.bodySemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
                 Spacer()
 
@@ -59,7 +59,7 @@ struct SignInTwoStepsView: View {
                             showSelectWallet = true
                         }) {
                             Text("Change wallet")
-                                .foregroundColor(.primaryDim)
+                                .foregroundStyle(Color.primaryDim)
                                 .font(.footnoteRegular)
                         }
                     }
@@ -80,7 +80,7 @@ struct SignInTwoStepsView: View {
                             showSelectWallet = true
                         }) {
                             Text("Change wallet")
-                                .foregroundColor(.primaryDim)
+                                .foregroundStyle(Color.primaryDim)
                                 .font(.footnoteRegular)
                         }
                     }
@@ -104,7 +104,7 @@ struct SignInTwoStepsView: View {
                     Text("Sign message")
                 }
                 .font(.bodySemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
                 Spacer()
 

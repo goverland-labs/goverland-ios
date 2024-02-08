@@ -21,7 +21,7 @@ struct InboxView: View {
                             VStack {
                                 Text("Inbox")
                                     .font(.title3Semibold)
-                                    .foregroundColor(Color.textWhite)
+                                    .foregroundStyle(Color.textWhite)
                             }
                         }
                     }
@@ -129,7 +129,7 @@ fileprivate struct _InboxView: View {
                     VStack {
                         Text("Inbox")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
 
@@ -155,7 +155,7 @@ fileprivate struct _InboxView: View {
                         }
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
                             .fontWeight(.bold)
                             .frame(height: 20)
                     }

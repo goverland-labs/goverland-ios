@@ -104,7 +104,7 @@ struct ArchiveView: View {
                     VStack {
                         Text("Archive")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
             }

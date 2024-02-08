@@ -27,7 +27,7 @@ struct ConnectedWalletView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Connected wallet")
                 .font(.subheadlineSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.top, 16)
                 .padding(.horizontal, 16)
 
@@ -139,12 +139,12 @@ fileprivate struct _SwipeableConnectedWalletView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(wallet.name)
                             .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
 
                         if let date = wallet.sessionExpiryDate?.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full) {
                             Text("Session expires \(date)")
                                 .font(.footnoteRegular)
-                                .foregroundColor(.textWhite60)
+                                .foregroundStyle(Color.textWhite60)
                         }
                     }
 

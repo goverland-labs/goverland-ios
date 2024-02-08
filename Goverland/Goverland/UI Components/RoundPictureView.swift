@@ -32,7 +32,7 @@ struct RoundPictureView: View {
 
         } else {
             Circle()
-                .foregroundColor(.containerBright)
+                .foregroundStyle(Color.containerBright)
                 .frame(width: imageSize, height: imageSize)
         }
     }

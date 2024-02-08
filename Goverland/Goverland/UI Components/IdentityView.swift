@@ -53,7 +53,7 @@ struct UserPictureView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: size.profileImageSize, height: size.profileImageSize)
             .clipShape(Circle())
-            .foregroundColor(.containerBright)
+            .foregroundStyle(Color.containerBright)
     }
 }
 
@@ -72,7 +72,7 @@ fileprivate struct UserNameView: View {
         }
         .font(font)
         .lineLimit(1)
-        .foregroundColor(.textWhite)        
+        .foregroundStyle(Color.textWhite)        
     }
 }
 

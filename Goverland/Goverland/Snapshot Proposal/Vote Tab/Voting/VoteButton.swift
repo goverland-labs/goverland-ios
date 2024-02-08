@@ -25,7 +25,7 @@ struct VoteButton: View {
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-            .foregroundColor(disabled ? .textWhite20 : .onPrimary)
+            .foregroundStyle(disabled ? Color.textWhite20 : .onPrimary)
             .background(disabled ? Color.disabled12 : Color.primary)
             .font(.footnoteSemibold)
             .cornerRadius(20)

@@ -19,6 +19,6 @@ struct DateView: View {
         Text(date.toRelative(since: DateInRegion(), dateTimeStyle: style))
             .font(font)
             .lineLimit(1)
-            .foregroundColor(color)
+            .foregroundStyle(color)
     }
 }

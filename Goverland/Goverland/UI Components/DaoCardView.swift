@@ -50,7 +50,7 @@ struct DaoCardView: View {
                 HStack(spacing: 4) {
                     Text(dao.name)
                         .font(.headlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                         .minimumScaleFactor(0.5)
@@ -63,7 +63,7 @@ struct DaoCardView: View {
 
                 Text("\(subheader)")
                     .font(.сaption2Regular)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
             .padding(.horizontal, 12)
 

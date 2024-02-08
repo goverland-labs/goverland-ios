@@ -74,12 +74,12 @@ fileprivate struct InfoLine: View {
         HStack {
             leading
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Spacer()
             HStack(spacing: 4) {
                 trailing
                     .font(.footnoteSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 if url != nil {
                     Image(systemName: "arrow.up.right")
                         .font(.system(size: 12, weight: .semibold))

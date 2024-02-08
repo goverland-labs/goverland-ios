@@ -20,7 +20,7 @@ struct DaoTermsAgreementPopoverView: View {
         VStack {
             Text("Terms of Service")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.top, 8)
 
             Spacer()

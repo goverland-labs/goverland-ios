@@ -27,7 +27,7 @@ struct AchievementDetailView: View {
                 Spacer()
                 Text(achievement.title)
                     .font(.titleSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .padding(.bottom)
                 Spacer()
             }
@@ -37,7 +37,7 @@ struct AchievementDetailView: View {
                     Spacer()
                     Text(subtitle)
                         .font(.bodyRegular)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .multilineTextAlignment(.center)
                     Spacer()
                 }
@@ -51,7 +51,7 @@ struct AchievementDetailView: View {
                 VStack {
                     Text("Achievements")
                         .font(.title3Semibold)
-                        .foregroundColor(Color.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }

@@ -22,13 +22,13 @@ struct ProposalResultProcessBarLabelView: View {
         HStack {
             Text(choice)
                 .font(.footnoteSemibold)
-                .foregroundColor(.onSecondaryContainer)
+                .foregroundStyle(Color.onSecondaryContainer)
             Spacer()
             Text(Utils.formattedNumber(score) +
                  " \(votingToken) " +
                  Utils.percentage(of: score, in: totalScore))
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
         }
     }
 }

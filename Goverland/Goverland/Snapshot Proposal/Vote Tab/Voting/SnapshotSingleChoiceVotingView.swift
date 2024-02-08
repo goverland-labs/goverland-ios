@@ -51,7 +51,7 @@ fileprivate struct SnapshotSingleChoiceVotingButtonView: View {
                 Spacer()
                 Text(choice)
                     .padding()
-                    .foregroundColor(.onSecondaryContainer)
+                    .foregroundStyle(Color.onSecondaryContainer)
                     .font(.footnoteSemibold)
                 Spacer()
             }

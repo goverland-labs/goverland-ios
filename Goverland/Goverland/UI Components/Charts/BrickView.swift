@@ -51,7 +51,7 @@ struct BrickView: View {
                 HStack {
                     Spacer()
                     ProgressView()
-                        .foregroundColor(.textWhite20)
+                        .foregroundStyle(Color.textWhite20)
                         .controlSize(.regular)
                     Spacer()
                 }

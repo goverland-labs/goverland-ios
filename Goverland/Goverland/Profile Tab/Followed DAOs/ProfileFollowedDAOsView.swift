@@ -18,11 +18,11 @@ struct ProfileFollowedDAOsView: View {
                 HStack {
                     Text("My followed DAOs (\(profile.subscriptionsCount))")
                         .font(.subheadlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Spacer()
                     NavigationLink("See all", value: ProfileScreen.followedDaos)
                         .font(.subheadlineSemibold)
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                 }
                 .padding(.top, 16)
                 .padding(.horizontal, 16)

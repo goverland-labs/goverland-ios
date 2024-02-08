@@ -109,14 +109,14 @@ struct ProposalListItemBodyView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
                 Text(proposal.title)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
                 
                 if displayStatus {
                     HStack(spacing: 0) {
                         Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                            .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                             .font(.footnoteRegular)
                             .lineLimit(1)
 
@@ -162,7 +162,7 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
                     menuContent
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                         .fontWeight(.bold)
                         .frame(width: 40, height: 20)
                 }
@@ -184,7 +184,7 @@ fileprivate struct VoteFooterView: View {
                 Text(Utils.formattedNumber(Double(votes)))
             }
             .font(.footnoteRegular)
-            .foregroundColor(votesHighlighted ? .textWhite : .textWhite40)
+            .foregroundStyle(votesHighlighted ? Color.textWhite : .textWhite40)
 
             if quorum > 0 {
                 HStack(spacing: 5) {
@@ -192,7 +192,7 @@ fileprivate struct VoteFooterView: View {
                     Text(Utils.numberWithPercent(from: quorum))
                 }
                 .font(.footnoteRegular)
-                .foregroundColor(quorumHighlighted ? .textWhite : .textWhite40)
+                .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
             }
         }
     }

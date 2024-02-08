@@ -30,7 +30,7 @@ struct ShimmerView: View {
     
     var body: some View {
         Rectangle()
-            .foregroundColor(.containerBright)
+            .foregroundStyle(Color.containerBright)
 
 //        LinearGradient(colors: gradientColors,
 //                       startPoint: startPoint,

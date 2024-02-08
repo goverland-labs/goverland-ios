@@ -125,7 +125,7 @@ struct SearchView: View {
                     VStack {
                         Text("Search")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
             }
