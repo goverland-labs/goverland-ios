@@ -87,13 +87,13 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
 
-                storeUnreadEventsCount(headers: headers)
+                self.storeUnreadEventsCount(headers: headers)
             }
             .store(in: &cancellables)
     }
 
     func storeUnreadEventsCount(headers: HttpHeaders) {
-        let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
+        guard let unreadEvents = Utils.getUnreadEventsCount(from: headers) else { return }         
         SettingKeys.shared.unreadEvents = unreadEvents
     }
 
@@ -136,17 +136,11 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): break
                     // do nothing, error will be displayed to user if any
                 }
-            } receiveValue: { [weak self] _, _ in
+            } receiveValue: { [weak self] _, headers in
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.events?[index].readAt = Date()
-
-                    // TODO: can we return in header total unread count?
-
-                    // fool protection
-                    if SettingKeys.shared.unreadEvents > 0 {
-                        SettingKeys.shared.unreadEvents -= 1
-                    }
+                    self.storeUnreadEventsCount(headers: headers)
                 }
             }
             .store(in: &cancellables)
@@ -162,22 +156,19 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): break
                     // do nothing, error will be displayed to user if any
                 }
-            } receiveValue: { [weak self] _, _ in
+            } receiveValue: { [weak self] _, headers in
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.events?[index].readAt = nil
-
-                    // TODO: can we return in header total unread count?
-
-                    SettingKeys.shared.unreadEvents += 1
+                    self.storeUnreadEventsCount(headers: headers)
                 }
             }
             .store(in: &cancellables)
     }
 
     func markAllEventsRead() {
-        guard let latestEvent = events?.first else { return }
-        APIService.markAllEventsRead(before: latestEvent.updatedAt)
+        guard let latestUpdatedEvent = events?.sorted(by: { $0.updatedAt > $1.updatedAt }).first else { return }
+        APIService.markAllEventsRead(before: latestUpdatedEvent.updatedAt)
             .retry(3)
             .sink { completion in
                 switch completion {
