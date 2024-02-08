@@ -64,7 +64,7 @@ struct AchievementsView: View {
             .padding()
         }
         .onAppear() {
-            //Tracker.track(.event name)
+            Tracker.track(.screenAchievements)
         }
     }
 }

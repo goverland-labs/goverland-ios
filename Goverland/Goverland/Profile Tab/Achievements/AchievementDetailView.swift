@@ -42,6 +42,8 @@ struct AchievementDetailView: View {
                     Spacer()
                 }
             }
+
+            Spacer()
         }
         .padding(.horizontal, 20)
         .toolbar {
@@ -53,7 +55,8 @@ struct AchievementDetailView: View {
                 }
             }
         }
-        
-        Spacer()
+        .onAppear {
+            Tracker.track(.screenAchievementDetails)
+        }
     }
 }

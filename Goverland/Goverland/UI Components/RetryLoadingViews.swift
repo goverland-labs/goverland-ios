@@ -32,7 +32,7 @@ struct RetryInitialLoadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
                 Text(message)
-                    .font(.callout)
+                    .font(.calloutRegular)
                     .foregroundColor(.textWhite)
                 Spacer()
                 PrimaryButton("Try again") {

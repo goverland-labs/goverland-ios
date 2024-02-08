@@ -11,22 +11,25 @@ import SwiftUI
 
 struct GuestAchievementsView: View {
     var body: some View {
-        VStack {
-            Image("guest-profile-achieviments")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipped()
-                .frame(height: 200)
-                .padding(30)
-            
-            Text("Achievements are only available to signed in users")
-                .font(.calloutRegular)
-                .foregroundColor(.textWhite)
-                .padding(.horizontal, 50)
-                .multilineTextAlignment(.center)
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 24) {
+                Spacer()
+                Image("guest-profile-achieviments")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width / 2)
+                Text("Achievements are only available to signed-in users.")
+                    .font(.calloutRegular)
+                    .foregroundColor(.textWhite)
+                    .padding(.horizontal, 20)
+                    .multilineTextAlignment(.center)
+                Spacer()
+            }
+            .frame(width: geometry.size.width - 32)
+            .padding(.horizontal, 16)
+            .onAppear {
+                Tracker.track(.screenGuestAchievements)
+            }
         }
-        
-        Spacer()
     }
 }
-
