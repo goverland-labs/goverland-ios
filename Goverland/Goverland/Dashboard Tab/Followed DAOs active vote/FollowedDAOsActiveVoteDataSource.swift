@@ -24,7 +24,6 @@ class FollowedDAOsActiveVoteDataSource: ObservableObject, Refreshable {
 
     @objc private func subscriptionDidToggle(_ notification: Notification) {
         refresh()
-        logInfo("[AFTER REFRESH] \(subscriptions.count)")
     }
 
     func refresh() {

@@ -18,7 +18,13 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
     static let followedDaos = FollowedDaosDataSource()
     static let profileHorizontalList = FollowedDaosDataSource()
 
-    private init() {}
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+    }
+
+    @objc private func authTokenChanged(_ notification: Notification) {
+        refresh()
+    }
 
     func refresh() {
         subscriptions = []
@@ -29,6 +35,7 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
         isLoading = true
         APIService.subscriptions()
             .sink { [weak self] completion in
