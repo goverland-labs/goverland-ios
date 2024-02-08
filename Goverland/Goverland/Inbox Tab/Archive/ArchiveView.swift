@@ -73,6 +73,7 @@ struct ArchiveView: View {
                             }
                             .swipeActions {
                                 Button {
+                                    Haptic.medium()
                                     data.unarchive(eventID: archive.id)
                                     Tracker.track(.archiveEventUnarchive)
                                 } label: {

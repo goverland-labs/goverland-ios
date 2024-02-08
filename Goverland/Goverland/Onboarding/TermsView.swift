@@ -58,11 +58,12 @@ struct TermsView: View {
             Spacer()
 
             PrimaryButton("Get Started") {
+                Haptic.medium()
                 termsAccepted = true
                 trackingAccepted = true
             }
             
-            Button("Accept without sharing data") {
+            Button("Accept without sharing data") {                
                 termsAccepted = true
                 trackingAccepted = false
             }

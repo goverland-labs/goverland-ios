@@ -68,6 +68,7 @@ struct SettingsView: View {
             if !authToken.isEmpty {
                 Section {
                     Button("Sign out") {
+                        Haptic.medium()
                         isSignOutPopoverPresented.toggle()
                     }
                     .tint(Color.textWhite)
@@ -84,6 +85,7 @@ struct SettingsView: View {
             if !authToken.isEmpty {
                 Section {
                     Button("Delete profile") {
+                        Haptic.heavy()
                         isDeleteProfilePopoverPresented.toggle()
                     }
                     .tint(Color.textWhite)

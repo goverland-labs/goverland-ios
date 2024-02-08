@@ -20,7 +20,9 @@ struct Dao: Identifiable, Decodable, Equatable {
     let categories: [DaoCategory]
     let proposals: Int
     let voters: Int
-    let activeVotes: Int?
+    let activeVotes: Int
+    let verified: Bool
+
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
     let X: String?
@@ -38,7 +40,8 @@ struct Dao: Identifiable, Decodable, Equatable {
          categories: [DaoCategory],
          proposals: Int,
          voters: Int,
-         activeVotes: Int?,
+         activeVotes: Int,
+         verified: Bool,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
          X: String?,
@@ -56,6 +59,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.proposals = proposals
         self.voters = voters
         self.activeVotes = activeVotes
+        self.verified = verified
         self.subscriptionMeta = subscriptionMeta
         self.website = website
         self.X = X
@@ -76,6 +80,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         case proposals = "proposals_count"
         case voters = "voters_count"
         case activeVotes = "active_votes"
+        case verified
         case subscriptionMeta = "subscription_info"
         case website
         case X = "twitter"
@@ -121,7 +126,8 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
-        self.activeVotes = try container.decodeIfPresent(Int.self, forKey: .activeVotes)
+        self.activeVotes = try container.decode(Int.self, forKey: .activeVotes)
+        self.verified = try container.decode(Bool.self, forKey: .verified)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
@@ -232,7 +238,8 @@ extension Dao {
         categories: [.protocol],
         proposals: 100,
         voters: 4567, 
-        activeVotes: 2,
+        activeVotes: 2, 
+        verified: true,
         subscriptionMeta: nil,
         website: URL(string: "https://gnosis.io"),
         X: "gnosisdao",
@@ -250,7 +257,8 @@ extension Dao {
         categories: [.protocol],
         proposals: 150,
         voters: 45678, 
-        activeVotes: 20,
+        activeVotes: 20, 
+        verified: true,
         subscriptionMeta: nil,
         website: nil,
         X: "AaveAave",

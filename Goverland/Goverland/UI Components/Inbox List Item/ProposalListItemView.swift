@@ -50,7 +50,7 @@ struct ProposalListItemView<Content: View>: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
 
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
@@ -182,7 +182,6 @@ fileprivate struct VoteFooterView: View {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
                 Text(Utils.formattedNumber(Double(votes)))
-                    .fontWeight(.medium)
             }
             .font(.footnoteRegular)
             .foregroundColor(votesHighlighted ? .textWhite : .textWhite40)
@@ -190,9 +189,7 @@ fileprivate struct VoteFooterView: View {
             if quorum > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
-
                     Text(Utils.numberWithPercent(from: quorum))
-                        .fontWeight(.medium)
                 }
                 .font(.footnoteRegular)
                 .foregroundColor(quorumHighlighted ? .textWhite : .textWhite40)
@@ -207,15 +204,15 @@ struct ShimmerProposalListItemView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)
 
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 100)
+                        .frame(width: 180)
                     Spacer()
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 80)
+                        .frame(width: 90)
                 }
                 .frame(height: 20)
 
@@ -233,7 +230,7 @@ struct ShimmerProposalListItemView: View {
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 250)
+                        .frame(width: 100)
                     Spacer()
                 }
                 .frame(height: 20)
@@ -241,6 +238,6 @@ struct ShimmerProposalListItemView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
         }
-        .frame(height: 148)
+        .frame(height: 142)
     }
 }

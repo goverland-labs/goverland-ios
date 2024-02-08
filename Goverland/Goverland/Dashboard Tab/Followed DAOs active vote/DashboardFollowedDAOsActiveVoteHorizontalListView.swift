@@ -20,17 +20,17 @@ struct DashboardFollowedDAOsActiveVoteHorizontalListView: View {
             }
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    if dataSource.daos.isEmpty { // initial loading
+                LazyHStack(spacing: 16) {
+                    if dataSource.isLoading { // initial loading
                         ForEach(0..<3) { _ in
                             ShimmerView()
                                 .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                                 .cornerRadius(Avatar.Size.m.daoImageSize / 2)
                         }
                     } else {
-                        ForEach(dataSource.daos) { dao in
-                            DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManager.activeSheet = .daoInfo(dao)
+                        ForEach(dataSource.subscriptions) { subscription in
+                            DAORoundViewWithActiveVotes(dao: subscription.dao) {
+                                activeSheetManager.activeSheet = .daoInfo(subscription.dao)
                                 Tracker.track(.dashFollowedDaoActiveVoteOpenDao)
                             }
                         }
@@ -41,6 +41,6 @@ struct DashboardFollowedDAOsActiveVoteHorizontalListView: View {
             .background(Color.container)
             .cornerRadius(20)
             .padding(.horizontal, 8)
-        }
+        }        
     }
 }

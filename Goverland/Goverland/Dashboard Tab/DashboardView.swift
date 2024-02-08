@@ -58,7 +58,7 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
                 animate.toggle()
 
-                if FollowedDAOsActiveVoteDataSource.dashboard.daos.isEmpty {
+                if FollowedDAOsActiveVoteDataSource.dashboard.subscriptions.isEmpty {
                     FollowedDAOsActiveVoteDataSource.dashboard.refresh()
                 }
 
@@ -156,12 +156,15 @@ fileprivate struct SignedOutUserDashboardView: View {
 
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
+    @ObservedObject var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
 
     var body: some View {
         // TODO: ProposalOfDayView section
 
-        SectionHeader(header: "Followed DAOs with active vote")
-        DashboardFollowedDAOsActiveVoteHorizontalListView()
+        if !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading {
+            SectionHeader(header: "Followed DAOs with active vote")
+            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        }
 
         SectionHeader(header: "New DAOs") {
             path.append(Path.newDaos)
@@ -218,6 +221,7 @@ fileprivate struct WelcomeBlockView: View {
                               maxWidth: 140,
                               height: 32,
                               font: .footnoteSemibold) {
+                    Haptic.medium()
                     welcomeBlockIsRead = true
                 }
                 Spacer()

@@ -27,7 +27,7 @@ class CastYourVoteDataSource: ObservableObject {
     @Published var isSubmitting = false
     @Published var submitted = false
 
-    @Published var votingPower = 0
+    @Published var votingPower: Double = 0.0
     @Published var errorMessage: String?
     
     @Published var failedToValidate = false

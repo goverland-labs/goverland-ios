@@ -58,6 +58,7 @@ struct ReconnectWalletView: View {
                 VStack {
                     Spacer()
                     PrimaryButton("Reconnect your wallet") {
+                        Haptic.medium()
                         showSelectWallet = true
                     }
                 }

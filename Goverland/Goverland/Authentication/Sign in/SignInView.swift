@@ -45,7 +45,7 @@ struct SignInView: View {
 
 fileprivate struct SignInOnboardingBackgroundView: View {
     var body: some View {
-        Image("onboarding-sign-in")
+        Image("sign-in")
             .resizable()
             .aspectRatio(contentMode: .fit)
     }
@@ -77,6 +77,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
+                Haptic.medium()
                 Tracker.track(.signInWithWallet)
                 showSignIn = true
             }

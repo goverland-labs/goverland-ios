@@ -71,7 +71,6 @@ struct DaoInfoView: View {
                 }
             }
         }
-        .navigationTitle(dataSource.dao?.name ?? "DAO")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -82,6 +81,20 @@ struct DaoInfoView: View {
                     Image(systemName: "xmark")
                 }
             }
+
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text(dao?.name ?? "DAO")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
+
+                    if dao?.verified ?? false {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
+            }
+
             if let dao = dao {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {

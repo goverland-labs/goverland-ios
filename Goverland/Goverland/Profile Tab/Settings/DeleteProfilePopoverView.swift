@@ -32,6 +32,7 @@ struct DeleteProfilePopoverView: View {
 
             HStack(spacing: 16) {
                 DangerButton("Delete") {
+                    Haptic.heavy()
                     ProfileDataSource.shared.deleteProfile()
                     Tracker.track(.deleteProfile)
                     dismiss()

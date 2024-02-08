@@ -222,6 +222,7 @@ struct SnapshotProposalVoteTabView: View {
 
     private func vote() {
         Tracker.track(.snpDetailsVote)
+        Haptic.medium()
         if !userAgreedWithDaoTerms {
             showAgreeWithDaoTerms = true
         } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {

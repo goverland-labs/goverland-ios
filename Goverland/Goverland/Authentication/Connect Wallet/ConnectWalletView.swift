@@ -130,6 +130,7 @@ fileprivate struct WalletRowView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             guard !model.connecting else { return }
+            Haptic.medium()
             model.connect(wallet: wallet)
         }
     }

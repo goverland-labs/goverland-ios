@@ -16,7 +16,11 @@ struct SnapshotProposalView: View {
     let navigationTitle: String
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    
+
+    var voted: Bool {
+        proposal.userVote != nil
+    }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
@@ -31,7 +35,7 @@ struct SnapshotProposalView: View {
                     })
                     .padding(.bottom, 15)
 
-                SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
+                SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 20)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
@@ -122,12 +126,11 @@ fileprivate struct SnapshotProposalCreatorView: View {
 
 fileprivate struct SnapshotProposalStatusBarView: View {
     let state: Proposal.State
+    let voted: Bool
     let votingEnd: Date
 
     var body: some View {
         HStack {
-            ProposalStatusView(state: state)
-            Spacer()
             HStack(spacing: 0) {
                 Text(votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                     .font(.footnoteRegular)
@@ -136,6 +139,17 @@ fileprivate struct SnapshotProposalStatusBarView: View {
                          style: .numeric,
                          font: .footnoteRegular,
                          color: .primaryDim)
+            }
+            Spacer()
+            HStack(spacing: 6) {
+                if voted {
+                    BubbleView(
+                        image: Image(systemName: "checkmark"),
+                        text: nil,
+                        textColor: .onSecondaryContainer,
+                        backgroundColor: .secondaryContainer)
+                }
+                ProposalStatusView(state: state)
             }
         }
         .padding(10)

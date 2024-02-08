@@ -102,6 +102,7 @@ fileprivate struct _InboxView: View {
                             }
                             .swipeActions {
                                 Button {
+                                    Haptic.medium()
                                     data.archive(eventID: event.id)
                                     Tracker.track(.inboxEventArchive)
                                 } label: {

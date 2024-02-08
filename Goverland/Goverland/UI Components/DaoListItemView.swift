@@ -51,9 +51,15 @@ struct DaoListItemView: View {
         HStack {
             DAORoundViewWithActiveVotes(dao: dao) { onSelectDao?(dao) }
             VStack(alignment: .leading, spacing: 4) {
-                Text(dao.name)
-                    .font(.headlineRegular)
-                    .foregroundColor(.textWhite)
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.headlineSemibold)
+                        .foregroundColor(.textWhite)
+                    if dao.verified {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
                 Text(voters)
                     .font(.caption2)
                     .foregroundColor(.textWhite60)
@@ -91,16 +97,3 @@ struct ShimmerDaoListItemView: View {
         .listRowSeparator(.hidden)
     }
 }
-
-struct DapListItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            DaoListItemView(dao: .aave,
-                            subscriptionMeta: nil,
-                            onSelectDao: nil,
-                            onFollowToggle: nil)
-            ShimmerDaoListItemView()
-        }
-    }
-}
-

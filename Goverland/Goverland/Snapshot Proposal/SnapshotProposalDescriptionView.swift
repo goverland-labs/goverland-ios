@@ -49,8 +49,9 @@ struct SnapshotProposalDescriptionView: View {
 
             // we will always display Show More button
             if markdownDescription.count > minCharsForShowMore {
-                Button(isExpanded ? "Show Less" : "Show More") {
+                Button(isExpanded ? "Show less" : "Show more") {
                     if !isExpanded {
+                        Haptic.medium()
                         Tracker.track(.snpDetailsShowFullDscr)
                     }
                     withAnimation {

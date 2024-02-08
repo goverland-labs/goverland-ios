@@ -47,11 +47,19 @@ struct DaoCardView: View {
                 }
             
             VStack(spacing: 3) {
-                Text(dao.name)
-                    .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.headlineSemibold)
+                        .foregroundColor(.textWhite)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.5)
+
+                    if dao.verified {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
 
                 Text("\(subheader)")
                     .font(.сaption2Regular)

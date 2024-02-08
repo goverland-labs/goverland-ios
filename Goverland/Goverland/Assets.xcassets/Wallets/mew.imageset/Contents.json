@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "early-tester-1x.png",
+      "filename" : "MEW32.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "early-tester-2x.png",
+      "filename" : "MEW64.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "early-tester-3x.png",
+      "filename" : "MEW96.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

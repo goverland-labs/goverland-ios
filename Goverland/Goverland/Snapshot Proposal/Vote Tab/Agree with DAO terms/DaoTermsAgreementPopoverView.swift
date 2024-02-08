@@ -43,6 +43,7 @@ struct DaoTermsAgreementPopoverView: View {
                 }
 
                 PrimaryButton("I agree") {
+                    Haptic.medium()
                     Tracker.track(.snpDaoTermsAgree)
                     Task {
                         try! DaoTermsAgreement.upsert(dao: dao)

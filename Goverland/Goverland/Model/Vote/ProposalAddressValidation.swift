@@ -15,7 +15,7 @@ struct ValidationError: Error, Decodable {
 }
 
 struct ProposalAddressValidation: Decodable {
-    typealias VotingPower = Int
+    typealias VotingPower = Double
 
     let result: Result<VotingPower, ValidationError>
 
@@ -29,7 +29,7 @@ struct ProposalAddressValidation: Decodable {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
         let valid = try container.decode(Bool.self, forKey: .ok)
-        let votingPower = try container.decode(Int.self, forKey: .votingPower)
+        let votingPower = try container.decode(Double.self, forKey: .votingPower)
 
         if valid {
             self.result = .success(votingPower)

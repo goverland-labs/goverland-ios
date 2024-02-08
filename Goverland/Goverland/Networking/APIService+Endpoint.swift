@@ -60,7 +60,7 @@ extension APIService {
     }
 
     static func profileHasVotingPower(offset: Int = 0,
-                                      limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
+                                      limit: Int = 1000) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
@@ -87,17 +87,6 @@ extension APIService {
         if let query = query {
             queryParameters.append(URLQueryItem(name: "query", value: query))
         }
-        let endpoint = DaoListEndpoint(queryParameters: queryParameters)
-        return shared.request(endpoint)
-    }
-
-    static func followedDaosWithActiveVote() -> AnyPublisher<(DaoListEndpoint.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
-            URLQueryItem(name: "followed", value: "true"),
-            URLQueryItem(name: "activeVote", value: "true"),
-            URLQueryItem(name: "offset", value: "0"),
-            URLQueryItem(name: "limit", value: "100")
-        ]
         let endpoint = DaoListEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
@@ -341,5 +330,10 @@ extension APIService {
     static func disableNotifications() -> AnyPublisher<(DisableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = DisableNotificationsEndpoint()
         return shared.request(endpoint)
+    }
+
+    static func markPushAsClicked(pushId: String) -> AnyPublisher<(MarkPushAsClickedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
+        return shared.request(endpoint, defaultErrorDisplay: false)
     }
 }

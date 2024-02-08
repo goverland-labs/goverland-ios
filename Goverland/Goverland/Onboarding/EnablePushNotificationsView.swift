@@ -45,6 +45,7 @@ fileprivate struct PushNotificationFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Enable notifications") {
+                Haptic.medium()
                 Tracker.track(.notificationsYes)
                 NotificationsManager.shared.requestUserPermissionAndRegister { granted in
                     DispatchQueue.main.async {
