@@ -17,8 +17,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     private(set) var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
-    static let newDaos = GroupedDaosDataSource()
-    static let popularDaos = GroupedDaosDataSource()
+    static let dashboard = GroupedDaosDataSource()
     static let search = GroupedDaosDataSource()
     static let addSubscription = GroupedDaosDataSource()
 

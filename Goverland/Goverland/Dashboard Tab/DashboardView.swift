@@ -25,8 +25,7 @@ struct DashboardView: View {
     static func refresh() {
         FollowedDAOsActiveVoteDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
-        GroupedDaosDataSource.newDaos.refresh()
-        GroupedDaosDataSource.popularDaos.refresh()
+        GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
         EcosystemDashboardDataSource.shared.refresh()
     }
@@ -67,12 +66,9 @@ struct DashboardView: View {
                     TopProposalsDataSource.dashboard.refresh()
                 }
 
-                if GroupedDaosDataSource.newDaos.categoryDaos[.new]?.isEmpty ?? true {
-                    GroupedDaosDataSource.newDaos.refresh()
-                }
-
-                if GroupedDaosDataSource.newDaos.categoryDaos[.popular]?.isEmpty ?? true {
-                    GroupedDaosDataSource.popularDaos.refresh()
+                // refresh if dao/top is not loaded
+                if GroupedDaosDataSource.dashboard.categoryDaos[.popular]?.isEmpty ?? true {
+                    GroupedDaosDataSource.dashboard.refresh()
                 }
 
                 if ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? true {

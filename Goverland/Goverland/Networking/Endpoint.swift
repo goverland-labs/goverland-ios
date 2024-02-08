@@ -8,14 +8,7 @@
 
 import Foundation
 
-typealias HttpHeaders = [String: Any]
 
-enum HttpMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
 
 protocol APIEndpoint {
     associatedtype ResponseType: Decodable
@@ -120,6 +113,19 @@ struct ProfileEndpoint: APIEndpoint {
 
     var path: String = "me"
     var method: HttpMethod = .get
+}
+
+struct ProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/votes"
+    var method: HttpMethod = .get
+
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
 }
 
 struct SignOutEndpoint: APIEndpoint {

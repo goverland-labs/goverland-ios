@@ -178,6 +178,12 @@ enum TrackingEvent: String, Trackable {
     case signOutDevice = "sign_out_device"
     case disconnect_WC_session = "disconnect_wc_session"
     case disconnectCoinbaseWallet = "disconnect_cb_wallet"
+    // Votes
+    case prfVotesOpenProposal = "prf_votes_open_proposal"
+    case prfVotesOpenDao = "prf_votes_open_dao"
+    case screenProfileVotesFull = "screen_profile_votes_full"
+    case prfVotesFullOpenProposal = "prf_votes_full_open_proposal"
+    case prfVotesFullOpenDao = "prf_votes_full_open_dao"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

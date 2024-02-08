@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DashboardPopularDaosHorizontalListView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
+    @ObservedObject var dataSource = GroupedDaosDataSource.dashboard
 
     let category: DaoCategory = .popular
 
@@ -65,7 +65,7 @@ struct DashboardPopularDaosHorizontalListView: View {
 
 struct DashboardPopularDaosCardsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @ObservedObject var dataSource = GroupedDaosDataSource.popularDaos
+    @ObservedObject var dataSource = GroupedDaosDataSource.dashboard
 
     var body: some View {
         if dataSource.failedToLoadInitialData {

@@ -8,9 +8,11 @@
 
 import SwiftUI
 
-enum ProfileScreen {
+enum ProfileScreen: Hashable {
     case settings
     case followedDaos
+    case votes
+    case vote(Proposal)
 
     // Settings
     case pushNofitications
@@ -30,7 +32,7 @@ struct ProfileView: View {
                 if authToken.isEmpty {
                     SignInView(source: .profile)
                 } else {
-                    _ProfileView()
+                    _ProfileView(path: $path)
                 }
             }
             .id(authToken) // to forse proper refresh on sign out / sign in
@@ -57,8 +59,13 @@ struct ProfileView: View {
                 switch profileScreen {
                 case .settings: SettingsView()
                 case .followedDaos: FollowedDaosView()
+                case .votes: ProfileVotesListView(path: $path)
+                case .vote(let proposal):
+                    SnapshotProposalView(proposal: proposal,
+                                         allowShowingDaoInfo: true,
+                                         navigationTitle: proposal.dao.name)
 
-                    // Settings
+                // Settings
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
@@ -71,6 +78,7 @@ struct ProfileView: View {
 }
 
 fileprivate struct _ProfileView: View {
+    @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
 
@@ -92,12 +100,12 @@ fileprivate struct _ProfileView: View {
                         _SignInToVoteButton {
                             showSignIn = true
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 16)
                     }
 
-                    _ProfileListView(profile: profile)
-                case .achievements: 
+                    _ProfileListView(profile: profile, path: $path)
+                case .achievements:
                     if profile.role != .guest {
                         AchievementsView()
                     } else {
@@ -214,6 +222,7 @@ fileprivate struct _ShimmerProfileHeaderView: View {
 
 fileprivate struct _ProfileListView: View {
     let profile: Profile
+    @Binding var path: [ProfileScreen]
 
     var body: some View {
         ScrollView {
@@ -221,10 +230,14 @@ fileprivate struct _ProfileListView: View {
 
             if let user = profile.account {
                 ConnectedWalletView(user: user)
+
+                ProfileVotesView(path: $path)
             }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
+            FollowedDaosDataSource.followedDaos.refresh()
+            ProfileVotesDataSource.shared.refresh()
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ConsoleTrackingHandler.swift
+//  LogInfoTrackingHandler.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-03-20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ConsoleTrackingHandler: TrackingHandler {
+final class LogInfoTrackingHandler: TrackingHandler {
     private var trackingEnabled = true
 
     func track(event: String, parameters: [String: Any]?) {
