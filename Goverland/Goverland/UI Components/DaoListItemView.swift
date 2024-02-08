@@ -55,7 +55,7 @@ struct DaoListItemView: View {
                     Text(dao.name)
                         .font(.headlineSemibold)
                         .foregroundColor(.textWhite)
-                    if dao.verified ?? false {
+                    if dao.verified {
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundStyle(Color.textWhite)
                     }

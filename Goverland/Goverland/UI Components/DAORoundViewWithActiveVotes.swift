@@ -20,14 +20,14 @@ struct DAORoundViewWithActiveVotes: View {
                     onDaoOpen()
                 }
 
-            if let activeVotes = dao.activeVotes, activeVotes > 0 {
-                Text("\(activeVotes)")
+            if dao.activeVotes > 0 {
+                Text("\(dao.activeVotes)")
                     .font(.сaption2Regular)
                     .padding(.horizontal, 5)
                     .padding(.vertical, 2)
                     .background(
                         Group {
-                            if activeVotes < 10 {
+                            if dao.activeVotes < 10 {
                                 Circle().foregroundStyle(Color.textWhite)
                             } else {
                                 Capsule().foregroundStyle(Color.textWhite)

@@ -55,7 +55,7 @@ struct DaoCardView: View {
                         .multilineTextAlignment(.center)
                         .minimumScaleFactor(0.5)
 
-                    if dao.verified ?? false {
+                    if dao.verified {
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundStyle(Color.textWhite)
                     }

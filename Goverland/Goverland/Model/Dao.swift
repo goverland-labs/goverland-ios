@@ -20,10 +20,8 @@ struct Dao: Identifiable, Decodable, Equatable {
     let categories: [DaoCategory]
     let proposals: Int
     let voters: Int
-
-    // TODO: switch from optional to regular
-    let activeVotes: Int?
-    let verified: Bool?
+    let activeVotes: Int
+    let verified: Bool
 
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
@@ -42,8 +40,8 @@ struct Dao: Identifiable, Decodable, Equatable {
          categories: [DaoCategory],
          proposals: Int,
          voters: Int,
-         activeVotes: Int?,
-         verified: Bool?,
+         activeVotes: Int,
+         verified: Bool,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
          X: String?,
@@ -128,8 +126,8 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
-        self.activeVotes = try container.decodeIfPresent(Int.self, forKey: .activeVotes)
-        self.verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
+        self.activeVotes = try container.decode(Int.self, forKey: .activeVotes)
+        self.verified = try container.decode(Bool.self, forKey: .verified)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
