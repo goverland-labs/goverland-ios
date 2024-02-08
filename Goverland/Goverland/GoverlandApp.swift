@@ -178,7 +178,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
-        
+
+        guard let pushId = userInfo["id"] as? String else {
+            logError(GError.wrongPushNotificationFormat)
+            return
+        }
+
+        NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
+
 //        // paired with NotificationService
 //        switch response.actionIdentifier {
 //        case "action1":

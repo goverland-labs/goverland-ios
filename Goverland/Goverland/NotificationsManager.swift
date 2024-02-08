@@ -76,4 +76,13 @@ class NotificationsManager {
             }
             .store(in: &cancellables)
     }
+
+    func markPushNotificationAsClicked(pushId: String) {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
+        APIService.markPushAsClicked(pushId: pushId)
+            .sink { _ in
+                // ignore
+            } receiveValue: { _, _ in }
+            .store(in: &cancellables)
+    }
 }

@@ -640,3 +640,15 @@ struct DisableNotificationsEndpoint: APIEndpoint {
     var path: String = "notifications/settings"
     var method: HttpMethod = .delete
 }
+
+struct MarkPushAsClickedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "notifications/mark-as-clicked"
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(pushId: String) {
+        self.body = try! JSONEncoder().encode(["id": pushId])
+    }
+}

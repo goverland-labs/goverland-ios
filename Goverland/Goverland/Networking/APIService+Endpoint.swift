@@ -331,4 +331,9 @@ extension APIService {
         let endpoint = DisableNotificationsEndpoint()
         return shared.request(endpoint)
     }
+
+    static func markPushAsClicked(pushId: String) -> AnyPublisher<(MarkPushAsClickedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
 }
