@@ -60,7 +60,7 @@ extension APIService {
     }
 
     static func profileHasVotingPower(offset: Int = 0,
-                                      limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
+                                      limit: Int = 1000) -> AnyPublisher<(ProfileHasVotingPowerEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
