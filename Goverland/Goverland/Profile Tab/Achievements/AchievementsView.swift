@@ -20,40 +20,43 @@ struct AchievementsView: View {
                 GridItem(.flexible(minimum: 100, maximum: 200), alignment: .top)
             ], spacing: 15, content: {
                 ForEach(dataScource.achievements) { achievement in
-                    NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
-                        ZStack {
+                    // TODO: remove in public release
+                    if !achievement.isVisible {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Text("COMING SOON")
+                                    .font(.headlineSemibold)
+                                    .foregroundColor(.textWhite60)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        .frame(height: 210)
+                        .background(Color.container)
+                        .cornerRadius(20)
+                    } else {
+                        NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
                             VStack(spacing: 0) {
                                 Image(achievement.imageName)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .clipped()
-                                
+                                Spacer()
                                 HStack {
                                     Spacer()
                                     Text(achievement.title)
                                         .font(.subheadlineSemibold)
                                         .foregroundColor(.textWhite)
-                                        .padding(.bottom, 30)
+                                        .padding(.bottom, 20)
                                     Spacer()
                                 }
+                                Spacer()
                             }
+                            .frame(height: 210)
                             .background(Color.container)
                             .cornerRadius(20)
-                            
-                            if !achievement.isVisible {
-                                VisualEffectView(effect: UIBlurEffect(style: .dark))
-                                    .cornerRadius(20)
-                                    .opacity(0.95)
-                                
-                                
-                                HStack {
-                                    Spacer()
-                                    Text("COMMING SOON")
-                                    Spacer()
-                                }
-                                .font(.headlineSemibold)
-                                .foregroundColor(.textWhite60)
-                            }
                         }
                     }
                 }
@@ -65,4 +68,3 @@ struct AchievementsView: View {
         }
     }
 }
-

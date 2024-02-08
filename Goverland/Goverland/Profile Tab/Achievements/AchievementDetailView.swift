@@ -14,23 +14,15 @@ struct AchievementDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ZStack {
-                Image(achievement.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-                    
-                if !achievement.isVisible {
-                    VisualEffectView(effect: UIBlurEffect(style: .dark))
-                        .cornerRadius(20)
-                        .opacity(0.95)
-                }
-            }
-            .frame(height: 350)
-            .background(Color.container)
-            .cornerRadius(20)
-            .padding(.vertical, 50)
-            
+            Image(achievement.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .clipped()
+                .frame(width: 250, height: 300)
+                .background(Color.container)
+                .cornerRadius(20)
+                .padding(.vertical, 50)
+
             HStack {
                 Spacer()
                 Text(achievement.title)
@@ -50,9 +42,8 @@ struct AchievementDetailView: View {
                     Spacer()
                 }
             }
-            
         }
-        .padding(.horizontal, 50)
+        .padding(.horizontal, 20)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {

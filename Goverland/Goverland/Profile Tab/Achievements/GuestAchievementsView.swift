@@ -1,5 +1,5 @@
 //
-//  GuestAchievementsView().swift
+//  GuestAchievementsView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-07.
