@@ -106,7 +106,11 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile, path: $path)
                 case .achievements:
-                    Spacer()
+                    if profile.role != .guest {
+                        AchievementsView()
+                    } else {
+                        GuestAchievementsView()
+                    }
                 }
             }
         }
