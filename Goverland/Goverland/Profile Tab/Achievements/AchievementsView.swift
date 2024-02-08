@@ -28,7 +28,7 @@ struct AchievementsView: View {
                                 Spacer()
                                 Text("COMING SOON")
                                     .font(.headlineSemibold)
-                                    .foregroundColor(.textWhite60)
+                                    .foregroundStyle(Color.textWhite60)
                                 Spacer()
                             }
                             Spacer()
@@ -48,7 +48,7 @@ struct AchievementsView: View {
                                     Spacer()
                                     Text(achievement.title)
                                         .font(.subheadlineSemibold)
-                                        .foregroundColor(.textWhite)
+                                        .foregroundStyle(Color.textWhite)
                                         .padding(.bottom, 20)
                                     Spacer()
                                 }

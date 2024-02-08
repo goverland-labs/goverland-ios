@@ -12,12 +12,12 @@ struct XSettingsView: View {
     var body: some View {
         HStack {
             Image("x")
-                .foregroundColor(.primaryDim)
+                .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Follow on X", action: openXApp)
             Spacer()
             Image(systemName: "arrow.up.right")
-                .foregroundColor(.textWhite40)
+                .foregroundStyle(Color.textWhite40)
         }
         .tint(.textWhite)
     }

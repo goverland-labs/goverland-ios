@@ -16,10 +16,10 @@ struct InfoMessageView: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "info.circle.fill")
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Text(message)
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             }
             .padding(.leading, 8)
             .padding(.trailing, 12)

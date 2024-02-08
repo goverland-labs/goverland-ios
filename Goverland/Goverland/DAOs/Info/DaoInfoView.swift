@@ -50,7 +50,7 @@ struct DaoInfoView: View {
             if dataSource.isLoading {
                 // Unfortunately shimmer or reducted view here breaks presentation in a popover view
                 ProgressView()
-                    .foregroundColor(.textWhite20)
+                    .foregroundStyle(Color.textWhite20)
                     .controlSize(.regular)
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
@@ -101,7 +101,7 @@ struct DaoInfoView: View {
                         DaoSharingMenu(dao: dao)
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
                             .fontWeight(.bold)
                             .frame(height: 20)
                     }

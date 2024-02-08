@@ -19,7 +19,7 @@ struct ToastView: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.textWhite)
-                    .foregroundColor(Color.container)
+                    .foregroundStyle(Color.container)
                     .cornerRadius(8)
                     .onTapGesture {
                         withAnimation {

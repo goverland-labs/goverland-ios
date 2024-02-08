@@ -41,7 +41,7 @@ struct FilterButtonsView<T: FilterOptions>: View {
                         )
                         .padding(.top)
                         .font(.footnoteSemibold)
-                        .foregroundColor(filterOption.id == filter.id ? .primaryDim : .textWhite60)
+                        .foregroundStyle(filterOption.id == filter.id ? Color.primaryDim : .textWhite60)
                         .onTapGesture {
                             withAnimation(.spring(response: 0.5)) {
                                 self.filter = filterOption
@@ -56,6 +56,6 @@ struct FilterButtonsView<T: FilterOptions>: View {
         }
         .overlay(Rectangle()
             .frame(height: 1)
-            .foregroundColor(Color.containerBright), alignment: .bottom)
+            .foregroundStyle(Color.containerBright), alignment: .bottom)
     }
 }

@@ -50,7 +50,7 @@ struct DashboardView: View {
                     VStack {
                         Text("Goverland")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
             }

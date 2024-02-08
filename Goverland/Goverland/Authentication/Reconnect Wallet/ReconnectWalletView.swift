@@ -24,7 +24,7 @@ struct ReconnectWalletView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                         .font(.system(size: 24))
                 }
             }
@@ -32,7 +32,7 @@ struct ReconnectWalletView: View {
 
             Text("Your wallet session expired.\n Please reconnect.")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .multilineTextAlignment(.center)
                 .padding(16)
 

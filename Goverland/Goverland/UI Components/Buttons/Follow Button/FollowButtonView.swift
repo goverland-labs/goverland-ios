@@ -46,7 +46,7 @@ struct FollowButtonView: View {
                 Text(isFollowing ? "Following" : "Follow")
             }
             .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-            .foregroundColor(isFollowing ? .onSecondaryContainer : .onPrimary)
+            .foregroundStyle(isFollowing ? Color.onSecondaryContainer : .onPrimary)
             .font(.footnoteSemibold)
             .background(isFollowing ? Color.secondaryContainer : Color.primary)
             .cornerRadius(buttonHeight / 2)

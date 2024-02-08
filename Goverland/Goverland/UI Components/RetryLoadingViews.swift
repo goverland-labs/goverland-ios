@@ -33,7 +33,7 @@ struct RetryInitialLoadingView: View {
                     .frame(width: geometry.size.width / 2)
                 Text(message)
                     .font(.calloutRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 PrimaryButton("Try again") {
                     dataSource.refresh()

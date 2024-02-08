@@ -19,12 +19,12 @@ struct BubbleView: View {
         HStack(spacing: 3) {
             image
                 .font(.system(size: 10))
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
                 .frame(height: 14)
             if let text {
                 text
                     .font(.caption2Semibold)
-                    .foregroundColor(textColor)
+                    .foregroundStyle(textColor)
                     .lineLimit(1)
             }
         }

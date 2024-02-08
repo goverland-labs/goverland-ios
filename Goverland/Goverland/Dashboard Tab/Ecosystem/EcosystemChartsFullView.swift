@@ -46,7 +46,7 @@ struct EcosystemChartsFullView: View {
                 VStack {
                     Text("Ecosystem")
                         .font(.title3Semibold)
-                        .foregroundColor(Color.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }

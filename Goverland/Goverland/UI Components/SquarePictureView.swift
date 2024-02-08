@@ -33,7 +33,7 @@ struct SquarePictureView: View {
 
         } else {
             Rectangle()
-                .foregroundColor(.containerBright)
+                .foregroundStyle(Color.containerBright)
                 .cornerRadius(imageSize / 8)
                 .frame(width: imageSize, height: imageSize)
         }

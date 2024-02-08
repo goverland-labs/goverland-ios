@@ -86,7 +86,7 @@ fileprivate struct NoSubscriptionsView: View {
                     .frame(width: geometry.size.width / 2)
                 Text("You don't follow any DAOs at the moment.")
                     .font(.callout)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 PrimaryButton("Explore DAOs") {
                     activeSheetManager.activeSheet = .followDaos

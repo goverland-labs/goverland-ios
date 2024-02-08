@@ -27,7 +27,7 @@ fileprivate struct PushNotificationBackgroundView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.clear)
+                .foregroundStyle(Color.clear)
                 .frame(width: 220, height: 220)
                 .background(Color.primaryDim)
                 .cornerRadius(110)
@@ -72,9 +72,9 @@ fileprivate struct PushNotificationHeaderView: View {
             HStack {
                 VStack(alignment: .leading, spacing: -15) {
                     Text("Never miss")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Text("an update")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
@@ -85,7 +85,7 @@ fileprivate struct PushNotificationHeaderView: View {
             Text("Get push notifications about new proposals.")
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .font(.chillaxRegular(size: 17))
         }        
     }

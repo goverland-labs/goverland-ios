@@ -20,7 +20,7 @@ struct ProposalsSearchResultsListView: View {
             if dataSource.nothingFound {
                 Text("Nothing found")
                     .font(.body)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .padding(.top, 16)
                 Spacer()
             } else if dataSource.searchResultProposals.isEmpty { // initial searching

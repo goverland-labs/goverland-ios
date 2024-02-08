@@ -30,7 +30,7 @@ struct MutualDaosView: View {
             } else if dataSource.mutualDaos?.isEmpty ?? false {
                 Text("All voters are exclusive to this DAO")
                     .font(.body)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .padding()
             } else {
                 MutualDaosScrollView(dataSource: dataSource, activeSheetManager: activeSheetManager)

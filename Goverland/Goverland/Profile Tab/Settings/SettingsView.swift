@@ -28,17 +28,17 @@ struct SettingsView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(s.deviceName)
                                     .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
+                                    .foregroundStyle(Color.textWhite)
 
                                 if s.lastActivity + 10.minutes > .now {
                                     Text("Online")
                                         .font(.footnoteRegular)
-                                        .foregroundColor(.textWhite60)
+                                        .foregroundStyle(Color.textWhite60)
                                 } else {
                                     let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
                                     Text("Last activity \(activity)")
                                         .font(.footnoteRegular)
-                                        .foregroundColor(.textWhite60)
+                                        .foregroundStyle(Color.textWhite60)
                                 }
                             }
                             Spacer()
@@ -94,7 +94,7 @@ struct SettingsView: View {
                 } footer: {
                     Text("This profile will no longer be available. All your saved data will be permanently deleted.")
                         .font(.footnoteRegular)
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
         }

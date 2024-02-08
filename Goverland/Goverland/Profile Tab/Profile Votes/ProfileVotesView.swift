@@ -23,11 +23,11 @@ struct ProfileVotesView: View {
             HStack {
                 Text("My votes (\(dataSource.total ?? 0))")
                     .font(.subheadlineSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 NavigationLink("See all", value: ProfileScreen.votes)
                     .font(.subheadlineSemibold)
-                    .foregroundColor(.primaryDim)
+                    .foregroundStyle(Color.primaryDim)
             }
             .padding(.top, 16)
             .padding(.horizontal, 16)

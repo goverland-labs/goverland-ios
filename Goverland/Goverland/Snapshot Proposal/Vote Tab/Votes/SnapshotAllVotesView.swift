@@ -70,7 +70,7 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                     dismiss()
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }

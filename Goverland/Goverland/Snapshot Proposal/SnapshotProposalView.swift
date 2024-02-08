@@ -44,7 +44,7 @@ struct SnapshotProposalView: View {
                 HStack {
                     Text("Off-Chain Vote")
                         .font(.headlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Spacer()
                 }
                 .padding(.bottom)
@@ -70,7 +70,7 @@ struct SnapshotProposalView: View {
                     ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }
@@ -90,7 +90,7 @@ fileprivate struct SnapshotProposalHeaderView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 20)
             .font(.title3Semibold)
-            .foregroundColor(.textWhite)
+            .foregroundStyle(Color.textWhite)
             .lineLimit(3)
             .multilineTextAlignment(.leading)
             .minimumScaleFactor(0.7)
@@ -110,15 +110,15 @@ fileprivate struct SnapshotProposalCreatorView: View {
                     .font(.footnoteRegular)
                     .lineLimit(1)
                     .fontWeight(.medium)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
 
             }
             Text("by")
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite60)
+                .foregroundStyle(Color.textWhite60)
             IdentityView(user: creator)
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Spacer()
         }
     }
@@ -134,7 +134,7 @@ fileprivate struct SnapshotProposalStatusBarView: View {
             HStack(spacing: 0) {
                 Text(votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 DateView(date: votingEnd,
                          style: .numeric,
                          font: .footnoteRegular,
@@ -165,7 +165,7 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             HStack {
                 Text("Discussion")
                     .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
 
@@ -176,7 +176,7 @@ fileprivate struct SnapshotProposalDiscussionView: View {
                     Link(destination: unwrappedURL) {
                         Group {
                             Text("\(proposal.title) \(Image(systemName: "arrow.up.right"))")
-                                .foregroundColor(.textWhite)
+                                .foregroundStyle(Color.textWhite)
                         }
                         .multilineTextAlignment(.leading)
 
@@ -188,7 +188,7 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             .font(.footnoteRegular)
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(.container)
+                    .foregroundStyle(Color.container)
             )
         }
     }
@@ -202,7 +202,7 @@ fileprivate struct SnapshotProposalTimelineView: View {
             HStack {
                 Text("Timeline")
                     .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
 
@@ -214,7 +214,7 @@ fileprivate struct SnapshotProposalTimelineView: View {
                     Spacer()
                 }
                 .font(.footnoteRegular)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.vertical, 2)
             }
         }

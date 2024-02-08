@@ -16,7 +16,7 @@ struct PartnershipSettingView: View {
                 Text("Let's")
                 Text("Collaborate!")
             }
-            .foregroundColor(.textWhite)
+            .foregroundStyle(Color.textWhite)
             .font(.chillaxMedium(size: 46))
             .kerning(-2.5)
             
@@ -27,7 +27,7 @@ struct PartnershipSettingView: View {
             }
             .lineLimit(5)
             .multilineTextAlignment(.leading)
-            .foregroundColor(.textWhite)
+            .foregroundStyle(Color.textWhite)
             .font(.chillaxRegular(size: 17))
             
             Spacer()

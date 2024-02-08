@@ -24,7 +24,7 @@ struct PushNotificationsSettingView: View {
             } footer: {
                 Text("Get notifications about new proposals and proposal outcomes.")
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite40)
+                    .foregroundStyle(Color.textWhite40)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

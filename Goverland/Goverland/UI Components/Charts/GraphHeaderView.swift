@@ -27,15 +27,15 @@ struct GraphHeaderView: View {
         HStack {
             Text(header)
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Spacer()
             if let subheader {
                 Image(systemName: "questionmark.circle")
-                    .foregroundColor(.textWhite40)
+                    .foregroundStyle(Color.textWhite40)
                     .padding(.trailing)
                     .tooltip($isTooltipVisible, side: tooltipSide) {
                         Text(subheader)
-                            .foregroundColor(.textWhite60)
+                            .foregroundStyle(Color.textWhite60)
                             .font(.сaptionRegular)
                     }
                     .onTapGesture() {

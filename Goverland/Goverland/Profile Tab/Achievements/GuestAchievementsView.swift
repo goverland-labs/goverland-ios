@@ -20,7 +20,7 @@ struct GuestAchievementsView: View {
                     .frame(width: geometry.size.width / 2)
                 Text("Achievements are only available to signed-in users.")
                     .font(.calloutRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .padding(.horizontal, 20)
                     .multilineTextAlignment(.center)
                 Spacer()

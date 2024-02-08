@@ -54,7 +54,7 @@ fileprivate struct _VoteView: View {
                                 TextEditor(text: $dataSource.reason)
                                     .focused($isTextEditorFocused)
                                     .frame(height: 96)
-                                    .foregroundColor(.textWhite)
+                                    .foregroundStyle(Color.textWhite)
                                     .tint(.textWhite40)
                                     .scrollContentBackground(.hidden)
                                     .background(Color.containerBright)
@@ -64,7 +64,7 @@ fileprivate struct _VoteView: View {
                                 if !isTextEditorFocused && dataSource.reason.isEmpty {
                                     Text("Share your reason (optional)")
                                         .allowsHitTesting(false)
-                                        .foregroundColor(.textWhite20)
+                                        .foregroundStyle(Color.textWhite20)
                                         .padding(16)
                                 }
                             }
@@ -154,7 +154,7 @@ fileprivate struct _HeaderView: View {
     var body: some View {
         VStack(spacing: 8) {
             Text("Cast your vote")
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .font(.title3Semibold)
             
             Image("cast-your-vote")
@@ -165,7 +165,7 @@ fileprivate struct _HeaderView: View {
             HStack {
                 Text("Selected wallet")
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
 
                 Spacer()
                 
@@ -184,11 +184,11 @@ fileprivate struct _HeaderView: View {
             HStack {
                 Text("Voting power")
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 Text("\(Utils.formattedNumber(dataSource.votingPower)) \(vpSymbol)")
                     .font(.bodySemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             }
             
             RoundedRectangle(cornerRadius: 1)
@@ -199,11 +199,11 @@ fileprivate struct _HeaderView: View {
             HStack {
                 Text("Choice")
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 Text(dataSource.choiceStr)
                     .font(.bodySemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             }
             
             HStack {
@@ -212,18 +212,18 @@ fileprivate struct _HeaderView: View {
                 
                 if dataSource.failedToValidate {
                     Text("-")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 } else if dataSource.validated == nil { // validation in progress
                     ProgressView()
-                        .foregroundColor(.textWhite20)
+                        .foregroundStyle(Color.textWhite20)
                         .controlSize(.mini)
                 } else if dataSource.validated! {
                     Image(systemName: "checkmark")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                         .font(.bodySemibold)
                 } else {
                     Image(systemName: "xmark")
-                        .foregroundColor(.dangerText)
+                        .foregroundStyle(Color.dangerText)
                         .font(.bodySemibold)
                 }
             }
@@ -238,10 +238,10 @@ fileprivate struct _ErrorMessageView: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.dangerText)
+                    .foregroundStyle(Color.dangerText)
                 Text(message)
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             }
             .padding(.leading, 8)
             .padding(.trailing, 12)
@@ -267,7 +267,7 @@ fileprivate struct _SuccessView: View {
         GeometryReader { geometry in
             VStack(spacing: 16) {
                 Text("Your vote is in!")
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .font(.title3Semibold)
 
                 Spacer()
@@ -279,7 +279,7 @@ fileprivate struct _SuccessView: View {
                 Spacer()
 
                 Text("Votes can be changed while the proposal is active")
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
                     .font(.footnoteRegular)
 
                 VStack(spacing: 16) {

@@ -33,10 +33,10 @@
 //            HStack(spacing: 4) {
 //                Image(systemName: "arrow.down.left")
 //                    .font(.system(size: 9))
-//                    .foregroundColor(.textWhite)
+//                    .foregroundStyle(Color.textWhite)
 //                Text(status.localizedName)
 //                    .font(.caption2Semibold)
-//                    .foregroundColor(.textWhite)
+//                    .foregroundStyle(Color.textWhite)
 //                    .lineLimit(1)
 //            }
 //            .padding([.leading, .trailing], 9)

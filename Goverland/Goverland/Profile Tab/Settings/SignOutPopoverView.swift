@@ -16,7 +16,7 @@ struct SignOutPopoverView: View {
         VStack {
             Text("Do you want to sign out?")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.top, 8)
                 .padding(.bottom, 16)
 

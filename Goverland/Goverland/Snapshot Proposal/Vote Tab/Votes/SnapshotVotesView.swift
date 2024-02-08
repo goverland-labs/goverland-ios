@@ -23,7 +23,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
             HStack {
                 Text("Votes \(dataSource.totalVotes)")
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
 
@@ -77,26 +77,26 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
             IdentityView(user: vote.voter)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
             if proposal.privacy == .shutter && proposal.state == .active {
                 Image(systemName: "lock.fill")
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             } else {
                 Text(vote.choiceStr(for: proposal) ?? "")
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite40)
+                    .foregroundStyle(Color.textWhite40)
             }
 
             HStack {
                 Text("\(String(Utils.formattedNumber(vote.votingPower))) Votes")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 if let reason = vote.message, !reason.isEmpty {
                     Image(systemName: "text.bubble.fill")
-                        .foregroundColor(.secondaryContainer)
+                        .foregroundStyle(Color.secondaryContainer)
                 }
             }
         }

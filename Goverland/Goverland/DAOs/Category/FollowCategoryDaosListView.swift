@@ -132,7 +132,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                 if dataSource.nothingFound {
                     Text("Nothing found")
                         .font(.body)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
                     ForEach(0..<3) { _ in

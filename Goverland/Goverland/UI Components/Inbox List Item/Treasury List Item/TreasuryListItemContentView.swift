@@ -37,7 +37,7 @@
 //    
 //    var body: some View {
 //        Text(content.amount)
-//            .foregroundColor(.textWhite)
+//            .foregroundStyle(Color.textWhite)
 //            .font(.headlineSemibold)
 //            .lineLimit(2)
 //    }
@@ -55,7 +55,7 @@
 //                Text(content.user.address.short)
 //            }
 //        }
-//        .foregroundColor(.textWhite)
+//        .foregroundStyle(Color.textWhite)
 //        .font(.headlineSemibold)
 //        .lineLimit(1)
 //    }

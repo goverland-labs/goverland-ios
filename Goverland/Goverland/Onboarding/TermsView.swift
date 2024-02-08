@@ -21,7 +21,7 @@ struct TermsView: View {
                     termsViewIsPresented = false
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                         .font(.system(size: 26))
                 }
             }
@@ -63,7 +63,7 @@ struct TermsView: View {
                 trackingAccepted = true
             }
             
-            Button("Accept without sharing data") {                
+            Button("Accept without sharing data") {
                 termsAccepted = true
                 trackingAccepted = false
             }

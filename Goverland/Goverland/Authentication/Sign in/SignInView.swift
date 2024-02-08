@@ -57,9 +57,9 @@ fileprivate struct SignInOnboardingHeaderView: View {
             HStack {
                 VStack(alignment: .leading, spacing: -15) {
                     Text("Sign in")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Text("with wallet")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
@@ -97,7 +97,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                 HStack {
                     if dataSource.loading {
                         ProgressView()
-                            .foregroundColor(.textWhite20)
+                            .foregroundStyle(Color.textWhite20)
                             .controlSize(.mini)
                     }
                     Spacer()

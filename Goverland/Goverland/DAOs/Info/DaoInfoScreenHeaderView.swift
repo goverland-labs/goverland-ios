@@ -41,10 +41,10 @@ fileprivate struct InfoBadgeView: View {
         VStack {
             Text(value)
                 .font(.calloutSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Text(title)
                 .font(.footnoteRegular)
-                .foregroundColor(.textWhite60)
+                .foregroundStyle(Color.textWhite60)
         }
     }
     

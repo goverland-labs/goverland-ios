@@ -29,7 +29,7 @@ struct SnapshotWeightedVotingView: View {
                 HStack(spacing: 0) {
                     Text(choice)
                         .padding()
-                        .foregroundColor(.onSecondaryContainer)
+                        .foregroundStyle(Color.onSecondaryContainer)
                         .font(.footnoteSemibold)
 
                     Spacer()
@@ -61,7 +61,7 @@ struct SnapshotWeightedVotingView: View {
                         .frame(width: 55)
                 }
                 .padding(.trailing)
-                .foregroundColor(.onSecondaryContainer)
+                .foregroundStyle(Color.onSecondaryContainer)
                 .font(.footnoteSemibold)
                 .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                 .background((choicesPower?[String(index + 1)] ?? 0) != 0 ? Color.secondaryContainer : Color.clear)

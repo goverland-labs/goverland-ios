@@ -15,7 +15,7 @@ struct DeleteProfilePopoverView: View {
         VStack {
             Text("Are you sure?")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.top, 16)                
 
             Spacer()
@@ -26,7 +26,7 @@ struct DeleteProfilePopoverView: View {
                 Text("Deleting your account can’t be undone.")
             }
             .font(.bodyRegular)
-            .foregroundColor(.textWhite)
+            .foregroundStyle(Color.textWhite)
 
             Spacer()
 
