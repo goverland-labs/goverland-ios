@@ -97,16 +97,3 @@ struct ShimmerDaoListItemView: View {
         .listRowSeparator(.hidden)
     }
 }
-
-struct DapListItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            DaoListItemView(dao: .aave,
-                            subscriptionMeta: nil,
-                            onSelectDao: nil,
-                            onFollowToggle: nil)
-            ShimmerDaoListItemView()
-        }
-    }
-}
-

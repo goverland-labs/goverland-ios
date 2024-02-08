@@ -19,6 +19,7 @@ struct IntroView: View {
             VStack {
                 Spacer()
                 PrimaryButton("Get Started") {
+                    Haptic.medium()
                     termsViewIsPresented = true
                 }
                 .padding(.bottom, getPadding())
@@ -38,11 +39,5 @@ fileprivate func getPadding() -> CGFloat {
         return 20
     } else {
         return 40
-    }
-}
-
-struct IntroView_Previews: PreviewProvider {
-    static var previews: some View {
-        IntroView()
     }
 }

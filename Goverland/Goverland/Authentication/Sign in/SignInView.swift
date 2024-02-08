@@ -77,6 +77,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
+                Haptic.medium()
                 Tracker.track(.signInWithWallet)
                 showSignIn = true
             }

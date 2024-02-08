@@ -36,6 +36,7 @@ struct ConnectedWalletView: View {
                     _SwipeableConnectedWalletView(wallet: wallet)
                 } else {
                     Button {
+                        Haptic.medium()
                         showReconnectWallet = true
                     } label: {
                         HStack {
@@ -224,8 +225,7 @@ fileprivate struct _SwipeableConnectedWalletView: View {
     }
 
     private func disconnect() {
-        let impactMed = UIImpactFeedbackGenerator(style: .medium)
-        impactMed.impactOccurred()
+        Haptic.medium()
 
         if wallet.name == Wallet.coinbase.name {
             CoinbaseWalletManager.disconnect()

@@ -221,6 +221,7 @@ fileprivate struct WelcomeBlockView: View {
                               maxWidth: 140,
                               height: 32,
                               font: .footnoteSemibold) {
+                    Haptic.medium()
                     welcomeBlockIsRead = true
                 }
                 Spacer()

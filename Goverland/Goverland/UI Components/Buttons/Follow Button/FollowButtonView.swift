@@ -37,6 +37,9 @@ struct FollowButtonView: View {
                 if authToken.isEmpty {
                     NotificationCenter.default.post(name: .unauthorizedActionAttempt, object: nil)
                 } else {
+                    if !isFollowing {
+                        Haptic.medium()
+                    }
                     dataSource.toggle()
                 }
             }) {

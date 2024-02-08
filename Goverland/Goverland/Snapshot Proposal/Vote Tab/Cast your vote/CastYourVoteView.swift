@@ -120,6 +120,7 @@ fileprivate struct _VoteView: View {
                         }
                         PrimaryButton("Sign",
                                       isEnabled: (dataSource.validated ?? false) && !dataSource.isPreparing && !dataSource.isSubmitting) {
+                            Haptic.medium()
                             dataSource.prepareVote(address: user.address.value)
                             isTextEditorFocused = false
                         }
@@ -286,6 +287,7 @@ fileprivate struct _SuccessView: View {
                         let postText = messageToShare()
                         let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
                         if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
+                            Haptic.medium()
                             openUrl(url)
                         }
                         Tracker.track(.snpSuccessVoteShareX)
@@ -296,12 +298,14 @@ fileprivate struct _SuccessView: View {
                         let castUrl = castText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
                         let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(castUrl)")
                         if let url = warpcastUrl {
+                            Haptic.medium()
                             openUrl(url)
                         }
                         Tracker.track(.snpSuccessVoteShareWarpcast)
                     }
 
                     PrimaryButton("Done") {
+                        Haptic.medium()
                         dismiss()
 
                         let now = Date().timeIntervalSinceReferenceDate

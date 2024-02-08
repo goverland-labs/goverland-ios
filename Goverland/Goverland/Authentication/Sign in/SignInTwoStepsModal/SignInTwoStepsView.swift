@@ -121,10 +121,12 @@ struct SignInTwoStepsView: View {
 
             if dataSource.wcSessionMeta == nil && dataSource.cbWalletAccount == nil {
                 PrimaryButton("Connect wallet") {
+                    Haptic.medium()
                     showSelectWallet = true
                 }
             } else {
                 PrimaryButton("Sign message to sign in") {
+                    Haptic.medium()
                     dataSource.authenticate()
                 }
             }
