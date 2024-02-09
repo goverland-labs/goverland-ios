@@ -158,6 +158,11 @@ fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
     @ObservedObject var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
 
+    var shouldShowRecommendationToVote: Bool {
+        ProfileDataSource.shared.profile?.role == .regular &&
+        !(ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? false)
+    }
+
     var body: some View {
         // TODO: ProposalOfDayView section
 
@@ -171,7 +176,7 @@ fileprivate struct SignedInUserDashboardView: View {
         }
         DashboardNewDaosView()
 
-        if !(ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? false) {
+        if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
                 path.append(Path.profileHasVotingPower)
             }
