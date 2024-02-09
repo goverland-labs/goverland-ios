@@ -68,6 +68,7 @@ struct DaoListItemView: View {
             FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id, onFollowToggle: onFollowToggle)
         }
         .padding(12)
+        .contentShape(Rectangle())
         .listRowSeparator(.hidden)
         .onTapGesture {
             onSelectDao?(dao)

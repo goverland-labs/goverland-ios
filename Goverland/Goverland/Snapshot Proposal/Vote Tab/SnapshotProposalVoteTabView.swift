@@ -62,6 +62,7 @@ struct SnapshotProposalVoteTabView: View {
             _chosenTab = State(wrappedValue: .results)
         }
 
+        // TODO: shutter completed proposals results are known. Need to improve.
         if let userVote = proposal.userVote, proposal.privacy != .shutter {
             // enumeration starts with 1 in Snapshot
             switch proposal.type {
