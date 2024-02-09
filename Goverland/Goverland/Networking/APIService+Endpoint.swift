@@ -205,8 +205,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func proposal(id: UUID) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = ProposalEndpoint(proposalID: id)
+    static func proposal(id: String) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalEndpoint(proposalId: id)
         return shared.request(endpoint)
     }
 
