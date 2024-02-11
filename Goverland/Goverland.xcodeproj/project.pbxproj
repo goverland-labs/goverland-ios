@@ -1174,17 +1174,6 @@
 			path = "Top VP voters";
 			sourceTree = "<group>";
 		};
-		BA1EAD7129F32D0C008D92E9 /* Treasury List Item */ = {
-			isa = PBXGroup;
-			children = (
-				BA1EAD7A29F56881008D92E9 /* TreasuryStatusView.swift */,
-				BA1EAD7229F32D65008D92E9 /* TreasuryListItemView.swift */,
-				BA1EAD7829F56624008D92E9 /* TreasuryListItemHeaderView.swift */,
-				BA1EAD7C29F5796A008D92E9 /* TreasuryListItemContentView.swift */,
-			);
-			path = "Treasury List Item";
-			sourceTree = "<group>";
-		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
