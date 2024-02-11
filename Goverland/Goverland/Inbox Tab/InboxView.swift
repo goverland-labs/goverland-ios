@@ -14,14 +14,14 @@ struct InboxView: View {
     var body: some View {
         if authToken.isEmpty {
             NavigationView {
-                SignInView()
+                SignInView(source: .inbox)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
                             VStack {
                                 Text("Inbox")
                                     .font(.title3Semibold)
-                                    .foregroundColor(Color.textWhite)
+                                    .foregroundStyle(Color.textWhite)
                             }
                         }
                     }
@@ -82,18 +82,27 @@ fileprivate struct _InboxView: View {
                         } else {
                             // For now we recognise only proposals
                             let proposal = event.eventData! as! Proposal
+                            let isRead = event.readAt != nil
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: selectedEventIndex == index,
-                                                 isRead: event.readAt != nil,
-                                                 displayUnreadIndicator: event.readAt == nil,
+                                                 isRead: isRead,
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)
                             }) {
-                                ProposalSharingMenu(link: proposal.link)
+                                ProposalSharingMenu(link: proposal.link, isRead: isRead) {
+                                    if isRead {
+                                        Tracker.track(.inboxEventMarkUnread)
+                                        data.markUnread(eventID: event.id)
+                                    } else {
+                                        Tracker.track(.inboxEventMarkRead)
+                                        data.markRead(eventID: event.id)
+                                    }
+                                }
                             }
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions {
                                 Button {
+                                    Haptic.medium()
                                     data.archive(eventID: event.id)
                                     Tracker.track(.inboxEventArchive)
                                 } label: {
@@ -120,7 +129,7 @@ fileprivate struct _InboxView: View {
                     VStack {
                         Text("Inbox")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
 
@@ -140,13 +149,13 @@ fileprivate struct _InboxView: View {
 
                         Button {
                             TabManager.shared.selectedTab = .profile
-                            TabManager.shared.profilePath = [.subscriptions]
+                            TabManager.shared.profilePath = [.followedDaos]
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
                             .fontWeight(.bold)
                             .frame(height: 20)
                     }
@@ -162,12 +171,11 @@ fileprivate struct _InboxView: View {
                 EmptyView()
             }
         }
-        .onChange(of: selectedEventIndex) { _ in
+        .onChange(of: selectedEventIndex) { _, _ in
             if let index = selectedEventIndex, events.count > index {
                 let event = events[index]
                 Tracker.track(.inboxEventOpen)
                 if event.readAt == nil {
-                    Tracker.track(.inboxEventMarkRead)
                     data.markRead(eventID: event.id)
                 }
             }

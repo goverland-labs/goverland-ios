@@ -21,7 +21,7 @@ struct TermsView: View {
                     termsViewIsPresented = false
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                         .font(.system(size: 26))
                 }
             }
@@ -52,12 +52,13 @@ struct TermsView: View {
                     Text(" and ") +
                     Text("[Terms of Service.](https://www.goverland.xyz/terms)").underline()
                 }
-                .accentColor(.primaryDim)
+                .tint(.primaryDim)
             }
 
             Spacer()
 
             PrimaryButton("Get Started") {
+                Haptic.medium()
                 termsAccepted = true
                 trackingAccepted = true
             }
@@ -68,13 +69,13 @@ struct TermsView: View {
             }
             .padding(.bottom, 16)
             .fontWeight(.medium)
-            .accentColor(.primaryDim)
+            .tint(.primaryDim)
         }
         .padding(.horizontal, 16)
     }
 }
 
-fileprivate struct BulletedListsDot: View {
+struct BulletedListsDot: View {
     var body: some View {
         Circle()
             .fill(Color.primaryDim)

@@ -27,21 +27,13 @@ struct RoundPictureView: View {
                     failedToLoad = true
                 }
                 .resizable()
-                .setProcessor(ResizingImageProcessor(referenceSize: CGSize(width: imageSize, height: imageSize),
-                                                     mode: .aspectFill))
                 .frame(width: imageSize, height: imageSize)
                 .cornerRadius(imageSize / 2)
 
         } else {
             Circle()
-                .foregroundColor(.containerBright)
+                .foregroundStyle(Color.containerBright)
                 .frame(width: imageSize, height: imageSize)
         }
-    }
-}
-
-struct UIComponents_Previews: PreviewProvider {
-    static var previews: some View {
-        RoundPictureView(image: URL(string: ""), imageSize: 50)
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
 
+    private let showRecentlyViewedDAOs: Bool
     private let activeSheetManager: ActiveSheetManager
     private let bottomPadding: CGFloat
 
@@ -25,6 +26,7 @@ struct GroupedDaosView: View {
     private let onCategoryListAppear: (() -> Void)?
 
     init(dataSource: GroupedDaosDataSource,
+         showRecentlyViewedDAOs: Bool = false,
          activeSheetManager: ActiveSheetManager,
          bottomPadding: CGFloat = 0,
 
@@ -39,6 +41,7 @@ struct GroupedDaosView: View {
          onCategoryListAppear: (() -> Void)? = nil
     ) {
         self.dataSource = dataSource
+        self.showRecentlyViewedDAOs = showRecentlyViewedDAOs
         self.activeSheetManager = activeSheetManager
         self.bottomPadding = bottomPadding
 
@@ -55,18 +58,29 @@ struct GroupedDaosView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack {                
+            VStack(alignment: .leading) {
+                if showRecentlyViewedDAOs && !RecentlyViewedDaosDataSource.search.recentlyViewedDaos.isEmpty {
+                    Text("Recently viewed")
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
+                        .padding(.horizontal, 16)
+
+                    RecentlyViewedDaosHorizontalListView()
+                }
+
                 ForEach(DaoCategory.values) { category in
                     VStack(spacing: 8) {
                         HStack {
                             let total = dataSource.totalInCategory[category] ?? 0
-                            Text(total != 0 ? "\(category.name) (\(total))" : category.name)
+                            Text(total != 0 ? "\(category.name) (\(Utils.formattedNumber(Double(total))))" : category.name)
                                 .font(.subheadlineSemibold)
-                                .foregroundColor(.textWhite)
+                                .foregroundStyle(Color.textWhite)
                             Spacer()
                             NavigationLink("See all", value: category)
                                 .font(.subheadlineSemibold)
-                                .foregroundColor(.primaryDim)
+                                .foregroundStyle(Color.primaryDim)
                         }
                         .padding(.top, 16)
                         .padding(.horizontal, 16)

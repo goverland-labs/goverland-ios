@@ -48,7 +48,7 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] dao, headers in
                 self?.dao = dao
-                RecentlyViewedDaosDataSource.dashboard.refresh()
+                RecentlyViewedDaosDataSource.search.refresh()
             }
             .store(in: &cancellables)
     }

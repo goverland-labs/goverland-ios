@@ -13,13 +13,18 @@ class SettingKeys: ObservableObject {
     /// We need to store authToken in user defaults for convenience as
     /// UserProfile @Model `.sessionId` property can be accesses only asynchronously.
     /// it leads to usage difficulties in many places.
-    @AppStorage("authToken") var authToken = ""
+    @AppStorage("authToken") var authToken = "" {
+        didSet {
+            NotificationCenter.default.post(name: .authTokenChanged, object: nil)
+        }
+    }
     @AppStorage("termsAccepted") var termsAccepted = false
     @AppStorage("trackingAccepted") var trackingAccepted = false {
         didSet {
             Tracker.setTrackingEnabled(trackingAccepted)
         }
     }
+    @AppStorage("welcomeBlockIsRead") var welcomeBlockIsRead = false
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
     @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
     @AppStorage("lastSuggestedToRateTime") var lastSuggestedToRateTime: TimeInterval = 0
@@ -31,11 +36,22 @@ class SettingKeys: ObservableObject {
     }
 
     /// If a user logs out from a guest profile and then logs in again as a guest, we want to preserve it.
-    @AppStorage("guestDeviceId") var guestDeviceId = UUID().uuidString
+    /// To support earlier app users (before v0.5) we will use identifierForVendor. It will be used only for guest profiles.
+    @AppStorage("guestDeviceId") var guestDeviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 
     static var shared = SettingKeys()
 
-    private init() {}
+    private init() {
+        // Ensure authToken is aligned with selected profile
+        Task {
+            let selectedProfile = try! await UserProfile.selected()
+            if SettingKeys.shared.authToken != (selectedProfile?.sessionId ?? "") {
+                DispatchQueue.main.async {
+                    SettingKeys.shared.authToken = selectedProfile?.sessionId ?? ""
+                }
+            }
+        }
+    }
     
     static func reset() {
         SettingKeys.shared.authToken = ""
@@ -45,9 +61,6 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.lastSuggestedToRateTime = 0
         SettingKeys.shared.unreadEvents = 0
-
-        // TODO: store session meta in Model
-        WC_Manager.shared.sessionMeta = nil
     }
 }
 

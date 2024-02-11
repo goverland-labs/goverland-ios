@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "rainbow.jpg",
-      "idiom" : "universal"
+      "filename" : "rainbow32.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "rainbow64.jpeg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "rainbow96.jpeg",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

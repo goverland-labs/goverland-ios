@@ -16,7 +16,11 @@ struct SnapshotProposalView: View {
     let navigationTitle: String
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    
+
+    var voted: Bool {
+        proposal.userVote != nil
+    }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
@@ -31,7 +35,7 @@ struct SnapshotProposalView: View {
                     })
                     .padding(.bottom, 15)
 
-                SnapshotProposalStatusBarView(state: proposal.state, votingEnd: proposal.votingEnd)
+                SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 20)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
@@ -40,7 +44,7 @@ struct SnapshotProposalView: View {
                 HStack {
                     Text("Off-Chain Vote")
                         .font(.headlineSemibold)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Spacer()
                 }
                 .padding(.bottom)
@@ -63,10 +67,10 @@ struct SnapshotProposalView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    ProposalSharingMenu(link: proposal.link)
+                    ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .fontWeight(.bold)
                         .frame(height: 20)
                 }
@@ -86,7 +90,7 @@ fileprivate struct SnapshotProposalHeaderView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 20)
             .font(.title3Semibold)
-            .foregroundColor(.textWhite)
+            .foregroundStyle(Color.textWhite)
             .lineLimit(3)
             .multilineTextAlignment(.leading)
             .minimumScaleFactor(0.7)
@@ -101,20 +105,20 @@ fileprivate struct SnapshotProposalCreatorView: View {
         HStack(spacing: 5) {
             // DAO identity view
             HStack(spacing: 6) {
-                RoundPictureView(image: dao.avatar, imageSize: 16)
+                RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
                 Text(dao.name)
                     .font(.footnoteRegular)
                     .lineLimit(1)
                     .fontWeight(.medium)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
 
             }
             Text("by")
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite60)
+                .foregroundStyle(Color.textWhite60)
             IdentityView(user: creator)
                 .font(.footnoteSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Spacer()
         }
     }
@@ -122,20 +126,30 @@ fileprivate struct SnapshotProposalCreatorView: View {
 
 fileprivate struct SnapshotProposalStatusBarView: View {
     let state: Proposal.State
+    let voted: Bool
     let votingEnd: Date
 
     var body: some View {
         HStack {
-            ProposalStatusView(state: state)
-            Spacer()
             HStack(spacing: 0) {
                 Text(votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 DateView(date: votingEnd,
                          style: .numeric,
                          font: .footnoteRegular,
                          color: .primaryDim)
+            }
+            Spacer()
+            HStack(spacing: 6) {
+                if voted {
+                    BubbleView(
+                        image: Image(systemName: "checkmark"),
+                        text: nil,
+                        textColor: .onSecondaryContainer,
+                        backgroundColor: .secondaryContainer)
+                }
+                ProposalStatusView(state: state)
             }
         }
         .padding(10)
@@ -151,23 +165,21 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             HStack {
                 Text("Discussion")
                     .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
 
             HStack(spacing: 15) {
-                RoundPictureView(image: proposal.dao.avatar, imageSize: 35)
-                
+                RoundPictureView(image: proposal.dao.avatar(size: .s), imageSize: Avatar.Size.s.daoImageSize)
+
                 if let urlString = proposal.discussion, let unwrappedURL = URL(string: urlString) {
                     Link(destination: unwrappedURL) {
-                        Text(proposal.title)
-                            .foregroundColor(.textWhite)
-                        +
-                        Text(" ")
-                        +
-                        Text(Image(systemName: "arrow.up.right"))
-                            .foregroundColor(.textWhite40)
-                        
+                        Group {
+                            Text("\(proposal.title) \(Image(systemName: "arrow.up.right"))")
+                                .foregroundStyle(Color.textWhite)
+                        }
+                        .multilineTextAlignment(.leading)
+
                         Spacer()
                     }
                 }
@@ -176,7 +188,7 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             .font(.footnoteRegular)
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(.container)
+                    .foregroundStyle(Color.container)
             )
         }
     }
@@ -190,7 +202,7 @@ fileprivate struct SnapshotProposalTimelineView: View {
             HStack {
                 Text("Timeline")
                     .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
 
@@ -202,15 +214,9 @@ fileprivate struct SnapshotProposalTimelineView: View {
                     Spacer()
                 }
                 .font(.footnoteRegular)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .padding(.vertical, 2)
             }
         }
-    }
-}
-
-struct SnapshotProposalView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotProposalView(proposal: .aaveTest, allowShowingDaoInfo: true, navigationTitle: "")
     }
 }

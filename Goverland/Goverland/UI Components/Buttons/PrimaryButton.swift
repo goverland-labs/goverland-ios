@@ -14,6 +14,7 @@ struct PrimaryButton: View {
     let height: CGFloat
     let isEnabled: Bool
     let disabledText: String?
+    let font: Font
     let action: () -> Void
 
     init(_ text: String,
@@ -21,6 +22,7 @@ struct PrimaryButton: View {
          height: CGFloat = 54,
          isEnabled: Bool = true,
          disabledText: String? = nil,
+         font: Font = .headlineSemibold,
          action: @escaping () -> Void) {
         self.text = text
         self.action = action
@@ -28,6 +30,7 @@ struct PrimaryButton: View {
         self.height = height
         self.isEnabled = isEnabled
         self.disabledText = disabledText
+        self.font = font
     }
 
     var body: some View {
@@ -47,14 +50,8 @@ struct PrimaryButton: View {
             .background(isEnabled ? Color.primary : Color.disabled12)
             .clipShape(Capsule())
             .tint(.onPrimary)
-            .font(.headlineSemibold)
+            .font(font)
         }
         .disabled(!isEnabled)
-    }
-}
-
-struct PrimaryButton_Previews: PreviewProvider {
-    static var previews: some View {
-        PrimaryButton("Primary Button", action: {})
     }
 }

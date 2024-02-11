@@ -29,22 +29,22 @@ struct DaoInfoAboutDaoView: View {
             HStack {
                 Text(dao.name)
                     .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
             }
             
             HStack(spacing: 16) {
-                if let twitter = dao.twitter {
-                    Image("dao-info-twitter")
+                if let X = dao.X {
+                    Image("dao-info-x")
                         .resizable()
                         .scaledToFit()
                         .frame(height: frameH)
                         .onTapGesture {
                             openURL(
-                                URL(string: "https://twitter.com/\(twitter)") ??
-                                URL(string: "https://twitter.com/")!
+                                URL(string: "https://x.com/\(X)") ??
+                                URL(string: "https://x.com/")!
                             )
-                            Tracker.track(.daoOpenTwitter)
+                            Tracker.track(.daoOpenX)
                         }
                 }
                 
@@ -117,7 +117,7 @@ struct DaoInfoAboutDaoView: View {
                 HStack {
                     Text("First activity \(date)")
                         .font(.footnoteRegular)
-                        .foregroundColor(.textWhite60)
+                        .foregroundStyle(Color.textWhite60)
                     Spacer()
                 }
             }
@@ -127,7 +127,7 @@ struct DaoInfoAboutDaoView: View {
                 let categories = dao.categories.dropFirst().reduce("#\(first)") { r, c in "\(r) #\(c.name.lowercased())"}
                 Text(categories)
                     .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
 
             VStack(alignment: .leading) {
@@ -141,11 +141,5 @@ struct DaoInfoAboutDaoView: View {
         .onAppear {
             Tracker.track(.screenDaoAbout)
         }
-    }
-}
-
-struct DaoInfoAboutDaoView_Previews: PreviewProvider {
-    static var previews: some View {
-        DaoInfoAboutDaoView(dao: .aave)
     }
 }

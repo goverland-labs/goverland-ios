@@ -8,14 +8,7 @@
 
 import Foundation
 
-typealias HttpHeaders = [String: Any]
 
-enum HttpMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
 
 protocol APIEndpoint {
     associatedtype ResponseType: Decodable
@@ -108,7 +101,7 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
             "device_id": deviceId,
             "device_name": deviceName,
             "message": message,
-            "singature": signature
+            "signature": signature
         ])
     }
 }
@@ -122,11 +115,37 @@ struct ProfileEndpoint: APIEndpoint {
     var method: HttpMethod = .get
 }
 
-struct LogoutEndpoint: APIEndpoint {
+struct ProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/votes"
+    var method: HttpMethod = .get
+
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
+struct SignOutEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
+
+    let sessionId: String
 
     var path: String = "logout"
     var method: HttpMethod = .post
+
+    var headers: [String: String] {
+        return [
+            "Authorization": sessionId,
+            "Content-Type": "application/json"
+        ]
+    }
+
+    init(sessionId: String) {
+        self.sessionId = sessionId
+    }
 }
 
 struct DeleteProfileEndpoint: APIEndpoint {
@@ -134,6 +153,18 @@ struct DeleteProfileEndpoint: APIEndpoint {
 
     var path: String = "me"
     var method: HttpMethod = .delete
+}
+
+struct ProfileHasVotingPowerEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String = "me/can-vote"
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
 }
 
 // MARK: - DAOs
@@ -198,11 +229,13 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     typealias ResponseType = [UserBuckets]
     
     let daoID: UUID
-    var path: String { "analytics/voter-buckets/\(daoID)" }
+    var path: String { "analytics/voter-buckets-groups/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 
@@ -446,7 +479,7 @@ struct ProposalSubmitVoteEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(proposal: Proposal, id: UUID, signature: String) {
+    init(id: UUID, signature: String) {
         let body: [String: TypedValue] = [
             "id": .str(id.uuidString),
             "sig": .str(signature)
@@ -539,6 +572,19 @@ struct MarkEventReadEndpoint: APIEndpoint {
     }
 }
 
+struct MarkEventUnreadEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let eventID: UUID
+
+    var path: String { "feed/\(eventID)/mark-as-unread" }
+    var method: HttpMethod = .post
+
+    init(eventID: UUID) {
+        self.eventID = eventID
+    }
+}
+
 struct MarkAllEventsReadEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -605,4 +651,16 @@ struct DisableNotificationsEndpoint: APIEndpoint {
 
     var path: String = "notifications/settings"
     var method: HttpMethod = .delete
+}
+
+struct MarkPushAsClickedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    var path: String = "notifications/mark-as-clicked"
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(pushId: String) {
+        self.body = try! JSONEncoder().encode(["id": pushId])
+    }
 }

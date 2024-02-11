@@ -57,14 +57,23 @@ struct ArchiveView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = archive.eventData! as! Proposal
+                            let isRead = archive.readAt != nil
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: archive.readAt != nil,
-                                                 displayUnreadIndicator: archive.readAt == nil) {
-                                ProposalSharingMenu(link: proposal.link)
+                                                 isRead: isRead) {
+                                ProposalSharingMenu(link: proposal.link, isRead: isRead) {
+                                    if isRead {
+                                        Tracker.track(.archiveEventMarkUnread)
+                                        data.markUnread(eventID: archive.id)
+                                    } else {
+                                        Tracker.track(.archiveEventMarkRead)
+                                        data.markRead(eventID: archive.id)
+                                    }
+                                }
                             }
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions {
                                 Button {
+                                    Haptic.medium()
                                     data.unarchive(eventID: archive.id)
                                     Tracker.track(.archiveEventUnarchive)
                                 } label: {
@@ -95,18 +104,17 @@ struct ArchiveView: View {
                     VStack {
                         Text("Archive")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
             }
-            .onChange(of: selectedEventIndex) { _ in
+            .onChange(of: selectedEventIndex) { _, _ in
                 if let index = selectedEventIndex, archives.count > index,
                    let proposal = archives[index].eventData as? Proposal {
                     path.append(proposal)
                     Tracker.track(.archiveEventOpen)
                     if archives[index].readAt == nil {
                         data.markRead(eventID: archives[index].id)
-                        Tracker.track(.archiveEventMarkRead)
                     }
                     selectedEventIndex = nil
                 }
@@ -117,7 +125,7 @@ struct ArchiveView: View {
                                      navigationTitle: proposal.dao.name)
             }
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .overlay {
             ToastView()
         }

@@ -37,8 +37,8 @@ struct ProposalListItemCondensedView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
 
-            VStack(spacing: 15) {                
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: false)
+            VStack(spacing: 12) {
+                ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: false, onDaoTap: onDaoTap)
             }
             .padding([.horizontal, .vertical], 12)
@@ -52,15 +52,15 @@ struct ShimmerProposalListItemCondensedView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)
 
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 100)
+                        .frame(width: 180)
                     Spacer()
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 80)
+                        .frame(width: 90)
                 }
                 .frame(height: 20)
 
@@ -70,20 +70,14 @@ struct ShimmerProposalListItemCondensedView: View {
                         .frame(width: 250)
                     Spacer()
                     ShimmerView()
-                        .cornerRadius(25)
-                        .frame(width: 50, height: 50)
+                        .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                        .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
         }
-        .frame(height: 110)
-    }
-}
-
-struct ProposalListItemCondensedView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProposalListItemCondensedView(proposal: .aaveTest)
+        .frame(height: 104)
     }
 }

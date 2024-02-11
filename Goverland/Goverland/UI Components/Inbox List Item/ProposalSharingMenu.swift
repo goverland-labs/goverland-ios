@@ -10,11 +10,13 @@ import SwiftUI
 
 struct ProposalSharingMenu: View {
     let link: String
+    let isRead: Bool?
+    let markCompletion: (() -> Void)?
 
     var body: some View {
         if let url = Utils.urlFromString(link) {
             ShareLink(item: url) {
-                Label("Share", systemImage: "square.and.arrow.up")
+                Label("Share", systemImage: "square.and.arrow.up.fill")
             }
 
             Button {
@@ -25,14 +27,24 @@ struct ProposalSharingMenu: View {
             }
         } else {
             ShareLink(item: link) {
-                Label("Share", systemImage: "square.and.arrow.up")
+                Label("Share", systemImage: "square.and.arrow.up.fill")
             }
         }
-    }
-}
 
-struct ProposalSharingMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        ProposalSharingMenu(link: "")
+        if let isRead {
+            if isRead {
+                Button {
+                    markCompletion?()
+                } label: {
+                    Label("Mark as unread", systemImage: "envelope.fill")
+                }
+            } else {
+                Button {
+                    markCompletion?()
+                } label: {
+                    Label("Mark as read", systemImage: "envelope.open.fill")
+                }
+            }
+        }
     }
 }

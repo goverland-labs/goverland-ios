@@ -32,8 +32,8 @@ struct RetryInitialLoadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width / 2)
                 Text(message)
-                    .font(.callout)
-                    .foregroundColor(.textWhite)
+                    .font(.calloutRegular)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 PrimaryButton("Try again") {
                     dataSource.refresh()

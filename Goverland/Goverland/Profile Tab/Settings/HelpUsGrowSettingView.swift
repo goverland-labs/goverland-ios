@@ -21,40 +21,40 @@ struct HelpUsGrowSettingView: View {
             }) {
                 HStack {
                     Image("rate-app")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                         .frame(width: 30)
                     Text("Rate the App")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
 
             Button(action: {
-                let tweetText = "Check out Goverland App by @goverland_xyz!"
-                let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
+                let postText = "Check out Goverland App by @goverland_xyz!"
+                let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                let XUrl = URL(string: "https://x.com/intent/tweet?text=\(postUrl ?? "")")
 
-                if let url = twitterUrl {
+                if let url = XUrl {
                     openUrl(url)
                 }
 
-                Tracker.track(.settingsShareTweet)
+                Tracker.track(.settingsShareXPost)
             }) {
                 HStack {
                     HStack {
-                        Image("share-tweet")
-                            .foregroundColor(.primaryDim)
+                        Image("share-x-post")
+                            .foregroundStyle(Color.primaryDim)
                             .frame(width: 30)
-                        Text("Share a tweet")
+                        Text("Share a post on X")
                         Spacer()
-                        Image(systemName: "square.and.arrow.up")
-                            .foregroundColor(.textWhite40)
+                        Image(systemName: "arrow.up.right")
+                            .foregroundStyle(Color.textWhite40)
                     }
                 }
             }
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .onAppear() { Tracker.track(.screenHelpUsGrow) }
     }
 }

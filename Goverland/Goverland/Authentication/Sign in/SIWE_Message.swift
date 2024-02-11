@@ -112,7 +112,7 @@ extension SIWE_Message {
             statement: "Sign in",
             uri: "https://goverland.xyz/login",
             chainId: 1,
-            nonce: String(Utils.randomNumber_8_dgts()),
+            nonce: String(Int.random(in: 10000000...99999999)),
             issuedAt: Date.now.ISO8601Format(),
             expirationTime: nil,
             notBefore: nil,

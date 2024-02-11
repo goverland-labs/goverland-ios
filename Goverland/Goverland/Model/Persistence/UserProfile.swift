@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftData
-import SwiftDate
+import CoinbaseWalletSDK
 
 /// Model to store user profiles.
 /// The App can have one guest profile and many profiles attached to different addresses.
@@ -36,10 +36,14 @@ final class UserProfile {
     private(set) var selected: Bool
 
     private(set) var resolvedName: String?
-    // TODO: we will have 4 sizes of an avatar
-    private(set) var avatar: URL?
+
+    private(set) var avatarsData: Data?
+
+    private(set) var subscriptionsCount: Int
 
     private(set) var wcSessionMetaData: Data?
+
+    private(set) var cbAccountData: Data?
 
     @Transient
     private var addressDescription: String {
@@ -51,22 +55,48 @@ final class UserProfile {
          address: String,
          selected: Bool,
          resolvedName: String?,
-         avatar: URL?,
-         wcSessionMeta: WC_SessionMeta?)
+         avatars: [Avatar]?,
+         subscriptionsCount: Int,
+         wcSessionMeta: WC_SessionMeta?,
+         cbAccount: Account?)
     {
         self.deviceId = deviceId
         self.sessionId = sessionId
         self.address = address
         self.selected = selected
         self.resolvedName = resolvedName
-        self.avatar = avatar
+        self.avatarsData = avatars?.data
+        self.subscriptionsCount = subscriptionsCount
         self.wcSessionMetaData = wcSessionMeta?.data
+        self.cbAccountData = cbAccount?.data
     }
 }
 
 extension UserProfile {
     var user: User {
-        User(address: Address(address), resolvedName: resolvedName, avatar: avatar)
+        var avatars = [Avatar]()
+        if let avatarsData {
+            avatars = [Avatar].from(data: avatarsData) ?? []
+        }
+        return User(address: Address(address),
+                    resolvedName: resolvedName,
+                    avatars: avatars)
+    }
+}
+
+// MARK: - Avatar extension
+
+extension Array where Element == Avatar {
+    var data: Data {
+        return try! JSONEncoder().encode(self)
+    }
+
+    static func from(data: Data) -> [Avatar]? {
+        if let avatars = try? JSONDecoder().decode([Avatar].self, from: data) {            
+            return avatars
+        }
+        logInfo("[UserProfile] avatars not found")
+        return nil
     }
 }
 
@@ -82,12 +112,25 @@ extension WC_SessionMeta {
             logInfo("[UserProfile] restored WC session from data")
             return sessionMeta
         }
-        logInfo("[UserProfile] WC session not found")
+        logInfo("[UserProfile] WC session could not be restored from provided data")
         return nil
     }
+}
 
-    var isExpired: Bool {
-        return session.expiryDate < .now + 5.minutes
+// MARK: - Coinbase Wallet Account extension
+
+extension Account {
+    var data: Data {
+        return try! JSONEncoder().encode(self)
+    }
+
+    static func from(data: Data) -> Account? {
+        if let account = try? JSONDecoder().decode(Account.self, from: data) {
+            logInfo("[UserProfile] restored Coinbase Wallet account from data")
+            return account
+        }
+        logInfo("[UserProfile] Coinbase Wallet account could not be restored from provided data")
+        return nil
     }
 }
 
@@ -126,6 +169,14 @@ extension UserProfile {
             WC_Manager.shared.sessionMeta = nil
         }
 
+        // Update Coinbase Wallet in-memory account
+        if let cbAccountData, let account = Account.from(data: cbAccountData) {
+            logInfo("[UserProfile] Selected profile Coinbase Wallet account restored.")
+            CoinbaseWalletManager.shared.account = account
+        } else {
+            logInfo("[UserProfile] Selected profile has no Coinbase Wallet account.")
+        }
+
         // Update authToken with profile sessionId
         SettingKeys.shared.authToken = self.sessionId
 
@@ -161,7 +212,7 @@ extension UserProfile {
     }
 
     @MainActor
-    static func logoutSelected(logErrorIfNotFound: Bool = false) throws {
+    static func signOutSelected(logErrorIfNotFound: Bool = false) throws {
         let fetchDescriptor = FetchDescriptor<UserProfile>(
             predicate: #Predicate { $0.selected == true }
         )
@@ -178,13 +229,12 @@ extension UserProfile {
             }
         }
 
-        // Clean authToken and wcSessionMeta
+        // Clean authToken but keep WalletConnect in-memory session meta
         SettingKeys.shared.authToken = ""
-        WC_Manager.shared.sessionMeta = nil
     }
 
     @MainActor
-    /// Update profile metadata, excluding session, deviceId and wcSessionMetaData.
+    /// Update profile metadata, excluding session, deviceId, wcSessionMetaData and cbAccountData.
     ///
     /// - Parameter profile: Profile object. Returned by backend.
     /// - Returns: UserProfile record.
@@ -200,7 +250,8 @@ extension UserProfile {
         }
         logInfo("[UserProfile] Update existing user profile \(userProfile.addressDescription).")
         userProfile.resolvedName = profile.account?.resolvedName
-        userProfile.avatar = profile.account?.avatar
+        userProfile.avatarsData = profile.account?.avatars.data
+        userProfile.subscriptionsCount = profile.subscriptionsCount
         try context.save()
     }
 
@@ -212,11 +263,14 @@ extension UserProfile {
     ///   - profile: Profile object. Returned by backend.
     ///   - deviceId: Passed from a caller. It is a unique string associated with session.
     ///   - sessionId: Passed from a caller. Returned by backend.
+    ///   - wcSessionMeta: Meta-information about WalletConnect session
+    ///   - cbAccount: Coinbase Wallet Account of this profile
     /// - Returns: UserProfile record.
     static func upsert(profile: Profile,
                        deviceId: String,
                        sessionId: String,
-                       wcSessionMeta: WC_SessionMeta?) throws -> UserProfile {
+                       wcSessionMeta: WC_SessionMeta?,
+                       cbAccount: Account?) throws -> UserProfile {
         let normalizedAddress = profile.address ?? ""
         let fetchDescriptor = FetchDescriptor<UserProfile>(
             predicate: #Predicate { $0.address == normalizedAddress }
@@ -228,8 +282,10 @@ extension UserProfile {
             userProfile.sessionId = sessionId
             userProfile.address = normalizedAddress
             userProfile.resolvedName = profile.account?.resolvedName
-            userProfile.avatar = profile.account?.avatar
+            userProfile.avatarsData = profile.account?.avatars.data
+            userProfile.subscriptionsCount = profile.subscriptionsCount
             userProfile.wcSessionMetaData = wcSessionMeta?.data
+            userProfile.cbAccountData = cbAccount?.data
             try context.save()
             return userProfile
         }
@@ -239,15 +295,17 @@ extension UserProfile {
                                       address: normalizedAddress,
                                       selected: false,
                                       resolvedName: profile.account?.resolvedName,
-                                      avatar: profile.account?.avatar, 
-                                      wcSessionMeta: wcSessionMeta)
+                                      avatars: profile.account?.avatars, 
+                                      subscriptionsCount: profile.subscriptionsCount,
+                                      wcSessionMeta: wcSessionMeta, 
+                                      cbAccount: cbAccount)
         context.insert(userProfile)
         try context.save()
         return userProfile
     }
 
     @MainActor
-    /// Clears wcSessionMetaData for a profile.
+    /// Clears wcSessionMetaData for profiles.
     /// - Parameter topic: WalletConnect Session topic
     static func clear_WC_Sessions(topic: String) throws {
         let fetchDescriptor = FetchDescriptor<UserProfile>()
@@ -255,6 +313,8 @@ extension UserProfile {
         let profiles = try appContainer.mainContext.fetch(fetchDescriptor)
         if profiles.isEmpty {
             logInfo("[UserProfile] No profiles found in clearProfile_WC_Session.")
+            // Possible use case: when a user signs in, and kills the session from a wallet after establishing it.
+            WC_Manager.shared.sessionMeta = nil
             return
         }
 
@@ -277,6 +337,38 @@ extension UserProfile {
             logInfo("[UserProfile] No profile with WC topic \(topic) found.")
         }
     }
+    
+    @MainActor
+    /// Clears cbAccountData for profiles.
+    static func clearCoinbaseAccounts() throws {
+        let fetchDescriptor = FetchDescriptor<UserProfile>()
+        let context = appContainer.mainContext
+        let profiles = try appContainer.mainContext.fetch(fetchDescriptor)
+        if profiles.isEmpty {
+            logInfo("[UserProfile] No profiles found in clearCoinbaseAccounts.")
+            CoinbaseWalletManager.shared.account = nil
+            return
+        }
+
+        var foundCount = 0
+
+        for profile in profiles {
+            if let data = profile.cbAccountData {
+                profile.cbAccountData = nil
+                foundCount += 1
+                if profile.selected {
+                    CoinbaseWalletManager.shared.account = nil
+                }
+            }
+        }
+
+        if foundCount > 0 {
+            logInfo("[UserProfile] Removed all Coinbase Wallet accounts from profiles. Found profiles: \(foundCount)")
+            try context.save()
+        } else {
+            logInfo("[UserProfile] No profile with Coinbase Wallet account found.")
+        }
+    }
 
     @MainActor
     /// Update stored session in selected profile with a value from cached session meta.
@@ -293,6 +385,24 @@ extension UserProfile {
             try context.save()
         } else {
             logError(GError.appInconsistency(reason: "[UserProfile] No selected profile found to update WC session."))
+        }
+    }
+
+    @MainActor
+    /// Update stored account in selected profile with a value from connected Coinbase Wallet account.
+    /// It is used when reconnecting an expired session for the selected profile.
+    static func updateCoinbaseWalletAccountForSelectedProfile() throws {
+        let account = CoinbaseWalletManager.shared.account
+        let fetchDescriptor = FetchDescriptor<UserProfile>(
+            predicate: #Predicate { $0.selected == true }
+        )
+        let context = appContainer.mainContext
+        if let profile = try appContainer.mainContext.fetch(fetchDescriptor).first {
+            logInfo("[UserProfile] Updating Coinbase Wallet account for selected profile \(profile.addressDescription).")
+            profile.cbAccountData = account?.data
+            try context.save()
+        } else {
+            logError(GError.appInconsistency(reason: "[UserProfile] No selected profile found to update Coinbase Wallet account."))
         }
     }
 }

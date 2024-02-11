@@ -9,8 +9,10 @@
 import Foundation
 
 extension Notification.Name {
+    static let authTokenChanged = Notification.Name("AuthTokenChanged")
     static let unauthorizedActionAttempt = Notification.Name("UnauthorizedActionAttempt")
     static let subscriptionDidToggle = Notification.Name("SubsciptionDidToggle")
     static let eventUnarchived = Notification.Name("EventUnarchived")
     static let wcSessionUpdated = Notification.Name("WC_SessionUpdated")
+    static let cbWalletAccountUpdated = Notification.Name("CoinbaseWalletAccountUpdated")
 }

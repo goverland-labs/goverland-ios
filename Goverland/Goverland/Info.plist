@@ -2,16 +2,47 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera access is required to scan QR codes.</string>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>goverland</string>
+			</array>
+		</dict>
+	</array>
 	<key>DEFAULT_PAGINATION_COUNT</key>
 	<string>$(DEFAULT_PAGINATION_COUNT)</string>
+	<key>ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL</key>
+	<string>$(ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL)</string>
+	<key>DAO_TERMS_AGREEMENT_REQUEST_INTERVAL</key>
+	<string>$(DAO_TERMS_AGREEMENT_REQUEST_INTERVAL)</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>zerion</string>
+		<string>metamask</string>
+		<string>cbwallet</string>
+		<string>rainbow</string>
+		<string>trust</string>
+		<string>uniswap</string>
+		<string>oneinch</string>
+		<string>mewwallet</string>
+		<string>bnc</string>
+		<string>exodus</string>
+		<string>ledgerlive</string>
+	</array>
+	<key>SUGGEST_TO_RATE_REQUEST_INTERVAL</key>
+	<string>$(SUGGEST_TO_RATE_REQUEST_INTERVAL)</string>
 	<key>TIMEOUT</key>
 	<string>$(TIMEOUT)</string>
 	<key>UIAppFonts</key>
@@ -27,9 +58,5 @@
 	</array>
 	<key>WC_PROJECT_ID</key>
 	<string>$(WC_PROJECT_ID)</string>
-	<key>ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL</key>
-	<string>$(ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL)</string>
-	<key>SUGGEST_TO_RATE_REQUEST_INTERVAL</key>
-	<string>$(SUGGEST_TO_RATE_REQUEST_INTERVAL)</string>
 </dict>
 </plist>

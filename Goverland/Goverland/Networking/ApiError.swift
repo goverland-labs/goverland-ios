@@ -9,7 +9,9 @@
 import Foundation
 
 enum APIError: Error {
+    case badRequest(error: String)
     case notAuthorized
+    case forbidden
     case notFound
     case serverError(statusCode: Int)
     case system(description: String)
@@ -17,8 +19,12 @@ enum APIError: Error {
 
     var localizedDescription: String {
         switch self {
+        case .badRequest(let error):
+            return error
         case .notAuthorized:
-            return "Authorization error. Please try again later."
+            return "Request not authorized. Please sign in."
+        case .forbidden:
+            return "Request forbidden. Please sign in."
         case .notFound:
             return "Content not found."
         case .serverError(let statusCode):

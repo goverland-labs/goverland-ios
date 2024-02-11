@@ -20,12 +20,13 @@ struct ConnectWalletView: View {
                     Section(header: Text("If connecting from other device")) {
                         QRRowView {
                             model.showQR()
+                            Tracker.track(.connectWalletShowQR)
                         }
                     }
 
                     Section {
                         ForEach(Wallet.recommended) { wallet in
-                            WalletRowView(wallet: wallet, model: model)                            
+                            WalletRowView(wallet: wallet, model: model)              
                         }
                     }
 
@@ -48,14 +49,14 @@ struct ConnectWalletView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text("Connect Wallet")
                         .font(.title3Semibold)
-                        .foregroundColor(Color.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }
@@ -63,6 +64,14 @@ struct ConnectWalletView: View {
             guard notification.object != nil else { return }
             // session settled
             dismiss()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .cbWalletAccountUpdated)) { notification in
+            guard notification.object != nil else { return }
+            // account received
+            dismiss()
+        }
+        .onAppear {
+            Tracker.track(.screencConnectWallet)
         }
     }
 }
@@ -108,7 +117,7 @@ fileprivate struct WalletRowView: View {
             Image(wallet.image)
                 .frame(width: 32, height: 32)
                 .scaledToFit()
-                .cornerRadius(6)
+                .cornerRadius(4)
             Text(wallet.name)
             Spacer()
             if model.connecting {
@@ -121,6 +130,7 @@ fileprivate struct WalletRowView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             guard !model.connecting else { return }
+            Haptic.medium()
             model.connect(wallet: wallet)
         }
     }

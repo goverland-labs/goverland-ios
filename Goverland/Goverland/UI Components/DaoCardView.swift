@@ -40,22 +40,30 @@ struct DaoCardView: View {
 
     var body: some View {
         VStack {
-            RoundPictureView(image: dao.avatar, imageSize: 90)
+            RoundPictureView(image: dao.avatar(size: .xl), imageSize: Avatar.Size.xl.daoImageSize)
                 .padding(.top, 18)
                 .onTapGesture {
                     onSelectDao?(dao)
                 }
             
             VStack(spacing: 3) {
-                Text(dao.name)
-                    .font(.headlineSemibold)
-                    .foregroundColor(.textWhite)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.headlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.5)
+
+                    if dao.verified {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
 
                 Text("\(subheader)")
                     .font(.сaption2Regular)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
             .padding(.horizontal, 12)
 
@@ -89,8 +97,8 @@ struct ShimmerDaoCardView: View {
     var body: some View {
         VStack {
             ShimmerView()
-                .frame(width: 90, height: 90)
-                .cornerRadius(45)
+                .frame(width: Avatar.Size.xl.daoImageSize, height: Avatar.Size.xl.daoImageSize)
+                .cornerRadius(Avatar.Size.xl.daoImageSize / 2)
                 .padding(.top, 17)
 
             VStack(spacing: 3) {

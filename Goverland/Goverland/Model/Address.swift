@@ -8,6 +8,7 @@
 
 import SwiftUI
 import BlockiesSwift
+import CryptoSwift
 
 struct Address: Codable, CustomStringConvertible {
     let value: String
@@ -40,5 +41,36 @@ struct Address: Codable, CustomStringConvertible {
 extension Address {
     var short: String {
         value.count < 10 ? "\(value)" : "\(value.prefix(6))...\(value.suffix(4))"
+    }
+}
+
+// MARK: - EIP-55
+
+extension Address {
+    var checksum: String? {
+        let lowercasedAddress = value.lowercased().stripHexPrefix()
+        guard let hash = lowercasedAddress.data(using: .utf8)?.sha3(.keccak256).toHexString() else {
+            return nil
+        }
+
+        var checksumAddress = "0x"
+        for (character, hashCharacter) in zip(lowercasedAddress, hash) {
+            if let intVal = Int(String(hashCharacter), radix: 16), intVal >= 8 {
+                checksumAddress += String(character).uppercased()
+            } else {
+                checksumAddress += String(character)
+            }
+        }
+
+        return checksumAddress
+    }
+}
+
+fileprivate extension String {
+    func stripHexPrefix() -> String {
+        if self.hasPrefix("0x") {
+            return String(self.dropFirst(2))
+        }
+        return self
     }
 }

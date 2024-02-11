@@ -14,8 +14,8 @@ protocol EventData {}
 extension Proposal: EventData {}
 
 struct TimelineEvent: Decodable, Identifiable {
-    var id: Date {
-        createdAt
+    var id: Int {
+        Int.random(in: 1..<Int.max)
     }
 
     let createdAt: Date

@@ -9,10 +9,11 @@
 import SwiftUI
 import Firebase
 import SwiftData
+import CoinbaseWalletSDK
 
 let appContainer: ModelContainer = {
     do {
-        return try ModelContainer(for: UserProfile.self)
+        return try ModelContainer(for: UserProfile.self, DaoTermsAgreement.self)
     } catch {
         fatalError("Failed to create App container")
     }
@@ -21,18 +22,22 @@ let appContainer: ModelContainer = {
 @main
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
-    @StateObject private var activeSheetManger = ActiveSheetManager()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
+    @Setting(\.unreadEvents) private var unreadEvents
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManger)
+                .environmentObject(activeSheetManager)
                 .onAppear() {
                     colorSchemeManager.applyColorScheme()
+                }
+                .onOpenURL { url in
+                    handleDeepLink(url)
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
@@ -44,24 +49,31 @@ struct GoverlandApp: App {
                         // Also called when closing system dialogue to enable push notifications.
                         if !authToken.isEmpty {
                             logInfo("[App] Auth Token: \(authToken)")
-                            InboxDataSource.shared.refresh()
+                            // If the app was not used for a while and a user opens it
+                            // try to get a new counter for unread messages.
+                            if TabManager.shared.selectedTab != .inbox {
+                                // We make this check not to dismiss Cast Your Vote Success View
+                                // Which can be done from InboxView
+                                InboxDataSource.shared.refresh()
+                            }
                         } else {
                             logInfo("[App] Auth Token is empty")
+                            unreadEvents = 0
                         }
                     case .background:
                         logInfo("[App] Did enter background")
                     @unknown default: break
                     }
                 }
-                .sheet(item: $activeSheetManger.activeSheet) { item in
+                .sheet(item: $activeSheetManager.activeSheet) { item in
                     switch item {
                     case .signIn:
-                        SignInView()
+                        SignInView(source: .popover)
                     case .daoInfo(let dao):
                         NavigationStack {
                             DaoInfoView(dao: dao)
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -70,7 +82,7 @@ struct GoverlandApp: App {
                         NavigationStack {
                             AddSubscriptionView()
                         }
-                        .accentColor(.textWhite)
+                        .tint(.textWhite)
                         .overlay {
                             ToastView()
                         }
@@ -89,13 +101,28 @@ struct GoverlandApp: App {
         }
         .modelContainer(appContainer)
     }
+
+    // MARK: - Universal & Deep links support
+
+    private func handleDeepLink(_ url: URL) {
+        logInfo("[App] Open via a link: \(url.absoluteString)")
+
+        if (try? CoinbaseWalletSDK.shared.handleResponse(url)) == true {
+            logInfo("[CoinbaseWallet] Handled universal link")
+            return
+        }
+    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Setup logging
+        GLogger.append(handler: SystemLogHandler())
+        GLogger.append(handler: CrashlyticsLogHandler())
+
         // Setup App Tracking
-        Tracker.append(handler: ConsoleTrackingHandler())
+        Tracker.append(handler: LogInfoTrackingHandler())
         Tracker.append(handler: FirebaseTrackingHandler())
 
         // Very important line of code. Do not remove it.
@@ -106,6 +133,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
         _ = WC_Manager.shared
+
+        // Configure CoinbaseWalletSDK
+        _ = CoinbaseWalletManager.shared
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
@@ -148,6 +178,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
+
+        guard let pushId = userInfo["id"] as? String else {
+            logError(GError.wrongPushNotificationFormat)
+            return
+        }
+
+        NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
+
+//        // paired with NotificationService
+//        switch response.actionIdentifier {
+//        case "action1":
+//            print("action 1 should be running")
+//            break
+//        case "action2":
+//            print("action 2 should be running")
+//            break
+//        default:
+//            print("unknowen action item")
+//            break
+//        }
+        
         completionHandler()
     }
 }
@@ -156,6 +207,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         logInfo("[FIREBASE] FCM Token: \(fcmToken ?? "unknown")")
         // Try to notify backend. It will make a check that notifications are enabled by user.
-        NotificationsManager.shared.enableNotifications()
+        NotificationsManager.shared.enableNotificationsIfNeeded()
     }
 }

@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct SearchView: View {
     @StateObject var model = SearchModel.shared
 
@@ -17,18 +16,20 @@ struct SearchView: View {
     @StateObject var proposals = TopProposalsDataSource.search
     @StateObject var proposalsSearch = ProposalsSearchDataSource()
 
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private var searchPrompt: String {
         switch model.filter {
         case .daos:
-            if let total = daos.totalDaos.map(String.init) {
-                return "Search for \(total) DAOs by name"
+            if let total = daos.totalDaos {
+                let totalStr = Utils.formattedNumber(Double(total))
+                return "Search for \(totalStr) DAOs by name"
             }
             return ""
         case .proposals:
-            if let total = proposals.totalProposals.map(String.init) {
-                return "Search for \(total) proposals by name"
+            if let total = proposals.totalProposals {
+                let totalStr = Utils.formattedNumber(Double(total))
+                return "Search for \(totalStr) proposals by name"
             }
             return ""
         }
@@ -54,10 +55,11 @@ struct SearchView: View {
                         ZStack {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
-                                                activeSheetManager: activeSheetManger,
-                                                onSelectDaoFromGroup: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
-                                                onSelectDaoFromCategoryList: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
-                                                onSelectDaoFromCategorySearch: { dao in activeSheetManger.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
+                                                showRecentlyViewedDAOs: true,
+                                                activeSheetManager: activeSheetManager,
+                                                onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                                onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
+                                                onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
                                                 onFollowToggleFromCard: { if $0 { Tracker.track(.searchDaosFollowFromCard) } },
                                                 onFollowToggleFromCategoryList: { if $0 { Tracker.track(.searchDaosFollowFromCtgList) } },
@@ -88,7 +90,7 @@ struct SearchView: View {
                     switch model.filter {
                     case .daos:
                         DaosSearchListView(onSelectDao: { dao in
-                            activeSheetManger.activeSheet = .daoInfo(dao)
+                            activeSheetManager.activeSheet = .daoInfo(dao)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
                                            onFollowToggle: { didFollow in
@@ -114,20 +116,22 @@ struct SearchView: View {
                     proposals.refresh()
                 case .daos:
                     daos.refresh()
+                    RecentlyViewedDaosDataSource.search.refresh()
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Explore")
+                        Text("Search")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
             }
             .onAppear() {
                 daos.refresh()
+                RecentlyViewedDaosDataSource.search.refresh()
             }
         }
     }

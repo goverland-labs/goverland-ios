@@ -11,7 +11,7 @@ import SwiftUI
 struct DashboardHotProposalsView: View {
     @StateObject var dataSource = TopProposalsDataSource.dashboard
     @Binding var path: NavigationPath
-    @EnvironmentObject private var activeSheetManger: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         Group {
@@ -27,7 +27,7 @@ struct DashboardHotProposalsView: View {
             } else {
                 ForEach(dataSource.proposals.prefix(3)) { proposal in
                     ProposalListItemCondensedView(proposal: proposal) {
-                        activeSheetManger.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.dashHotOpenDao)
                     }
                     .padding(.horizontal, 12)

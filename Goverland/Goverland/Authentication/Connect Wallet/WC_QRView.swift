@@ -14,12 +14,12 @@ struct WC_QRView: View {
     let connectWalletModel: ConnectWalletModel
 
     @StateObject private var model = QRViewModel()
-    @StateObject private var orientationManager = DeviceOrientationManager()
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
 
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.black.opacity(0.2))
+                .foregroundStyle(Color.black.opacity(0.2))
                 .onTapGesture {
                     connectWalletModel.hideQR()
                 }
@@ -29,7 +29,7 @@ struct WC_QRView: View {
 
                 Rectangle()
                     .id(orientationManager.currentOrientation)
-                    .foregroundColor(.containerBright)
+                    .foregroundStyle(Color.containerBright)
                     .frame(maxWidth: .infinity, maxHeight: viewHeight)
                     .mask(TopRoundedCornerShape(radius: 40))
                     .overlay(
@@ -40,7 +40,7 @@ struct WC_QRView: View {
                                     connectWalletModel.hideQR()
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.textWhite40)
+                                        .foregroundStyle(Color.textWhite40)
                                         .font(.system(size: 26))
                                 }
                             }
@@ -48,7 +48,7 @@ struct WC_QRView: View {
 
                             Text("Scan with your Wallet \u{20F0}")
                                 .font(.headlineSemibold)
-                                .foregroundColor(.textWhite)
+                                .foregroundStyle(Color.textWhite)
 
                             if let uri = model.uri {
                                 QRView(content: uri, edge: qrEdge)
@@ -58,7 +58,7 @@ struct WC_QRView: View {
 
                             Text("\u{20F0} Wallet should support WalletConnect")
                                 .font(.footnoteRegular)
-                                .foregroundColor(.textWhite60)
+                                .foregroundStyle(Color.textWhite60)
 
                             Spacer()
                         }

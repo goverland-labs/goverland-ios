@@ -7,11 +7,12 @@
 //
 
 import SwiftUI
-import SwiftDate
 
-enum ProfileScreen {
+enum ProfileScreen: Hashable {
     case settings
-    case subscriptions
+    case followedDaos
+    case votes
+    case vote(Proposal)
 
     // Settings
     case pushNofitications
@@ -29,11 +30,12 @@ struct ProfileView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 if authToken.isEmpty {
-                    SignInView()
+                    SignInView(source: .profile)
                 } else {
-                    _ProfileView()
+                    _ProfileView(path: $path)
                 }
             }
+            .id(authToken) // to forse proper refresh on sign out / sign in
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -41,7 +43,7 @@ struct ProfileView: View {
                     VStack {
                         Text("Profile")
                             .font(.title3Semibold)
-                            .foregroundColor(Color.textWhite)
+                            .foregroundStyle(Color.textWhite)
                     }
                 }
 
@@ -56,9 +58,14 @@ struct ProfileView: View {
             .navigationDestination(for: ProfileScreen.self) { profileScreen in
                 switch profileScreen {
                 case .settings: SettingsView()
-                case .subscriptions: SubscriptionsView()
+                case .followedDaos: FollowedDaosView()
+                case .votes: ProfileVotesListView(path: $path)
+                case .vote(let proposal):
+                    SnapshotProposalView(proposal: proposal,
+                                         allowShowingDaoInfo: true,
+                                         navigationTitle: proposal.dao.name)
 
-                    // Settings
+                // Settings
                 case .pushNofitications: PushNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
@@ -71,63 +78,139 @@ struct ProfileView: View {
 }
 
 fileprivate struct _ProfileView: View {
+    @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileDataSource.shared
+    @State private var showSignIn = false
 
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
             } else if dataSource.profile == nil { // is loading
-                ShimmerProfileHeaderView()
+                _ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = dataSource.profile {
-                ProfileHeaderView(user: profile.account)
-                ProfileListView(profile: profile)
+                _ProfileHeaderView(user: profile.account)
+
+                FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
+
+                switch dataSource.filter {
+                case .activity:
+                    if profile.role == .guest {
+                        _SignInToVoteButton {
+                            showSignIn = true
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 16)
+                    }
+
+                    _ProfileListView(profile: profile, path: $path)
+                case .achievements:
+                    if profile.role != .guest {
+                        AchievementsView()
+                    } else {
+                        GuestAchievementsView()
+                    }
+                }
             }
         }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView()
+                .presentationDetents([.height(500), .large])
+        }
         .onAppear {
+            Tracker.track(.screenProfile)
             if dataSource.profile == nil {
                 dataSource.refresh()
             }
         }
     }
+
+    struct _SignInToVoteButton: View {
+        let action: () -> Void
+
+        var body: some View {
+            Button(action: {
+                action()
+            }) {
+                HStack {
+                    Text("Sign in to vote")
+                    Spacer()
+                }
+                .frame(height: 54)
+                .padding(.horizontal, 16)
+                .background(Color.primary)
+                .cornerRadius(12)
+                .tint(.onPrimary)
+                .font(.headlineSemibold)
+            }
+        }
+    }
 }
 
-fileprivate struct ProfileHeaderView: View {
+fileprivate struct _ProfileHeaderView: View {
     let user: User?
 
     var body: some View {
         VStack(alignment: .center) {
-            if let user {
-                RoundPictureView(image: user.avatar, imageSize: 70)
-            } else {
-                Circle()
-                    .frame(width: 70, height: 70)
-                    .foregroundColor(.containerBright)
-            }
-
-            ZStack {
-                if let name = user?.resolvedName {
-                    Text(name)
-                        .truncationMode(.tail)
-                } else {
-                    Text("Unnamed")
+            VStack(spacing: 12) {
+                if let user {
+                    RoundPictureView(image: user.avatar(size: .l), imageSize: Avatar.Size.l.profileImageSize)
+                    ZStack {
+                        if let name = user.resolvedName {
+                            Text(name)
+                                .truncationMode(.tail)
+                        } else {
+                            Button {
+                                UIPasteboard.general.string = user.address.value
+                                showToast("Address copied")
+                            } label: {
+                                Text(user.address.short)
+                            }
+                        }
+                    }
+                    .font(.title3Semibold)
+                    .lineLimit(1)
+                    .foregroundStyle(Color.textWhite)
+                } else { // Guest profile
+                    Image("guest-profile")
+                        .frame(width: Avatar.Size.l.profileImageSize, height: Avatar.Size.l.profileImageSize)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                    Text("Guest")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
-            .font(.title3Semibold)
-            .lineLimit(1)
-            .foregroundColor(.textWhite)
+            .padding(.bottom, 6)
         }
         .padding(24)
     }
+
+    struct CounterView: View {
+        let counter: Int
+        let title: String
+
+        var body: some View {
+            VStack(spacing: 4) {
+                Text("\(counter)")
+                    .font(.bodySemibold)
+                    .foregroundStyle(Color.textWhite)
+                Text(title)
+                    .font(.bodyRegular)
+                    .foregroundStyle(Color.textWhite60)
+            }
+        }
+    }
 }
 
-fileprivate struct ShimmerProfileHeaderView: View {
+
+fileprivate struct _ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()
-                .frame(width: 70, height: 70)
-                .cornerRadius(35)
+                .frame(width: Avatar.Size.l.profileImageSize, height: Avatar.Size.l.profileImageSize)
+                .cornerRadius(Avatar.Size.l.profileImageSize / 2)
 
             ShimmerView()
                 .cornerRadius(24)
@@ -137,101 +220,24 @@ fileprivate struct ShimmerProfileHeaderView: View {
     }
 }
 
-fileprivate struct ProfileListView: View {
+fileprivate struct _ProfileListView: View {
     let profile: Profile
-
-    var user: User? {
-        profile.account
-    }
-
-    @State private var isDeleteProfilePopoverPresented = false
-    @State private var isSignOutPopoverPresented = false
+    @Binding var path: [ProfileScreen]
 
     var body: some View {
-        List {
-            Section {
-                NavigationLink("My followed DAOs", value: ProfileScreen.subscriptions)
-                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
-            
-            if let user {
-                Section {
-                    HStack {
-                        Text("Account")
-                        Spacer()
-                    }
-                    .foregroundColor(Color.onPrimary)
-                    .listRowBackground(Color.primaryDim)
+        ScrollView {
+            ProfileFollowedDAOsView(profile: profile)
 
-                    HStack(spacing: 8) {
-                        UserPictureView(user: user, imageSize: 20)
+            if let user = profile.account {
+                ConnectedWalletView(user: user)
 
-                        if let name = user.resolvedName {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(name)
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-                                Text(user.address.short)
-                                    .font(.сaptionRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-                        } else {
-                            Text(user.address.short)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                        }
-
-                        Spacer()
-                    }
-                }
-            }
-
-            Section(header: Text("Devices")) {
-                ForEach(profile.sessions) { s in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(s.deviceName)
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                            
-                            if s.lastActivity + 10.minutes > .now {
-                                Text("Online")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            } else {
-                                let activity = s.lastActivity.toRelative(since:  DateInRegion(), dateTimeStyle: .numeric, unitsStyle: .full)
-                                Text("Last activity \(activity)")
-                                    .font(.footnoteRegular)
-                                    .foregroundColor(.textWhite60)
-                            }
-                        }
-                        Spacer()
-                    }
-                }
-            }
-
-            Section() {
-                Button("Sign out") {
-                    isSignOutPopoverPresented.toggle()
-                }
-                .tint(Color.textWhite)
-
-                Button("Delete profile") {
-                    isDeleteProfilePopoverPresented.toggle()
-                }
-                .tint(Color.textWhite)
+                ProfileVotesView(path: $path)
             }
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
-        }
-        .sheet(isPresented: $isDeleteProfilePopoverPresented) {
-            DeleteProfilePopoverView()
-                .presentationDetents([.medium, .large])
-        }
-        .popover(isPresented: $isSignOutPopoverPresented) {
-            SignOutPopoverView()
-                .presentationDetents([.fraction(0.15)])
+            FollowedDaosDataSource.followedDaos.refresh()
+            ProfileVotesDataSource.shared.refresh()
         }
     }
 }

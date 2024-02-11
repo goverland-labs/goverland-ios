@@ -49,14 +49,20 @@ struct DaoListItemView: View {
 
     var body: some View {
         HStack {
-            RoundPictureView(image: dao.avatar, imageSize: 50)
+            DAORoundViewWithActiveVotes(dao: dao) { onSelectDao?(dao) }
             VStack(alignment: .leading, spacing: 4) {
-                Text(dao.name)
-                    .font(.headlineRegular)
-                    .foregroundColor(.textWhite)
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.headlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                    if dao.verified {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
                 Text(voters)
                     .font(.caption2)
-                    .foregroundColor(.textWhite60)
+                    .foregroundStyle(Color.textWhite60)
             }
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id, onFollowToggle: onFollowToggle)
@@ -73,8 +79,8 @@ struct ShimmerDaoListItemView: View {
     var body: some View {
         HStack {
             ShimmerView()
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
+                .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                .cornerRadius(Avatar.Size.m.daoImageSize / 2)
             VStack(alignment: .leading, spacing: 4) {
                 ShimmerView()
                     .frame(width: 150, height: 18)
@@ -91,16 +97,3 @@ struct ShimmerDaoListItemView: View {
         .listRowSeparator(.hidden)
     }
 }
-
-struct DapListItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            DaoListItemView(dao: .aave,
-                            subscriptionMeta: nil,
-                            onSelectDao: nil,
-                            onFollowToggle: nil)
-            ShimmerDaoListItemView()
-        }
-    }
-}
-

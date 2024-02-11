@@ -37,13 +37,16 @@ struct FollowButtonView: View {
                 if authToken.isEmpty {
                     NotificationCenter.default.post(name: .unauthorizedActionAttempt, object: nil)
                 } else {
+                    if !isFollowing {
+                        Haptic.medium()
+                    }
                     dataSource.toggle()
                 }
             }) {
                 Text(isFollowing ? "Following" : "Follow")
             }
             .frame(width: buttonWidth, height: buttonHeight, alignment: .center)
-            .foregroundColor(isFollowing ? .onSecondaryContainer : .onPrimary)
+            .foregroundStyle(isFollowing ? Color.onSecondaryContainer : .onPrimary)
             .font(.footnoteSemibold)
             .background(isFollowing ? Color.secondaryContainer : Color.primary)
             .cornerRadius(buttonHeight / 2)

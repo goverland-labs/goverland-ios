@@ -21,7 +21,7 @@ struct EcosystemDashboardView: View {
             }
             .pickerStyle(.segmented)
             .padding(.bottom)
-            .onChange(of: selectedDuration) { newValue in
+            .onChange(of: selectedDuration) { _, newValue in
                 dataSource.periodInDays = newValue
                 dataSource.refreshWithCache()
             }
@@ -31,22 +31,27 @@ struct EcosystemDashboardView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading {
-                // TODO: make shimmer view
-                Spacer()
-                ProgressView()
-                    .foregroundColor(.textWhite20)
-                    .controlSize(.regular)
-                Spacer()
+                HStack {
+                    ShimmerBrickView()
+                    ShimmerBrickView()
+                }
+                
+                HStack {
+                    ShimmerBrickView()
+                    ShimmerBrickView()
+                }
             } else {
                 HStack {
                     BrickView(header: "Active DAOs",
+                              description: "Number of DAOs that created proposal(s) on Snapshot in the selected period.",
                               data: dataSource.dataActiveDaos,
                               metadata: dataSource.metadataActiveDaos,
                               metadataColor: dataSource.metadataColorForActiveDaos,
                               isLoading: dataSource.isLoading,
                               failedToLoadInitialData: dataSource.failedToLoadInitialData,
                               onRefresh: dataSource.refresh)
-                    BrickView(header: "Active voters",
+                    BrickView(header: "Active voters", 
+                              description: "Number of unique voters on Snapshot participating in the selected period.",
                               data: dataSource.dataActiveVoters,
                               metadata: dataSource.metadataActiveVoters,
                               metadataColor: dataSource.metadataColorForActiveVoters,
@@ -56,14 +61,16 @@ struct EcosystemDashboardView: View {
                 }
                 
                 HStack {
-                    BrickView(header: "Created proposals",
+                    BrickView(header: "Created proposals", 
+                              description: "Number of proposals created by DAOs on Snapshot in the selected period.",
                               data: dataSource.dataCreatedProposals,
                               metadata: dataSource.metadataCreatedProposals,
                               metadataColor: dataSource.metadataColorForCreatedProposals,
                               isLoading: dataSource.isLoading,
                               failedToLoadInitialData: dataSource.failedToLoadInitialData,
                               onRefresh: dataSource.refresh)
-                    BrickView(header: "Total votes",
+                    BrickView(header: "Total votes", 
+                              description: "Number of votes across all proposals on Snapshot in the selected period.",
                               data: dataSource.dataTotalVotes,
                               metadata: dataSource.metadataTotalVotes,
                               metadataColor: dataSource.metadataColorForTotalVotes,
@@ -72,8 +79,7 @@ struct EcosystemDashboardView: View {
                               onRefresh: dataSource.refresh)
                 }
             }
-            
         }
-        .padding([.horizontal, .bottom])
+        .padding(.horizontal, 8)
     }
 }

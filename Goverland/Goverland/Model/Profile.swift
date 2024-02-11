@@ -13,11 +13,12 @@ struct Profile: Codable {
     let id: UUID
     let role: Role
     let account: User?
-    let sessions: [Session]
+    let sessions: [Session]    
+    let subscriptionsCount: Int
 
     enum Role: String, Codable {
-        case guest = "GUEST"
-        case regular = "REGULAR"
+        case guest = "guest"
+        case regular = "regular"
     }
 
     enum CodingKeys: String, CodingKey {
@@ -25,6 +26,7 @@ struct Profile: Codable {
         case role
         case account
         case sessions = "last_sessions"
+        case subscriptionsCount = "subscriptions_count"
     }
 }
 
@@ -36,7 +38,7 @@ struct Session: Codable, Identifiable {
     let deviceName: String
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case id = "session_id"
         case created = "created_at"
         case lastActivity = "last_activity_at"
         case deviceId = "device_id"

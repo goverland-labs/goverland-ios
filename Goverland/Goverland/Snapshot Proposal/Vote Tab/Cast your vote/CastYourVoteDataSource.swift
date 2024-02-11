@@ -10,6 +10,7 @@
 import Foundation
 import Combine
 import WalletConnectSign
+import CoinbaseWalletSDK
 
 class CastYourVoteDataSource: ObservableObject {
     let proposal: Proposal
@@ -26,7 +27,7 @@ class CastYourVoteDataSource: ObservableObject {
     @Published var isSubmitting = false
     @Published var submitted = false
 
-    @Published var votingPower = 0
+    @Published var votingPower: Double = 0.0
     @Published var errorMessage: String?
     
     @Published var failedToValidate = false
@@ -35,9 +36,10 @@ class CastYourVoteDataSource: ObservableObject {
 
     private let failedToValidateMessage = "Failed to validate. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
     private let failedToVoteMessage = "Failed to vote. Please try again later. If the problem persists, don't hesitate to contact our team in Discord, and we will try to help you."
-    private let openWalletMessage = "Please open your wallet to sign the vote."
+    private let openWalletMessage = "Please open your wallet to sign the vote"
 
     private var voteRequestId: UUID?
+    private var wcRequestId: Int64?
 
     var isShieldedVoting: Bool {
         proposal.privacy == .shutter
@@ -125,6 +127,7 @@ class CastYourVoteDataSource: ObservableObject {
         infoMessage = nil
         isPreparing = true
         voteRequestId = nil
+        wcRequestId = nil
 
         let normalizedReason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
         let reason = normalizedReason.isEmpty ? nil : normalizedReason
@@ -147,22 +150,73 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     private func signTypedData(_ typedData: String, address: String) {
-        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
-        guard let session = WC_Manager.shared.sessionMeta?.session else { return }
-        let params = AnyCodable([address, typedData])
+        if let account = CoinbaseWalletManager.shared.account, account.address.lowercased() == address.lowercased() {
+            signTypedData_CoinbaseWallet(typedData, address: address)
+        } else if let session = WC_Manager.shared.sessionMeta?.session {
+            signTypedData_WC(typedData, address: address, topic: session.topic)
+        } else {
+            logInfo("[App] No wallet connected to sign typed data")
+        }
+    }
 
-        // TODO: check if all popular wallets support eth_sighTypedData_v4
+    private func signTypedData_CoinbaseWallet(_ typedData: String, address: String) {
+        logInfo("[CoinbaseWallet] eth_signTypedData(_v4): \(typedData)")
+
+        CoinbaseWalletSDK.shared.makeRequest(
+            Request(actions: [
+                Action(
+                    jsonRpc: .eth_signTypedData_v4(
+                        address: address,
+                        typedDataJson: JSONString(rawValue: typedData)!
+                    )
+                )
+            ])
+        ) { [weak self] result in
+            switch result {
+            case .success(let message):
+                logInfo("[CoinbaseWallet] Signing vote response: \(message)")
+
+                guard let result = message.content.first else {
+                    logInfo("[CoinbaseWallet] Did not get any result for vote signing")
+                    return
+                }
+
+                switch result {
+                case .success(let signature_JSONString):
+                    let signature = signature_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                    logInfo("[CoinbaseWallet] Vote signature: \(signature)")
+                    self?.submiteVote(signature: signature)
+
+                case .failure(let actionError):
+                    logInfo("[CoinbaseWallet] Signing vote action error: \(actionError)")
+                    showToast(actionError.message)
+                }
+
+            case .failure(let error):
+                logInfo("[CoinbaseWallet] Signing vote error: \(error)")
+                CoinbaseWalletManager.disconnect()
+                showToast("Please reconnect Coinbase Wallet")
+            }
+        }
+    }
+
+    private func signTypedData_WC(_ typedData: String, address: String, topic: String) {
+        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
+
+        let params = AnyCodable([address, typedData])
         let request = Request(
-            topic: session.topic,
+            topic: topic,
             method: "eth_signTypedData_v4",
             params: params,
             chainId: Blockchain("eip155:1")!)
+
+        self.wcRequestId = request.id.integer
 
         Task {
             try? await Sign.instance.request(params: request)
         }
 
-        if let redirectUrl = WC_Manager.walletRedirectUrl {
+        if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
             openUrl(redirectUrl)
         } else {
             infoMessage = openWalletMessage
@@ -173,19 +227,32 @@ class CastYourVoteDataSource: ObservableObject {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] response in
-                logInfo("[WC] Response: \(response)")
+                guard let self = `self` else { return }
+
+                guard response.id.integer == self.wcRequestId else {
+                    // Might happen when a user sends request twice, but wallet signs the first message
+                    // that is already invalidated.
+                    logInfo("[WC] Response id doesn't match expected id")
+                    showToast("The app received a signature for an invalidated request. Please sign the latest message.")
+                    return
+                }
+
+                logInfo("[WC] Vote signing response: \(response)")
+
                 switch response.result {
                 case .error(let rpcError):
-                    logInfo("[WC] Error: \(rpcError)")
+                    logInfo("[WC] Vote signing error: \(rpcError)")
+                    showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
                     showToast(rpcError.localizedDescription)
                 case .response(let signature):
                     // signature here is AnyCodable
                     guard let signatureStr = signature.value as? String else {
-                        logError(GError.appInconsistency(reason: "Expected signature as string. Got \(signature)"))
+                        logError(GError.appInconsistency(reason: "Expected vote signature as string. Got \(signature)"))
                         return
                     }
-                    logInfo("[WC] Signature: \(signatureStr)")
-                    self?.submiteVote(signature: signatureStr)
+                    logInfo("[WC] Vote signature: \(signatureStr)")
+                    showLocalNotification(title: "Signature response received", body: "Open the App to proceed")
+                    self.submiteVote(signature: signatureStr)
                 }
             }
             .store(in: &cancellables)
@@ -194,7 +261,7 @@ class CastYourVoteDataSource: ObservableObject {
     private func submiteVote(signature: String) {
         isSubmitting = true
         guard let voteRequestId else { return }
-        APIService.submitVote(proposal: proposal, id: voteRequestId, signature: signature)
+        APIService.submitVote(id: voteRequestId, signature: signature)
             .sink { [weak self] completion in
                 guard let `self` = self else { return }
                 self.isSubmitting = false

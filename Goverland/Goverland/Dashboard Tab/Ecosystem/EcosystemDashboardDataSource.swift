@@ -56,7 +56,7 @@ class EcosystemDashboardDataSource: ObservableObject {
         return metadataColor(current: charts?.daos.current, previous: charts?.daos.previous)
     }
 
-    // Voters Chart Data
+    // MARK: - Voters Chart Data
     var dataActiveVoters: String {
         return formattedDataString(current: charts?.voters.current, previous: nil)
     }
@@ -69,7 +69,7 @@ class EcosystemDashboardDataSource: ObservableObject {
         return metadataColor(current: charts?.voters.current, previous: charts?.voters.previous)
     }
 
-    // Proposals Chart Data
+    // MARK: - Proposals Chart Data
     var dataCreatedProposals: String {
         return formattedDataString(current: charts?.proposals.current, previous: nil)
     }
@@ -102,7 +102,7 @@ class EcosystemDashboardDataSource: ObservableObject {
             charts = cashCharts30Days
         }
 
-        if charts == nil || cachedDate > .now - 1.days {
+        if charts == nil || cachedDate < .now - 1.days {
             refresh()
         }
     }

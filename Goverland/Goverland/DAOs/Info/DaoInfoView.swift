@@ -50,7 +50,7 @@ struct DaoInfoView: View {
             if dataSource.isLoading {
                 // Unfortunately shimmer or reducted view here breaks presentation in a popover view
                 ProgressView()
-                    .foregroundColor(.textWhite20)
+                    .foregroundStyle(Color.textWhite20)
                     .controlSize(.regular)
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
@@ -71,7 +71,6 @@ struct DaoInfoView: View {
                 }
             }
         }
-        .navigationTitle(dataSource.dao?.name ?? "DAO")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -82,13 +81,27 @@ struct DaoInfoView: View {
                     Image(systemName: "xmark")
                 }
             }
+
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text(dao?.name ?? "DAO")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
+
+                    if dao?.verified ?? false {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
+            }
+
             if let dao = dao {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
                         DaoSharingMenu(dao: dao)
                     } label: {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
                             .fontWeight(.bold)
                             .frame(height: 20)
                     }
@@ -98,12 +111,12 @@ struct DaoInfoView: View {
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
             case .signIn:
-                SignInView()
+                SignInView(source: .popover)
             case .daoInfo(let dao):
                 NavigationStack {
                     DaoInfoView(dao: dao)
                 }
-                .accentColor(.textWhite)
+                .tint(.textWhite)
                 .overlay {
                     ToastView()
                 }

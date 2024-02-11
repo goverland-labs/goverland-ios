@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import WalletConnectModal
+import CoinbaseWalletSDK
 
 class ConnectWalletModel: ObservableObject {
     @Published private(set) var connecting = false
@@ -30,17 +31,37 @@ class ConnectWalletModel: ObservableObject {
 
     func connect(wallet: Wallet) {
         connecting = true
-        Task {
-            do {
-                guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
-                        let url = URL(string: "\(wallet.link)/wc?uri=\(wcUri.deeplinkUri)")
-                else {
-                    return
+        if wallet == .coinbase {
+            CoinbaseWalletSDK.shared.initiateHandshake(
+                initialActions: [
+                    Action(jsonRpc: .eth_requestAccounts)
+                ]
+            ) { result, account in
+                switch result {
+                case .success(let response):
+                    logInfo("[CoinbaseWallet] Response: \(response)")
+                    guard let account = account else { return }
+                    logInfo("[CoinbaseWallet] Account: \(account)")
+                    CoinbaseWalletManager.shared.account = account
+                    Tracker.track(.walletConnected)
+                case .failure(let error):
+                    logInfo("[CoinbaseWallet] Error: \(error)")
+                    showToast("Connection request denied")
                 }
-                logInfo("[WC] URI: \(String(describing: wcUri))")
-                openUrl(url)
-            } catch {
-                showToast("Failed to connect. Please try again later.")
+            }
+        } else {
+            Task {
+                do {
+                    guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
+                          let url = URL(string: "\(wallet.link)/wc?uri=\(wcUri.deeplinkUri)")
+                    else {
+                        return
+                    }
+                    logInfo("[WC] URI: \(String(describing: wcUri))")
+                    openUrl(url)
+                } catch {
+                    showToast("Failed to connect. Please try again later.")
+                }
             }
         }
         connecting = false
@@ -50,9 +71,11 @@ class ConnectWalletModel: ObservableObject {
         Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] session in
-                logInfo("[WC] Session settle: \(session)")
                 guard let `self` = self else { return }
+                logInfo("[WC] Session settle: \(session)")
+                showLocalNotification(title: "Wallet connected", body: "Open the App to proceed")
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
+                Tracker.track(.walletConnected)
             }
             .store(in: &cancellables)
     }

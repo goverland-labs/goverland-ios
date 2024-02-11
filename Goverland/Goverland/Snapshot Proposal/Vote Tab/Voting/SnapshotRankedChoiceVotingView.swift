@@ -63,7 +63,7 @@ fileprivate struct SnapshotRankedChoiceVotingButtonView: View {
                 HStack {
                     Text(choiceIndex != nil ? "(\(choiceIndex!))" : "")
                         .padding(.leading)
-                        .foregroundColor(.onSecondaryContainer)
+                        .foregroundStyle(Color.onSecondaryContainer)
                         .font(.footnoteSemibold)
                     Spacer()
                 }
@@ -72,7 +72,7 @@ fileprivate struct SnapshotRankedChoiceVotingButtonView: View {
                     Spacer()
                     Text(choice)
                         .padding()
-                        .foregroundColor(.onSecondaryContainer)
+                        .foregroundStyle(Color.onSecondaryContainer)
                         .font(.footnoteSemibold)
                     Spacer()
                 }

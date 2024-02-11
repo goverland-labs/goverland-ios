@@ -16,23 +16,13 @@ struct SignInTwoStepsView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.textWhite40)
-                        .font(.system(size: 24))
-                }
-            }
-
             Text("Sign In")
                 .font(.title3Semibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
+                .padding(.top, 8)
 
             Image("wallet")
-                .frame(minWidth: 128, maxWidth: 192)
+                .frame(width: 192)
                 .scaledToFit()
                 .padding(16)
 
@@ -44,33 +34,65 @@ struct SignInTwoStepsView: View {
                     Text("Connect wallet")
                 }
                 .font(.bodySemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
                 Spacer()
 
                 if let sessionMeta = dataSource.wcSessionMeta {
                     VStack(alignment: .trailing, spacing: 4) {
                         HStack {
-                            if let iconStr = sessionMeta.session.peer.icons.first,
-                               let iconUrl = URL(string: iconStr) {
-                                RoundPictureView(image: iconUrl, imageSize: 24)
+                            if let walletImage = sessionMeta.walletImage {
+                                walletImage
+                                    .frame(width: 24, height: 24)
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else if let walletImageUrl = sessionMeta.walletImageUrl {
+                                RoundPictureView(image: walletImageUrl, imageSize: 24)
                             }
+
                             Image(systemName: "checkmark.circle.fill")
-                                .accentColor(.primaryDim)
+                                .tint(.primaryDim)
                                 .font(.system(size: 24))
                         }
+
                         Button(action: {
                             showSelectWallet = true
                         }) {
                             Text("Change wallet")
-                                .foregroundColor(.primaryDim)
+                                .foregroundStyle(Color.primaryDim)
+                                .font(.footnoteRegular)
+                        }
+                    }
+                } else if dataSource.cbWalletAccount != nil {
+                    VStack(alignment: .trailing, spacing: 4) {
+                        HStack {
+                            Image(Wallet.coinbase.image)
+                                .frame(width: 24, height: 24)
+                                .scaledToFit()
+                                .clipShape(Circle())
+
+                            Image(systemName: "checkmark.circle.fill")
+                                .tint(.primaryDim)
+                                .font(.system(size: 24))
+                        }
+
+                        Button(action: {
+                            showSelectWallet = true
+                        }) {
+                            Text("Change wallet")
+                                .foregroundStyle(Color.primaryDim)
                                 .font(.footnoteRegular)
                         }
                     }
                 } else {
-                    Circle()
-                        .stroke(Color.textWhite, lineWidth: 2)
-                        .frame(width: 24)
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Circle()
+                            .stroke(Color.textWhite, lineWidth: 2)
+                            .frame(width: 24, height: 24)
+
+                        Spacer()
+                            .frame(height: 16)
+                    }
                 }
             }
 
@@ -82,23 +104,29 @@ struct SignInTwoStepsView: View {
                     Text("Sign message")
                 }
                 .font(.bodySemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
 
                 Spacer()
 
                 Circle()
                     .stroke(Color.textWhite, lineWidth: 2)
-                    .frame(width: 24)
+                    .frame(width: 24, height: 24)
+            }
+
+            if let message = dataSource.infoMessage {
+                InfoMessageView(message: message)
             }
 
             Spacer()
 
-            if dataSource.wcSessionMeta == nil {
+            if dataSource.wcSessionMeta == nil && dataSource.cbWalletAccount == nil {
                 PrimaryButton("Connect wallet") {
+                    Haptic.medium()
                     showSelectWallet = true
                 }
             } else {
                 PrimaryButton("Sign message to sign in") {
+                    Haptic.medium()
                     dataSource.authenticate()
                 }
             }
@@ -108,7 +136,7 @@ struct SignInTwoStepsView: View {
             NavigationStack {
                 ConnectWalletView()
             }
-            .accentColor(.textWhite)
+            .tint(.textWhite)
             .overlay {
                 ToastView()
             }

@@ -16,6 +16,7 @@ enum GError: Error {
     case failedVotesDecoding(proposalID: String)
     case appInconsistency(reason: String)
     case errorDecodingData(error: Error, context: String)
+    case wrongPushNotificationFormat
 
     var localizedDescription: String {
         switch self {
@@ -33,6 +34,8 @@ enum GError: Error {
             return "App inconsistency: \(reason)"
         case .errorDecodingData(let error, let context):
             return "Error decoding data: \(error.localizedDescription); Context: \(context)"
+        case .wrongPushNotificationFormat:
+            return "Received unexpected push notification format."
         }
     }
 }

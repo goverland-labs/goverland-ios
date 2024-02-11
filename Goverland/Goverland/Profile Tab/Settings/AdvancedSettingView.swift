@@ -21,41 +21,62 @@ struct AdvancedSettingView: View {
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()
+                    WC_Manager.shared.sessionMeta = nil
+                    CoinbaseWalletManager.shared.account = nil
                     try! modelContext.delete(model: UserProfile.self)
                     try! modelContext.save()
                     fatalError("Reset the app")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("CRASH") {
                     fatalError("Crash the App")
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
 
                 Button("LOG ERROR") {
                     logError(GError.appInconsistency(reason: "Debug test error logging"))
                 }
-                .accentColor(.dangerText)
+                .tint(.dangerText)
+
+                Button("Show test notification in 3 sec") {
+                    showLocalNotification(title: "Test local notification",
+                                          body: "Local notification body",
+                                          delay: 3.0)
+                }
             }
             #endif
 
-            Section(header: Text("Share anonymized data")) {
+            Section {
                 Toggle(isOn: $accepted) {
-                    Text("Allow App to Track Activity")
+                    Text("Allow app to track activity")
                 }
+                .tint(.green)
+            } header: {
+                Text("Share anonymized data")
+            } footer: {
+                Text("To ensure the quality of our app, we collect anonymized app usage data and crash reports.")
+                    .font(.footnoteRegular)
+                    .foregroundStyle(Color.textWhite40)
             }
 
-            if let id = profiles.first(where: { $0.selected })?.deviceId {
-                Section(header: Text("Support Secret Id")) {
+            if let id = profiles.first(where: { $0.selected })?.deviceId.prefix(8) {
+                Section {
                     LabeledContent(id) {
                         Button {
-                            UIPasteboard.general.string = id
+                            UIPasteboard.general.string = String(id)
                             showToast("Copied")
                         } label: {
                             Image(systemName: "doc.on.doc")
                         }
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                     }
+                } header: {
+                    Text("Support id")
+                } footer: {
+                    Text("If you contact our support team regarding a technical issue, be ready to share this id.")
+                        .font(.footnoteRegular)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
 

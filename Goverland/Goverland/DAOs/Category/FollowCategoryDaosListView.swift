@@ -21,8 +21,9 @@ struct FollowCategoryDaosListView: View {
     let onCategoryListAppear: (() -> Void)?
     
     private var searchPrompt: String {
-        if let total = dataSource.total.map(String.init) {
-            return "Search for \(total) DAOs by name"
+        if let total = dataSource.total {
+            let totalStr = Utils.formattedNumber(Double(total))
+            return "Search for \(totalStr) DAOs by name"
         }
         return ""
     }
@@ -131,7 +132,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                 if dataSource.nothingFound {
                     Text("Nothing found")
                         .font(.body)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
                     ForEach(0..<3) { _ in
@@ -147,11 +148,5 @@ fileprivate struct CategoryDaosSearchListView: View {
                 }
             }
         }
-    }
-}
-
-struct FollowDaoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowCategoryDaosListView(category: .social)
     }
 }

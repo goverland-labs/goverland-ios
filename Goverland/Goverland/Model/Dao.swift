@@ -13,16 +13,19 @@ struct Dao: Identifiable, Decodable, Equatable {
     let id: UUID
     let alias: String
     let name: String
-    let avatar: URL?
+    let avatars: [Avatar]
     let createdAt: Date
     let activitySince: Date?
     let about: [DaoBody]?
     let categories: [DaoCategory]
     let proposals: Int
     let voters: Int
+    let activeVotes: Int
+    let verified: Bool
+
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
-    let twitter: String?
+    let X: String?
     let github: String?
     let coingecko: String?
     var terms: URL?
@@ -30,32 +33,36 @@ struct Dao: Identifiable, Decodable, Equatable {
     init(id: UUID,
          alias: String,
          name: String,
-         image: URL?,
+         avatars: [Avatar],
          createdAt: Date,
          activitySince: Date?,
          about: [DaoBody]?,
          categories: [DaoCategory],
          proposals: Int,
          voters: Int,
+         activeVotes: Int,
+         verified: Bool,
          subscriptionMeta: SubscriptionMeta?,
          website: URL?,
-         twitter: String?,
+         X: String?,
          github: String?,
          coingecko: String?,
          terms: URL?) {
         self.id = id
         self.alias = alias
         self.name = name
-        self.avatar = image
+        self.avatars = avatars
         self.createdAt = createdAt
         self.activitySince = activitySince
         self.about = about
         self.categories = categories
         self.proposals = proposals
         self.voters = voters
+        self.activeVotes = activeVotes
+        self.verified = verified
         self.subscriptionMeta = subscriptionMeta
         self.website = website
-        self.twitter = twitter
+        self.X = X
         self.github = github
         self.coingecko = coingecko
         self.terms = terms
@@ -65,16 +72,18 @@ struct Dao: Identifiable, Decodable, Equatable {
         case id
         case alias
         case name
-        case avatar
+        case avatars
         case createdAt = "created_at"
         case activitySince = "activity_since"
         case about
         case categories
         case proposals = "proposals_count"
         case voters = "voters_count"
+        case activeVotes = "active_votes"
+        case verified
         case subscriptionMeta = "subscription_info"
         case website
-        case twitter
+        case X = "twitter"
         case github
         case coingecko
         case email
@@ -87,8 +96,19 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.alias = try container.decode(String.self, forKey: .alias)
         self.name = try container.decode(String.self, forKey: .name)
 
-        // TODO: figure our with backend why sometimes avatar is Invalid URL string.
-        self.avatar = try? container.decodeIfPresent(URL.self, forKey: .avatar)
+        // falback
+        if let avatars = try container.decodeIfPresent([Avatar].self, forKey: .avatars) {
+            self.avatars = avatars
+        } else {
+            self.avatars = [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.xs.daoImageSize * 2)")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.s.daoImageSize * 2)")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.m.daoImageSize * 2)")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.l.daoImageSize * 2)")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(Avatar.Size.xl.daoImageSize * 2)")!)
+            ]
+        }
+
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.activitySince = try container.decodeIfPresent(Date.self, forKey: .activitySince)
 
@@ -106,6 +126,8 @@ struct Dao: Identifiable, Decodable, Equatable {
 
         self.proposals = try container.decode(Int.self, forKey: .proposals)
         self.voters = try container.decode(Int.self, forKey: .voters)
+        self.activeVotes = try container.decode(Int.self, forKey: .activeVotes)
+        self.verified = try container.decode(Bool.self, forKey: .verified)
 
         do {
             self.subscriptionMeta = try container.decodeIfPresent(SubscriptionMeta.self, forKey: .subscriptionMeta)
@@ -114,7 +136,7 @@ struct Dao: Identifiable, Decodable, Equatable {
         }
 
         self.website = try? container.decodeIfPresent(URL.self, forKey: .website)
-        self.twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
+        self.X = try container.decodeIfPresent(String.self, forKey: .X)
         self.github = try container.decodeIfPresent(String.self, forKey: .github)
         self.coingecko = try container.decodeIfPresent(String.self, forKey: .coingecko)
 
@@ -141,6 +163,14 @@ struct Dao: Identifiable, Decodable, Equatable {
     static func == (lhs: Dao, rhs: Dao) -> Bool {
         lhs.id == rhs.id
     }
+
+    func avatar(size: Avatar.Size) -> URL {
+        if let avatar = avatars.first(where: { $0.size == size }) {
+            return avatar.link
+        } else {
+            return URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(size.daoImageSize * 2)")!
+        }
+    }
 }
 
 enum DaoCategory: String, Identifiable, Decodable {
@@ -158,7 +188,7 @@ enum DaoCategory: String, Identifiable, Decodable {
     var id: Self { self }
     
     static var values: [DaoCategory] {[
-        .new, .popular, .social, .protocol, .investment, .creator, .service, .collector, .media, .grant
+        .popular, .new, .protocol, .grant, .service, .social, .media, .creator, .investment, .collector
     ]}
     
     var name: String {
@@ -201,16 +231,18 @@ extension Dao {
         id: UUID(),
         alias: "gnosis.eth",
         name: "Gnosis DAO",
-        image: URL(string: "https://cdn.stamp.fyi/space/gnosis.eth?s=164")!,
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 
         categories: [.protocol],
         proposals: 100,
-        voters: 4567,
+        voters: 4567, 
+        activeVotes: 2, 
+        verified: true,
         subscriptionMeta: nil,
         website: URL(string: "https://gnosis.io"),
-        twitter: "gnosisdao",
+        X: "gnosisdao",
         github: "gnosis",
         coingecko: "gnosis",
         terms: nil)
@@ -218,16 +250,18 @@ extension Dao {
         id: UUID(),
         alias: "aave.eth",
         name: "Aave",
-        image: URL(string: "https://cdn.stamp.fyi/space/aave.eth?s=164"),
+        avatars: [],
         createdAt: .now - 5.days,
         activitySince: .now - 1.years,
         about: [], 
         categories: [.protocol],
         proposals: 150,
-        voters: 45678,
+        voters: 45678, 
+        activeVotes: 20, 
+        verified: true,
         subscriptionMeta: nil,
         website: nil,
-        twitter: "AaveAave",
+        X: "AaveAave",
         github: "aave",
         coingecko: "aave",
         terms: nil)

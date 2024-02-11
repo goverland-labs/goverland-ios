@@ -27,10 +27,12 @@ class SignInDataSource: ObservableObject {
                     let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                 deviceId: SettingKeys.shared.guestDeviceId,
                                                                 sessionId: response.sessionId, 
-                                                                wcSessionMeta: nil)
+                                                                wcSessionMeta: nil,
+                                                                cbAccount: nil)
                     try! await profile.select()
-                    logInfo("[App] Auth Token: \(response.sessionId)")
                 }
+                ProfileDataSource.shared.profile = response.profile
+                logInfo("[App] Auth Token: \(response.sessionId); Profile: Guest")
             }
             .store(in: &cancellables)
     }

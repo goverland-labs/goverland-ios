@@ -34,10 +34,10 @@ struct AnnotationView: View {
                 HStack(alignment: .bottom, spacing: 4) {
                     Text(firstPlaceholderValue)
                         .font(.title3Regular)
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Text(firstPlaceholderTitle)
                         .font(.subheadlineRegular)
-                        .foregroundColor(.textWhite60)
+                        .foregroundStyle(Color.textWhite60)
                 }
                 Spacer()
             }
@@ -47,10 +47,10 @@ struct AnnotationView: View {
                     HStack(spacing: 4) {
                         Text(secondPlaceholderValue)
                             .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
                         Text(secondPlaceholderTitle)
                             .font(.subheadlineRegular)
-                            .foregroundColor(.textWhite60)
+                            .foregroundStyle(Color.textWhite60)
                     }
                     Spacer()
                 }
@@ -60,7 +60,7 @@ struct AnnotationView: View {
                 HStack(spacing: 4) {
                     Text(description)
                         .font(.captionSemibold)
-                        .foregroundColor(.textWhite60)
+                        .foregroundStyle(Color.textWhite60)
                 }
                 Spacer()
             }

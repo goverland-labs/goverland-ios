@@ -20,12 +20,12 @@ struct AboutSettingView: View {
             }) {
                 HStack {
                     Image("privacy-policy")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                         .frame(width: 30)
                     Text("Privacy Policy")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
             Button(action: {
@@ -36,16 +36,16 @@ struct AboutSettingView: View {
             }) {
                 HStack {
                     Image("term-service")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                         .frame(width: 30)
                     Text("Terms of Service")
                     Spacer()
                     Image(systemName: "arrow.up.right")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                 }
             }
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
         .onAppear() { Tracker.track(.screenAbout) }
     }
 }

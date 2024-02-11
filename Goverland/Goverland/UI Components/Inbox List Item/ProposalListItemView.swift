@@ -12,7 +12,6 @@ struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
-    let displayUnreadIndicator: Bool
     let onDaoTap: (() -> Void)?
     let menuContent: Content
 
@@ -21,13 +20,11 @@ struct ProposalListItemView<Content: View>: View {
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
-         displayUnreadIndicator: Bool,
          onDaoTap: (() -> Void)? = nil,
          @ViewBuilder menuContent: () -> Content) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
-        self.displayUnreadIndicator = displayUnreadIndicator
         self.onDaoTap = onDaoTap
         self.menuContent = menuContent()
     }
@@ -53,8 +50,8 @@ struct ProposalListItemView<Content: View>: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
 
-            VStack(spacing: 15) {
-                ProposalListItemHeaderView(proposal: proposal, displayReadIndicator: displayUnreadIndicator)
+            VStack(spacing: 12) {
+                ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
                 ProposalListItemFooterView(proposal: proposal) {
                     menuContent
@@ -73,7 +70,10 @@ struct ProposalListItemView<Content: View>: View {
 
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
-    let displayReadIndicator: Bool
+
+    var voted: Bool {
+        proposal.userVote != nil
+    }
 
     var body: some View {
         HStack {
@@ -87,20 +87,16 @@ struct ProposalListItemHeaderView: View {
 
             Spacer()
             HStack(spacing: 6) {
-                if displayReadIndicator {
-                    ReadIndicatiorView()
+                if voted {
+                    BubbleView(
+                        image: Image(systemName: "checkmark"),
+                        text: nil,
+                        textColor: .onSecondaryContainer,
+                        backgroundColor: .secondaryContainer)
                 }
                 ProposalStatusView(state: proposal.state)
             }
         }
-    }
-}
-
-fileprivate struct ReadIndicatiorView: View {
-    var body: some View {
-        Circle()
-            .fill(Color.primary)
-            .frame(width: 5, height: 5)
     }
 }
 
@@ -113,14 +109,14 @@ struct ProposalListItemBodyView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
                 Text(proposal.title)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
                 
                 if displayStatus {
                     HStack(spacing: 0) {
                         Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                            .foregroundColor(proposal.state == .active ? .primaryDim : .textWhite40)
+                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                             .font(.footnoteRegular)
                             .lineLimit(1)
 
@@ -133,7 +129,8 @@ struct ProposalListItemBodyView: View {
             }
             
             Spacer()
-            RoundPictureView(image: proposal.dao.avatar, imageSize: 46)
+            RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
+                .allowsHitTesting(onDaoTap == nil ? false : true)
                 .onTapGesture {
                     onDaoTap?()
                 }
@@ -165,7 +162,7 @@ fileprivate struct ProposalListItemFooterView<Content: View>: View {
                     menuContent
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.textWhite40)
+                        .foregroundStyle(Color.textWhite40)
                         .fontWeight(.bold)
                         .frame(width: 40, height: 20)
                 }
@@ -184,22 +181,18 @@ fileprivate struct VoteFooterView: View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-
-                Text(String(votes))
-                    .fontWeight(.medium)
+                Text(Utils.formattedNumber(Double(votes)))
             }
             .font(.footnoteRegular)
-            .foregroundColor(votesHighlighted ? .textWhite : .textWhite40)
+            .foregroundStyle(votesHighlighted ? Color.textWhite : .textWhite40)
 
             if quorum > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
-
                     Text(Utils.numberWithPercent(from: quorum))
-                        .fontWeight(.medium)
                 }
                 .font(.footnoteRegular)
-                .foregroundColor(quorumHighlighted ? .textWhite : .textWhite40)
+                .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
             }
         }
     }
@@ -211,15 +204,15 @@ struct ShimmerProposalListItemView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)
 
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 100)
+                        .frame(width: 180)
                     Spacer()
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 80)
+                        .frame(width: 90)
                 }
                 .frame(height: 20)
 
@@ -229,22 +222,22 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 250)
                     Spacer()
                     ShimmerView()
-                        .cornerRadius(25)
-                        .frame(width: 50, height: 50)
+                        .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                        .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
                 
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
-                        .frame(width: 250)
+                        .frame(width: 100)
                     Spacer()
                 }
                 .frame(height: 20)
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 12)
+            .padding(.vertical, 8)
         }
-        .frame(height: 160)
+        .frame(height: 142)
     }
 }

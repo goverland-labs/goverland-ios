@@ -54,6 +54,7 @@ struct AppTabView: View {
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
     @Setting(\.notificationsEnabled) private var notificationsEnabled
+    @Setting(\.authToken) private var authToken
 
     @State var currentInboxViewId: UUID?
     
@@ -61,49 +62,53 @@ struct AppTabView: View {
         TabView(selection: $tabManager.selectedTab) {
             DashboardView(path: $tabManager.dashboardPath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .home ? "home-active" : "home-inactive")
+                    Label("Home", image: tabManager.selectedTab == .home ? "home-active" : "home-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.home)
             
-            // The magic below is to simulate view update by view id.
-            // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
-            if tabManager.inboxViewId == currentInboxViewId {
-                InboxView()
-                    .tabItem {
-                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                    }
-                    .toolbarBackground(.visible, for: .tabBar)
-                    .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
-            } else {
-                Spacer()
-                    .tabItem {
-                        Image(tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                    }
-                    .onAppear {
-                        currentInboxViewId = tabManager.inboxViewId
-                    }
-                    .toolbarBackground(.visible, for: .tabBar)
-                    .tag(TabManager.Tab.inbox)
-                    .badge(unreadEvents)
+            // Don't display Inbox tab for signed out users
+            if !authToken.isEmpty {
+                // The magic below is to simulate view update by view id.
+                // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
+                if tabManager.inboxViewId == currentInboxViewId {
+                    InboxView()
+                        .tabItem {
+                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                        }
+                        .toolbarBackground(.visible, for: .tabBar)
+                        .tag(TabManager.Tab.inbox)
+                        .badge(unreadEvents)
+                } else {
+                    Spacer()
+                        .tabItem {
+                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
+                        }
+                        .onAppear {
+                            currentInboxViewId = tabManager.inboxViewId
+                        }
+                        .toolbarBackground(.visible, for: .tabBar)
+                        .tag(TabManager.Tab.inbox)
+                        .badge(unreadEvents)
+                }
             }
             
             SearchView()
                 .tabItem {
-                    Image(tabManager.selectedTab == .search ? "search-active" : "search-inactive")
+                    Label("Search", image: tabManager.selectedTab == .search ? "search-active" : "search-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.search)
             
             ProfileView(path: $tabManager.profilePath)
                 .tabItem {
-                    Image(tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
+                    Label("Profile", image: tabManager.selectedTab == .profile ? "profile-active" : "profile-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
                 .tag(TabManager.Tab.profile)
         }
-        .accentColor(.textWhite)
+        .id(authToken) // to force proper tab bar refresh, otherwise an exception appears on sign in/sign out
+        .tint(.textWhite)
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
             // TODO: check if we can make it better with macros
 

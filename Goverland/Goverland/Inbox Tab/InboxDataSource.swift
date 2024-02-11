@@ -39,6 +39,10 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
     private var totalSkipped: Int?
 
+    // Computed var properties overrided in DaoInfoEventsDataSource
+
+    var authRequired: Bool  { true }
+
     var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
         APIService.inboxEvents()
     }
@@ -50,6 +54,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
     }
 
     func refresh() {
@@ -64,6 +69,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     private func loadInitialData() {
+        // Fool protection
+        guard !authRequired || !SettingKeys.shared.authToken.isEmpty else { return }
+
         isLoading = true
         initialLoadingPublisher
             .sink { [weak self] completion in
@@ -79,13 +87,13 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
 
-                storeUnreadEventsCount(headers: headers)
+                self.storeUnreadEventsCount(headers: headers)
             }
             .store(in: &cancellables)
     }
 
     func storeUnreadEventsCount(headers: HttpHeaders) {
-        let unreadEvents = Utils.getUnreadEventsCount(from: headers) ?? 0
+        guard let unreadEvents = Utils.getUnreadEventsCount(from: headers) else { return }         
         SettingKeys.shared.unreadEvents = unreadEvents
     }
 
@@ -128,23 +136,39 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): break
                     // do nothing, error will be displayed to user if any
                 }
-            } receiveValue: { [weak self] _, _ in
+            } receiveValue: { [weak self] _, headers in
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.events?[index].readAt = Date()
-
-                    // fool protection
-                    if SettingKeys.shared.unreadEvents > 0 {
-                        SettingKeys.shared.unreadEvents -= 1
-                    }
+                    self.storeUnreadEventsCount(headers: headers)
                 }
             }
             .store(in: &cancellables)
     }
-    
+
+    func markUnread(eventID: UUID) {
+        guard let event = events?.first(where: { $0.id == eventID }), event.readAt != nil else { return }
+        APIService.markEventUnread(eventID: eventID)
+            .retry(3)
+            .sink { completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): break
+                    // do nothing, error will be displayed to user if any
+                }
+            } receiveValue: { [weak self] _, headers in
+                guard let `self` = self else { return }
+                if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
+                    self.events?[index].readAt = nil
+                    self.storeUnreadEventsCount(headers: headers)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     func markAllEventsRead() {
-        guard let latestEvent = events?.first else { return }
-        APIService.markAllEventsRead(before: latestEvent.updatedAt)
+        guard let latestUpdatedEvent = events?.sorted(by: { $0.updatedAt > $1.updatedAt }).first else { return }
+        APIService.markAllEventsRead(before: latestUpdatedEvent.updatedAt)
             .retry(3)
             .sink { completion in
                 switch completion {
@@ -168,6 +192,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): break
                 }
             } receiveValue: { [weak self] _, _ in
+                showToast("Moved to Archive")
                 guard let `self` = self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
                     self.total? -= 1 // to properly handle load more
@@ -190,5 +215,15 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     @objc func eventUnarchived(_ notification: Notification) {
         refresh()
+    }
+
+    @objc func authTokenChanged(_ notification: Notification) {
+        let authToken = SettingKeys.shared.authToken
+        logInfo("[App] Auth token changed to \(authToken)")
+        if !authToken.isEmpty {
+            refresh()
+        } else {
+            SettingKeys.shared.unreadEvents = 0
+        }
     }
 }

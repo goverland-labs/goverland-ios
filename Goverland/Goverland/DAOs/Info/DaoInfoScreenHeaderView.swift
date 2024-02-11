@@ -13,8 +13,8 @@ struct DaoInfoScreenHeaderView: View {
     
     var body: some View {
         HStack(spacing: 50) {
-            RoundPictureView(image: dao.avatar, imageSize: 100)
-            
+            RoundPictureView(image: dao.avatar(size: .xl), imageSize: Avatar.Size.xl.daoImageSize)
+
             VStack(spacing: 20) {
                 HStack {
                     InfoBadgeView(value: "\(Utils.formattedNumber(Double(dao.proposals)))", title: "Proposals")
@@ -41,10 +41,10 @@ fileprivate struct InfoBadgeView: View {
         VStack {
             Text(value)
                 .font(.calloutSemibold)
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
             Text(title)
                 .font(.footnoteRegular)
-                .foregroundColor(.textWhite60)
+                .foregroundStyle(Color.textWhite60)
         }
     }
     

@@ -18,7 +18,7 @@ struct MailSettingView: View {
     var body: some View {
         HStack {
             Image("email")
-                .foregroundColor(.primaryDim)
+                .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Email", action: {
                 if !MFMailComposeViewController.canSendMail() {
@@ -36,10 +36,10 @@ struct MailSettingView: View {
             
             Spacer()
             Image(systemName: "arrow.up.right")
-                .foregroundColor(.textWhite40)
+                .foregroundStyle(Color.textWhite40)
             
         }
-        .accentColor(.textWhite)
+        .tint(.textWhite)
     }
     
     private func getSettingsEmailAddressAlert() -> Alert {

@@ -44,12 +44,16 @@ class APIService {
             .receive(on: DispatchQueue.main)
             .mapError { error -> APIError in
                 if let apiError = error as? APIError {
-                    if case .notAuthorized = apiError {
+                    switch apiError {
+                    case .notAuthorized, .forbidden:
                         Task {
-                            try! await UserProfile.logoutSelected(logErrorIfNotFound: true)
+                            try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
                         }
+                    default: 
+                        break
                     }
                     if defaultErrorDisplay {
+                        logInfo("[App] Backend error: \(apiError.localizedDescription)")
                         showToast(apiError.localizedDescription)
                     }
                     return apiError

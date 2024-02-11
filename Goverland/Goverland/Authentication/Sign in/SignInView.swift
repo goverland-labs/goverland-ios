@@ -12,6 +12,14 @@ struct SignInView: View {
     @Environment(\.dismiss) private var dismiss
     @Setting(\.authToken) private var authToken
 
+    let source: Source
+
+    enum Source: String {
+        case popover
+        case inbox
+        case profile
+    }
+
     var body: some View {
         ZStack {
             SignInOnboardingBackgroundView()
@@ -23,7 +31,9 @@ struct SignInView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
-            .onAppear() { Tracker.track(.screenSignIn) }
+            .onAppear() {
+                Tracker.track(.screenSignIn, parameters: ["source" : source.rawValue])
+            }
         }
         .onChange(of: authToken) { _, token in
             if !token.isEmpty && isPresented {
@@ -35,7 +45,9 @@ struct SignInView: View {
 
 fileprivate struct SignInOnboardingBackgroundView: View {
     var body: some View {
-        Image("onboarding-sign-in")
+        Image("sign-in")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 }
 
@@ -45,9 +57,9 @@ fileprivate struct SignInOnboardingHeaderView: View {
             HStack {
                 VStack(alignment: .leading, spacing: -15) {
                     Text("Sign in")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                     Text("with wallet")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
@@ -65,6 +77,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
+                Haptic.medium()
                 Tracker.track(.signInWithWallet)
                 showSignIn = true
             }
@@ -79,13 +92,12 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
                 }
                 .disabled(dataSource.loading)
                 .fontWeight(.semibold)
-
-                .accentColor(.secondaryContainer)
+                .tint(.secondaryContainer)
 
                 HStack {
                     if dataSource.loading {
                         ProgressView()
-                            .foregroundColor(.textWhite20)
+                            .foregroundStyle(Color.textWhite20)
                             .controlSize(.mini)
                     }
                     Spacer()
@@ -97,7 +109,7 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
         }
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView()
-                .presentationDetents(UIScreen.isSmall ? [.large, .large] : [.medium, .large])
+                .presentationDetents([.height(500), .large])
         }
     }
 }

@@ -6,16 +6,10 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import Foundation
 import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
-
-struct WC_SessionMeta: Codable {
-    let session: WalletConnectSign.Session
-    let walletOnSameDevice: Bool
-}
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -24,14 +18,20 @@ class WC_Manager {
         name: "Goverland",
         description: "Mobile App for all DAOs",
         url: "https://goverland.xyz",
-        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"]
+        icons: ["https://cdn.stamp.fyi/avatar/goverland.eth?s=180"],
+        redirect: AppMetadata.Redirect(native: "goverland://", universal: "https://links.goverland.xyz")
     )
 
     /// At any moment of time there can be only one WC session that the App works with.
     /// It is always the session of selected UserProfile.
     var sessionMeta: WC_SessionMeta? {
         didSet {
-            NotificationCenter.default.post(name: .wcSessionUpdated, object: sessionMeta)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .wcSessionUpdated, object: self.sessionMeta)
+            }
+            if sessionMeta != nil {
+                CoinbaseWalletManager.shared.account = nil
+            }
         }
     }
 
@@ -43,10 +43,12 @@ class WC_Manager {
         logInfo("[WC] App disconnecting from session with topic: \(topic)")
         Task {
             try? await WalletConnectModal.instance.disconnect(topic: topic)
+            try! await UserProfile.clear_WC_Sessions(topic: topic)
+            WC_Manager.shared.sessionMeta = nil
         }
     }
 
-    static var walletRedirectUrl: URL? {
+    static var sessionWalletRedirectUrl: URL? {
         if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
            let redirectUrlStr = meta.session.peer.redirect?.universal,
            let redirectUrl = URL(string: redirectUrlStr) {
@@ -66,12 +68,12 @@ class WC_Manager {
     private func configure() {
         Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
 
-        // Pair.configure happens inside Modal
+        // Pair.configure happens inside the Modal
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
             sessionParams: SessionParams.goverland,
-            excludedWalletIds: Wallet.recommended.map { $0.id },
+            excludedWalletIds: Wallet.excluded.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
@@ -89,7 +91,7 @@ class WC_Manager {
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { topic, reason in
-                logInfo("[WC] Session deleted: Topic: \(topic); Reason: \(reason)")
+                logInfo("[WC] Session deleted by wallet: Topic: \(topic); Reason: \(reason)")
                 Task {
                     try! await UserProfile.clear_WC_Sessions(topic: topic)
                 }
@@ -99,9 +101,18 @@ class WC_Manager {
 
     private func getStoredSessionMeta() {
         Task {
-            if let selectedProfile = try? await UserProfile.selected(), 
-                let wcSessionMetaData = selectedProfile.wcSessionMetaData {
-                self.sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+            if let selectedProfile = try? await UserProfile.selected(),
+                let wcSessionMetaData = selectedProfile.wcSessionMetaData
+            {
+                let sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
+                if sessionMeta?.isExpired ?? false {
+                    // clear session in selected profile if it is expired
+                    self.sessionMeta = nil
+                    try? await UserProfile.update_WC_SessionForSelectedProfile()
+                } else {
+                    // all good. Set sessionMeta from stored data in selected profile
+                    self.sessionMeta = sessionMeta
+                }
             }
         }
     }

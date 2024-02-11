@@ -20,7 +20,7 @@ struct CastYourVoteView: View {
     
     var body: some View {
         if dataSource.submitted {
-            _SuccessView(dao: dataSource.proposal.dao)
+            _SuccessView(proposal: dataSource.proposal, choice: dataSource.choiceStr, reason: dataSource.reason)
         } else {
             _VoteView(dataSource: dataSource)
         }
@@ -37,9 +37,7 @@ fileprivate struct _VoteView: View {
     
     private var user: User {
         let profile = profiles.first(where: { $0.selected })!
-        return User(address: Address(profile.address),
-                    resolvedName: profile.resolvedName,
-                    avatar: profile.avatar)
+        return profile.user
     }
     
     var body: some View {
@@ -56,8 +54,8 @@ fileprivate struct _VoteView: View {
                                 TextEditor(text: $dataSource.reason)
                                     .focused($isTextEditorFocused)
                                     .frame(height: 96)
-                                    .foregroundColor(.textWhite)
-                                    .accentColor(.textWhite40)
+                                    .foregroundStyle(Color.textWhite)
+                                    .tint(.textWhite40)
                                     .scrollContentBackground(.hidden)
                                     .background(Color.containerBright)
                                     .cornerRadius(20)
@@ -66,7 +64,7 @@ fileprivate struct _VoteView: View {
                                 if !isTextEditorFocused && dataSource.reason.isEmpty {
                                     Text("Share your reason (optional)")
                                         .allowsHitTesting(false)
-                                        .foregroundColor(.textWhite20)
+                                        .foregroundStyle(Color.textWhite20)
                                         .padding(16)
                                 }
                             }
@@ -85,7 +83,7 @@ fileprivate struct _VoteView: View {
                         
                         Group {
                             if let message = dataSource.infoMessage {
-                                _InfoMessageView(message: message)
+                                InfoMessageView(message: message)
                             } else {
                                 Spacer()
                             }
@@ -122,6 +120,7 @@ fileprivate struct _VoteView: View {
                         }
                         PrimaryButton("Sign",
                                       isEnabled: (dataSource.validated ?? false) && !dataSource.isPreparing && !dataSource.isSubmitting) {
+                            Haptic.medium()
                             dataSource.prepareVote(address: user.address.value)
                             isTextEditorFocused = false
                         }
@@ -132,11 +131,12 @@ fileprivate struct _VoteView: View {
             }
         }
         .onAppear {
-            // TODO: track
+            Tracker.track(.screenSnpCastVote)
             dataSource.validate(address: user.address.value)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
     }
 }
 
@@ -152,9 +152,9 @@ fileprivate struct _HeaderView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             Text("Cast your vote")
-                .foregroundColor(.textWhite)
+                .foregroundStyle(Color.textWhite)
                 .font(.title3Semibold)
             
             Image("cast-your-vote")
@@ -163,30 +163,47 @@ fileprivate struct _HeaderView: View {
                 .scaledToFit()
             
             HStack {
-                Text("Account")
-                    .foregroundColor(.textWhite)
+                Text("Selected wallet")
+                    .font(.bodyRegular)
+                    .foregroundStyle(Color.textWhite)
+
                 Spacer()
-                IdentityView(user: user)
+                
+                if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+                    walletImage
+                        .frame(width: Avatar.Size.s.profileImageSize, height: Avatar.Size.s.profileImageSize)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                    RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
+                }
+
+                IdentityView(user: user, size: .s)
             }
             
             HStack {
                 Text("Voting power")
-                    .foregroundColor(.textWhite)
+                    .font(.bodyRegular)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
-                Text("\(dataSource.votingPower) \(vpSymbol)" )
-                    .foregroundColor(.textWhite)
+                Text("\(Utils.formattedNumber(dataSource.votingPower)) \(vpSymbol)")
+                    .font(.bodySemibold)
+                    .foregroundStyle(Color.textWhite)
             }
             
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 1)
                 .fill(Color.secondaryContainer)
-                .frame(height: 2)
-            
+                .frame(height: 1)
+                .padding(.vertical, 8)
+
             HStack {
                 Text("Choice")
-                    .foregroundColor(.textWhite)
+                    .font(.bodyRegular)
+                    .foregroundStyle(Color.textWhite)
                 Spacer()
                 Text(dataSource.choiceStr)
-                    .foregroundColor(.textWhite)
+                    .font(.bodySemibold)
+                    .foregroundStyle(Color.textWhite)
             }
             
             HStack {
@@ -195,17 +212,19 @@ fileprivate struct _HeaderView: View {
                 
                 if dataSource.failedToValidate {
                     Text("-")
-                        .foregroundColor(.textWhite)
+                        .foregroundStyle(Color.textWhite)
                 } else if dataSource.validated == nil { // validation in progress
                     ProgressView()
-                        .foregroundColor(.textWhite20)
+                        .foregroundStyle(Color.textWhite20)
                         .controlSize(.mini)
                 } else if dataSource.validated! {
                     Image(systemName: "checkmark")
-                        .foregroundColor(.primaryDim)
+                        .foregroundStyle(Color.primaryDim)
+                        .font(.bodySemibold)
                 } else {
                     Image(systemName: "xmark")
-                        .foregroundColor(.dangerText)
+                        .foregroundStyle(Color.dangerText)
+                        .font(.bodySemibold)
                 }
             }
         }
@@ -219,13 +238,14 @@ fileprivate struct _ErrorMessageView: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.dangerText)
+                    .foregroundStyle(Color.dangerText)
                 Text(message)
                     .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
+                    .foregroundStyle(Color.textWhite)
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 16)
+            .padding(.leading, 8)
+            .padding(.trailing, 12)
+            .padding(.vertical, 12)
         }
         .background {
             RoundedRectangle(cornerRadius: 13)
@@ -235,74 +255,89 @@ fileprivate struct _ErrorMessageView: View {
     }
 }
 
-fileprivate struct _InfoMessageView: View {
-    let message: String
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                Image(systemName: "info.circle.fill")
-                    .foregroundColor(.textWhite)
-                Text(message)
-                    .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 16)
-        }
-        .background {
-            RoundedRectangle(cornerRadius: 13)
-                .fill(Color.containerBright)
-        }
-    }
-}
-
 fileprivate struct _SuccessView: View {
-    let dao: Dao
+    let proposal: Proposal
+    let choice: String
+    let reason: String?
     @Environment(\.dismiss) private var dismiss
     @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
-    
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
+
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Your vote is in!")
-                .foregroundColor(.textWhite)
-                .font(.title3Semibold)
-            
-            Spacer()
-            
-            Text("Votes can be changed while the proposal is active")
-                .foregroundColor(.textWhite60)
-                .font(.footnoteRegular)
-            
+        GeometryReader { geometry in
             VStack(spacing: 16) {
-                SecondaryButton("Share on X") {
-                    let tweetText = "I just voted in \(dao.name) using the Goverland Mobile App! 🚀"
-                    let tweetUrl = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                    let twitterUrl = URL(string: "https://x.com/intent/tweet?text=\(tweetUrl ?? "")")
-                    
-                    if let url = twitterUrl {
-                        openUrl(url)
+                Text("Your vote is in!")
+                    .foregroundStyle(Color.textWhite)
+                    .font(.title3Semibold)
+
+                Spacer()
+
+                SuccessVoteLottieView()
+                    .frame(width: geometry.size.width * 4/5, height: geometry.size.width * 4/5)
+                    .id(orientationManager.currentOrientation)
+
+                Spacer()
+
+                Text("Votes can be changed while the proposal is active")
+                    .foregroundStyle(Color.textWhite60)
+                    .font(.footnoteRegular)
+
+                VStack(spacing: 16) {
+                    SecondaryButton("Share on X") {
+                        let postText = messageToShare()
+                        let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                        if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
+                            Haptic.medium()
+                            openUrl(url)
+                        }
+                        Tracker.track(.snpSuccessVoteShareX)
                     }
-                    // TODO: track
-                }
-                PrimaryButton("Done") {
-                    dismiss()
-                    
-                    let now = Date().timeIntervalSinceReferenceDate
-                    if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
-                        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                            SKStoreReviewController.requestReview(in: scene)
-                            lastSuggestedToRateTime = now
+
+                    SecondaryButton("Share on Warpcast") {
+                        let castText = messageToShare()
+                        let castUrl = castText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                        let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(castUrl)")
+                        if let url = warpcastUrl {
+                            Haptic.medium()
+                            openUrl(url)
+                        }
+                        Tracker.track(.snpSuccessVoteShareWarpcast)
+                    }
+
+                    PrimaryButton("Done") {
+                        Haptic.medium()
+                        dismiss()
+
+                        let now = Date().timeIntervalSinceReferenceDate
+                        if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
+                            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                SKStoreReviewController.requestReview(in: scene)
+                                lastSuggestedToRateTime = now
+                            }
                         }
                     }
                 }
+                .padding(.horizontal, 8)
             }
             .padding(.horizontal, 8)
+            .padding(.bottom, 16)
+            .padding(.top, 24)
+            .onAppear {
+                Tracker.track(.screenSnpVoteSuccess)
+            }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 16)
-        .onAppear {
-            // TODO: track
+    }
+
+    func messageToShare() -> String {
+        var message =
+                    """
+I just voted in \(proposal.dao.name) using the Goverland Mobile App! 🚀
+Proposal: \(proposal.title)
+My choice: \(choice)
+"""
+        if let reason, !reason.isEmpty {
+            message += "\nMy reason: \(reason)"
         }
+        return message
     }
 }

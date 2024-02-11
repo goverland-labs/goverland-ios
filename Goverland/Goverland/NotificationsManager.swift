@@ -46,9 +46,10 @@ class NotificationsManager {
         }
     }
 
-    func enableNotifications() {
+    func enableNotificationsIfNeeded() {
         // verify that token is there and user enabled notifications
         guard let token = Messaging.messaging().fcmToken, SettingKeys.shared.notificationsEnabled else { return }
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
 
         logInfo("[App] Enabling push notifications")
         APIService.enableNotifications(token, defaultErrorDisplay: false)
@@ -73,6 +74,15 @@ class NotificationsManager {
             } receiveValue: { response, headers in
                 completion(true)
             }
+            .store(in: &cancellables)
+    }
+
+    func markPushNotificationAsClicked(pushId: String) {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
+        APIService.markPushAsClicked(pushId: pushId)
+            .sink { _ in
+                // ignore
+            } receiveValue: { _, _ in }
             .store(in: &cancellables)
     }
 }

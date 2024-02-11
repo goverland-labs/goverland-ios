@@ -19,6 +19,15 @@ enum TrackingEvent: String, Trackable {
     case screenSignIn = "screen_sign_in"
     case signInWithWallet = "sign_in_with_wallet"
     case signInAsGuest = "sign_in_as_guest"
+    case twoStepsSignedIn = "two_steps_signed_in"
+
+    case screencConnectWallet = "screen_connect_wallet"
+    case connectWalletShowQR = "connect_wallet_show_qr"
+    case walletConnected = "wallet_connected"
+
+    case screenReconnectWallet = "screen_reconnect_wallet"
+    case reconnectWalletWrongWallet = "reconnect_wallet_wrong_wallet"
+    case reconnectWalletSuccess = "reconnect_wallet_success"
 
     // MARK: - Push Notifications
     case screenPushNotifications = "screen_push_notifications"
@@ -27,10 +36,12 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Dashboard
     case screenDashboard = "screen_dashboard"
-    case screenDashHotList = "screen_dash_hot_list"
+    // Followed DAOs with active vote
+    case dashFollowedDaoActiveVoteOpenDao = "dash_followed_av_open_dao"
     // Hot Proposals
-    case dashHotOpenPrp = "dash_hot_open_prp"
     case dashHotOpenDao = "dash_hot_open_dao"
+    case dashHotOpenPrp = "dash_hot_open_prp"
+    case screenDashHotList = "screen_dash_hot_list"
     case dashHotOpenPrpFromList = "dash_hot_open_prp_from_list"
     case dashHotOpenDaoFromList = "dash_hot_open_dao_from_list"
     // New DAOs
@@ -43,28 +54,36 @@ enum TrackingEvent: String, Trackable {
     case dashNewDaoFollowFromSearch = "dash_newdao_follow_from_search"
     // Popular DAOs
     case dashPopularDaoOpen = "dash_populardao_open"
+    case dashPopularDaoFollow = "dash_populardao_follow"
     case screenDashPopularDao = "screen_dash_populardao"
     case dashPopularDaoOpenFromList = "dash_populardao_open_from_list"
     case dashPopularDaoFollowFromList = "dash_populardao_follow_from_list"
     case dashPopularDaoOpenFromSearch = "dash_populardao_open_from_search"
     case dashPopularDaoFollowFromSearch = "dash_populardao_follow_from_search"
-    // Recently Viewed DAOs
-    case dashRecentDaoOpen = "dash_recentdao_open"
+    // Profile has voting power
+    case dashCanVoteOpenDao = "dash_can_vote_open_dao"
+    case dashCanVoteOpenPrp = "dash_can_vote_open_prp"
+    case screenDashCanVote = "screen_dash_can_vote"
+    case dashCanVoteOpenPrpFromList = "dash_can_vote_open_prp_from_list"
+    case dashCanVoteOpenDaoFromList = "dash_can_vote_open_dao_from_list"
 
     // MARK: - Inbox
     case screenInbox = "screen_inbox"
     case screenInboxEmpty = "screen_inbox_empty"
+    case screenInboxWelcome = "screen_inbox_welcome"
     case inboxEventOpen = "inbox_event_open"
     case inboxEventOpenDao = "inbox_event_open_dao"
     case inboxEventArchive = "inbox_event_archive"
     case inboxEventMarkRead = "inbox_event_mark_read"
-    
+    case inboxEventMarkUnread = "inbox_event_mark_unread"
+
     // MARK: - Archive
     case screenArchive = "screen_archive"
     case screenArchiveEmpty = "screen_archive_empty"
     case archiveEventOpen = "archive_event_open"
     case archiveEventUnarchive = "archive_event_unarchive"
     case archiveEventMarkRead = "archive_event_mark_read"
+    case archiveEventMarkUnread = "archive_event_mark_unread"
 
     // MARK: - DAO Info
     case daoFollow = "dao_follow"
@@ -77,7 +96,7 @@ enum TrackingEvent: String, Trackable {
     case daoOpenWebsite = "dao_open_website"
     case daoOpenShapshot = "dao_open_shapshot"
     case daoOpenCoingecko = "dao_open_coingecko"
-    case daoOpenTwitter = "dao_open_twitter"
+    case daoOpenX = "dao_open_X"
     case daoOpenGithub = "dao_open_github"
     case daoOpenTerms = "dao_open_terms"
     
@@ -97,8 +116,19 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Snapshot Proposal Votes
     case screenSnpVoters = "screen_snp_voters"
 
+    // MARK: - Terms view
+    case screenSnpDaoTerms = "screen_snp_dao_terms"
+    case snpDaoTermsAgree = "snp_dao_terms_agree"
+
+    // MARK: - Cast your vote
+    case screenSnpCastVote = "screen_snp_cast_vote"
+    case screenSnpVoteSuccess = "screen_snp_vote_success"
+    case snpSuccessVoteShareX = "snp_success_vote_share_x"
+    case snpSuccessVoteShareWarpcast = "snp_success_vote_share_warpcast"
+
     // MARK: - Search DAO
     case screenSearchDaos = "screen_search_daos"
+
     case searchDaosFollowFromSearch = "search_daos_follow_from_search"
     case searchDaosFollowFromCard = "search_daos_follow_from_card"
 
@@ -110,6 +140,9 @@ enum TrackingEvent: String, Trackable {
     case searchDaosOpenDaoFromCard = "search_daos_open_dao_from_card"
     case searchDaosOpenDaoFromCtgList = "search_daos_open_dao_from_ctg_list"
     case searchDaosOpenDaoFromCtgSearch = "search_daos_open_dao_from_ctg_search"
+
+    // Recently Viewed DAOs
+    case searchRecentDaoOpen = "search_recentdao_open"
 
     // MARK: - Search Proposal
     case screenSearchPrp = "screen_search_prp"
@@ -138,9 +171,29 @@ enum TrackingEvent: String, Trackable {
     case followedAddOpenDaoFromCtgList = "followed_add_open_dao_from_ctg_list"
     case followedAddOpenDaoFromCtgSearch = "followed_add_open_dao_from_ctg_search"
 
+    // MARK: - Profile
+    case screenProfile = "screen_profile"
+    case signOut = "sign_out"
+    case deleteProfile = "delete_profile"
+    case signOutDevice = "sign_out_device"
+    case disconnect_WC_session = "disconnect_wc_session"
+    case disconnectCoinbaseWallet = "disconnect_cb_wallet"
+    
+    // Votes
+    case prfVotesOpenProposal = "prf_votes_open_proposal"
+    case prfVotesOpenDao = "prf_votes_open_dao"
+    case screenProfileVotesFull = "screen_profile_votes_full"
+    case prfVotesFullOpenProposal = "prf_votes_full_open_proposal"
+    case prfVotesFullOpenDao = "prf_votes_full_open_dao"
+
+    // Achievements
+    case screenAchievements = "screen_achievements"
+    case screenAchievementDetails = "screen_achievement_details"
+    case screenGuestAchievements = "screen_guest_achievements"
+
     // MARK: - Settings
     case screenSettings = "screen_settings"
-    case settingsOpenTwitter = "settings_open_twitter"
+    case settingsOpenX = "settings_open_X"
     case settingsOpenDiscord = "settings_open_discord"
     case settingsOpenEmail = "settings_open_email"
 
@@ -154,7 +207,7 @@ enum TrackingEvent: String, Trackable {
 
     case screenHelpUsGrow = "screen_help_us_grow"
     case settingsRateTheApp = "settings_rate_the_app"
-    case settingsShareTweet = "settings_share_a_tweet"
+    case settingsShareXPost = "settings_share_X_post"
 
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"

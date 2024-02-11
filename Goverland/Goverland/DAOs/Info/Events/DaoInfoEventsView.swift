@@ -32,7 +32,7 @@ struct DaoInfoEventsView: View {
                 if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
-                        ForEach(0..<3) { _ in
+                        ForEach(0..<5) { _ in
                             ShimmerProposalListItemView()
                                 .padding(.horizontal, 12)
                         }
@@ -54,27 +54,25 @@ struct DaoInfoEventsView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
-                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: false,
-                                                 displayUnreadIndicator: false) {
-                                ProposalSharingMenu(link: proposal.link)
+                                                 isRead: false) {
+                                ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
-                            .padding(.top, 10)
                             .listRowBackground(Color.clear)
                         }
                     }
+                    .padding(.top, 6)
                 }
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .onChange(of: selectedEventIndex) { _ in
+            .onChange(of: selectedEventIndex) { _, _ in
                 if let index = selectedEventIndex, events.count > index,
                    let proposal = events[index].eventData as? Proposal {
                     path.append(proposal)
