@@ -28,19 +28,19 @@ class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
 
-        loadInitialData()
+        //loadInitialData()
     }
 
-    private func loadInitialData() {
-        APIService.topVotePowerVoters(id: daoID)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished: break
-                case .failure(_): self?.failedToLoadInitialData = true
-                }
-            } receiveValue: { [weak self] result, _ in
-                self?.topVotePowerVoters = result
-            }
-            .store(in: &cancellables)
-    }
+//    private func loadInitialData() {
+//        APIService.topVotePowerVoters(id: daoID)
+//            .sink { [weak self] completion in
+//                switch completion {
+//                case .finished: break
+//                case .failure(_): self?.failedToLoadInitialData = true
+//                }
+//            } receiveValue: { [weak self] result, _ in
+//                self?.topVotePowerVoters = result
+//            }
+//            .store(in: &cancellables)
+//    }
 }

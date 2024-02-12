@@ -77,7 +77,6 @@
 		5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */; };
-		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
 		5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7382A0A5C8800E2FAE4 /* NetworkManager.swift */; };
 		5597E73F2A0A5C8800E2FAE4 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7392A0A5C8800E2FAE4 /* ToastView.swift */; };
 		5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */; };
@@ -148,7 +147,6 @@
 		55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */; };
 		55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */; };
 		55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */; };
-		55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */; };
 		55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */; };
 		55FDC0EB2B71E4F400D1AD79 /* SystemLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAC9CD2B6D3DC700767454 /* SystemLogHandler.swift */; };
 		55FDC0EC2B71E5BB00D1AD79 /* GError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C42A5EF4D3001F975D /* GError.swift */; };
@@ -201,6 +199,8 @@
 		BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */; };
 		BA789BCC2B73D2C50064D6FE /* AchievementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */; };
 		BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */; };
+		BA789BD12B7938750064D6FE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
+		BA789BD22B79388A0064D6FE /* APIService+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */; };
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
@@ -1658,6 +1658,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA789BD22B79388A0064D6FE /* APIService+Endpoint.swift in Sources */,
+				BA789BD12B7938750064D6FE /* APIService.swift in Sources */,
 				55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */,
 				55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */,
 				BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */,
@@ -1731,7 +1733,6 @@
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */,
-				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
@@ -1755,7 +1756,6 @@
 				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
-				55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */,
 				55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */,
