@@ -103,6 +103,7 @@ fileprivate struct OtherWalletView: View {
         .frame(height: 48)
         .contentShape(Rectangle())
         .onTapGesture {
+            Haptic.medium()
             WC_Manager.showModal()
         }
     }
