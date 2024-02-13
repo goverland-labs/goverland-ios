@@ -58,7 +58,10 @@ class APIService {
                     }
                     return apiError
                 } else {
-                    logError(error)                    
+                    logError(error)
+                    if defaultErrorDisplay {
+                        showToast(error.localizedDescription)
+                    }
                     return APIError.unknown
                 }
             }
