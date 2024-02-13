@@ -10,9 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
-
+    @StateObject var updateManager = AppUpdateManager.shared
+    
     var body: some View {
-        if !termsAccepted {
+        if updateManager.isUpdateNeeded {
+            AppUpdateAlertView()
+        } else if !termsAccepted {
             IntroView()
         } else {
             AppTabView()
