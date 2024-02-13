@@ -45,7 +45,7 @@ class AppUpdateManager: ObservableObject {
     }
     
     private func checkForUpdate() {
-        guard let serverAppVersion = remoteConfig.configValue(forKey: "minAppSupportedVersion").stringValue,
+        guard let serverAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue,
               let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
               let currentAppVersionD = Double(currentAppVersion),
               let serverAppVersionD = Double(serverAppVersion) else {
