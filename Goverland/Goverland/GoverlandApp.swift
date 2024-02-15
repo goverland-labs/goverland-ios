@@ -179,12 +179,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         logInfo("[PUSH] didReceive notification with userInfo: \(userInfo)")
 
-        guard let pushId = userInfo["id"] as? String else {
-            logError(GError.wrongPushNotificationFormat)
-            return
+        if let pushId = userInfo["id"] as? String {
+            NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
         }
-
-        NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
 
 //        // paired with NotificationService
 //        switch response.actionIdentifier {

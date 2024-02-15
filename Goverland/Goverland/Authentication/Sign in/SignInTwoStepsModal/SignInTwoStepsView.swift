@@ -14,12 +14,16 @@ struct SignInTwoStepsView: View {
     @State private var showSelectWallet = false
     @Setting(\.authToken) private var authToken
 
+    var walletConnected: Bool {
+        dataSource.wcSessionMeta != nil || dataSource.cbWalletAccount != nil
+    }
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Sign In")
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
-                .padding(.top, 8)
+                .padding(.top, 12)
 
             Image("wallet")
                 .frame(width: 192)
@@ -63,6 +67,7 @@ struct SignInTwoStepsView: View {
                                 .font(.footnoteRegular)
                         }
                     }
+                    .padding(.top, -4)
                 } else if dataSource.cbWalletAccount != nil {
                     VStack(alignment: .trailing, spacing: 4) {
                         HStack {
@@ -84,15 +89,7 @@ struct SignInTwoStepsView: View {
                                 .font(.footnoteRegular)
                         }
                     }
-                } else {
-                    VStack(alignment: .trailing, spacing: 4) {
-                        Circle()
-                            .stroke(Color.textWhite, lineWidth: 2)
-                            .frame(width: 24, height: 24)
-
-                        Spacer()
-                            .frame(height: 16)
-                    }
+                    .padding(.top, -4)
                 }
             }
 
@@ -107,11 +104,8 @@ struct SignInTwoStepsView: View {
                 .foregroundStyle(Color.textWhite)
 
                 Spacer()
-
-                Circle()
-                    .stroke(Color.textWhite, lineWidth: 2)
-                    .frame(width: 24, height: 24)
             }
+            .padding(.top, walletConnected ? 0 : 16)
 
             if let message = dataSource.infoMessage {
                 InfoMessageView(message: message)

@@ -28,6 +28,7 @@
 		5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5515241D2B565165005FBF86 /* CoinbaseWalletSDK */; };
 		551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */; };
 		5516042A2B74DDC300AA5784 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551604292B74DDC300AA5784 /* Haptic.swift */; };
+		5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */; };
 		5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */; };
 		5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */; };
 		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
@@ -315,6 +316,7 @@
 		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseWalletManager.swift; sourceTree = "<group>"; };
 		551604292B74DDC300AA5784 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDataSource.swift; sourceTree = "<group>"; };
 		5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedWalletView.swift; sourceTree = "<group>"; };
 		5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsView.swift; sourceTree = "<group>"; };
 		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
@@ -1152,6 +1154,7 @@
 			isa = PBXGroup;
 			children = (
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
+				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				550E85532A5F4C3400B0CFDD /* Vote Tab */,
 			);
@@ -1794,6 +1797,7 @@
 				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosHorizontalListView.swift in Sources */,
+				5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
 				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
@@ -2173,7 +2177,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2195,7 +2199,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2214,7 +2218,7 @@
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2236,7 +2240,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

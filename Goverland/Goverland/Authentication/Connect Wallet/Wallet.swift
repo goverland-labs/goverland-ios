@@ -33,7 +33,7 @@ struct Wallet: Identifiable, Equatable {
 
     static var excluded: [Wallet] {
         // here we will exclude all wallets that poorly work
-        return recommended // + [.mew, .uniswap]
+        return recommended + [.safe, .argent]
     }
 
     private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust, .mew]
@@ -111,6 +111,24 @@ struct Wallet: Identifiable, Equatable {
         link: URL(string: "https://mewwallet.com")!,
         scheme: "mewwallet",
         id: "f5b4eeb6015d66be3f5940a895cbaa49ef3439e518cd771270e6b553b48f31d2"
+    )
+
+    // MARK: - Excluded
+
+    static let safe = Wallet(
+        image: "safe",
+        name: "Safe",
+        link: URL(string: "https://app.safe.global/")!,
+        scheme: "safe",
+        id: "225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f"
+    )
+
+    static let argent = Wallet(
+        image: "argent",
+        name: "Argent",
+        link: URL(string: "https://www.argent.xyz/app")!,
+        scheme: "argent",
+        id: "bc949c5d968ae81310268bf9193f9c9fb7bb4e1283e1284af8f2bd4992535fd6"
     )
 
     // MARK: - Doesn't support eth_signTypedData(_v4)
