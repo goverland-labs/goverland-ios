@@ -13,12 +13,15 @@ struct SnapshotProposalView: View {
     let allowShowingDaoInfo: Bool
     let navigationTitle: String
 
-    @StateObject private var dataSource: SnapshotProposalDataSource
+    /// 16.02.2024
+    /// On iPad on the latest version (17.3.1) if we use here StateObject instead of ObservedObject, the redraw cycle is broken.
+    /// iPad takes some old cached value of dataSource, because the view that we try to redraw is still on the screen.
+    @ObservedObject private var dataSource: SnapshotProposalDataSource
 
     init(proposal: Proposal, allowShowingDaoInfo: Bool, navigationTitle: String) {
         self.allowShowingDaoInfo = allowShowingDaoInfo
         self.navigationTitle = navigationTitle
-        _dataSource = StateObject(wrappedValue: SnapshotProposalDataSource(proposal: proposal))
+        _dataSource = ObservedObject(wrappedValue: SnapshotProposalDataSource(proposal: proposal))
     }
 
     var proposal: Proposal? {
