@@ -98,7 +98,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .popover(isPresented: $isSignOutPopoverPresented) {
+        .sheet(isPresented: $isSignOutPopoverPresented) {
             SignOutPopoverView()
                 .presentationDetents([.height(128)])
         }
