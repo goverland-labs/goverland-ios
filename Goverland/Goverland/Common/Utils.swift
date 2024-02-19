@@ -58,6 +58,24 @@ enum Utils {
         }
         return total
     }
+    
+    static func getTotalVotingPower(from headers: HttpHeaders) -> Double? {
+        guard let totalStr = headers["x-total-avg-vp"] as? String,
+            let total = Double(totalStr) else {
+            logError(GError.missingTotalCount)
+            return nil
+        }
+        return total
+    }
+    
+    static func getTotalVotesCount(from headers: HttpHeaders) -> Double? {
+        guard let totalStr = headers["x-total-count"] as? String,
+            let total = Double(totalStr) else {
+            logError(GError.missingTotalCount)
+            return nil
+        }
+        return total
+    }
 
     // MARK: - Dates
 

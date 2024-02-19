@@ -154,6 +154,15 @@ extension APIService {
         let endpoint = MonthlyTotalNewProposalsEndpoint()
         return shared.request(endpoint)
     }
+    
+    static func topVotePowerVoters(id: UUID,
+                                   limit: Int = 10) -> AnyPublisher<(TopVotePowerVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = TopVotePowerVotersEndpoint(daoID: id, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     // MARK: - Subscriptions
 

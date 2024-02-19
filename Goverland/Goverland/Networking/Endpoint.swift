@@ -295,9 +295,11 @@ struct TopVotePowerVotersEndpoint: APIEndpoint {
     let daoID: UUID
     var path: String { "analytics/top-voters-by-vp/\(daoID)" }
     var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
     
-    init(daoID: UUID) {
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 
