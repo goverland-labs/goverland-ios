@@ -1,5 +1,5 @@
 //
-//  AppUpdateAlertView.swift
+//  AppUpdateBlockingView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-12.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct AppUpdateAlertView: View {
+struct AppUpdateBlockingView: View {
         var body: some View {
             VStack {
                 Text("A new version of the app is available.")

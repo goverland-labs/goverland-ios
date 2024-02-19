@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         if updateManager.isUpdateNeeded {
-            AppUpdateAlertView()
+            AppUpdateBlockingView()
         } else if !termsAccepted {
             IntroView()
         } else {
