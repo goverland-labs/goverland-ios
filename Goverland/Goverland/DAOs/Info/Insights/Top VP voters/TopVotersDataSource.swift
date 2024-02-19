@@ -1,5 +1,5 @@
 //
-//  TopVotePowerVotersDataSource.swift
+//  TopVotersDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-11-07.
@@ -9,18 +9,18 @@
 import Foundation
 import Combine
 
-class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
+class TopVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    @Published var topVotePowerVoters: [VotePowerVoter] = []
+    @Published var topVotePowerVoters: [TopVoter] = []
     @Published var totalVotingPower: Double?
     @Published var totalVotesCount: Double?
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
-    var top10votersGraphData: [VotePowerVoter] {
+    var top10votersGraphData: [TopVoter] {
         var topVoters = topVotePowerVoters
         if let totalPower = totalVotingPower, let totalCount = totalVotesCount {
-            topVoters.append(VotePowerVoter(name: Address("Other"),
+            topVoters.append(TopVoter(name: Address("Other"),
                                             voterPower: totalPower - getTop10VotersVotingPower(),
                                             voterCount: totalCount - getTop10VotersVotesCount()))
         }
@@ -44,7 +44,7 @@ class TopVotePowerVotersDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
-        APIService.topVotePowerVoters(id: daoID)
+        APIService.topVoters(id: daoID)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

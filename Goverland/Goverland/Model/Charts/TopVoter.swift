@@ -1,5 +1,5 @@
 //
-//  VotePowerVoter.swift
+//  TopVoter.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-11-07.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct VotePowerVoter: Decodable, Identifiable {
+struct TopVoter: Decodable, Identifiable {
     let id: String
     let name: Address
     let voterPower: Double

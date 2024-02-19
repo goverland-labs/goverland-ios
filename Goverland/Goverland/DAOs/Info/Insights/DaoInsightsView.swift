@@ -22,9 +22,9 @@ struct DaoInsightsView: View {
                 }
                 .padding(10)
                 
-                TopVotePowerVotersView(dao: dao)
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
+                TopVotersView(dao: dao)
                 MonthlyNewProposalsView(dao: dao)
                 MutualDaosView(dao: dao, activeSheetManager: activeSheetManager)
             }

@@ -155,12 +155,12 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func topVotePowerVoters(id: UUID,
-                                   limit: Int = 10) -> AnyPublisher<(TopVotePowerVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func topVoters(id: UUID,
+                                   limit: Int = 10) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
-        let endpoint = TopVotePowerVotersEndpoint(daoID: id, queryParameters: queryParameters)
+        let endpoint = TopVotersEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
