@@ -372,13 +372,13 @@ struct TopProposalsListEndpoint: APIEndpoint {
 struct ProposalEndpoint: APIEndpoint {
     typealias ResponseType = Proposal
 
-    let proposalID: UUID
+    let proposalId: String
 
-    var path: String { "proposals/\(proposalID)" }
+    var path: String { "proposals/\(proposalId)" }
     var method: HttpMethod = .get
 
-    init(proposalID: UUID) {
-        self.proposalID = proposalID
+    init(proposalId: String) {
+        self.proposalId = proposalId
     }
 }
 

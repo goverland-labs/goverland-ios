@@ -98,11 +98,15 @@ fileprivate struct DaosListView: View {
                                         RetryLoadMoreListItemView(dataSource: dataSource)
                                     }
                                 } else {
-                                    let dao = dataSource.daos[index]
-                                    DaoListItemView(dao: dao,
-                                                    subscriptionMeta: dao.subscriptionMeta,
-                                                    onSelectDao: onSelectDaoFromList,
-                                                    onFollowToggle: onFollowToggleFromList)
+                                    if index < dataSource.daos.count {
+                                        // We caught `Index out of range` crashes. It should not happen, but as dataSource
+                                        // is shared, could happen in some case.
+                                        let dao = dataSource.daos[index]
+                                        DaoListItemView(dao: dao,
+                                                        subscriptionMeta: dao.subscriptionMeta,
+                                                        onSelectDao: onSelectDaoFromList,
+                                                        onFollowToggle: onFollowToggleFromList)
+                                    }
                                 }
                             }
                         }
