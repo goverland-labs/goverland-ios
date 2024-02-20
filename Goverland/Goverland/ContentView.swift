@@ -10,10 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     @Setting(\.termsAccepted) var termsAccepted
-    @StateObject var updateManager = AppUpdateManager.shared
+    @StateObject var remoteConfig = RemoteConfigManager.shared
     
     var body: some View {
-        if updateManager.isUpdateNeeded {
+        if remoteConfig.isUpdateNeeded {
             AppUpdateBlockingView()
         } else if !termsAccepted {
             IntroView()

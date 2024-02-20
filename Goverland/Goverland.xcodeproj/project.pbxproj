@@ -202,7 +202,6 @@
 		BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */; };
 		BA789BCC2B73D2C50064D6FE /* AchievementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */; };
 		BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */; };
-		BA789BD52B7A696B0064D6FE /* AppUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BD42B7A696B0064D6FE /* AppUpdateManager.swift */; };
 		BA789BD72B7A6B600064D6FE /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = BA789BD62B7A6B600064D6FE /* FirebaseDatabase */; };
 		BA789BD92B7A6B600064D6FE /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA789BD82B7A6B600064D6FE /* FirebaseDatabaseSwift */; };
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
@@ -483,7 +482,6 @@
 		BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsDataSource.swift; sourceTree = "<group>"; };
 		BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailView.swift; sourceTree = "<group>"; };
 		BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestAchievementsView.swift; sourceTree = "<group>"; };
-		BA789BD42B7A696B0064D6FE /* AppUpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateManager.swift; sourceTree = "<group>"; };
 		BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoDataSource.swift; sourceTree = "<group>"; };
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
@@ -596,7 +594,6 @@
 		5508BBA72993FC93003E691A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				BA789BD32B7A69420064D6FE /* Updates */,
 				BA5D7A932B6D320200CD3FDB /* Logger */,
 				BAB4B93F2A47490800D24110 /* Font */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
@@ -1047,6 +1044,7 @@
 				5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */,
 				5597E7392A0A5C8800E2FAE4 /* ToastView.swift */,
 				551604292B74DDC300AA5784 /* Haptic.swift */,
+				BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				55C25E562A7563FD0087D56E /* Stage.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
@@ -1255,15 +1253,6 @@
 				BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */,
 			);
 			path = Achievements;
-			sourceTree = "<group>";
-		};
-		BA789BD32B7A69420064D6FE /* Updates */ = {
-			isa = PBXGroup;
-			children = (
-				BA789BD42B7A696B0064D6FE /* AppUpdateManager.swift */,
-				BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */,
-			);
-			path = Updates;
 			sourceTree = "<group>";
 		};
 		BA8451712A5B97A00088A6E6 /* Proposals */ = {
@@ -1867,7 +1856,6 @@
 				5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */,
 				550E85722A5F4C3400B0CFDD /* VoteButton.swift in Sources */,
 				BAF651CC29B79E3700C78A8A /* DaoInfoView.swift in Sources */,
-				BA789BD52B7A696B0064D6FE /* AppUpdateManager.swift in Sources */,
 				BA2EA20F2968912B00FB87AC /* User.swift in Sources */,
 				552ACFD62B623CE30038A09F /* ProfileHasVotingPowerView.swift in Sources */,
 				BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */,
