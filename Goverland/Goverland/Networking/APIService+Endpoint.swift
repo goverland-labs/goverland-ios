@@ -156,8 +156,10 @@ extension APIService {
     }
     
     static func topVoters(id: UUID,
-                                   limit: Int = 10) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+                          offset: Int = 0,
+                          limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
         let endpoint = TopVotersEndpoint(daoID: id, queryParameters: queryParameters)

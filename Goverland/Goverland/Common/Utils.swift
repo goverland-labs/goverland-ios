@@ -76,6 +76,14 @@ enum Utils {
         }
         return total
     }
+    
+    static func getNextPage(from headers: HttpHeaders) -> String? {
+        guard let nextPageStr = headers["x-next-page"] as? String else {
+            logError(GError.missingTotalCount)
+            return nil
+        }
+        return nextPageStr
+    }
 
     // MARK: - Dates
 

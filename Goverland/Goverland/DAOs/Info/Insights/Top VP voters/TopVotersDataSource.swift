@@ -44,7 +44,7 @@ class TopVotersDataSource: ObservableObject, Refreshable {
     }
 
     private func loadInitialData() {
-        APIService.topVoters(id: daoID)
+        APIService.topVoters(id: daoID, limit: 10)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

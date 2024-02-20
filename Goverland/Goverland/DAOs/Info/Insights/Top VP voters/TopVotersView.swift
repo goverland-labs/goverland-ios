@@ -11,11 +11,14 @@ import SwiftUI
 import Charts
 
 struct TopVotersView: View {
+    private let daoID: UUID
     @StateObject private var dataSource: TopVotersDataSource
+    @State private var showAllVotes = false
     
     init(dao: Dao) {
         let dataSource = TopVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
+        self.daoID = dao.id
     }
     
     var body: some View {
@@ -24,7 +27,6 @@ struct TopVotersView: View {
                 Text("Top 10 voters by average VP")
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
-                    .padding([.top, .horizontal])
                 Spacer()
             }
             
@@ -32,19 +34,38 @@ struct TopVotersView: View {
                 RefreshIcon {
                     dataSource.refresh()
                 }
+                .frame(height: 120)
             } else if dataSource.topVotePowerVoters.isEmpty {
                 ProgressView()
                     .foregroundColor(.textWhite20)
                     .controlSize(.regular)
                     .frame(height: 120)
             } else {
-                TopVotePowerVotersGraphView(dataSource: dataSource)
-                    .padding()
+                VStack {
+                    TopVotePowerVotersGraphView(dataSource: dataSource)
+                    Text("Show all voters")
+                        .frame(width: 150, height: 35, alignment: .center)
+                        .background(Capsule(style: .circular)
+                            .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                        .tint(.onSecondaryContainer)
+                        .font(.footnoteSemibold)
+                        .onTapGesture {
+                            showAllVotes = true
+                        }
+                }
+                
             }
         }
+        .padding()
+        .padding(.bottom)
         .onAppear {
             if dataSource.topVotePowerVoters.isEmpty {
                 dataSource.refresh()
+            }
+        }
+        .sheet(isPresented: $showAllVotes) {
+            NavigationStack {
+                AllVotersListView(daoID: daoID)
             }
         }
     }
@@ -63,11 +84,10 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                 .foregroundStyle(by: .value("Name", voter.name.short))
             }
         }
-        .frame(height: 100)
         .chartXAxis(.hidden)
-        .chartLegend(spacing: 20)
+        .chartLegend(spacing: 10)
         .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .clipShape(RoundedRectangle(cornerRadius: 3))
         .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
                                    range: barColors) // assigns colors to the segments of the bar
     }
