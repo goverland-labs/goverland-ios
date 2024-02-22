@@ -67,6 +67,9 @@ struct TopVotersView: View {
             NavigationStack {
                 AllVotersListView(daoID: daoID)
             }
+            .overlay (
+                ToastView()
+            )
         }
     }
 }

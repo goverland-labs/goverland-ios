@@ -22,7 +22,7 @@ struct AllVotersListView: View {
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the votes list")
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the voters list")
             } else {
                 if dataSource.isLoading {
                     List(0..<5, id: \.self) { _ in
@@ -50,7 +50,6 @@ struct AllVotersListView: View {
                         } else {
                             let voter = dataSource.voters[index]
                             TopVoteListItemView(voter)
-                                .padding([.top, .bottom])
                                 .listRowBackground(Color.clear)
                                 .listRowInsets(EdgeInsets())
                         }
@@ -102,6 +101,12 @@ fileprivate struct TopVoteListItemView: View {
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
         }
+        .padding(.vertical) // Required for onTapGesture to fill out the entire cell
+        .onTapGesture {
+            UIPasteboard.general.string = voter.name.value
+            showToast("Address copied")
+        }
+        
     }
 }
 
