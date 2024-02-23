@@ -208,6 +208,7 @@
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
+		BA8455B02B88284E00A986CC /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AF2B88284E00A986CC /* MaintenanceView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */; };
 		BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */; };
@@ -486,6 +487,7 @@
 		BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoAboutDaoView.swift; sourceTree = "<group>"; };
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
+		BA8455AF2B88284E00A986CC /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceView.swift; sourceTree = "<group>"; };
 		BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardView.swift; sourceTree = "<group>"; };
 		BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardDataSource.swift; sourceTree = "<group>"; };
 		BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChart.swift; sourceTree = "<group>"; };
@@ -594,6 +596,8 @@
 		5508BBA72993FC93003E691A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */,
+				BA8455AF2B88284E00A986CC /* MaintenanceView.swift */,
 				BA5D7A932B6D320200CD3FDB /* Logger */,
 				BAB4B93F2A47490800D24110 /* Font */,
 				55D632AF295055D30073E04A /* SettingKeys.swift */,
@@ -1044,7 +1048,6 @@
 				5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */,
 				5597E7392A0A5C8800E2FAE4 /* ToastView.swift */,
 				551604292B74DDC300AA5784 /* Haptic.swift */,
-				BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				55C25E562A7563FD0087D56E /* Stage.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
@@ -1774,6 +1777,7 @@
 				5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
+				BA8455B02B88284E00A986CC /* MaintenanceView.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
 				550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */,
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,

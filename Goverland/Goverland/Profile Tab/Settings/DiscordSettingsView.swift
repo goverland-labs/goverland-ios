@@ -28,9 +28,3 @@ struct DiscordSettingsView: View {
         Tracker.track(.settingsOpenDiscord)
     }
 }
-
-struct DiscordSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiscordSettingsView()
-    }
-}

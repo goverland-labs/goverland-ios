@@ -216,4 +216,9 @@ enum TrackingEvent: String, Trackable {
     case appUpdateBlockScreen = "screen_new_updates_available"
     case openAppStoreLink = "app_store_link_open"
     case openDiscordLink = "discord_link_open"
+    
+    // MARK: - Server Maintenance
+    case screenMaintenance = "screen_maintenance"
+    case screenMaintenanceOpenX = "screen_maintenance_open_X"
+    case screenMaintenanceOpenDiscord = "screen_maintenance_open_discord"
 }

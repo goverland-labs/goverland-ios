@@ -11,22 +11,17 @@ import SwiftUI
 
 struct AppUpdateBlockingView: View {
     var body: some View {
-        ZStack {
-            Image("new-update-background")
-            VStack {
-                PushNotificationHeaderView()
-                Spacer()
-                PushNotificationFooterControlsView()
-            }
-            .padding()
-            .onAppear() {
-                Tracker.track(.appUpdateBlockScreen)
-            }
+        VStack {
+            AppUpdateHeaderView()
+            AppUpdateBackgroundView()
+            AppUpdateFooterControlsView()
         }
+        .padding()
+        .onAppear() {Tracker.track(.appUpdateBlockScreen)}
     }
 }
 
-fileprivate struct PushNotificationFooterControlsView: View {
+fileprivate struct AppUpdateFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Go to App Store") {
@@ -45,7 +40,16 @@ fileprivate struct PushNotificationFooterControlsView: View {
     }
 }
 
-fileprivate struct PushNotificationHeaderView: View {
+fileprivate struct AppUpdateBackgroundView: View {
+    var body: some View {
+        Image("new-update-background")
+            .resizable()
+            .scaledToFit()
+            .padding(.bottom)
+    }
+}
+
+fileprivate struct AppUpdateHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -67,7 +71,7 @@ fileprivate struct PushNotificationHeaderView: View {
             }
             
             Text("Please install the latest version to continue using the app, if you need additional support contact us in our Discord")
-                .lineLimit(3)
+                .lineLimit(4)
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(Color.textWhite)
                 .font(.chillaxRegular(size: 17))
