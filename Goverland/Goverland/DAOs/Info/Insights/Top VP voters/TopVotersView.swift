@@ -85,13 +85,40 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                     x: .value("VotePower", voter.voterPower)
                 )
                 .foregroundStyle(by: .value("Name", voter.name.short))
+                .clipShape(barShape(for: voter))
             }
         }
         .chartXAxis(.hidden)
         .chartLegend(spacing: 10)
         .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-        .clipShape(RoundedRectangle(cornerRadius: 3))
         .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
                                    range: barColors) // assigns colors to the segments of the bar
+    }
+    
+    private func barShape(for voter: TopVoter) -> some Shape {
+        var corners: UIRectCorner = []
+        
+        if let firstVoter = dataSource.top10votersGraphData.first,
+           let lastVoter = dataSource.top10votersGraphData.last {
+            if voter.id == firstVoter.id {
+                corners = [.topLeft, .bottomLeft]
+            } else if voter.id == lastVoter.id {
+                corners = [.topRight, .bottomRight]
+            }
+        }
+        
+        return RoundedCornersShape(corners: corners, radius: 5)
+    }
+}
+
+fileprivate struct RoundedCornersShape: Shape {
+    let corners: UIRectCorner
+    let radius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect,
+                                byRoundingCorners: corners,
+                                cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }

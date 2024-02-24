@@ -30,7 +30,7 @@ struct TopVoter: Decodable, Identifiable {
         }
     
     init(name: Address, voterPower: Double, voterCount: Double) {
-        self.id = name.description
+        self.id = name.value
             self.name = name
             self.voterPower = voterPower
             self.voterCount = voterCount
