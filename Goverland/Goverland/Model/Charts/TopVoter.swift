@@ -12,8 +12,8 @@ import SwiftUI
 struct TopVoter: Decodable, Identifiable {
     let id: String
     let name: Address
-    let voterPower: Double
-    let voterCount: Double
+    let votingPower: Double
+    let votesCount: Double
 
     enum CodingKeys: String, CodingKey {
         case name = "voter"
@@ -24,15 +24,15 @@ struct TopVoter: Decodable, Identifiable {
     init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.name = try container.decode(Address.self, forKey: .name)
-            self.voterPower = try container.decode(Double.self, forKey: .voterPower)
-            self.voterCount = try container.decode(Double.self, forKey: .voterCount)
+            self.votingPower = try container.decode(Double.self, forKey: .voterPower)
+            self.votesCount = try container.decode(Double.self, forKey: .voterCount)
             self.id = name.description
         }
     
-    init(name: Address, voterPower: Double, voterCount: Double) {
+    init(name: Address, votingPower: Double, votesCount: Double) {
         self.id = name.value
             self.name = name
-            self.voterPower = voterPower
-            self.voterCount = voterCount
+            self.votingPower = votingPower
+            self.votesCount = votesCount
         }
 }

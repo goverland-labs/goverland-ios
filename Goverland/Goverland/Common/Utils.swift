@@ -79,7 +79,7 @@ enum Utils {
     
     static func getNextPage(from headers: HttpHeaders) -> String? {
         guard let nextPageStr = headers["x-next-page"] as? String else {
-            logError(GError.missingTotalCount)
+            logError(GError.missingNextPage)
             return nil
         }
         return nextPageStr

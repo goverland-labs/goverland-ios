@@ -11,14 +11,14 @@ import SwiftUI
 import Charts
 
 struct TopVotersView: View {
-    private let daoID: UUID
+    private let dao: Dao
     @StateObject private var dataSource: TopVotersDataSource
     @State private var showAllVotes = false
     
     init(dao: Dao) {
         let dataSource = TopVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
-        self.daoID = dao.id
+        self.dao = dao
     }
     
     var body: some View {
@@ -65,7 +65,7 @@ struct TopVotersView: View {
         }
         .sheet(isPresented: $showAllVotes) {
             NavigationStack {
-                AllVotersListView(daoID: daoID)
+                AllVotersListView(dao: dao)
             }
             .overlay (
                 ToastView()
@@ -75,14 +75,14 @@ struct TopVotersView: View {
 }
 
 fileprivate struct TopVotePowerVotersGraphView: View {
-    @StateObject var dataSource: TopVotersDataSource
+    @ObservedObject var dataSource: TopVotersDataSource
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
     
     var body: some View {
         VStack {
             Chart(dataSource.top10votersGraphData) { voter in
                 BarMark(
-                    x: .value("VotePower", voter.voterPower)
+                    x: .value("VotePower", voter.votingPower)
                 )
                 .foregroundStyle(by: .value("Name", voter.name.short))
                 .clipShape(barShape(for: voter))

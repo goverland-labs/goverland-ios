@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
-    private let daoID: UUID
+    private let dao: Dao
     @Published var voters: [TopVoter] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -19,8 +19,8 @@ class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
     private(set) var nextPage: String?
     private var cancellables = Set<AnyCancellable>()
     
-    init(daoID: UUID) {
-        self.daoID = daoID
+    init(dao: Dao) {
+        self.dao = dao
     }
     
     func refresh() {
@@ -34,7 +34,7 @@ class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
     
     private func loadInitialData() {
         isLoading = true
-        APIService.topVoters(id: daoID)
+        APIService.topVoters(id: dao.id)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -50,7 +50,7 @@ class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
     }
     
     func loadMore() {
-        APIService.topVoters(id: daoID,
+        APIService.topVoters(id: dao.id,
                              offset: voters.count)
             .sink { [weak self] completion in
                 switch completion {

@@ -10,13 +10,13 @@
 import SwiftUI
 
 struct AllVotersListView: View {
-    let daoID: UUID
+    let dao: Dao
     @StateObject private var dataSource: AllVotersDataSource
     @Environment(\.dismiss) private var dismiss
     
-    init(daoID: UUID) {
-        self.daoID = daoID
-        _dataSource = StateObject(wrappedValue: AllVotersDataSource(daoID: daoID))
+    init(dao: Dao) {
+        self.dao = dao
+        _dataSource = StateObject(wrappedValue: AllVotersDataSource(dao: dao))
     }
     
     var body: some View {
@@ -43,7 +43,8 @@ struct AllVotersListView: View {
                                         dataSource.loadMore()
                                     }
                             } else {
-                                RetryLoadMoreListItemView(dataSource: dataSource) .listRowSeparator(.hidden)
+                                RetryLoadMoreListItemView(dataSource: dataSource)
+                                    .listRowSeparator(.hidden)
                                     .listRowBackground(Color.clear)
                                     .listRowInsets(EdgeInsets())
                             }
@@ -60,10 +61,10 @@ struct AllVotersListView: View {
         }
         .onAppear() {
             dataSource.refresh()
-            Tracker.track(.screenSnpVoters)
+            Tracker.track(.daoInsightsTopVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Uniswap DAO voters by aVP")
+        .navigationTitle("\(dao.name) voters by aVP")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
@@ -91,12 +92,12 @@ fileprivate struct TopVoteListItemView: View {
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
             
-            Text("\(Utils.formattedNumber(voter.voterCount)) times")
+            Text("\(Utils.formattedNumber(voter.votesCount)) times")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite40)
 
-            Text("\(Utils.formattedNumber(voter.voterPower)) aVP")
+            Text("\(Utils.formattedNumber(voter.votingPower)) aVP")
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
