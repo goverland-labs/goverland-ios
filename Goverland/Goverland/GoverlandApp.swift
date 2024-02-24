@@ -23,81 +23,98 @@ let appContainer: ModelContainer = {
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManager = ActiveSheetManager()
+    @StateObject private var remoteConfig = RemoteConfigManager.shared
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
     @Setting(\.unreadEvents) private var unreadEvents
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State private var isUpdateNeeded = false
+    @State private var isMaintenance = false
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(colorSchemeManager)
-                .environmentObject(activeSheetManager)
-                .onAppear() {
-                    colorSchemeManager.applyColorScheme()
-                }
-                .onOpenURL { url in
-                    handleDeepLink(url)
-                }
-                .onChange(of: scenePhase) { _, newPhase in
-                    switch newPhase {
-                    case .inactive:
-                        logInfo("[App] Did become inactive")
-                    case .active:
-                        logInfo("[App] Did enter foreground")
-
-                        // Also called when closing system dialogue to enable push notifications.
-                        if !authToken.isEmpty {
-                            logInfo("[App] Auth Token: \(authToken)")
-                            // If the app was not used for a while and a user opens it
-                            // try to get a new counter for unread messages.
-                            if TabManager.shared.selectedTab != .inbox {
-                                // We make this check not to dismiss Cast Your Vote Success View
-                                // Which can be done from InboxView
-                                InboxDataSource.shared.refresh()
+            if isMaintenance {
+                MaintenanceView()
+            } else if isUpdateNeeded {
+                AppUpdateBlockingView()
+            } else {
+                ContentView()
+                    .environmentObject(colorSchemeManager)
+                    .environmentObject(activeSheetManager)
+                    .onAppear() {
+                        colorSchemeManager.applyColorScheme()
+                    }
+                    .onOpenURL { url in
+                        handleDeepLink(url)
+                    }
+                    .onChange(of: scenePhase) { _, newPhase in
+                        switch newPhase {
+                        case .inactive:
+                            logInfo("[App] Did become inactive")
+                        case .active:
+                            logInfo("[App] Did enter foreground")
+                            
+                            // Also called when closing system dialogue to enable push notifications.
+                            if !authToken.isEmpty {
+                                logInfo("[App] Auth Token: \(authToken)")
+                                // If the app was not used for a while and a user opens it
+                                // try to get a new counter for unread messages.
+                                if TabManager.shared.selectedTab != .inbox {
+                                    // We make this check not to dismiss Cast Your Vote Success View
+                                    // Which can be done from InboxView
+                                    InboxDataSource.shared.refresh()
+                                }
+                            } else {
+                                logInfo("[App] Auth Token is empty")
+                                unreadEvents = 0
                             }
-                        } else {
-                            logInfo("[App] Auth Token is empty")
-                            unreadEvents = 0
+                            
+                            if remoteConfig.isServerMaintenance {
+                                isMaintenance = true
+                            }
+                            
+                            if remoteConfig.isUpdateNeeded {
+                                isUpdateNeeded = true
+                            }
+                        case .background:
+                            logInfo("[App] Did enter background")
+                        @unknown default: break
                         }
-                    case .background:
-                        logInfo("[App] Did enter background")
-                    @unknown default: break
                     }
-                }
-                .sheet(item: $activeSheetManager.activeSheet) { item in
-                    switch item {
-                    case .signIn:
-                        SignInView(source: .popover)
-                    case .daoInfo(let dao):
-                        NavigationStack {
-                            DaoInfoView(dao: dao)
+                    .sheet(item: $activeSheetManager.activeSheet) { item in
+                        switch item {
+                        case .signIn:
+                            SignInView(source: .popover)
+                        case .daoInfo(let dao):
+                            NavigationStack {
+                                DaoInfoView(dao: dao)
+                            }
+                            .tint(.textWhite)
+                            .overlay {
+                                ToastView()
+                            }
+                            
+                        case .followDaos:
+                            NavigationStack {
+                                AddSubscriptionView()
+                            }
+                            .tint(.textWhite)
+                            .overlay {
+                                ToastView()
+                            }
+                            
+                        case .archive:
+                            // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                            ArchiveView()
+                            
+                        case .subscribeToNotifications:
+                            EnablePushNotificationsView()
                         }
-                        .tint(.textWhite)
-                        .overlay {
-                            ToastView()
-                        }
-
-                    case .followDaos:
-                        NavigationStack {
-                            AddSubscriptionView()
-                        }
-                        .tint(.textWhite)
-                        .overlay {
-                            ToastView()
-                        }
-
-                    case .archive:
-                        // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
-                        ArchiveView()
-
-                    case .subscribeToNotifications:
-                        EnablePushNotificationsView()
                     }
-                }
-                .overlay {
-                    ToastView()
-                }
+                    .overlay {
+                        ToastView()
+                    }
+            }
         }
         .modelContainer(appContainer)
     }

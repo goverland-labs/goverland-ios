@@ -26,16 +26,20 @@ fileprivate struct AppUpdateFooterControlsView: View {
         VStack(spacing: 20) {
             PrimaryButton("Go to App Store") {
                 Haptic.medium()
-                Tracker.track(.openAppStoreLink)
+                Tracker.track(.appUpdateBlockScreenOpenAppStoreLink)
                 // go to app store here
             }
-            
-            Button("Contact us in Discord") {
-                Tracker.track(.openDiscordLink)
-                // go to discord here
-            }
-            .fontWeight(.semibold)
-            .tint(.textWhite40)
+            Button(action: {
+                openDiscord()
+            }, label: {
+                VStack {
+                    Text("Contact us in ") +
+                    Text("Discord")
+                        .underline(true)
+                }
+                .fontWeight(.semibold)
+                .tint(.textWhite40)
+            })
         }
     }
 }
@@ -75,6 +79,15 @@ fileprivate struct AppUpdateHeaderView: View {
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(Color.textWhite)
                 .font(.chillaxRegular(size: 17))
+                .onTapGesture {
+                    openDiscord()
+                }
         }
     }
+}
+
+private func openDiscord() {
+    let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
+    openUrl(url)
+    Tracker.track(.appUpdateBlockScreenOpenDiscordLink)
 }

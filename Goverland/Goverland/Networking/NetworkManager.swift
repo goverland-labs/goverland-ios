@@ -10,7 +10,6 @@ import Combine
 import SwiftUI
 
 class NetworkManager {
-    @StateObject var remoteConfig = RemoteConfigManager.shared
     private let session: URLSession
 
     init() {
@@ -50,11 +49,6 @@ class NetworkManager {
                     } else if httpResponse.statusCode == 404 {
                         throw APIError.notFound
                     } else if (500...599).contains(httpResponse.statusCode) {
-                        print("=-------\(self.remoteConfig.isServerMaintenance)")
-                        if self.remoteConfig.isServerMaintenance {
-                            logInfo("Need to show server on maintanence alert if here")
-                        }
-
                         throw APIError.serverError(statusCode: httpResponse.statusCode)
                     }
                     return (data, headers)
