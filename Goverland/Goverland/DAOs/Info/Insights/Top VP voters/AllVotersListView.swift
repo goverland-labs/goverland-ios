@@ -61,7 +61,7 @@ struct AllVotersListView: View {
         }
         .onAppear() {
             dataSource.refresh()
-            Tracker.track(.daoInsightsTopVoters)
+            Tracker.track(.screenDaoInsightsTopVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("\(dao.name) voters by aVP")
