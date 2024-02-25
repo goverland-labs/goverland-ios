@@ -11,13 +11,13 @@ import Combine
 
 class TopVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    @Published var topVotePowerVoters: [TopVoter] = []
+    @Published var topVotingPowerVoters: [TopVoter] = []
     @Published var totalVotingPower: Double?
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     var top10votersGraphData: [TopVoter] {
-        var topVoters = topVotePowerVoters
+        var topVoters = topVotingPowerVoters
         if let totalPower = totalVotingPower {
             topVoters.append(TopVoter(name: Address("Other"),
                                       votingPower: totalPower - getTop10VotersVotingPower(),
@@ -35,7 +35,8 @@ class TopVotersDataSource: ObservableObject, Refreshable {
     }
 
     func refresh() {
-        topVotePowerVoters = []
+        topVotingPowerVoters = []
+        totalVotingPower = nil
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
 
@@ -51,13 +52,13 @@ class TopVotersDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] result, headers in
                 guard let `self` = self else { return }
-                self.topVotePowerVoters = result
+                self.topVotingPowerVoters = result
                 self.totalVotingPower = Utils.getTotalVotingPower(from: headers)
             }
             .store(in: &cancellables)
     }
     
     private func getTop10VotersVotingPower() -> Double {
-        return topVotePowerVoters.reduce(0) { $0 + $1.votingPower }
+        return topVotingPowerVoters.reduce(0) { $0 + $1.votingPower }
     }
 }

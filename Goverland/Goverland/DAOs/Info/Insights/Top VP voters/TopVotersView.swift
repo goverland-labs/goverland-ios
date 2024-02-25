@@ -35,7 +35,11 @@ struct TopVotersView: View {
                     dataSource.refresh()
                 }
                 .frame(height: 120)
-            } else if dataSource.topVotePowerVoters.isEmpty {
+            } else if dataSource.topVotingPowerVoters.isEmpty {
+                // It should not happen that a response from backend will be an empty array.
+                // It would mean that a DAO has no voters or our analytics miss data.
+                // As this is a very rare case, we will not introduce an additional `loading` state,
+                // but consider it loading when the result array is empty (default value)
                 ProgressView()
                     .foregroundColor(.textWhite20)
                     .controlSize(.regular)
@@ -59,7 +63,7 @@ struct TopVotersView: View {
         .padding()
         .padding(.bottom)
         .onAppear {
-            if dataSource.topVotePowerVoters.isEmpty {
+            if dataSource.topVotingPowerVoters.isEmpty {
                 dataSource.refresh()
             }
         }

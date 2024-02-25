@@ -26,7 +26,9 @@ class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
     func refresh() {
         voters = []
         failedToLoadInitialData = false
+        failedToLoadMore = false
         isLoading = false
+        nextPage = nil
         cancellables = Set<AnyCancellable>()
         
         loadInitialData()
