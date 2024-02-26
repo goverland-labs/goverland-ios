@@ -35,7 +35,7 @@ struct TopVotersView: View {
                     dataSource.refresh()
                 }
                 .frame(height: 120)
-            } else if dataSource.topVotingPowerVoters.isEmpty {
+            } else if dataSource.topVoters.isEmpty {
                 // It should not happen that a response from backend will be an empty array.
                 // It would mean that a DAO has no voters or our analytics miss data.
                 // As this is a very rare case, we will not introduce an additional `loading` state,
@@ -57,13 +57,12 @@ struct TopVotersView: View {
                             showAllVotes = true
                         }
                 }
-                
             }
         }
         .padding()
         .padding(.bottom)
         .onAppear {
-            if dataSource.topVotingPowerVoters.isEmpty {
+            if dataSource.topVoters.isEmpty {
                 dataSource.refresh()
             }
         }
@@ -82,6 +81,14 @@ fileprivate struct TopVotePowerVotersGraphView: View {
     @ObservedObject var dataSource: TopVotersDataSource
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
     
+    let columns: [GridItem] = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return Array(repeating: .init(.flexible()), count: 5)
+        } else {
+            return Array(repeating: .init(.flexible()), count: 3)
+        }
+    }()
+    
     var body: some View {
         VStack {
             Chart(dataSource.top10votersGraphData) { voter in
@@ -91,12 +98,29 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                 .foregroundStyle(by: .value("Name", voter.name.short))
                 .clipShape(barShape(for: voter))
             }
+            .frame(height: 30)
+            .chartXAxis(.hidden)
+            .chartLegend(.hidden)
+            .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
+            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
+                                       range: barColors) // assigns colors to the segments of the bar
+            
+            // Custom Chart Legend
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+                ForEach((0...10), id: \.self) { index in
+                    NavigationLink(destination: VoterDetailView(voter: dataSource.top10votersGraphData[index])) {
+                        HStack {
+                            Circle()
+                                .fill(barColors[index])
+                                .frame(width: 8, height: 8)
+                            Text(dataSource.top10votersGraphData[index].name.short)
+                                .font(.caption2)
+                                .foregroundColor(.textWhite60)
+                        }
+                    }
+                }
+            }
         }
-        .chartXAxis(.hidden)
-        .chartLegend(spacing: 10)
-        .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-        .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
-                                   range: barColors) // assigns colors to the segments of the bar
     }
     
     private func barShape(for voter: TopVoter) -> some Shape {
