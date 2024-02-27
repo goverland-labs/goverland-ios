@@ -22,14 +22,10 @@ struct TopVotersView: View {
     }
     
     var body: some View {
+        GraphHeaderView(header: "Top 10 voters by average VP",
+                        subheader: "Average voting power is calculated based on the last six months of user activity.",
+                        tooltipSide: .topLeft)
         VStack {
-            HStack {
-                Text("Top 10 voters by average VP")
-                    .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
-                Spacer()
-            }
-            
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
                     dataSource.refresh()
