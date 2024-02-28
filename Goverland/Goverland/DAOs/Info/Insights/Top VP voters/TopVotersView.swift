@@ -104,7 +104,7 @@ fileprivate struct TopVotePowerVotersGraphView: View {
             // Custom Chart Legend
             LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
                 ForEach((0...10), id: \.self) { index in
-                    NavigationLink(destination: VoterDetailView(voter: dataSource.top10votersGraphData[index])) {
+                    NavigationLink(destination: UserInfoView(voter: dataSource.top10votersGraphData[index])) {
                         HStack {
                             Circle()
                                 .fill(barColors[index])
