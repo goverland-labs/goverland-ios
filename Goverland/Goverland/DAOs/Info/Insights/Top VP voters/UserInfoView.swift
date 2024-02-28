@@ -1,5 +1,5 @@
 //
-//  VoterDetailView.swift
+//  UserInfoView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-26.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct VoterDetailView: View {
+struct UserInfoView: View {
     private let voter: TopVoter // will be changed to a 'User' object soon
     
     init(voter: TopVoter) {
