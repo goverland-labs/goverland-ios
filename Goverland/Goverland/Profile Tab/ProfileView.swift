@@ -205,7 +205,7 @@ fileprivate struct _ProfileHeaderView: View {
 }
 
 
-fileprivate struct _ShimmerProfileHeaderView: View {
+struct _ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
             ShimmerView()

@@ -354,4 +354,9 @@ extension APIService {
         let endpoint = PublicProfileEndpoint(address: address)
         return shared.request(endpoint)
     }
+
+    static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileVotesEndpoint(address: address)
+        return shared.request(endpoint)
+    }
 }

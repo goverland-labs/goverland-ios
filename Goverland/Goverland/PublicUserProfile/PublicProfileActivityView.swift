@@ -14,7 +14,7 @@ struct PublicProfileActivityView: View {
     
     var body: some View {
         VotesInDaosView(data: dataSource)
-        VotesListView()
+        VotesListView(data: dataSource)
     }
 }
 
@@ -49,8 +49,14 @@ fileprivate struct VotesInDaosView: View {
 }
 
 fileprivate struct VotesListView: View {
+    let data: PublicProfileDataSource
     var body: some View {
-        EmptyView()
-        //list of proposals where this public user voted
+        if data.failedToLoadIVotesData {
+            RefreshIcon {
+                data.getVotes()
+            }
+        } else {
+            // list of votes here
+        }
     }
 }

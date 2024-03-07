@@ -180,6 +180,19 @@ struct PublicProfileEndpoint: APIEndpoint {
     }
 }
 
+struct PublicProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+    
+    let address: Address
+    
+    var path: String { "user/\(address)/votes" }
+    var method: HttpMethod = .get
+
+    init(address: Address) {
+        self.address = address
+    }
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {
