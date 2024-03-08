@@ -21,20 +21,20 @@ enum PublicProfileFilter: Int, FilterOptions {
     }
 }
 
-class PublicProfileDataSource: ObservableObject {
+class PublicProfileDataSource: ObservableObject, Refreshable {
     private let address: Address
     
     @Published var profile: PublicProfile?
     @Published var votes: [Proposal]?
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadIVotesData = false
+    @Published var filter: PublicProfileFilter = .activity
     @Published var isLoading = false
     
     private var cancellables = Set<AnyCancellable>()
 
     init(address: Address) {
         self.address = address
-        refresh()
     }
 
     func refresh() {

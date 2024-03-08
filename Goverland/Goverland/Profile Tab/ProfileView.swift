@@ -148,7 +148,8 @@ fileprivate struct _ProfileView: View {
     }
 }
 
-fileprivate struct _ProfileHeaderView: View {
+// TODO: move to separate file, it is reused
+struct _ProfileHeaderView: View {
     let user: User?
 
     var body: some View {
@@ -204,7 +205,7 @@ fileprivate struct _ProfileHeaderView: View {
     }
 }
 
-
+// TODO: move to separate file, it is reused
 struct _ShimmerProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .center) {
