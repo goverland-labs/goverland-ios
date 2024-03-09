@@ -43,6 +43,7 @@ struct GoverlandApp: App {
                     .environmentObject(activeSheetManager)
                     .onAppear() {
                         colorSchemeManager.applyColorScheme()
+                        remoteConfig.fetchFirebaseRemoteConfig()
                     }
                     .onOpenURL { url in
                         handleDeepLink(url)

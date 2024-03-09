@@ -10,6 +10,7 @@
 import Foundation
 import Firebase
 import FirebaseRemoteConfig
+import Version
 
 class RemoteConfigManager: ObservableObject {
     static let shared = RemoteConfigManager()
@@ -18,22 +19,10 @@ class RemoteConfigManager: ObservableObject {
     @Published private(set) var isServerMaintenance: Bool = false
     
     private let remoteConfig = RemoteConfig.remoteConfig()
+    private init() {}
     
-    private init() {
-        configureRemoteConfig()
-        fetchFirebaseRemoteConfig()
-    }
-    
-    private func configureRemoteConfig() {
-        // by defaul Google Firebase cashing fetch
-        // forcing fetch every time
-        let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0
-        remoteConfig.configSettings = settings
-    }
-    
-    private func fetchFirebaseRemoteConfig() {
-        remoteConfig.fetch { [weak self] (status, error) in
+    func fetchFirebaseRemoteConfig() {
+        remoteConfig.fetch(withExpirationDuration: 0) { [weak self] (status, error) in
             guard let self = self else { return }
             
             if status == .success {
@@ -49,23 +38,27 @@ class RemoteConfigManager: ObservableObject {
     
     private func checkForUpdate() {
         guard let serverAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue,
-              let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-              let currentAppVersionD = Double(currentAppVersion),
-              let serverAppVersionD = Double(serverAppVersion) else {
+              let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
             logInfo("[FIREBASE] Remote config does not set min_app_supported_version")
             return
         }
-        DispatchQueue.main.async {
-            if currentAppVersionD < serverAppVersionD {
-                self.isUpdateNeeded = true
+        
+        let currentVersion = Version(currentAppVersion)
+        if let serverVersion = Version(serverAppVersion) {
+            //print("[FIREBASE] Current App Version: \(currentVersion), Server App Version: \(serverVersion)")
+            DispatchQueue.main.async {
+                if currentVersion! < serverVersion {
+                    self.isUpdateNeeded = true
+                }
             }
+        } else {
+            print("NIL SERVER VALUE")
         }
     }
     
     private func checkForServerMaintenance() {
         let maintenance = remoteConfig.configValue(forKey: "server_maintenance_in_progress").boolValue
         DispatchQueue.main.async {
-            print("--------------------\(maintenance)")
             self.isServerMaintenance = maintenance
         }
     }

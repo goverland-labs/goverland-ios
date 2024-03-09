@@ -214,12 +214,12 @@ enum TrackingEvent: String, Trackable {
     case settingsDisableTracking = "settings_disable_tracking"
     
     // MARK: - App Update
-    case appUpdateBlockScreen = "screen_new_updates_available"
-    case appUpdateBlockScreenOpenAppStoreLink = "screen_updates_app_store_link_open"
-    case appUpdateBlockScreenOpenDiscordLink = "screen_updates_discord_link_open"
+    case screenAppUpdateBlockScreen = "screen_new_updates_available"
+    case appUpdateScreenOpenAppStoreLink = "updates_open_app_store_link"
+    case appUpdateScreenOpenDiscordLink = "updates_open_discord_link"
     
     // MARK: - Server Maintenance
     case screenMaintenance = "screen_maintenance"
-    case screenMaintenanceOpenX = "screen_maintenance_open_X"
-    case screenMaintenanceOpenDiscord = "screen_maintenance_open_discord"
+    case maintenanceScreenOpenX = "maintenance_open_X"
+    case maintenanceScreenOpenDiscord = "maintenance_open_discord"
 }

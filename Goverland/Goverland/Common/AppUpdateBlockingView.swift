@@ -17,7 +17,7 @@ struct AppUpdateBlockingView: View {
             AppUpdateFooterControlsView()
         }
         .padding()
-        .onAppear() {Tracker.track(.appUpdateBlockScreen)}
+        .onAppear() {Tracker.track(.screenAppUpdateBlockScreen)}
     }
 }
 
@@ -26,10 +26,11 @@ fileprivate struct AppUpdateFooterControlsView: View {
         VStack(spacing: 20) {
             PrimaryButton("Go to App Store") {
                 Haptic.medium()
-                Tracker.track(.appUpdateBlockScreenOpenAppStoreLink)
-                // go to app store here
+                Tracker.track(.appUpdateScreenOpenAppStoreLink)
+                openAppStore()
             }
             Button(action: {
+                Tracker.track(.appUpdateScreenOpenDiscordLink)
                 openDiscord()
             }, label: {
                 VStack {
@@ -74,12 +75,13 @@ fileprivate struct AppUpdateHeaderView: View {
                 Spacer()
             }
             
-            Text("Please install the latest version to continue using the app, if you need additional support contact us in our Discord")
+            Text("Please install the latest version to continue using the app. If you need additional support, contact us on Discord")
                 .lineLimit(4)
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(Color.textWhite)
                 .font(.chillaxRegular(size: 17))
                 .onTapGesture {
+                    Tracker.track(.appUpdateScreenOpenDiscordLink)
                     openDiscord()
                 }
         }
@@ -89,5 +91,9 @@ fileprivate struct AppUpdateHeaderView: View {
 private func openDiscord() {
     let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
     openUrl(url)
-    Tracker.track(.appUpdateBlockScreenOpenDiscordLink)
+}
+
+private func openAppStore() {
+    let url = URL(string: "https://forums.developer.apple.com/forums/thread/127195")!
+    openUrl(url)
 }

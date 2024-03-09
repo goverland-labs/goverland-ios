@@ -39,8 +39,8 @@ fileprivate struct MaintenanceHeaderView: View {
                 Spacer()
             }
             
-            HStack(spacing: 3) {
-                Text("It will be back soon better than before, you can request for support in our ") +
+            HStack {
+                Text("t will be back soon, better than before. You can request support on ") +
                 Text("Discord")
                     .underline(true, color: .primaryDim)
                     .foregroundColor(.primaryDim)
@@ -52,7 +52,7 @@ fileprivate struct MaintenanceHeaderView: View {
             .onTapGesture {
                 let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
                 openUrl(url)
-                Tracker.track(.screenMaintenanceOpenDiscord)
+                Tracker.track(.maintenanceScreenOpenDiscord)
             }
         }
     }
@@ -73,7 +73,7 @@ fileprivate struct MaintenanceFooterControlsView: View {
             SecondaryButton("Subscribe on X") {
                 let url = URL(string: "https://x.com/goverland_xyz")!
                 openUrl(url)
-                Tracker.track(.screenMaintenanceOpenX)
+                Tracker.track(.maintenanceScreenOpenX)
             }
         }
         .padding(.bottom, getPadding())
