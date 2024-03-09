@@ -48,8 +48,7 @@
 		552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
-		5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B82F2B9C8CA900870A08 /* WalletConnectModal */; };
-		5536B8352B9CB1A700870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B8342B9CB1A700870A08 /* WalletConnectModal */; };
+		5536B8372B9CB5C400870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B8362B9CB5C400870A08 /* WalletConnectModal */; };
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
@@ -567,8 +566,7 @@
 				5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
-				5536B8352B9CB1A700870A08 /* WalletConnectModal in Frameworks */,
-				5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */,
+				5536B8372B9CB5C400870A08 /* WalletConnectModal in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
 				55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */,
@@ -1456,8 +1454,7 @@
 				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 				55EEC0332B2BB326007962BD /* CryptoSwift */,
 				5515241D2B565165005FBF86 /* CoinbaseWalletSDK */,
-				5536B82F2B9C8CA900870A08 /* WalletConnectModal */,
-				5536B8342B9CB1A700870A08 /* WalletConnectModal */,
+				5536B8362B9CB5C400870A08 /* WalletConnectModal */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -2758,11 +2755,7 @@
 			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
 			productName = BlockiesSwift;
 		};
-		5536B82F2B9C8CA900870A08 /* WalletConnectModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = WalletConnectModal;
-		};
-		5536B8342B9CB1A700870A08 /* WalletConnectModal */ = {
+		5536B8362B9CB5C400870A08 /* WalletConnectModal */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5536B8332B9CB1A700870A08 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectModal;
