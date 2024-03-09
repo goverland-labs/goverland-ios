@@ -66,7 +66,12 @@ class WC_Manager {
     }
 
     private func configure() {
-        Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
+        // WalletConnect team enforced having group identifier. Not clear why.
+        Networking.configure(
+            groupIdentifier: "group.goverland",
+            projectId: ConfigurationManager.wcProjectId,
+            socketFactory: WC_SocketFactory.shared
+        )
 
         // Pair.configure happens inside the Modal
         WalletConnectModal.configure(
@@ -74,9 +79,12 @@ class WC_Manager {
             metadata: metadata,
             sessionParams: SessionParams.goverland,
             excludedWalletIds: Wallet.excluded.map { $0.id },
-            accentColor: .primaryDim,
-            modalTopBackground: .containerBright
+            accentColor: .primaryDim
+//            modalTopBackground: .containerBright
         )
+
+        // Otherwise it fails with error. Very strange enforcements from WC team.
+        Sign.configure(crypto: MockCryptoProvider())
     }
 
     /// Listed to events related to session. Session setteling hapens in ConnectWalletModel.

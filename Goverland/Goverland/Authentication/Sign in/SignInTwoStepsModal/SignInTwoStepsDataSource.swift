@@ -157,7 +157,7 @@ class SignInTwoStepsDataSource: ObservableObject {
         formSiweMessage(address: address)
         let params = AnyCodable([siweMessage, address])
 
-        let request = Request(
+        let request = try! Request(
             topic: session.topic,
             method: "personal_sign",
             params: params,

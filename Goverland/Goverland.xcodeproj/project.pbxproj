@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,6 +48,8 @@
 		552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
+		5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B82F2B9C8CA900870A08 /* WalletConnectModal */; };
+		5536B8322B9C8F1A00870A08 /* WC_CryptoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */; };
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
@@ -133,7 +135,6 @@
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
 		55F143E4294B1DDC00D00B73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E3294B1DDC00D00B73 /* Preview Assets.xcassets */; };
 		55F700252AB05149008EA30C /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F700242AB05149008EA30C /* GraphView.swift */; };
-		55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73052AB75DAB0081C38D /* WalletConnectModal */; };
 		55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */; };
 		55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730E2AB75DC60081C38D /* WC_Manager.swift */; };
 		55FD731B2AB75DC60081C38D /* SIWE_Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD730F2AB75DC60081C38D /* SIWE_Message.swift */; };
@@ -340,6 +341,7 @@
 		552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerFullView.swift; sourceTree = "<group>"; };
 		552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerDataSource.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_CryptoProvider.swift; sourceTree = "<group>"; };
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
@@ -561,12 +563,12 @@
 				55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */,
 				BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */,
 				55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				55FD73062AB75DAB0081C38D /* WalletConnectModal in Frameworks */,
 				BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */,
 				55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */,
 				5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
+				5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
 				55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */,
@@ -1129,6 +1131,7 @@
 				55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */,
 				55FD730E2AB75DC60081C38D /* WC_Manager.swift */,
 				557C26592B32273D00AAF26C /* WC_SessionMeta.swift */,
+				5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */,
 			);
 			path = WalletConnectV2;
 			sourceTree = "<group>";
@@ -1450,11 +1453,11 @@
 				55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */,
 				55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */,
 				55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */,
-				55FD73052AB75DAB0081C38D /* WalletConnectModal */,
 				55FD73242AB75DF80081C38D /* Starscream */,
 				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 				55EEC0332B2BB326007962BD /* CryptoSwift */,
 				5515241D2B565165005FBF86 /* CoinbaseWalletSDK */,
+				5536B82F2B9C8CA900870A08 /* WalletConnectModal */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -1535,11 +1538,11 @@
 				BAB4B91D2A44864000D24110 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */,
 				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 				55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */,
+				5536B82E2B9C8CA900870A08 /* XCLocalSwiftPackageReference "../../WalletConnectSwiftV2" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -1735,6 +1738,7 @@
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAE1AB362AF3DD08001B89F3 /* MutualDaosView.swift in Sources */,
+				5536B8322B9C8F1A00870A08 /* WC_CryptoProvider.swift in Sources */,
 				BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
@@ -2648,6 +2652,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		5536B82E2B9C8CA900870A08 /* XCLocalSwiftPackageReference "../../WalletConnectSwiftV2" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../WalletConnectSwiftV2;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2695,14 +2706,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.8.0;
-			};
-		};
-		55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/goverland-labs/WalletConnectSwiftV2/";
-			requirement = {
-				branch = "1.9.0-goverland-styling";
-				kind = branch;
 			};
 		};
 		55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */ = {
@@ -2755,6 +2758,10 @@
 			package = 553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
 			productName = BlockiesSwift;
 		};
+		5536B82F2B9C8CA900870A08 /* WalletConnectModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WalletConnectModal;
+		};
 		55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -2779,11 +2786,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
-		};
-		55FD73052AB75DAB0081C38D /* WalletConnectModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 55FD73042AB75DAB0081C38D /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = WalletConnectModal;
 		};
 		55FD73242AB75DF80081C38D /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
