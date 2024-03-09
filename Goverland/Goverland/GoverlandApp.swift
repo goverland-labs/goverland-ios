@@ -43,6 +43,7 @@ struct GoverlandApp: App {
                     switch newPhase {
                     case .inactive:
                         logInfo("[App] Did become inactive")
+
                     case .active:
                         logInfo("[App] Did enter foreground")
 
@@ -60,8 +61,14 @@ struct GoverlandApp: App {
                             logInfo("[App] Auth Token is empty")
                             unreadEvents = 0
                         }
+
+                        // Default session is 7 days. Not to force users re-create a new session with a wallet
+                        // every week, we will try to extend session if a wallet supports it.
+                        WC_Manager.extendSessionIfNeeded()
+
                     case .background:
                         logInfo("[App] Did enter background")
+
                     @unknown default: break
                     }
                 }

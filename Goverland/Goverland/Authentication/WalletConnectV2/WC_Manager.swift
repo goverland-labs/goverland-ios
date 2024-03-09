@@ -48,6 +48,14 @@ class WC_Manager {
         }
     }
 
+    static func extendSessionIfNeeded() {
+        guard let session = shared.sessionMeta?.session else { return }
+        logInfo("[WC] Extend session with topic: \(session.topic); address: \(session.accounts.first?.address ?? "unknown")")
+        Task {
+            try? await Sign.instance.extend(topic: session.topic)
+        }
+    }
+
     static var sessionWalletRedirectUrl: URL? {
         if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
            let redirectUrlStr = meta.session.peer.redirect?.universal,
@@ -91,8 +99,24 @@ class WC_Manager {
     private func listen() {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
-            .sink { sessions in
+            .sink { [weak self] sessions in
+                guard let self = self else { return }
                 logInfo("[WC] Sessions count: \(sessions.count)")
+                for s in sessions {
+                    logInfo("[WC] Got session for: \(s.accounts.first?.address ?? "unknown"); Expire date: \(s.expiryDate)")
+                    if let sessionMeta = self.sessionMeta, 
+                        sessionMeta.session.topic == s.topic, sessionMeta.session.expiryDate < s.expiryDate {
+
+                        // we update cached sessionMeta with new expiry date on getting update for this session
+                        self.sessionMeta = .init(session: s, walletOnSameDevice: sessionMeta.walletOnSameDevice)
+
+                        // and update it in the selected profile
+                        Task {
+                            try? await UserProfile.update_WC_SessionForSelectedProfile()
+                        }
+                        logInfo("[WC] Expiry date changed. Udated cached SessionMeta for: \(s.accounts.first?.address ?? "unknown"); walletOnSameDevice: \(sessionMeta.walletOnSameDevice)")
+                    }
+                }
             }
             .store(in: &cancellables)
 
@@ -114,12 +138,15 @@ class WC_Manager {
             {
                 let sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
                 if sessionMeta?.isExpired ?? false {
-                    // clear session in selected profile if it is expired
-                    self.sessionMeta = nil
-                    try? await UserProfile.update_WC_SessionForSelectedProfile()
+                    // Disconnect from session. It will also clear session in selected profile.
+                    logInfo("[WC] Stored cachned session is expired. Disconnecting.")
+                    Self.disconnect(topic: sessionMeta!.session.topic)
                 } else {
-                    // all good. Set sessionMeta from stored data in selected profile
+                    // All good. Set sessionMeta from stored data in selected profile
                     self.sessionMeta = sessionMeta
+                    logInfo("[WC] Restored cachned SessionMeta from Profile. Address: \(sessionMeta!.session.accounts.first?.address ?? "unknown"); Expire date: \(sessionMeta!.session.expiryDate)")
+                    // Extend it
+                    Self.extendSessionIfNeeded()
                 }
             }
         }
