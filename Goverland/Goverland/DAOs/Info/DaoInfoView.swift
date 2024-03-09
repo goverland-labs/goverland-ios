@@ -55,7 +55,7 @@ struct DaoInfoView: View {
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the DAO information")
-            } else if let dao = dao {
+            } else if let dao {
                 VStack(spacing: 0) {
                     DaoInfoScreenHeaderView(dao: dao)
                         .padding(.horizontal)

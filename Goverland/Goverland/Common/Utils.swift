@@ -58,6 +58,23 @@ enum Utils {
         }
         return total
     }
+    
+    static func getTotalVotingPower(from headers: HttpHeaders) -> Double? {
+        guard let totalStr = headers["x-total-avg-vp"] as? String,
+            let total = Double(totalStr) else {
+            logError(GError.missingTotalCount)
+            return nil
+        }
+        return total
+    }
+    
+    static func getNextPage(from headers: HttpHeaders) -> String? {
+        guard let nextPageStr = headers["x-next-page"] as? String else {
+            logError(GError.missingNextPage)
+            return nil
+        }
+        return nextPageStr
+    }
 
     // MARK: - Dates
 

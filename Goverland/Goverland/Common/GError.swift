@@ -11,6 +11,7 @@ import Foundation
 enum GError: Error {
     case missingTotalCount
     case missingUnreadCount
+    case missingNextPage
     case missingSubscriptionsCount
     case voteResultsInconsistency(id: String)
     case failedVotesDecoding(proposalID: String)
@@ -24,6 +25,8 @@ enum GError: Error {
             return "Missing x-total-count."
         case .missingUnreadCount:
             return "Missing x-unread-count."
+        case .missingNextPage:
+            return "Missing x-next-page."
         case .missingSubscriptionsCount:
             return "Missing x-subscriptions-count."
         case .voteResultsInconsistency(let id):

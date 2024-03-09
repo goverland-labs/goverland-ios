@@ -154,6 +154,17 @@ extension APIService {
         let endpoint = MonthlyTotalNewProposalsEndpoint()
         return shared.request(endpoint)
     }
+    
+    static func topVoters(id: UUID,
+                          offset: Int = 0,
+                          limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        let endpoint = TopVotersEndpoint(daoID: id, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     // MARK: - Subscriptions
 
@@ -205,8 +216,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func proposal(id: UUID) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = ProposalEndpoint(proposalID: id)
+    static func proposal(id: String) -> AnyPublisher<(ProposalEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalEndpoint(proposalId: id)
         return shared.request(endpoint)
     }
 

@@ -157,11 +157,25 @@ fileprivate struct SignedOutUserDashboardView: View {
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
     @ObservedObject var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
+    @ObservedObject var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
+
+    var shouldShowDaosWithActiveVote: Bool {
+        !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading
+    }
+
+    var shouldShowRecommendationToVote: Bool {
+        guard ProfileDataSource.shared.profile?.role == .regular else { return false }
+        if let proposals = profileHasVotingPowerDataSource.proposals {
+            return !proposals.isEmpty
+        } else {
+            return true
+        }
+    }
 
     var body: some View {
         // TODO: ProposalOfDayView section
 
-        if !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading {
+        if shouldShowDaosWithActiveVote {
             SectionHeader(header: "Followed DAOs with active vote")
             DashboardFollowedDAOsActiveVoteHorizontalListView()
         }
@@ -171,7 +185,7 @@ fileprivate struct SignedInUserDashboardView: View {
         }
         DashboardNewDaosView()
 
-        if !(ProfileHasVotingPowerDataSource.dashboard.proposals?.isEmpty ?? false) {
+        if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
                 path.append(Path.profileHasVotingPower)
             }

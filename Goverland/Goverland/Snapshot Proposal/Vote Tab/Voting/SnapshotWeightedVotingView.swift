@@ -12,7 +12,7 @@ struct SnapshotWeightedVotingView: View {
     let proposal: Proposal
     @Binding var voteButtonDisabled: Bool
 
-    // In Snapshot API this is mapping like ["1": 1, "2": 3, ...], where "1" is the first element.
+    // In the Snapshot API this is mapping like ["1": 1, "2": 3, ...], where "1" is the first element.
     @Binding var choicesPower: [String: Int]?
     
     @State private var totalPower: Int = 0
@@ -80,20 +80,39 @@ struct SnapshotWeightedVotingView: View {
                     initialChoicesPower[String(index + 1)] = 0
                 }
                 choicesPower = initialChoicesPower
+            } else {
+                // assure no skipped values
+                for (index, _) in proposal.choices.enumerated() {
+                    if choicesPower![String(index + 1)] == nil {
+                        // in case not all values are passed via initial binding
+                        choicesPower![String(index + 1)] = 0
+                    }
+                }
+                updateTotal()
             }
         }
     }
 
+    private func updateTotal() {
+        var total: Int = 0
+        for (index, _) in proposal.choices.enumerated() {
+            total += choicesPower![String(index + 1)]!
+        }
+        self.totalPower = total
+    }
+
     private func decreaseVotingPower(for index: Int) {
         if choicesPower![String(index + 1)]! > 0 {
+            Haptic.light()
             choicesPower![String(index + 1)]! -= 1
-            totalPower -= 1
+            updateTotal()
         }
     }
 
     private func increaseVotingPower(for index: Int) {
+        Haptic.light()
         choicesPower![String(index + 1)]! += 1
-        totalPower += 1
+        updateTotal()
     }
 
     private func percentage(for index: Int) -> String {

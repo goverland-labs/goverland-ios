@@ -9,12 +9,68 @@
 import SwiftUI
 import SwiftDate
 
-// TODO: add pull-to-refresh logic, add initializer from object and from proposal id
 struct SnapshotProposalView: View {
-    let proposal: Proposal
     let allowShowingDaoInfo: Bool
     let navigationTitle: String
 
+    /// 16.02.2024
+    /// On iPad on the latest version (17.3.1) if we use here StateObject instead of ObservedObject, the redraw cycle is broken.
+    /// iPad takes some old cached value of dataSource, because the view that we try to redraw is still on the screen.
+    @ObservedObject private var dataSource: SnapshotProposalDataSource
+
+    init(proposal: Proposal, allowShowingDaoInfo: Bool, navigationTitle: String) {
+        self.allowShowingDaoInfo = allowShowingDaoInfo
+        self.navigationTitle = navigationTitle
+        _dataSource = ObservedObject(wrappedValue: SnapshotProposalDataSource(proposal: proposal))
+    }
+
+    var proposal: Proposal? {
+        dataSource.proposal
+    }
+
+    var body: some View {
+        Group {
+            if dataSource.isLoading {
+                VStack {
+                    ProgressView()
+                        .foregroundStyle(Color.textWhite20)
+                        .controlSize(.regular)
+                    Spacer()
+                }
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the proposal information")
+            } else if let proposal {
+                _ProposalView(proposal: proposal, allowShowingDaoInfo: allowShowingDaoInfo)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(navigationTitle)
+        .toolbar {
+            if let proposal {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
+                }
+            }
+        }
+        .refreshable {
+            dataSource.refresh()
+        }
+        .onAppear() {
+            Tracker.track(.screenSnpDetails)
+        }
+    }
+}
+
+fileprivate struct _ProposalView: View {
+    let proposal: Proposal
+    let allowShowingDaoInfo: Bool
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var voted: Bool {
@@ -51,7 +107,7 @@ struct SnapshotProposalView: View {
 
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 35)
-                
+
                 if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
                     SnapshotProposalDiscussionView(proposal: proposal)
                         .padding(.bottom, 35)
@@ -61,23 +117,6 @@ struct SnapshotProposalView: View {
                     .padding(.bottom, 20)
             }
             .padding(.horizontal)
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(navigationTitle)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.textWhite)
-                        .fontWeight(.bold)
-                        .frame(height: 20)
-                }
-            }
-        }
-        .onAppear() {
-            Tracker.track(.screenSnpDetails)
         }
     }
 }

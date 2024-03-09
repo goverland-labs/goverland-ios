@@ -289,6 +289,20 @@ struct MutualDaosEndpoint: APIEndpoint {
     }
 }
 
+struct TopVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [TopVoter]
+    
+    let daoID: UUID
+    var path: String { "analytics/top-voters-by-vp/\(daoID)" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+    
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+        self.daoID = daoID
+        self.queryParameters = queryParameters
+    }
+}
+
 // MARK: - Subscriptions
 
 struct SubscriptionsEndpoint: APIEndpoint {
@@ -360,13 +374,13 @@ struct TopProposalsListEndpoint: APIEndpoint {
 struct ProposalEndpoint: APIEndpoint {
     typealias ResponseType = Proposal
 
-    let proposalID: UUID
+    let proposalId: String
 
-    var path: String { "proposals/\(proposalID)" }
+    var path: String { "proposals/\(proposalId)" }
     var method: HttpMethod = .get
 
-    init(proposalID: UUID) {
-        self.proposalID = proposalID
+    init(proposalId: String) {
+        self.proposalId = proposalId
     }
 }
 

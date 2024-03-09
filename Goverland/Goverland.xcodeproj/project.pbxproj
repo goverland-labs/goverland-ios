@@ -28,6 +28,7 @@
 		5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5515241D2B565165005FBF86 /* CoinbaseWalletSDK */; };
 		551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */; };
 		5516042A2B74DDC300AA5784 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551604292B74DDC300AA5784 /* Haptic.swift */; };
+		5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */; };
 		5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */; };
 		5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */; };
 		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
@@ -77,7 +78,6 @@
 		5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */; };
 		5597E73B2A0A5C8800E2FAE4 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7352A0A5C8800E2FAE4 /* ApiError.swift */; };
 		5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */; };
-		5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
 		5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7382A0A5C8800E2FAE4 /* NetworkManager.swift */; };
 		5597E73F2A0A5C8800E2FAE4 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7392A0A5C8800E2FAE4 /* ToastView.swift */; };
 		5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E73A2A0A5C8800E2FAE4 /* Endpoint.swift */; };
@@ -148,7 +148,6 @@
 		55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */; };
 		55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */; };
 		55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */; };
-		55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */; };
 		55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */; };
 		55FDC0EB2B71E4F400D1AD79 /* SystemLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAC9CD2B6D3DC700767454 /* SystemLogHandler.swift */; };
 		55FDC0EC2B71E5BB00D1AD79 /* GError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C42A5EF4D3001F975D /* GError.swift */; };
@@ -156,6 +155,9 @@
 		55FDC0EE2B71E5C700D1AD79 /* SystemLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CAC9CD2B6D3DC700767454 /* SystemLogHandler.swift */; };
 		55FDC0EF2B71E5CF00D1AD79 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D7A912B6D309D00CD3FDB /* Logger.swift */; };
 		BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */; };
+		BA15F5922AFA9D3E001107E8 /* TopVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15F5912AFA9D3E001107E8 /* TopVotersDataSource.swift */; };
+		BA15F5942AFA9DDA001107E8 /* TopVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15F5932AFA9DDA001107E8 /* TopVotersView.swift */; };
+		BA15F5962AFA9FB4001107E8 /* TopVoter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15F5952AFA9FB4001107E8 /* TopVoter.swift */; };
 		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
 		BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */; };
 		BA1A6FC02B7AC62D00D76BCA /* AppUpdateBlockingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */; };
@@ -202,13 +204,16 @@
 		BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */; };
 		BA789BCC2B73D2C50064D6FE /* AchievementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */; };
 		BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */; };
-		BA789BD72B7A6B600064D6FE /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = BA789BD62B7A6B600064D6FE /* FirebaseDatabase */; };
-		BA789BD92B7A6B600064D6FE /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA789BD82B7A6B600064D6FE /* FirebaseDatabaseSwift */; };
+		BA789BD12B7938750064D6FE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597E7372A0A5C8800E2FAE4 /* APIService.swift */; };
+		BA789BD22B79388A0064D6FE /* APIService+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */; };
 		BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514B2A4896C00088A6E6 /* DaoInfoDataSource.swift */; };
 		BA84514E2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84514D2A48A9430088A6E6 /* DaoInfoAboutDaoView.swift */; };
 		BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */; };
 		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
 		BA8455B02B88284E00A986CC /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AF2B88284E00A986CC /* MaintenanceView.swift */; };
+		BA8455AC2B85110F00A986CC /* AllVotersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AB2B85110F00A986CC /* AllVotersListView.swift */; };
+		BA8455AE2B8511D700A986CC /* AllVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */; };
+		BA8455D22B8D50F300A986CC /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455D12B8D50F300A986CC /* UserInfoView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */; };
 		BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */; };
@@ -322,6 +327,7 @@
 		55143B552A585AC8003103B1 /* Vote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		551524202B56601F005FBF86 /* CoinbaseWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseWalletManager.swift; sourceTree = "<group>"; };
 		551604292B74DDC300AA5784 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDataSource.swift; sourceTree = "<group>"; };
 		5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedWalletView.swift; sourceTree = "<group>"; };
 		5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsView.swift; sourceTree = "<group>"; };
 		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
@@ -440,6 +446,9 @@
 		55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Endpoint.swift"; sourceTree = "<group>"; };
 		55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesListView.swift; sourceTree = "<group>"; };
 		BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalView.swift; sourceTree = "<group>"; };
+		BA15F5912AFA9D3E001107E8 /* TopVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVotersDataSource.swift; sourceTree = "<group>"; };
+		BA15F5932AFA9DDA001107E8 /* TopVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVotersView.swift; sourceTree = "<group>"; };
+		BA15F5952AFA9FB4001107E8 /* TopVoter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVoter.swift; sourceTree = "<group>"; };
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
 		BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemCondensedView.swift; sourceTree = "<group>"; };
 		BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateBlockingView.swift; sourceTree = "<group>"; };
@@ -488,6 +497,9 @@
 		BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnershipSettingView.swift; sourceTree = "<group>"; };
 		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
 		BA8455AF2B88284E00A986CC /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceView.swift; sourceTree = "<group>"; };
+		BA8455AB2B85110F00A986CC /* AllVotersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVotersListView.swift; sourceTree = "<group>"; };
+		BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVotersDataSource.swift; sourceTree = "<group>"; };
+		BA8455D12B8D50F300A986CC /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardView.swift; sourceTree = "<group>"; };
 		BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardDataSource.swift; sourceTree = "<group>"; };
 		BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChart.swift; sourceTree = "<group>"; };
@@ -1090,6 +1102,7 @@
 				55B5272D2AF2A4890038B6B5 /* User buckets */,
 				55B5272C2AF2A46F0038B6B5 /* Monthly new proposals */,
 				BAE1AB342AF3DC7D001B89F3 /* Mutual DAOs */,
+				BA15F5902AFA9C71001107E8 /* Top VP voters */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -1169,10 +1182,23 @@
 			isa = PBXGroup;
 			children = (
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
+				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				550E85532A5F4C3400B0CFDD /* Vote Tab */,
 			);
 			path = "Snapshot Proposal";
+			sourceTree = "<group>";
+		};
+		BA15F5902AFA9C71001107E8 /* Top VP voters */ = {
+			isa = PBXGroup;
+			children = (
+				BA15F5932AFA9DDA001107E8 /* TopVotersView.swift */,
+				BA15F5912AFA9D3E001107E8 /* TopVotersDataSource.swift */,
+				BA8455AB2B85110F00A986CC /* AllVotersListView.swift */,
+				BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */,
+				BA8455D12B8D50F300A986CC /* UserInfoView.swift */,
+			);
+			path = "Top VP voters";
 			sourceTree = "<group>";
 		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
@@ -1311,6 +1337,7 @@
 				BAE1AB322AF0498F001B89F3 /* SuccessfulProposals.swift */,
 				BAE1AB2C2AF036BE001B89F3 /* MonthlyNewProposals.swift */,
 				BAE1AB392AF3E6AC001B89F3 /* MutualDao.swift */,
+				BA15F5952AFA9FB4001107E8 /* TopVoter.swift */,
 				BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */,
 				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
 				BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */,
@@ -1662,6 +1689,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA789BD22B79388A0064D6FE /* APIService+Endpoint.swift in Sources */,
+				BA789BD12B7938750064D6FE /* APIService.swift in Sources */,
 				55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */,
 				55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */,
 				BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */,
@@ -1669,6 +1698,7 @@
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */,
 				5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */,
+				BA8455D22B8D50F300A986CC /* UserInfoView.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */,
@@ -1684,6 +1714,7 @@
 				55D632B3295057880073E04A /* IntroView.swift in Sources */,
 				557FD1262A25FEA000BDC5B0 /* GroupedDaosDataSource.swift in Sources */,
 				BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */,
+				BA15F5922AFA9D3E001107E8 /* TopVotersDataSource.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,
@@ -1706,6 +1737,7 @@
 				BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */,
 				55FD73202AB75DC60081C38D /* ConnectWalletView.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ToastView.swift in Sources */,
+				BA15F5962AFA9FB4001107E8 /* TopVoter.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */,
@@ -1718,6 +1750,7 @@
 				BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */,
+				BA8455AE2B8511D700A986CC /* AllVotersDataSource.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
@@ -1735,7 +1768,6 @@
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */,
 				550E856F2A5F4C3400B0CFDD /* SnapshotBasicVotingView.swift in Sources */,
-				5597E73D2A0A5C8800E2FAE4 /* APIService.swift in Sources */,
 				BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */,
 				5597E7402A0A5C8800E2FAE4 /* Endpoint.swift in Sources */,
 				552885962A28EAE700ED2BCD /* FollowCategoryDaosListView.swift in Sources */,
@@ -1755,11 +1787,11 @@
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */,
 				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
+				BA8455AC2B85110F00A986CC /* AllVotersListView.swift in Sources */,
 				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
-				55FDC0E82B70B12400D1AD79 /* APIService+Endpoint.swift in Sources */,
 				BA2EA20D2968904C00FB87AC /* InboxEvent.swift in Sources */,
 				55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */,
 				55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */,
@@ -1783,6 +1815,7 @@
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,
 				55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */,
+				BA15F5942AFA9DDA001107E8 /* TopVotersView.swift in Sources */,
 				BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
@@ -1818,6 +1851,7 @@
 				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosHorizontalListView.swift in Sources */,
+				5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
 				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
@@ -2197,7 +2231,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2219,7 +2253,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2238,7 +2272,7 @@
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2260,7 +2294,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
