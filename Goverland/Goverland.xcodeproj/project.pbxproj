@@ -208,6 +208,7 @@
 		BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */; };
 		BA8455AC2B85110F00A986CC /* AllVotersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AB2B85110F00A986CC /* AllVotersListView.swift */; };
 		BA8455AE2B8511D700A986CC /* AllVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */; };
+		BA8455D22B8D50F300A986CC /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8455D12B8D50F300A986CC /* UserInfoView.swift */; };
 		BAA6C2F4295CF5E000C848D8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = BAA6C2F3295CF5E000C848D8 /* SwiftDate */; };
 		BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */; };
 		BAAA2BFC2B0117150061F890 /* EcosystemDashboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */; };
@@ -490,6 +491,7 @@
 		BA8451722A5B97F40088A6E6 /* TopProposalsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalsDataSource.swift; sourceTree = "<group>"; };
 		BA8455AB2B85110F00A986CC /* AllVotersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVotersListView.swift; sourceTree = "<group>"; };
 		BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVotersDataSource.swift; sourceTree = "<group>"; };
+		BA8455D12B8D50F300A986CC /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		BAAA2BF92B0116EF0061F890 /* EcosystemDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardView.swift; sourceTree = "<group>"; };
 		BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemDashboardDataSource.swift; sourceTree = "<group>"; };
 		BAAA2BFD2B011B760061F890 /* EcosystemChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcosystemChart.swift; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				BA15F5912AFA9D3E001107E8 /* TopVotersDataSource.swift */,
 				BA8455AB2B85110F00A986CC /* AllVotersListView.swift */,
 				BA8455AD2B8511D700A986CC /* AllVotersDataSource.swift */,
+				BA8455D12B8D50F300A986CC /* UserInfoView.swift */,
 			);
 			path = "Top VP voters";
 			sourceTree = "<group>";
@@ -1676,6 +1679,7 @@
 				55D632B0295055D30073E04A /* SettingKeys.swift in Sources */,
 				55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */,
 				5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */,
+				BA8455D22B8D50F300A986CC /* UserInfoView.swift in Sources */,
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */,
