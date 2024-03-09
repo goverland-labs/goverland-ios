@@ -10,6 +10,7 @@ import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
+import SwiftDate
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -49,7 +50,9 @@ class WC_Manager {
     }
 
     static func extendSessionIfNeeded() {
-        guard let session = shared.sessionMeta?.session else { return }
+        // Default expiry date is 7 days.
+        // We will extend session at least after 15 min of the last session extension / creation
+        guard let session = shared.sessionMeta?.session, session.expiryDate < .now + 7.days - 15.minutes else { return }
         logInfo("[WC] Extend session with topic: \(session.topic); address: \(session.accounts.first?.address ?? "unknown")")
         Task {
             try? await Sign.instance.extend(topic: session.topic)
@@ -115,6 +118,8 @@ class WC_Manager {
                             try? await UserProfile.update_WC_SessionForSelectedProfile()
                         }
                         logInfo("[WC] Expiry date changed. Udated cached SessionMeta for: \(s.accounts.first?.address ?? "unknown"); walletOnSameDevice: \(sessionMeta.walletOnSameDevice)")
+                    } else {
+                        logInfo("[WC] No action needed.")
                     }
                 }
             }
