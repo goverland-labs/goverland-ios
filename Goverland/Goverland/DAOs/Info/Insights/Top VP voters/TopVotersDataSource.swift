@@ -18,7 +18,7 @@ class TopVotersDataSource: ObservableObject, Refreshable {
     
     var top10votersGraphData: [TopVoter] {
         var topVoters = topVoters
-        if let totalPower = totalVotingPower {
+        if let totalPower = totalVotingPower, topVoters.count > 10 {
             topVoters.append(TopVoter(name: Address("Other"),
                                       votingPower: totalPower - getTop10VotersVotingPower(),
                                       votesCount: 0))

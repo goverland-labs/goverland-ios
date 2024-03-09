@@ -103,7 +103,8 @@ fileprivate struct TopVotePowerVotersGraphView: View {
             
             // Custom Chart Legend
             LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
-                ForEach((0...10), id: \.self) { index in
+                let count = dataSource.top10votersGraphData.count
+                ForEach((0..<min(11, count)), id: \.self) { index in
                     NavigationLink(destination: UserInfoView(voter: dataSource.top10votersGraphData[index])) {
                         HStack {
                             Circle()
