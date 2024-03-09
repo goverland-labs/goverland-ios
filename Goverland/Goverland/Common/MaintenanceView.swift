@@ -40,7 +40,7 @@ fileprivate struct MaintenanceHeaderView: View {
             }
             
             HStack {
-                Text("t will be back soon, better than before. You can request support on ") +
+                Text("It will be back soon, better than before. You can request support on ") +
                 Text("Discord")
                     .underline(true, color: .primaryDim)
                     .foregroundColor(.primaryDim)

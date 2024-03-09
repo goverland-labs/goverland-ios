@@ -28,14 +28,12 @@ struct GoverlandApp: App {
     @Setting(\.authToken) private var authToken
     @Setting(\.unreadEvents) private var unreadEvents
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var isUpdateNeeded = false
-    @State private var isMaintenance = false
 
     var body: some Scene {
         WindowGroup {
-            if isMaintenance {
+            if remoteConfig.isServerMaintenance {
                 MaintenanceView()
-            } else if isUpdateNeeded {
+            } else if remoteConfig.isUpdateNeeded {
                 AppUpdateBlockingView()
             } else {
                 ContentView()
@@ -68,14 +66,6 @@ struct GoverlandApp: App {
                             } else {
                                 logInfo("[App] Auth Token is empty")
                                 unreadEvents = 0
-                            }
-                            
-                            if remoteConfig.isServerMaintenance {
-                                isMaintenance = true
-                            }
-                            
-                            if remoteConfig.isUpdateNeeded {
-                                isUpdateNeeded = true
                             }
                         case .background:
                             logInfo("[App] Did enter background")
