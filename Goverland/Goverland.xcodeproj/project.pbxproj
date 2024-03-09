@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -49,7 +49,7 @@
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B82F2B9C8CA900870A08 /* WalletConnectModal */; };
-		5536B8322B9C8F1A00870A08 /* WC_CryptoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */; };
+		5536B8352B9CB1A700870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B8342B9CB1A700870A08 /* WalletConnectModal */; };
 		553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744D82A7577AF00D05D8A /* ConfigurationManager.swift */; };
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
@@ -341,7 +341,6 @@
 		552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerFullView.swift; sourceTree = "<group>"; };
 		552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerDataSource.swift; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_CryptoProvider.swift; sourceTree = "<group>"; };
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
@@ -568,6 +567,7 @@
 				5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
 				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
+				5536B8352B9CB1A700870A08 /* WalletConnectModal in Frameworks */,
 				5536B8302B9C8CA900870A08 /* WalletConnectModal in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
@@ -1131,7 +1131,6 @@
 				55FD730D2AB75DC60081C38D /* WC_SocketFactory.swift */,
 				55FD730E2AB75DC60081C38D /* WC_Manager.swift */,
 				557C26592B32273D00AAF26C /* WC_SessionMeta.swift */,
-				5536B8312B9C8F1A00870A08 /* WC_CryptoProvider.swift */,
 			);
 			path = WalletConnectV2;
 			sourceTree = "<group>";
@@ -1458,6 +1457,7 @@
 				55EEC0332B2BB326007962BD /* CryptoSwift */,
 				5515241D2B565165005FBF86 /* CoinbaseWalletSDK */,
 				5536B82F2B9C8CA900870A08 /* WalletConnectModal */,
+				5536B8342B9CB1A700870A08 /* WalletConnectModal */,
 			);
 			productName = DaoFeed;
 			productReference = BAF651B129A1580600C78A8A /* Goverland.app */;
@@ -1542,7 +1542,7 @@
 				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 				55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */,
-				5536B82E2B9C8CA900870A08 /* XCLocalSwiftPackageReference "../../WalletConnectSwiftV2" */,
+				5536B8332B9CB1A700870A08 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 			);
 			productRefGroup = 55F143D0294B1DDA00D00B73;
 			projectDirPath = "";
@@ -1738,7 +1738,6 @@
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAE1AB362AF3DD08001B89F3 /* MutualDaosView.swift in Sources */,
-				5536B8322B9C8F1A00870A08 /* WC_CryptoProvider.swift in Sources */,
 				BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
 				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
@@ -2652,13 +2651,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		5536B82E2B9C8CA900870A08 /* XCLocalSwiftPackageReference "../../WalletConnectSwiftV2" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../WalletConnectSwiftV2;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2681,6 +2673,14 @@
 			repositoryURL = "https://github.com/goverland-labs/BlockiesSwift";
 			requirement = {
 				branch = "0.1.2-gnosis";
+				kind = branch;
+			};
+		};
+		5536B8332B9CB1A700870A08 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/goverland-labs/WalletConnectSwiftV2/";
+			requirement = {
+				branch = "1.14.0-goverland-style";
 				kind = branch;
 			};
 		};
@@ -2760,6 +2760,11 @@
 		};
 		5536B82F2B9C8CA900870A08 /* WalletConnectModal */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WalletConnectModal;
+		};
+		5536B8342B9CB1A700870A08 /* WalletConnectModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5536B8332B9CB1A700870A08 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectModal;
 		};
 		55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */ = {

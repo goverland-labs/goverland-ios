@@ -1,5 +1,5 @@
 {
-  "originHash" : "7316502250af1d61d7dba0152192753aec15aa4741c0a22e99f5a6b3ad6347b5",
+  "originHash" : "64cde5dfe6e4f555a1aaa2550fc638b3898c04de03c5eafd5315dcee6dbd93b6",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -224,6 +224,15 @@
       "state" : {
         "revision" : "4aa89e682f8d7ab1515d85d0797f0d25306bb56a",
         "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "walletconnectswiftv2",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/goverland-labs/WalletConnectSwiftV2/",
+      "state" : {
+        "branch" : "1.14.0-goverland-style",
+        "revision" : "baa676844da0be6dda00f4145c60424f699bd094"
       }
     }
   ],

@@ -90,12 +90,18 @@ class WC_Manager {
             metadata: metadata,
             sessionParams: SessionParams.goverland,
             excludedWalletIds: Wallet.excluded.map { $0.id },
-            accentColor: .primaryDim
-//            modalTopBackground: .containerBright
+            accentColor: .primaryDim,
+            modalTopBackground: .containerBright
         )
 
         // Otherwise it fails with error. Very strange enforcements from WC team.
         Sign.configure(crypto: MockCryptoProvider())
+    }
+
+    // Not needed. But WalletConnectModal will not configure without it.
+    private struct MockCryptoProvider: CryptoProvider {
+        func recoverPubKey(signature: EthereumSignature, message: Data) throws -> Data { Data() }
+        func keccak256(_ data: Data) -> Data { Data() }
     }
 
     /// Listed to events related to session. Session setteling hapens in ConnectWalletModel.
