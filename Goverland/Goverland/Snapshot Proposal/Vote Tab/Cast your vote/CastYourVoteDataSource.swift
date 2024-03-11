@@ -204,7 +204,7 @@ class CastYourVoteDataSource: ObservableObject {
         logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
 
         let params = AnyCodable([address, typedData])
-        let request = Request(
+        let request = try! Request(
             topic: topic,
             method: "eth_signTypedData_v4",
             params: params,
