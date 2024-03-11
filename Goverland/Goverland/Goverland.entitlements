@@ -8,5 +8,9 @@
 	<array>
 		<string>applinks:links.goverland.xyz</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.goverland</string>
+	</array>
 </dict>
 </plist>
