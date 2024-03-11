@@ -50,9 +50,8 @@ fileprivate struct MaintenanceHeaderView: View {
             .foregroundStyle(Color.textWhite)
             .font(.chillaxRegular(size: 17))
             .onTapGesture {
-                let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
-                openUrl(url)
                 Tracker.track(.maintenanceScreenOpenDiscord)
+                Utils.openDiscord()
             }
         }
     }
@@ -71,9 +70,8 @@ fileprivate struct MaintenanceFooterControlsView: View {
     var body: some View {
         VStack(spacing: 20) {
             SecondaryButton("Subscribe on X") {
-                let url = URL(string: "https://x.com/goverland_xyz")!
-                openUrl(url)
                 Tracker.track(.maintenanceScreenOpenX)
+                Utils.openX()
             }
         }
         .padding(.bottom, getPadding())

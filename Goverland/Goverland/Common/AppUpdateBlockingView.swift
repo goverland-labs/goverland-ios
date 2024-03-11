@@ -27,11 +27,11 @@ fileprivate struct AppUpdateFooterControlsView: View {
             PrimaryButton("Go to App Store") {
                 Haptic.medium()
                 Tracker.track(.appUpdateScreenOpenAppStoreLink)
-                openAppStore()
+                Utils.openAppStore()
             }
             Button(action: {
                 Tracker.track(.appUpdateScreenOpenDiscordLink)
-                openDiscord()
+                Utils.openDiscord()
             }, label: {
                 VStack {
                     Text("Contact us on ") +
@@ -82,18 +82,8 @@ fileprivate struct AppUpdateHeaderView: View {
                 .font(.chillaxRegular(size: 17))
                 .onTapGesture {
                     Tracker.track(.appUpdateScreenOpenDiscordLink)
-                    openDiscord()
+                    Utils.openDiscord()
                 }
         }
     }
-}
-
-private func openDiscord() {
-    let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
-    openUrl(url)
-}
-
-private func openAppStore() {
-    let url = URL(string: "https://forums.developer.apple.com/forums/thread/127195")!
-    openUrl(url)
 }
