@@ -34,7 +34,7 @@ fileprivate struct AppUpdateFooterControlsView: View {
                 openDiscord()
             }, label: {
                 VStack {
-                    Text("Contact us in ") +
+                    Text("Contact us on ") +
                     Text("Discord")
                         .underline(true)
                 }

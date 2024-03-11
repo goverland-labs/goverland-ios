@@ -22,42 +22,44 @@ class RemoteConfigManager: ObservableObject {
     private init() {}
     
     func fetchFirebaseRemoteConfig() {
-        remoteConfig.fetch(withExpirationDuration: 0) { [weak self] (status, error) in
+        remoteConfig.fetch(withExpirationDuration: 0) { [weak self] status, error in
             guard let self = self else { return }
-            
+
+            logInfo("[REMOTE CONFIG] Fetched remote Config. Status: \(status)")
+
             if status == .success {
                 self.remoteConfig.activate { _, _ in
                     self.checkForUpdate()
                     self.checkForServerMaintenance()
                 }
             } else {
-                logInfo("[FIREBASE] Error fetching Remote Config: \(error?.localizedDescription ?? "Unknown error")")
+                logInfo("[REMOTE CONFIG] Error fetching Remote Config: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
     }
     
     private func checkForUpdate() {
-        guard let serverAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue,
-              let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-            logInfo("[FIREBASE] Remote config does not set min_app_supported_version")
+        guard let _minAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue,
+              let minAppVersion = Version(_minAppVersion) else {
+            logInfo("[REMOTE CONFIG] Remote config missing or incorrect min_app_supported_version")
             return
         }
         
-        let currentVersion = Version(currentAppVersion)
-        if let serverVersion = Version(serverAppVersion) {
-            //print("[FIREBASE] Current App Version: \(currentVersion), Server App Version: \(serverVersion)")
-            DispatchQueue.main.async {
-                if currentVersion! < serverVersion {
-                    self.isUpdateNeeded = true
-                }
-            }
-        } else {
-            print("NIL SERVER VALUE")
+        guard let _currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+              let currentAppVersion = Version(_currentAppVersion) else {
+            logError(GError.appInconsistency(reason: "Wrong CFBundleShortVersionString"))
+            return
+        }
+
+        logInfo("[REMOTE CONFIG] Min App Version: \(minAppVersion); Update is needed: \(currentAppVersion < minAppVersion)")
+        DispatchQueue.main.async {
+            self.isUpdateNeeded = currentAppVersion < minAppVersion
         }
     }
     
     private func checkForServerMaintenance() {
         let maintenance = remoteConfig.configValue(forKey: "server_maintenance_in_progress").boolValue
+        logInfo("[REMOTE CONFIG] Server on maintenance: \(maintenance)")
         DispatchQueue.main.async {
             self.isServerMaintenance = maintenance
         }
