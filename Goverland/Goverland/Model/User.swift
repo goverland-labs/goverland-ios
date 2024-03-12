@@ -63,6 +63,7 @@ extension User {
         User(address: Address("0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4"),
              resolvedName: "aavechan.eth",
              avatars: [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!),
                 Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!)
              ])
     }

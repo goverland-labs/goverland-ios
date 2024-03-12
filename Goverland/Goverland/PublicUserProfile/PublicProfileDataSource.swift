@@ -42,7 +42,16 @@ class PublicProfileDataSource: ObservableObject, Refreshable {
         failedToLoadIVotesData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-        loadInitialData()
+        //loadInitialData()
+        self.profile = PublicProfile(id: UUID(),
+                                     user: User.aaveChan,
+                                     votes: [Proposal.aaveTest, Proposal.aaveTest],
+                                     daos: [Dao.gnosis, Dao.aave])
+        self.votes = [Proposal.aaveTest,
+                      Proposal.aaveTest,
+                      Proposal.aaveTest,
+                      Proposal.aaveTest,
+                      Proposal.aaveTest]
     }
     
     func getVotes() {

@@ -13,12 +13,14 @@ struct PublicProfileActivityView: View {
     let dataSource: PublicProfileDataSource
     
     var body: some View {
-        VotesInDaosView(data: dataSource)
-        VotesListView(data: dataSource)
+        ScrollView(showsIndicators: false) {
+            VoteInDaosView(data: dataSource)
+            VotesListView(data: dataSource)
+        }
     }
 }
 
-fileprivate struct VotesInDaosView: View {
+fileprivate struct VoteInDaosView: View {
     let data: PublicProfileDataSource
     var body: some View {
         if data.failedToLoadInitialData {
@@ -26,23 +28,43 @@ fileprivate struct VotesInDaosView: View {
                 data.refresh()
             }
         } else {
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 16) {
-                    if data.profile?.daos == nil { // initial loading
-                        ForEach(0..<3) { _ in
-                            ShimmerView()
-                                .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
-                                .cornerRadius(Avatar.Size.m.daoImageSize / 2)
-                        }
-                    } else {
+            VStack(spacing: 12) {
+                HStack {
+                    Text("Voted in DAOs (\(String(data.profile?.daos.count ?? 0)))")
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                    Spacer()
+                    NavigationLink("See all", value: ProfileScreen.followedDaos)
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.primaryDim)
+                }
+                .padding(.top, 16)
+                .padding(.horizontal, 16)
+                
+                if data.profile?.daos == nil { // initial loading
+                    ForEach(0..<3) { _ in
+                        ShimmerView()
+                            .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                            .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                    }
+                } else if data.profile!.daos.count == 0 {
+                    Text("You have not voted yet")
+                        .foregroundStyle(Color.textWhite)
+                        .font(.bodyRegular)
+                        .padding(16)
+                } else {
+                    HStack(spacing: 16) {
                         ForEach(data.profile!.daos) { dao in
                             RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                         }
+                        
+                        Spacer()
                     }
+                    .padding()
+                    .background(Color.containerBright)
+                    .cornerRadius(20)
+                    .padding(.horizontal, 8)
                 }
-                .background(Color.container)
-                .cornerRadius(20)
-                .padding(.horizontal, 8)
             }
         }
     }
@@ -50,10 +72,11 @@ fileprivate struct VotesInDaosView: View {
 
 fileprivate struct VotesListView: View {
     let data: PublicProfileDataSource
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     var body: some View {
         VStack {
             HStack {
-                Text("My votes (\(data.total ?? 0))")
+                Text("My votes (\(data.votes?.count ?? 0))")
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
@@ -79,23 +102,27 @@ fileprivate struct VotesListView: View {
                     .font(.bodyRegular)
                     .padding(16)
             } else {
-                ForEach(data.votes.prefix(3)) { proposal in
-                    ProposalListItemCondensedView(proposal: proposal) {
-                        Tracker.track(.prfVotesOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                    }
-                    .padding(.horizontal, 8)
-                    .onTapGesture {
-                        Tracker.track(.prfVotesOpenProposal)
-                        path.append(.vote(proposal))
+                if data.votes != nil {
+                    ForEach(data.votes!.prefix(3)) { proposal in
+                        ProposalListItemCondensedView(proposal: proposal) {
+                            Tracker.track(.prfVotesOpenDao)
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        }
+                        .padding(.horizontal, 8)
+                        //                    .onTapGesture {
+                        //                        Tracker.track(.prfVotesOpenProposal)
+                        //                        path.append(.vote(proposal))
+                        //                    }
                     }
                 }
             }
         }
         .padding(.bottom, 16)
         .onAppear {
-            if votes.isEmpty {
-                data.getVotes()
+            if let votes = data.votes {
+                if votes.isEmpty {
+                    data.getVotes()
+                }
             }
         }
     }
