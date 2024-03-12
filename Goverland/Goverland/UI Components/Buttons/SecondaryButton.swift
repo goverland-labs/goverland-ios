@@ -55,9 +55,3 @@ struct SecondaryButton: View {
         .disabled(!isEnabled)
     }
 }
-
-struct SecondaryButton_Previews: PreviewProvider {
-    static var previews: some View {
-        SecondaryButton("Secondary Button", action: {})
-    }
-}

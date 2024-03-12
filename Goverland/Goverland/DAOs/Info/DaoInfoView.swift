@@ -29,8 +29,7 @@ struct DaoInfoView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
-    @Setting(\.lastPromotedPushNotificationsTime) private var lastPromotedPushNotificationsTime
-    @Setting(\.notificationsEnabled) private var notificationsEnabled
+    @Setting(\.authToken) private var authToken
 
     /// This view should have own active sheet manager as it is already presented in a popover
     @StateObject private var activeSheetManager = ActiveSheetManager()
@@ -127,23 +126,21 @@ struct DaoInfoView: View {
                 EmptyView()
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
-            // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
-            guard let subscribed = notification.object as? Bool, subscribed else { return }
-            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
-            let now = Date().timeIntervalSinceReferenceDate
-            if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
-                // don't promore if some active sheet already displayed
-                if activeSheetManager.activeSheet == nil {
-                    lastPromotedPushNotificationsTime = now
-                    activeSheetManager.activeSheet = .subscribeToNotifications
-                }
-            }
-        }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
             // This approach is used on AppTabView and DaoInfoView
             if activeSheetManager.activeSheet == nil {
                 activeSheetManager.activeSheet = .signIn
+            }
+        }
+        // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
+            guard let subscribed = notification.object as? Bool, subscribed else { return }
+            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
+            showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
+        }
+        .onChange(of: authToken) { _, token in
+            if !token.isEmpty {                
+                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
             }
         }
     }

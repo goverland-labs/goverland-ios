@@ -23,8 +23,7 @@ struct XSettingsView: View {
     }
     
     private func openXApp() {
-        let url = URL(string: "https://x.com/goverland_xyz")!
-        openUrl(url)
+        Utils.openX()
         Tracker.track(.settingsOpenX)
     }
 }

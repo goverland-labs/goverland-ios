@@ -10,6 +10,7 @@ import Combine
 import WalletConnectNetworking
 import WalletConnectModal
 import UIKit
+import SwiftDate
 
 class WC_Manager {
     static let shared = WC_Manager()
@@ -48,6 +49,16 @@ class WC_Manager {
         }
     }
 
+    static func extendSessionIfNeeded() {
+        // Default expiry date is 7 days.
+        // We will extend session at least after 15 min of the last session extension / creation
+        guard let session = shared.sessionMeta?.session, session.expiryDate < .now + 7.days - 15.minutes else { return }
+        logInfo("[WC] Extend session with topic: \(session.topic); address: \(session.accounts.first?.address ?? "unknown")")
+        Task {
+            try? await Sign.instance.extend(topic: session.topic)
+        }
+    }
+
     static var sessionWalletRedirectUrl: URL? {
         if let meta = WC_Manager.shared.sessionMeta, meta.walletOnSameDevice,
            let redirectUrlStr = meta.session.peer.redirect?.universal,
@@ -66,7 +77,12 @@ class WC_Manager {
     }
 
     private func configure() {
-        Networking.configure(projectId: ConfigurationManager.wcProjectId, socketFactory: WC_SocketFactory.shared)
+        // WalletConnect team enforced having group identifier. Not clear why.
+        Networking.configure(
+            groupIdentifier: "group.goverland",
+            projectId: ConfigurationManager.wcProjectId,
+            socketFactory: WC_SocketFactory.shared
+        )
 
         // Pair.configure happens inside the Modal
         WalletConnectModal.configure(
@@ -77,14 +93,41 @@ class WC_Manager {
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
+
+        // Otherwise it fails with error. Very strange enforcements from WC team.
+        Sign.configure(crypto: MockCryptoProvider())
+    }
+
+    // Not needed. But WalletConnectModal will not configure without it.
+    private struct MockCryptoProvider: CryptoProvider {
+        func recoverPubKey(signature: EthereumSignature, message: Data) throws -> Data { Data() }
+        func keccak256(_ data: Data) -> Data { Data() }
     }
 
     /// Listed to events related to session. Session setteling hapens in ConnectWalletModel.
     private func listen() {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
-            .sink { sessions in
+            .sink { [weak self] sessions in
+                guard let self = self else { return }
                 logInfo("[WC] Sessions count: \(sessions.count)")
+                for s in sessions {
+                    logInfo("[WC] Got session for: \(s.accounts.first?.address ?? "unknown"); Expire date: \(s.expiryDate)")
+                    if let sessionMeta = self.sessionMeta, 
+                        sessionMeta.session.topic == s.topic, sessionMeta.session.expiryDate < s.expiryDate {
+
+                        // we update cached sessionMeta with new expiry date on getting update for this session
+                        self.sessionMeta = .init(session: s, walletOnSameDevice: sessionMeta.walletOnSameDevice)
+
+                        // and update it in the selected profile
+                        Task {
+                            try? await UserProfile.update_WC_SessionForSelectedProfile()
+                        }
+                        logInfo("[WC] Expiry date changed. Udated cached SessionMeta for: \(s.accounts.first?.address ?? "unknown"); walletOnSameDevice: \(sessionMeta.walletOnSameDevice)")
+                    } else {
+                        logInfo("[WC] No action needed.")
+                    }
+                }
             }
             .store(in: &cancellables)
 
@@ -106,12 +149,15 @@ class WC_Manager {
             {
                 let sessionMeta = WC_SessionMeta.from(data: wcSessionMetaData)
                 if sessionMeta?.isExpired ?? false {
-                    // clear session in selected profile if it is expired
-                    self.sessionMeta = nil
-                    try? await UserProfile.update_WC_SessionForSelectedProfile()
+                    // Disconnect from session. It will also clear session in selected profile.
+                    logInfo("[WC] Stored cachned session is expired. Disconnecting.")
+                    Self.disconnect(topic: sessionMeta!.session.topic)
                 } else {
-                    // all good. Set sessionMeta from stored data in selected profile
+                    // All good. Set sessionMeta from stored data in selected profile
                     self.sessionMeta = sessionMeta
+                    logInfo("[WC] Restored cachned SessionMeta from Profile. Address: \(sessionMeta!.session.accounts.first?.address ?? "unknown"); Expire date: \(sessionMeta!.session.expiryDate)")
+                    // Extend it
+                    Self.extendSessionIfNeeded()
                 }
             }
         }

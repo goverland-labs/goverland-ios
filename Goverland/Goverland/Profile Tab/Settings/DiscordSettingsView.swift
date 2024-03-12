@@ -14,23 +14,14 @@ struct DiscordSettingsView: View {
             Image("discord")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
-            Button("Discord", action: openDiscordApp)
+            Button("Discord") {
+                Tracker.track(.settingsOpenDiscord)
+                Utils.openDiscord()
+            }
             Spacer()
             Image(systemName: "arrow.up.right")
                 .foregroundStyle(Color.textWhite40)
         }
         .tint(.textWhite)
-    }
-    
-    private func openDiscordApp() {
-        let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
-        openUrl(url)
-        Tracker.track(.settingsOpenDiscord)
-    }
-}
-
-struct DiscordSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiscordSettingsView()
     }
 }

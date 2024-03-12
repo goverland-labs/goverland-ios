@@ -112,7 +112,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                                    message: siweMessage,
                                    signature: signature)
                 .sink { response in
-                    logInfo("Response: \(response)")
+                    logInfo("[Auth] Response: \(response)")
                     // do nothing, error will be displayed to user
                 } receiveValue: { [weak self] response, headers in
                     guard let `self` = self else { return }
@@ -121,8 +121,6 @@ class SignInTwoStepsDataSource: ObservableObject {
                     let cbAccount = self.cbWalletAccount
 
                     Task {
-                        // Rework when we have a multi-profile. Sign out should not be called.
-                        try! await UserProfile.signOutSelected()
                         let profile = try! await UserProfile.upsert(profile: response.profile,
                                                                     deviceId: deviceId,
                                                                     sessionId: response.sessionId,
@@ -157,7 +155,7 @@ class SignInTwoStepsDataSource: ObservableObject {
         formSiweMessage(address: address)
         let params = AnyCodable([siweMessage, address])
 
-        let request = Request(
+        let request = try! Request(
             topic: session.topic,
             method: "personal_sign",
             params: params,

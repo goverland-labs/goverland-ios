@@ -19,7 +19,7 @@ struct Wallet: Identifiable, Equatable {
     // MARK: - Recommended default wallets
 
     private static let _required: [Wallet] = [.zerion]
-    private static let _recommended: [Wallet] = [.metamask, .coinbase, .rainbow, .trust]
+    private static let _recommended: [Wallet] = [.coinbase, .metamask, .mew, .rainbow, .trust]
 
     static var recommended: [Wallet] {
         var wallets = _required
@@ -36,7 +36,7 @@ struct Wallet: Identifiable, Equatable {
         return recommended + [.safe, .argent]
     }
 
-    private static let _all: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust, .mew]
+    private static let _allWC: [Wallet] = [.zerion, .rainbow, .metamask, .uniswap, .oneInch, .trust, .mew]
 
     static func by(name: String) -> Wallet? {
         if name == "MetaMask Wallet" {
@@ -45,7 +45,7 @@ struct Wallet: Identifiable, Equatable {
         if name == "🌈 Rainbow" {
             return .rainbow
         }
-        return _all.first { $0.name == name }
+        return _allWC.first { $0.name == name }
     }
 
     static let zerion = Wallet(
