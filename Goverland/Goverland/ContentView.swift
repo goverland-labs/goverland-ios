@@ -9,10 +9,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Setting(\.termsAccepted) var termsAccepted
+    @StateObject private var remoteConfig = RemoteConfigManager.shared
+    @Setting(\.termsAccepted) private var termsAccepted
 
     var body: some View {
-        if !termsAccepted {
+        if remoteConfig.isUpdateNeeded {
+            AppUpdateBlockingView()
+        } else if remoteConfig.isServerMaintenance {
+            MaintenanceView()
+        } else if !termsAccepted {
             IntroView()
         } else {
             AppTabView()

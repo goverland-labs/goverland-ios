@@ -56,6 +56,24 @@ func showEnablePushNotificationsIfNeeded(activeSheetManager: ActiveSheetManager)
 }
 
 enum Utils {
+    // MARK: - Third Party Applications
+    
+    static func openDiscord() {
+        let url = URL(string: "https://discord.gg/uerWdwtGkQ")!
+        openUrl(url)
+    }
+
+    static func openAppStore() {
+        let url = URL(string: "https://apps.apple.com/app/id6463441559")!
+        openUrl(url)
+    }
+    
+    static func openX() {
+        let url = URL(string: "https://x.com/goverland_xyz")!
+        openUrl(url)
+    }
+    
+    
     // MARK: - HTTP Headers
 
     static func getTotal(from headers: HttpHeaders) -> Int? {
