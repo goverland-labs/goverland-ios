@@ -38,6 +38,23 @@ func showLocalNotification(title: String, body: String?, delay: TimeInterval? = 
     }
 }
 
+func showEnablePushNotificationsIfNeeded(activeSheetManager: ActiveSheetManager) {    
+    let now = Date().timeIntervalSinceReferenceDate
+    let lastPromotedPushNotificationsTime = SettingKeys.shared.lastPromotedPushNotificationsTime
+    let notificationsEnabled = SettingKeys.shared.notificationsEnabled
+    if now - lastPromotedPushNotificationsTime > ConfigurationManager.enablePushNotificationsRequestInterval && !notificationsEnabled {
+        logInfo("[App] Attempt to show Push notifications")
+        // We make a delay for Sign In two steps screen to disappear
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // Don't promote if some active sheet already displayed
+            if activeSheetManager.activeSheet == nil {
+                SettingKeys.shared.lastPromotedPushNotificationsTime = now
+                activeSheetManager.activeSheet = .subscribeToNotifications
+            }
+        }
+    }
+}
+
 enum Utils {
     // MARK: - Third Party Applications
     
