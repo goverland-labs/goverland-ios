@@ -263,6 +263,14 @@ fileprivate struct _SuccessView: View {
     @Setting(\.lastSuggestedToRateTime) private var lastSuggestedToRateTime
     @StateObject private var orientationManager = DeviceOrientationManager.shared
 
+    private var scaleRatio: Double {
+        if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.isSmall {
+            return 3/5
+        } else {
+            return 4/5
+        }
+    }
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 16) {
@@ -273,7 +281,7 @@ fileprivate struct _SuccessView: View {
                 Spacer()
 
                 SuccessVoteLottieView()
-                    .frame(width: geometry.size.width * 4/5, height: geometry.size.width * 4/5)
+                    .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
                     .id(orientationManager.currentOrientation)
 
                 Spacer()

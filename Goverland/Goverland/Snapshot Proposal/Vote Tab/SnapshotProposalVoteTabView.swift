@@ -207,6 +207,7 @@ struct SnapshotProposalVoteTabView: View {
             CastYourVoteView(proposal: proposal, choice: choice) {
                 // decide if we need a completion here later.
                 // For now no logic here yet.
+                // TODO: check for achievements here
             }
             .overlay {
                 ToastView()
