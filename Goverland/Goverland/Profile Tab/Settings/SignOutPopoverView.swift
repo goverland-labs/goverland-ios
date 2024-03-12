@@ -23,7 +23,7 @@ struct SignOutPopoverView: View {
             Spacer()
 
             HStack(spacing: 16) {
-                PrimaryButton("Sign out") {
+                DangerButton("Sign out") {
                     Haptic.medium()
                     ProfileDataSource.shared.signOut(sessionId: authToken)
                     dismiss()

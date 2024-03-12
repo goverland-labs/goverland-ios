@@ -72,6 +72,7 @@ struct SettingsView: View {
                         isSignOutPopoverPresented.toggle()
                     }
                     .tint(Color.textWhite)
+                    .listRowBackground(Color.red)
                 }
             }
 

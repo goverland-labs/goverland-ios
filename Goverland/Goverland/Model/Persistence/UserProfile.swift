@@ -218,7 +218,7 @@ extension UserProfile {
         )
         let context = appContainer.mainContext
         if let profile = try appContainer.mainContext.fetch(fetchDescriptor).first {
-            logInfo("[UserProfile] Loggin out (deleting) selected profile \(profile.addressDescription).")
+            logInfo("[UserProfile] Signing out (deleting) selected profile \(profile.addressDescription).")
             context.delete(profile)
             try context.save()
         } else {
@@ -229,8 +229,9 @@ extension UserProfile {
             }
         }
 
-        // Clean authToken but keep WalletConnect in-memory session meta
+        // Clean authToken and WalletConnect in-memory session meta
         SettingKeys.shared.authToken = ""
+        WC_Manager.shared.sessionMeta = nil
     }
 
     @MainActor
