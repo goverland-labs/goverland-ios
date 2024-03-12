@@ -213,6 +213,16 @@ extension UserProfile {
 
     @MainActor
     static func signOutSelected(logErrorIfNotFound: Bool = false) throws {
+        // Clean authToken and WalletConnect/Coinbase Wallet in-memory session meta
+        SettingKeys.shared.authToken = ""
+        if let sessionMeta = WC_Manager.shared.sessionMeta {
+            WC_Manager.disconnect(topic: sessionMeta.session.topic)
+        }
+        if CoinbaseWalletManager.shared.account != nil {
+            CoinbaseWalletManager.disconnect()
+        }
+
+        // Delete profile
         let fetchDescriptor = FetchDescriptor<UserProfile>(
             predicate: #Predicate { $0.selected == true }
         )
@@ -228,10 +238,6 @@ extension UserProfile {
                 logInfo("[UserProfile] No selected profile found to log out.")
             }
         }
-
-        // Clean authToken and WalletConnect in-memory session meta
-        SettingKeys.shared.authToken = ""
-        WC_Manager.shared.sessionMeta = nil
     }
 
     @MainActor
