@@ -40,13 +40,13 @@ struct PublicUserProfileView: View {
                     _ProfileHeaderView(user: profile.user)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
-
+                    
                     switch dataSource.filter {
                     case .activity:
-                        _PublicUserProfileListView(profile: profile,
-                                                   address: dataSource.address,
-                                                   activeSheetManager: activeSheetManager,
-                                                   path: $path)
+                        PublicUserProfileListView(profile: profile,
+                                                  address: dataSource.address,
+                                                  activeSheetManager: activeSheetManager,
+                                                  path: $path)
                     }
                 }
             }
@@ -69,8 +69,7 @@ struct PublicUserProfileView: View {
                 }
             }
             .onAppear {
-                // TODO: tracking
-                //            Tracker.track(.screenProfile)
+                Tracker.track(.screenPublicProfile)
                 if dataSource.profile == nil {
                     dataSource.refresh()
                 }
@@ -122,7 +121,7 @@ struct PublicUserProfileView: View {
     }
 }
 
-fileprivate struct _PublicUserProfileListView: View {
+fileprivate struct PublicUserProfileListView: View {
     let profile: PublicUserProfile
     let address: Address
     let activeSheetManager: ActiveSheetManager
@@ -130,13 +129,13 @@ fileprivate struct _PublicUserProfileListView: View {
 
     var body: some View {
         ScrollView {
-            _VotedInDaosView(profile: profile, activeSheetManager: activeSheetManager)
+            VotedInDaosView(profile: profile, activeSheetManager: activeSheetManager)
             PublicUserProfileActivityView(address: address, activeSheetManager: activeSheetManager, path: $path)
         }
     }
 }
 
-fileprivate struct _VotedInDaosView: View {
+fileprivate struct VotedInDaosView: View {
     let profile: PublicUserProfile
     let activeSheetManager: ActiveSheetManager
 
@@ -166,8 +165,7 @@ fileprivate struct _VotedInDaosView: View {
                         ForEach(profile.votedInDaos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
                                 activeSheetManager.activeSheet = .daoInfo(dao)
-                                // TODO: proper tracking
-//                                Tracker.track(.dashPopularDaoOpen)
+                                Tracker.track(.publicPrfOpenVotedDaos)
                             }
                         }
                     }

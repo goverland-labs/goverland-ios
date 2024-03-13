@@ -191,6 +191,13 @@ enum TrackingEvent: String, Trackable {
     case screenAchievements = "screen_achievements"
     case screenAchievementDetails = "screen_achievement_details"
     case screenGuestAchievements = "screen_guest_achievements"
+    
+    // MARK: - Public Profile
+    case screenPublicProfile = "screen_public_profile"
+    case publicPrfOpenVotedDaos = "public_profile_open_voted_daos"
+    case publicPrfVotedProposals = "public_profile_voted_proposals"
+    case publicPrfVotedDaos = "public_profile_voted_daos"
+    case publicPrfOpenVotedProposal = "public_profile_open_voted_proposal"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

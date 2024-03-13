@@ -56,14 +56,12 @@ struct PublicUserProfileActivityView: View {
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
                     ProposalListItemCondensedView(proposal: proposal) {
-                        // TODO: track
-//                        Tracker.track(.prfVotesOpenDao)
+                        Tracker.track(.publicPrfOpenVotedProposal)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                     }
                     .padding(.horizontal, 8)
                     .onTapGesture {
-                        // TODO: track
-//                        Tracker.track(.prfVotesOpenProposal)
+                        Tracker.track(.publicPrfVotedProposals)
                         path.append(.vote(proposal))
                     }
                 }
