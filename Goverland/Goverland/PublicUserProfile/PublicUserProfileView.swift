@@ -19,6 +19,7 @@ struct PublicUserProfileView: View {
     @StateObject private var dataSource: PublicUserProfileDataSource
     @State private var path = [PublicUserProfileScreen]()
     @Environment(\.dismiss) private var dismiss
+    @Setting(\.authToken) private var authToken
 
     /// This view should have own active sheet manager as it is already presented in a popover
     @StateObject private var activeSheetManager = ActiveSheetManager()
@@ -31,7 +32,7 @@ struct PublicUserProfileView: View {
         NavigationStack(path: $path) {
             Group {
                 if dataSource.failedToLoadInitialData {
-                    RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
+                    RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load public user profile")
                 } else if dataSource.profile == nil {
                     _ShimmerProfileHeaderView()
                     Spacer()
@@ -82,6 +83,39 @@ struct PublicUserProfileView: View {
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
+                }
+            }
+            .sheet(item: $activeSheetManager.activeSheet) { item in
+                switch item {
+                case .signIn:
+                    SignInView(source: .popover)
+
+                case .daoInfo(let dao):
+                    NavigationViewWithToast {
+                        DaoInfoView(dao: dao)
+                    }
+
+                case .publicProfile(let address):
+                    NavigationViewWithToast {
+                        PublicUserProfileView(address: address)
+                    }
+
+                case .subscribeToNotifications:
+                    EnablePushNotificationsView()
+
+                default:
+                    // should not happen
+                    EmptyView()
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+                if activeSheetManager.activeSheet == nil {
+                    activeSheetManager.activeSheet = .signIn
+                }
+            }
+            .onChange(of: authToken) { _, token in
+                if !token.isEmpty {
+                    showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
                 }
             }
         }
@@ -139,7 +173,7 @@ fileprivate struct _VotedInDaosView: View {
                     }
                     .padding(16)
                 }
-                .background(Color.container)
+                .background(Color.containerBright)
                 .cornerRadius(20)
                 .padding(.horizontal, 8)
             }
