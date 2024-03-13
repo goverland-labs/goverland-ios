@@ -1,8 +1,8 @@
 //
-//  PublicUserProfileDataSource.swift
+//  PublicUserProfileActivityDataSource.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2024-03-07.
+//  Created by Andrey Scherbovich on 13.03.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 	
@@ -10,25 +10,13 @@
 import Foundation
 import Combine
 
-enum PublicUserProfileFilter: Int, FilterOptions {
-    case activity = 0
+class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
+    private let address: Address
 
-    var localizedName: String {
-        switch self {
-        case .activity:
-            return "Activity"
-        }
-    }
-}
-
-class PublicUserProfileDataSource: ObservableObject, Refreshable {
-    let address: Address
-    
-    @Published var profile: PublicUserProfile?
+    @Published var votedProposals: [Proposal]?
     @Published var failedToLoadInitialData = false
-    @Published var filter: PublicUserProfileFilter = .activity
     @Published var isLoading = false
-    
+    @Published var total: Int?
     private var cancellables = Set<AnyCancellable>()
 
     init(address: Address) {
@@ -36,30 +24,28 @@ class PublicUserProfileDataSource: ObservableObject, Refreshable {
     }
 
     func refresh() {
-        profile = nil
+        votedProposals = nil
         failedToLoadInitialData = false
-        filter = .activity
         isLoading = false
         cancellables = Set<AnyCancellable>()
-        
+
         //loadInitialData()
-        self.profile = PublicUserProfile(
-            id: UUID(),
-            user: User.aaveChan,
-            votedInDaos: [Dao.gnosis, Dao.aave])
+        self.votedProposals = [.aaveTest, .aaveTest]
+        self.total = 2
     }
 
     private func loadInitialData() {
         isLoading = true
-        APIService.publicProfile(address: address)
+        APIService.getPublicProfileVotes(address: address)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] profile, _ in
-                self?.profile = profile
+            } receiveValue: { [weak self] proposals, headers in
+                self?.votedProposals = proposals
+                self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }

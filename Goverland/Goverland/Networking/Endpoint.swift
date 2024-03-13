@@ -168,7 +168,7 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
 }
 
 struct PublicProfileEndpoint: APIEndpoint {
-    typealias ResponseType = PublicProfile
+    typealias ResponseType = PublicUserProfile
     
     let address: Address
     
