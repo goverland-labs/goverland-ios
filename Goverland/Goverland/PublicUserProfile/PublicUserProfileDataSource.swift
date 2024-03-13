@@ -1,5 +1,5 @@
 //
-//  PublicProfileDataSource.swift
+//  PublicUserProfileDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-03-07.
@@ -21,7 +21,7 @@ enum PublicProfileFilter: Int, FilterOptions {
     }
 }
 
-class PublicProfileDataSource: ObservableObject, Refreshable {
+class PublicUserProfileDataSource: ObservableObject, Refreshable {
     private let address: Address
     
     @Published var profile: PublicProfile?

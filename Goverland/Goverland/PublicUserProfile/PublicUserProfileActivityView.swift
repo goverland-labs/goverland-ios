@@ -1,5 +1,5 @@
 //
-//  PublicProfileActivityView.swift
+//  PublicUserProfileActivityView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-03-07.
@@ -9,8 +9,8 @@
 
 import SwiftUI
 
-struct PublicProfileActivityView: View {
-    let dataSource: PublicProfileDataSource
+struct PublicUserProfileActivityView: View {
+    let dataSource: PublicUserProfileDataSource
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -21,7 +21,7 @@ struct PublicProfileActivityView: View {
 }
 
 fileprivate struct VoteInDaosView: View {
-    let data: PublicProfileDataSource
+    let data: PublicUserProfileDataSource
     var body: some View {
         if data.failedToLoadInitialData {
             RefreshIcon {
@@ -71,7 +71,7 @@ fileprivate struct VoteInDaosView: View {
 }
 
 fileprivate struct VotesListView: View {
-    let data: PublicProfileDataSource
+    let data: PublicUserProfileDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     var body: some View {
         VStack {

@@ -1,5 +1,5 @@
 //
-//  PublicProfileView.swift
+//  PublicUserProfileView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-03-07.
@@ -9,12 +9,12 @@
 
 import SwiftUI
 
-struct PublicProfileView: View {
-    @StateObject private var dataSource: PublicProfileDataSource
+struct PublicUserProfileView: View {
+    @StateObject private var dataSource: PublicUserProfileDataSource
     @State private var showSignIn = false
     
     init(address: Address) {
-        _dataSource = StateObject(wrappedValue: PublicProfileDataSource(address: address))
+        _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(address: address))
     }
     
     var body: some View {
@@ -31,7 +31,7 @@ struct PublicProfileView: View {
                 
                 switch dataSource.filter {
                 case .activity:
-                    PublicProfileActivityView(dataSource: dataSource)
+                    PublicUserProfileActivityView(dataSource: dataSource)
                 }
             }
         }

@@ -105,7 +105,7 @@ fileprivate struct TopVotePowerVotersGraphView: View {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
                 let count = dataSource.top10votersGraphData.count
                 ForEach((0..<min(11, count)), id: \.self) { index in
-                    NavigationLink(destination: PublicProfileView(address: dataSource.top10votersGraphData[index].name)) {
+                    NavigationLink(destination: PublicUserProfileView(address: dataSource.top10votersGraphData[index].name)) {
                         HStack {
                             Circle()
                                 .fill(barColors[index])

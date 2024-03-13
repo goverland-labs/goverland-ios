@@ -230,10 +230,10 @@
 		BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */; };
 		BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */; };
 		BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */; };
-		BAC3CA1F2B9A3BFC001CC6C3 /* PublicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA1E2B9A3BFC001CC6C3 /* PublicProfileView.swift */; };
-		BAC3CA212B9A3C0E001CC6C3 /* PublicProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA202B9A3C0E001CC6C3 /* PublicProfileDataSource.swift */; };
+		BAC3CA1F2B9A3BFC001CC6C3 /* PublicUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA1E2B9A3BFC001CC6C3 /* PublicUserProfileView.swift */; };
+		BAC3CA212B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */; };
 		BAC3CA232B9A49CE001CC6C3 /* PublicProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA222B9A49CE001CC6C3 /* PublicProfile.swift */; };
-		BAC3CA252B9A5B95001CC6C3 /* PublicProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA242B9A5B95001CC6C3 /* PublicProfileActivityView.swift */; };
+		BAC3CA252B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */; };
 		BAC3CA2C2B9CC0A9001CC6C3 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = BAC3CA2B2B9CC0A9001CC6C3 /* Version */; };
 		BACF9FC42B5AC8F900D990F5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */; };
 		BACF9FC82B5AC8F900D990F5 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -520,10 +520,10 @@
 		BAB960B52AAF865000DC2D92 /* UserBucketsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBucketsDataSource.swift; sourceTree = "<group>"; };
 		BAB960B72AAF86B700DC2D92 /* UserBuckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuckets.swift; sourceTree = "<group>"; };
 		BAB960B92AAF886A00DC2D92 /* UserBucketsGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBucketsGraphView.swift; sourceTree = "<group>"; };
-		BAC3CA1E2B9A3BFC001CC6C3 /* PublicProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileView.swift; sourceTree = "<group>"; };
-		BAC3CA202B9A3C0E001CC6C3 /* PublicProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileDataSource.swift; sourceTree = "<group>"; };
+		BAC3CA1E2B9A3BFC001CC6C3 /* PublicUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileView.swift; sourceTree = "<group>"; };
+		BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileDataSource.swift; sourceTree = "<group>"; };
 		BAC3CA222B9A49CE001CC6C3 /* PublicProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfile.swift; sourceTree = "<group>"; };
-		BAC3CA242B9A5B95001CC6C3 /* PublicProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileActivityView.swift; sourceTree = "<group>"; };
+		BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileActivityView.swift; sourceTree = "<group>"; };
 		BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BACF9FC52B5AC8F900D990F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1213,6 +1213,7 @@
 			children = (
 				55DE41B12B17B8DD008617F5 /* Persistence */,
 				550ACFB42AFEED3A006EF5BB /* Profile.swift */,
+				BAC3CA222B9A49CE001CC6C3 /* PublicProfile.swift */,
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
 				55E9D9872B6A7F4500697A12 /* Network.swift */,
@@ -1221,7 +1222,6 @@
 				5533170129F16B290034AF66 /* Address.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 				55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */,
-				BAC3CA222B9A49CE001CC6C3 /* PublicProfile.swift */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
 				557C26552B31B2E800AAF26C /* Avatar.swift */,
@@ -1357,9 +1357,9 @@
 		BAC3CA1D2B9A377D001CC6C3 /* PublicUserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				BAC3CA1E2B9A3BFC001CC6C3 /* PublicProfileView.swift */,
-				BAC3CA242B9A5B95001CC6C3 /* PublicProfileActivityView.swift */,
-				BAC3CA202B9A3C0E001CC6C3 /* PublicProfileDataSource.swift */,
+				BAC3CA1E2B9A3BFC001CC6C3 /* PublicUserProfileView.swift */,
+				BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */,
+				BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */,
 			);
 			path = PublicUserProfile;
 			sourceTree = "<group>";
@@ -1794,7 +1794,7 @@
 				55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */,
 				BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */,
 				557C265C2B323E8F00AAF26C /* InfoMessageView.swift in Sources */,
-				BAC3CA1F2B9A3BFC001CC6C3 /* PublicProfileView.swift in Sources */,
+				BAC3CA1F2B9A3BFC001CC6C3 /* PublicUserProfileView.swift in Sources */,
 				553D0F732B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift in Sources */,
 				BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */,
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
@@ -1828,7 +1828,7 @@
 				5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
-				BAC3CA252B9A5B95001CC6C3 /* PublicProfileActivityView.swift in Sources */,
+				BAC3CA252B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift in Sources */,
 				BA8455B02B88284E00A986CC /* MaintenanceView.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
 				550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */,
@@ -1927,7 +1927,7 @@
 				55F700252AB05149008EA30C /* GraphView.swift in Sources */,
 				55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */,
 				55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */,
-				BAC3CA212B9A3C0E001CC6C3 /* PublicProfileDataSource.swift in Sources */,
+				BAC3CA212B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift in Sources */,
 				55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */,
 				55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */,
 			);
