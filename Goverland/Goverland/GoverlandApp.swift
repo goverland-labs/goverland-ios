@@ -79,22 +79,20 @@ struct GoverlandApp: App {
                     switch item {
                     case .signIn:
                         SignInView(source: .popover)
+
                     case .daoInfo(let dao):
-                        NavigationStack {
+                        NavigationViewWithToast {
                             DaoInfoView(dao: dao)
                         }
-                        .tint(.textWhite)
-                        .overlay {
-                            ToastView()
+
+                    case .publicProfile(let address):
+                        NavigationViewWithToast {
+                            PublicUserProfileView(address: address)
                         }
 
                     case .followDaos:
-                        NavigationStack {
+                        NavigationViewWithToast {
                             AddSubscriptionView()
-                        }
-                        .tint(.textWhite)
-                        .overlay {
-                            ToastView()
                         }
 
                     case .archive:

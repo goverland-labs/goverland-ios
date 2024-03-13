@@ -10,7 +10,7 @@ import SwiftUI
 import BlockiesSwift
 import CryptoSwift
 
-struct Address: Codable, CustomStringConvertible {
+struct Address: Codable, CustomStringConvertible, Equatable {
     let value: String
     
     var blockie: Image? {

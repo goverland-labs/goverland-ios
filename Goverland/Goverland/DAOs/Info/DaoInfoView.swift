@@ -111,16 +111,20 @@ struct DaoInfoView: View {
             switch item {
             case .signIn:
                 SignInView(source: .popover)
+
             case .daoInfo(let dao):
-                NavigationStack {
+                NavigationViewWithToast {
                     DaoInfoView(dao: dao)
                 }
-                .tint(.textWhite)
-                .overlay {
-                    ToastView()
+
+            case .publicProfile(let address):
+                NavigationViewWithToast {
+                    PublicUserProfileView(address: address)
                 }
+
             case .subscribeToNotifications:
                 EnablePushNotificationsView()
+
             default:
                 // should not happen
                 EmptyView()

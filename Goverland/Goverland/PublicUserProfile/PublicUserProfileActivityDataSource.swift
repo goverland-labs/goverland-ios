@@ -28,15 +28,15 @@ class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-
-        //loadInitialData()
-        self.votedProposals = [.aaveTest, .aaveTest]
-        self.total = 2
+        
+        loadInitialData()
     }
 
     private func loadInitialData() {
+        // TODO: use proper endpoint once backend is ready
         isLoading = true
-        APIService.getPublicProfileVotes(address: address)
+//        APIService.getPublicProfileVotes(address: address)
+        APIService.profileVotes()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {

@@ -12,13 +12,15 @@ import Charts
 
 struct TopVotersView: View {
     private let dao: Dao
+    private let activeSheetManager: ActiveSheetManager
     @StateObject private var dataSource: TopVotersDataSource
     @State private var showAllVotes = false
     
-    init(dao: Dao) {
+    init(dao: Dao, activeSheetManager: ActiveSheetManager) {
+        self.dao = dao
+        self.activeSheetManager = activeSheetManager
         let dataSource = TopVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
-        self.dao = dao
     }
     
     var body: some View {
@@ -42,7 +44,7 @@ struct TopVotersView: View {
                     .frame(height: 120)
             } else {
                 VStack {
-                    TopVotePowerVotersGraphView(dataSource: dataSource)
+                    TopVotePowerVotersGraphView(dataSource: dataSource, activeSheetManager: activeSheetManager)
                     Text("Show all voters")
                         .frame(width: 150, height: 35, alignment: .center)
                         .background(Capsule(style: .circular)
@@ -75,6 +77,8 @@ struct TopVotersView: View {
 
 fileprivate struct TopVotePowerVotersGraphView: View {
     @ObservedObject var dataSource: TopVotersDataSource
+    let activeSheetManager: ActiveSheetManager
+
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
     
     let columns: [GridItem] = {
@@ -105,15 +109,17 @@ fileprivate struct TopVotePowerVotersGraphView: View {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
                 let count = dataSource.top10votersGraphData.count
                 ForEach((0..<min(11, count)), id: \.self) { index in
-                    NavigationLink(destination: PublicUserProfileView(address: dataSource.top10votersGraphData[index].name)) {
-                        HStack {
-                            Circle()
-                                .fill(barColors[index])
-                                .frame(width: 8, height: 8)
-                            Text(dataSource.top10votersGraphData[index].name.short)
-                                .font(.caption2)
-                                .foregroundColor(.textWhite60)
-                        }
+                    HStack {
+                        Circle()
+                            .fill(barColors[index])
+                            .frame(width: 8, height: 8)
+                        Text(dataSource.top10votersGraphData[index].name.short)
+                            .font(.caption2)
+                            .foregroundColor(.textWhite60)
+                    }
+                    .onTapGesture {
+                        let address = dataSource.top10votersGraphData[index].name
+                        activeSheetManager.activeSheet = .publicProfile(address)
                     }
                 }
             }

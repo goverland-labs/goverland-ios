@@ -19,6 +19,9 @@ struct PublicUserProfileView: View {
     @StateObject private var dataSource: PublicUserProfileDataSource
     @State private var path = [PublicUserProfileScreen]()
 
+    /// This view should have own active sheet manager as it is already presented in a popover
+    @StateObject private var activeSheetManager = ActiveSheetManager()
+
     init(address: Address) {
         _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(address: address))
     }
@@ -37,7 +40,20 @@ struct PublicUserProfileView: View {
 
                 switch dataSource.filter {
                 case .activity:
-                    _PublicUserProfileListView(profile: profile, address: dataSource.address, path: $path)
+                    _PublicUserProfileListView(profile: profile,
+                                               address: dataSource.address,
+                                               activeSheetManager: activeSheetManager,
+                                               path: $path)
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("User profile")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
                 }
             }
         }
@@ -54,18 +70,20 @@ struct PublicUserProfileView: View {
 fileprivate struct _PublicUserProfileListView: View {
     let profile: PublicUserProfile
     let address: Address
+    let activeSheetManager: ActiveSheetManager
     @Binding var path: [PublicUserProfileScreen]
 
     var body: some View {
         ScrollView {
-            _VotedInDaosView(profile: profile)
-            PublicUserProfileActivityView(address: address, path: $path)
+            _VotedInDaosView(profile: profile, activeSheetManager: activeSheetManager)
+            PublicUserProfileActivityView(address: address, activeSheetManager: activeSheetManager, path: $path)
         }
     }
 }
 
 fileprivate struct _VotedInDaosView: View {
     let profile: PublicUserProfile
+    let activeSheetManager: ActiveSheetManager
 
     var body: some View {
         VStack(spacing: 12) {
@@ -88,14 +106,19 @@ fileprivate struct _VotedInDaosView: View {
                     .font(.bodyRegular)
                     .padding(16)
             } else {
-                HStack(spacing: 16) {
-                    ForEach(profile.votedInDaos) { dao in
-                        RoundPictureView(image: dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 16) {
+                        ForEach(profile.votedInDaos) { dao in
+                            DAORoundViewWithActiveVotes(dao: dao) {
+                                activeSheetManager.activeSheet = .daoInfo(dao)
+                                // TODO: proper tracking
+//                                Tracker.track(.dashPopularDaoOpen)
+                            }
+                        }
                     }
-                    Spacer()
+                    .padding(16)
                 }
-                .padding()
-                .background(Color.containerBright)
+                .background(Color.container)
                 .cornerRadius(20)
                 .padding(.horizontal, 8)
             }
