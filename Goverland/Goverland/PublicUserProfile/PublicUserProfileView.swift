@@ -42,8 +42,7 @@ struct PublicUserProfileView: View {
                     switch dataSource.filter {
                     case .activity:
                         PublicUserProfileListView(profile: profile,
-                                                  address: dataSource.address,
-                                                  activeSheetManager: activeSheetManager,
+                                                  address: dataSource.address,                                                  
                                                   path: $path)
                     }
                 }
@@ -74,14 +73,18 @@ struct PublicUserProfileView: View {
             }
             .navigationDestination(for: PublicUserProfileScreen.self) { publicUserProfileScreen in
                 switch publicUserProfileScreen {
-                case .votedInDaos: EmptyView()
-                case .votes: EmptyView()
+                case .votedInDaos:
+                    // TODO: impl
+                    EmptyView()
+                case .votes:
+                    // TODO: impl
+                    EmptyView()
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
                 }
-            }            
+            }
             .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
                 if activeSheetManager.activeSheet == nil {
                     activeSheetManager.activeSheet = .signIn
@@ -99,20 +102,19 @@ struct PublicUserProfileView: View {
 fileprivate struct PublicUserProfileListView: View {
     let profile: PublicUserProfile
     let address: Address
-    let activeSheetManager: ActiveSheetManager
     @Binding var path: [PublicUserProfileScreen]
 
     var body: some View {
         ScrollView {
-            VotedInDaosView(profile: profile, activeSheetManager: activeSheetManager)
-            PublicUserProfileActivityView(address: address, activeSheetManager: activeSheetManager, path: $path)
+            VotedInDaosView(profile: profile)
+            PublicUserProfileActivityView(address: address, path: $path)
         }
     }
 }
 
 fileprivate struct VotedInDaosView: View {
     let profile: PublicUserProfile
-    let activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         VStack(spacing: 12) {

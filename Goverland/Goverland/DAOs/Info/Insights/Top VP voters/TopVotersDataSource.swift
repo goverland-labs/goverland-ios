@@ -22,7 +22,8 @@ class TopVotersDataSource: ObservableObject, Refreshable {
         var topVoters = topVoters
         let total = total ?? 0
         if let totalPower = totalVotingPower, total > 10 {
-            topVoters.append(TopVoter(name: Address("Other"),
+            let otherUser = User(address: Address("Other"), resolvedName: "Other", avatars: [])
+            topVoters.append(TopVoter(voter: otherUser,
                                       votingPower: totalPower - getTop10VotersVotingPower(),
                                       votesCount: 0))
         }

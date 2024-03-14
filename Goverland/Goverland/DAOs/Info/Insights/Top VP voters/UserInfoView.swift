@@ -19,7 +19,7 @@ struct UserInfoView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 20) {
-                Text(voter.name.value)
+                Text(voter.voter.usernameShort)
                     .font(.title2Regular)
                     .foregroundColor(.textWhite)
                 Text("Voting power " + Utils.formattedNumber(voter.votingPower))

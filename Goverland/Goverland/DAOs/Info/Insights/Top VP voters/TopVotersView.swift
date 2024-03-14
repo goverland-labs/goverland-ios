@@ -92,14 +92,14 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                 BarMark(
                     x: .value("VotePower", voter.votingPower)
                 )
-                .foregroundStyle(by: .value("Name", voter.name.short))
+                .foregroundStyle(by: .value("Name", voter.voter.usernameShort))
                 .clipShape(barShape(for: voter))
             }
             .frame(height: 30)
             .chartXAxis(.hidden)
             .chartLegend(.hidden)
             .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
+            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.voter.usernameShort}),
                                        range: barColors) // assigns colors to the segments of the bar
             
             // Custom Chart Legend
@@ -110,13 +110,13 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                         Circle()
                             .fill(barColors[index])
                             .frame(width: 8, height: 8)
-                        Text(dataSource.top10votersGraphData[index].name.short)
+                        Text(dataSource.top10votersGraphData[index].voter.usernameShort)
                             .font(.caption2)
                             .foregroundColor(.textWhite60)
                     }
                     .onTapGesture {
                         if index < 10 {
-                            let address = dataSource.top10votersGraphData[index].name
+                            let address = dataSource.top10votersGraphData[index].voter.address
                             activeSheetManager.activeSheet = .publicProfile(address)
                         }
                     }

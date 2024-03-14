@@ -87,7 +87,7 @@ fileprivate struct TopVoteListItemView: View {
     
     var body: some View {
         HStack {
-            Text(voter.name.short)
+            Text(voter.voter.usernameShort)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
@@ -104,7 +104,7 @@ fileprivate struct TopVoteListItemView: View {
         }
         .padding(.vertical) // Required for onTapGesture to fill out the entire cell
         .onTapGesture {
-            UIPasteboard.general.string = voter.name.value
+            UIPasteboard.general.string = voter.voter.address.checksum
             showToast("Address copied")
         }
         

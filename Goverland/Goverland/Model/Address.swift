@@ -40,7 +40,7 @@ struct Address: Codable, CustomStringConvertible, Equatable {
 
 extension Address {
     var short: String {
-        value.count < 10 ? "\(value)" : "\(value.prefix(6))...\(value.suffix(4))"
+        "\(value.prefix(6))...\(value.suffix(4))"
     }
 }
 

@@ -12,15 +12,11 @@ import SwiftUI
 struct PublicUserProfileActivityView: View {
     @Binding private var path: [PublicUserProfileScreen]
     @StateObject private var dataSource: PublicUserProfileActivityDataSource
-    let activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(address: Address,
-         activeSheetManager: ActiveSheetManager,
-         path: Binding<[PublicUserProfileScreen]>)
-    {
+    init(address: Address, path: Binding<[PublicUserProfileScreen]>) {
         _dataSource = StateObject(wrappedValue: PublicUserProfileActivityDataSource(address: address))
         _path = path
-        self.activeSheetManager = activeSheetManager
     }
 
     var votedProposals: [Proposal] {

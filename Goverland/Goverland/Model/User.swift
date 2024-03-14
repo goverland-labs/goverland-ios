@@ -53,6 +53,18 @@ struct User: Codable {
 }
 
 extension User {
+    var username: String {
+        resolvedName ?? address.checksum ?? address.short
+    }
+
+    var usernameShort: String {
+        resolvedName ?? address.short
+    }
+}
+
+// MARK: - Mocks
+
+extension User {
     static var flipside: User {
         User(address: Address("0x62a43123FE71f9764f26554b3F5017627996816a"),
              resolvedName: "flipsidecrypto.eth",
