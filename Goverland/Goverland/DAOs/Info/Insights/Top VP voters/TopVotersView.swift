@@ -118,8 +118,10 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                             .foregroundColor(.textWhite60)
                     }
                     .onTapGesture {
-                        let address = dataSource.top10votersGraphData[index].name
-                        activeSheetManager.activeSheet = .publicProfile(address)
+                        if index < 10 {
+                            let address = dataSource.top10votersGraphData[index].name
+                            activeSheetManager.activeSheet = .publicProfile(address)
+                        }
                     }
                 }
             }
