@@ -20,9 +20,9 @@ class ToastViewModel: ObservableObject {
     func setErrorMessage(_ message: String?) {
         errorMessage = message
         if let message = message {
-            // target 200 words per minute reading speed
+            // target 150 words per minute reading speed
             let words = message.components(separatedBy: .whitespacesAndNewlines).count
-            let seconds = min(5, max(2, Double(words * 60 / 200).rounded(.up)))
+            let seconds = min(5, max(2, Double(words * 60 / 150).rounded(.up)))
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [weak self] _ in
                 self?.errorMessage = nil

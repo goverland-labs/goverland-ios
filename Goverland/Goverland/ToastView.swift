@@ -11,9 +11,11 @@ import Combine
 
 struct ToastView: View {
     @StateObject var errorViewModel = ToastViewModel.shared
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
-        if let errorMessage = errorViewModel.errorMessage {
+        // Assure that there is no other view presented on top, otherwise don't show error message here
+        if let errorMessage = errorViewModel.errorMessage, activeSheetManager.activeSheet == nil {
             VStack {
                 Text(errorMessage)
                     .padding()

@@ -20,9 +20,7 @@ struct PublicUserProfileView: View {
     @State private var path = [PublicUserProfileScreen]()
     @Environment(\.dismiss) private var dismiss
     @Setting(\.authToken) private var authToken
-
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManager = ActiveSheetManager()
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(address: Address) {
         _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(address: address))
@@ -83,30 +81,7 @@ struct PublicUserProfileView: View {
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
                 }
-            }
-            .sheet(item: $activeSheetManager.activeSheet) { item in
-                switch item {
-                case .signIn:
-                    SignInView(source: .popover)
-
-                case .daoInfo(let dao):
-                    NavigationViewWithToast {
-                        DaoInfoView(dao: dao)
-                    }
-
-                case .publicProfile(let address):
-                    NavigationViewWithToast {
-                        PublicUserProfileView(address: address)
-                    }
-
-                case .subscribeToNotifications:
-                    EnablePushNotificationsView()
-
-                default:
-                    // should not happen
-                    EmptyView()
-                }
-            }
+            }            
             .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
                 if activeSheetManager.activeSheet == nil {
                     activeSheetManager.activeSheet = .signIn

@@ -127,13 +127,9 @@ struct SignInTwoStepsView: View {
         }
         .padding(16)
         .sheet(isPresented: $showSelectWallet) {
-            NavigationStack {
+            PopoverNavigationViewWithToast {
                 ConnectWalletView()
-            }
-            .tint(.textWhite)
-            .overlay {
-                ToastView()
-            }
+            }            
         }
         .onChange(of: authToken) { _, token in
             if !token.isEmpty {

@@ -65,12 +65,9 @@ struct TopVotersView: View {
             }
         }
         .sheet(isPresented: $showAllVotes) {
-            NavigationStack {
+            PopoverNavigationViewWithToast {
                 AllVotersListView(dao: dao)
-            }
-            .overlay (
-                ToastView()
-            )
+            }            
         }
     }
 }

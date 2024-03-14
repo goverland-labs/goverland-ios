@@ -81,22 +81,23 @@ struct GoverlandApp: App {
                         SignInView(source: .popover)
 
                     case .daoInfo(let dao):
-                        NavigationViewWithToast {
+                        PopoverNavigationViewWithToast {
                             DaoInfoView(dao: dao)
                         }
 
                     case .publicProfile(let address):
-                        NavigationViewWithToast {
+                        PopoverNavigationViewWithToast {
                             PublicUserProfileView(address: address)
                         }
 
                     case .followDaos:
-                        NavigationViewWithToast {
+                        PopoverNavigationViewWithToast {
                             AddSubscriptionView()
                         }
 
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                        // TODO: improve here
                         ArchiveView()
 
                     case .subscribeToNotifications:
@@ -105,6 +106,7 @@ struct GoverlandApp: App {
                 }
                 .overlay {
                     ToastView()
+                        .environmentObject(activeSheetManager)
                 }
         }
         .modelContainer(appContainer)

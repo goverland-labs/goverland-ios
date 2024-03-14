@@ -30,9 +30,7 @@ struct DaoInfoView: View {
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
     @Setting(\.authToken) private var authToken
-
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManager = ActiveSheetManager()
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var dao: Dao? { dataSource.dao }
 
@@ -106,30 +104,7 @@ struct DaoInfoView: View {
                     }
                 }
             }
-        }
-        .sheet(item: $activeSheetManager.activeSheet) { item in
-            switch item {
-            case .signIn:
-                SignInView(source: .popover)
-
-            case .daoInfo(let dao):
-                NavigationViewWithToast {
-                    DaoInfoView(dao: dao)
-                }
-
-            case .publicProfile(let address):
-                NavigationViewWithToast {
-                    PublicUserProfileView(address: address)
-                }
-
-            case .subscribeToNotifications:
-                EnablePushNotificationsView()
-
-            default:
-                // should not happen
-                EmptyView()
-            }
-        }
+        }        
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
             // This approach is used on AppTabView and DaoInfoView
             if activeSheetManager.activeSheet == nil {

@@ -55,12 +55,8 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
             dataSource.refresh()
         }
         .sheet(isPresented: $showAllVotes) {
-            NavigationStack {
+            PopoverNavigationViewWithToast {
                 SnapshotAllVotesView<ChoiceType>(proposal: proposal)
-            }
-            .tint(.textWhite)
-            .overlay {
-                ToastView()
             }
         }
     }

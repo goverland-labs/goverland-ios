@@ -38,7 +38,6 @@ enum SnapshotVoteTabType: Int, Identifiable {
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
     @Namespace var namespace    
-    @Environment(\.presentationMode) private var presentationMode
     @Setting(\.authToken) private var authToken
 
     @Query private var profiles: [UserProfile]
@@ -204,6 +203,7 @@ struct SnapshotProposalVoteTabView: View {
             .presentationDetents([.height(220), .large])
         }
         .sheet(isPresented: $showVote) {
+            // TODO: check if we can use PopoverNavigationViewWithToast here
             CastYourVoteView(proposal: proposal, choice: choice) {
                 // decide if we need a completion here later.
                 // For now no logic here yet.

@@ -66,12 +66,8 @@ struct ReconnectWalletView: View {
             }
         }
         .sheet(isPresented: $showSelectWallet) {
-            NavigationStack {
+            PopoverNavigationViewWithToast {
                 ConnectWalletView()
-            }
-            .tint(.textWhite)
-            .overlay {
-                ToastView()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in

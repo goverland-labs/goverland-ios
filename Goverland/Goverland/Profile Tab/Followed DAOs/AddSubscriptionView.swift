@@ -13,10 +13,8 @@ struct AddSubscriptionView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource = GroupedDaosDataSource.addSubscription
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.authToken) private var authToken
-
-    /// This view should have own active sheet manager as it is already presented in a popover
-    @StateObject private var activeSheetManager = ActiveSheetManager()
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos {
@@ -80,24 +78,7 @@ struct AddSubscriptionView: View {
         .onAppear() {
             dataSource.refresh()
             Tracker.track(.screenFollowedDaosAdd)
-        }
-        .sheet(item: $activeSheetManager.activeSheet) { item in
-            switch item {
-            case .daoInfo(let dao):
-                NavigationStack {
-                    DaoInfoView(dao: dao)
-                }
-                .tint(.textWhite)
-                .overlay {
-                    ToastView()
-                }
-            case .subscribeToNotifications:
-                EnablePushNotificationsView()
-            default:
-                // should not happen
-                EmptyView()
-            }
-        }
+        }        
         // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
             guard let subscribed = notification.object as? Bool, subscribed else { return }
