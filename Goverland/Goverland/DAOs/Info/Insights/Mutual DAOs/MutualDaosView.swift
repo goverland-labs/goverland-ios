@@ -11,12 +11,10 @@ import SwiftUI
 
 struct MutualDaosView: View {
     @StateObject private var dataSource: MutualDaosDataSource
-    let activeSheetManager: ActiveSheetManager
 
-    init(dao: Dao, activeSheetManager: ActiveSheetManager) {
+    init(dao: Dao) {
         let dataSource = MutualDaosDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
-        self.activeSheetManager = activeSheetManager
     }
 
     var body: some View {
@@ -33,7 +31,7 @@ struct MutualDaosView: View {
                     .foregroundStyle(Color.textWhite)
                     .padding()
             } else {
-                MutualDaosScrollView(dataSource: dataSource, activeSheetManager: activeSheetManager)
+                MutualDaosScrollView(dataSource: dataSource)
                     .padding(.leading, 8)
                     .padding(.bottom, 16)
             }
@@ -48,7 +46,7 @@ struct MutualDaosView: View {
 
 fileprivate struct MutualDaosScrollView: View {
     @StateObject var dataSource: MutualDaosDataSource
-    let activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

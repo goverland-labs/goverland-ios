@@ -29,7 +29,6 @@ struct AddSubscriptionView: View {
             if searchDataSource.searchText == "" {
                 if !dataSource.failedToLoadInitialData {
                     GroupedDaosView(dataSource: dataSource,
-                                    activeSheetManager: activeSheetManager,
                                     onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
                                     onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
                                     onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },

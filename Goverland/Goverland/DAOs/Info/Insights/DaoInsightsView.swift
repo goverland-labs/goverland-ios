@@ -11,7 +11,6 @@ import SwiftUI
 
 struct DaoInsightsView: View {
     let dao: Dao
-    let activeSheetManager: ActiveSheetManager
 
     var body: some View {
         ScrollView {
@@ -24,9 +23,9 @@ struct DaoInsightsView: View {
                 
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
-                TopVotersView(dao: dao, activeSheetManager: activeSheetManager)
+                TopVotersView(dao: dao)
                 MonthlyNewProposalsView(dao: dao)
-                MutualDaosView(dao: dao, activeSheetManager: activeSheetManager)
+                MutualDaosView(dao: dao)
             }
             .onAppear() {
                 Tracker.track(.screenDaoInsights)

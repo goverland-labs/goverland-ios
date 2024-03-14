@@ -12,13 +12,11 @@ import Charts
 
 struct TopVotersView: View {
     private let dao: Dao
-    private let activeSheetManager: ActiveSheetManager
     @StateObject private var dataSource: TopVotersDataSource
     @State private var showAllVotes = false
     
-    init(dao: Dao, activeSheetManager: ActiveSheetManager) {
+    init(dao: Dao) {
         self.dao = dao
-        self.activeSheetManager = activeSheetManager
         let dataSource = TopVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
@@ -44,7 +42,7 @@ struct TopVotersView: View {
                     .frame(height: 120)
             } else {
                 VStack {
-                    TopVotePowerVotersGraphView(dataSource: dataSource, activeSheetManager: activeSheetManager)
+                    TopVotePowerVotersGraphView(dataSource: dataSource)
                     Text("Show all voters")
                         .frame(width: 150, height: 35, alignment: .center)
                         .background(Capsule(style: .circular)
@@ -74,7 +72,7 @@ struct TopVotersView: View {
 
 fileprivate struct TopVotePowerVotersGraphView: View {
     @ObservedObject var dataSource: TopVotersDataSource
-    let activeSheetManager: ActiveSheetManager
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
     

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct GroupedDaosView: View {
     @ObservedObject var dataSource: GroupedDaosDataSource
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private let showRecentlyViewedDAOs: Bool
-    private let activeSheetManager: ActiveSheetManager
     private let bottomPadding: CGFloat
 
     private let onSelectDaoFromGroup: ((Dao) -> Void)?
@@ -27,7 +27,6 @@ struct GroupedDaosView: View {
 
     init(dataSource: GroupedDaosDataSource,
          showRecentlyViewedDAOs: Bool = false,
-         activeSheetManager: ActiveSheetManager,
          bottomPadding: CGFloat = 0,
 
          onSelectDaoFromGroup: ((Dao) -> Void)? = nil,
@@ -42,7 +41,6 @@ struct GroupedDaosView: View {
     ) {
         self.dataSource = dataSource
         self.showRecentlyViewedDAOs = showRecentlyViewedDAOs
-        self.activeSheetManager = activeSheetManager
         self.bottomPadding = bottomPadding
 
         self.onSelectDaoFromGroup = onSelectDaoFromGroup
