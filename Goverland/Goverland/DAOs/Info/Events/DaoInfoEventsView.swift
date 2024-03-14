@@ -14,6 +14,8 @@ struct DaoInfoEventsView: View {
     @State private var selectedEventIndex: Int?
     @State private var path = NavigationPath()
 
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     let dao: Dao
 
     init(dao: Dao) {
@@ -83,9 +85,11 @@ struct DaoInfoEventsView: View {
                 SnapshotProposalView(proposal: proposal,
                                      allowShowingDaoInfo: false,
                                      navigationTitle: "")
-                    .onAppear {
-                        Tracker.track(.daoEventOpen)
-                    }
+                .onAppear {
+                    Tracker.track(.daoEventOpen)
+                }
+                // TODO: create Apple ticket with found bug
+                .environmentObject(activeSheetManager)
             }
         }
         .onAppear() {

@@ -79,12 +79,15 @@ fileprivate struct _ProposalView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                SnapshotProposalHeaderView(title: proposal.title)
+                _SnapshotProposalHeaderView(title: proposal.title)
 
-                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author, allowShowingDaoInfo: allowShowingDaoInfo, proposal: proposal)
+                _SnapshotProposalCreatorView(dao: proposal.dao,
+                                             creator: proposal.author,
+                                             allowShowingDaoInfo: allowShowingDaoInfo,
+                                             proposal: proposal)
                     .padding(.bottom, 15)
 
-                SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
+                _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 20)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
@@ -114,7 +117,7 @@ fileprivate struct _ProposalView: View {
     }
 }
 
-fileprivate struct SnapshotProposalHeaderView: View {
+fileprivate struct _SnapshotProposalHeaderView: View {
     let title: String
 
     var body: some View {
@@ -129,7 +132,7 @@ fileprivate struct SnapshotProposalHeaderView: View {
     }
 }
 
-fileprivate struct SnapshotProposalCreatorView: View {
+fileprivate struct _SnapshotProposalCreatorView: View {
     let dao: Dao
     let creator: User
     let allowShowingDaoInfo: Bool
@@ -170,7 +173,7 @@ fileprivate struct SnapshotProposalCreatorView: View {
     }
 }
 
-fileprivate struct SnapshotProposalStatusBarView: View {
+fileprivate struct _SnapshotProposalStatusBarView: View {
     let state: Proposal.State
     let voted: Bool
     let votingEnd: Date
