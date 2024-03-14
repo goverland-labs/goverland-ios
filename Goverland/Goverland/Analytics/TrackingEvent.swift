@@ -194,10 +194,17 @@ enum TrackingEvent: String, Trackable {
     
     // MARK: - Public Profile
     case screenPublicProfile = "screen_public_profile"
-    case publicPrfOpenVotedDaos = "public_profile_open_voted_daos"
-    case publicPrfVotedProposals = "public_profile_voted_proposals"
-    case publicPrfVotedDaos = "public_profile_voted_daos"
-    case publicPrfOpenVotedProposal = "public_profile_open_voted_proposal"
+
+    // Voted In DAOs
+    case publicPrfVotedDaoOpen = "public_prf_voted_dao_open"
+
+    // Votes
+    case publicPrfVotesOpenProposal = "public_prf_votes_open_proposal"
+    case publicPrfVotesOpenDao = "public_prf_votes_open_dao"
+    // TODO: impl
+    case screenPublicProfileVotesFull = "screen_public_profile_votes_full"
+    case publicPrfVotesFullOpenProposal = "public_prf_votes_full_open_prp"
+    case publicPrfVotesFullOpenDao = "public_prf_votes_full_open_dao"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

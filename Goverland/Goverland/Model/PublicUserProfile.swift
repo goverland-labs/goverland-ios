@@ -17,6 +17,6 @@ struct PublicUserProfile: Decodable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id
         case user
-        case votedInDaos = "voted_id_daos"
+        case votedInDaos = "voted_in_daos"
     }
 }

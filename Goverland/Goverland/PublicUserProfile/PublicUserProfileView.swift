@@ -146,7 +146,6 @@ fileprivate struct VotedInDaosView: View {
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                // TODO: adjust
                 NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.primaryDim)
@@ -165,7 +164,7 @@ fileprivate struct VotedInDaosView: View {
                         ForEach(profile.votedInDaos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
                                 activeSheetManager.activeSheet = .daoInfo(dao)
-                                Tracker.track(.publicPrfOpenVotedDaos)
+                                Tracker.track(.publicPrfVotedDaoOpen)
                             }
                         }
                     }
