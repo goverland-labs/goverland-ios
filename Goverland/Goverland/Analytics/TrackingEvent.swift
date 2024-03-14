@@ -110,6 +110,7 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
     case snpDetailsShowDao = "snp_details_show_dao"
+    case snpDetailsShowUserProfile = "snp_details_show_user_profile"
     case snpDetailsShowFullDscr = "snp_details_show_full_dscr"
     case snpDetailsVote = "snp_details_vote"
     case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"

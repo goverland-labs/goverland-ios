@@ -71,7 +71,6 @@ struct SnapshotProposalView: View {
 fileprivate struct _ProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var voted: Bool {
         proposal.userVote != nil
@@ -82,13 +81,7 @@ fileprivate struct _ProposalView: View {
             VStack(spacing: 0) {
                 SnapshotProposalHeaderView(title: proposal.title)
 
-                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
-                    .gesture(TapGesture().onEnded { _ in
-                        if allowShowingDaoInfo {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                            Tracker.track(.snpDetailsShowDao)
-                        }
-                    })
+                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author, allowShowingDaoInfo: allowShowingDaoInfo, proposal: proposal)
                     .padding(.bottom, 15)
 
                 SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
@@ -139,6 +132,9 @@ fileprivate struct SnapshotProposalHeaderView: View {
 fileprivate struct SnapshotProposalCreatorView: View {
     let dao: Dao
     let creator: User
+    let allowShowingDaoInfo: Bool
+    let proposal: Proposal
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: 5) {
@@ -152,12 +148,23 @@ fileprivate struct SnapshotProposalCreatorView: View {
                     .foregroundStyle(Color.textWhite)
 
             }
+            .gesture(TapGesture().onEnded { _ in
+                if allowShowingDaoInfo {
+                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    Tracker.track(.snpDetailsShowDao)
+                }
+            })
             Text("by")
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite60)
             IdentityView(user: creator)
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite)
+                .gesture(TapGesture().onEnded { _ in
+                    activeSheetManager.activeSheet = .publicProfile(creator.address)
+                    Tracker.track(.snpDetailsShowUserProfile)
+                    
+                })
             Spacer()
         }
     }
