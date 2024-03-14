@@ -65,6 +65,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
 struct VoteListItemView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     let vote: Vote<ChoiceType>
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var showReasonAlert = false
 
@@ -74,6 +75,11 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.footnoteRegular)
                 .foregroundStyle(Color.textWhite)
+                .gesture(TapGesture().onEnded { _ in
+                    activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
+                    Tracker.track(.snpDetailsVotesShowUserProfile)
+                    
+                })
 
             if proposal.privacy == .shutter && proposal.state == .active {
                 Image(systemName: "lock.fill")
