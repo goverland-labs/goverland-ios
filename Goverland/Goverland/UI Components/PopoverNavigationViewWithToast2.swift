@@ -42,6 +42,11 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
                     PublicUserProfileView(address: address)
                 }
 
+            case .allDaoVoters(let dao):
+                PopoverNavigationViewWithToast {
+                    AllVotersListView(dao: dao)
+                }
+
             case .followDaos:
                 PopoverNavigationViewWithToast {
                     AddSubscriptionView()

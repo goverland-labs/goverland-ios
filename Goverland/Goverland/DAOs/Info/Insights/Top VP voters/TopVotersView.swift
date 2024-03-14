@@ -13,8 +13,8 @@ import Charts
 struct TopVotersView: View {
     private let dao: Dao
     @StateObject private var dataSource: TopVotersDataSource
-    @State private var showAllVotes = false
-    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     init(dao: Dao) {
         self.dao = dao
         let dataSource = TopVotersDataSource(dao: dao)
@@ -50,7 +50,7 @@ struct TopVotersView: View {
                         .tint(.onSecondaryContainer)
                         .font(.footnoteSemibold)
                         .onTapGesture {
-                            showAllVotes = true
+                            activeSheetManager.activeSheet = .allDaoVoters(dao)
                         }
                 }
             }
@@ -61,12 +61,7 @@ struct TopVotersView: View {
             if dataSource.topVoters.isEmpty {
                 dataSource.refresh()
             }
-        }
-        .sheet(isPresented: $showAllVotes) {
-            PopoverNavigationViewWithToast {
-                AllVotersListView(dao: dao)
-            }            
-        }
+        }        
     }
 }
 
