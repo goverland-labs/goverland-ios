@@ -120,13 +120,7 @@ struct SearchView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Search")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Search")                
             }
             .onAppear() {
                 daos.refresh()

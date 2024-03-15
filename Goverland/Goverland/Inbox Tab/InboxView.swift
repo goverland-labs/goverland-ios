@@ -9,31 +9,6 @@
 import SwiftUI
 
 struct InboxView: View {
-    @Setting(\.authToken) private var authToken
-
-    var body: some View {
-        if authToken.isEmpty {
-            NavigationView {
-                SignInView(source: .inbox)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            VStack {
-                                Text("Inbox")
-                                    .font(.title3Semibold)
-                                    .foregroundStyle(Color.textWhite)
-                            }
-                        }
-                    }
-            }
-            .environment(\.horizontalSizeClass, .compact)
-        } else {
-            _InboxView()
-        }
-    }
-}
-
-fileprivate struct _InboxView: View {
     @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -125,13 +100,7 @@ fileprivate struct _InboxView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Inbox")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Inbox")
 
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {

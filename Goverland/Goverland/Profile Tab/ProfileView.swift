@@ -39,13 +39,7 @@ struct ProfileView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Profile")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Profile")                
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

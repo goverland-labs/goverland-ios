@@ -46,13 +46,7 @@ struct DashboardView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Goverland")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Goverland")                
             }
             .onAppear {
                 Tracker.track(.screenDashboard)

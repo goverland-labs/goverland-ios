@@ -66,13 +66,8 @@ struct AddSubscriptionView: View {
                         .foregroundStyle(Color.textWhite)
                 }
             }
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Explore DAOs")
-                        .font(.title3Semibold)
-                        .foregroundStyle(Color.textWhite)
-                }
-            }
+
+            ToolbarTitle("Explore DAOs")            
         }
         .onAppear() {
             dataSource.refresh()

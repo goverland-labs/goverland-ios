@@ -57,13 +57,7 @@ struct PublicUserProfileView: View {
                     }
                 }
 
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("User profile")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("User profile")                
             }
             .onAppear {
                 Tracker.track(.screenPublicProfile)
