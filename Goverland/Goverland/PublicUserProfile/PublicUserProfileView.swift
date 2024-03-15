@@ -32,10 +32,10 @@ struct PublicUserProfileView: View {
                 if dataSource.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load public user profile")
                 } else if dataSource.profile == nil {
-                    _ShimmerProfileHeaderView()
+                    ShimmerProfileHeaderView()
                     Spacer()
                 } else if let profile = dataSource.profile {
-                    _ProfileHeaderView(user: profile.user)
+                    ProfileHeaderView(user: profile.user)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
                     

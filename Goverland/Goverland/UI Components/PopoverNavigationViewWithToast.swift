@@ -54,7 +54,7 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 }
 
             case .archive:
-                // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
+                // ArchiveView has path in NavigationStack
                 ArchiveView()
 
             case .subscribeToNotifications:
