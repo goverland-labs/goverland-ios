@@ -25,6 +25,7 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 .environmentObject(activeSheetManager)
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
+            // TODO: research if we can reuse macros here
             switch item {
             case .signIn:
                 SignInView(source: .popover)
@@ -32,6 +33,7 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
             case .daoInfo(let dao):
                 // Can't use recursive approache with PopoverNavigationViewWithToast here
                 // because of compilation error
+                // TODO: submit issue to Apple
                 PopoverNavigationViewWithToast2 {
                     DaoInfoView(dao: dao)
                 }
