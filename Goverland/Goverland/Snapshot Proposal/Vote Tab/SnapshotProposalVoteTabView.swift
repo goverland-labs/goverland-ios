@@ -203,15 +203,10 @@ struct SnapshotProposalVoteTabView: View {
             .presentationDetents([.height(220), .large])
         }
         .sheet(isPresented: $showVote) {
-            // TODO: check if we can use PopoverNavigationViewWithToast here
             CastYourVoteView(proposal: proposal, choice: choice) {
-                // decide if we need a completion here later.
-                // For now no logic here yet.
                 // TODO: check for achievements here
             }
-            .overlay {
-                ToastView()
-            }
+            
         }
         .sheet(isPresented: $showReconnectWallet) {
             ReconnectWalletView(user: selectedProfile!.user)
