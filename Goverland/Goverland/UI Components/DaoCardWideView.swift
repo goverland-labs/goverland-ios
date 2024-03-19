@@ -31,8 +31,7 @@ struct DaoCardWideView: View {
                     Text(dao.name)
                         .font(.headlineSemibold)
                         .foregroundStyle(Color.textWhite)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
+                        .lineLimit(1)
                         .minimumScaleFactor(0.5)
 
                     if dao.verified {

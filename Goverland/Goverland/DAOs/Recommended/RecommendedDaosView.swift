@@ -33,10 +33,26 @@ struct RecommendedDaosView: View {
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
 
-            Text("Daos count: \(daos.count)")
+            Text("Based on the tokens in your wallet, we recommend following these DAOs")
+                .font(.subheadlineRegular)
+                .foregroundStyle(Color.textWhite)
 
-            Spacer()
+            List(daos) { dao in
+                DaoCardWideView(dao: dao, onSelectDao: nil, onFollowToggle: nil)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+                    .listRowBackground(Color.clear)
+            }
+            .padding(.top, 8)
         }
-        .padding(16)
+        .padding(.top, 16)
+        .padding(.bottom, 0)
+        .padding(.horizontal, 12)
+        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
+}
+
+#Preview {
+    RecommendedDaosView(daos: [.aave, .gnosis], onDismiss: {})
 }
