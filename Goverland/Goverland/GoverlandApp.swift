@@ -110,7 +110,7 @@ struct GoverlandApp: App {
                         EnablePushNotificationsView()
 
                     case .recommendedDaos(let daos):
-                        let height = heightForDaosRecommendation(count: daos.count)
+                        let height = Utils.heightForDaosRecommendation(count: daos.count)
                         RecommendedDaosView(daos: daos) {
                             lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
                         }
@@ -144,15 +144,6 @@ struct GoverlandApp: App {
                 }
         }
         .modelContainer(appContainer)
-    }
-
-    private func heightForDaosRecommendation(count: Int) -> CGFloat {
-        switch count {
-        case 1: return 300
-        case 2: return 420
-        case 3: return 540
-        default: return 660
-        }
     }
 
     // MARK: - Universal & Deep links support

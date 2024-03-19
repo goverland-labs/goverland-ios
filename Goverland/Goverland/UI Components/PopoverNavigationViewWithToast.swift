@@ -63,10 +63,11 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 EnablePushNotificationsView()
 
             case .recommendedDaos(let daos):
+                let height = Utils.heightForDaosRecommendation(count: daos.count)
                 RecommendedDaosView(daos: daos) {
                     lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
                 }
-                .presentationDetents([.height(500), .large])
+                .presentationDetents([.height(height), .large])
             }
         }
         .tint(.textWhite)

@@ -199,4 +199,13 @@ enum Utils {
         }
         return nil
     }
+
+    static func heightForDaosRecommendation(count: Int) -> CGFloat {
+        switch count {
+        case 1: return 300
+        case 2: return 420
+        case 3: return 540
+        default: return 660
+        }
+    }
 }
