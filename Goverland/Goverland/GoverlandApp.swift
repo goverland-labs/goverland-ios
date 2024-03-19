@@ -80,7 +80,7 @@ struct GoverlandApp: App {
                 .sheet(item: $activeSheetManager.activeSheet) { item in
                     switch item {
                     case .signIn:
-                        SignInView(source: .popover) { /* do nothing on sign in */ }
+                        SignInView(source: .popover)
 
                     case .daoInfo(let dao):
                         PopoverNavigationViewWithToast {

@@ -31,7 +31,7 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
             case .signIn:
-                SignInView(source: .popover) { /* do nothing on sign in */ }
+                SignInView(source: .popover)
 
             case .daoInfo(let dao):
                 // Can't use recursive approache here

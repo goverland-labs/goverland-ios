@@ -30,10 +30,7 @@ struct ProfileView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 if authToken.isEmpty {
-                    SignInView(source: .profile) {
-                        // When authToken changes (on sign in), the view is redrawn, and the completion
-                        // is not called. So we ignore it here.
-                    }
+                    SignInView(source: .profile)
                 } else {
                     _ProfileView(path: $path)
                 }
