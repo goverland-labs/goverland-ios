@@ -15,8 +15,8 @@ struct FollowCategoryDaosListView: View {
     let onSelectDaoFromList: ((Dao) -> Void)?
     let onSelectDaoFromSearch: ((Dao) -> Void)?
 
-    let onFollowToggleFromList: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
-    let onFollowToggleFromSearch: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
 
     let onCategoryListAppear: (() -> Void)?
     
@@ -33,8 +33,8 @@ struct FollowCategoryDaosListView: View {
          onSelectDaoFromList: ((Dao) -> Void)? = nil,
          onSelectDaoFromSearch: ((Dao) -> Void)? = nil,
 
-         onFollowToggleFromList: ((_ didFollow: Bool, _ daoId: UUID) -> Void)? = nil,
-         onFollowToggleFromSearch: ((_ didFollow: Bool, _ daoId: UUID) -> Void)? = nil,
+         onFollowToggleFromList: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)? = nil,
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
@@ -74,8 +74,8 @@ fileprivate struct DaosListView: View {
     let onSelectDaoFromList: ((Dao) -> Void)?
     let onSelectDaoFromSearch: ((Dao) -> Void)?
 
-    let onFollowToggleFromList: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
-    let onFollowToggleFromSearch: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    let onFollowToggleFromList: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggleFromSearch: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         if dataSource.searchText == "" {
@@ -128,7 +128,7 @@ fileprivate struct DaosListView: View {
 fileprivate struct CategoryDaosSearchListView: View {
     @ObservedObject var dataSource: CategoryDaosDataSource
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         ScrollView(showsIndicators: false) {

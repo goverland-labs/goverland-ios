@@ -45,7 +45,7 @@ struct RecommendedDaosView: View {
                         activeSheetManager.activeSheet = .daoInfo(dao)
                         Tracker.track(.daosRecommendationOpenDao)
                     },
-                    onFollowToggle: { didFollow, _ in
+                    onFollowToggle: { didFollow in
                         if didFollow {
                             Tracker.track(.daosRecommendationFollow)
                         }

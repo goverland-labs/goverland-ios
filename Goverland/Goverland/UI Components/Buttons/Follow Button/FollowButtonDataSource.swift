@@ -14,9 +14,9 @@ class FollowButtonDataSource: ObservableObject {
     @Published var subscriptionID: UUID?
     @Published var isUpdating: Bool
     private var cancellables: Set<AnyCancellable>
-    private let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    private let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
-    init(daoID: UUID, subscriptionID: UUID?, onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?) {
+    init(daoID: UUID, subscriptionID: UUID?, onFollowToggle: ((_ didFollow: Bool) -> Void)?) {
         self.daoId = daoID
         self.subscriptionID = subscriptionID
         self.onFollowToggle = onFollowToggle
@@ -44,7 +44,7 @@ class FollowButtonDataSource: ObservableObject {
                 guard let `self` = self else { return }
                 self.isUpdating = false
                 self.subscriptionID = subscription.id
-                self.onFollowToggle?(true, daoId)
+                self.onFollowToggle?(true)
                 NotificationCenter.default.post(name: .subscriptionDidToggle, 
                                                 object: (daoId, SubscriptionMeta(id: subscription.id,
                                                                                  createdAt: subscription.createdAt)))
@@ -65,7 +65,7 @@ class FollowButtonDataSource: ObservableObject {
                 guard let `self` = self else { return }
                 self.isUpdating = false
                 self.subscriptionID = nil
-                self.onFollowToggle?(false, daoId)
+                self.onFollowToggle?(false)
                 NotificationCenter.default.post(name: .subscriptionDidToggle, 
                                                 object: (daoId, nil as SubscriptionMeta?))
             }

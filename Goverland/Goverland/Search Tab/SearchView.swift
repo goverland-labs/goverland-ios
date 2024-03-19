@@ -60,9 +60,9 @@ struct SearchView: View {
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
                                                 onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
-                                                onFollowToggleFromCard: { didFollow, _ in if didFollow { Tracker.track(.searchDaosFollowFromCard) } },
-                                                onFollowToggleFromCategoryList: { didFollow, _ in if didFollow { Tracker.track(.searchDaosFollowFromCtgList) } },
-                                                onFollowToggleFromCategorySearch: { didFollow, _ in if didFollow { Tracker.track(.searchDaosFollowFromCtgSearch) } },
+                                                onFollowToggleFromCard: { didFollow in if didFollow { Tracker.track(.searchDaosFollowFromCard) } },
+                                                onFollowToggleFromCategoryList: { didFollow in if didFollow { Tracker.track(.searchDaosFollowFromCtgList) } },
+                                                onFollowToggleFromCategorySearch: { didFollow in if didFollow { Tracker.track(.searchDaosFollowFromCtgSearch) } },
 
                                                 onCategoryListAppear: { Tracker.track(.screenSearchDaosCtgDaos) })
                             } else {
@@ -92,7 +92,7 @@ struct SearchView: View {
                             activeSheetManager.activeSheet = .daoInfo(dao)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
-                                           onFollowToggle: { didFollow, _ in
+                                           onFollowToggle: { didFollow in
                             Tracker.track(.searchDaosFollowFromSearch)
                         })
 

@@ -38,7 +38,7 @@ struct DaoListItemView: View {
     let dao: Dao
     let subscriptionMeta: SubscriptionMeta?
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     private var voters: String {
         if let voters = MetricNumberFormatter().stringWithMetric(from: dao.voters) {

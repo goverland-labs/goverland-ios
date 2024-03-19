@@ -76,7 +76,7 @@ struct DashboardPopularDaosCardsView: View {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.popular,
                                      onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpen) },
-                                     onFollowToggle: { didFollow, _ in if didFollow { Tracker.track(.dashPopularDaoFollow) } })
+                                     onFollowToggle: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollow) } })
             .padding(.leading, 8)
         }
     }

@@ -64,7 +64,7 @@ fileprivate struct MutualDaosScrollView: View {
                         DaoCardView(dao: dao,
                                     subheader: "\(percentage) voters",
                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.daoInsightsMutualOpen) },
-                                    onFollowToggle: { didFollow, _ in if didFollow { Tracker.track(.daoInsightsMutualFollow) } })
+                                    onFollowToggle: { didFollow in if didFollow { Tracker.track(.daoInsightsMutualFollow) } })
                     }
                 }
             }

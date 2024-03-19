@@ -21,7 +21,7 @@ struct DashboardNewDaosView: View {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.new,
                                      onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
-                                     onFollowToggle: { didFollow, _ in if didFollow { Tracker.track(.dashNewDaoFollow) } })
+                                     onFollowToggle: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollow) } })
             .padding(.leading, 8)
         }
     }

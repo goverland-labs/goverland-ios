@@ -19,9 +19,9 @@ struct GroupedDaosView: View {
     private let onSelectDaoFromCategoryList: ((Dao) -> Void)?
     private let onSelectDaoFromCategorySearch: ((Dao) -> Void)?
 
-    private let onFollowToggleFromCard: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
-    private let onFollowToggleFromCategoryList: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
-    private let onFollowToggleFromCategorySearch: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    private let onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)?
+    private let onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)?
 
     private let onCategoryListAppear: (() -> Void)?
 
@@ -33,9 +33,9 @@ struct GroupedDaosView: View {
          onSelectDaoFromCategoryList: ((Dao) -> Void)? = nil,
          onSelectDaoFromCategorySearch: ((Dao) -> Void)? = nil,
 
-         onFollowToggleFromCard: ((_ didFollow: Bool, _ daoId: UUID) -> Void)? = nil,
-         onFollowToggleFromCategoryList: ((_ didFollow: Bool, _ daoId: UUID) -> Void)? = nil,
-         onFollowToggleFromCategorySearch: ((_ didFollow: Bool, _ daoId: UUID) -> Void)? = nil,
+         onFollowToggleFromCard: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromCategoryList: ((_ didFollow: Bool) -> Void)? = nil,
+         onFollowToggleFromCategorySearch: ((_ didFollow: Bool) -> Void)? = nil,
 
          onCategoryListAppear: (() -> Void)? = nil
     ) {
@@ -118,7 +118,7 @@ struct DaoThreadForCategoryView: View {
 
     let category: DaoCategory
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
+    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
