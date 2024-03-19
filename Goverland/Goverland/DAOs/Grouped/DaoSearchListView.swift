@@ -11,7 +11,7 @@ import SwiftUI
 struct DaosSearchListView: View {
     @ObservedObject var dataSource = DaosSearchDataSource.shared
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((Bool) -> Void)?
+    let onFollowToggle: ((Bool, UUID) -> Void)?
 
     var body: some View {
         ScrollView(showsIndicators: false) {

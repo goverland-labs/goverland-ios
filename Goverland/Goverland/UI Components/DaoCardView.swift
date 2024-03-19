@@ -12,13 +12,13 @@ struct DaoCardView: View {
     let dao: Dao
     let subheader: String
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
     @Environment(\.isPresented) private var isPresented
 
     init(dao: Dao,
          subheader: String? = nil,
          onSelectDao: ((Dao) -> Void)?,
-         onFollowToggle: ((_ didFollow: Bool) -> Void)?)
+         onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?)
     {
         self.dao = dao
         if let subheader {

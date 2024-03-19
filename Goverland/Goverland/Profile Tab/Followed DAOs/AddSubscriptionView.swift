@@ -33,9 +33,9 @@ struct AddSubscriptionView: View {
                                     onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
                                     onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
 
-                                    onFollowToggleFromCard: { if $0 { Tracker.track(.followedAddFollowFromCard) } },
-                                    onFollowToggleFromCategoryList: { if $0 { Tracker.track(.followedAddFollowFromCtgList) } },
-                                    onFollowToggleFromCategorySearch: { if $0 { Tracker.track(.followedAddFollowFromCtgSearch) } },
+                                    onFollowToggleFromCard: { didFollow, _ in if didFollow { Tracker.track(.followedAddFollowFromCard) } },
+                                    onFollowToggleFromCategoryList: { didFollow, _ in if didFollow { Tracker.track(.followedAddFollowFromCtgList) } },
+                                    onFollowToggleFromCategorySearch: { didFollow, _ in if didFollow { Tracker.track(.followedAddFollowFromCtgSearch) } },
 
                                     onCategoryListAppear: { Tracker.track(.screenFollowedAddCtg) })
                 } else {
@@ -46,7 +46,7 @@ struct AddSubscriptionView: View {
                     activeSheetManager.activeSheet = .daoInfo(dao)
                     Tracker.track(.followedAddOpenDaoFromSearch)
                 },
-                                   onFollowToggle: { didFollow in
+                                   onFollowToggle: { didFollow, _ in
                     if didFollow {
                         Tracker.track(.followedAddFollowFromSearch)
                     }

@@ -36,7 +36,7 @@ struct FollowedDaosView: View {
                                     activeSheetManager.activeSheet = .daoInfo(subscription.dao)
                                     Tracker.track(.followedDaosOpenDao)
                                 },
-                                onFollowToggle: { didFollow in
+                                onFollowToggle: { didFollow, _ in
                                     Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
                                 }
                             )

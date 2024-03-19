@@ -12,7 +12,7 @@ import SwiftUI
 struct DaoCardWideView: View {
     let dao: Dao
     let onSelectDao: ((Dao) -> Void)?
-    let onFollowToggle: ((_ didFollow: Bool) -> Void)?
+    let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
     @Environment(\.isPresented) private var isPresented
 
     private var backgroundColor: Color {

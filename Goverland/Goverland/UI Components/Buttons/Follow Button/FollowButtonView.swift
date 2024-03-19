@@ -17,7 +17,7 @@ struct FollowButtonView: View {
 
     init(daoID: UUID,
          subscriptionID: UUID?,
-         onFollowToggle: ((_ didFollow: Bool) -> Void)?,
+         onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?,
          buttonWidth: CGFloat = 100,
          buttonHeight: CGFloat = 32)
     {
