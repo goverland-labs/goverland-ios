@@ -53,6 +53,7 @@ struct AppTabView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.authToken) private var authToken
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     @State var currentInboxViewId: UUID?
     
@@ -113,17 +114,8 @@ struct AppTabView: View {
                 activeSheetManager.activeSheet = .signIn
             }
         }
-        // TODO: check if we can make it better with macros
-        // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
-            guard let subscribed = notification.object as? Bool, subscribed else { return }
-            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
+        .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
             showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-        }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty {
-                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-            }
         }
     }
 }

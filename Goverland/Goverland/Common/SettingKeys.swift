@@ -26,7 +26,10 @@ class SettingKeys: ObservableObject {
     }
     @AppStorage("welcomeBlockIsRead") var welcomeBlockIsRead = false
     @AppStorage("notificationsEnabled") var notificationsEnabled = false
+
+    @AppStorage("lastAttemptToPromotedPushNotifications") var lastAttemptToPromotedPushNotifications: TimeInterval = 0
     @AppStorage("lastPromotedPushNotificationsTime") var lastPromotedPushNotificationsTime: TimeInterval = 0
+
     @AppStorage("lastSuggestedToRateTime") var lastSuggestedToRateTime: TimeInterval = 0
 
     @AppStorage("unreadEvents") var unreadEvents = 0 {

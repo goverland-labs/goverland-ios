@@ -19,7 +19,7 @@ struct PublicUserProfileView: View {
     @StateObject private var dataSource: PublicUserProfileDataSource
     @State private var path = [PublicUserProfileScreen]()
     @Environment(\.dismiss) private var dismiss
-    @Setting(\.authToken) private var authToken
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(address: Address) {
@@ -84,10 +84,8 @@ struct PublicUserProfileView: View {
                     activeSheetManager.activeSheet = .signIn
                 }
             }
-            .onChange(of: authToken) { _, token in
-                if !token.isEmpty {
-                    showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-                }
+            .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
+                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
             }
         }
     }

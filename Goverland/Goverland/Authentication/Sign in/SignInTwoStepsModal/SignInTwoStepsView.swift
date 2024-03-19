@@ -9,10 +9,37 @@
 import SwiftUI
 
 struct SignInTwoStepsView: View {
-    @Environment(\.dismiss) private var dismiss
+    let onSignIn: () -> Void
+
     @StateObject private var dataSource = SignInTwoStepsDataSource()
-    @State private var showSelectWallet = false
+    @Environment(\.dismiss) private var dismiss
     @Setting(\.authToken) private var authToken
+
+    var body: some View {
+        if let daos = dataSource.recommendedDaos, !daos.isEmpty {
+            _RecommendedDaosView(daos: daos, onSignIn: onSignIn)
+        } else {
+            _TwoStepsView(dataSource: dataSource)
+                .onChange(of: authToken) { _, token in
+                    if !token.isEmpty {
+                        dataSource.getRecommendedDaos()
+                    }
+                }
+                .onChange(of: dataSource.recommendedDaos) { _, daos in
+                    // User has signed in
+                    if let daos, daos.isEmpty {
+                        dismiss()
+                        onSignIn()
+                    }
+                }
+        }
+    }
+}
+
+fileprivate struct _TwoStepsView: View {
+    @ObservedObject var dataSource: SignInTwoStepsDataSource
+    @State private var showSelectWallet = false
+    @Environment(\.dismiss) private var dismiss
 
     var walletConnected: Bool {
         dataSource.wcSessionMeta != nil || dataSource.cbWalletAccount != nil
@@ -20,6 +47,17 @@ struct SignInTwoStepsView: View {
 
     var body: some View {
         VStack(spacing: 16) {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(Color.textWhite40)
+                        .font(.system(size: 26))
+                }
+            }
+
             Text("Sign In")
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
@@ -119,7 +157,8 @@ struct SignInTwoStepsView: View {
                     showSelectWallet = true
                 }
             } else {
-                PrimaryButton("Sign message to sign in") {
+                PrimaryButton("Sign message to sign in",
+                              isEnabled: dataSource.signInButtonEnabled) {
                     Haptic.medium()
                     dataSource.authenticate()
                 }
@@ -129,12 +168,32 @@ struct SignInTwoStepsView: View {
         .sheet(isPresented: $showSelectWallet) {
             PopoverNavigationViewWithToast {
                 ConnectWalletView()
-            }            
-        }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty {
-                dismiss()
             }
+        }
+    }
+}
+
+fileprivate struct _RecommendedDaosView: View {
+    let daos: [Dao]
+    let onSignIn: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                    onSignIn()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(Color.textWhite40)
+                        .font(.system(size: 26))
+                }
+            }
+
+            Text("Daos count: \(daos.count)")
         }
     }
 }

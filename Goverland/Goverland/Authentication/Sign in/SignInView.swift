@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct SignInView: View {
+    let source: Source
+    @State private var didSignIn = false
+
     @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
-    @Setting(\.authToken) private var authToken
-
-    let source: Source
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     enum Source: String {
         case popover
@@ -22,28 +23,29 @@ struct SignInView: View {
 
     var body: some View {
         ZStack {
-            SignInOnboardingBackgroundView()
+            _SignInOnboardingBackgroundView()
 
             VStack {
-                SignInOnboardingHeaderView()
+                _SignInOnboardingHeaderView()
                 Spacer()
-                SignInOnboardingFooterControlsView()
+                _SignInOnboardingFooterControlsView(didSignIn: $didSignIn)
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
             .onAppear() {
                 Tracker.track(.screenSignIn, parameters: ["source" : source.rawValue])
             }
-        }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty && isPresented {
-                dismiss()
+            .onChange(of: didSignIn) { _, didSignIn in
+                if didSignIn && isPresented {
+                    dismiss()
+                }
+                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
             }
         }
     }
 }
 
-fileprivate struct SignInOnboardingBackgroundView: View {
+fileprivate struct _SignInOnboardingBackgroundView: View {
     var body: some View {
         Image("sign-in")
             .resizable()
@@ -51,7 +53,7 @@ fileprivate struct SignInOnboardingBackgroundView: View {
     }
 }
 
-fileprivate struct SignInOnboardingHeaderView: View {
+fileprivate struct _SignInOnboardingHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -70,9 +72,11 @@ fileprivate struct SignInOnboardingHeaderView: View {
     }
 }
 
-fileprivate struct SignInOnboardingFooterControlsView: View {
+fileprivate struct _SignInOnboardingFooterControlsView: View {
+    @Binding var didSignIn: Bool
+
     @State private var showSignIn = false
-    @StateObject var dataSource = SignInDataSource()
+    @StateObject private var dataSource = SignInDataSource()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -108,8 +112,10 @@ fileprivate struct SignInOnboardingFooterControlsView: View {
             .padding(.bottom)
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView()
-                .presentationDetents([.height(500), .large])
+            SignInTwoStepsView {
+                didSignIn = true
+            }
+            .presentationDetents([.height(500), .large])
         }
     }
 }

@@ -75,6 +75,7 @@ fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     var body: some View {
         Group {
@@ -109,8 +110,10 @@ fileprivate struct _ProfileView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView()
-                .presentationDetents([.height(500), .large])
+            SignInTwoStepsView {
+                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+            }
+            .presentationDetents([.height(500), .large])
         }
         .onAppear {
             Tracker.track(.screenProfile)

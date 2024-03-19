@@ -14,7 +14,7 @@ struct AddSubscriptionView: View {
     @StateObject private var dataSource = GroupedDaosDataSource.addSubscription
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @Setting(\.authToken) private var authToken
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     private var searchPrompt: String {
         if let total = dataSource.totalDaos {
@@ -72,17 +72,9 @@ struct AddSubscriptionView: View {
         .onAppear() {
             dataSource.refresh()
             Tracker.track(.screenFollowedDaosAdd)
-        }        
-        // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
-            guard let subscribed = notification.object as? Bool, subscribed else { return }
-            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
-            showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
         }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty {
-                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-            }
+        .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
+            showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
         }
     }
 }
