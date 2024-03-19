@@ -11,6 +11,8 @@ import Foundation
 enum ActiveSheet: Identifiable, Equatable {
     case signIn
     case daoInfo(Dao)
+    case publicProfile(Address)
+    case allDaoVoters(Dao)
     case followDaos
     case archive
     case subscribeToNotifications
@@ -19,9 +21,11 @@ enum ActiveSheet: Identifiable, Equatable {
         switch self {
         case .signIn: return 0
         case .daoInfo: return 1
-        case .followDaos: return 2
-        case .archive: return 3
-        case .subscribeToNotifications: return 4
+        case .publicProfile: return 2
+        case .allDaoVoters: return 3
+        case .followDaos: return 4
+        case .archive: return 5
+        case .subscribeToNotifications: return 6
         }
     }
 }

@@ -52,13 +52,7 @@ struct ConnectWalletView: View {
                         .foregroundStyle(Color.textWhite)
                 }
             }
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Connect Wallet")
-                        .font(.title3Semibold)
-                        .foregroundStyle(Color.textWhite)
-                }
-            }
+            ToolbarTitle("Connect Wallet")            
         }
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
             guard notification.object != nil else { return }

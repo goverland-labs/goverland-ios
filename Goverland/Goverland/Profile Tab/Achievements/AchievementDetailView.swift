@@ -47,13 +47,7 @@ struct AchievementDetailView: View {
         }
         .padding(.horizontal, 20)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Achievements")
-                        .font(.title3Semibold)
-                        .foregroundStyle(Color.textWhite)
-                }
-            }
+            ToolbarTitle("Achievements")            
         }
         .onAppear {
             Tracker.track(.screenAchievementDetails)

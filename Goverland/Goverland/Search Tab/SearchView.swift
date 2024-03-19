@@ -55,8 +55,7 @@ struct SearchView: View {
                         ZStack {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
-                                                showRecentlyViewedDAOs: true,
-                                                activeSheetManager: activeSheetManager,
+                                                showRecentlyViewedDAOs: true,                                                
                                                 onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
                                                 onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
                                                 onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
@@ -121,13 +120,7 @@ struct SearchView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Search")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Search")                
             }
             .onAppear() {
                 daos.refresh()

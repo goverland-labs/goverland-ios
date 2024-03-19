@@ -347,4 +347,16 @@ extension APIService {
         let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
         return shared.request(endpoint, defaultErrorDisplay: false)
     }
+    
+    // MARK: - Public Profile
+    
+    static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileEndpoint(address: address)
+        return shared.request(endpoint)
+    }
+
+    static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileVotesEndpoint(address: address)
+        return shared.request(endpoint)
+    }
 }

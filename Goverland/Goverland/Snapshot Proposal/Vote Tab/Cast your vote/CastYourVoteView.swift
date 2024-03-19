@@ -134,6 +134,9 @@ fileprivate struct _VoteView: View {
             Tracker.track(.screenSnpCastVote)
             dataSource.validate(address: user.address.value)
         }
+        .overlay {
+            ToastView()
+        }
         .padding(.horizontal, 16)
         .padding(.top, 24)
         .padding(.bottom, 16)

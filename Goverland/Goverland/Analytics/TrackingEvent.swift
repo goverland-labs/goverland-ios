@@ -110,6 +110,8 @@ enum TrackingEvent: String, Trackable {
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
     case snpDetailsShowDao = "snp_details_show_dao"
+    case snpDetailsShowUserProfile = "snp_details_show_user_profile"
+    case snpDetailsVotesShowUserProfile = "snp_details_votes_show_user_profile"
     case snpDetailsShowFullDscr = "snp_details_show_full_dscr"
     case snpDetailsVote = "snp_details_vote"
     case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"
@@ -191,6 +193,20 @@ enum TrackingEvent: String, Trackable {
     case screenAchievements = "screen_achievements"
     case screenAchievementDetails = "screen_achievement_details"
     case screenGuestAchievements = "screen_guest_achievements"
+    
+    // MARK: - Public Profile
+    case screenPublicProfile = "screen_public_profile"
+
+    // Voted In DAOs
+    case publicPrfVotedDaoOpen = "public_prf_voted_dao_open"
+
+    // Votes
+    case publicPrfVotesOpenProposal = "public_prf_votes_open_proposal"
+    case publicPrfVotesOpenDao = "public_prf_votes_open_dao"
+    // TODO: impl
+    case screenPublicProfileVotesFull = "screen_public_profile_votes_full"
+    case publicPrfVotesFullOpenProposal = "public_prf_votes_full_open_prp"
+    case publicPrfVotesFullOpenDao = "public_prf_votes_full_open_dao"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

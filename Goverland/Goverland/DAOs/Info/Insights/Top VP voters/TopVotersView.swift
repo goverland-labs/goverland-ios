@@ -13,12 +13,12 @@ import Charts
 struct TopVotersView: View {
     private let dao: Dao
     @StateObject private var dataSource: TopVotersDataSource
-    @State private var showAllVotes = false
-    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     init(dao: Dao) {
+        self.dao = dao
         let dataSource = TopVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
-        self.dao = dao
     }
     
     var body: some View {
@@ -50,7 +50,7 @@ struct TopVotersView: View {
                         .tint(.onSecondaryContainer)
                         .font(.footnoteSemibold)
                         .onTapGesture {
-                            showAllVotes = true
+                            activeSheetManager.activeSheet = .allDaoVoters(dao)
                         }
                 }
             }
@@ -61,20 +61,14 @@ struct TopVotersView: View {
             if dataSource.topVoters.isEmpty {
                 dataSource.refresh()
             }
-        }
-        .sheet(isPresented: $showAllVotes) {
-            NavigationStack {
-                AllVotersListView(dao: dao)
-            }
-            .overlay (
-                ToastView()
-            )
-        }
+        }        
     }
 }
 
 fileprivate struct TopVotePowerVotersGraphView: View {
     @ObservedObject var dataSource: TopVotersDataSource
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
     
     let columns: [GridItem] = {
@@ -91,28 +85,32 @@ fileprivate struct TopVotePowerVotersGraphView: View {
                 BarMark(
                     x: .value("VotePower", voter.votingPower)
                 )
-                .foregroundStyle(by: .value("Name", voter.name.short))
+                .foregroundStyle(by: .value("Name", voter.voter.usernameShort))
                 .clipShape(barShape(for: voter))
             }
             .frame(height: 30)
             .chartXAxis(.hidden)
             .chartLegend(.hidden)
             .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.name.short}),
+            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.voter.usernameShort}),
                                        range: barColors) // assigns colors to the segments of the bar
             
             // Custom Chart Legend
             LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
                 let count = dataSource.top10votersGraphData.count
                 ForEach((0..<min(11, count)), id: \.self) { index in
-                    NavigationLink(destination: UserInfoView(voter: dataSource.top10votersGraphData[index])) {
-                        HStack {
-                            Circle()
-                                .fill(barColors[index])
-                                .frame(width: 8, height: 8)
-                            Text(dataSource.top10votersGraphData[index].name.short)
-                                .font(.caption2)
-                                .foregroundColor(.textWhite60)
+                    HStack {
+                        Circle()
+                            .fill(barColors[index])
+                            .frame(width: 8, height: 8)
+                        Text(dataSource.top10votersGraphData[index].voter.usernameShort)
+                            .font(.caption2)
+                            .foregroundColor(.textWhite60)
+                    }
+                    .onTapGesture {
+                        if index < 10 {
+                            let address = dataSource.top10votersGraphData[index].voter.address
+                            activeSheetManager.activeSheet = .publicProfile(address)
                         }
                     }
                 }

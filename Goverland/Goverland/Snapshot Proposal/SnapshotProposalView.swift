@@ -71,7 +71,6 @@ struct SnapshotProposalView: View {
 fileprivate struct _ProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var voted: Bool {
         proposal.userVote != nil
@@ -80,18 +79,15 @@ fileprivate struct _ProposalView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                SnapshotProposalHeaderView(title: proposal.title)
+                _SnapshotProposalHeaderView(title: proposal.title)
 
-                SnapshotProposalCreatorView(dao: proposal.dao, creator: proposal.author)
-                    .gesture(TapGesture().onEnded { _ in
-                        if allowShowingDaoInfo {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                            Tracker.track(.snpDetailsShowDao)
-                        }
-                    })
+                _SnapshotProposalCreatorView(dao: proposal.dao,
+                                             creator: proposal.author,
+                                             allowShowingDaoInfo: allowShowingDaoInfo,
+                                             proposal: proposal)
                     .padding(.bottom, 15)
 
-                SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
+                _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 20)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
@@ -121,7 +117,7 @@ fileprivate struct _ProposalView: View {
     }
 }
 
-fileprivate struct SnapshotProposalHeaderView: View {
+fileprivate struct _SnapshotProposalHeaderView: View {
     let title: String
 
     var body: some View {
@@ -136,9 +132,12 @@ fileprivate struct SnapshotProposalHeaderView: View {
     }
 }
 
-fileprivate struct SnapshotProposalCreatorView: View {
+fileprivate struct _SnapshotProposalCreatorView: View {
     let dao: Dao
     let creator: User
+    let allowShowingDaoInfo: Bool
+    let proposal: Proposal
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: 5) {
@@ -152,18 +151,29 @@ fileprivate struct SnapshotProposalCreatorView: View {
                     .foregroundStyle(Color.textWhite)
 
             }
+            .gesture(TapGesture().onEnded { _ in
+                if allowShowingDaoInfo {
+                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    Tracker.track(.snpDetailsShowDao)
+                }
+            })
             Text("by")
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite60)
             IdentityView(user: creator)
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite)
+                .gesture(TapGesture().onEnded { _ in
+                    activeSheetManager.activeSheet = .publicProfile(creator.address)
+                    Tracker.track(.snpDetailsShowUserProfile)
+                    
+                })
             Spacer()
         }
     }
 }
 
-fileprivate struct SnapshotProposalStatusBarView: View {
+fileprivate struct _SnapshotProposalStatusBarView: View {
     let state: Proposal.State
     let voted: Bool
     let votingEnd: Date

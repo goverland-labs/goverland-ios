@@ -167,6 +167,32 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
     }
 }
 
+struct PublicProfileEndpoint: APIEndpoint {
+    typealias ResponseType = PublicUserProfile
+    
+    let address: Address
+    
+    var path: String { "user/\(address)" }
+    var method: HttpMethod = .get
+
+    init(address: Address) {
+        self.address = address
+    }
+}
+
+struct PublicProfileVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+    
+    let address: Address
+    
+    var path: String { "user/\(address)/votes" }
+    var method: HttpMethod = .get
+
+    init(address: Address) {
+        self.address = address
+    }
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {

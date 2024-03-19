@@ -10,7 +10,7 @@ import SwiftUI
 import BlockiesSwift
 import CryptoSwift
 
-struct Address: Codable, CustomStringConvertible {
+struct Address: Codable, CustomStringConvertible, Equatable {
     let value: String
     
     var blockie: Image? {
@@ -40,7 +40,7 @@ struct Address: Codable, CustomStringConvertible {
 
 extension Address {
     var short: String {
-        value.count < 10 ? "\(value)" : "\(value.prefix(6))...\(value.suffix(4))"
+        "\(value.prefix(6))...\(value.suffix(4))"
     }
 }
 

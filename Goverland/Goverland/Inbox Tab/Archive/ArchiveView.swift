@@ -100,13 +100,7 @@ struct ArchiveView: View {
                     }
                 }
 
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Archive")
-                            .font(.title3Semibold)
-                            .foregroundStyle(Color.textWhite)
-                    }
-                }
+                ToolbarTitle("Archive")                
             }
             .onChange(of: selectedEventIndex) { _, _ in
                 if let index = selectedEventIndex, archives.count > index,

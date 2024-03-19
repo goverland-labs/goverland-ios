@@ -42,10 +42,6 @@ struct VoteSubmission: Decodable {
 }
 
 extension Vote {
-    var userName: String {
-        voter.resolvedName ?? voter.address.checksum ?? ""
-    }
-
     func choiceStr(for proposal: Proposal) -> String? {
         switch proposal.type {
         case .basic, .singleChoice:
