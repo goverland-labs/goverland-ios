@@ -28,7 +28,7 @@ enum DaoInfoFilter: Int, FilterOptions {
 struct DaoInfoView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource: DaoInfoDataSource
-    @State private var filter: DaoInfoFilter = .activity    
+    @State private var filter: DaoInfoFilter = .activity
     @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -41,7 +41,7 @@ struct DaoInfoView: View {
     init(dao: Dao) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(dao: dao))
     }
-    
+
     var body: some View {
         VStack {
             if dataSource.isLoading {
@@ -59,7 +59,7 @@ struct DaoInfoView: View {
                         .padding(.bottom)
 
                     FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
-                    
+
                     switch filter {
                     case .activity: DaoInfoEventsView(dao: dao)
                     case .about: DaoInfoAboutDaoView(dao: dao)
@@ -104,7 +104,7 @@ struct DaoInfoView: View {
                     }
                 }
             }
-        }        
+        }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
             // This approach is used on AppTabView and DaoInfoView
             if activeSheetManager.activeSheet == nil {

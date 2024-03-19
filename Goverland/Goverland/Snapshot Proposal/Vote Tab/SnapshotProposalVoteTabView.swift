@@ -39,7 +39,6 @@ struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
     @Namespace var namespace    
     @Setting(\.authToken) private var authToken
-    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     @Query private var profiles: [UserProfile]
     @Query private var termsAgreements: [DaoTermsAgreement]
@@ -194,10 +193,8 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView {
-                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
-            }
-            .presentationDetents([.height(500), .large])
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
         }
         .sheet(isPresented: $showAgreeWithDaoTerms) {
             DaoTermsAgreementPopoverView(dao: proposal.dao) {

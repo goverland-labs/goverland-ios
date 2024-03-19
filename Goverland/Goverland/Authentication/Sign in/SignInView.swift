@@ -10,23 +10,22 @@ import SwiftUI
 struct SignInView: View {
     let source: Source
     let onSignIn: () -> Void
-
+    
     @State private var didSignIn = false
-
+    
     @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
-    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
-
+    
     enum Source: String {
         case popover
         case inbox
         case profile
     }
-
+    
     var body: some View {
         ZStack {
             _SignInOnboardingBackgroundView()
-
+            
             VStack {
                 _SignInHeaderView()
                 Spacer()
@@ -68,7 +67,7 @@ fileprivate struct _SignInHeaderView: View {
                 }
                 .font(.chillaxMedium(size: 46))
                 .kerning(-2.5)
-
+                
                 Spacer()
             }
         }
@@ -77,10 +76,10 @@ fileprivate struct _SignInHeaderView: View {
 
 fileprivate struct _SignInFooterControlsView: View {
     @Binding var didSignIn: Bool
-
+    
     @State private var showSignIn = false
     @StateObject private var dataSource = SignInDataSource()
-
+    
     var body: some View {
         VStack(spacing: 20) {
             PrimaryButton("Sign in with wallet") {
@@ -88,11 +87,11 @@ fileprivate struct _SignInFooterControlsView: View {
                 Tracker.track(.signInWithWallet)
                 showSignIn = true
             }
-
+            
             HStack(spacing: 8) {
                 Spacer() // spacer to balance out loading indicator
                     .frame(width: 30)
-
+                
                 Button("Continue as a guest") {
                     Tracker.track(.signInAsGuest)
                     dataSource.guestAuth()
@@ -100,7 +99,7 @@ fileprivate struct _SignInFooterControlsView: View {
                 .disabled(dataSource.loading)
                 .fontWeight(.semibold)
                 .tint(.secondaryContainer)
-
+                
                 HStack {
                     if dataSource.loading {
                         ProgressView()
@@ -110,7 +109,7 @@ fileprivate struct _SignInFooterControlsView: View {
                     Spacer()
                 }
                 .frame(width: 30)
-
+                
             }
             .padding(.bottom)
         }
