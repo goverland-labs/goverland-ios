@@ -49,6 +49,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func profileDaoRecommendation() -> AnyPublisher<(ProfileDaoRecommendationEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProfileDaoRecommendationEndpoint()
+        return shared.request(endpoint)
+    }
+
     static func signOut(sessionId: String) -> AnyPublisher<(SignOutEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = SignOutEndpoint(sessionId: sessionId)
         return shared.request(endpoint)
