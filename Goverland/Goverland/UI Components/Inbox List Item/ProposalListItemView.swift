@@ -15,7 +15,7 @@ struct ProposalListItemView<Content: View>: View {
     let onDaoTap: (() -> Void)?
     let menuContent: Content
 
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.isPresented) private var isPresented
 
     init(proposal: Proposal,
          isSelected: Bool,
@@ -38,7 +38,7 @@ struct ProposalListItemView<Content: View>: View {
             return .containerBright
         }
 
-        if presentationMode.wrappedValue.isPresented {
+        if isPresented {
             return .containerBright
         }
 

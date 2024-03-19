@@ -12,7 +12,7 @@ struct ProposalListItemCondensedView: View {
     let proposal: Proposal
     let onDaoTap: (() -> Void)?
 
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.isPresented) private var isPresented
 
     init(proposal: Proposal,
          onDaoTap: (() -> Void)? = nil) {
@@ -25,7 +25,7 @@ struct ProposalListItemCondensedView: View {
             return .containerBright
         }
 
-        if presentationMode.wrappedValue.isPresented {
+        if isPresented {
             return .containerBright
         }
 

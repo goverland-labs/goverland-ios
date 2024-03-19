@@ -13,7 +13,7 @@ struct DaoCardView: View {
     let subheader: String
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.isPresented) private var isPresented
 
     init(dao: Dao,
          subheader: String? = nil,
@@ -35,7 +35,7 @@ struct DaoCardView: View {
     }
 
     private var backgroundColor: Color {
-        presentationMode.wrappedValue.isPresented ? .containerBright : .container
+        isPresented ? .containerBright : .container
     }
 
     var body: some View {

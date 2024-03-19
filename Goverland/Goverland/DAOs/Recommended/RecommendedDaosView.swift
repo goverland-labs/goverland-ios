@@ -29,9 +29,14 @@ struct RecommendedDaosView: View {
                 }
             }
 
+            Text("Recommended DAOs")
+                .font(.title3Semibold)
+                .foregroundStyle(Color.textWhite)
+
             Text("Daos count: \(daos.count)")
 
             Spacer()
         }
+        .padding(16)
     }
 }
