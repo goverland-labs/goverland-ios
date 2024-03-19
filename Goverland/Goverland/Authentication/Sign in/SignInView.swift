@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SignInView: View {
     let source: Source
+    let onSignIn: () -> Void
+
     @State private var didSignIn = false
 
     @Environment(\.isPresented) private var isPresented
@@ -26,9 +28,9 @@ struct SignInView: View {
             _SignInOnboardingBackgroundView()
 
             VStack {
-                _SignInOnboardingHeaderView()
+                _SignInHeaderView()
                 Spacer()
-                _SignInOnboardingFooterControlsView(didSignIn: $didSignIn)
+                _SignInFooterControlsView(didSignIn: $didSignIn)
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
@@ -36,10 +38,11 @@ struct SignInView: View {
                 Tracker.track(.screenSignIn, parameters: ["source" : source.rawValue])
             }
             .onChange(of: didSignIn) { _, didSignIn in
-                if didSignIn && isPresented {
+                guard didSignIn else { return }
+                if isPresented {
                     dismiss()
                 }
-                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+                onSignIn()
             }
         }
     }
@@ -53,7 +56,7 @@ fileprivate struct _SignInOnboardingBackgroundView: View {
     }
 }
 
-fileprivate struct _SignInOnboardingHeaderView: View {
+fileprivate struct _SignInHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -72,7 +75,7 @@ fileprivate struct _SignInOnboardingHeaderView: View {
     }
 }
 
-fileprivate struct _SignInOnboardingFooterControlsView: View {
+fileprivate struct _SignInFooterControlsView: View {
     @Binding var didSignIn: Bool
 
     @State private var showSignIn = false

@@ -50,10 +50,8 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.authToken) private var authToken
-    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     @State var currentInboxViewId: UUID?
     
@@ -108,14 +106,5 @@ struct AppTabView: View {
         }
         .id(authToken) // to force proper tab bar refresh, otherwise an exception appears on sign in/sign out
         .tint(.textWhite)
-        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
-            // This approach is used on AppTabView and DaoInfoView
-            if activeSheetManager.activeSheet == nil {
-                activeSheetManager.activeSheet = .signIn
-            }
-        }
-        .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
-            showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-        }
     }
 }

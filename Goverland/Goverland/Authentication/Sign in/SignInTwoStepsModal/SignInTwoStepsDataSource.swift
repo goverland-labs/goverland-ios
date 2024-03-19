@@ -17,9 +17,6 @@ class SignInTwoStepsDataSource: ObservableObject {
     @Published private(set) var cbWalletAccount = CoinbaseWalletManager.shared.account
     @Published private(set) var infoMessage: String?
 
-    @Published private(set) var signInButtonEnabled = true
-    @Published private(set) var recommendedDaos: [Dao]?
-
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -133,6 +130,11 @@ class SignInTwoStepsDataSource: ObservableObject {
 
                         // Send Firebase token to backend for this profile
                         NotificationsManager.shared.enableNotificationsIfNeeded()
+
+                        // Check for recommended DAOs
+                        DispatchQueue.main.async {
+                            RecommendedDaosDataSource.shared.getRecommendedDaos()
+                        }
                     }
                     ProfileDataSource.shared.profile = response.profile
                     Tracker.track(.twoStepsSignedIn)
@@ -221,28 +223,5 @@ class SignInTwoStepsDataSource: ObservableObject {
     private func formSiweMessage(address: String) {
         let checksumAddress = Address(address).checksum!
         self.siweMessage = SIWE_Message.goverland(walletAddress: checksumAddress).message()
-    }
-
-    // MARK: - Recommended DAOs
-
-    func getRecommendedDaos() {
-        signInButtonEnabled = false
-
-        APIService.profileDaoRecommendation()
-            .sink { [weak self] completion in
-                self?.signInButtonEnabled = true
-                switch completion {
-                case .finished: 
-                    break
-                case .failure(_):
-                    // If request failed, we will not show DAO recommendations
-                    logInfo("[App] Got failure")
-                    self?.recommendedDaos = []
-                }
-            } receiveValue: { [weak self] daos, headers in
-                logInfo("[App] Got \(daos.count) DAOs")
-                self?.recommendedDaos = daos
-            }
-            .store(in: &cancellables)
     }
 }

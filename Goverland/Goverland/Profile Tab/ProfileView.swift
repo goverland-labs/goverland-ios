@@ -30,7 +30,10 @@ struct ProfileView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 if authToken.isEmpty {
-                    SignInView(source: .profile)
+                    SignInView(source: .profile) {
+                        // When authToken changes (on sign in), the view is redrawn, and the completion
+                        // is not called. So we ignore it here.
+                    }
                 } else {
                     _ProfileView(path: $path)
                 }
@@ -73,9 +76,9 @@ struct ProfileView: View {
 
 fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
+
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
-    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     var body: some View {
         Group {
@@ -110,10 +113,8 @@ fileprivate struct _ProfileView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView {
-                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
-            }
-            .presentationDetents([.height(500), .large])
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
         }
         .onAppear {
             Tracker.track(.screenProfile)
