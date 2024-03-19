@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct DaoCardWideView: View {
-    @State var dao: Dao
+    @Binding var dao: Dao
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
     @Environment(\.isPresented) private var isPresented
@@ -63,6 +63,9 @@ struct DaoCardWideView: View {
 
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
+                // we change ID here becase SwiftUI not alway correctly update this component
+                // when following/unfollowing from other views
+                .id(dao.hashValue)
         }
         .padding(.vertical, 16)
         .padding(.horizontal, 12)
@@ -72,7 +75,7 @@ struct DaoCardWideView: View {
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
             if let (daoId, subscriptionMeta) = notification.object as? (UUID, SubscriptionMeta?) {
                 if dao.id == daoId {
-                    dao.subscriptionMeta = subscriptionMeta
+                    dao = dao.withSubscriptionMeta(subscriptionMeta)
                 }
             }
         }
@@ -80,5 +83,5 @@ struct DaoCardWideView: View {
 }
 
 #Preview {
-    DaoCardWideView(dao: .aave, onSelectDao: nil, onFollowToggle: nil)
+    DaoCardWideView(dao: .constant(.aave), onSelectDao: nil, onFollowToggle: nil)
 }

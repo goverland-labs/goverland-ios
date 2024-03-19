@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct RecommendedDaosView: View {
-    let daos: [Dao]
+    @State var daos: [Dao]
     let onDismiss: () -> Void
 
     @StateObject private var activeSheetManager = ActiveSheetManager()
@@ -38,7 +38,7 @@ struct RecommendedDaosView: View {
                 .font(.subheadlineRegular)
                 .foregroundStyle(Color.textWhite)
 
-            List(daos) { dao in
+            List($daos) { dao in
                 DaoCardWideView(
                     dao: dao,
                     onSelectDao: { dao in
@@ -56,6 +56,7 @@ struct RecommendedDaosView: View {
             }
             .padding(.top, 8)
         }
+        .id(daos.hashValue)
         .padding(.top, 16)
         .padding(.bottom, 0)
         .padding(.horizontal, 12)
