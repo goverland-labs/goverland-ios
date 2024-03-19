@@ -199,7 +199,7 @@ extension APIService {
 
     static func topProposals(offset: Int = 0,
                              limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]

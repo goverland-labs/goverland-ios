@@ -45,7 +45,9 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = subscription.id
                 self.onFollowToggle?(true, daoId)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: true)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, 
+                                                object: (daoId, SubscriptionMeta(id: subscription.id,
+                                                                                 createdAt: subscription.createdAt)))
                 SettingKeys.shared.lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
             }
             .store(in: &cancellables)
@@ -64,7 +66,8 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = nil
                 self.onFollowToggle?(false, daoId)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: false)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, 
+                                                object: (daoId, nil as SubscriptionMeta?))
             }
             .store(in: &cancellables)
     }

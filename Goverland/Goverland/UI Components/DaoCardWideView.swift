@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct DaoCardWideView: View {
-    let dao: Dao
+    @State var dao: Dao
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool, _ daoId: UUID) -> Void)?
     @Environment(\.isPresented) private var isPresented
@@ -72,6 +72,14 @@ struct DaoCardWideView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
+            if let (daoId, subscriptionMeta) = notification.object as? (UUID, SubscriptionMeta?) {
+                if dao.id == daoId {
+                    logInfo("[App] updating Follow button for \(dao.name)")
+                    dao.subscriptionMeta = subscriptionMeta
+                }
+            }
+        }
     }
 }
 

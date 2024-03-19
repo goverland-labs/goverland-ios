@@ -23,7 +23,9 @@ struct Dao: Identifiable, Decodable, Equatable {
     let activeVotes: Int
     let verified: Bool
 
-    let subscriptionMeta: SubscriptionMeta?
+    // we can change it in DAO Card views
+    var subscriptionMeta: SubscriptionMeta?
+    
     let website: URL?
     let X: String?
     let github: String?
