@@ -32,7 +32,7 @@ struct DaoCardWideView: View {
                         .font(.headlineSemibold)
                         .foregroundStyle(Color.textWhite)
                         .lineLimit(1)
-                        .minimumScaleFactor(0.5)
+                        .minimumScaleFactor(0.7)
 
                     if dao.verified {
                         Image(systemName: "checkmark.seal.fill")

@@ -13,6 +13,7 @@ struct RecommendedDaosView: View {
     let daos: [Dao]
     let onDismiss: () -> Void
 
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -38,7 +39,17 @@ struct RecommendedDaosView: View {
                 .foregroundStyle(Color.textWhite)
 
             List(daos) { dao in
-                DaoCardWideView(dao: dao, onSelectDao: nil, onFollowToggle: nil)
+                DaoCardWideView(
+                    dao: dao,
+                    onSelectDao: { dao in
+                        activeSheetManager.activeSheet = .daoInfo(dao)
+                        Tracker.track(.daosRecommendationOpenDao)
+                    },
+                    onFollowToggle: { didFollow in
+                        if didFollow {
+                            Tracker.track(.daosRecommendationFollow)
+                        }
+                    })
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
                     .listRowBackground(Color.clear)
@@ -50,6 +61,20 @@ struct RecommendedDaosView: View {
         .padding(.horizontal, 12)
         .listStyle(.plain)
         .scrollIndicators(.hidden)
+        .sheet(item: $activeSheetManager.activeSheet) { item in
+            switch item {
+            case .daoInfo(let dao):
+                PopoverNavigationViewWithToast {
+                    DaoInfoView(dao: dao)
+                }
+            default:
+                // should not happen
+                EmptyView()
+            }
+        }
+        .onAppear {
+            Tracker.track(.screenDaosRecommendation)
+        }
     }
 }
 
