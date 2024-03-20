@@ -39,7 +39,7 @@ struct ProposalsSearchResultsListView: View {
                         Tracker.track(.searchPrpOpenDaoFromSearch)
                     }
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                    .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                     .listRowBackground(Color.clear)
                 }
             }

@@ -36,7 +36,7 @@ struct FeaturedProposalsView: View {
                     } menuContent: {
                         ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                     }
-                    .padding(.horizontal, 12)              
+                    .padding(.horizontal, 12)
                     .onTapGesture {
                         Tracker.track(.dashFeaturedPrpOpenPrp)
                         path.append(proposal)

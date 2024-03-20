@@ -58,6 +58,7 @@ struct ProposalListItemView<Content: View>: View {
                 }
             }
             .padding(.horizontal, 12)
+            .padding(.vertical, 12)
 
             if isRead && !isSelected {
                 RoundedRectangle(cornerRadius: 20)

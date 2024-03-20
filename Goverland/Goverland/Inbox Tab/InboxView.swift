@@ -52,7 +52,7 @@ struct InboxView: View {
                                 }
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                            .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                             .listRowBackground(Color.clear)
                         } else {
                             // For now we recognise only proposals
@@ -86,7 +86,7 @@ struct InboxView: View {
                                 .tint(.clear)
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                            .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                             .listRowBackground(Color.clear)
                         }
                     }

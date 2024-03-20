@@ -54,7 +54,7 @@ struct ProfileVotesListView: View {
                             }
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = votedProposals[index]
@@ -67,7 +67,7 @@ struct ProfileVotesListView: View {
                             ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                        .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                         .listRowBackground(Color.clear)
                     }
                 }
