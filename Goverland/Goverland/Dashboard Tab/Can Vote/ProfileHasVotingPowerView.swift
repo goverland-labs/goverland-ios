@@ -22,12 +22,12 @@ struct ProfileHasVotingPowerView: View {
                 }
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ForEach(0..<2) { _ in
-                    ShimmerProposalListItemCondensedView()
+                    ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(3)) { proposal in
-                    ProposalListItemCondensedView(proposal: proposal) {
+                    ProposalListItemNoElipsisView(proposal: proposal) {
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.dashCanVoteOpenDao)
                     }

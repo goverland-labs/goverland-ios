@@ -29,8 +29,6 @@ struct FeaturedProposalsView: View {
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
                     ProposalListItemNoElipsisView(proposal: proposal,
-                                                  isSelected: false,
-                                                  isRead: false,
                                                   isHighlighted: true) {
                         Tracker.track(.dashFeaturedPrpOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)

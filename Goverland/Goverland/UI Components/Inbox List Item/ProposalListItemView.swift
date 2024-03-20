@@ -19,8 +19,8 @@ struct ProposalListItemNoElipsisView: View {
     @Environment(\.isPresented) private var _isPresented
 
     init(proposal: Proposal,
-         isSelected: Bool,
-         isRead: Bool,
+         isSelected: Bool = false,
+         isRead: Bool = false,
          isPresented: Bool = false,
          isHighlighted: Bool = false,
          onDaoTap: (() -> Void)? = nil) {
@@ -178,7 +178,7 @@ struct ProposalListItemBodyView: View {
                         // user voted
                         let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: choice)
                         Text("Your choice: \(choiceStr)")
-                            .foregroundStyle(Color.primaryDim)
+                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                             .font(.footnoteRegular)
                             .lineLimit(2)
                     } else {

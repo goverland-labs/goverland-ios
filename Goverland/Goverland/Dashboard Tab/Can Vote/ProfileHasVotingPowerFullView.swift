@@ -23,7 +23,7 @@ struct ProfileHasVotingPowerFullView: View {
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ScrollView {
                     ForEach(0..<5) { _ in
-                        ShimmerProposalListItemCondensedView()
+                        ShimmerProposalListItemView()
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
@@ -32,7 +32,7 @@ struct ProfileHasVotingPowerFullView: View {
                 if let count = dataSource.proposals?.count, count > 0 {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = dataSource.proposals![index]
-                        ProposalListItemCondensedView(proposal: proposal) {
+                        ProposalListItemNoElipsisView(proposal: proposal) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }

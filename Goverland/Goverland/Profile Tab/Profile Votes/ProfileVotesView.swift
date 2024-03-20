@@ -38,7 +38,7 @@ struct ProfileVotesView: View {
                 }
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
                 ForEach(0..<3) { _ in
-                    ShimmerProposalListItemCondensedView()
+                    ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else if dataSource.votedProposals?.isEmpty ?? false {
@@ -48,10 +48,7 @@ struct ProfileVotesView: View {
                     .padding(16)
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
-                    ProposalListItemNoElipsisView(
-                        proposal: proposal,
-                        isSelected: false,
-                        isRead: false) {
+                    ProposalListItemNoElipsisView(proposal: proposal) {
                             Tracker.track(.prfVotesOpenDao)
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         }

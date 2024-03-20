@@ -23,7 +23,7 @@ struct TopProposalsListView: View {
             if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ScrollView {
                     ForEach(0..<5) { _ in
-                        ShimmerProposalListItemCondensedView()
+                        ShimmerProposalListItemView()
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
@@ -33,7 +33,7 @@ struct TopProposalsListView: View {
                     if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
                         ZStack {
                             if !dataSource.failedToLoadMore { // try to paginate
-                                ShimmerProposalListItemCondensedView()
+                                ShimmerProposalListItemView()
                                     .onAppear {
                                         dataSource.loadMore()
                                     }
@@ -46,7 +46,7 @@ struct TopProposalsListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
-                        ProposalListItemCondensedView(proposal: proposal) {
+                        ProposalListItemNoElipsisView(proposal: proposal) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(openDaoFromListItemTrackingEvent)
                         }

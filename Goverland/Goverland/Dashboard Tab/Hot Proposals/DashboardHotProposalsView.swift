@@ -21,12 +21,12 @@ struct DashboardHotProposalsView: View {
                 }
             } else if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ForEach(0..<3) { _ in
-                    ShimmerProposalListItemCondensedView()
+                    ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
                 ForEach(dataSource.proposals.prefix(3)) { proposal in
-                    ProposalListItemCondensedView(proposal: proposal) {
+                    ProposalListItemNoElipsisView(proposal: proposal) {
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.dashHotOpenDao)
                     }
