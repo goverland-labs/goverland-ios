@@ -28,13 +28,11 @@ struct FeaturedProposalsView: View {
                 }
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
-                    ProposalListItemView(proposal: proposal, 
-                                         isSelected: false,
-                                         isRead: false) {
+                    ProposalListItemNoElipsisView(proposal: proposal, 
+                                                  isSelected: false,
+                                                  isRead: false) {
                         Tracker.track(.dashFeaturedPrpOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                    } menuContent: {
-                        ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                     }
                     .padding(.horizontal, 12)
                     .onTapGesture {

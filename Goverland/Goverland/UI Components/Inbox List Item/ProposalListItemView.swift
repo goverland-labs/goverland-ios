@@ -8,25 +8,22 @@
 
 import SwiftUI
 
-struct ProposalListItemView<Content: View>: View {
+struct ProposalListItemNoElipsisView: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
     let onDaoTap: (() -> Void)?
-    let menuContent: Content
 
     @Environment(\.isPresented) private var isPresented
 
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
-         onDaoTap: (() -> Void)? = nil,
-         @ViewBuilder menuContent: () -> Content) {
+         onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
         self.onDaoTap = onDaoTap
-        self.menuContent = menuContent()
     }
 
     private var backgroundColor: Color {
@@ -66,6 +63,35 @@ struct ProposalListItemView<Content: View>: View {
                     .fill(Color.containerDim.opacity(0.6))
                     .allowsHitTesting(false)
             }
+        }
+    }
+}
+
+struct ProposalListItemView<Content: View>: View {
+    let proposal: Proposal
+    let isSelected: Bool
+    let isRead: Bool
+    let onDaoTap: (() -> Void)?
+    let menuContent: Content
+
+    init(proposal: Proposal,
+         isSelected: Bool,
+         isRead: Bool,
+         onDaoTap: (() -> Void)? = nil,
+         @ViewBuilder menuContent: () -> Content) {
+        self.proposal = proposal
+        self.isSelected = isSelected
+        self.isRead = isRead
+        self.onDaoTap = onDaoTap
+        self.menuContent = menuContent()
+    }
+
+    var body: some View {
+        ZStack {
+            ProposalListItemNoElipsisView(proposal: proposal,
+                                          isSelected: isSelected,
+                                          isRead: isRead, 
+                                          onDaoTap: onDaoTap)
 
             // Place Menu into botter right corner
             VStack {
