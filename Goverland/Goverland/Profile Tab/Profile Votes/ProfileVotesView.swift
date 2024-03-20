@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 05.02.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -48,15 +48,18 @@ struct ProfileVotesView: View {
                     .padding(16)
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
-                    ProposalListItemCondensedView(proposal: proposal) {
-                        Tracker.track(.prfVotesOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                    }
-                    .padding(.horizontal, 8)
-                    .onTapGesture {
-                        Tracker.track(.prfVotesOpenProposal)
-                        path.append(.vote(proposal))
-                    }
+                    ProposalListItemNoElipsisView(
+                        proposal: proposal,
+                        isSelected: false,
+                        isRead: false) {
+                            Tracker.track(.prfVotesOpenDao)
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        }
+                        .padding(.horizontal, 8)
+                        .onTapGesture {
+                            Tracker.track(.prfVotesOpenProposal)
+                            path.append(.vote(proposal))
+                        }
                 }
             }
         }
