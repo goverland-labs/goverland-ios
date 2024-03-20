@@ -41,8 +41,7 @@ struct ProposalListItemNoElipsisView: View {
             return .containerBright
         }
 
-        if isPresented || _isPresented {
-            logInfo("[App] Is presented")
+        if isPresented || _isPresented {            
             return .containerBright
         }
 
@@ -254,7 +253,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 90)
                 }
                 .frame(height: 20)
-                
+
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
