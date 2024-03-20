@@ -32,7 +32,7 @@ struct MutualDaosView: View {
                     .padding()
             } else {
                 MutualDaosScrollView(dataSource: dataSource)
-                    .padding(.leading, 8)
+                    .padding(.leading, Constants.horizontalPadding)
                     .padding(.bottom, 16)
             }
         }

@@ -39,7 +39,7 @@ struct DaoInfoEventsView: View {
                                 .padding(.horizontal, Constants.horizontalPadding)
                         }
                     }
-                    .padding(.top, 10)
+                    .padding(.top, Constants.horizontalPadding / 2)
                 } else {
                     List(0..<events.count, id: \.self, selection: $selectedEventIndex) { index in
                         let event = events[index]
@@ -55,7 +55,7 @@ struct DaoInfoEventsView: View {
                                 }
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                            .listRowInsets(Constants.listInsets)
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
@@ -65,7 +65,7 @@ struct DaoInfoEventsView: View {
                                 ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                             }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                            .listRowInsets(Constants.listInsets)
                             .listRowBackground(Color.clear)
                         }
                     }

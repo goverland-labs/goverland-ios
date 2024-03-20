@@ -30,7 +30,7 @@ struct ProposalsSearchResultsListView: View {
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
-                .padding(.top, 4)
+                .padding(.top, Constants.horizontalPadding / 2)
             } else {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
@@ -39,12 +39,12 @@ struct ProposalsSearchResultsListView: View {
                         Tracker.track(.searchPrpOpenDaoFromSearch)
                     }
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                    .listRowInsets(Constants.listInsets)
                     .listRowBackground(Color.clear)
                 }
             }
         }
-        .onChange(of: selectedProposalSearchIndex) { _ in
+        .onChange(of: selectedProposalSearchIndex) { _, _ in
             if let index = selectedProposalSearchIndex, dataSource.searchResultProposals.count > index {
                 path.append(dataSource.searchResultProposals[index])
                 Tracker.track(.searchPrpOpenFromSearch)

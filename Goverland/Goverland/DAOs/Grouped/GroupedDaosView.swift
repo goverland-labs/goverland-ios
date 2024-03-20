@@ -63,7 +63,7 @@ struct GroupedDaosView: View {
                         .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                         .padding(.bottom, 8)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, Constants.horizontalPadding + 8)
 
                     RecentlyViewedDaosHorizontalListView()
                 }
@@ -81,13 +81,13 @@ struct GroupedDaosView: View {
                                 .foregroundStyle(Color.primaryDim)
                         }
                         .padding(.top, 16)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, Constants.horizontalPadding + 8)
 
                         DaoThreadForCategoryView(dataSource: dataSource, 
                                                  category: category,
                                                  onSelectDao: onSelectDaoFromGroup,
                                                  onFollowToggle: onFollowToggleFromCard)
-                            .padding(.leading, 8)
+                            .padding(.leading, Constants.horizontalPadding)
                             .padding(.top, 8)
                             .padding(.bottom, 16)
                     }

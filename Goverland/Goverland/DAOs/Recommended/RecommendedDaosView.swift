@@ -51,7 +51,7 @@ struct RecommendedDaosView: View {
                         }
                     })
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: Constants.horizontalPadding, trailing: 0))
                     .listRowBackground(Color.clear)
             }
             .padding(.top, 8)

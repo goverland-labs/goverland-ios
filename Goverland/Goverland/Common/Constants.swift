@@ -11,5 +11,9 @@ import SwiftUI
 
 enum Constants {
     static let horizontalPadding: CGFloat = 12
+    static let listInsets = EdgeInsets(top: horizontalPadding / 2,
+                                       leading: horizontalPadding,
+                                       bottom: horizontalPadding / 2,
+                                       trailing: horizontalPadding)
 }
 

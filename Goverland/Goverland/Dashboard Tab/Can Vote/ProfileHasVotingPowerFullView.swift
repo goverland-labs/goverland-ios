@@ -27,7 +27,7 @@ struct ProfileHasVotingPowerFullView: View {
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
-                .padding(.top, 4)
+                .padding(.top, Constants.horizontalPadding / 2)
             } else {
                 if let count = dataSource.proposals?.count, count > 0 {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
@@ -37,7 +37,7 @@ struct ProfileHasVotingPowerFullView: View {
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                        .listRowInsets(Constants.listInsets)
                         .listRowBackground(Color.clear)
                     }
                 } else {
