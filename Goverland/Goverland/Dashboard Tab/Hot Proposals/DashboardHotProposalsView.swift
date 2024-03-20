@@ -22,7 +22,7 @@ struct DashboardHotProposalsView: View {
             } else if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemCondensedView()
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
                 ForEach(dataSource.proposals.prefix(3)) { proposal in
@@ -30,7 +30,7 @@ struct DashboardHotProposalsView: View {
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.dashHotOpenDao)
                     }
-                    .padding(.horizontal, 12)
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
                         Tracker.track(.dashHotOpenPrp)
                         path.append(proposal)

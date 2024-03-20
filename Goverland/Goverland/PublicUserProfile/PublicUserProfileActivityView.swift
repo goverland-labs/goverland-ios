@@ -44,7 +44,7 @@ struct PublicUserProfileActivityView: View {
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemCondensedView()
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else if dataSource.votedProposals?.isEmpty ?? false {
                 // User has not voted yet. Message will be displayed in other component.
@@ -55,7 +55,7 @@ struct PublicUserProfileActivityView: View {
                         Tracker.track(.publicPrfVotesOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                     }
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
                         Tracker.track(.publicPrfVotesOpenProposal)
                         path.append(.vote(proposal))

@@ -23,7 +23,7 @@ struct ProfileHasVotingPowerView: View {
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ForEach(0..<2) { _ in
                     ShimmerProposalListItemCondensedView()
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(3)) { proposal in
@@ -31,7 +31,7 @@ struct ProfileHasVotingPowerView: View {
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         Tracker.track(.dashCanVoteOpenDao)
                     }
-                    .padding(.horizontal, 12)
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
                         Tracker.track(.dashCanVoteOpenPrp)
                         path.append(proposal)

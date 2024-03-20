@@ -65,7 +65,7 @@ struct DaoCardView: View {
                     .font(.сaption2Regular)
                     .foregroundStyle(Color.textWhite60)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, Constants.horizontalPadding)
 
             Spacer()
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
@@ -116,7 +116,7 @@ struct ShimmerDaoCardView: View {
                     .frame(width: 80, height: 16)
                     .cornerRadius(8)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, Constants.horizontalPadding)
 
             Spacer()
             ShimmerFollowButtonView()

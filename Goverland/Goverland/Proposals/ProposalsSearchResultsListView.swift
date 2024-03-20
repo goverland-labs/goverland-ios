@@ -27,7 +27,7 @@ struct ProposalsSearchResultsListView: View {
                 ScrollView {
                     ForEach(0..<3) { _ in
                         ShimmerProposalListItemCondensedView()
-                            .padding(.horizontal, 12)
+                            .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
                 .padding(.top, 4)

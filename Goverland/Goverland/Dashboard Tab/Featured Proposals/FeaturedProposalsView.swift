@@ -24,7 +24,7 @@ struct FeaturedProposalsView: View {
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ForEach(0..<1) { _ in
                     ShimmerProposalListItemView()
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
@@ -35,7 +35,7 @@ struct FeaturedProposalsView: View {
                         Tracker.track(.dashFeaturedPrpOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                     }
-                    .padding(.horizontal, 12)
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
                         Tracker.track(.dashFeaturedPrpOpenPrp)
                         path.append(proposal)

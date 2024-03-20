@@ -65,7 +65,7 @@ struct DaoCardWideView: View {
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
         }
         .padding(.vertical, 16)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.horizontalPadding)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))

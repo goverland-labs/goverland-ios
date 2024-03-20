@@ -141,7 +141,7 @@ fileprivate struct VotedInDaosView: View {
                 }
                 .background(Color.containerBright)
                 .cornerRadius(20)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
     }

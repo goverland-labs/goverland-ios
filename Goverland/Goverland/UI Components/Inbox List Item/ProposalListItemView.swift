@@ -63,7 +63,7 @@ struct ProposalListItemNoElipsisView: View {
                                quorum: proposal.quorum,
                                quorumHighlighted: proposal.quorum >= 100)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
 
             if isRead && !isSelected {
@@ -273,7 +273,7 @@ struct ShimmerProposalListItemView: View {
                 }
                 .frame(height: 20)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 8)
         }
         .frame(height: 142)

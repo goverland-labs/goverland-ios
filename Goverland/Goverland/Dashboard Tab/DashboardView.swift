@@ -125,7 +125,7 @@ fileprivate struct SignedOutUserDashboardView: View {
     var body: some View {
         if !welcomeBlockIsRead {
             WelcomeBlockView()
-                .padding(.horizontal, 12)
+                .padding(.horizontal, Constants.horizontalPadding)
                 .padding(.vertical, 16)
         }
 

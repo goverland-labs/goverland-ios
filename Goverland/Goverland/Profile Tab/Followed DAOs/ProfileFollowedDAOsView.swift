@@ -44,7 +44,7 @@ struct ProfileFollowedDAOsView: View {
             }
             .background(Color.container)
             .cornerRadius(12)
-            .padding(.horizontal, 12)
+            .padding(.horizontal, Constants.horizontalPadding)
             .padding(.top, 16)
         }
     }

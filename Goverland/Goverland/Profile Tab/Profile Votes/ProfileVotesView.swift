@@ -39,7 +39,7 @@ struct ProfileVotesView: View {
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemCondensedView()
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
@@ -55,7 +55,7 @@ struct ProfileVotesView: View {
                             Tracker.track(.prfVotesOpenDao)
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         }
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, Constants.horizontalPadding)
                         .onTapGesture {
                             Tracker.track(.prfVotesOpenProposal)
                             path.append(.vote(proposal))

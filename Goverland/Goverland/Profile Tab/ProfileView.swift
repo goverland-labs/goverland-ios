@@ -95,7 +95,7 @@ fileprivate struct _ProfileView: View {
                         _SignInToVoteButton {
                             showSignIn = true
                         }
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, Constants.horizontalPadding)
                         .padding(.vertical, 16)
                     }
 

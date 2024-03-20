@@ -49,7 +49,7 @@ struct ConnectedWalletView: View {
             }
             .background(Color.container)
             .cornerRadius(12)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, Constants.horizontalPadding)
         }
         .id(wcViewId)
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in

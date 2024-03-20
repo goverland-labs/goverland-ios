@@ -59,7 +59,7 @@ struct RecommendedDaosView: View {
         .id(daos.hashValue)
         .padding(.top, 16)
         .padding(.bottom, 0)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.horizontalPadding)
         .listStyle(.plain)
         .scrollIndicators(.hidden)
         .sheet(item: $activeSheetManager.activeSheet) { item in
