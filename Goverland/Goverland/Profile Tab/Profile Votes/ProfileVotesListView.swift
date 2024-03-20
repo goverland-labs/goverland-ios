@@ -25,8 +25,7 @@ struct ProfileVotesListView: View {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource,
                                         message: "Sorry, we couldn’t load your votes")
-            } else 
-            if dataSource.votedProposals?.isEmpty ?? false {
+            } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
@@ -38,7 +37,7 @@ struct ProfileVotesListView: View {
                             .padding(.horizontal, 12)
                     }
                 }
-                .padding(.top, 4)
+                .padding(.top, 6)
             } else {
                 List(0..<votedProposals.count, id: \.self, selection: $selectedVoteIndex) { index in
                     if index == votedProposals.count - 1 && dataSource.hasMore() { // pagination

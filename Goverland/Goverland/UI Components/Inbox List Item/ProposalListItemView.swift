@@ -53,9 +53,10 @@ struct ProposalListItemView<Content: View>: View {
             VStack(spacing: 12) {
                 ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
-                ProposalListItemFooterView(proposal: proposal) {
-                    menuContent
-                }
+                VoteFooterView(votes: proposal.votes,
+                               votesHighlighted: proposal.state == .active,
+                               quorum: proposal.quorum,
+                               quorumHighlighted: proposal.quorum >= 100)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 12)
@@ -64,6 +65,27 @@ struct ProposalListItemView<Content: View>: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.containerDim.opacity(0.6))
                     .allowsHitTesting(false)
+            }
+
+            // Place Menu into botter right corner
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
+                    // but it still glitches a bit and there are errors in the console:
+                    // List failed to visit cell content, returning an empty cell.
+                    LazyVStack(alignment: .trailing) {
+                        Menu {
+                            menuContent
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .foregroundStyle(Color.textWhite40)
+                                .fontWeight(.heavy)
+                                .frame(width: 56, height: 40)
+                        }
+                    }
+                }
             }
         }
     }
@@ -139,39 +161,6 @@ struct ProposalListItemBodyView: View {
     }
 }
 
-fileprivate struct ProposalListItemFooterView<Content: View>: View {
-    let proposal: Proposal
-    let menuContent: Content
-
-    init(proposal: Proposal, @ViewBuilder menuContent: () -> Content) {
-        self.proposal = proposal
-        self.menuContent = menuContent()
-    }
-
-    var body: some View {
-        HStack(spacing: 20) {
-            VoteFooterView(votes: proposal.votes,
-                           votesHighlighted: proposal.state == .active,
-                           quorum: proposal.quorum,
-                           quorumHighlighted: proposal.quorum >= 100)
-            Spacer()
-            // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
-            // but it still glitches a bit and there are errors in the console:
-            // List failed to visit cell content, returning an empty cell. - SwiftUI/UICollectionViewListCoordinator.swift:293 - please file a bug report.
-            LazyVStack(alignment: .trailing) {
-                Menu {
-                    menuContent
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.textWhite40)
-                        .fontWeight(.bold)
-                        .frame(width: 40, height: 20)
-                }
-            }
-        }
-    }
-}
-
 fileprivate struct VoteFooterView: View {
     let votes: Int
     let votesHighlighted: Bool
@@ -195,6 +184,8 @@ fileprivate struct VoteFooterView: View {
                 .font(.footnoteRegular)
                 .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
             }
+
+            Spacer()
         }
     }
 }
