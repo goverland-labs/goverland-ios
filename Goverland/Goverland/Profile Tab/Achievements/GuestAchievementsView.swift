@@ -25,8 +25,8 @@ struct GuestAchievementsView: View {
                     .multilineTextAlignment(.center)
                 Spacer()
             }
-            .frame(width: geometry.size.width - 32)
-            .padding(.horizontal, 16)
+            .frame(width: geometry.size.width - Constants.horizontalPadding * 2)
+            .padding(.horizontal, Constants.horizontalPadding)
             .onAppear {
                 Tracker.track(.screenGuestAchievements)
             }

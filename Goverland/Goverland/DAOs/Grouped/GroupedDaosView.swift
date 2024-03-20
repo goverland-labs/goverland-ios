@@ -63,7 +63,7 @@ struct GroupedDaosView: View {
                         .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                         .padding(.bottom, 8)
-                        .padding(.horizontal, Constants.horizontalPadding + 8)
+                        .padding(.horizontal, Constants.horizontalPadding * 2)
 
                     RecentlyViewedDaosHorizontalListView()
                 }
@@ -81,7 +81,7 @@ struct GroupedDaosView: View {
                                 .foregroundStyle(Color.primaryDim)
                         }
                         .padding(.top, 16)
-                        .padding(.horizontal, Constants.horizontalPadding + 8)
+                        .padding(.horizontal, Constants.horizontalPadding * 2)
 
                         DaoThreadForCategoryView(dataSource: dataSource, 
                                                  category: category,

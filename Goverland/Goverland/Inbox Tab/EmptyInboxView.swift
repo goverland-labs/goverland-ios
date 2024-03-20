@@ -37,7 +37,7 @@ fileprivate struct _WelcomeView: View {
                 .multilineTextAlignment(.center)
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.horizontalPadding)
 
             Image("welcome-illustration-inbox")
                 .resizable()
@@ -47,14 +47,14 @@ fileprivate struct _WelcomeView: View {
                 .multilineTextAlignment(.center)
                 .font(.calloutRegular)
                 .foregroundStyle(Color.textWhite)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.horizontalPadding)
 
             Spacer()
 
             PrimaryButton("Discover DAOs") {
                 activeSheetManager.activeSheet = .followDaos
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Constants.horizontalPadding)
         }
         .padding(.bottom, 16)
         .onAppear {

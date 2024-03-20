@@ -29,7 +29,7 @@ struct ConnectedWalletView: View {
                 .font(.subheadlineSemibold)
                 .foregroundStyle(Color.textWhite)
                 .padding(.top, 16)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.horizontalPadding * 2)
 
             Group {
                 if let wallet = connectedWallet() {

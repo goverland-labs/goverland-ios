@@ -25,7 +25,7 @@ struct ProfileFollowedDAOsView: View {
                         .foregroundStyle(Color.primaryDim)
                 }
                 .padding(.top, 16)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.horizontalPadding * 2)
 
                 ProfileFollowedDAOsHorizontalListView()
             }

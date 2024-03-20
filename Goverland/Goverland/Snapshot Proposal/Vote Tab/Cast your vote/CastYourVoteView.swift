@@ -137,7 +137,7 @@ fileprivate struct _VoteView: View {
         .overlay {
             ToastView()
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, Constants.horizontalPadding)
         .padding(.top, 24)
         .padding(.bottom, 16)
     }
