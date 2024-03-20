@@ -12,6 +12,7 @@ struct ProposalListItemNoElipsisView: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
+    let isHighlighted: Bool
     let onDaoTap: (() -> Void)?
 
     @Environment(\.isPresented) private var isPresented
@@ -19,10 +20,12 @@ struct ProposalListItemNoElipsisView: View {
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
+         isHighlighted: Bool = false,
          onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
+        self.isHighlighted = isHighlighted
         self.onDaoTap = onDaoTap
     }
 
@@ -46,6 +49,8 @@ struct ProposalListItemNoElipsisView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
+                .stroke(isHighlighted ? Color.secondaryContainer : .clear, lineWidth: 1)
+
 
             VStack(spacing: 12) {
                 ProposalListItemHeaderView(proposal: proposal)
@@ -90,7 +95,7 @@ struct ProposalListItemView<Content: View>: View {
         ZStack {
             ProposalListItemNoElipsisView(proposal: proposal,
                                           isSelected: isSelected,
-                                          isRead: isRead, 
+                                          isRead: isRead,
                                           onDaoTap: onDaoTap)
 
             // Place Menu into botter right corner
@@ -161,7 +166,7 @@ struct ProposalListItemBodyView: View {
                     .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-                
+
                 if displayStatus {
                     HStack(spacing: 0) {
                         Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
@@ -176,7 +181,7 @@ struct ProposalListItemBodyView: View {
                     }
                 }
             }
-            
+
             Spacer()
             RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                 .allowsHitTesting(onDaoTap == nil ? false : true)
@@ -244,7 +249,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
-                
+
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
