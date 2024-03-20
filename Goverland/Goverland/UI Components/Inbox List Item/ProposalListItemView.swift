@@ -12,19 +12,22 @@ struct ProposalListItemNoElipsisView: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
+    let isPresented: Bool
     let isHighlighted: Bool
     let onDaoTap: (() -> Void)?
 
-    @Environment(\.isPresented) private var isPresented
+    @Environment(\.isPresented) private var _isPresented
 
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
+         isPresented: Bool = false,
          isHighlighted: Bool = false,
          onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
+        self.isPresented = isPresented
         self.isHighlighted = isHighlighted
         self.onDaoTap = onDaoTap
     }
@@ -38,7 +41,8 @@ struct ProposalListItemNoElipsisView: View {
             return .containerBright
         }
 
-        if isPresented {
+        if isPresented || _isPresented {
+            logInfo("[App] Is presented")
             return .containerBright
         }
 
@@ -79,6 +83,8 @@ struct ProposalListItemView<Content: View>: View {
     let onDaoTap: (() -> Void)?
     let menuContent: Content
 
+    @Environment(\.isPresented) private var isPresented
+
     init(proposal: Proposal,
          isSelected: Bool,
          isRead: Bool,
@@ -96,6 +102,7 @@ struct ProposalListItemView<Content: View>: View {
             ProposalListItemNoElipsisView(proposal: proposal,
                                           isSelected: isSelected,
                                           isRead: isRead,
+                                          isPresented: isPresented,
                                           onDaoTap: onDaoTap)
 
             // Place Menu into botter right corner
@@ -174,7 +181,7 @@ struct ProposalListItemBodyView: View {
                         Text("Your choice: \(choiceStr)")
                             .foregroundStyle(Color.primaryDim)
                             .font(.footnoteRegular)
-                            .lineLimit(2)                            
+                            .lineLimit(2)
                     } else {
                         HStack(spacing: 0) {
                             Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
@@ -247,7 +254,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 90)
                 }
                 .frame(height: 20)
-
+                
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
