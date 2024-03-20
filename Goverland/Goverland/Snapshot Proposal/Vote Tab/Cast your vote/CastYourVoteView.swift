@@ -144,7 +144,7 @@ fileprivate struct _VoteView: View {
 }
 
 fileprivate struct _HeaderView: View {
-    @StateObject var dataSource: CastYourVoteDataSource
+    @ObservedObject var dataSource: CastYourVoteDataSource
     let user: User
     
     private var vpSymbol: String {

@@ -125,7 +125,7 @@ struct ProposalListItemView<Content: View>: View {
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
 
-    var voted: Bool {
+    private var voted: Bool {
         proposal.userVote != nil
     }
 
@@ -168,16 +168,25 @@ struct ProposalListItemBodyView: View {
                     .lineLimit(2)
 
                 if displayStatus {
-                    HStack(spacing: 0) {
-                        Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+                    if let choice = Utils.choice(from: proposal) {
+                        // user voted
+                        let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: choice)
+                        Text("Your choice: \(choiceStr)")
+                            .foregroundStyle(Color.primaryDim)
                             .font(.footnoteRegular)
-                            .lineLimit(1)
+                            .lineLimit(2)                            
+                    } else {
+                        HStack(spacing: 0) {
+                            Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                                .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+                                .font(.footnoteRegular)
+                                .lineLimit(1)
 
-                        DateView(date: proposal.votingEnd,
-                                 style: .numeric,
-                                 font: .footnoteRegular,
-                                 color: proposal.state == .active ? .primaryDim : .textWhite40)
+                            DateView(date: proposal.votingEnd,
+                                     style: .numeric,
+                                     font: .footnoteRegular,
+                                     color: proposal.state == .active ? .primaryDim : .textWhite40)
+                        }
                     }
                 }
             }
