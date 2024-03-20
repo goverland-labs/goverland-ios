@@ -41,7 +41,8 @@ struct ProposalListItemCondensedView: View {
                 ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: false, onDaoTap: onDaoTap)
             }
-            .padding([.horizontal, .vertical], 12)
+            .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.vertical, Constants.horizontalPadding)
         }
     }
 }
@@ -76,7 +77,7 @@ struct ShimmerProposalListItemCondensedView: View {
                 .frame(height: 50)
             }
             .padding(.horizontal, Constants.horizontalPadding)
-            .padding(.vertical, 12)
+            .padding(.vertical, Constants.horizontalPadding)
         }
         .frame(height: 104)
     }

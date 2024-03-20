@@ -89,7 +89,7 @@ struct GroupedDaosView: View {
                                                  onFollowToggle: onFollowToggleFromCard)
                             .padding(.leading, Constants.horizontalPadding)
                             .padding(.top, 8)
-                            .padding(.bottom, 16)
+                            .padding(.bottom, 8)
                     }
                 }
                 Spacer()

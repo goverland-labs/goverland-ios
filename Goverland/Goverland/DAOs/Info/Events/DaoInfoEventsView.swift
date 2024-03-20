@@ -39,7 +39,7 @@ struct DaoInfoEventsView: View {
                                 .padding(.horizontal, Constants.horizontalPadding)
                         }
                     }
-                    .padding(.top, Constants.horizontalPadding / 2)
+                    .padding(.top, Constants.horizontalPadding)
                 } else {
                     List(0..<events.count, id: \.self, selection: $selectedEventIndex) { index in
                         let event = events[index]
@@ -69,7 +69,7 @@ struct DaoInfoEventsView: View {
                             .listRowBackground(Color.clear)
                         }
                     }
-                    .padding(.top, 6)
+                    .padding(.top, Constants.horizontalPadding / 2)
                 }
             }
             .listStyle(.plain)

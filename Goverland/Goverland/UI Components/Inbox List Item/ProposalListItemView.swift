@@ -274,7 +274,7 @@ struct ShimmerProposalListItemView: View {
                 .frame(height: 20)
             }
             .padding(.horizontal, Constants.horizontalPadding)
-            .padding(.vertical, 8)
+            .padding(.vertical, Constants.horizontalPadding / 2)
         }
         .frame(height: 142)
     }
