@@ -179,11 +179,6 @@ fileprivate struct SignedInUserDashboardView: View {
             DashboardFollowedDAOsActiveVoteHorizontalListView()
         }
 
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
                 path.append(Path.profileHasVotingPower)
@@ -191,15 +186,20 @@ fileprivate struct SignedInUserDashboardView: View {
             ProfileHasVotingPowerView(path: $path)
         }
 
+        SectionHeader(header: "Hot Proposals") {
+            path.append(Path.hotProposals)
+        }
+        DashboardHotProposalsView(path: $path)
+
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
 
-        SectionHeader(header: "Hot Proposals") {
-            path.append(Path.hotProposals)
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
         }
-        DashboardHotProposalsView(path: $path)
+        DashboardNewDaosView()
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
         // TODO: PRO subscription feature
