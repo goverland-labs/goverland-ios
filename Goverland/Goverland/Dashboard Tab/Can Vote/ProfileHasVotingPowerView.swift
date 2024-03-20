@@ -21,7 +21,7 @@ struct ProfileHasVotingPowerView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading && dataSource.proposals == nil {
-                ForEach(0..<3) { _ in
+                ForEach(0..<2) { _ in
                     ShimmerProposalListItemCondensedView()
                         .padding(.horizontal, 12)
                 }

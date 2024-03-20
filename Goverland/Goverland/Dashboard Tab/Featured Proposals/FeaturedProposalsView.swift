@@ -1,0 +1,48 @@
+//
+//  FeaturedProposalsView.swift
+//  Goverland
+//
+//  Created by Andrey Scherbovich on 20.03.24.
+//  Copyright © Goverland Inc. All rights reserved.
+//
+	
+
+import SwiftUI
+
+/// At the moment we will always display only one featured proposal
+struct FeaturedProposalsView: View {
+    @StateObject var dataSource = FeaturedProposalsDataSource.dashboard
+    @Binding var path: NavigationPath
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
+    var body: some View {
+        Group {
+            if dataSource.failedToLoadInitialData {
+                RefreshIcon {
+                    dataSource.refresh()
+                }
+            } else if dataSource.isLoading && dataSource.proposals == nil {
+                ForEach(0..<1) { _ in
+                    ShimmerProposalListItemView()
+                        .padding(.horizontal, 12)
+                }
+            } else {
+                ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
+                    ProposalListItemView(proposal: proposal, 
+                                         isSelected: false,
+                                         isRead: false) {
+                        Tracker.track(.dashFeaturedPrpOpenDao)
+                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    } menuContent: {
+                        ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
+                    }
+                    .padding(.horizontal, 12)              
+                    .onTapGesture {
+                        Tracker.track(.dashFeaturedPrpOpenPrp)
+                        path.append(proposal)
+                    }
+                }
+            }
+        }
+    }
+}

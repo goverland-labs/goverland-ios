@@ -18,11 +18,11 @@ fileprivate enum Path {
 
 struct DashboardView: View {
     @Binding var path: NavigationPath
-    @State private var animate = false
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
+        FeaturedProposalsDataSource.dashboard.refresh()
         FollowedDAOsActiveVoteDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
@@ -50,7 +50,10 @@ struct DashboardView: View {
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
-                animate.toggle()
+
+                if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
+                    FeaturedProposalsDataSource.dashboard.refresh()
+                }
 
                 if FollowedDAOsActiveVoteDataSource.dashboard.subscriptions.isEmpty {
                     FollowedDAOsActiveVoteDataSource.dashboard.refresh()
@@ -131,7 +134,8 @@ fileprivate struct SignedOutUserDashboardView: View {
         }
         DashboardPopularDaosCardsView()
 
-        // TODO: proposal of the day section
+        SectionHeader(header: "Proposal of the day")
+        FeaturedProposalsView(path: $path)
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)
@@ -167,7 +171,8 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
-        // TODO: ProposalOfDayView section
+        SectionHeader(header: "Proposal of the day")
+        FeaturedProposalsView(path: $path)
 
         if shouldShowDaosWithActiveVote {
             SectionHeader(header: "Followed DAOs with active vote")
