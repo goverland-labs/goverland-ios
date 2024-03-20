@@ -89,16 +89,16 @@ struct DashboardView: View {
                     FollowCategoryDaosListView(category: .new,
                                                onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
                                                onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
-                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashNewDaoFollowFromList) } },
-                                               onFollowToggleFromSearch: { if $0 { Tracker.track(.dashNewDaoFollowFromSearch) } },
+                                               onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromList) } },
+                                               onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                     .navigationTitle("New DAOs")
                 case .popularDaos:
                     FollowCategoryDaosListView(category: .popular,
                                                onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
                                                onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
-                                               onFollowToggleFromList: { if $0 { Tracker.track(.dashPopularDaoFollowFromList) } },
-                                               onFollowToggleFromSearch: { if $0 { Tracker.track(.dashPopularDaoFollowFromSearch) } },
+                                               onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromList) } },
+                                               onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
                 case .profileHasVotingPower:
                     ProfileHasVotingPowerFullView(path: $path)

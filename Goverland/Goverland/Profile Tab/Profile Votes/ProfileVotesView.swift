@@ -62,7 +62,7 @@ struct ProfileVotesView: View {
         }
         .padding(.bottom, 16)
         .onAppear {
-            if votedProposals.isEmpty {
+            if dataSource.votedProposals == nil {
                 dataSource.refresh()
             }
         }

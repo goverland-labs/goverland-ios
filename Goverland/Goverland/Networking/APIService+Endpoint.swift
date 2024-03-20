@@ -49,6 +49,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func profileDaoRecommendation() -> AnyPublisher<(ProfileDaoRecommendationEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProfileDaoRecommendationEndpoint()
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
     static func signOut(sessionId: String) -> AnyPublisher<(SignOutEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = SignOutEndpoint(sessionId: sessionId)
         return shared.request(endpoint)
@@ -194,7 +199,7 @@ extension APIService {
 
     static func topProposals(offset: Int = 0,
                              limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopProposalsListEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]

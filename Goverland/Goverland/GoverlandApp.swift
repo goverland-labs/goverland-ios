@@ -23,9 +23,11 @@ let appContainer: ModelContainer = {
 struct GoverlandApp: App {
     @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var activeSheetManager = ActiveSheetManager()
+    @StateObject private var recommendedDaosDataSource = RecommendedDaosDataSource.shared
     @Environment(\.scenePhase) private var scenePhase
     @Setting(\.authToken) private var authToken
     @Setting(\.unreadEvents) private var unreadEvents
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
@@ -102,12 +104,39 @@ struct GoverlandApp: App {
 
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
-                        // TODO: improve here
                         ArchiveView()
 
                     case .subscribeToNotifications:
                         EnablePushNotificationsView()
+
+                    case .recommendedDaos(let daos):
+                        let height = Utils.heightForDaosRecommendation(count: daos.count)
+                        RecommendedDaosView(daos: daos) {
+                            lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+                        }
+                        .presentationDetents([.height(height), .large])
                     }
+                }
+                .onChange(of: recommendedDaosDataSource.recommendedDaos) { _, daos in
+                    // We set recommendedDaos published property to nil
+                    // every time we request recommended DAOs.
+                    guard let daos else { return }
+                    if !daos.isEmpty {
+                        if activeSheetManager.activeSheet == nil {
+                            activeSheetManager.activeSheet = .recommendedDaos(daos)
+                        }
+                    } else {
+                        lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
+                    // This approach is used on AppTabView and DaoInfoView
+                    if activeSheetManager.activeSheet == nil {
+                        activeSheetManager.activeSheet = .signIn
+                    }
+                }
+                .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
+                    showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
                 }
                 .overlay {
                     ToastView()

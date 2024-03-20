@@ -10,14 +10,14 @@ import Foundation
 import Combine
 
 class FollowButtonDataSource: ObservableObject {
-    private let daoID: UUID
+    private let daoId: UUID
     @Published var subscriptionID: UUID?
     @Published var isUpdating: Bool
     private var cancellables: Set<AnyCancellable>
     private let onFollowToggle: ((_ didFollow: Bool) -> Void)?
 
     init(daoID: UUID, subscriptionID: UUID?, onFollowToggle: ((_ didFollow: Bool) -> Void)?) {
-        self.daoID = daoID
+        self.daoId = daoID
         self.subscriptionID = subscriptionID
         self.onFollowToggle = onFollowToggle
         self.isUpdating = false
@@ -34,7 +34,7 @@ class FollowButtonDataSource: ObservableObject {
     
     private func followDao() {
         isUpdating = true
-        APIService.createSubscription(id: daoID)
+        APIService.createSubscription(id: daoId)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -45,7 +45,10 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = subscription.id
                 self.onFollowToggle?(true)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: true)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, 
+                                                object: (daoId, SubscriptionMeta(id: subscription.id,
+                                                                                 createdAt: subscription.createdAt)))
+                SettingKeys.shared.lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
             }
             .store(in: &cancellables)
     }
@@ -63,7 +66,8 @@ class FollowButtonDataSource: ObservableObject {
                 self.isUpdating = false
                 self.subscriptionID = nil
                 self.onFollowToggle?(false)
-                NotificationCenter.default.post(name: .subscriptionDidToggle, object: false)
+                NotificationCenter.default.post(name: .subscriptionDidToggle, 
+                                                object: (daoId, nil as SubscriptionMeta?))
             }
             .store(in: &cancellables)
     }

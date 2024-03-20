@@ -193,7 +193,7 @@ enum TrackingEvent: String, Trackable {
     case screenAchievements = "screen_achievements"
     case screenAchievementDetails = "screen_achievement_details"
     case screenGuestAchievements = "screen_guest_achievements"
-    
+
     // MARK: - Public Profile
     case screenPublicProfile = "screen_public_profile"
 
@@ -207,6 +207,11 @@ enum TrackingEvent: String, Trackable {
     case screenPublicProfileVotesFull = "screen_public_profile_votes_full"
     case publicPrfVotesFullOpenProposal = "public_prf_votes_full_open_prp"
     case publicPrfVotesFullOpenDao = "public_prf_votes_full_open_dao"
+
+    // MARK: - DAOs Recommendation
+    case screenDaosRecommendation = "screen_daos_recommendation"
+    case daosRecommendationOpenDao = "daos_recommendation_open_dao"
+    case daosRecommendationFollow = "daos_recommendation_follow"
 
     // MARK: - Settings
     case screenSettings = "screen_settings"

@@ -73,6 +73,7 @@ struct ProfileView: View {
 
 fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
+
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var showSignIn = false
 
@@ -109,7 +110,7 @@ fileprivate struct _ProfileView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView()
+            SignInTwoStepsView { /* do nothing on sign in */ }
                 .presentationDetents([.height(500), .large])
         }
         .onAppear {

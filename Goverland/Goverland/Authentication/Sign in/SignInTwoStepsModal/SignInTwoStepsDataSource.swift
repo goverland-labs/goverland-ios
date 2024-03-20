@@ -130,6 +130,11 @@ class SignInTwoStepsDataSource: ObservableObject {
 
                         // Send Firebase token to backend for this profile
                         NotificationsManager.shared.enableNotificationsIfNeeded()
+
+                        // Check for recommended DAOs
+                        DispatchQueue.main.async {
+                            RecommendedDaosDataSource.shared.getRecommendedDaos()
+                        }
                     }
                     ProfileDataSource.shared.profile = response.profile
                     Tracker.track(.twoStepsSignedIn)

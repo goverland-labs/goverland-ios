@@ -193,7 +193,7 @@ struct SnapshotProposalVoteTabView: View {
             }
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView()
+            SignInTwoStepsView { /* do nothing on sign in */ }
                 .presentationDetents([.height(500), .large])
         }
         .sheet(isPresented: $showAgreeWithDaoTerms) {

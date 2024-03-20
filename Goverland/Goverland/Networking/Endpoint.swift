@@ -128,6 +128,13 @@ struct ProfileVotesEndpoint: APIEndpoint {
     }
 }
 
+struct ProfileDaoRecommendationEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    var path: String = "me/recommended-dao"
+    var method: HttpMethod = .get
+}
+
 struct SignOutEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

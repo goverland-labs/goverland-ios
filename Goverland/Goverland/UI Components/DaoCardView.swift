@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct DaoCardView: View {
-    let dao: Dao
+    @State var dao: Dao
     let subheader: String
     let onSelectDao: ((Dao) -> Void)?
     let onFollowToggle: ((_ didFollow: Bool) -> Void)?
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.isPresented) private var isPresented
 
     init(dao: Dao,
          subheader: String? = nil,
@@ -35,7 +35,7 @@ struct DaoCardView: View {
     }
 
     private var backgroundColor: Color {
-        presentationMode.wrappedValue.isPresented ? .containerBright : .container
+        isPresented ? .containerBright : .container
     }
 
     var body: some View {
@@ -71,13 +71,20 @@ struct DaoCardView: View {
             FollowButtonView(daoID: dao.id, subscriptionID: dao.subscriptionMeta?.id, onFollowToggle: onFollowToggle)
                 // we change ID here becase SwiftUI not alway correctly update this component
                 // when following/unfollowing from other views
-                .id("\(dao.id)-\(dao.subscriptionMeta == nil)")
+                .id(dao.hashValue)
                 .padding(.bottom, 18)
         }
         .frame(width: 162, height: 215)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
+        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
+            if let (daoId, subscriptionMeta) = notification.object as? (UUID, SubscriptionMeta?) {
+                if dao.id == daoId {
+                    dao = dao.withSubscriptionMeta(subscriptionMeta)
+                }
+            }
+        }
     }
 }
 

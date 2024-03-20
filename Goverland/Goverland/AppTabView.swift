@@ -50,7 +50,6 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.authToken) private var authToken
 
@@ -107,23 +106,5 @@ struct AppTabView: View {
         }
         .id(authToken) // to force proper tab bar refresh, otherwise an exception appears on sign in/sign out
         .tint(.textWhite)
-        .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
-            // This approach is used on AppTabView and DaoInfoView
-            if activeSheetManager.activeSheet == nil {
-                activeSheetManager.activeSheet = .signIn
-            }
-        }
-        // TODO: check if we can make it better with macros
-        // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
-            guard let subscribed = notification.object as? Bool, subscribed else { return }
-            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
-            showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-        }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty {
-                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-            }
-        }
     }
 }

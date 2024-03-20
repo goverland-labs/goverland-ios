@@ -29,7 +29,7 @@ struct DaoInfoView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource: DaoInfoDataSource
     @State private var filter: DaoInfoFilter = .activity
-    @Setting(\.authToken) private var authToken
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var dao: Dao? { dataSource.dao }
@@ -41,7 +41,7 @@ struct DaoInfoView: View {
     init(dao: Dao) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(dao: dao))
     }
-    
+
     var body: some View {
         VStack {
             if dataSource.isLoading {
@@ -59,7 +59,7 @@ struct DaoInfoView: View {
                         .padding(.bottom)
 
                     FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
-                    
+
                     switch filter {
                     case .activity: DaoInfoEventsView(dao: dao)
                     case .about: DaoInfoAboutDaoView(dao: dao)
@@ -104,23 +104,15 @@ struct DaoInfoView: View {
                     }
                 }
             }
-        }        
+        }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
             // This approach is used on AppTabView and DaoInfoView
             if activeSheetManager.activeSheet == nil {
                 activeSheetManager.activeSheet = .signIn
             }
         }
-        // This approach is used on AppTabView, DaoInfoView and AddSubscriptionView
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { notification in
-            guard let subscribed = notification.object as? Bool, subscribed else { return }
-            // A user followed a DAO. Offer to subscribe to Push Notifications every two months if a user is not subscribed.
+        .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
             showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-        }
-        .onChange(of: authToken) { _, token in
-            if !token.isEmpty {                
-                showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-            }
         }
     }
 }

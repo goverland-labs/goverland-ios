@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftDate
 
-struct Dao: Identifiable, Decodable, Equatable {
+struct Dao: Identifiable, Decodable, Equatable, Hashable {
     let id: UUID
     let alias: String
     let name: String
@@ -22,13 +22,12 @@ struct Dao: Identifiable, Decodable, Equatable {
     let voters: Int
     let activeVotes: Int
     let verified: Bool
-
     let subscriptionMeta: SubscriptionMeta?
     let website: URL?
     let X: String?
     let github: String?
     let coingecko: String?
-    var terms: URL?
+    let terms: URL?
     
     init(id: UUID,
          alias: String,
@@ -141,12 +140,16 @@ struct Dao: Identifiable, Decodable, Equatable {
         self.coingecko = try container.decodeIfPresent(String.self, forKey: .coingecko)
 
         // can be empty string
-        self.terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
-        if let terms = self.terms {
-            if terms.absoluteString.hasPrefix("ipfs://") {
-                let validString = "https://snapshot.4everland.link/ipfs/\(terms.absoluteString.dropFirst(7))"
+        let _terms = try? container.decodeIfPresent(URL.self, forKey: .terms)
+        if let _terms {
+            if _terms.absoluteString.hasPrefix("ipfs://") {
+                let validString = "https://snapshot.4everland.link/ipfs/\(_terms.absoluteString.dropFirst(7))"
                 self.terms = URL(string: validString)
+            } else {
+                self.terms = _terms
             }
+        } else {
+            self.terms = nil
         }
     }
     
@@ -161,7 +164,12 @@ struct Dao: Identifiable, Decodable, Equatable {
     }
     
     static func == (lhs: Dao, rhs: Dao) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.subscriptionMeta?.id == rhs.subscriptionMeta?.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(subscriptionMeta?.id.hashValue ?? 0)
     }
 
     func avatar(size: Avatar.Size) -> URL {
@@ -170,6 +178,27 @@ struct Dao: Identifiable, Decodable, Equatable {
         } else {
             return URL(string: "https://cdn.stamp.fyi/space/\(alias)?s=\(size.daoImageSize * 2)")!
         }
+    }
+
+    func withSubscriptionMeta(_ subscriptionMeta: SubscriptionMeta?) -> Self {
+        .init(id: id,
+              alias: alias,
+              name: name,
+              avatars: avatars,
+              createdAt: createdAt,
+              activitySince: activitySince,
+              about: about,
+              categories: categories,
+              proposals: proposals,
+              voters: voters,
+              activeVotes: activeVotes,
+              verified: verified,
+              subscriptionMeta: subscriptionMeta,
+              website: website,
+              X: X,
+              github: github,
+              coingecko: coingecko,
+              terms: terms)
     }
 }
 

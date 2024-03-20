@@ -12,8 +12,11 @@ import SwiftUI
 /// Wrapper to present view in a popover with own activeSheetManager and ToasView. It is used inside PopoverNavigationViewWithToast
 /// becase it is not possible to use recursive approach there.
 struct PopoverNavigationViewWithToast2<Content: View>: View {
-    @StateObject private var activeSheetManager: ActiveSheetManager
     let content: Content
+
+    @StateObject private var activeSheetManager: ActiveSheetManager
+    @StateObject private var recommendedDaosDataSource = RecommendedDaosDataSource.shared
+    @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     init(@ViewBuilder content: () -> Content) {
         _activeSheetManager = StateObject(wrappedValue: ActiveSheetManager())
@@ -58,9 +61,26 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
 
             case .subscribeToNotifications:
                 EnablePushNotificationsView()
+
+            case .recommendedDaos(let daos):
+                let height = Utils.heightForDaosRecommendation(count: daos.count)
+                RecommendedDaosView(daos: daos) {
+                    lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+                }
+                .presentationDetents([.height(height), .large])
             }
         }
         .tint(.textWhite)
+        .onChange(of: recommendedDaosDataSource.recommendedDaos) { _, daos in
+            guard let daos else { return }
+            if !daos.isEmpty {
+                if activeSheetManager.activeSheet == nil {
+                    activeSheetManager.activeSheet = .recommendedDaos(daos)
+                }
+            } else {
+                lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
+            }
+        }
         .overlay {
             ToastView()
                 .environmentObject(activeSheetManager)
