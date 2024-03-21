@@ -25,27 +25,26 @@ struct ProfileVotesListView: View {
             if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource,
                                         message: "Sorry, we couldn’t load your votes")
-            } else 
-            if dataSource.votedProposals?.isEmpty ?? false {
+            } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
-                    .padding(16)
+                    .padding(Constants.horizontalPadding)
             } else if dataSource.isLoading && dataSource.votedProposals == nil {
                 ScrollView {
                     ForEach(0..<5) { _ in
                         ShimmerProposalListItemView()
-                            .padding(.horizontal, 12)
+                            .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
-                .padding(.top, 4)
+                .padding(.top, Constants.horizontalPadding / 2)
             } else {
                 List(0..<votedProposals.count, id: \.self, selection: $selectedVoteIndex) { index in
                     if index == votedProposals.count - 1 && dataSource.hasMore() { // pagination
                         ZStack {
                             if !dataSource.failedToLoadMore { // try to paginate
                                 ShimmerProposalListItemView()
-                                    .padding(.bottom, 8)
+                                    .padding(.bottom, Constants.horizontalPadding / 2)
                                     .onAppear {
                                         dataSource.loadMore()
                                     }
@@ -54,7 +53,7 @@ struct ProfileVotesListView: View {
                             }
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 0, trailing: 12))
+                        .listRowInsets(Constants.listInsets)
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = votedProposals[index]
@@ -67,7 +66,7 @@ struct ProfileVotesListView: View {
                             ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+                        .listRowInsets(Constants.listInsets)
                         .listRowBackground(Color.clear)
                     }
                 }

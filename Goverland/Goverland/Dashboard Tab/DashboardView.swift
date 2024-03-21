@@ -18,11 +18,11 @@ fileprivate enum Path {
 
 struct DashboardView: View {
     @Binding var path: NavigationPath
-    @State private var animate = false
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.authToken) private var authToken
 
     static func refresh() {
+        FeaturedProposalsDataSource.dashboard.refresh()
         FollowedDAOsActiveVoteDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
@@ -50,7 +50,10 @@ struct DashboardView: View {
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
-                animate.toggle()
+
+                if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
+                    FeaturedProposalsDataSource.dashboard.refresh()
+                }
 
                 if FollowedDAOsActiveVoteDataSource.dashboard.subscriptions.isEmpty {
                     FollowedDAOsActiveVoteDataSource.dashboard.refresh()
@@ -119,10 +122,15 @@ fileprivate struct SignedOutUserDashboardView: View {
     @Binding var path: NavigationPath
     @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
 
+    var shouldShowFeaturedProposal: Bool {
+        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        return !proposals.isEmpty
+    }
+
     var body: some View {
         if !welcomeBlockIsRead {
             WelcomeBlockView()
-                .padding(.horizontal, 12)
+                .padding(.horizontal, Constants.horizontalPadding)
                 .padding(.vertical, 16)
         }
 
@@ -131,7 +139,10 @@ fileprivate struct SignedOutUserDashboardView: View {
         }
         DashboardPopularDaosCardsView()
 
-        // TODO: proposal of the day section
+        if shouldShowFeaturedProposal {
+            SectionHeader(header: "Proposal of the day")
+            FeaturedProposalsView(path: $path)
+        }
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)
@@ -166,18 +177,21 @@ fileprivate struct SignedInUserDashboardView: View {
         }
     }
 
+    var shouldShowFeaturedProposal: Bool {
+        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        return !proposals.isEmpty
+    }
+
     var body: some View {
-        // TODO: ProposalOfDayView section
+        if shouldShowFeaturedProposal {
+            SectionHeader(header: "Proposal of the day")
+            FeaturedProposalsView(path: $path)
+        }
 
         if shouldShowDaosWithActiveVote {
             SectionHeader(header: "Followed DAOs with active vote")
             DashboardFollowedDAOsActiveVoteHorizontalListView()
         }
-
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
@@ -186,15 +200,20 @@ fileprivate struct SignedInUserDashboardView: View {
             ProfileHasVotingPowerView(path: $path)
         }
 
+        SectionHeader(header: "Hot Proposals") {
+            path.append(Path.hotProposals)
+        }
+        DashboardHotProposalsView(path: $path)
+
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
 
-        SectionHeader(header: "Hot Proposals") {
-            path.append(Path.hotProposals)
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
         }
-        DashboardHotProposalsView(path: $path)
+        DashboardNewDaosView()
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
         // TODO: PRO subscription feature

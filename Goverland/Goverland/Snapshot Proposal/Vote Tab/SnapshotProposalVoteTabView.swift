@@ -61,17 +61,8 @@ struct SnapshotProposalVoteTabView: View {
             _chosenTab = State(wrappedValue: .results)
         }
 
-        // TODO: shutter completed proposals results are known. Need to improve.
-        if let userVote = proposal.userVote, proposal.privacy != .shutter {
-            // enumeration starts with 1 in Snapshot
-            switch proposal.type {
-            case .singleChoice, .basic:
-                _choice = State(wrappedValue: (userVote.base as! Vote<Int>).choice - 1 as AnyObject)
-            case .approval, .rankedChoice:
-                _choice = State(wrappedValue: (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject)
-            case .weighted, .quadratic:
-                _choice = State(wrappedValue: (userVote.base as! Vote<[String: Int]>).choice as AnyObject)
-            }
+        if let choice = Utils.choice(from: proposal) {
+            _choice = State(wrappedValue: choice)
             _voteButtonDisabled = State(wrappedValue: false)
         } else {
             _voteButtonDisabled = State(wrappedValue: true)

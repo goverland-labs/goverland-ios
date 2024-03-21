@@ -41,7 +41,7 @@ struct ProfileFollowedDAOsHorizontalListView: View {
                 }
                 .background(Color.container)
                 .cornerRadius(20)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
         .onAppear() {

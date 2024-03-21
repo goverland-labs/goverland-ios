@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 05.02.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -30,7 +30,7 @@ struct ProfileVotesView: View {
                     .foregroundStyle(Color.primaryDim)
             }
             .padding(.top, 16)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Constants.horizontalPadding * 2)
 
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
@@ -38,8 +38,8 @@ struct ProfileVotesView: View {
                 }
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
                 ForEach(0..<3) { _ in
-                    ShimmerProposalListItemCondensedView()
-                        .padding(.horizontal, 8)
+                    ShimmerProposalListItemView()
+                        .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
@@ -48,15 +48,15 @@ struct ProfileVotesView: View {
                     .padding(16)
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
-                    ProposalListItemCondensedView(proposal: proposal) {
-                        Tracker.track(.prfVotesOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                    }
-                    .padding(.horizontal, 8)
-                    .onTapGesture {
-                        Tracker.track(.prfVotesOpenProposal)
-                        path.append(.vote(proposal))
-                    }
+                    ProposalListItemNoElipsisView(proposal: proposal) {
+                            Tracker.track(.prfVotesOpenDao)
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        }
+                        .padding(.horizontal, Constants.horizontalPadding)
+                        .onTapGesture {
+                            Tracker.track(.prfVotesOpenProposal)
+                            path.append(.vote(proposal))
+                        }
                 }
             }
         }

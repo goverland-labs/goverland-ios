@@ -208,4 +208,52 @@ enum Utils {
         default: return 660
         }
     }
+
+    static func choiseAsStr(proposal: Proposal, choice: AnyObject) -> String {
+        switch proposal.type {
+        case .singleChoice, .basic:
+            return proposal.choices[choice as! Int]
+
+        case .approval:
+            let approvedIndices = choice as! [Int]
+            let first = proposal.choices[approvedIndices.first!]
+            return approvedIndices.dropFirst().reduce(first) { r, i in "\(r), \(proposal.choices[i])" }
+
+        case .rankedChoice:
+            let approvedIndices = choice as! [Int]
+            let first = proposal.choices[approvedIndices.first!]
+            var idx = 1
+            return approvedIndices.dropFirst().reduce("(\(idx)) \(first)") { r, i in
+                idx += 1
+                return "\(r), (\(idx)) \(proposal.choices[i])"
+            }
+
+        case .weighted, .quadratic:
+            let choicesPower = choice as! [String: Int]
+            let totalPower = choicesPower.values.reduce(0, +)
+
+            // to keep them sorted we will use proposal choices array
+            let choices = proposal.choices.indices.filter { choicesPower[String($0 + 1)] != 0 }
+            let first = choices.first!
+            let firstPercentage = Utils.percentage(of: Double(choicesPower[String(first + 1)]!), in: Double(totalPower))
+            return choices.dropFirst().reduce("\(firstPercentage) for \(first + 1)") { r, k in
+                let percentage = Utils.percentage(of: Double(choicesPower[String(k + 1)]!), in: Double(totalPower))
+                return "\(r), \(percentage) for \(k + 1)"
+            }
+        }
+    }
+
+    static func choice(from proposal: Proposal) -> AnyObject? {
+        // TODO: shutter completed proposals results are known. Need to improve.
+        guard let userVote = proposal.userVote, proposal.privacy != .shutter else { return nil }
+        // enumeration starts with 1 in Snapshot
+        switch proposal.type {
+        case .singleChoice, .basic:
+            return (userVote.base as! Vote<Int>).choice - 1 as AnyObject
+        case .approval, .rankedChoice:
+            return (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
+        case .weighted, .quadratic:
+            return (userVote.base as! Vote<[String: Int]>).choice as AnyObject
+        }
+    }
 }

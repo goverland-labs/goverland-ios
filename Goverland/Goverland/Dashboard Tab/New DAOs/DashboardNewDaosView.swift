@@ -22,7 +22,7 @@ struct DashboardNewDaosView: View {
                                      category: DaoCategory.new,
                                      onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
                                      onFollowToggle: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollow) } })
-            .padding(.leading, 8)
+            .padding(.leading, Constants.horizontalPadding)
         }
     }
 }

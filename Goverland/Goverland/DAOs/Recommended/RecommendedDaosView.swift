@@ -51,7 +51,7 @@ struct RecommendedDaosView: View {
                         }
                     })
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: Constants.horizontalPadding, trailing: 0))
                     .listRowBackground(Color.clear)
             }
             .padding(.top, 8)
@@ -59,7 +59,7 @@ struct RecommendedDaosView: View {
         .id(daos.hashValue)
         .padding(.top, 16)
         .padding(.bottom, 0)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.horizontalPadding)
         .listStyle(.plain)
         .scrollIndicators(.hidden)
         .sheet(item: $activeSheetManager.activeSheet) { item in

@@ -8,6 +8,73 @@
 
 import SwiftUI
 
+struct ProposalListItemNoElipsisView: View {
+    let proposal: Proposal
+    let isSelected: Bool
+    let isRead: Bool
+    let isPresented: Bool
+    let isHighlighted: Bool
+    let onDaoTap: (() -> Void)?
+
+    @Environment(\.isPresented) private var _isPresented
+
+    init(proposal: Proposal,
+         isSelected: Bool = false,
+         isRead: Bool = false,
+         isPresented: Bool = false,
+         isHighlighted: Bool = false,
+         onDaoTap: (() -> Void)? = nil) {
+        self.proposal = proposal
+        self.isSelected = isSelected
+        self.isRead = isRead
+        self.isPresented = isPresented
+        self.isHighlighted = isHighlighted
+        self.onDaoTap = onDaoTap
+    }
+
+    private var backgroundColor: Color {
+        if isSelected {
+            return .secondaryContainer
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return .containerBright
+        }
+
+        if isPresented || _isPresented {            
+            return .containerBright
+        }
+
+        return .container
+    }
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(backgroundColor)
+                .stroke(isHighlighted ? Color.secondaryContainer : .clear, lineWidth: 1)
+
+
+            VStack(spacing: 12) {
+                ProposalListItemHeaderView(proposal: proposal)
+                ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
+                VoteFooterView(votes: proposal.votes,
+                               votesHighlighted: proposal.state == .active,
+                               quorum: proposal.quorum,
+                               quorumHighlighted: proposal.quorum >= 100)
+            }
+            .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.vertical, 12)
+
+            if isRead && !isSelected {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.containerDim.opacity(0.6))
+                    .allowsHitTesting(false)
+            }
+        }
+    }
+}
+
 struct ProposalListItemView<Content: View>: View {
     let proposal: Proposal
     let isSelected: Bool
@@ -29,40 +96,33 @@ struct ProposalListItemView<Content: View>: View {
         self.menuContent = menuContent()
     }
 
-    private var backgroundColor: Color {
-        if isSelected {
-            return .secondaryContainer
-        }
-
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return .containerBright
-        }
-
-        if isPresented {
-            return .containerBright
-        }
-
-        return .container
-    }
-
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(backgroundColor)
+            ProposalListItemNoElipsisView(proposal: proposal,
+                                          isSelected: isSelected,
+                                          isRead: isRead,
+                                          isPresented: isPresented,
+                                          onDaoTap: onDaoTap)
 
-            VStack(spacing: 12) {
-                ProposalListItemHeaderView(proposal: proposal)
-                ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
-                ProposalListItemFooterView(proposal: proposal) {
-                    menuContent
+            // Place Menu into botter right corner
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
+                    // but it still glitches a bit and there are errors in the console:
+                    // List failed to visit cell content, returning an empty cell.
+                    LazyVStack(alignment: .trailing) {
+                        Menu {
+                            menuContent
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .foregroundStyle(Color.textWhite40)
+                                .fontWeight(.heavy)
+                                .frame(width: 56, height: 40)
+                        }
+                    }
                 }
-            }
-            .padding(.horizontal, 12)
-
-            if isRead && !isSelected {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.containerDim.opacity(0.6))
-                    .allowsHitTesting(false)
             }
         }
     }
@@ -71,7 +131,7 @@ struct ProposalListItemView<Content: View>: View {
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
 
-    var voted: Bool {
+    private var voted: Bool {
         proposal.userVote != nil
     }
 
@@ -112,61 +172,37 @@ struct ProposalListItemBodyView: View {
                     .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-                
+
                 if displayStatus {
-                    HStack(spacing: 0) {
-                        Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                    if let choice = Utils.choice(from: proposal) {
+                        // user voted
+                        let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: choice)
+                        Text("Your choice: \(choiceStr)")
                             .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                             .font(.footnoteRegular)
-                            .lineLimit(1)
+                            .lineLimit(2)
+                    } else {
+                        HStack(spacing: 0) {
+                            Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                                .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+                                .font(.footnoteRegular)
+                                .lineLimit(1)
 
-                        DateView(date: proposal.votingEnd,
-                                 style: .numeric,
-                                 font: .footnoteRegular,
-                                 color: proposal.state == .active ? .primaryDim : .textWhite40)
+                            DateView(date: proposal.votingEnd,
+                                     style: .numeric,
+                                     font: .footnoteRegular,
+                                     color: proposal.state == .active ? .primaryDim : .textWhite40)
+                        }
                     }
                 }
             }
-            
+
             Spacer()
             RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                 .allowsHitTesting(onDaoTap == nil ? false : true)
                 .onTapGesture {
                     onDaoTap?()
                 }
-        }
-    }
-}
-
-fileprivate struct ProposalListItemFooterView<Content: View>: View {
-    let proposal: Proposal
-    let menuContent: Content
-
-    init(proposal: Proposal, @ViewBuilder menuContent: () -> Content) {
-        self.proposal = proposal
-        self.menuContent = menuContent()
-    }
-
-    var body: some View {
-        HStack(spacing: 20) {
-            VoteFooterView(votes: proposal.votes,
-                           votesHighlighted: proposal.state == .active,
-                           quorum: proposal.quorum,
-                           quorumHighlighted: proposal.quorum >= 100)
-            Spacer()
-            // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
-            // but it still glitches a bit and there are errors in the console:
-            // List failed to visit cell content, returning an empty cell. - SwiftUI/UICollectionViewListCoordinator.swift:293 - please file a bug report.
-            LazyVStack(alignment: .trailing) {
-                Menu {
-                    menuContent
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.textWhite40)
-                        .fontWeight(.bold)
-                        .frame(width: 40, height: 20)
-                }
-            }
         }
     }
 }
@@ -194,6 +230,8 @@ fileprivate struct VoteFooterView: View {
                 .font(.footnoteRegular)
                 .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
             }
+
+            Spacer()
         }
     }
 }
@@ -226,7 +264,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
-                
+
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
@@ -235,8 +273,8 @@ struct ShimmerProposalListItemView: View {
                 }
                 .frame(height: 20)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.vertical, Constants.horizontalPadding / 2)
         }
         .frame(height: 142)
     }

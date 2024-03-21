@@ -29,7 +29,7 @@ struct ConnectedWalletView: View {
                 .font(.subheadlineSemibold)
                 .foregroundStyle(Color.textWhite)
                 .padding(.top, 16)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.horizontalPadding * 2)
 
             Group {
                 if let wallet = connectedWallet() {
@@ -49,7 +49,7 @@ struct ConnectedWalletView: View {
             }
             .background(Color.container)
             .cornerRadius(12)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, Constants.horizontalPadding)
         }
         .id(wcViewId)
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in

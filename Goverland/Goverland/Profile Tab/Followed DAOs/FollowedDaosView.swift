@@ -45,7 +45,7 @@ struct FollowedDaosView: View {
                 }
             }
         }
-        .padding(.horizontal, 15)
+        .padding(.horizontal, Constants.horizontalPadding)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Followed DAOs")
         .toolbar {

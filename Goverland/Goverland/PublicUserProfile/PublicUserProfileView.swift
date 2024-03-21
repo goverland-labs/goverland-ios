@@ -120,13 +120,13 @@ fileprivate struct VotedInDaosView: View {
                     .foregroundStyle(Color.primaryDim)
             }
             .padding(.top, 16)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Constants.horizontalPadding * 2)
 
             if profile.votedInDaos.count == 0 {
                 Text("User has not voted yet")
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
-                    .padding(16)
+                    .padding(Constants.horizontalPadding)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
@@ -137,11 +137,11 @@ fileprivate struct VotedInDaosView: View {
                             }
                         }
                     }
-                    .padding(16)
+                    .padding(Constants.horizontalPadding)
                 }
                 .background(Color.containerBright)
                 .cornerRadius(20)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
     }

@@ -48,12 +48,13 @@ struct FilterButtonsView<T: FilterOptions>: View {
                             }
                             onSelect(filterOption)
                         }
-                        .padding([.leading, .trailing], 12)
+                        .padding(.trailing, Constants.horizontalPadding * 2)
                 }
                 
                 Spacer()
             }
         }
+        .padding(.horizontal, Constants.horizontalPadding * 2)
         .overlay(Rectangle()
             .frame(height: 1)
             .foregroundStyle(Color.containerBright), alignment: .bottom)

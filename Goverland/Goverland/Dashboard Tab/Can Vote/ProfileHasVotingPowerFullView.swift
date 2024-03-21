@@ -23,21 +23,21 @@ struct ProfileHasVotingPowerFullView: View {
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ScrollView {
                     ForEach(0..<5) { _ in
-                        ShimmerProposalListItemCondensedView()
-                            .padding(.horizontal, 12)
+                        ShimmerProposalListItemView()
+                            .padding(.horizontal, Constants.horizontalPadding)
                     }
                 }
-                .padding(.top, 4)
+                .padding(.top, Constants.horizontalPadding / 2)
             } else {
                 if let count = dataSource.proposals?.count, count > 0 {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = dataSource.proposals![index]
-                        ProposalListItemCondensedView(proposal: proposal) {
+                        ProposalListItemNoElipsisView(proposal: proposal) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                        .listRowInsets(Constants.listInsets)
                         .listRowBackground(Color.clear)
                     }
                 } else {

@@ -71,7 +71,7 @@ struct TermsView: View {
             .fontWeight(.medium)
             .tint(.primaryDim)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, Constants.horizontalPadding)
     }
 }
 

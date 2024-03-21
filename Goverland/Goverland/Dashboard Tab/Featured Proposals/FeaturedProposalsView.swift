@@ -1,16 +1,17 @@
 //
-//  ProfileHasVotingPowerView.swift
+//  FeaturedProposalsView.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 25.01.24.
+//  Created by Andrey Scherbovich on 20.03.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 	
 
 import SwiftUI
 
-struct ProfileHasVotingPowerView: View {
-    @StateObject var dataSource = ProfileHasVotingPowerDataSource.dashboard
+/// At the moment we will always display only one featured proposal
+struct FeaturedProposalsView: View {
+    @StateObject var dataSource = FeaturedProposalsDataSource.dashboard
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -21,19 +22,20 @@ struct ProfileHasVotingPowerView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading && dataSource.proposals == nil {
-                ForEach(0..<2) { _ in
+                ForEach(0..<1) { _ in
                     ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
             } else {
-                ForEach((dataSource.proposals ?? []).prefix(3)) { proposal in
-                    ProposalListItemNoElipsisView(proposal: proposal) {
+                ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
+                    ProposalListItemNoElipsisView(proposal: proposal,
+                                                  isHighlighted: true) {
+                        Tracker.track(.dashFeaturedPrpOpenDao)
                         activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                        Tracker.track(.dashCanVoteOpenDao)
                     }
                     .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
-                        Tracker.track(.dashCanVoteOpenPrp)
+                        Tracker.track(.dashFeaturedPrpOpenPrp)
                         path.append(proposal)
                     }
                 }
