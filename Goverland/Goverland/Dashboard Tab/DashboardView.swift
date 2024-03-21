@@ -122,6 +122,11 @@ fileprivate struct SignedOutUserDashboardView: View {
     @Binding var path: NavigationPath
     @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
 
+    var shouldShowFeaturedProposal: Bool {
+        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        return !proposals.isEmpty
+    }
+
     var body: some View {
         if !welcomeBlockIsRead {
             WelcomeBlockView()
@@ -134,8 +139,10 @@ fileprivate struct SignedOutUserDashboardView: View {
         }
         DashboardPopularDaosCardsView()
 
-        SectionHeader(header: "Proposal of the day")
-        FeaturedProposalsView(path: $path)
+        if shouldShowFeaturedProposal {
+            SectionHeader(header: "Proposal of the day")
+            FeaturedProposalsView(path: $path)
+        }
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)
@@ -170,9 +177,16 @@ fileprivate struct SignedInUserDashboardView: View {
         }
     }
 
+    var shouldShowFeaturedProposal: Bool {
+        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        return !proposals.isEmpty
+    }
+
     var body: some View {
-        SectionHeader(header: "Proposal of the day")
-        FeaturedProposalsView(path: $path)
+        if shouldShowFeaturedProposal {
+            SectionHeader(header: "Proposal of the day")
+            FeaturedProposalsView(path: $path)
+        }
 
         if shouldShowDaosWithActiveVote {
             SectionHeader(header: "Followed DAOs with active vote")
