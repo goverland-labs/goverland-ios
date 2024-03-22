@@ -18,7 +18,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .votes, .info]
+        [.vote, .results, .votes, .info]
     }
 
     func localizedName(_ proposalState: Proposal.State) -> String {
@@ -125,7 +125,7 @@ struct SnapshotProposalVoteTabView: View {
                             }
                             .onTapGesture {
                                 withAnimation(.spring(response: 0.5)) {
-                                    self.chosenTab = tab
+                                    chosenTab = tab
                                 }
                             }
                         }
