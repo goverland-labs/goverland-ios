@@ -11,10 +11,10 @@ import Combine
 
 class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
-    
+
     @Published var selectedFilteringOption: ChartFiltetingOption = .oneYear {
         didSet {
-            refresh()
+            refresh(invalidateCache: false)
         }
     }
 
@@ -27,7 +27,9 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
         [(votersType: "Returning voters", data: getReturningVoters()),
          (votersType: "New voters", data: getNewVoters())]
     }
-    
+
+    private var cache: [ChartFiltetingOption: [MonthlyActiveUsers]] = [:]
+
     init(daoID: UUID) {
         self.daoID = daoID
     }
@@ -35,8 +37,20 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     convenience init(dao: Dao) {
         self.init(daoID: dao.id)
     }
-    
+
     func refresh() {
+        refresh(invalidateCache: true)
+    }
+
+    private func refresh(invalidateCache: Bool) {
+        if let cachedData = cache[selectedFilteringOption], !invalidateCache {
+            monthlyActiveUsers = cachedData
+            return
+        }
+
+        if invalidateCache {
+            cache = [:]
+        }
         monthlyActiveUsers = []
         failedToLoadInitialData = false
         isLoading = true
@@ -53,7 +67,9 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] data, headers in
-                self?.monthlyActiveUsers = data
+                guard let self else { return }
+                self.monthlyActiveUsers = data
+                self.cache[selectedFilteringOption] = data
             }
             .store(in: &cancellables)
     }
