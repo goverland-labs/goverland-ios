@@ -22,6 +22,7 @@ struct UserBucketsGraphView: View {
                   subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                  height: 350,
                   onRefresh: dataSource.refresh)
         {
             UserBucketsChart(dataSource: dataSource)
@@ -34,36 +35,46 @@ struct UserBucketsGraphView: View {
     }
     
     struct UserBucketsChart: GraphViewContent {
-        @StateObject var dataSource: UserBucketsDataSource
+        @ObservedObject var dataSource: UserBucketsDataSource
         @State private var selectedBucket: String?
         
         var body: some View {
-            Chart {
-                ForEach(dataSource.userBuckets.indices, id: \.self) { i in
-                    BarMark (
-                        x: .value("Bucket", dataSource.userBuckets[i].votes),
-                        y: .value("Voters", dataSource.userBuckets[i].voters)
-                    )
-                    .foregroundStyle(Color.primaryDim)
-                }
-                
-                if let selectedBucket {
-                    RuleMark(x: .value("Bucket", selectedBucket))
+            VStack {
+                HStack(spacing: 8) {
+                    Text("Bucket size")
+                        .font(.subheadlineSemibold)
                         .foregroundStyle(Color.textWhite)
-                        .lineStyle(.init(lineWidth: 1, dash: [2]))
-                        .annotation(
-                            position: annotationPositionForBucket(bucket: selectedBucket),
-                            alignment: .center, spacing: 4
-                        ) {
-                            AnnotationView(bucket: selectedBucket, dataSource: dataSource)
-                        }
+                    ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
                 }
+                .padding(.leading, Constants.horizontalPadding + 4)
+
+                Chart {
+                    ForEach(dataSource.userBuckets.indices, id: \.self) { i in
+                        BarMark (
+                            x: .value("Bucket", dataSource.userBuckets[i].votes),
+                            y: .value("Voters", dataSource.userBuckets[i].voters)
+                        )
+                        .foregroundStyle(Color.primaryDim)
+                    }
+
+                    if let selectedBucket {
+                        RuleMark(x: .value("Bucket", selectedBucket))
+                            .foregroundStyle(Color.textWhite)
+                            .lineStyle(.init(lineWidth: 1, dash: [2]))
+                            .annotation(
+                                position: annotationPositionForBucket(bucket: selectedBucket),
+                                alignment: .center, spacing: 4
+                            ) {
+                                AnnotationView(bucket: selectedBucket, dataSource: dataSource)
+                            }
+                    }
+                }
+                .padding()
+                .chartForegroundStyleScale([
+                    "Voters": Color.primaryDim
+                ])
+                .chartSelected_X_String($selectedBucket)
             }
-            .padding()
-            .chartForegroundStyleScale([                
-                "Voters": Color.primaryDim
-            ])
-            .chartSelected_X_String($selectedBucket)
         }
 
         private func annotationPositionForBucket(bucket: String) -> AnnotationPosition {

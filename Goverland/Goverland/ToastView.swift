@@ -30,7 +30,7 @@ struct ToastView: View {
                     }
                 Spacer()
             }
-            .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.horizontal, Constants.horizontalPadding / 2)
             .animation(.easeInOut, value: 1)
             .transition(.move(edge: .top))
         }

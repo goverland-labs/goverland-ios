@@ -18,7 +18,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
     case info
 
     static var allTabs: [SnapshotVoteTabType] {
-        return [.vote, .results, .votes, .info]
+        [.vote, .results, .votes, .info]
     }
 
     func localizedName(_ proposalState: Proposal.State) -> String {
@@ -115,7 +115,7 @@ struct SnapshotProposalVoteTabView: View {
                                 
                                 Text(tab.localizedName(proposal.state))
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
+                                    .padding(.vertical, 6)
                                     .font(.caption2Semibold)
                                     .foregroundStyle(Color.onSecondaryContainer)
                                     .overlay(
@@ -125,7 +125,7 @@ struct SnapshotProposalVoteTabView: View {
                             }
                             .onTapGesture {
                                 withAnimation(.spring(response: 0.5)) {
-                                    self.chosenTab = tab
+                                    chosenTab = tab
                                 }
                             }
                         }
