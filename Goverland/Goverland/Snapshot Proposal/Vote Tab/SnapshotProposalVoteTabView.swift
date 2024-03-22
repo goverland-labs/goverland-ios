@@ -115,7 +115,7 @@ struct SnapshotProposalVoteTabView: View {
                                 
                                 Text(tab.localizedName(proposal.state))
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
+                                    .padding(.vertical, 6)
                                     .font(.caption2Semibold)
                                     .foregroundStyle(Color.onSecondaryContainer)
                                     .overlay(

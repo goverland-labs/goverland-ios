@@ -22,6 +22,7 @@ struct UserBucketsGraphView: View {
                   subheader: "Categorizing voters into distinct 'buckets' based on the number of user votes.",
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                  height: 350,
                   onRefresh: dataSource.refresh)
         {
             UserBucketsChart(dataSource: dataSource)
@@ -39,8 +40,13 @@ struct UserBucketsGraphView: View {
         
         var body: some View {
             VStack {
-                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
-                    .padding(.leading, Constants.horizontalPadding)
+                HStack(spacing: 8) {
+                    Text("Bucket size")
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                    ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
+                }
+                .padding(.leading, Constants.horizontalPadding + 4)
 
                 Chart {
                     ForEach(dataSource.userBuckets.indices, id: \.self) { i in

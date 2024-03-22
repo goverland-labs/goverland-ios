@@ -71,12 +71,19 @@ enum BucketGroupsFilteringOption: Int, FilteringOption {
 struct ChartFilters<Option: FilteringOption>: View {
     @Binding var selectedOption: Option
     private let options: [Option]
+    private let optionMinWidth: CGFloat
+    private let componentMaxHeight: CGFloat
     @Namespace var namespace
 
     init(selectedOption: Binding<Option>,
-         options: [Option] = Option.allOptions) {
+         options: [Option] = Option.allOptions,
+         optionMinWidth: CGFloat = 30,
+         componentMaxHeight: CGFloat = 28)
+    {
         _selectedOption = selectedOption
         self.options = options
+        self.optionMinWidth = optionMinWidth
+        self.componentMaxHeight = componentMaxHeight
     }
 
     var body: some View {
@@ -88,16 +95,19 @@ struct ChartFilters<Option: FilteringOption>: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.secondaryContainer)
                                 .matchedGeometryEffect(id: "option-background", in: namespace)
+                                .frame(minWidth: optionMinWidth)
                         }
 
                         Text(option.localizedName)
+                            .frame(minWidth: optionMinWidth)
                             .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
+                            .padding(.vertical, 6)
                             .font(.caption2Semibold)
                             .foregroundStyle(Color.onSecondaryContainer)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 20)
                                     .stroke(Color.secondaryContainer, lineWidth: 1)
+                                    .frame(minWidth: optionMinWidth)
                             )
                     }
                     .onTapGesture {
@@ -109,7 +119,7 @@ struct ChartFilters<Option: FilteringOption>: View {
             }
             .padding(.leading, 4)
         }
-        .frame(height: 26)
+        .frame(height: componentMaxHeight)
     }
 }
 
