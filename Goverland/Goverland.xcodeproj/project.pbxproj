@@ -75,6 +75,8 @@
 		554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		556D43562BAD34A700D2D64F /* ChartFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43552BAD34A700D2D64F /* ChartFilters.swift */; };
+		556D43582BAD75C000D2D64F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43572BAD75C000D2D64F /* Stats.swift */; };
+		556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43592BAD77D500D2D64F /* StatsDataSource.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		557C26562B31B2E800AAF26C /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26552B31B2E800AAF26C /* Avatar.swift */; };
@@ -387,6 +389,8 @@
 		554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		556D43552BAD34A700D2D64F /* ChartFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFilters.swift; sourceTree = "<group>"; };
+		556D43572BAD75C000D2D64F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		556D43592BAD77D500D2D64F /* StatsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSource.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		557C26552B31B2E800AAF26C /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -1135,7 +1139,7 @@
 				BA09B3022A2A3B6600223049 /* Snapshot Proposal */,
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				BAC3CA1D2B9A377D001CC6C3 /* PublicUserProfile */,
-				BAF651FB29C8AFAF00C78A8A /* Analytics */,
+				BAF651FB29C8AFAF00C78A8A /* Tracking */,
 			);
 			path = Goverland;
 			sourceTree = "<group>";
@@ -1263,6 +1267,7 @@
 			children = (
 				55DE41B12B17B8DD008617F5 /* Persistence */,
 				550ACFB42AFEED3A006EF5BB /* Profile.swift */,
+				557C26552B31B2E800AAF26C /* Avatar.swift */,
 				BAC3CA222B9A49CE001CC6C3 /* PublicUserProfile.swift */,
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
@@ -1271,10 +1276,10 @@
 				BA2EA20E2968912B00FB87AC /* User.swift */,
 				5533170129F16B290034AF66 /* Address.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
+				556D43572BAD75C000D2D64F /* Stats.swift */,
 				55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
-				557C26552B31B2E800AAF26C /* Avatar.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1360,6 +1365,7 @@
 				BAAA2BFB2B0117150061F890 /* EcosystemDashboardDataSource.swift */,
 				BA36DEF32B16ABC0002EBEB0 /* EcosystemChartsFullView.swift */,
 				BA36DEF52B178AA5002EBEB0 /* Ecosystem charts */,
+				556D43592BAD77D500D2D64F /* StatsDataSource.swift */,
 			);
 			path = Ecosystem;
 			sourceTree = "<group>";
@@ -1475,7 +1481,7 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
-		BAF651FB29C8AFAF00C78A8A /* Analytics */ = {
+		BAF651FB29C8AFAF00C78A8A /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
 				BAF651FE29C8C1F300C78A8A /* Tracker.swift */,
@@ -1483,7 +1489,7 @@
 				BAF6520229C8C61500C78A8A /* LogInfoTrackingHandler.swift */,
 				553744DA2A757FA200D05D8A /* Firebase */,
 			);
-			path = Analytics;
+			path = Tracking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1825,6 +1831,7 @@
 				553E74CF2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,
+				556D43582BAD75C000D2D64F /* Stats.swift in Sources */,
 				553E74D52BA4254200F697F8 /* ProfileHeaderView.swift in Sources */,
 				BAF651CE29B79F8200C78A8A /* DaoInfoScreenHeaderView.swift in Sources */,
 				BAE1AB362AF3DD08001B89F3 /* MutualDaosView.swift in Sources */,
@@ -1985,6 +1992,7 @@
 				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
+				556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */,
 				553E74DB2BA960FD00F697F8 /* RecommendedDaosView.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,

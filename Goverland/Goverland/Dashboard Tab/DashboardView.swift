@@ -28,6 +28,7 @@ struct DashboardView: View {
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
         EcosystemDashboardDataSource.shared.refresh()
+        StatsDataSource.shared.refresh()
     }
 
     var body: some View {
@@ -74,6 +75,10 @@ struct DashboardView: View {
 
                 if EcosystemDashboardDataSource.shared.charts == nil {
                     EcosystemDashboardDataSource.shared.refresh()
+                }
+
+                if StatsDataSource.shared.stats == nil {
+                    StatsDataSource.shared.refresh()
                 }
             }
             .refreshable {
@@ -216,7 +221,6 @@ fileprivate struct SignedInUserDashboardView: View {
         DashboardNewDaosView()
 
         SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-        // TODO: PRO subscription feature
 //                {
 //                    path.append(Path.ecosystemCharts)
 //                }
