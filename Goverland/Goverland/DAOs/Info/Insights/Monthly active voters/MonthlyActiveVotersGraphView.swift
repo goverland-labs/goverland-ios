@@ -40,7 +40,7 @@ struct MonthlyActiveVotersGraphView: View {
         @State private var selectedDate: Date? = nil
 
         var minScaleDate: Date {
-            (dataSource.monthlyActiveUsers.first?.date ?? Date())
+            (dataSource.monthlyActiveUsers.first?.date ?? Date()) - 1.months
         }
 
         var maxScaleDate: Date {
