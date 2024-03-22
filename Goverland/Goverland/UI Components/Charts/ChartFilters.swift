@@ -24,7 +24,17 @@ enum ChartFiltetingOption: Int, Identifiable {
         [.all, .oneYear, .sixMonths, .threeMonths, .oneMonth]
     }
 
-    func localizedName() -> String {
+    var localizedName: String {
+        switch self {
+        case .all: return "all"
+        case .oneYear: return "1y"
+        case .sixMonths: return "6m"
+        case .threeMonths: return "3m"
+        case .oneMonth: return "1m"
+        }
+    }
+
+    var queryParamName: String {
         switch self {
         case .all: return "all"
         case .oneYear: return "1y"
@@ -36,13 +46,13 @@ enum ChartFiltetingOption: Int, Identifiable {
 }
 
 struct ChartFilters: View {
-    @State private var selectedOption: ChartFiltetingOption
+    @Binding var selectedOption: ChartFiltetingOption
     private let options: [ChartFiltetingOption]
     @Namespace var namespace
 
-    init(selectedOption: ChartFiltetingOption = .oneYear,
+    init(selectedOption: Binding<ChartFiltetingOption>,
          options: [ChartFiltetingOption] = ChartFiltetingOption.allOptions) {
-        _selectedOption = State(wrappedValue: selectedOption)
+        _selectedOption = selectedOption
         self.options = options
     }
 
@@ -57,7 +67,7 @@ struct ChartFilters: View {
                                 .matchedGeometryEffect(id: "option-background", in: namespace)
                         }
 
-                        Text(option.localizedName())
+                        Text(option.localizedName)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
                             .font(.caption2Semibold)
@@ -81,5 +91,5 @@ struct ChartFilters: View {
 }
 
 #Preview {
-    ChartFilters()
+    ChartFilters(selectedOption: .constant(.all))
 }

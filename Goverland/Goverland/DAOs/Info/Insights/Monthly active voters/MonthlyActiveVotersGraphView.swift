@@ -36,7 +36,7 @@ struct MonthlyActiveVotersGraphView: View {
     }
 
     struct MonthlyActiveChart: GraphViewContent {
-        @StateObject var dataSource: MonthlyActiveVotersDataSource
+        @ObservedObject var dataSource: MonthlyActiveVotersDataSource
         @State private var selectedDate: Date? = nil
 
         var minScaleDate: Date {
@@ -58,7 +58,7 @@ struct MonthlyActiveVotersGraphView: View {
 
         var body: some View {
             VStack {
-                ChartFilters()
+                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
                     .padding(.leading, Constants.horizontalPadding)
 
                 Chart {

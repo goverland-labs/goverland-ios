@@ -252,9 +252,11 @@ struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     let daoID: UUID
     var path: String { "analytics/monthly-active-users/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 

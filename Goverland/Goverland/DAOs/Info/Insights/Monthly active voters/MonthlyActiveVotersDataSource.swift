@@ -12,6 +12,12 @@ import Combine
 class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     
+    @Published var selectedFilteringOption: ChartFiltetingOption = .oneYear {
+        didSet {
+            refresh()
+        }
+    }
+
     @Published var monthlyActiveUsers: [MonthlyActiveUsers] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
@@ -35,11 +41,11 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         isLoading = true
         cancellables = Set<AnyCancellable>()
-        loadInitialData()
+        loadData()
     }
     
-    private func loadInitialData() {
-        APIService.monthlyActiveUsers(id: daoID)
+    private func loadData() {
+        APIService.monthlyActiveUsers(id: daoID, filteringOption: selectedFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
