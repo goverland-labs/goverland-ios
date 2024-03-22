@@ -12,7 +12,7 @@ import Combine
 class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
 
-    @Published var selectedFilteringOption: ChartFiltetingOption = .oneYear {
+    @Published var selectedFilteringOption: DatesFiltetingOption = .oneYear {
         didSet {
             refresh(invalidateCache: false)
         }
@@ -28,7 +28,7 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
          (votersType: "New voters", data: getNewVoters())]
     }
 
-    private var cache: [ChartFiltetingOption: [MonthlyActiveUsers]] = [:]
+    private var cache: [DatesFiltetingOption: [MonthlyActiveUsers]] = [:]
 
     init(daoID: UUID) {
         self.daoID = daoID

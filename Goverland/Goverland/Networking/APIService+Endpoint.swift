@@ -108,7 +108,7 @@ extension APIService {
 
     // MARK: DAO Analytics
 
-    static func monthlyActiveUsers(id: UUID, filteringOption: ChartFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func monthlyActiveUsers(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "filter", value: filteringOption.queryParamName)
         ]

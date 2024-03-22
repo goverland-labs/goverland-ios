@@ -9,7 +9,12 @@
 
 import SwiftUI
 
-enum ChartFiltetingOption: Int, Identifiable {
+protocol FilteringOption: Identifiable, Equatable {
+    static var allOptions: [Self] { get }
+    var localizedName: String { get }
+}
+
+enum DatesFiltetingOption: Int, FilteringOption {
     case all = 0
     case oneYear
     case sixMonths
@@ -45,13 +50,13 @@ enum ChartFiltetingOption: Int, Identifiable {
     }
 }
 
-struct ChartFilters: View {
-    @Binding var selectedOption: ChartFiltetingOption
-    private let options: [ChartFiltetingOption]
+struct ChartFilters<Option: FilteringOption>: View {
+    @Binding var selectedOption: Option
+    private let options: [Option]
     @Namespace var namespace
 
-    init(selectedOption: Binding<ChartFiltetingOption>,
-         options: [ChartFiltetingOption] = ChartFiltetingOption.allOptions) {
+    init(selectedOption: Binding<Option>,
+         options: [Option] = Option.allOptions) {
         _selectedOption = selectedOption
         self.options = options
     }
@@ -59,7 +64,7 @@ struct ChartFilters: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                ForEach(options) { option in
+                ForEach(options, id: \.id) { option in
                     ZStack {
                         if selectedOption == option {
                             RoundedRectangle(cornerRadius: 20)
@@ -91,5 +96,5 @@ struct ChartFilters: View {
 }
 
 #Preview {
-    ChartFilters(selectedOption: .constant(.all))
+    ChartFilters(selectedOption: .constant(DatesFiltetingOption.all))
 }
