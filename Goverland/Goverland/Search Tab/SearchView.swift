@@ -9,26 +9,28 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject var model = SearchModel.shared
+    @StateObject private var model = SearchModel.shared
 
-    @StateObject var daos = GroupedDaosDataSource.search
-    @StateObject var daosSearch = DaosSearchDataSource.shared
-    @StateObject var proposals = TopProposalsDataSource.search
-    @StateObject var proposalsSearch = ProposalsSearchDataSource()
+    @StateObject private var daos = GroupedDaosDataSource.search
+    @StateObject private var daosSearch = DaosSearchDataSource.shared
+    @StateObject private var proposals = TopProposalsDataSource.search
+    @StateObject private var proposalsSearch = ProposalsSearchDataSource()
+    @StateObject private var stats = StatsDataSource.shared
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private var searchPrompt: String {
         switch model.filter {
         case .daos:
-            if let total = daos.totalDaos {
-                let totalStr = Utils.formattedNumber(Double(total))
+
+            if let stats = stats.stats {
+                let totalStr = Utils.formattedNumber(Double(stats.daos.total))
                 return "Search for \(totalStr) DAOs by name"
             }
             return ""
         case .proposals:
-            if let total = proposals.totalProposals {
-                let totalStr = Utils.formattedNumber(Double(total))
+            if let stats = stats.stats {
+                let totalStr = Utils.formattedNumber(Double(stats.proposals.total))
                 return "Search for \(totalStr) proposals by name"
             }
             return ""
