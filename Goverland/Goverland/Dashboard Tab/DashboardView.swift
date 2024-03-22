@@ -126,9 +126,10 @@ struct DashboardView: View {
 fileprivate struct SignedOutUserDashboardView: View {
     @Binding var path: NavigationPath
     @Setting(\.welcomeBlockIsRead) var welcomeBlockIsRead
+    @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
     var shouldShowFeaturedProposal: Bool {
-        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        guard let proposals = featuredDataSource.proposals else { return true }
         return !proposals.isEmpty
     }
 
@@ -166,8 +167,9 @@ fileprivate struct SignedOutUserDashboardView: View {
 
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
-    @ObservedObject var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
-    @ObservedObject var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
+    @ObservedObject private var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
+    @ObservedObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
+    @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
     var shouldShowDaosWithActiveVote: Bool {
         !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading
@@ -183,7 +185,7 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var shouldShowFeaturedProposal: Bool {
-        guard let proposals = FeaturedProposalsDataSource.dashboard.proposals else { return true }
+        guard let proposals = featuredDataSource.proposals else { return true }
         return !proposals.isEmpty
     }
 
