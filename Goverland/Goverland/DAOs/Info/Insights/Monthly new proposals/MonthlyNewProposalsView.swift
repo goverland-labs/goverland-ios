@@ -36,7 +36,7 @@ struct MonthlyNewProposalsView: View {
     }
     
     struct MonthlyNewProposalsChart: GraphViewContent {
-        @StateObject var dataSource: MonthlyNewProposalsDataSource
+        @ObservedObject var dataSource: MonthlyNewProposalsDataSource
         @State private var selectedDate: Date? = nil
         
         var minScaleDate: Date {

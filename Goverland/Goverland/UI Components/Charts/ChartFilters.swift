@@ -50,6 +50,24 @@ enum DatesFiltetingOption: Int, FilteringOption {
     }
 }
 
+enum BucketGroupsFilteringOption: Int, FilteringOption {
+    case one = 1
+    case five = 5
+    case ten = 10
+
+    var id: Int {
+        self.rawValue
+    }
+
+    static var allOptions: [Self] {
+        [.one, .five, .ten]
+    }
+
+    var localizedName: String {
+        "\(rawValue)"
+    }
+}
+
 struct ChartFilters<Option: FilteringOption>: View {
     @Binding var selectedOption: Option
     private let options: [Option]
