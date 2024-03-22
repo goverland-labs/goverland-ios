@@ -80,10 +80,10 @@ struct MonthlyNewProposalsView: View {
                                     position: selectedDate <= midDate ? .trailing : .leading,
                                     alignment: .center, spacing: 4
                                 ) {
-                                    AnnotationView(firstPlaceholderValue: dataSource.spamProposalsCount(date: selectedDate),
-                                                   firstPlaceholderTitle: "Spam proposals",
-                                                   secondPlaceholderValue: dataSource.newProposalsCount(date: selectedDate),
-                                                   secondPlaceholderTitle: "New proposals",
+                                    AnnotationView(firstPlaceholderValue: dataSource.newProposalsCount(date: selectedDate),
+                                                   firstPlaceholderTitle: "New proposals",
+                                                   secondPlaceholderValue: dataSource.spamProposalsCount(date: selectedDate),
+                                                   secondPlaceholderTitle: "Spam proposals",
                                                    description: Utils.monthAndYear(from: selectedDate))
                                 }
                         }

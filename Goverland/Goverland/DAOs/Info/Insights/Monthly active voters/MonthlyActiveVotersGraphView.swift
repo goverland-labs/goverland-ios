@@ -79,10 +79,10 @@ struct MonthlyActiveVotersGraphView: View {
                                         position: selectedDate <= midDate ? .trailing : .leading,
                                         alignment: .center, spacing: 4
                                     ) {
-                                        AnnotationView(firstPlaceholderValue: dataSource.newVoters(date: selectedDate),
-                                                       firstPlaceholderTitle: "New voters",
-                                                       secondPlaceholderValue: dataSource.returningVoters(date: selectedDate),
-                                                       secondPlaceholderTitle: "Returning voters",
+                                        AnnotationView(firstPlaceholderValue: dataSource.returningVoters(date: selectedDate),
+                                                       firstPlaceholderTitle: "Returning voters",
+                                                       secondPlaceholderValue: dataSource.newVoters(date: selectedDate),
+                                                       secondPlaceholderTitle: "New voters",
                                                        description: Utils.monthAndYear(from: selectedDate))
                                     }
                             }
