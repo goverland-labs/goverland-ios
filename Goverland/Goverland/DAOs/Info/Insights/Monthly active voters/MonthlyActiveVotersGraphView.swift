@@ -59,7 +59,7 @@ struct MonthlyActiveVotersGraphView: View {
         var body: some View {
             VStack {
                 ChartFilters()
-                    .padding(.leading, Constants.horizontalPadding + 4)
+                    .padding(.leading, Constants.horizontalPadding)
 
                 Chart {
                     ForEach(dataSource.chartData, id: \.votersType) { element in

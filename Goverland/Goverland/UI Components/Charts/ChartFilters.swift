@@ -74,6 +74,7 @@ struct ChartFilters: View {
                     }
                 }
             }
+            .padding(.leading, 4)
         }
         .frame(height: 26)
     }
