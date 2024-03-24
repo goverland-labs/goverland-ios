@@ -13,6 +13,11 @@ struct Stats: Decodable {
     let daos: Daos
     let proposals: Proposals
 
+    enum CodingKeys: String, CodingKey {
+        case daos = "dao"
+        case proposals
+    }
+
     struct Daos: Decodable {
         let total: Int
         let totalVerified: Int
