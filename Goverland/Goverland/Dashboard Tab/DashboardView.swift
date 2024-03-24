@@ -167,8 +167,8 @@ fileprivate struct SignedOutUserDashboardView: View {
 
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
-    @ObservedObject private var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
-    @ObservedObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
+    @StateObject private var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
+    @StateObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
     @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
     var shouldShowDaosWithActiveVote: Bool {
