@@ -244,7 +244,7 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
-// MARK: - DAO Insights
+// MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
     typealias ResponseType = [MonthlyActiveUsers]
@@ -336,6 +336,16 @@ struct TopVotersEndpoint: APIEndpoint {
         self.daoID = daoID
         self.queryParameters = queryParameters
     }
+}
+
+
+// MARK: - Stats
+
+struct StatsEndpoint: APIEndpoint {
+    typealias ResponseType = Stats
+
+    var path: String = "stats/totals"
+    var method: HttpMethod = .get
 }
 
 // MARK: - Subscriptions
