@@ -1,5 +1,5 @@
 //
-//  AllVotersListView.swift
+//  AllDaoVotersListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-20.
@@ -9,14 +9,14 @@
 
 import SwiftUI
 
-struct AllVotersListView: View {
+struct AllDaoVotersListView: View {
     let dao: Dao
-    @StateObject private var dataSource: AllVotersDataSource
+    @StateObject private var dataSource: AllDaoVotersDataSource
     @Environment(\.dismiss) private var dismiss
     
     init(dao: Dao) {
         self.dao = dao
-        _dataSource = StateObject(wrappedValue: AllVotersDataSource(dao: dao))
+        _dataSource = StateObject(wrappedValue: AllDaoVotersDataSource(dao: dao))
     }
     
     var body: some View {

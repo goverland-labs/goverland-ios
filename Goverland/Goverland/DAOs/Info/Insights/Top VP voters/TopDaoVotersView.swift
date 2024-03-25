@@ -1,5 +1,5 @@
 //
-//  TopVotersView.swift
+//  TopDaoVotersView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-11-07.
@@ -10,14 +10,14 @@
 import SwiftUI
 import Charts
 
-struct TopVotersView: View {
+struct TopDaoVotersView: View {
     private let dao: Dao
-    @StateObject private var dataSource: TopVotersDataSource
+    @StateObject private var dataSource: TopDaoVotersDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(dao: Dao) {
         self.dao = dao
-        let dataSource = TopVotersDataSource(dao: dao)
+        let dataSource = TopDaoVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
     
@@ -66,7 +66,7 @@ struct TopVotersView: View {
 }
 
 fileprivate struct TopVotePowerVotersGraphView: View {
-    @ObservedObject var dataSource: TopVotersDataSource
+    @ObservedObject var dataSource: TopDaoVotersDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]

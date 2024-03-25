@@ -1,5 +1,5 @@
 //
-//  AllVotersDataSource.swift
+//  AllDaoVotersDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-20.
@@ -10,7 +10,7 @@
 import Foundation
 import Combine
 
-class AllVotersDataSource: ObservableObject, Paginatable, Refreshable {
+class AllDaoVotersDataSource: ObservableObject, Paginatable, Refreshable {
     private let dao: Dao
     @Published var voters: [TopVoter] = []
     @Published var failedToLoadInitialData = false

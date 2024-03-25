@@ -47,7 +47,7 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
 
             case .allDaoVoters(let dao):
                 PopoverNavigationViewWithToast {
-                    AllVotersListView(dao: dao)
+                    AllDaoVotersListView(dao: dao)
                 }
 
             case .followDaos:

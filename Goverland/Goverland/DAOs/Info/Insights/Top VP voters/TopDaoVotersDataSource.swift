@@ -1,5 +1,5 @@
 //
-//  TopVotersDataSource.swift
+//  TopDaoVotersDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-11-07.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class TopVotersDataSource: ObservableObject, Refreshable {
+class TopDaoVotersDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
     @Published var topVoters: [TopVoter] = []
     @Published var totalVotingPower: Double?
