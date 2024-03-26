@@ -325,7 +325,7 @@ struct MutualDaosEndpoint: APIEndpoint {
 }
 
 struct TopVotersEndpoint: APIEndpoint {
-    typealias ResponseType = [TopVoter]
+    typealias ResponseType = [TopDaoVoter]
     
     let daoID: UUID
     var path: String { "analytics/top-voters-by-vp/\(daoID)" }

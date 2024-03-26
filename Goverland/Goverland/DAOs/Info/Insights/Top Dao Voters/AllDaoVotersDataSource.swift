@@ -14,7 +14,7 @@ class AllDaoVotersDataSource: ObservableObject, Paginatable, Refreshable {
     let dao: Dao
     let filteringOption: DatesFiltetingOption
 
-    @Published var voters: [TopVoter] = []
+    @Published var voters: [TopDaoVoter] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false

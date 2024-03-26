@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class TopDaoVotersDataSource: TopVotersDataSource<TopVoter> {
+class TopDaoVotersDataSource: TopVotersDataSource<TopDaoVoter> {
     let dao: Dao
 
     init(dao: Dao) {

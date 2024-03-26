@@ -9,21 +9,6 @@
 
 import Foundation
 
-// TODO: move to separate file
-struct TopProposalVoter: VoterVotingPower, Decodable {
-    let voter: User
-    let votingPower: Double
-
-    var id: String {
-        voter.address.description
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case voter
-        case votingPower = "vp"
-    }
-}
-
 class SnapshotProposalTopVotersDataSource: TopVotersDataSource<TopProposalVoter> {
     private let proposal: Proposal
 

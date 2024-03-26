@@ -77,9 +77,9 @@ struct AllDaoVotersListView: View {
 }
 
 fileprivate struct TopVoteListItemView: View {
-    let voter: TopVoter
+    let voter: TopDaoVoter
     
-    init(_ voter: TopVoter) {
+    init(_ voter: TopDaoVoter) {
         self.voter = voter
     }
     

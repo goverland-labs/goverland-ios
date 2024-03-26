@@ -1,5 +1,5 @@
 //
-//  TopVoter.swift
+//  TopDaoVoter.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-11-07.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct TopVoter: VoterVotingPower, Decodable {
+struct TopDaoVoter: VoterVotingPower, Decodable {
     let voter: User
     let votingPower: Double
     let votesCount: Double
