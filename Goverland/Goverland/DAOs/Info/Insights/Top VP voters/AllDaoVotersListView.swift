@@ -10,13 +10,11 @@
 import SwiftUI
 
 struct AllDaoVotersListView: View {
-    let dao: Dao
     @StateObject private var dataSource: AllDaoVotersDataSource
     @Environment(\.dismiss) private var dismiss
     
-    init(dao: Dao) {
-        self.dao = dao
-        _dataSource = StateObject(wrappedValue: AllDaoVotersDataSource(dao: dao))
+    init(dao: Dao, filteringOption: DatesFiltetingOption) {
+        _dataSource = StateObject(wrappedValue: AllDaoVotersDataSource(dao: dao, filteringOption: filteringOption))
     }
     
     var body: some View {
@@ -64,7 +62,7 @@ struct AllDaoVotersListView: View {
             Tracker.track(.screenDaoInsightsTopVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(dao.name) voters by aVP")
+        .navigationTitle("\(dataSource.dao.name) voters by aVP (\(dataSource.filteringOption.localizedName)")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {

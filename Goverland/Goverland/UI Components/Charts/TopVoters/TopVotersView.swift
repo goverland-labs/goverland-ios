@@ -12,13 +12,15 @@ import Charts
 
 struct TopVotersView<Voter: VoterVotingPower>: View {
     @ObservedObject private var dataSource: TopVotersDataSource<Voter>
-
+    private let showFilters: Bool
     private var onShowAll: () -> Void
 
     init(dataSource: TopVotersDataSource<Voter>,
+         showFilters: Bool,
          onShowAll: @escaping () -> Void)
     {
         _dataSource = ObservedObject(wrappedValue: dataSource)
+        self.showFilters = showFilters
         self.onShowAll = onShowAll
     }
 
@@ -29,18 +31,17 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                     dataSource.refresh()
                 }
                 .frame(height: 120)
-            } else if dataSource.topVoters.isEmpty {
-                // It should not happen that a response from backend will be an empty array.
-                // It would mean that a DAO has no voters or our analytics miss data.
-                // As this is a very rare case, we will not introduce an additional `loading` state,
-                // but consider it loading when the result array is empty (default value)
+            } else if dataSource.topVoters == nil { // Loading
                 ProgressView()
                     .foregroundColor(.textWhite20)
                     .controlSize(.regular)
                     .frame(height: 120)
+            } else if dataSource.topVoters?.isEmpty ?? false {
+                Text("No votes in the selected period")
+                    .foregroundStyle(Color.textWhite)
             } else {
-                VStack {
-                    TopVotePowerVotersGraphView(dataSource: dataSource)
+                VStack(spacing: 8) {
+                    TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters)
                     Text("Show all voters")
                         .frame(width: 150, height: 35, alignment: .center)
                         .background(Capsule(style: .circular)
@@ -56,7 +57,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
         .padding()
         .padding(.bottom)
         .onAppear {
-            if dataSource.topVoters.isEmpty {
+            if dataSource.topVoters?.isEmpty ?? true {
                 dataSource.refresh()
             }
         }
@@ -65,6 +66,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
 
 fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
     @ObservedObject var dataSource: TopVotersDataSource<Voter>
+    let showFilters: Bool
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
@@ -79,6 +81,11 @@ fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
 
     var body: some View {
         VStack {
+            if showFilters {
+                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
+                    .padding(.bottom, 16)
+            }
+
             Chart(dataSource.top10votersGraphData) { voter in
                 BarMark(
                     x: .value("VotePower", voter.votingPower)

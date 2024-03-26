@@ -10,18 +10,14 @@ import Foundation
 import Combine
 
 class TopDaoVotersDataSource: TopVotersDataSource<TopVoter> {
-    private let daoID: UUID
+    let dao: Dao
 
-    init(daoID: UUID) {
-        self.daoID = daoID
-    }
-
-    convenience init(dao: Dao) {
-        self.init(daoID: dao.id)
+    init(dao: Dao) {
+        self.dao = dao
     }
 
     override func loadData() {
-        APIService.topVoters(id: daoID, limit: 10)
+        APIService.topVoters(id: dao.id, filteringOption: selectedFilteringOption, limit: 10)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -30,6 +26,7 @@ class TopDaoVotersDataSource: TopVotersDataSource<TopVoter> {
             } receiveValue: { [weak self] result, headers in
                 guard let `self` = self else { return }
                 self.topVoters = result
+                self.cache[selectedFilteringOption] = result
                 self.totalVotingPower = Utils.getTotalVotingPower(from: headers)
                 self.total = Utils.getTotal(from: headers)
             }

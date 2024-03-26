@@ -11,16 +11,35 @@ import Foundation
 import Combine
 
 class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshable {
-    // TODO: make optional. Result can be empty when loading Proposal votes
-    @Published var topVoters: [Voter] = []
+    @Published var topVoters: [Voter]?
     @Published var totalVotingPower: Double?
     @Published var failedToLoadInitialData: Bool = false
     var cancellables = Set<AnyCancellable>()
 
+    @Published var selectedFilteringOption: DatesFiltetingOption = .oneYear {
+        didSet {
+            refresh(invalidateCache: false)
+        }
+    }
+
     var total: Int?
+    var cache: [DatesFiltetingOption: [Voter]] = [:]
 
     func refresh() {
-        topVoters = []
+        refresh(invalidateCache: true)
+    }
+
+    private func refresh(invalidateCache: Bool) {
+        if let cachedData = cache[selectedFilteringOption], !invalidateCache {
+            topVoters = cachedData
+            return
+        }
+
+        if invalidateCache {
+            cache = [:]
+        }
+
+        topVoters = nil
         totalVotingPower = nil
         failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
@@ -33,7 +52,7 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
     }
 
     var top10votersGraphData: [Voter] {
-        var topVoters = topVoters
+        guard var topVoters = topVoters else { return [] }
         let total = total ?? 0
         if let totalPower = totalVotingPower, total > 10 {
             let otherUser = User(address: Address("Other"), resolvedName: "Other", avatars: [])
@@ -47,7 +66,7 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
         return topVoters
     }
 
-    func getTop10VotersVotingPower() -> Double {
-        return topVoters.reduce(0) { $0 + $1.votingPower }
+    private func getTop10VotersVotingPower() -> Double {
+        return topVoters!.reduce(0) { $0 + $1.votingPower }
     }
 }

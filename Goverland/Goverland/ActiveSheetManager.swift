@@ -12,7 +12,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case signIn
     case daoInfo(Dao)
     case publicProfile(Address)
-    case allDaoVoters(Dao)
+    case allDaoVoters(Dao, DatesFiltetingOption)
     case followDaos
     case archive
     case subscribeToNotifications

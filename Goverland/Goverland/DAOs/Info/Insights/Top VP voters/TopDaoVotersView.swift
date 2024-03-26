@@ -11,12 +11,10 @@ import SwiftUI
 import Charts
 
 struct TopDaoVotersView: View {
-    private let dao: Dao
     @StateObject private var dataSource: TopDaoVotersDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(dao: Dao) {
-        self.dao = dao
         let dataSource = TopDaoVotersDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
@@ -26,8 +24,8 @@ struct TopDaoVotersView: View {
                         subheader: "Average voting power is calculated based on the last six months of user activity.",
                         tooltipSide: .topLeft)
 
-        TopVotersView(dataSource: dataSource) {
-            activeSheetManager.activeSheet = .allDaoVoters(dao)
+        TopVotersView(dataSource: dataSource, showFilters: true) {
+            activeSheetManager.activeSheet = .allDaoVoters(dataSource.dao, dataSource.selectedFilteringOption)
         }
     }
 }
