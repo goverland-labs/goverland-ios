@@ -10,7 +10,7 @@
 import Foundation
 
 class SnapshotProposalTopVotersDataSource: TopVotersDataSource<TopProposalVoter> {
-    private let proposal: Proposal
+    let proposal: Proposal
 
     init(proposal: Proposal) {
         self.proposal = proposal

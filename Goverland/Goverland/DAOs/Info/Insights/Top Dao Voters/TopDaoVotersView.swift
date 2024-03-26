@@ -25,7 +25,7 @@ struct TopDaoVotersView: View {
                         tooltipSide: .topLeft)
 
         TopVotersView(dataSource: dataSource, showFilters: true) {
-            activeSheetManager.activeSheet = .allDaoVoters(dataSource.dao, dataSource.selectedFilteringOption)
+            activeSheetManager.activeSheet = .daoVoters(dataSource.dao, dataSource.selectedFilteringOption)
         }
     }
 }

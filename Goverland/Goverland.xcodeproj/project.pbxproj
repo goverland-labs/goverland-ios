@@ -727,8 +727,8 @@
 		550E85632A5F4C3400B0CFDD /* Votes */ = {
 			isa = PBXGroup;
 			children = (
-				550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */,
 				550E85652A5F4C3400B0CFDD /* SnapshotVotesView.swift */,
+				550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */,
 				BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */,
 			);
 			path = Votes;

@@ -23,7 +23,7 @@ struct SnapshotProposalTopVotersView: View {
             }
 
             TopVotersView(dataSource: dataSource, showFilters: false, horizontalPadding: 0) {
-                // TODO: impl
+                activeSheetManager.activeSheet = .proposalVoters(dataSource.proposal)
             }
         }
     }

@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct SnapshotVotesView<ChoiceType: Decodable>: View {
-    let proposal: Proposal
-    @StateObject var dataSource: SnapsotVotesDataSource<ChoiceType>
-    @State private var showAllVotes = false
+    private let proposal: Proposal
+    @StateObject private var dataSource: SnapsotVotesDataSource<ChoiceType>
+
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(proposal: Proposal) {
         self.proposal = proposal
@@ -50,18 +51,13 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                         .tint(.onSecondaryContainer)
                         .font(.footnoteSemibold)
                         .onTapGesture {
-                            showAllVotes = true
+                            activeSheetManager.activeSheet = .proposalVoters(proposal)
                         }
                 }
             }
         }
         .onAppear() {
             dataSource.refresh()
-        }
-        .sheet(isPresented: $showAllVotes) {
-            PopoverNavigationViewWithToast {
-                SnapshotAllVotesView<ChoiceType>(proposal: proposal)
-            }
         }
     }
 }
