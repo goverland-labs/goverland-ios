@@ -257,6 +257,18 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func topProposalVotes(proposalId: String,
+                                 offset: Int = 0,
+                                 limit: Int = 11) -> AnyPublisher<(ProposalTopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+
+        let endpoint = ProposalTopVotersEndpoint(proposalId: proposalId, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     static func validate(proposalID: String, voter: String) -> AnyPublisher<(ProposalValidateAddressEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = ProposalValidateAddressEndpoint(proposalID: proposalID, voter: voter)
         return shared.request(endpoint)

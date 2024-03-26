@@ -85,13 +85,13 @@ fileprivate struct _ProposalView: View {
                                              creator: proposal.author,
                                              allowShowingDaoInfo: allowShowingDaoInfo,
                                              proposal: proposal)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 16)
 
                 _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 16)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 32)
 
                 HStack {
                     Text("Off-Chain Vote")
@@ -102,15 +102,18 @@ fileprivate struct _ProposalView: View {
                 .padding(.bottom)
 
                 SnapshotProposalVoteTabView(proposal: proposal)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 32)
+
+                SnapshotProposalTopVotersView(proposal: proposal)
+                    .padding(.bottom, 32)
 
                 if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
-                    SnapshotProposalDiscussionView(proposal: proposal)
-                        .padding(.bottom, 35)
+                    _SnapshotProposalDiscussionView(proposal: proposal)
+                        .padding(.bottom, 32)
                 }
 
                 SnapshotProposalTimelineView(timeline: proposal.timeline)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 24)
             }
             .padding(.horizontal)
         }
@@ -207,7 +210,7 @@ fileprivate struct _SnapshotProposalStatusBarView: View {
     }
 }
 
-fileprivate struct SnapshotProposalDiscussionView: View {
+fileprivate struct _SnapshotProposalDiscussionView: View {
     let proposal: Proposal
     var body: some View {
         VStack{

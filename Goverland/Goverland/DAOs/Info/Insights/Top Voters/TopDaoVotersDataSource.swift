@@ -27,7 +27,7 @@ class TopDaoVotersDataSource: TopVotersDataSource<TopVoter> {
                 guard let `self` = self else { return }
                 self.topVoters = result
                 self.cache[selectedFilteringOption] = result
-                self.totalVotingPower = Utils.getTotalVotingPower(from: headers)
+                self.totalVotingPower = Utils.getTotalAvgVotingPower(from: headers)
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
