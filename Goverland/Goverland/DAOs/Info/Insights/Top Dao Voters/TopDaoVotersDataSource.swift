@@ -17,7 +17,7 @@ class TopDaoVotersDataSource: TopVotersDataSource<TopDaoVoter> {
     }
 
     override func loadData() {
-        APIService.topVoters(id: dao.id, filteringOption: selectedFilteringOption, limit: 10)
+        APIService.topDaoVoters(id: dao.id, filteringOption: selectedFilteringOption, limit: 10)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

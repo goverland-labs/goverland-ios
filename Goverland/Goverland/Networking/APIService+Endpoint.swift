@@ -163,10 +163,10 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func topVoters(id: UUID,
-                          filteringOption: DatesFiltetingOption,
-                          offset: Int = 0,
-                          limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func topDaoVoters(id: UUID,
+                             filteringOption: DatesFiltetingOption,
+                             offset: Int = 0,
+                             limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "filter", value: filteringOption.queryParamName),
             URLQueryItem(name: "offset", value: "\(offset)"),
