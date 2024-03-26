@@ -14,8 +14,17 @@ struct SnapshotProposalTopVotersView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
-        TopVotersView(dataSource: dataSource, showFilters: false, horizontalPadding: 0) {
-            // TODO: impl            
+        VStack(spacing: 0) {
+            HStack {
+                Text("Top 10 voters by VP")
+                    .font(.headlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+            }
+
+            TopVotersView(dataSource: dataSource, showFilters: false, horizontalPadding: 0) {
+                // TODO: impl
+            }
         }
     }
 }

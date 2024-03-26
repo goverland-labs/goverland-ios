@@ -46,7 +46,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                 VStack(spacing: 16) {
                     TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters)
                     Text("See all")
-                        .frame(width: 150, height: 35, alignment: .center)
+                        .frame(width: 124, height: 32, alignment: .center)
                         .background(Capsule(style: .circular)
                             .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
                         .tint(.onSecondaryContainer)

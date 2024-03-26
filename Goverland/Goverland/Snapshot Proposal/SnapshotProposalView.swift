@@ -222,6 +222,8 @@ fileprivate struct _SnapshotProposalStatusBarView: View {
 
 fileprivate struct _SnapshotProposalDiscussionView: View {
     let proposal: Proposal
+    @Environment(\.isPresented) private var isPresented
+
     var body: some View {
         VStack{
             HStack {
@@ -250,7 +252,7 @@ fileprivate struct _SnapshotProposalDiscussionView: View {
             .font(.footnoteRegular)
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundStyle(Color.container)
+                    .foregroundStyle(isPresented ? Color.containerBright : Color.container)
             )
         }
     }
