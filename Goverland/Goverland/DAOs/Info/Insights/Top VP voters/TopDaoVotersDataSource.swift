@@ -9,26 +9,8 @@
 import Foundation
 import Combine
 
-class TopDaoVotersDataSource: ObservableObject, Refreshable {
+class TopDaoVotersDataSource: TopVotersDataSource<TopVoter> {
     private let daoID: UUID
-    @Published var topVoters: [TopVoter] = []
-    @Published var totalVotingPower: Double?
-    @Published var failedToLoadInitialData: Bool = false
-    private var cancellables = Set<AnyCancellable>()
-
-    private var total: Int?
-
-    var top10votersGraphData: [TopVoter] {
-        var topVoters = topVoters
-        let total = total ?? 0
-        if let totalPower = totalVotingPower, total > 10 {
-            let otherUser = User(address: Address("Other"), resolvedName: "Other", avatars: [])
-            topVoters.append(TopVoter(voter: otherUser,
-                                      votingPower: totalPower - getTop10VotersVotingPower(),
-                                      votesCount: 0))
-        }
-        return topVoters
-    }
 
     init(daoID: UUID) {
         self.daoID = daoID
@@ -38,16 +20,7 @@ class TopDaoVotersDataSource: ObservableObject, Refreshable {
         self.init(daoID: dao.id)
     }
 
-    func refresh() {
-        topVoters = []
-        totalVotingPower = nil
-        failedToLoadInitialData = false
-        cancellables = Set<AnyCancellable>()
-
-        loadInitialData()
-    }
-
-    private func loadInitialData() {
+    override func loadData() {
         APIService.topVoters(id: daoID, limit: 10)
             .sink { [weak self] completion in
                 switch completion {
@@ -61,9 +34,5 @@ class TopDaoVotersDataSource: ObservableObject, Refreshable {
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
-    }
-
-    private func getTop10VotersVotingPower() -> Double {
-        return topVoters.reduce(0) { $0 + $1.votingPower }
     }
 }

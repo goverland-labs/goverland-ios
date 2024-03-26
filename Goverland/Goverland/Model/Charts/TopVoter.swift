@@ -9,10 +9,16 @@
 
 import SwiftUI
 
-struct TopVoter: Decodable {
+struct TopVoter: VoterVotingPower, Decodable {
     let voter: User
     let votingPower: Double
     let votesCount: Double
+
+    init(voter: User, votingPower: Double) {
+        self.voter = voter
+        self.votingPower = votingPower
+        self.votesCount = 0
+    }
 
     enum CodingKeys: String, CodingKey {
         case voter
