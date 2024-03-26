@@ -40,7 +40,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                 Text("No votes in the selected period")
                     .foregroundStyle(Color.textWhite)
             } else {
-                VStack(spacing: 8) {
+                VStack(spacing: 16) {
                     TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters)
                     Text("Show all voters")
                         .frame(width: 150, height: 35, alignment: .center)
@@ -101,7 +101,7 @@ fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
                                        range: barColors) // assigns colors to the segments of the bar
 
             // Custom Chart Legend
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
                 let count = dataSource.top10votersGraphData.count
                 ForEach((0..<min(11, count)), id: \.self) { index in
                     HStack {
@@ -113,6 +113,7 @@ fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
                             .foregroundColor(.textWhite60)
                     }
                     .onTapGesture {
+                        // Skip tapping on `Other`
                         if index < 10 {
                             let address = dataSource.top10votersGraphData[index].voter.address
                             activeSheetManager.activeSheet = .publicProfile(address)

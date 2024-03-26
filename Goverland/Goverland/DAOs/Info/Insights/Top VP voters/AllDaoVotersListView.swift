@@ -62,7 +62,7 @@ struct AllDaoVotersListView: View {
             Tracker.track(.screenDaoInsightsTopVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(dataSource.dao.name) voters by aVP (\(dataSource.filteringOption.localizedName)")
+        .navigationTitle("\(dataSource.dao.name) voters by aVP (\(dataSource.filteringOption.localizedName))")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
