@@ -13,14 +13,17 @@ import Charts
 struct TopVotersView<Voter: VoterVotingPower>: View {
     @ObservedObject private var dataSource: TopVotersDataSource<Voter>
     private let showFilters: Bool
+    private let horizontalPadding: CGFloat
     private var onShowAll: () -> Void
 
     init(dataSource: TopVotersDataSource<Voter>,
          showFilters: Bool,
+         horizontalPadding: CGFloat = Constants.horizontalPadding,
          onShowAll: @escaping () -> Void)
     {
         _dataSource = ObservedObject(wrappedValue: dataSource)
         self.showFilters = showFilters
+        self.horizontalPadding = horizontalPadding
         self.onShowAll = onShowAll
     }
 
@@ -54,8 +57,8 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                 }
             }
         }
-        .padding()
-        .padding(.bottom)
+        .padding(.horizontal, horizontalPadding)
+        .padding(.vertical, 16)
         .onAppear {
             if dataSource.topVoters?.isEmpty ?? true {
                 dataSource.refresh()
@@ -93,7 +96,7 @@ fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
                 .foregroundStyle(by: .value("Name", voter.voter.usernameShort))
                 .clipShape(barShape(for: voter))
             }
-            .frame(height: 30)
+            .frame(height: 32)
             .chartXAxis(.hidden)
             .chartLegend(.hidden)
             .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view

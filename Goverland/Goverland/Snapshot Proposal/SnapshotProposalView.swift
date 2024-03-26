@@ -71,6 +71,14 @@ struct SnapshotProposalView: View {
 fileprivate struct _ProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
+    @StateObject private var dataSource: SnapshotProposalTopVotersDataSource
+
+    init(proposal: Proposal, allowShowingDaoInfo: Bool) {
+        self.proposal = proposal
+        self.allowShowingDaoInfo = allowShowingDaoInfo
+        let dataSource = SnapshotProposalTopVotersDataSource(proposal: proposal)
+        _dataSource = StateObject(wrappedValue: dataSource)
+    }
 
     var voted: Bool {
         proposal.userVote != nil
@@ -104,8 +112,10 @@ fileprivate struct _ProposalView: View {
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 32)
 
-                SnapshotProposalTopVotersView(proposal: proposal)
-                    .padding(.bottom, 32)
+                if !(dataSource.topVoters?.isEmpty ?? false) {
+                    SnapshotProposalTopVotersView(dataSource: dataSource)
+                        .padding(.bottom, 32)
+                }
 
                 if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
                     _SnapshotProposalDiscussionView(proposal: proposal)
