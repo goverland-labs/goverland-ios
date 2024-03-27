@@ -78,7 +78,8 @@ struct AllDaoVotersListView: View {
 
 fileprivate struct TopVoteListItemView: View {
     let voter: TopDaoVoter
-    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     init(_ voter: TopDaoVoter) {
         self.voter = voter
     }
@@ -86,7 +87,8 @@ fileprivate struct TopVoteListItemView: View {
     var body: some View {
         HStack {
             IdentityView(user: voter.voter) {
-                // TODO
+                activeSheetManager.activeSheet = .publicProfile(voter.voter.address)
+                // TODO: track
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
