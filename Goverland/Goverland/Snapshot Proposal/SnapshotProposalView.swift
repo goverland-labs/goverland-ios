@@ -84,6 +84,11 @@ fileprivate struct _ProposalView: View {
         proposal.userVote != nil
     }
 
+    var shouldShowTopVoters: Bool {
+        guard let topVoters = dataSource.topVoters else { return true } // show when data is loading
+        return !topVoters.isEmpty // don't show the loading state or when no voters yet            
+    }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
@@ -112,7 +117,7 @@ fileprivate struct _ProposalView: View {
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 32)
 
-                if !(dataSource.topVoters?.isEmpty ?? false) {
+                if shouldShowTopVoters {
                     SnapshotProposalTopVotersView(dataSource: dataSource)
                         .padding(.bottom, 32)
                 }
