@@ -145,19 +145,19 @@ enum Utils {
         return formatter.string(from: date)
     }
 
-    static func formatDateToStartOfMonth(_ date: Date, dayOffset: Int = 0) -> Date {
+    static func formatDateToStartOfMonth(_ date: Date, day: Int = 1) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month], from: date)
         components.timeZone = .gmt
-        components.day = dayOffset
+        components.day = day
         return calendar.date(from: components)!
     }
 
-    static func formatDateToStartOfDay(_ date: Date, hourOffset: Int = 0) -> Date {
+    static func formatDateToStartOfDay(_ date: Date, hour: Int = 0) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month, .day], from: date)
         components.timeZone = .gmt
-        components.hour = hourOffset
+        components.hour = hour
         return calendar.date(from: components)!
     }
 

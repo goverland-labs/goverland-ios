@@ -62,7 +62,7 @@ struct MonthlyTotalDaosView: View {
                         .foregroundStyle(Color.primaryDim)
                         
                         if let selectedDate {
-                            RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, dayOffset: 15)))
+                            RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, day: 15)))
                                 .foregroundStyle(Color.textWhite)
                                 .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(

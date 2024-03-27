@@ -58,8 +58,8 @@ fileprivate struct _MonthlyNewProposalsChart: GraphViewContent {
 
     private var middleMarkDate: Date {
         dataSource.selectedFilteringOption == .oneMonth ? 
-            Utils.formatDateToStartOfDay(selectedDate!, hourOffset: 6) :
-            Utils.formatDateToStartOfMonth(selectedDate!, dayOffset: 15)
+            Utils.formatDateToStartOfDay(selectedDate!, hour: 6) :
+            Utils.formatDateToStartOfMonth(selectedDate!, day: 15)
     }
 
     private var midDate: Date {

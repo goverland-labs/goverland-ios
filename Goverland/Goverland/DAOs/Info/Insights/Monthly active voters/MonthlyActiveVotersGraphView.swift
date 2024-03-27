@@ -26,7 +26,7 @@ struct MonthlyActiveVotersGraphView: View {
                   height: 350,
                   onRefresh: dataSource.refresh)
         {
-            MonthlyActiveChart(dataSource: dataSource)
+            _MonthlyActiveUsersChart(dataSource: dataSource)
         }
         .onAppear() {
             if dataSource.monthlyActiveUsers.isEmpty {
@@ -34,69 +34,89 @@ struct MonthlyActiveVotersGraphView: View {
             }
         }
     }
+}
 
-    struct MonthlyActiveChart: GraphViewContent {
-        @ObservedObject var dataSource: MonthlyActiveVotersDataSource
-        @State private var selectedDate: Date? = nil
+struct _MonthlyActiveUsersChart: GraphViewContent {
+    @ObservedObject var dataSource: MonthlyActiveVotersDataSource
+    @State private var selectedDate: Date? = nil
 
-        var minScaleDate: Date {
-            (dataSource.monthlyActiveUsers.first?.date ?? Date()) - 1.months
+    private var dateAdjustment: DateComponents {
+        dataSource.selectedFilteringOption == .oneMonth ? 1.days : 1.months
+    }
+
+    private var unit: Calendar.Component {
+        dataSource.selectedFilteringOption == .oneMonth ? .day : .month
+    }
+
+    private var minScaleDate: Date {
+        (dataSource.monthlyActiveUsers.first?.date ?? Date()) - dateAdjustment
+    }
+
+    private var maxScaleDate: Date {
+        (dataSource.monthlyActiveUsers.last?.date ?? Date()) + dateAdjustment
+    }
+
+    private var middleMarkDate: Date {
+        dataSource.selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(selectedDate!, hour: 6) :
+            Utils.formatDateToStartOfMonth(selectedDate!, day: 15)
+    }
+
+    private var midDate: Date {
+        let count = dataSource.monthlyActiveUsers.count
+        if count > 0 {
+            return dataSource.monthlyActiveUsers[count/2].date
+        } else {
+            return Date()
         }
+    }
 
-        var maxScaleDate: Date {
-            (dataSource.monthlyActiveUsers.last?.date ?? Date()) + 1.months
-        }
+    private var dateStr: String {
+        dataSource.selectedFilteringOption == .oneMonth ?
+            Utils.shortDateWithoutTime(selectedDate!) :
+            Utils.monthAndYear(selectedDate!)
+    }
 
-        var midDate: Date {
-            let count = dataSource.monthlyActiveUsers.count
-            if count > 0 {
-                return dataSource.monthlyActiveUsers[count/2].date
-            } else {
-                return Date()
-            }
-        }
+    var body: some View {
+        VStack {
+            ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
+                .padding(.leading, Constants.horizontalPadding)
 
-        var body: some View {
-            VStack {
-                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
-                    .padding(.leading, Constants.horizontalPadding)
+            Chart {
+                ForEach(dataSource.chartData, id: \.votersType) { element in
+                    ForEach(element.data, id: \.date) { data in
+                        BarMark (
+                            x: .value("Date", data.date, unit: unit),
+                            y: .value("Voters", data.voters)
+                        )
+                        .foregroundStyle(by: .value("Voters(type)", element.votersType))
+                        .foregroundStyle(Color.primaryDim)
 
-                Chart {
-                    ForEach(dataSource.chartData, id: \.votersType) { element in
-                        ForEach(element.data, id: \.date) { data in
-                            BarMark (
-                                x: .value("Date", data.date, unit: .month),
-                                y: .value("Voters", data.voters)
-                            )
-                            .foregroundStyle(by: .value("Voters(type)", element.votersType))
-                            .foregroundStyle(Color.primaryDim)
-
-                            if let selectedDate {
-                                RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, dayOffset: 15)))
-                                    .foregroundStyle(Color.textWhite)
-                                    .lineStyle(.init(lineWidth: 1, dash: [2]))
-                                    .annotation(
-                                        position: selectedDate <= midDate ? .trailing : .leading,
-                                        alignment: .center, spacing: 4
-                                    ) {
-                                        AnnotationView(firstPlaceholderValue: dataSource.returningVoters(date: selectedDate),
-                                                       firstPlaceholderTitle: "Returning voters",
-                                                       secondPlaceholderValue: dataSource.newVoters(date: selectedDate),
-                                                       secondPlaceholderTitle: "New voters",
-                                                       description: Utils.monthAndYear(selectedDate))
-                                    }
-                            }
+                        if let selectedDate {
+                            RuleMark(x: .value("Date", middleMarkDate))
+                                .foregroundStyle(Color.textWhite)
+                                .lineStyle(.init(lineWidth: 1, dash: [2]))
+                                .annotation(
+                                    position: selectedDate <= midDate ? .trailing : .leading,
+                                    alignment: .center, spacing: 4
+                                ) {
+                                    AnnotationView(firstPlaceholderValue: dataSource.returningVoters(date: selectedDate),
+                                                   firstPlaceholderTitle: "Returning voters",
+                                                   secondPlaceholderValue: dataSource.newVoters(date: selectedDate),
+                                                   secondPlaceholderTitle: "New voters",
+                                                   description: dateStr)
+                                }
                         }
                     }
                 }
-                .padding()
-                .chartXScale(domain: [minScaleDate, maxScaleDate])
-                .chartForegroundStyleScale([
-                    // String name has to be same as in dataSource.chartData
-                    "Returning voters": Color.primaryDim, "New voters": Color.cyan
-                ])
-                .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
             }
+            .padding()
+            .chartXScale(domain: [minScaleDate, maxScaleDate])
+            .chartForegroundStyleScale([
+                // String name has to be same as in dataSource.chartData
+                "Returning voters": Color.primaryDim, "New voters": Color.cyan
+            ])
+            .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
         }
     }
 }
