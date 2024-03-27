@@ -175,8 +175,8 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
 }
 
 struct PublicProfileEndpoint: APIEndpoint {
-    typealias ResponseType = PublicUserProfile
-    
+    typealias ResponseType = User
+
     let address: Address
     
     var path: String { "user/\(address)" }
@@ -194,9 +194,11 @@ struct PublicProfileVotesEndpoint: APIEndpoint {
     
     var path: String { "user/\(address)/votes" }
     var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
 
-    init(address: Address) {
+    init(address: Address, queryParameters: [URLQueryItem]) {
         self.address = address
+        self.queryParameters = queryParameters
     }
 }
 
@@ -268,7 +270,7 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
-    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+    init(daoID: UUID, queryParameters: [URLQueryItem]) {
         self.daoID = daoID
         self.queryParameters = queryParameters
     }
@@ -304,9 +306,11 @@ struct MonthlyNewProposalsEndpoint: APIEndpoint {
     let daoID: UUID
     var path: String { "analytics/monthly-new-proposals/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 

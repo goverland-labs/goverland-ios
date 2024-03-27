@@ -38,6 +38,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let scoresTotal: Double
     let votes: Int
     let userVote: AnyVote?
+    let publicUserVote: AnyVote?
     let dao: Dao
     let timeline: [TimelineEvent]
 
@@ -128,6 +129,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case scoresTotal = "scores_total"
         case votes
         case userVote = "user_vote"
+        case publicUserVote = "public_user_vote"
         case dao
         case timeline
     }
@@ -163,6 +165,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          scoresTotal: Double,
          votes: Int,
          userVote: AnyVote?,
+         publicUserVote: AnyVote?,
          dao: Dao,
          timeline: [TimelineEvent])
     {
@@ -189,6 +192,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scoresTotal = scoresTotal
         self.votes = votes
         self.userVote = userVote
+        self.publicUserVote = publicUserVote
         self.dao = dao
         self.timeline = timeline
     }
@@ -256,33 +260,18 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.scoresTotal = try container.decode(Double.self, forKey: .scoresTotal)
         self.votes = try container.decode(Int.self, forKey: .votes)
 
-        // Decoding properly user vote depending of privacy and type of the proposal
-        var _userVote: AnyVote?
-        do {
-            if self.privacy == .shutter && self.state == .active  {
-                if let vote = try container.decodeIfPresent(Vote<String>.self, forKey: .userVote) {
-                    _userVote = AnyVote(base: vote)
-                }
-            } else {
-                switch self.type {
-                case .singleChoice, .basic:
-                    if let vote = try container.decodeIfPresent(Vote<Int>.self, forKey: .userVote) {
-                        _userVote = AnyVote(base: vote)
-                    }
-                case .approval, .rankedChoice:
-                    if let vote = try container.decodeIfPresent(Vote<[Int]>.self, forKey: .userVote) {
-                        _userVote = AnyVote(base: vote)
-                    }
-                case .weighted, .quadratic:
-                    if let vote = try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: .userVote) {
-                        _userVote = AnyVote(base: vote)
-                    }
-                }
-            }
-        } catch {
-            logError(GError.errorDecodingData(error: error, context: "Decoding `user_vote`: Proposal ID: \(id)"))
-        }
-        self.userVote = _userVote
+        self.userVote = Self.choiceForKey(.userVote,
+                                          id: id,
+                                          privacy: privacy,
+                                          state: state,
+                                          type: type,
+                                          container: container)
+        self.publicUserVote = Self.choiceForKey(.publicUserVote,
+                                                id: id,
+                                                privacy: privacy,
+                                                state: state,
+                                                type: type,
+                                                container: container)
 
         do {
             self.dao = try container.decode(Dao.self, forKey: .dao)
@@ -300,6 +289,41 @@ struct Proposal: Decodable, Hashable, Identifiable {
             logError(GError.errorDecodingData(error: error, context: "Decoding `timeline`. Proposal ID: \(id)"))
             self.timeline = []
         }
+    }
+
+    private static func choiceForKey(_ key: CodingKeys,
+                                     id: String,
+                                     privacy: Privacy?,
+                                     state: State,
+                                     type: ProposalType,
+                                     container: KeyedDecodingContainer<CodingKeys>) -> AnyVote? {
+        // Decoding properly user vote depending of privacy and type of the proposal
+        var _vote: AnyVote?
+        do {
+            if privacy == .shutter && state == .active  {
+                if let vote = try container.decodeIfPresent(Vote<String>.self, forKey: key) {
+                    _vote = AnyVote(base: vote)
+                }
+            } else {
+                switch type {
+                case .singleChoice, .basic:
+                    if let vote = try container.decodeIfPresent(Vote<Int>.self, forKey: key) {
+                        _vote = AnyVote(base: vote)
+                    }
+                case .approval, .rankedChoice:
+                    if let vote = try container.decodeIfPresent(Vote<[Int]>.self, forKey: key) {
+                        _vote = AnyVote(base: vote)
+                    }
+                case .weighted, .quadratic:
+                    if let vote = try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: key) {
+                        _vote = AnyVote(base: vote)
+                    }
+                }
+            }
+        } catch {
+            logError(GError.errorDecodingData(error: error, context: "Decoding `\(key.rawValue)`: Proposal ID: \(id)"))
+        }
+        return _vote
     }
 }
 
@@ -334,6 +358,7 @@ extension Proposal {
         scoresTotal: 2368965.954349676,
         votes: 731, 
         userVote: nil,
+        publicUserVote: nil,
         dao: .aave,
         timeline: [])
 }

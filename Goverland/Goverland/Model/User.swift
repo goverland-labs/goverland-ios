@@ -62,6 +62,12 @@ extension User {
     }
 }
 
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.address == rhs.address
+    }
+}
+
 // MARK: - Mocks
 
 extension User {

@@ -84,6 +84,11 @@ fileprivate struct _ProposalView: View {
         proposal.userVote != nil
     }
 
+    var shouldShowTopVoters: Bool {
+        guard let topVoters = dataSource.topVoters else { return true } // show when data is loading
+        return !topVoters.isEmpty // don't show the loading state or when no voters yet
+    }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
@@ -112,7 +117,7 @@ fileprivate struct _ProposalView: View {
                 SnapshotProposalVoteTabView(proposal: proposal)
                     .padding(.bottom, 32)
 
-                if !(dataSource.topVoters?.isEmpty ?? false) {
+                if shouldShowTopVoters {
                     SnapshotProposalTopVotersView(dataSource: dataSource)
                         .padding(.bottom, 32)
                 }
@@ -173,14 +178,12 @@ fileprivate struct _SnapshotProposalCreatorView: View {
             Text("by")
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite60)
-            IdentityView(user: creator)
-                .font(.footnoteSemibold)
-                .foregroundStyle(Color.textWhite)
-                .gesture(TapGesture().onEnded { _ in
-                    activeSheetManager.activeSheet = .publicProfile(creator.address)
-                    Tracker.track(.snpDetailsShowUserProfile)
-                    
-                })
+            
+            IdentityView(user: creator) {
+                activeSheetManager.activeSheet = .publicProfile(creator.address)
+                Tracker.track(.snpDetailsShowUserProfile)
+            }
+
             Spacer()
         }
     }

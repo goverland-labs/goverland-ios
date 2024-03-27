@@ -62,7 +62,7 @@ struct MonthlyTotalDaosView: View {
                         .foregroundStyle(Color.primaryDim)
                         
                         if let selectedDate {
-                            RuleMark(x: .value("Date", Utils.formatDateToMiddleOfMonth(selectedDate)))
+                            RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, day: 15)))
                                 .foregroundStyle(Color.textWhite)
                                 .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(
@@ -73,7 +73,7 @@ struct MonthlyTotalDaosView: View {
                                                    firstPlaceholderTitle: "New daos",
                                                    secondPlaceholderValue: dataSource.returningDaos(date: selectedDate),
                                                    secondPlaceholderTitle: "Returning daos",
-                                                   description: Utils.monthAndYear(from: selectedDate))
+                                                   description: Utils.monthAndYear(selectedDate))
                                 }
                         }
                     }

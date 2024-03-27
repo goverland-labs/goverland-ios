@@ -62,7 +62,7 @@ struct MonthlyTotalNewProposalsView: View {
                 }
 
                 if let selectedDate {
-                    RuleMark(x: .value("Date", Utils.formatDateToMiddleOfMonth(selectedDate)))
+                    RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, day: 15)))
                         .foregroundStyle(Color.textWhite)
                         .lineStyle(.init(lineWidth: 1, dash: [2]))
                         .annotation(
@@ -73,7 +73,7 @@ struct MonthlyTotalNewProposalsView: View {
                                            firstPlaceholderTitle: "New proposals",
                                            secondPlaceholderValue: nil,
                                            secondPlaceholderTitle: nil,
-                                           description: Utils.monthAndYear(from: selectedDate))
+                                           description: Utils.monthAndYear(selectedDate))
                         }
                 }
             }

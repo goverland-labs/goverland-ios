@@ -89,7 +89,9 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     }
 
     func returningVoters(date: Date) -> String {
-        let date = Utils.formatDateToStartOfMonth(date)
+        let date = selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(date) :
+            Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
             return Utils.decimalNumber(from: data.activeUsers - data.newUsers)
         }
@@ -97,7 +99,9 @@ class MonthlyActiveVotersDataSource: ObservableObject, Refreshable {
     }
 
     func newVoters(date: Date) -> String {
-        let date = Utils.formatDateToStartOfMonth(date)
+        let date = selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(date) :
+            Utils.formatDateToStartOfMonth(date)
         if let data = monthlyActiveUsers.first(where: { $0.date == date }) {
             return Utils.decimalNumber(from: data.newUsers)
         }

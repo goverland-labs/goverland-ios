@@ -11,6 +11,7 @@ import SwiftUI
 struct ArchiveView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var data = ArchiveDataSource()
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @State private var selectedEventIndex: Int?
     @State private var path = NavigationPath()
 
@@ -121,7 +122,9 @@ struct ArchiveView: View {
         }
         .tint(.textWhite)
         .overlay {
+            // we need it to espace crashes inside ToastView
             ToastView()
+                .environmentObject(activeSheetManager)
         }
         .onAppear() {
             data.refresh()

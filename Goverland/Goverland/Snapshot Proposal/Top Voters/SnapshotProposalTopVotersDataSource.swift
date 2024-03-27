@@ -27,8 +27,7 @@ class SnapshotProposalTopVotersDataSource: TopVotersDataSource<TopProposalVoter>
                 guard let `self` = self else { return }
                 // filter the first voter out if this is the app user
                 let filtered = result.sorted { $0.votingPower > $1.votingPower }.prefix(10)
-                self.topVoters = Array(filtered)
-                self.cache[selectedFilteringOption] = Array(filtered)
+                self.topVoters = Array(filtered)                
                 self.totalVotingPower = Utils.getTotalVotingPower(from: headers)
                 self.total = Utils.getTotal(from: headers)
             }

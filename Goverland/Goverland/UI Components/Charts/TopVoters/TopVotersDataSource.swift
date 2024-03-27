@@ -66,6 +66,11 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
         return topVoters
     }
 
+    var allVotersHaveSamePower: Bool {
+        guard let topVoters = topVoters, !topVoters.isEmpty else { return false }
+        return topVoters.first!.votingPower == topVoters.last!.votingPower
+    }
+
     private func getTop10VotersVotingPower() -> Double {
         return topVoters!.reduce(0) { $0 + $1.votingPower }
     }

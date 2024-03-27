@@ -14,7 +14,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
     @ObservedObject private var dataSource: TopVotersDataSource<Voter>
     private let showFilters: Bool
     private let horizontalPadding: CGFloat
-    private var onShowAll: () -> Void
+    private let onShowAll: () -> Void
 
     init(dataSource: TopVotersDataSource<Voter>,
          showFilters: Bool,
@@ -40,20 +40,16 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                     .controlSize(.regular)
                     .frame(height: 120)
             } else if dataSource.topVoters?.isEmpty ?? false {
-                Text("No votes in the selected period")
-                    .foregroundStyle(Color.textWhite)
+                _MessageView(text: "No votes in the selected period")
+            } else if dataSource.allVotersHaveSamePower {
+                VStack(spacing: 16) {
+                    _MessageView(text: "All voters have the same voting power")
+                    _SeeAllButtonView(onShowAll: onShowAll)
+                }
             } else {
                 VStack(spacing: 16) {
                     TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters)
-                    Text("See all")
-                        .frame(width: 124, height: 32, alignment: .center)
-                        .background(Capsule(style: .circular)
-                            .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-                        .tint(.onSecondaryContainer)
-                        .font(.footnoteSemibold)
-                        .onTapGesture {
-                            onShowAll()
-                        }
+                    _SeeAllButtonView(onShowAll: onShowAll)
                 }
             }
         }
@@ -64,6 +60,35 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                 dataSource.refresh()
             }
         }
+    }
+}
+
+fileprivate struct _MessageView: View {
+    let text: String
+
+    var body: some View {
+        HStack {
+            Text(text)
+                .foregroundStyle(Color.textWhite)
+            Spacer()
+        }
+        .padding(.horizontal, Constants.horizontalPadding)
+    }
+}
+
+fileprivate struct _SeeAllButtonView: View {
+    let onShowAll: () -> Void
+
+    var body: some View {
+        Text("See all")
+            .frame(width: 124, height: 32, alignment: .center)
+            .background(Capsule(style: .circular)
+                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+            .tint(.onSecondaryContainer)
+            .font(.footnoteSemibold)
+            .onTapGesture {
+                onShowAll()
+            }
     }
 }
 

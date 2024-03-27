@@ -60,7 +60,7 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
     
     private func loadData() {
-        APIService.monthlyNewProposals(id: daoID)
+        APIService.monthlyNewProposals(id: daoID, filteringOption: selectedFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -90,7 +90,9 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
 
     func newProposalsCount(date: Date) -> String {
-        let date = Utils.formatDateToStartOfMonth(date)
+        let date = selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(date) :
+            Utils.formatDateToStartOfMonth(date)
         if let data = monthlyNewProposals.first(where: { $0.date == date }) {
             return Utils.decimalNumber(from: data.count - data.spamCount)
         }
@@ -98,7 +100,9 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
 
     func spamProposalsCount(date: Date) -> String {
-        let date = Utils.formatDateToStartOfMonth(date)
+        let date = selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(date) :
+            Utils.formatDateToStartOfMonth(date)
         if let data = monthlyNewProposals.first(where: { $0.date == date }) {
             return Utils.decimalNumber(from: data.spamCount)
         }

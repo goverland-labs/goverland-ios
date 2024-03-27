@@ -24,7 +24,7 @@ enum PublicUserProfileFilter: Int, FilterOptions {
 class PublicUserProfileDataSource: ObservableObject, Refreshable {
     let address: Address
     
-    @Published var profile: PublicUserProfile?
+    @Published var profile: User?
     @Published var failedToLoadInitialData = false
     @Published var filter: PublicUserProfileFilter = .activity
     @Published var isLoading = false
@@ -42,14 +42,10 @@ class PublicUserProfileDataSource: ObservableObject, Refreshable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        //loadInitialData()
-        self.profile = PublicUserProfile(
-            id: UUID(),
-            user: User.aaveChan,
-            votedInDaos: [Dao.gnosis, Dao.aave])
+        loadData()
     }
 
-    private func loadInitialData() {
+    private func loadData() {
         isLoading = true
         APIService.publicProfile(address: address)
             .sink { [weak self] completion in

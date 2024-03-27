@@ -20,18 +20,25 @@ fileprivate extension Avatar.Size {
 }
 
 struct IdentityView: View {
-    var user: User
+    let user: User
     let size: Avatar.Size
+    let font: Font?
+    let onTap: (() -> Void)?
 
-    init(user: User, size: Avatar.Size = .xs) {
+    init(user: User, size: Avatar.Size = .xs, font: Font? = nil, onTap: (() -> Void)?) {
         self.user = user
         self.size = size
+        self.font = font
+        self.onTap = onTap
     }
 
     var body: some View {
         HStack(spacing: 6) {
             UserPictureView(user: user, size: size)
-            UserNameView(user: user, font: size.textFont)
+            UserNameView(user: user, font: font ?? size.textFont)
+        }
+        .onTapGesture {
+            onTap?()
         }
     }
 }
@@ -79,9 +86,9 @@ fileprivate struct UserNameView: View {
 struct Previews_IdentityView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
-            IdentityView(user: User.test)
-            IdentityView(user: User.flipside)
-            IdentityView(user: User.aaveChan)
+            IdentityView(user: User.test, onTap: nil)
+            IdentityView(user: User.flipside, onTap: nil)
+            IdentityView(user: User.aaveChan, onTap: nil)
         }
         .background(Color.containerDim)
     }

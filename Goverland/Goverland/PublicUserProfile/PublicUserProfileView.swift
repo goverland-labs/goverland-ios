@@ -11,7 +11,7 @@ import SwiftUI
 
 enum PublicUserProfileScreen: Hashable {
     case votedInDaos
-    case votes
+    case votes([Proposal])
     case vote(Proposal)
 }
 
@@ -35,15 +35,13 @@ struct PublicUserProfileView: View {
                     ShimmerProfileHeaderView()
                     Spacer()
                 } else if let profile = dataSource.profile {
-                    ProfileHeaderView(user: profile.user)
+                    ProfileHeaderView(user: profile)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
                     
                     switch dataSource.filter {
                     case .activity:
-                        PublicUserProfileListView(profile: profile,
-                                                  address: dataSource.address,                                                  
-                                                  path: $path)
+                        PublicUserProfileActivityView(address: dataSource.address, path: $path)
                     }
                 }
             }
@@ -70,13 +68,16 @@ struct PublicUserProfileView: View {
                 case .votedInDaos:
                     // TODO: impl
                     EmptyView()
-                case .votes:
-                    // TODO: impl
-                    EmptyView()
+                case .votes(let proposals):
+                    PublicUserProfileVotesListView(user: dataSource.profile!,
+                                                   votedProposals: proposals,
+                                                   path: $path)
+                    .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
+                    .environmentObject(activeSheetManager)
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
@@ -86,62 +87,6 @@ struct PublicUserProfileView: View {
             }
             .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
                 showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
-            }
-        }
-    }
-}
-
-fileprivate struct PublicUserProfileListView: View {
-    let profile: PublicUserProfile
-    let address: Address
-    @Binding var path: [PublicUserProfileScreen]
-
-    var body: some View {
-        ScrollView {
-            VotedInDaosView(profile: profile)
-            PublicUserProfileActivityView(address: address, path: $path)
-        }
-    }
-}
-
-fileprivate struct VotedInDaosView: View {
-    let profile: PublicUserProfile
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
-    var body: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Text("Voted in DAOs (\(profile.votedInDaos.count))")
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.textWhite)
-                Spacer()
-                NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.primaryDim)
-            }
-            .padding(.top, 16)
-            .padding(.horizontal, Constants.horizontalPadding * 2)
-
-            if profile.votedInDaos.count == 0 {
-                Text("User has not voted yet")
-                    .foregroundStyle(Color.textWhite)
-                    .font(.bodyRegular)
-                    .padding(Constants.horizontalPadding)
-            } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 16) {
-                        ForEach(profile.votedInDaos) { dao in
-                            DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManager.activeSheet = .daoInfo(dao)
-                                Tracker.track(.publicPrfVotedDaoOpen)
-                            }
-                        }
-                    }
-                    .padding(Constants.horizontalPadding)
-                }
-                .background(Color.containerBright)
-                .cornerRadius(20)
-                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
     }

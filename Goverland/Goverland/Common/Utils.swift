@@ -130,24 +130,34 @@ enum Utils {
         return formatter.string(from: date)
     }
 
-    static func monthAndYear(from date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
-        return dateFormatter.string(from: date)
+    static func shortDateWithoutTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
     }
 
-    static func formatDateToStartOfMonth(_ date: Date) -> Date {
+    static func monthAndYear(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM yyyy"
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
+    }
+
+    static func formatDateToStartOfMonth(_ date: Date, day: Int = 1) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month], from: date)
         components.timeZone = .gmt
+        components.day = day
         return calendar.date(from: components)!
     }
 
-    static func formatDateToMiddleOfMonth(_ date: Date) -> Date {
+    static func formatDateToStartOfDay(_ date: Date, hour: Int = 0) -> Date {
         let calendar = Calendar(identifier: .gregorian)
-        var components = calendar.dateComponents([.year, .month], from: date)
+        var components = calendar.dateComponents([.year, .month, .day], from: date)
         components.timeZone = .gmt
-        components.day = 15
+        components.hour = hour
         return calendar.date(from: components)!
     }
 
@@ -252,17 +262,26 @@ enum Utils {
         }
     }
 
-    static func choice(from proposal: Proposal) -> AnyObject? {
+    static func userChoice(from proposal: Proposal) -> AnyObject? {
         // TODO: shutter completed proposals results are known. Need to improve.
-        guard let userVote = proposal.userVote, proposal.privacy != .shutter else { return nil }
+        guard let vote = proposal.userVote, proposal.privacy != .shutter else { return nil }
+        return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
+    }
+
+    static func publicUserChoice(from proposal: Proposal) -> AnyObject? {
+        guard let vote = proposal.publicUserVote, proposal.privacy != .shutter else { return nil }
+        return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
+    }
+
+    private static func castAnyVoteToAnyObject(_ vote: Proposal.AnyVote, proposalType: Proposal.ProposalType) -> AnyObject? {
         // enumeration starts with 1 in Snapshot
-        switch proposal.type {
+        switch proposalType {
         case .singleChoice, .basic:
-            return (userVote.base as! Vote<Int>).choice - 1 as AnyObject
+            return (vote.base as! Vote<Int>).choice - 1 as AnyObject
         case .approval, .rankedChoice:
-            return (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
+            return (vote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
         case .weighted, .quadratic:
-            return (userVote.base as! Vote<[String: Int]>).choice as AnyObject
+            return (vote.base as! Vote<[String: Int]>).choice as AnyObject
         }
     }
 }

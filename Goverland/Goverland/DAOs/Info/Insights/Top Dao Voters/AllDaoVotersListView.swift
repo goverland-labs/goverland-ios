@@ -78,18 +78,20 @@ struct AllDaoVotersListView: View {
 
 fileprivate struct TopVoteListItemView: View {
     let voter: TopDaoVoter
-    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     init(_ voter: TopDaoVoter) {
         self.voter = voter
     }
     
     var body: some View {
         HStack {
-            Text(voter.voter.usernameShort)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.footnoteRegular)
-                .foregroundColor(.textWhite)
-            
+            IdentityView(user: voter.voter) {
+                activeSheetManager.activeSheet = .publicProfile(voter.voter.address)
+                // TODO: track
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             Text("\(Utils.formattedNumber(voter.votesCount)) times")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.footnoteRegular)
@@ -100,12 +102,7 @@ fileprivate struct TopVoteListItemView: View {
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite)
         }
-        .padding(.vertical) // Required for onTapGesture to fill out the entire cell
-        .onTapGesture {
-            UIPasteboard.general.string = voter.voter.address.checksum
-            showToast("Address copied")
-        }
-        
+        .padding(.vertical)
     }
 }
 
