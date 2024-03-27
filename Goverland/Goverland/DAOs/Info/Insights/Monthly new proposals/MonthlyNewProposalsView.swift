@@ -74,7 +74,7 @@ fileprivate struct _MonthlyNewProposalsChart: GraphViewContent {
     private var dateStr: String {
         dataSource.selectedFilteringOption == .oneMonth ?
             Utils.shortDateWithoutTime(selectedDate!) :
-            Utils.shortDateWithoutDay(selectedDate!)
+            Utils.monthAndYear(selectedDate!)
     }
 
     var body: some View {

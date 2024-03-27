@@ -73,7 +73,7 @@ struct MonthlyTotalVotersView: View {
                                                    firstPlaceholderTitle: "New voters",
                                                    secondPlaceholderValue: dataSource.returningVoters(date: selectedDate),
                                                    secondPlaceholderTitle: "Returning voters",
-                                                   description: Utils.shortDateWithoutDay(selectedDate))
+                                                   description: Utils.monthAndYear(selectedDate))
                                 }
                         }
                     }

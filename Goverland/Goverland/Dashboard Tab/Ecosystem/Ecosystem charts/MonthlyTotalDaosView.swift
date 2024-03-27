@@ -73,7 +73,7 @@ struct MonthlyTotalDaosView: View {
                                                    firstPlaceholderTitle: "New daos",
                                                    secondPlaceholderValue: dataSource.returningDaos(date: selectedDate),
                                                    secondPlaceholderTitle: "Returning daos",
-                                                   description: Utils.shortDateWithoutDay(selectedDate))
+                                                   description: Utils.monthAndYear(selectedDate))
                                 }
                         }
                     }

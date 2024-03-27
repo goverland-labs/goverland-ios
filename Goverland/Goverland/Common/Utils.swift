@@ -138,7 +138,7 @@ enum Utils {
         return formatter.string(from: date)
     }
 
-    static func shortDateWithoutDay(_ date: Date) -> String {
+    static func monthAndYear(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM yyyy"
         formatter.locale = Locale.current

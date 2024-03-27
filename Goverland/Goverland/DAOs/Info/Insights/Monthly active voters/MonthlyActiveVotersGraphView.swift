@@ -83,7 +83,7 @@ struct MonthlyActiveVotersGraphView: View {
                                                        firstPlaceholderTitle: "Returning voters",
                                                        secondPlaceholderValue: dataSource.newVoters(date: selectedDate),
                                                        secondPlaceholderTitle: "New voters",
-                                                       description: Utils.shortDateWithoutDay(selectedDate))
+                                                       description: Utils.monthAndYear(selectedDate))
                                     }
                             }
                         }

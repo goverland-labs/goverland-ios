@@ -73,7 +73,7 @@ struct MonthlyTotalNewProposalsView: View {
                                            firstPlaceholderTitle: "New proposals",
                                            secondPlaceholderValue: nil,
                                            secondPlaceholderTitle: nil,
-                                           description: Utils.shortDateWithoutDay(selectedDate))
+                                           description: Utils.monthAndYear(selectedDate))
                         }
                 }
             }
