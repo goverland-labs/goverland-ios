@@ -100,7 +100,9 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
 
     func spamProposalsCount(date: Date) -> String {
-        let date = Utils.formatDateToStartOfMonth(date)
+        let date = selectedFilteringOption == .oneMonth ?
+            Utils.formatDateToStartOfDay(date) :
+            Utils.formatDateToStartOfMonth(date)
         if let data = monthlyNewProposals.first(where: { $0.date == date }) {
             return Utils.decimalNumber(from: data.spamCount)
         }
