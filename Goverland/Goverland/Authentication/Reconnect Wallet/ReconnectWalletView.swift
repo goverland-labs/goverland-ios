@@ -36,7 +36,7 @@ struct ReconnectWalletView: View {
                 .multilineTextAlignment(.center)
                 .padding(16)
 
-            IdentityView(user: user, size: .s)
+            IdentityView(user: user, size: .s, onTap: nil)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(Capsule(style: .circular)

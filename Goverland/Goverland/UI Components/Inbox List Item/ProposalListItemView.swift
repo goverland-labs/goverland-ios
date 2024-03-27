@@ -130,6 +130,7 @@ struct ProposalListItemView<Content: View>: View {
 
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private var voted: Bool {
         proposal.userVote != nil
@@ -138,7 +139,9 @@ struct ProposalListItemHeaderView: View {
     var body: some View {
         HStack {
             HStack(spacing: 6) {
-                IdentityView(user: proposal.author)
+                IdentityView(user: proposal.author) {
+                    // TODO
+                }
                 DateView(date: proposal.created,
                          style: .named,
                          font: .footnoteRegular,

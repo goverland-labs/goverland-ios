@@ -181,7 +181,7 @@ fileprivate struct _HeaderView: View {
                     RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                 }
 
-                IdentityView(user: user, size: .s)
+                IdentityView(user: user, size: .s, onTap: nil)
             }
             
             HStack {

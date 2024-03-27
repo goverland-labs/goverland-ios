@@ -71,15 +71,13 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
 
     var body: some View {
         HStack {
-            IdentityView(user: vote.voter)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.footnoteRegular)
-                .foregroundStyle(Color.textWhite)
-                .gesture(TapGesture().onEnded { _ in
-                    activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
-                    Tracker.track(.snpDetailsVotesShowUserProfile)
-
-                })
+            IdentityView(user: vote.voter) {
+                activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
+                Tracker.track(.snpDetailsVotesShowUserProfile)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.footnoteRegular)
+            .foregroundStyle(Color.textWhite)
 
             if proposal.privacy == .shutter && proposal.state == .active {
                 Image(systemName: "lock.fill")
@@ -105,7 +103,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
         .padding(.vertical, 4)
         .font(.footnoteRegular)
         .contentShape(Rectangle())
-        .onTapGesture() {
+        .onTapGesture {
             if let reason = vote.message, !reason.isEmpty {
                 showReasonAlert = true
             }

@@ -86,7 +86,7 @@ fileprivate struct _ProposalView: View {
 
     var shouldShowTopVoters: Bool {
         guard let topVoters = dataSource.topVoters else { return true } // show when data is loading
-        return !topVoters.isEmpty // don't show the loading state or when no voters yet            
+        return !topVoters.isEmpty // don't show the loading state or when no voters yet
     }
 
     var body: some View {
@@ -178,14 +178,14 @@ fileprivate struct _SnapshotProposalCreatorView: View {
             Text("by")
                 .font(.footnoteSemibold)
                 .foregroundStyle(Color.textWhite60)
-            IdentityView(user: creator)
-                .font(.footnoteSemibold)
-                .foregroundStyle(Color.textWhite)
-                .gesture(TapGesture().onEnded { _ in
-                    activeSheetManager.activeSheet = .publicProfile(creator.address)
-                    Tracker.track(.snpDetailsShowUserProfile)
-                    
-                })
+            
+            IdentityView(user: creator) {
+                activeSheetManager.activeSheet = .publicProfile(creator.address)
+                Tracker.track(.snpDetailsShowUserProfile)
+            }
+            .font(.footnoteSemibold)
+            .foregroundStyle(Color.textWhite)
+            
             Spacer()
         }
     }
