@@ -60,7 +60,7 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
     }
     
     private func loadData() {
-        APIService.monthlyNewProposals(id: daoID)
+        APIService.monthlyNewProposals(id: daoID, filteringOption: selectedFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {

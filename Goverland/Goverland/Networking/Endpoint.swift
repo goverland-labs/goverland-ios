@@ -270,7 +270,7 @@ struct DaoUserBucketsEndpoint: APIEndpoint {
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
-    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
+    init(daoID: UUID, queryParameters: [URLQueryItem]) {
         self.daoID = daoID
         self.queryParameters = queryParameters
     }
@@ -306,9 +306,11 @@ struct MonthlyNewProposalsEndpoint: APIEndpoint {
     let daoID: UUID
     var path: String { "analytics/monthly-new-proposals/\(daoID)" }
     var method: HttpMethod = .get
-    
-    init(daoID: UUID) {
+    var queryParameters: [URLQueryItem]?
+
+    init(daoID: UUID, queryParameters: [URLQueryItem]) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 

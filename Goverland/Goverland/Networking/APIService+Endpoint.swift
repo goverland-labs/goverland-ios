@@ -110,7 +110,7 @@ extension APIService {
 
     static func monthlyActiveUsers(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "filter", value: filteringOption.queryParamName)
+            URLQueryItem(name: "period", value: filteringOption.queryParamName)
         ]
         let endpoint = DaoMonthlyActiveUsersEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
@@ -134,8 +134,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func monthlyNewProposals(id: UUID) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = MonthlyNewProposalsEndpoint(daoID: id)
+    static func monthlyNewProposals(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "period", value: filteringOption.queryParamName)
+        ]
+        let endpoint = MonthlyNewProposalsEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
@@ -168,7 +171,7 @@ extension APIService {
                              offset: Int = 0,
                              limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "filter", value: filteringOption.queryParamName),
+            URLQueryItem(name: "period", value: filteringOption.queryParamName),
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
