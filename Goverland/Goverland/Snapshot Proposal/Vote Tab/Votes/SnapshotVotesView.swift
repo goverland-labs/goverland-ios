@@ -69,15 +69,18 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
 
     @State private var showReasonAlert = false
 
+    var byUser: Bool {
+        guard let user = ProfileDataSource.shared.profile?.account else { return false }
+        return vote.voter == user
+    }
+
     var body: some View {
         HStack {
-            IdentityView(user: vote.voter) {
+            IdentityView(user: vote.voter, font: byUser ? .footnoteSemibold : nil) {
                 activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
                 Tracker.track(.snpDetailsVotesShowUserProfile)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.footnoteRegular)
-            .foregroundStyle(Color.textWhite)
 
             if proposal.privacy == .shutter && proposal.state == .active {
                 Image(systemName: "lock.fill")
@@ -86,13 +89,13 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 Text(vote.choiceStr(for: proposal) ?? "")
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(.footnoteRegular)
-                    .foregroundStyle(Color.textWhite40)
+                    .foregroundStyle(byUser ? Color.textWhite : .textWhite40)
             }
 
             HStack {
                 Text("\(String(Utils.formattedNumber(vote.votingPower))) Votes")
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    .font(.footnoteRegular)
+                    .font(byUser ? .footnoteSemibold : .footnoteRegular)
                     .foregroundStyle(Color.textWhite)
                 if let reason = vote.message, !reason.isEmpty {
                     Image(systemName: "text.bubble.fill")

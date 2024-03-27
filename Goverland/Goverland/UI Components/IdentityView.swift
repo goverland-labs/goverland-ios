@@ -22,18 +22,20 @@ fileprivate extension Avatar.Size {
 struct IdentityView: View {
     let user: User
     let size: Avatar.Size
+    let font: Font?
     let onTap: (() -> Void)?
 
-    init(user: User, size: Avatar.Size = .xs, onTap: (() -> Void)?) {
+    init(user: User, size: Avatar.Size = .xs, font: Font? = nil, onTap: (() -> Void)?) {
         self.user = user
         self.size = size
+        self.font = font
         self.onTap = onTap
     }
 
     var body: some View {
         HStack(spacing: 6) {
             UserPictureView(user: user, size: size)
-            UserNameView(user: user, font: size.textFont)
+            UserNameView(user: user, font: font ?? size.textFont)
         }
         .onTapGesture {
             onTap?()

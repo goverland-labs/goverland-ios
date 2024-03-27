@@ -183,9 +183,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
                 activeSheetManager.activeSheet = .publicProfile(creator.address)
                 Tracker.track(.snpDetailsShowUserProfile)
             }
-            .font(.footnoteSemibold)
-            .foregroundStyle(Color.textWhite)
-            
+
             Spacer()
         }
     }
