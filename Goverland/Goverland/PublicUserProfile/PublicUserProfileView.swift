@@ -11,7 +11,7 @@ import SwiftUI
 
 enum PublicUserProfileScreen: Hashable {
     case votedInDaos
-    case votes
+    case votes([Proposal])
     case vote(Proposal)
 }
 
@@ -68,13 +68,16 @@ struct PublicUserProfileView: View {
                 case .votedInDaos:
                     // TODO: impl
                     EmptyView()
-                case .votes:
-                    // TODO: impl
-                    EmptyView()
+                case .votes(let proposals):
+                    PublicUserProfileVotesListView(user: dataSource.profile!,
+                                                   votedProposals: proposals,
+                                                   path: $path)
+                    .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true,
                                          navigationTitle: proposal.dao.name)
+                    .environmentObject(activeSheetManager)
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in

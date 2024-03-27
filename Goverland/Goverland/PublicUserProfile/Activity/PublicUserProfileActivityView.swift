@@ -40,9 +40,10 @@ fileprivate struct _VotedDaosView: View {
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.primaryDim)
+                // TODO: enable once endpoint is ready
+//                NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
+//                    .font(.subheadlineSemibold)
+//                    .foregroundStyle(Color.primaryDim)
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
@@ -88,7 +89,7 @@ fileprivate struct _VotedProposalsView: View {
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                NavigationLink("See all", value: PublicUserProfileScreen.votes)
+                NavigationLink("See all", value: PublicUserProfileScreen.votes(votedProposals))
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.primaryDim)
             }
