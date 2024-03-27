@@ -62,7 +62,7 @@ struct MonthlyTotalVotersView: View {
                         .foregroundStyle(Color.primaryDim)
                         
                         if let selectedDate {
-                            RuleMark(x: .value("Date", Utils.formatDateToMiddleOfMonth(selectedDate)))
+                            RuleMark(x: .value("Date", Utils.formatDateToStartOfMonth(selectedDate, dayOffset: 15)))
                                 .foregroundStyle(Color.textWhite)
                                 .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(
@@ -73,7 +73,7 @@ struct MonthlyTotalVotersView: View {
                                                    firstPlaceholderTitle: "New voters",
                                                    secondPlaceholderValue: dataSource.returningVoters(date: selectedDate),
                                                    secondPlaceholderTitle: "Returning voters",
-                                                   description: Utils.monthAndYear(from: selectedDate))
+                                                   description: Utils.shortDateWithoutDay(selectedDate))
                                 }
                         }
                     }

@@ -130,24 +130,34 @@ enum Utils {
         return formatter.string(from: date)
     }
 
-    static func monthAndYear(from date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
-        return dateFormatter.string(from: date)
+    static func shortDateWithoutTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
     }
 
-    static func formatDateToStartOfMonth(_ date: Date) -> Date {
+    static func shortDateWithoutDay(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM yyyy"
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
+    }
+
+    static func formatDateToStartOfMonth(_ date: Date, dayOffset: Int = 0) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.year, .month], from: date)
         components.timeZone = .gmt
+        components.day = dayOffset
         return calendar.date(from: components)!
     }
 
-    static func formatDateToMiddleOfMonth(_ date: Date) -> Date {
+    static func formatDateToStartOfDay(_ date: Date, hourOffset: Int = 0) -> Date {
         let calendar = Calendar(identifier: .gregorian)
-        var components = calendar.dateComponents([.year, .month], from: date)
+        var components = calendar.dateComponents([.year, .month, .day], from: date)
         components.timeZone = .gmt
-        components.day = 15
+        components.hour = hourOffset
         return calendar.date(from: components)!
     }
 
