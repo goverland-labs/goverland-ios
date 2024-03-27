@@ -61,7 +61,7 @@ struct SnapshotProposalVoteTabView: View {
             _chosenTab = State(wrappedValue: .results)
         }
 
-        if let choice = Utils.choice(from: proposal) {
+        if let choice = Utils.userChoice(from: proposal) {
             _choice = State(wrappedValue: choice)
             _voteButtonDisabled = State(wrappedValue: false)
         } else {

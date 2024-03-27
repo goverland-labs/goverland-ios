@@ -262,7 +262,7 @@ enum Utils {
         }
     }
 
-    static func choice(from proposal: Proposal) -> AnyObject? {
+    static func userChoice(from proposal: Proposal) -> AnyObject? {
         // TODO: shutter completed proposals results are known. Need to improve.
         guard let vote = proposal.userVote, proposal.privacy != .shutter else { return nil }
         return castAnyVoteToAnyObject(vote, proposalType: proposal.type)

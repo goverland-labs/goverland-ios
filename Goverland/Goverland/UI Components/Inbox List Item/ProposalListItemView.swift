@@ -170,7 +170,7 @@ struct ProposalListItemBodyView: View {
     let onDaoTap: (() -> Void)?
 
     var shouldShowVoteChoice: Bool {
-        Utils.choice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
+        Utils.userChoice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
     }
 
     var body: some View {
@@ -190,7 +190,7 @@ struct ProposalListItemBodyView: View {
                                 Text("User choice: \(choiceStr)")
                             }
 
-                            if let userChoice = Utils.choice(from: proposal) {
+                            if let userChoice = Utils.userChoice(from: proposal) {
                                 // user voted
                                 let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
                                 Text("Your choice: \(choiceStr)")
