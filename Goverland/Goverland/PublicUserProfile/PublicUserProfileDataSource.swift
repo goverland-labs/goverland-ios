@@ -24,7 +24,7 @@ enum PublicUserProfileFilter: Int, FilterOptions {
 class PublicUserProfileDataSource: ObservableObject, Refreshable {
     let address: Address
     
-    @Published var profile: PublicUserProfile?
+    @Published var profile: User?
     @Published var failedToLoadInitialData = false
     @Published var filter: PublicUserProfileFilter = .activity
     @Published var isLoading = false
