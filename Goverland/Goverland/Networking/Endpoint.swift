@@ -325,7 +325,7 @@ struct MutualDaosEndpoint: APIEndpoint {
 }
 
 struct TopVotersEndpoint: APIEndpoint {
-    typealias ResponseType = [TopVoter]
+    typealias ResponseType = [TopDaoVoter]
     
     let daoID: UUID
     var path: String { "analytics/top-voters-by-vp/\(daoID)" }
@@ -477,6 +477,21 @@ struct ProposalVotesEndpoint<ChoiceType: Decodable>: APIEndpoint {
     init(proposalID: String, queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
         self.proposalID = proposalID
+    }
+}
+
+struct ProposalTopVotersEndpoint: APIEndpoint {
+    typealias ResponseType = [TopProposalVoter]
+
+    let proposalId: String
+
+    var path: String { "proposals/\(proposalId)/votes" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(proposalId: String, queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+        self.proposalId = proposalId
     }
 }
 

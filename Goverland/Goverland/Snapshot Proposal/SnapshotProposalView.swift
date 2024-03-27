@@ -71,6 +71,14 @@ struct SnapshotProposalView: View {
 fileprivate struct _ProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
+    @StateObject private var dataSource: SnapshotProposalTopVotersDataSource
+
+    init(proposal: Proposal, allowShowingDaoInfo: Bool) {
+        self.proposal = proposal
+        self.allowShowingDaoInfo = allowShowingDaoInfo
+        let dataSource = SnapshotProposalTopVotersDataSource(proposal: proposal)
+        _dataSource = StateObject(wrappedValue: dataSource)
+    }
 
     var voted: Bool {
         proposal.userVote != nil
@@ -85,13 +93,13 @@ fileprivate struct _ProposalView: View {
                                              creator: proposal.author,
                                              allowShowingDaoInfo: allowShowingDaoInfo,
                                              proposal: proposal)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 16)
 
                 _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 16)
 
                 SnapshotProposalDescriptionView(proposalBody: proposal.body)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 32)
 
                 HStack {
                     Text("Off-Chain Vote")
@@ -102,15 +110,20 @@ fileprivate struct _ProposalView: View {
                 .padding(.bottom)
 
                 SnapshotProposalVoteTabView(proposal: proposal)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 32)
+
+                if !(dataSource.topVoters?.isEmpty ?? false) {
+                    SnapshotProposalTopVotersView(dataSource: dataSource)
+                        .padding(.bottom, 32)
+                }
 
                 if let discussionURL = proposal.discussion, !discussionURL.isEmpty {
-                    SnapshotProposalDiscussionView(proposal: proposal)
-                        .padding(.bottom, 35)
+                    _SnapshotProposalDiscussionView(proposal: proposal)
+                        .padding(.bottom, 32)
                 }
 
                 SnapshotProposalTimelineView(timeline: proposal.timeline)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 24)
             }
             .padding(.horizontal)
         }
@@ -207,8 +220,10 @@ fileprivate struct _SnapshotProposalStatusBarView: View {
     }
 }
 
-fileprivate struct SnapshotProposalDiscussionView: View {
+fileprivate struct _SnapshotProposalDiscussionView: View {
     let proposal: Proposal
+    @Environment(\.isPresented) private var isPresented
+
     var body: some View {
         VStack{
             HStack {
@@ -237,7 +252,7 @@ fileprivate struct SnapshotProposalDiscussionView: View {
             .font(.footnoteRegular)
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundStyle(Color.container)
+                    .foregroundStyle(isPresented ? Color.containerBright : Color.container)
             )
         }
     }

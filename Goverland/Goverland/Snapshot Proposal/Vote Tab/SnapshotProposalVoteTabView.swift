@@ -163,6 +163,7 @@ struct SnapshotProposalVoteTabView: View {
 
             case .results:
                 SnapshopVotingResultView(proposal: proposal)
+                    .padding(.bottom, 16)
 
             case .votes:
                 if proposal.privacy == .shutter && proposal.state == .active {

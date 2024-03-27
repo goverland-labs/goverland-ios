@@ -9,15 +9,16 @@
 import SwiftUI
 
 struct SnapshotVotesView<ChoiceType: Decodable>: View {
-    let proposal: Proposal
-    @StateObject var dataSource: SnapsotVotesDataSource<ChoiceType>
-    @State private var showAllVotes = false
-    
+    private let proposal: Proposal
+    @StateObject private var dataSource: SnapsotVotesDataSource<ChoiceType>
+
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     init(proposal: Proposal) {
         self.proposal = proposal
         _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -30,7 +31,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
             if dataSource.isLoading {
                 ShimmerVoteListItemView()
             }
-            
+
             let count = dataSource.votes.count
             ForEach(0..<min(5, count), id: \.self) { index in
                 let vote = dataSource.votes[index]
@@ -38,26 +39,25 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                     .background(Color.secondaryContainer)
                 VoteListItemView(proposal: proposal, vote: vote)
             }
-            
+
             if dataSource.totalVotes >= 5 {
-                Text("See all")
-                    .frame(width: 100, height: 30, alignment: .center)
-                    .background(Capsule(style: .circular)
-                        .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-                    .tint(.onSecondaryContainer)
-                    .font(.footnoteSemibold)
-                    .onTapGesture {
-                        showAllVotes = true
-                    }
+                VStack {
+                    Spacer()
+                        .padding(.bottom, 8)
+                    Text("See all")
+                        .frame(width: 124, height: 32, alignment: .center)
+                        .background(Capsule(style: .circular)
+                            .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                        .tint(.onSecondaryContainer)
+                        .font(.footnoteSemibold)
+                        .onTapGesture {
+                            activeSheetManager.activeSheet = .proposalVoters(proposal)
+                        }
+                }
             }
-        }        
+        }
         .onAppear() {
             dataSource.refresh()
-        }
-        .sheet(isPresented: $showAllVotes) {
-            PopoverNavigationViewWithToast {
-                SnapshotAllVotesView<ChoiceType>(proposal: proposal)
-            }
         }
     }
 }
@@ -78,7 +78,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 .gesture(TapGesture().onEnded { _ in
                     activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
                     Tracker.track(.snpDetailsVotesShowUserProfile)
-                    
+
                 })
 
             if proposal.privacy == .shutter && proposal.state == .active {

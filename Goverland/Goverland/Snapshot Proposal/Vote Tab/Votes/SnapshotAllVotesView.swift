@@ -8,7 +8,27 @@
 
 import SwiftUI
 
-struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
+struct SnapshotAllVotesView: View {
+    let proposal: Proposal
+
+    var body: some View {
+        if proposal.privacy == .shutter && proposal.state == .active {
+            // Votes are encrypted
+            _SnapshotAllVotesView<String>(proposal: proposal)
+        } else {
+            switch proposal.type {
+            case .basic, .singleChoice:
+                _SnapshotAllVotesView<Int>(proposal: proposal)
+            case .approval, .rankedChoice:
+                _SnapshotAllVotesView<[Int]>(proposal: proposal)
+            case .weighted, .quadratic:
+                _SnapshotAllVotesView<[String: Int]>(proposal: proposal)
+            }
+        }
+    }
+}
+
+fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
     @Environment(\.dismiss) private var dismiss
@@ -74,11 +94,5 @@ struct SnapshotAllVotesView<ChoiceType: Decodable>: View {
                 }
             }
         }
-    }
-}
-
-struct SnapshotAllVotesView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnapshotAllVotesView<Int>(proposal: .aaveTest)
     }
 }

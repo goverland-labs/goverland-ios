@@ -92,9 +92,14 @@ struct GoverlandApp: App {
                             PublicUserProfileView(address: address)
                         }
 
-                    case .allDaoVoters(let dao):
+                    case .daoVoters(let dao, let filteringOption):
                         PopoverNavigationViewWithToast {
-                            AllVotersListView(dao: dao)
+                            AllDaoVotersListView(dao: dao, filteringOption: filteringOption)
+                        }
+
+                    case .proposalVoters(let proposal):
+                        PopoverNavigationViewWithToast {
+                            SnapshotAllVotesView(proposal: proposal)
                         }
 
                     case .followDaos:

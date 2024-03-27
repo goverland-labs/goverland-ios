@@ -1,5 +1,5 @@
 //
-//  AllVotersListView.swift
+//  AllDaoVotersListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-02-20.
@@ -9,14 +9,12 @@
 
 import SwiftUI
 
-struct AllVotersListView: View {
-    let dao: Dao
-    @StateObject private var dataSource: AllVotersDataSource
+struct AllDaoVotersListView: View {
+    @StateObject private var dataSource: AllDaoVotersDataSource
     @Environment(\.dismiss) private var dismiss
     
-    init(dao: Dao) {
-        self.dao = dao
-        _dataSource = StateObject(wrappedValue: AllVotersDataSource(dao: dao))
+    init(dao: Dao, filteringOption: DatesFiltetingOption) {
+        _dataSource = StateObject(wrappedValue: AllDaoVotersDataSource(dao: dao, filteringOption: filteringOption))
     }
     
     var body: some View {
@@ -64,7 +62,7 @@ struct AllVotersListView: View {
             Tracker.track(.screenDaoInsightsTopVoters)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(dao.name) voters by aVP")
+        .navigationTitle("\(dataSource.dao.name) voters by aVP (\(dataSource.filteringOption.localizedName))")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
@@ -79,9 +77,9 @@ struct AllVotersListView: View {
 }
 
 fileprivate struct TopVoteListItemView: View {
-    let voter: TopVoter
+    let voter: TopDaoVoter
     
-    init(_ voter: TopVoter) {
+    init(_ voter: TopDaoVoter) {
         self.voter = voter
     }
     

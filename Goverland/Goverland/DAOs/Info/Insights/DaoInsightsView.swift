@@ -23,7 +23,7 @@ struct DaoInsightsView: View {
                 
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
-                TopVotersView(dao: dao)
+                TopDaoVotersView(dao: dao)
                 MonthlyNewProposalsView(dao: dao)
                 MutualDaosView(dao: dao)
             }

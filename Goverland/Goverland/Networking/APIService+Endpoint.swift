@@ -163,10 +163,12 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func topVoters(id: UUID,
-                          offset: Int = 0,
-                          limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func topDaoVoters(id: UUID,
+                             filteringOption: DatesFiltetingOption,
+                             offset: Int = 0,
+                             limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
+            URLQueryItem(name: "filter", value: filteringOption.queryParamName),
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
@@ -252,6 +254,18 @@ extension APIService {
         ]
 
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func topProposalVotes(proposalId: String,
+                                 offset: Int = 0,
+                                 limit: Int = 11) -> AnyPublisher<(ProposalTopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+
+        let endpoint = ProposalTopVotersEndpoint(proposalId: proposalId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
