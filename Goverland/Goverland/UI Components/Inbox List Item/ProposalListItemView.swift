@@ -169,6 +169,10 @@ struct ProposalListItemBodyView: View {
     let displayStatus: Bool
     let onDaoTap: (() -> Void)?
 
+    var shouldShowVoteChoice: Bool {
+        Utils.choice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
+    }
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
@@ -178,13 +182,23 @@ struct ProposalListItemBodyView: View {
                     .lineLimit(2)
 
                 if displayStatus {
-                    if let choice = Utils.choice(from: proposal) {
-                        // user voted
-                        let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: choice)
-                        Text("Your choice: \(choiceStr)")
-                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
-                            .font(.footnoteRegular)
-                            .lineLimit(2)
+                    if shouldShowVoteChoice {
+                        VStack(spacing: 4) {
+                            if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
+                                // public user voted
+                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
+                                Text("User choice: \(choiceStr)")
+                            }
+
+                            if let userChoice = Utils.choice(from: proposal) {
+                                // user voted
+                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
+                                Text("Your choice: \(choiceStr)")
+                            }
+                        }
+                        .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+                        .font(.footnoteRegular)
+                        .lineLimit(2)
                     } else {
                         HStack(spacing: 0) {
                             Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")

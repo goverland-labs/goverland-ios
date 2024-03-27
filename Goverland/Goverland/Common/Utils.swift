@@ -264,15 +264,24 @@ enum Utils {
 
     static func choice(from proposal: Proposal) -> AnyObject? {
         // TODO: shutter completed proposals results are known. Need to improve.
-        guard let userVote = proposal.userVote, proposal.privacy != .shutter else { return nil }
+        guard let vote = proposal.userVote, proposal.privacy != .shutter else { return nil }
+        return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
+    }
+
+    static func publicUserChoice(from proposal: Proposal) -> AnyObject? {
+        guard let vote = proposal.publicUserVote, proposal.privacy != .shutter else { return nil }
+        return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
+    }
+
+    private static func castAnyVoteToAnyObject(_ vote: Proposal.AnyVote, proposalType: Proposal.ProposalType) -> AnyObject? {
         // enumeration starts with 1 in Snapshot
-        switch proposal.type {
+        switch proposalType {
         case .singleChoice, .basic:
-            return (userVote.base as! Vote<Int>).choice - 1 as AnyObject
+            return (vote.base as! Vote<Int>).choice - 1 as AnyObject
         case .approval, .rankedChoice:
-            return (userVote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
+            return (vote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
         case .weighted, .quadratic:
-            return (userVote.base as! Vote<[String: Int]>).choice as AnyObject
+            return (vote.base as! Vote<[String: Int]>).choice as AnyObject
         }
     }
 }
