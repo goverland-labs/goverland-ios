@@ -13,9 +13,11 @@ import StoreKit
 
 struct CastYourVoteView: View {
     @StateObject private var dataSource: CastYourVoteDataSource
-    
+    @StateObject private var activeSheetManager: ActiveSheetManager
+
     init(proposal: Proposal, choice: AnyObject?, onSuccess: @escaping () -> Void) {
-        self._dataSource = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
+        _dataSource = StateObject(wrappedValue: CastYourVoteDataSource(proposal: proposal, choice: choice, onSuccess: onSuccess))
+        _activeSheetManager = StateObject(wrappedValue: ActiveSheetManager())
     }
     
     var body: some View {
@@ -23,6 +25,11 @@ struct CastYourVoteView: View {
             _SuccessView(proposal: dataSource.proposal, choice: dataSource.choiceStr, reason: dataSource.reason)
         } else {
             _VoteView(dataSource: dataSource)
+                .overlay {
+                    // we need it to espace crashes inside ToastView
+                    ToastView()
+                        .environmentObject(activeSheetManager)
+                }
         }
     }
 }
@@ -133,9 +140,6 @@ fileprivate struct _VoteView: View {
         .onAppear {
             Tracker.track(.screenSnpCastVote)
             dataSource.validate(address: user.address.value)
-        }
-        .overlay {
-            ToastView()
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.top, 24)
