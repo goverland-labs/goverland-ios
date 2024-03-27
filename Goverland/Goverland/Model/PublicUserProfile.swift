@@ -12,11 +12,9 @@ import Foundation
 struct PublicUserProfile: Decodable, Identifiable {
     let id: UUID
     let user: User
-    let votedInDaos: [Dao]
 
     enum CodingKeys: String, CodingKey {
         case id
-        case user
-        case votedInDaos = "voted_in_daos"
+        case user        
     }
 }

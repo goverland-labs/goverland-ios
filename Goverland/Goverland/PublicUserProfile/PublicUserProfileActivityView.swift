@@ -10,14 +10,72 @@
 import SwiftUI
 
 struct PublicUserProfileActivityView: View {
-    @Binding private var path: [PublicUserProfileScreen]
     @StateObject private var dataSource: PublicUserProfileActivityDataSource
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Binding private var path: [PublicUserProfileScreen]
 
     init(address: Address, path: Binding<[PublicUserProfileScreen]>) {
         _dataSource = StateObject(wrappedValue: PublicUserProfileActivityDataSource(address: address))
         _path = path
     }
+
+    var body: some View {
+        ScrollView {
+            if let daos = dataSource.votedDaos {
+                _VotedDaosView(daos: daos)
+            }
+
+            _VotedProposalsView(dataSource: dataSource, path: $path)
+        }
+    }
+}
+
+fileprivate struct _VotedDaosView: View {
+    let daos: [Dao]
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Text("Voted in DAOs (\(daos.count))")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+                NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.primaryDim)
+            }
+            .padding(.top, 16)
+            .padding(.horizontal, Constants.horizontalPadding * 2)
+
+            if daos.count == 0 {
+                Text("User has not voted yet")
+                    .foregroundStyle(Color.textWhite)
+                    .font(.bodyRegular)
+                    .padding(Constants.horizontalPadding)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 16) {
+                        ForEach(daos) { dao in
+                            DAORoundViewWithActiveVotes(dao: dao) {
+                                activeSheetManager.activeSheet = .daoInfo(dao)
+                                Tracker.track(.publicPrfVotedDaoOpen)
+                            }
+                        }
+                    }
+                    .padding(Constants.horizontalPadding)
+                }
+                .background(Color.containerBright)
+                .cornerRadius(20)
+                .padding(.horizontal, Constants.horizontalPadding)
+            }
+        }
+    }
+}
+
+fileprivate struct _VotedProposalsView: View {
+    @ObservedObject var dataSource: PublicUserProfileActivityDataSource
+    @Binding var path: [PublicUserProfileScreen]
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var votedProposals: [Proposal] {
         dataSource.votedProposals ?? []
