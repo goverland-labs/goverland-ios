@@ -22,7 +22,7 @@ struct SnapshotAllVotesView: View {
             case .approval, .rankedChoice:
                 _SnapshotAllVotesView<[Int]>(proposal: proposal)
             case .weighted, .quadratic:
-                _SnapshotAllVotesView<[String: Int]>(proposal: proposal)
+                _SnapshotAllVotesView<[String: Double]>(proposal: proposal)
             }
         }
     }
