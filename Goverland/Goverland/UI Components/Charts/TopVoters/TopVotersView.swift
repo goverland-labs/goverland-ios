@@ -39,18 +39,8 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                     .foregroundColor(.textWhite20)
                     .controlSize(.regular)
                     .frame(height: 120)
-            } else if dataSource.topVoters?.isEmpty ?? false {
-                _MessageView(text: "No votes in the selected period")
-            } else if dataSource.allVotersHaveSamePower {
-                VStack(spacing: 16) {
-                    _MessageView(text: "All voters have the same voting power")
-                    _SeeAllButtonView(onShowAll: onShowAll)
-                }
             } else {
-                VStack(spacing: 16) {
-                    TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters)
-                    _SeeAllButtonView(onShowAll: onShowAll)
-                }
+                _TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters, onShowAll: onShowAll)
             }
         }
         .padding(.horizontal, horizontalPadding)
@@ -60,6 +50,94 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                 dataSource.refresh()
             }
         }
+    }
+}
+
+fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
+    @ObservedObject var dataSource: TopVotersDataSource<Voter>
+    let showFilters: Bool
+    let onShowAll: () -> Void
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
+    private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
+
+    let columns: [GridItem] = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return Array(repeating: .init(.flexible()), count: 5)
+        } else {
+            return Array(repeating: .init(.flexible()), count: 3)
+        }
+    }()
+
+    var body: some View {
+        VStack {
+            if showFilters {
+                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
+                    .padding(.bottom, 16)
+            }
+
+            if dataSource.topVoters?.isEmpty ?? false {
+                _MessageView(text: "No votes in the selected period")
+            } else if dataSource.allVotersHaveSamePower {
+                _MessageView(text: "All voters have the same voting power")
+                _SeeAllButtonView(onShowAll: onShowAll)
+                    .padding(.top, 16)
+            } else {
+                Chart(dataSource.top10votersGraphData) { voter in
+                    BarMark(
+                        x: .value("VotePower", voter.votingPower)
+                    )
+                    .foregroundStyle(by: .value("Name", voter.voter.usernameShort))
+                    .clipShape(barShape(for: voter))
+                }
+                .frame(height: 32)
+                .chartXAxis(.hidden)
+                .chartLegend(.hidden)
+                .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
+                .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.voter.usernameShort}),
+                                           range: barColors) // assigns colors to the segments of the bar
+
+                // Custom Chart Legend
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                    let count = dataSource.top10votersGraphData.count
+                    ForEach((0..<min(11, count)), id: \.self) { index in
+                        HStack {
+                            Circle()
+                                .fill(barColors[index])
+                                .frame(width: 8, height: 8)
+                            Text(dataSource.top10votersGraphData[index].voter.usernameShort)
+                                .font(.caption2)
+                                .foregroundColor(.textWhite60)
+                        }
+                        .onTapGesture {
+                            // Skip tapping on `Other`
+                            if index < 10 {
+                                let address = dataSource.top10votersGraphData[index].voter.address
+                                activeSheetManager.activeSheet = .publicProfile(address)
+                            }
+                        }
+                    }
+                }
+
+                _SeeAllButtonView(onShowAll: onShowAll)
+                    .padding(.top, 16)
+            }
+        }
+    }
+
+    private func barShape(for voter: Voter) -> some Shape {
+        var corners: UIRectCorner = []
+
+        if let firstVoter = dataSource.top10votersGraphData.first,
+           let lastVoter = dataSource.top10votersGraphData.last {
+            if voter.id == firstVoter.id {
+                corners = [.topLeft, .bottomLeft]
+            } else if voter.id == lastVoter.id {
+                corners = [.topRight, .bottomRight]
+            }
+        }
+
+        return _RoundedCornersShape(corners: corners, radius: 5)
     }
 }
 
@@ -92,83 +170,7 @@ fileprivate struct _SeeAllButtonView: View {
     }
 }
 
-fileprivate struct TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
-    @ObservedObject var dataSource: TopVotersDataSource<Voter>
-    let showFilters: Bool
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
-    private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
-
-    let columns: [GridItem] = {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return Array(repeating: .init(.flexible()), count: 5)
-        } else {
-            return Array(repeating: .init(.flexible()), count: 3)
-        }
-    }()
-
-    var body: some View {
-        VStack {
-            if showFilters {
-                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
-                    .padding(.bottom, 16)
-            }
-
-            Chart(dataSource.top10votersGraphData) { voter in
-                BarMark(
-                    x: .value("VotePower", voter.votingPower)
-                )
-                .foregroundStyle(by: .value("Name", voter.voter.usernameShort))
-                .clipShape(barShape(for: voter))
-            }
-            .frame(height: 32)
-            .chartXAxis(.hidden)
-            .chartLegend(.hidden)
-            .chartXScale(domain: 0...(dataSource.totalVotingPower ?? 0)) // expands the bar to fill the entire width of the view
-            .chartForegroundStyleScale(domain: dataSource.top10votersGraphData.compactMap({ voter in voter.voter.usernameShort}),
-                                       range: barColors) // assigns colors to the segments of the bar
-
-            // Custom Chart Legend
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
-                let count = dataSource.top10votersGraphData.count
-                ForEach((0..<min(11, count)), id: \.self) { index in
-                    HStack {
-                        Circle()
-                            .fill(barColors[index])
-                            .frame(width: 8, height: 8)
-                        Text(dataSource.top10votersGraphData[index].voter.usernameShort)
-                            .font(.caption2)
-                            .foregroundColor(.textWhite60)
-                    }
-                    .onTapGesture {
-                        // Skip tapping on `Other`
-                        if index < 10 {
-                            let address = dataSource.top10votersGraphData[index].voter.address
-                            activeSheetManager.activeSheet = .publicProfile(address)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private func barShape(for voter: Voter) -> some Shape {
-        var corners: UIRectCorner = []
-
-        if let firstVoter = dataSource.top10votersGraphData.first,
-           let lastVoter = dataSource.top10votersGraphData.last {
-            if voter.id == firstVoter.id {
-                corners = [.topLeft, .bottomLeft]
-            } else if voter.id == lastVoter.id {
-                corners = [.topRight, .bottomRight]
-            }
-        }
-
-        return RoundedCornersShape(corners: corners, radius: 5)
-    }
-}
-
-fileprivate struct RoundedCornersShape: Shape {
+fileprivate struct _RoundedCornersShape: Shape {
     let corners: UIRectCorner
     let radius: CGFloat
 

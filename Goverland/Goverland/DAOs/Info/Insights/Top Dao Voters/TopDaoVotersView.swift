@@ -21,7 +21,7 @@ struct TopDaoVotersView: View {
     
     var body: some View {
         GraphHeaderView(header: "Top 10 voters by average VP",
-                        subheader: "Average voting power is calculated based on the last six months of user activity.",
+                        subheader: "Average voting power is calculated based on the user activity during the selected period.",
                         tooltipSide: .topLeft)
 
         TopVotersView(dataSource: dataSource, showFilters: true) {
