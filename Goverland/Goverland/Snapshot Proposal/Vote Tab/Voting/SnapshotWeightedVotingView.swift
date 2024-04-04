@@ -13,11 +13,11 @@ struct SnapshotWeightedVotingView: View {
     @Binding var voteButtonDisabled: Bool
 
     // In the Snapshot API this is mapping like ["1": 1, "2": 3, ...], where "1" is the first element.
-    @Binding var choicesPower: [String: Int]?
-    
-    @State private var totalPower: Int = 0
+    @Binding var choicesPower: [String: Double]?
 
-    init(proposal: Proposal, voteButtonDisabled: Binding<Bool>, choice: Binding<[String: Int]?>) {
+    @State private var totalPower: Double = 0
+
+    init(proposal: Proposal, voteButtonDisabled: Binding<Bool>, choice: Binding<[String: Double]?>) {
         self.proposal = proposal
         _voteButtonDisabled = voteButtonDisabled
         _choicesPower = choice
@@ -44,7 +44,8 @@ struct SnapshotWeightedVotingView: View {
                                 .padding(.vertical)
                         }
 
-                        Text("\(choicesPower?[String(index + 1)] ?? 0)")
+
+                        Text(String(format: "%.0f", choicesPower?[String(index + 1)] ?? 0))
                             .frame(width: 20)
 
                         Button(action: {
@@ -75,7 +76,7 @@ struct SnapshotWeightedVotingView: View {
         .onAppear {
             // if trying to do the same in the init, it doesn't work 🤷‍♂️
             if choicesPower == nil {
-                var initialChoicesPower = [String: Int]()
+                var initialChoicesPower = [String: Double]()
                 for (index, _) in proposal.choices.enumerated() {
                     initialChoicesPower[String(index + 1)] = 0
                 }
@@ -94,13 +95,13 @@ struct SnapshotWeightedVotingView: View {
     }
 
     private func updateTotal() {
-        var total: Int = 0
+        var total: Double = 0
         for (index, _) in proposal.choices.enumerated() {
             total += choicesPower![String(index + 1)]!
         }
         self.totalPower = total
     }
-
+    
     private func decreaseVotingPower(for index: Int) {
         if choicesPower![String(index + 1)]! > 0 {
             Haptic.light()

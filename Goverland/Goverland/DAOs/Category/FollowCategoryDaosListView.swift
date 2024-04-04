@@ -83,7 +83,7 @@ fileprivate struct DaosListView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
                         if dataSource.daos.isEmpty { // initial loading
-                            ForEach(0..<5) { _ in
+                            ForEach(0..<7) { _ in
                                 ShimmerDaoListItemView()
                             }
                         } else {
@@ -139,7 +139,7 @@ fileprivate struct CategoryDaosSearchListView: View {
                         .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)
                 } else if dataSource.searchResultDaos.isEmpty { // initial searching
-                    ForEach(0..<3) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerDaoListItemView()
                     }
                 } else {

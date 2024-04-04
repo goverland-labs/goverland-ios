@@ -315,7 +315,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
                         _vote = AnyVote(base: vote)
                     }
                 case .weighted, .quadratic:
-                    if let vote = try container.decodeIfPresent(Vote<[String: Int]>.self, forKey: key) {
+                    if let vote = try container.decodeIfPresent(Vote<[String: Double]>.self, forKey: key) {
                         _vote = AnyVote(base: vote)
                     }
                 }

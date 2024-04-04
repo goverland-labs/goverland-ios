@@ -13,6 +13,8 @@ import Combine
 class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshable {
     @Published var topVoters: [Voter]?
     @Published var totalVotingPower: Double?
+    var total: Int?
+
     @Published var failedToLoadInitialData: Bool = false
     var cancellables = Set<AnyCancellable>()
 
@@ -22,21 +24,31 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
         }
     }
 
-    var total: Int?
+
     var cache: [DatesFiltetingOption: [Voter]] = [:]
+    var cacheTotalVP: [DatesFiltetingOption: Double] = [:]
+    var cacheTotal: [DatesFiltetingOption: Int] = [:]
 
     func refresh() {
         refresh(invalidateCache: true)
     }
 
     private func refresh(invalidateCache: Bool) {
-        if let cachedData = cache[selectedFilteringOption], !invalidateCache {
-            topVoters = cachedData
+        if let cachedVoters = cache[selectedFilteringOption], 
+            let cachedTotalVP = cacheTotalVP[selectedFilteringOption],
+            let cacheTotal = cacheTotal[selectedFilteringOption],
+            !invalidateCache
+        {
+            topVoters = cachedVoters
+            totalVotingPower = cachedTotalVP
+            total = cacheTotal
             return
         }
 
         if invalidateCache {
             cache = [:]
+            cacheTotalVP = [:]
+            cacheTotal = [:]
         }
 
         topVoters = nil

@@ -23,7 +23,7 @@ struct DashboardPopularDaosHorizontalListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) {
                     if dataSource.categoryDaos[category] == nil { // initial loading
-                        ForEach(0..<3) { _ in
+                        ForEach(0..<5) { _ in
                             ShimmerView()
                                 .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                                 .cornerRadius(Avatar.Size.m.daoImageSize / 2)

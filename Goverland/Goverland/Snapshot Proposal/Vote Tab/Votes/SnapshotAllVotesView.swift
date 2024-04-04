@@ -22,7 +22,7 @@ struct SnapshotAllVotesView: View {
             case .approval, .rankedChoice:
                 _SnapshotAllVotesView<[Int]>(proposal: proposal)
             case .weighted, .quadratic:
-                _SnapshotAllVotesView<[String: Int]>(proposal: proposal)
+                _SnapshotAllVotesView<[String: Double]>(proposal: proposal)
             }
         }
     }
@@ -44,7 +44,7 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
                 RetryInitialLoadingView(dataSource: data, message: "Sorry, we couldn’t load the votes list")
             } else {
                 if data.isLoading {
-                    List(0..<5, id: \.self) { _ in
+                    List(0..<7, id: \.self) { _ in
                         ShimmerVoteListItemView()
                             .padding([.top, .bottom])
                             .listRowBackground(Color.clear)

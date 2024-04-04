@@ -439,7 +439,7 @@ fileprivate enum TypedValue: Encodable {
     case str(String)
     case int(Int)
     case intArray([Int])
-    case intDictionary([String: Int])
+    case doubleDictionary([String: Double])
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
@@ -450,7 +450,7 @@ fileprivate enum TypedValue: Encodable {
             try container.encode(value)
         case .intArray(let array):
             try container.encode(array)
-        case .intDictionary(let dictionary):
+        case .doubleDictionary(let dictionary):
             let jsonData = try JSONEncoder().encode(dictionary)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 try container.encode(jsonString)
@@ -465,7 +465,7 @@ fileprivate func choiceForProposal(_ proposal: Proposal, choice: AnyObject) -> T
     switch proposal.type {
     case .singleChoice, .basic: return .int((choice as! Int) + 1) // enumeration starts with 1 in Snapshot
     case .approval, .rankedChoice: return .intArray((choice as! [Int]).map { $0 + 1 })
-    case .weighted, .quadratic: return .intDictionary(choice as! [String: Int])
+    case .weighted, .quadratic: return .doubleDictionary(choice as! [String: Double])
     }
 }
 

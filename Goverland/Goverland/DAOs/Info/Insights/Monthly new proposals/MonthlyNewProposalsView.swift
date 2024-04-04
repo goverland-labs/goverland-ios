@@ -49,7 +49,7 @@ fileprivate struct _MonthlyNewProposalsChart: GraphViewContent {
     }
 
     private var minScaleDate: Date {
-        (dataSource.monthlyNewProposals.first?.date ?? Date()) - dateAdjustment
+        (dataSource.monthlyNewProposals.first?.date ?? Date())
     }
 
     private var maxScaleDate: Date {
@@ -99,7 +99,8 @@ fileprivate struct _MonthlyNewProposalsChart: GraphViewContent {
                             .lineStyle(.init(lineWidth: 1, dash: [2]))
                             .annotation(
                                 position: selectedDate <= midDate ? .trailing : .leading,
-                                alignment: .center, spacing: 4
+                                alignment: .center, 
+                                spacing: 4
                             ) {
                                 AnnotationView(firstPlaceholderValue: dataSource.newProposalsCount(date: selectedDate),
                                                firstPlaceholderTitle: "New proposals",

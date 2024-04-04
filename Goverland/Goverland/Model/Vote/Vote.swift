@@ -53,9 +53,9 @@ extension Vote {
                 return choice.map { String($0) }.joined(separator: ", ")
             }
         case .weighted, .quadratic:
-            if let choice = choice as? [String: Int] {
+            if let choice = choice as? [String: Double] {
                 let total = choice.values.reduce(0, +)
-                return choice.map { "\(Utils.percentage(of: Double($0.value), in: Double(total))) for \($0.key)" }.joined(separator: ", ")
+                return choice.map { "\(Utils.percentage(of: $0.value, in: total)) for \($0.key)" }.joined(separator: ", ")
             }
         }
 

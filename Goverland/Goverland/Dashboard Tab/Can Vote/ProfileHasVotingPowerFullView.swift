@@ -22,7 +22,7 @@ struct ProfileHasVotingPowerFullView: View {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the proposals list")
             } else if dataSource.isLoading && dataSource.proposals == nil {
                 ScrollView {
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerProposalListItemView()
                             .padding(.horizontal, Constants.horizontalPadding)
                     }

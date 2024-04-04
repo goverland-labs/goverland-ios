@@ -248,15 +248,20 @@ enum Utils {
             }
 
         case .weighted, .quadratic:
-            let choicesPower = choice as! [String: Int]
+            let choicesPower = choice as! [String: Double]
             let totalPower = choicesPower.values.reduce(0, +)
 
             // to keep them sorted we will use proposal choices array
-            let choices = proposal.choices.indices.filter { choicesPower[String($0 + 1)] != 0 }
+            let choices = proposal.choices.indices.filter {
+                if let value = choicesPower[String($0 + 1)] {
+                    return value != 0
+                }
+                return false
+            }
             let first = choices.first!
-            let firstPercentage = Utils.percentage(of: Double(choicesPower[String(first + 1)]!), in: Double(totalPower))
+            let firstPercentage = Utils.percentage(of: choicesPower[String(first + 1)]!, in: totalPower)
             return choices.dropFirst().reduce("\(firstPercentage) for \(first + 1)") { r, k in
-                let percentage = Utils.percentage(of: Double(choicesPower[String(k + 1)]!), in: Double(totalPower))
+                let percentage = Utils.percentage(of: choicesPower[String(k + 1)]!, in: totalPower)
                 return "\(r), \(percentage) for \(k + 1)"
             }
         }
@@ -281,7 +286,7 @@ enum Utils {
         case .approval, .rankedChoice:
             return (vote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
         case .weighted, .quadratic:
-            return (vote.base as! Vote<[String: Int]>).choice as AnyObject
+            return (vote.base as! Vote<[String: Double]>).choice as AnyObject
         }
     }
 }

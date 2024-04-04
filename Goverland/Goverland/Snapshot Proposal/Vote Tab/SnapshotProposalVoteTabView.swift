@@ -146,7 +146,7 @@ struct SnapshotProposalVoteTabView: View {
                 case .rankedChoice: 
                     SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
                 case .weighted, .quadratic:
-                    SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Int]>())
+                    SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Double]>())
                 }
 
                 if proposal.state == .active {
@@ -176,7 +176,7 @@ struct SnapshotProposalVoteTabView: View {
                     case .approval, .rankedChoice:
                         SnapshotVotesView<[Int]>(proposal: proposal)
                     case .weighted, .quadratic:
-                        SnapshotVotesView<[String: Int]>(proposal: proposal)
+                        SnapshotVotesView<[String: Double]>(proposal: proposal)
                     }
                 }
 

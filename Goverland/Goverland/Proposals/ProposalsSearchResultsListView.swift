@@ -25,7 +25,7 @@ struct ProposalsSearchResultsListView: View {
                 Spacer()
             } else if dataSource.searchResultProposals.isEmpty { // initial searching
                 ScrollView {
-                    ForEach(0..<3) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerProposalListItemCondensedView()
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
