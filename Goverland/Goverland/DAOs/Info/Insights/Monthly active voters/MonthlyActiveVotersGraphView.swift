@@ -49,7 +49,7 @@ struct _MonthlyActiveUsersChart: GraphViewContent {
     }
 
     private var minScaleDate: Date {
-        (dataSource.monthlyActiveUsers.first?.date ?? Date()) - dateAdjustment
+        (dataSource.monthlyActiveUsers.first?.date ?? Date())
     }
 
     private var maxScaleDate: Date {
@@ -98,7 +98,8 @@ struct _MonthlyActiveUsersChart: GraphViewContent {
                                 .lineStyle(.init(lineWidth: 1, dash: [2]))
                                 .annotation(
                                     position: selectedDate <= midDate ? .trailing : .leading,
-                                    alignment: .center, spacing: 4
+                                    alignment: .center, 
+                                    spacing: 4
                                 ) {
                                     AnnotationView(firstPlaceholderValue: dataSource.returningVoters(date: selectedDate),
                                                    firstPlaceholderTitle: "Returning voters",
