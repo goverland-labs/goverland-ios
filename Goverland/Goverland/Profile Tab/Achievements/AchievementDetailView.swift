@@ -13,35 +13,32 @@ struct AchievementDetailView: View {
     let achievement: Achievement
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 5) {
             Image("early-tester")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .clipped()
                 .frame(width: 250, height: 300)
-                .background(Color.container)
-                .cornerRadius(20)
                 .padding(.vertical, 50)
-
-            HStack {
-                Spacer()
-                Text(achievement.title)
-                    .font(.titleSemibold)
-                    .foregroundStyle(Color.textWhite)
-                    .padding(.bottom)
-                Spacer()
+            
+            Text(achievement.title)
+                .font(.headlineSemibold)
+                .foregroundStyle(Color.textWhite)
+            
+            Text(achievement.subtitle ?? "")
+                .font(.caption)
+                .foregroundStyle(Color.textWhite60)
+            
+            if achievement.achievedAt != nil {
+                Text("Unlocked on \(Utils.shortDateWithoutTime(achievement.achievedAt!))")
+                    .font(.caption)
+                    .foregroundStyle(Color.textWhite60)
             }
             
-            if let subtitle = achievement.subtitle {
-                HStack {
-                    Spacer()
-                    Text(subtitle)
-                        .font(.bodyRegular)
-                        .foregroundStyle(Color.textWhite)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                }
-            }
+            Text(achievement.message ?? "")
+                .font(.subheadlineRegular)
+                .foregroundStyle(Color.textWhite)
+                .multilineTextAlignment(.center)
 
             Spacer()
         }

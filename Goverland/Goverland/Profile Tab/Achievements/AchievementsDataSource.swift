@@ -51,7 +51,7 @@ class AchievementsDataSource: ObservableObject {
             Achievement(id: "early-tester",
                         title: "Early Tester",
                         subtitle: "Awarded to users who participate in the initial testing phase of our platform.",
-                        description: "You earned this achievement by participating in the TestFlight App testing before our public launch./n/nThank you for being an early tester of Goverland Alpha! 🙏 ",
+                        description: "You earned this achievement by participating in the TestFlight App testing before our public launch. Thank you for being an early tester of Goverland Beta! 🙏 ",
                         message: "Congratulations! You've earned the 'Early Tester' achievement 🙏 ",
                         image: nil,
                         progress: AchievementProgress(goal: 1, current: 1),
