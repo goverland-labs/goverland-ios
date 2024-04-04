@@ -202,6 +202,14 @@ struct PublicProfileVotesEndpoint: APIEndpoint {
     }
 }
 
+struct GetAchievementsEndpoint: APIEndpoint {
+    typealias ResponseType = [Achievement]
+    
+    var path: String { "???" }
+    var method: HttpMethod = .get
+
+}
+
 // MARK: - DAOs
 
 struct DaoListEndpoint: APIEndpoint {

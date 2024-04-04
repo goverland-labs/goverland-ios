@@ -14,7 +14,7 @@ struct AchievementDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Image(achievement.imageName)
+            Image("early-tester")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .clipped()

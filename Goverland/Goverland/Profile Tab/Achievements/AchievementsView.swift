@@ -15,53 +15,57 @@ struct AchievementsView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [
-                GridItem(.flexible(minimum: 100, maximum: 200), spacing: 15),
-                GridItem(.flexible(minimum: 100, maximum: 200), alignment: .top)
-            ], spacing: 15, content: {
+            VStack(spacing: 10) {
                 ForEach(dataScource.achievements) { achievement in
                     // TODO: remove in public release
-                    if !achievement.isVisible {
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Text("COMING SOON")
-                                    .font(.headlineSemibold)
+                    NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
+                        
+                        HStack(spacing: 0) {
+                            Image("early-tester")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipped()
+                                .padding()
+                            
+                            VStack(alignment: .leading) {
+                                Text(achievement.title)
+                                    .font(.subheadlineSemibold)
+                                    .foregroundStyle(Color.textWhite)
+                                Text(achievement.subtitle ?? "")
+                                    .font(.caption)
                                     .foregroundStyle(Color.textWhite60)
+                                
                                 Spacer()
+                                
+                                HStack {
+                                    if achievement.achievedAt != nil {
+                                        BubbleView(image: Image(systemName: "checkmark"),
+                                                   text: Text("Unlocked"),
+                                                   textColor: .textWhite,
+                                                   backgroundColor: .success)
+                                    }
+                                    if achievement.exlusive {
+                                        BubbleView(image: Image(systemName: "heart"),
+                                                   text: Text("Exclusive"),
+                                                   textColor: .textWhite,
+                                                   backgroundColor: .warning)
+                                    }
+                                }
                             }
+                            .padding()
+                            .multilineTextAlignment(.leading)
+                            
                             Spacer()
                         }
-                        .frame(height: 210)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 120)
                         .background(Color.container)
                         .cornerRadius(20)
-                    } else {
-                        NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
-                            VStack(spacing: 0) {
-                                Image(achievement.imageName)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .clipped()
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    Text(achievement.title)
-                                        .font(.subheadlineSemibold)
-                                        .foregroundStyle(Color.textWhite)
-                                        .padding(.bottom, 20)
-                                    Spacer()
-                                }
-                                Spacer()
-                            }
-                            .frame(height: 210)
-                            .background(Color.container)
-                            .cornerRadius(20)
-                        }
+                        
                     }
                 }
-            })
-            .padding()
+            }
+            .padding(.top, 10)
         }
         .onAppear() {
             Tracker.track(.screenAchievements)

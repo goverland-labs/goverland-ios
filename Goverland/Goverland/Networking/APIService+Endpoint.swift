@@ -73,6 +73,11 @@ extension APIService {
         let endpoint = ProfileHasVotingPowerEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
+    
+    static func getAchievements() -> AnyPublisher<(GetAchievementsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = GetAchievementsEndpoint()
+        return shared.request(endpoint)
+    }
 
     // MARK: - DAOs
 

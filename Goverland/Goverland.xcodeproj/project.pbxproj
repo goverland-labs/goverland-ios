@@ -254,6 +254,7 @@
 		BAC3CA212B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */; };
 		BAC3CA252B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */; };
 		BAC3CA2C2B9CC0A9001CC6C3 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = BAC3CA2B2B9CC0A9001CC6C3 /* Version */; };
+		BAC997BA2BBF352500476735 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC997B92BBF352500476735 /* Achievement.swift */; };
 		BACF9FC42B5AC8F900D990F5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */; };
 		BACF9FC82B5AC8F900D990F5 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* XSettingsView.swift */; };
@@ -562,6 +563,7 @@
 		BAC3CA1E2B9A3BFC001CC6C3 /* PublicUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileView.swift; sourceTree = "<group>"; };
 		BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileDataSource.swift; sourceTree = "<group>"; };
 		BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileActivityView.swift; sourceTree = "<group>"; };
+		BAC997B92BBF352500476735 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BACF9FC52B5AC8F900D990F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 				55DE41B12B17B8DD008617F5 /* Persistence */,
 				550ACFB42AFEED3A006EF5BB /* Profile.swift */,
 				557C26552B31B2E800AAF26C /* Avatar.swift */,
+				BAC997B92BBF352500476735 /* Achievement.swift */,
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
 				55E9D9872B6A7F4500697A12 /* Network.swift */,
@@ -2000,6 +2003,7 @@
 				557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */,
 				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,
 				55CD8C712BB4A13E0074D734 /* PublicUserProfileVotesListView.swift in Sources */,
+				BAC997BA2BBF352500476735 /* Achievement.swift in Sources */,
 				5597E73E2A0A5C8800E2FAE4 /* NetworkManager.swift in Sources */,
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
