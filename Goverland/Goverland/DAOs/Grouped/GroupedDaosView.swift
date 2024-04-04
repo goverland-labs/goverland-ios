@@ -124,7 +124,7 @@ struct DaoThreadForCategoryView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 if dataSource.categoryDaos[category] == nil { // initial loading
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerDaoCardView()
                     }
                 } else {

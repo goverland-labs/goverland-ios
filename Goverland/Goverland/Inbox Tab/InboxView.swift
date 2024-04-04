@@ -31,7 +31,7 @@ struct InboxView: View {
                 } else if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
-                        ForEach(0..<5) { _ in
+                        ForEach(0..<7) { _ in
                             ShimmerProposalListItemView()
                                 .padding(.horizontal, Constants.horizontalPadding)
                         }

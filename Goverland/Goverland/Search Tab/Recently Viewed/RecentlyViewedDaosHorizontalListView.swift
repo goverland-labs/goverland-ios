@@ -21,7 +21,7 @@ struct RecentlyViewedDaosHorizontalListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     if dataSource.recentlyViewedDaos.isEmpty { // initial loading
-                        ForEach(0..<3) { _ in
+                        ForEach(0..<5) { _ in
                             ShimmerView()
                                 .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                                 .cornerRadius(Avatar.Size.m.daoImageSize / 2)

@@ -52,7 +52,7 @@ fileprivate struct MutualDaosScrollView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
                 if dataSource.mutualDaos == nil { // initial loading
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerDaoCardView()
                     }
                 } else {

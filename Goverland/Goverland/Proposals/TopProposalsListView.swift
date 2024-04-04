@@ -22,7 +22,7 @@ struct TopProposalsListView: View {
         Group {
             if dataSource.isLoading && dataSource.proposals.count == 0 {
                 ScrollView {
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<7) { _ in
                         ShimmerProposalListItemView()
                             .padding(.horizontal, Constants.horizontalPadding)
                     }
