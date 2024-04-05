@@ -17,7 +17,7 @@ class SignInDataSource: ObservableObject {
 
     func guestAuth() {
         loading = true
-        APIService.guestAuth(guestId: SettingKeys.shared.guestDeviceId,
+        APIService.guestAuth(guestId: SettingKeys.shared.deviceId,
                              deviceName: UIDevice.current.name,
                              defaultErrorDisplay: true)
             .sink { [weak self] _ in
@@ -25,8 +25,8 @@ class SignInDataSource: ObservableObject {
             } receiveValue: { response, headers in
                 Task {
                     let profile = try! await UserProfile.upsert(profile: response.profile,
-                                                                deviceId: SettingKeys.shared.guestDeviceId,
-                                                                sessionId: response.sessionId, 
+                                                                deviceId: SettingKeys.shared.deviceId,
+                                                                sessionId: response.sessionId,
                                                                 wcSessionMeta: nil,
                                                                 cbAccount: nil)
                     try! await profile.select()

@@ -37,10 +37,7 @@ class SettingKeys: ObservableObject {
             UNUserNotificationCenter.current().setBadgeCount(unreadEvents)
         }
     }
-
-    /// If a user logs out from a guest profile and then logs in again as a guest, we want to preserve it.
-    /// To support earlier app users (before v0.5) we will use identifierForVendor. It will be used only for guest profiles.
-    @AppStorage("guestDeviceId") var guestDeviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+    @AppStorage("deviceId") var deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 
     static var shared = SettingKeys()
 
