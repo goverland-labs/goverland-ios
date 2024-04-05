@@ -38,12 +38,10 @@ struct PublicUserProfileDaosListView: View {
                                 subscriptionMeta: dao.subscriptionMeta,
                                 onSelectDao: { dao in
                                     activeSheetManager.activeSheet = .daoInfo(dao)
-                                    // TODO: track
-                                    //                                    Tracker.track(.followedDaosOpenDao)
+                                    Tracker.track(.publicPrfDaoFullOpenDao)
                                 },
                                 onFollowToggle: { didFollow in
-                                    // TODO: track
-                                    //                                    Tracker.track(didFollow ? .followedDaosRefollow : .followedDaosUnfollow)
+                                    Tracker.track(didFollow ? .publicPrfDaoFullFollow : .publicPrfDaoFullUnfollow)
                                 }
                             )
                         }
@@ -61,8 +59,7 @@ struct PublicUserProfileDaosListView: View {
             if dataSource.daos.isEmpty {
                 dataSource.refresh()
             }
-            // TODO: track
-//            Tracker.track(.screenFollowedDaos)
+            Tracker.track(.screenPublicPrfDaoFull)
         }
         .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
             // refresh if some popover sheet is presented

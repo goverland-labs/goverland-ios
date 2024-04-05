@@ -202,11 +202,14 @@ enum TrackingEvent: String, Trackable {
 
     // Voted In DAOs
     case publicPrfVotedDaoOpen = "public_prf_voted_dao_open"
+    case screenPublicPrfDaoFull = "screen_public_prf_dao_full"
+    case publicPrfDaoFullOpenDao = "public_prf_dao_full_open_dao"
+    case publicPrfDaoFullFollow = "public_prf_dao_full_follow"
+    case publicPrfDaoFullUnfollow = "public_prf_dao_full_unfollow"
 
     // Votes
     case publicPrfVotesOpenProposal = "public_prf_votes_open_proposal"
     case publicPrfVotesOpenDao = "public_prf_votes_open_dao"
-    // TODO: impl
     case screenPublicProfileVotesFull = "screen_public_profile_votes_full"
     case publicPrfVotesFullOpenProposal = "public_prf_votes_full_open_prp"
     case publicPrfVotesFullOpenDao = "public_prf_votes_full_open_dao"
