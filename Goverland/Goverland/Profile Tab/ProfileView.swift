@@ -74,22 +74,23 @@ struct ProfileView: View {
 fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
 
-    @StateObject private var dataSource = ProfileDataSource.shared
+    @StateObject private var profileDataSource = ProfileDataSource.shared
+    @StateObject private var achievementsDataSource = AchievementsDataSource.shared
     @State private var showSignIn = false
 
     var body: some View {
         Group {
-            if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
-            } else if dataSource.profile == nil { // is loading
+            if profileDataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: profileDataSource, message: "Sorry, we couldn’t load the profile")
+            } else if profileDataSource.profile == nil { // is loading
                 ShimmerProfileHeaderView()
                 Spacer()
-            } else if let profile = dataSource.profile {
+            } else if let profile = profileDataSource.profile {
                 ProfileHeaderView(user: profile.account)
 
-                FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
+                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter, isIndicator: true) { _ in }
 
-                switch dataSource.filter {
+                switch profileDataSource.filter {
                 case .activity:
                     if profile.role == .guest {
                         _SignInToVoteButton {
@@ -101,11 +102,12 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile, path: $path)
                 case .achievements:
-                    if profile.role != .guest {
-                        AchievementsView()
-                    } else {
-                        GuestAchievementsView()
-                    }
+//                    if profile.role != .guest {
+//                        AchievementsView()
+//                    } else {
+//                        GuestAchievementsView()
+//                    }
+                    AchievementsView()
                 }
             }
         }
@@ -115,8 +117,11 @@ fileprivate struct _ProfileView: View {
         }
         .onAppear {
             Tracker.track(.screenProfile)
-            if dataSource.profile == nil {
-                dataSource.refresh()
+            if profileDataSource.profile == nil {
+                profileDataSource.refresh()
+            }
+            if achievementsDataSource.achievements.isEmpty {
+                achievementsDataSource.loadAchievements()
             }
         }
     }

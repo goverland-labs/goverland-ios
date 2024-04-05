@@ -10,16 +10,15 @@
 import SwiftUI
 
 struct AchievementsView: View {
-    @ObservedObject var dataScource = AchievementsDataSource()
+    @ObservedObject var dataScource = AchievementsDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                ForEach(dataScource.achievements) { achievement in
+                ForEach(dataScource.achievements) { (achievement: Achievement) in
                     // TODO: remove in public release
                     NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
-                        
                         HStack(spacing: 0) {
                             Image("early-tester")
                                 .resizable()
@@ -38,12 +37,12 @@ struct AchievementsView: View {
                                 Spacer()
                                 
                                 HStack {
-                                    if achievement.achievedAt != nil {
-                                        BubbleView(image: Image(systemName: "checkmark"),
-                                                   text: Text("Unlocked"),
-                                                   textColor: .textWhite,
-                                                   backgroundColor: .success)
-                                    }
+//                                    if achievement.achievedAt != nil {
+//                                        BubbleView(image: Image(systemName: "checkmark"),
+//                                                   text: Text("Unlocked"),
+//                                                   textColor: .textWhite,
+//                                                   backgroundColor: .success)
+//                                    }
                                     if achievement.exlusive {
                                         BubbleView(image: Image(systemName: "heart"),
                                                    text: Text("Exclusive"),
@@ -69,6 +68,9 @@ struct AchievementsView: View {
         }
         .onAppear() {
             Tracker.track(.screenAchievements)
+            if dataScource.achievements.isEmpty {
+                dataScource.loadAchievements()
+            }
         }
     }
 }

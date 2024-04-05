@@ -58,7 +58,7 @@ struct DaoInfoView: View {
                         .padding(.horizontal)
                         .padding(.bottom)
 
-                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
+                    FilterButtonsView<DaoInfoFilter>(filter: $filter, isIndicator: false) { _ in }
 
                     switch filter {
                     case .activity: DaoInfoEventsView(dao: dao)

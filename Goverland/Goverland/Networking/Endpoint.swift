@@ -205,7 +205,7 @@ struct PublicProfileVotesEndpoint: APIEndpoint {
 struct GetAchievementsEndpoint: APIEndpoint {
     typealias ResponseType = [Achievement]
     
-    var path: String { "???" }
+    var path: String = "me/achievements"
     var method: HttpMethod = .get
 
 }

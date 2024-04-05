@@ -28,12 +28,12 @@ struct AchievementDetailView: View {
             Text(achievement.subtitle ?? "")
                 .font(.caption)
                 .foregroundStyle(Color.textWhite60)
-            
-            if achievement.achievedAt != nil {
-                Text("Unlocked on \(Utils.shortDateWithoutTime(achievement.achievedAt!))")
-                    .font(.caption)
-                    .foregroundStyle(Color.textWhite60)
-            }
+//            
+//            if achievement.achievedAt != nil {
+//                Text("Unlocked on \(Utils.shortDateWithoutTime(achievement.achievedAt!))")
+//                    .font(.caption)
+//                    .foregroundStyle(Color.textWhite60)
+//            }
             
             Text(achievement.message ?? "")
                 .font(.subheadlineRegular)

@@ -16,12 +16,13 @@ class AchievementsDataSource: ObservableObject {
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
+    static let shared = AchievementsDataSource()
+    
     init() {
-        mockAchievements()
-        //loadAchievements()
+        //mockAchievements()
     }
     
-    private func loadAchievements() {
+    func loadAchievements() {
         isLoading = true
         APIService.getAchievements()
             .sink { [weak self] completion in
@@ -43,40 +44,40 @@ class AchievementsDataSource: ObservableObject {
                         subtitle: "Vote in 3 verified DAOs",
                         description: "Make your voice heard by casting your first vote in a verified DAO through the Goverland App. Begin your journey in decentralized decision-making today!",
                         message: "Congratulations! You've earned the 'First Vote Cast' achievement by participating in your first verified DAO vote through the Goverland App. \nYour engagement marks the start of your impactful journey in decentralized governance. Welcome aboard!",
-                        image: "https://example.link",
+                        images: [],
                         progress: AchievementProgress(goal: 1, current: 0),
-                        achievedAt: .now,
-                        viewedAt: nil,
+                        //achievedAt: .now,
+                        //viewedAt: nil,
                         exlusive: false),
             Achievement(id: "early-tester",
                         title: "Early Tester",
                         subtitle: "Awarded to users who participate in the initial testing phase of our platform.",
                         description: "You earned this achievement by participating in the TestFlight App testing before our public launch. Thank you for being an early tester of Goverland Beta! 🙏 ",
                         message: "Congratulations! You've earned the 'Early Tester' achievement 🙏 ",
-                        image: nil,
+                        images: [],
                         progress: AchievementProgress(goal: 1, current: 1),
-                        achievedAt: .now,
-                        viewedAt: nil,
+                        //achievedAt: .now,
+                        //viewedAt: nil,
                         exlusive: true),
             Achievement(id: "voted-in-3-verified-dao",
                         title: "First Vote Cast",
                         subtitle: "Vote in 3 verified DAOs",
                         description: "Make your voice heard by casting your first vote in a verified DAO through the Goverland App. Begin your journey in decentralized decision-making today!",
                         message: "Congratulations! You've earned the 'First Vote Cast' achievement by participating in your first verified DAO vote through the Goverland App. \nYour engagement marks the start of your impactful journey in decentralized governance. Welcome aboard!",
-                        image: "https://example.link",
+                        images: [],
                         progress: AchievementProgress(goal: 1, current: 0),
-                        achievedAt: .now,
-                        viewedAt: nil,
+                        //achievedAt: .now,
+                        //viewedAt: nil,
                         exlusive: false),
             Achievement(id: "early-tester",
                         title: "Early Tester",
                         subtitle: "Awarded to users who participate in the initial testing phase of our platform.",
                         description: "You earned this achievement by participating in the TestFlight App testing before our public launch./n/nThank you for being an early tester of Goverland Alpha! 🙏 ",
                         message: "Congratulations! You've earned the 'Early Tester' achievement 🙏 ",
-                        image: nil,
+                        images: [],
                         progress: AchievementProgress(goal: 1, current: 1),
-                        achievedAt: .now,
-                        viewedAt: nil,
+                        //achievedAt: .now,
+                        //viewedAt: nil,
                         exlusive: true)
         ]
     }
