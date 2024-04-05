@@ -15,6 +15,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
     @Published var daos: [Dao] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
+    @Published var isLoading = false
     private(set) var total: Int?
     private var cancellables = Set<AnyCancellable>()
 
@@ -48,8 +49,10 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
     }
 
     private func loadInitialData() {
+        isLoading = true
         APIService.daos(category: category)
             .sink { [weak self] completion in
+                self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
