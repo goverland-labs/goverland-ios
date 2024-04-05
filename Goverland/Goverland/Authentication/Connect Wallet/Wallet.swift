@@ -18,15 +18,18 @@ struct Wallet: Identifiable, Equatable {
 
     // MARK: - Recommended default wallets
 
-    private static let _required: [Wallet] = [.zerion]
-    private static let _recommended: [Wallet] = [.coinbase, .metamask, .mew, .rainbow, .trust]
+    private static let _featured: [Wallet] = [.zerion]
+    private static let _recommended: [Wallet] = [.zerion, .coinbase, .metamask, .mew, .rainbow, .trust]
 
     static var recommended: [Wallet] {
-        var wallets = _required
+        var wallets = [Wallet]()
         for w in _recommended {
             if let url = URL(string: "\(w.scheme)://"), UIApplication.shared.canOpenURL(url) {
                 wallets.append(w)
             }
+        }
+        if wallets.isEmpty {
+            wallets = _featured
         }
         return Array(wallets.prefix(4))
     }

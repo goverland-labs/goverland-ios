@@ -21,10 +21,13 @@ enum TrackingEvent: String, Trackable {
     case signInAsGuest = "sign_in_as_guest"
     case twoStepsSignedIn = "two_steps_signed_in"
 
+    // MARK: - Connect Wallet
     case screencConnectWallet = "screen_connect_wallet"
     case connectWalletShowQR = "connect_wallet_show_qr"
+    case initiateRecommendedWltConnection = "initiate_recommended_wlt_connection"
     case walletConnected = "wallet_connected"
 
+    // MARK: - Reconnect Wallet
     case screenReconnectWallet = "screen_reconnect_wallet"
     case reconnectWalletWrongWallet = "reconnect_wallet_wrong_wallet"
     case reconnectWalletSuccess = "reconnect_wallet_success"
