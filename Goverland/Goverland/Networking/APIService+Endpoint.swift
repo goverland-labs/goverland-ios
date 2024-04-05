@@ -74,6 +74,31 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    // MARK: - Public Profile
+
+    static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileEndpoint(address: address)
+        return shared.request(endpoint)
+    }
+
+    static func getPublicProfileDaos(address: Address) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "limit", value: "10000"),
+
+        ]
+        let endpoint = PublicProfileDaosEndpoint(address: address, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
+    static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "limit", value: "10000"),
+
+        ]
+        let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     // MARK: - DAOs
 
     static func daos(offset: Int = 0,
@@ -382,21 +407,5 @@ extension APIService {
     static func markPushAsClicked(pushId: String) -> AnyPublisher<(MarkPushAsClickedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
         return shared.request(endpoint, defaultErrorDisplay: false)
-    }
-    
-    // MARK: - Public Profile
-    
-    static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = PublicProfileEndpoint(address: address)
-        return shared.request(endpoint)
-    }
-
-    static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
-            URLQueryItem(name: "limit", value: "10000"),
-
-        ]
-        let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
-        return shared.request(endpoint)
     }
 }

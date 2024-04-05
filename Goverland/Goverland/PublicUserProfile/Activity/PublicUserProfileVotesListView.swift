@@ -24,7 +24,7 @@ struct PublicUserProfileVotesListView: View {
                                  isSelected: false,
                                  isRead: false) {
                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                Tracker.track(.prfVotesFullOpenDao)
+                Tracker.track(.publicPrfVotesFullOpenDao)
             } menuContent: {
                 ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
             }
@@ -34,16 +34,14 @@ struct PublicUserProfileVotesListView: View {
         }
         .onChange(of: selectedVoteIndex) { _, _ in
             if let index = selectedVoteIndex, votedProposals.count > index {
-                // TODO: impl
-//                Tracker.track(.prfVotesFullOpenProposal)
+                Tracker.track(.publicPrfVotesFullOpenProposal)
                 let proposal = votedProposals[index]
                 path.append(.vote(proposal))
             }
         }
         .onAppear {
             selectedVoteIndex = nil
-            // TODO: impl
-//            Tracker.track(.screenProfileVotesFull)
+            Tracker.track(.screenPublicProfileVotesFull)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("\(user.usernameShort)")

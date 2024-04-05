@@ -86,26 +86,9 @@ class SignInTwoStepsDataSource: ObservableObject {
               let siweMessage = siweMessage else { return }
 
         let deviceName = UIDevice.current.name
+        let deviceId = SettingKeys.shared.deviceId
 
         Task {
-            // First, try to get a regular profile by address if it already exists (in case a user
-            // tries to sign in with already signed in profile).
-            //
-            // If not, meaning we signing in with a
-            // a) guest user
-            // b) new user
-            // then generate a new deviceId
-            //
-            // Different profiles should have different deviceIds for privacy considerations.
-            let deviceId: String
-            if let p = try! await UserProfile.getByAddress(address) {
-                // regular user exists
-                deviceId = p.deviceId
-            } else {
-                // new app user
-                deviceId = UUID().uuidString
-            }
-
             APIService.regularAuth(address: address,
                                    deviceId: deviceId,
                                    deviceName: deviceName,

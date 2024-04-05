@@ -25,7 +25,7 @@ struct PublicUserProfileView: View {
     init(address: Address) {
         _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(address: address))
     }
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             Group {
@@ -38,7 +38,7 @@ struct PublicUserProfileView: View {
                     ProfileHeaderView(user: profile)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
-                    
+
                     switch dataSource.filter {
                     case .activity:
                         PublicUserProfileActivityView(address: dataSource.address, path: $path)
@@ -55,7 +55,7 @@ struct PublicUserProfileView: View {
                     }
                 }
 
-                ToolbarTitle("User profile")                
+                ToolbarTitle("User profile")
             }
             .onAppear {
                 Tracker.track(.screenPublicProfile)
@@ -66,8 +66,8 @@ struct PublicUserProfileView: View {
             .navigationDestination(for: PublicUserProfileScreen.self) { publicUserProfileScreen in
                 switch publicUserProfileScreen {
                 case .votedInDaos:
-                    // TODO: impl
-                    EmptyView()
+                    PublicUserProfileDaosListView(address: dataSource.address)
+                        .environmentObject(activeSheetManager)
                 case .votes(let proposals):
                     PublicUserProfileVotesListView(user: dataSource.profile!,
                                                    votedProposals: proposals,

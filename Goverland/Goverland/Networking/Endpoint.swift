@@ -187,6 +187,21 @@ struct PublicProfileEndpoint: APIEndpoint {
     }
 }
 
+struct PublicProfileDaosEndpoint: APIEndpoint {
+    typealias ResponseType = [Dao]
+
+    let address: Address
+
+    var path: String { "user/\(address)/participated-daos" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(address: Address, queryParameters: [URLQueryItem]) {
+        self.address = address
+        self.queryParameters = queryParameters
+    }
+}
+
 struct PublicProfileVotesEndpoint: APIEndpoint {
     typealias ResponseType = [Proposal]
     

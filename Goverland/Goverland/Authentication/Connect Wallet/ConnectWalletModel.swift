@@ -32,6 +32,7 @@ class ConnectWalletModel: ObservableObject {
     func connect(wallet: Wallet) {
         connecting = true
         if wallet == .coinbase {
+            Tracker.track(.initiateRecommendedWltConnection, parameters: ["wallet" : "Coinbase Wallet"])
             CoinbaseWalletSDK.shared.initiateHandshake(
                 initialActions: [
                     Action(jsonRpc: .eth_requestAccounts)
@@ -43,13 +44,14 @@ class ConnectWalletModel: ObservableObject {
                     guard let account = account else { return }
                     logInfo("[CoinbaseWallet] Account: \(account)")
                     CoinbaseWalletManager.shared.account = account
-                    Tracker.track(.walletConnected)
+                    Tracker.track(.walletConnected, parameters: ["wallet" : "Coinbase Wallet"])
                 case .failure(let error):
                     logInfo("[CoinbaseWallet] Error: \(error)")
                     showToast("Connection request denied")
                 }
             }
         } else {
+            Tracker.track(.initiateRecommendedWltConnection, parameters: ["wallet" : wallet.name])
             Task {
                 do {
                     guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
@@ -75,7 +77,7 @@ class ConnectWalletModel: ObservableObject {
                 logInfo("[WC] Session settle: \(session)")
                 showLocalNotification(title: "Wallet connected", body: "Open the App to proceed")
                 WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: !self.qrDisplayed)
-                Tracker.track(.walletConnected)
+                Tracker.track(.walletConnected, parameters: ["wallet": session.peer.name])
             }
             .store(in: &cancellables)
     }
