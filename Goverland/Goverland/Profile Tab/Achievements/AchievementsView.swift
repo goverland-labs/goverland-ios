@@ -30,7 +30,7 @@ struct AchievementsView: View {
                                 Text(achievement.title)
                                     .font(.subheadlineSemibold)
                                     .foregroundStyle(Color.textWhite)
-                                Text(achievement.subtitle ?? "")
+                                Text(achievement.subtitle)
                                     .font(.caption)
                                     .foregroundStyle(Color.textWhite60)
                                 
@@ -43,7 +43,7 @@ struct AchievementsView: View {
 //                                                   textColor: .textWhite,
 //                                                   backgroundColor: .success)
 //                                    }
-                                    if achievement.exlusive {
+                                    if achievement.exlusive ?? false {
                                         BubbleView(image: Image(systemName: "heart"),
                                                    text: Text("Exclusive"),
                                                    textColor: .textWhite,
