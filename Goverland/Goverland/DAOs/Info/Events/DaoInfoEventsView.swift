@@ -62,7 +62,7 @@ struct DaoInfoEventsView: View {
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
                                                  isRead: false) {
-                                ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
+                                ProposalSharingMenu(link: proposal.link)
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(Constants.listInsets)
