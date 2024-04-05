@@ -69,9 +69,15 @@ struct SnapshotProposalDescriptionView: View {
 }
 
 fileprivate struct ShadowOverlay: View {
+    @Environment(\.isPresented) private var isPresented
+    
+    private var gradientColors: [Color] {
+        return [.clear, .surface.opacity(isPresented ? 0.2 : 0.4)]
+    }
+
     var body: some View {
         Rectangle().fill(
-            LinearGradient(colors: [.clear, .surface.opacity(0.5)],
+            LinearGradient(colors: gradientColors,
                            startPoint: .top,
                            endPoint: .bottom))
         .frame(height: 50)
