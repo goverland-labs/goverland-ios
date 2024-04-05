@@ -40,10 +40,11 @@ fileprivate struct _VotedDaosView: View {
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                // TODO: enable once endpoint is ready
-//                NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
-//                    .font(.subheadlineSemibold)
-//                    .foregroundStyle(Color.primaryDim)
+                if daos.count > 0 {
+                    NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.primaryDim)
+                }
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
@@ -82,16 +83,23 @@ fileprivate struct _VotedProposalsView: View {
         dataSource.votedProposals ?? []
     }
 
+    var votesHeader: String {
+        guard let votes = dataSource.total else { return "Voted in DAOs" }
+        return "Votes (\(votes))"
+    }
+
     var body: some View {
         VStack {
             HStack {
-                Text("Votes (\(dataSource.total ?? 0))")
+                Text(votesHeader)
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                NavigationLink("See all", value: PublicUserProfileScreen.votes(votedProposals))
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.primaryDim)
+                if !votedProposals.isEmpty {
+                    NavigationLink("See all", value: PublicUserProfileScreen.votes(votedProposals))
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.primaryDim)
+                }
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
