@@ -88,7 +88,7 @@ fileprivate struct _ProfileView: View {
             } else if let profile = profileDataSource.profile {
                 ProfileHeaderView(user: profile.account)
 
-                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter, isIndicator: true) { _ in }
+                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter) { _ in }
 
                 switch profileDataSource.filter {
                 case .activity:

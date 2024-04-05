@@ -31,7 +31,7 @@ struct EcosystemChartsFullView: View {
     var body: some View {
         VStack {
             VStack {
-                FilterButtonsView<EcosystemFilter>(filter: $filter, isIndicator: false) { _ in }
+                FilterButtonsView<EcosystemFilter>(filter: $filter) { _ in }
                 
                 switch filter {
                 case .daos: MonthlyTotalDaosView()
