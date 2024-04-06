@@ -262,6 +262,7 @@ fileprivate struct WelcomeBlockView: View {
             .padding(.top, 16)
         }
         .padding(.vertical, 16)
+        .padding(.horizontal, Constants.horizontalPadding)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)

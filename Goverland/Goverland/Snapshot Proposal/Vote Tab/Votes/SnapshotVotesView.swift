@@ -116,7 +116,11 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
             return Alert(
                 title: Text("Reason"),
                 message: Text(resaon),
-                dismissButton: .default(Text("OK"))
+                primaryButton: .default(Text("Copy")) {
+                    UIPasteboard.general.string = resaon
+                    showToast("Copied")
+                },
+                secondaryButton: .default(Text("OK"))
             )
         }
     }

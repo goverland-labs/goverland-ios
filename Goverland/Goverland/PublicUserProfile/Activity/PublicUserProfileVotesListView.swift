@@ -26,7 +26,7 @@ struct PublicUserProfileVotesListView: View {
                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                 Tracker.track(.publicPrfVotesFullOpenDao)
             } menuContent: {
-                ProposalSharingMenu(link: proposal.link, isRead: nil, markCompletion: nil)
+                ProposalSharingMenu(link: proposal.link)
             }
             .listRowSeparator(.hidden)
             .listRowInsets(Constants.listInsets)

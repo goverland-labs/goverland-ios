@@ -18,7 +18,7 @@ struct ArchiveView: View {
     var archives: [InboxEvent] {
         data.events ?? []
     }
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             Group {
@@ -61,24 +61,32 @@ struct ArchiveView: View {
                             let isRead = archive.readAt != nil
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: isRead) {
-                                ProposalSharingMenu(link: proposal.link, isRead: isRead) {
-                                    if isRead {
-                                        Tracker.track(.archiveEventMarkUnread)
-                                        data.markUnread(eventID: archive.id)
-                                    } else {
-                                        Tracker.track(.archiveEventMarkRead)
-                                        data.markRead(eventID: archive.id)
+                                                 isRead: isRead
+                            ) {
+                                ProposalSharingMenu(
+                                    link: proposal.link,
+                                    isRead: isRead,
+                                    markCompletion: {
+                                        Haptic.medium()
+                                        if isRead {
+                                            Tracker.track(.archiveEventMarkUnread)
+                                            data.markUnread(eventID: archive.id)
+                                        } else {
+                                            Tracker.track(.archiveEventMarkRead)
+                                            data.markRead(eventID: archive.id)
+                                        }
+                                    },
+                                    isArchived: true,
+                                    archivationCompletion: {
+                                        unarchive(eventId: archive.id)
                                     }
-                                }
+                                )
                             }
                             .swipeActions {
                                 Button {
-                                    Haptic.medium()
-                                    data.unarchive(eventID: archive.id)
-                                    Tracker.track(.archiveEventUnarchive)
+                                    unarchive(eventId: archive.id)
                                 } label: {
-                                    Label("Unarchive", systemImage: "envelope")
+                                    Label("Unarchive", systemImage: "trash.slash.fill")
                                 }
                                 .tint(.clear)
                             }
@@ -101,7 +109,7 @@ struct ArchiveView: View {
                     }
                 }
 
-                ToolbarTitle("Archive")                
+                ToolbarTitle("Archive")
             }
             .onChange(of: selectedEventIndex) { _, _ in
                 if let index = selectedEventIndex, archives.count > index,
@@ -130,5 +138,11 @@ struct ArchiveView: View {
             data.refresh()
             Tracker.track(.screenArchive)
         }
+    }
+
+    private func unarchive(eventId: UUID) {
+        Haptic.medium()
+        data.unarchive(eventID: eventId)
+        Tracker.track(.archiveEventUnarchive)
     }
 }

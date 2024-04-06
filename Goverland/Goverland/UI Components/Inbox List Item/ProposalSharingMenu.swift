@@ -12,6 +12,20 @@ struct ProposalSharingMenu: View {
     let link: String
     let isRead: Bool?
     let markCompletion: (() -> Void)?
+    let isArchived: Bool?
+    let archivationCompletion: (() -> Void)?
+
+    init(link: String, 
+         isRead: Bool? = nil,
+         markCompletion: (() -> Void)? = nil,
+         isArchived: Bool? = nil,
+         archivationCompletion: (() -> Void)? = nil) {
+        self.link = link
+        self.isRead = isRead
+        self.markCompletion = markCompletion
+        self.isArchived = isArchived
+        self.archivationCompletion = archivationCompletion
+    }
 
     var body: some View {
         if let url = Utils.urlFromString(link) {
@@ -43,6 +57,22 @@ struct ProposalSharingMenu: View {
                     markCompletion?()
                 } label: {
                     Label("Mark as read", systemImage: "envelope.open.fill")
+                }
+            }
+        }
+
+        if let isArchived {
+            if isArchived {
+                Button {
+                    archivationCompletion?()
+                } label: {
+                    Label("Unarchive", systemImage: "trash.slash.fill")
+                }
+            } else {
+                Button {
+                    archivationCompletion?()
+                } label: {
+                    Label("Archive", systemImage: "trash.fill")
                 }
             }
         }
