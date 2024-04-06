@@ -42,7 +42,7 @@ struct Avatar: Codable {
 
         var achievementImageSize: CGSize {
             switch self {
-            case .xs, .s: return CGSize(width: 84, height: 10)
+            case .xs, .s: return CGSize(width: 84, height: 100)
             case .m, .l, .xl: return CGSize(width: 320, height: 400)
             }
         }

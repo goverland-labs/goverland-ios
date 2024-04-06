@@ -55,7 +55,7 @@
 		553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553744DB2A75802E00D05D8A /* FirebaseConfig.swift */; };
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
 		553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553756F02AE070E600416381 /* EmptyArchiveView.swift */; };
-		553AA62A2B2F94A6000402F0 /* SquarePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553AA6292B2F94A6000402F0 /* SquarePictureView.swift */; };
+		553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */; };
 		553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */; };
 		553D0F732B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */; };
 		553E74CF2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74CE2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift */; };
@@ -377,7 +377,7 @@
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
 		553756F02AE070E600416381 /* EmptyArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyArchiveView.swift; sourceTree = "<group>"; };
-		553AA6292B2F94A6000402F0 /* SquarePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquarePictureView.swift; sourceTree = "<group>"; };
+		553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePictureView.swift; sourceTree = "<group>"; };
 		553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFollowedDAOsActiveVoteHorizontalListView.swift; sourceTree = "<group>"; };
 		553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDAOsActiveVoteDataSource.swift; sourceTree = "<group>"; };
 		553E74CE2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileActivityDataSource.swift; sourceTree = "<group>"; };
@@ -788,7 +788,7 @@
 				5542437E2ADF32FC00504E97 /* RefreshIcon.swift */,
 				BAF651D129C0F00000C78A8A /* RoundPictureView.swift */,
 				552ACFD22B622E7F0038A09F /* DAORoundViewWithActiveVotes.swift */,
-				553AA6292B2F94A6000402F0 /* SquarePictureView.swift */,
+				553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */,
 				5521D27229EF0EA200A09FD4 /* IdentityView.swift */,
 				5521D27629EF145300A09FD4 /* ProposalStatusView.swift */,
 				BA4A1C782A71D80700AC7470 /* ProposalResultProcessBarView.swift */,
@@ -1892,7 +1892,7 @@
 				55E800A42AF825D900A43D5F /* SignInView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
-				553AA62A2B2F94A6000402F0 /* SquarePictureView.swift in Sources */,
+				553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */,

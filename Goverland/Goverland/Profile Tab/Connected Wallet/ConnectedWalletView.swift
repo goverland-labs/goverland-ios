@@ -133,7 +133,7 @@ fileprivate struct _SwipeableConnectedWalletView: View {
                             .scaledToFit()
                             .cornerRadius(4)
                     } else if let imageUrl = wallet.imageURL {
-                        SquarePictureView(image: imageUrl, imageSize: 32)
+                        RectanglePictureView(image: imageUrl, imageSize: CGSize(width: 32, height: 32))
                     }
 
                     VStack(alignment: .leading, spacing: 4) {

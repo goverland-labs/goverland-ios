@@ -102,12 +102,11 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile, path: $path)
                 case .achievements:
-//                    if profile.role != .guest {
-//                        AchievementsView()
-//                    } else {
-//                        GuestAchievementsView()
-//                    }
-                    AchievementsView()
+                    if profile.role == .guest {
+                        GuestAchievementsView()
+                    } else {
+                        AchievementsView()
+                    }
                 }
             }
         }
@@ -121,7 +120,7 @@ fileprivate struct _ProfileView: View {
                 profileDataSource.refresh()
             }
             if achievementsDataSource.achievements.isEmpty {
-                achievementsDataSource.loadAchievements()
+                achievementsDataSource.refresh()
             }
         }
     }

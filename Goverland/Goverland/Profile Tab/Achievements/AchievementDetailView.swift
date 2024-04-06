@@ -25,7 +25,7 @@ struct AchievementDetailView: View {
                 .font(.headlineSemibold)
                 .foregroundStyle(Color.textWhite)
             
-            Text(achievement.subtitle ?? "")
+            Text(achievement.subtitle)
                 .font(.caption)
                 .foregroundStyle(Color.textWhite60)
 //            

@@ -18,7 +18,7 @@ struct Achievement: Identifiable, Decodable {
     let progress: Progress
     let achievedAt: Date?
     let viewedAt: Date?
-    let exlusive: Bool?
+    let exclusive: Bool
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -30,11 +30,15 @@ struct Achievement: Identifiable, Decodable {
         case progress
         case achievedAt = "achieved_at"
         case viewedAt = "viewed_at"
-        case exlusive
+        case exclusive
     }
 
     struct Progress: Decodable {
         let goal: Int
         let current: Int
+    }
+
+    func image(size: Avatar.Size) -> URL? {
+        images.first(where: { $0.size == size })?.link
     }
 }

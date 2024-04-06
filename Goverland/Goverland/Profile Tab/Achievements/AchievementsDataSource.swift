@@ -10,15 +10,24 @@
 import Foundation
 import Combine
 
-class AchievementsDataSource: ObservableObject {
+class AchievementsDataSource: ObservableObject, Refreshable {
     @Published var achievements: [Achievement] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
     static let shared = AchievementsDataSource()
-    
-    func loadAchievements() {
+
+    func refresh() {
+        achievements = []
+        failedToLoadInitialData = false
+        isLoading = false
+        cancellables = Set<AnyCancellable>()
+
+        loadAchievements()
+    }
+
+    private func loadAchievements() {
         isLoading = true
         APIService.getAchievements()
             .sink { [weak self] completion in
