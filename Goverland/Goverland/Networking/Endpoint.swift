@@ -25,10 +25,15 @@ extension APIEndpoint {
     var baseURL: URL { ConfigurationManager.baseURL }
 
     var headers: [String: String] {
-        var headers = ["Content-Type": "application/json"]
+        var headers = [
+            "Content-Type": "application/json",
+            "X-App-Platform": "iOS",
+            "X-App-Version": Bundle.main.releaseVersionNumber!
+        ]
         if !SettingKeys.shared.authToken.isEmpty {
             headers["Authorization"] = SettingKeys.shared.authToken
         }
+
         return headers
     }
 
