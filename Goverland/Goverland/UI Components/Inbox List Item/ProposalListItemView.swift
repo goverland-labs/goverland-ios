@@ -183,7 +183,7 @@ struct ProposalListItemBodyView: View {
 
                 if displayStatus {
                     if shouldShowVoteChoice {
-                        VStack(spacing: 4) {
+                        VStack(alignment: .leading, spacing: 4) {
                             if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
                                 // public user voted
                                 let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)

@@ -50,11 +50,16 @@ struct UserBucketsGraphView: View {
 
                 Chart {
                     ForEach(dataSource.userBuckets.indices, id: \.self) { i in
-                        BarMark (
-                            x: .value("Bucket", dataSource.userBuckets[i].votes),
-                            y: .value("Voters", dataSource.userBuckets[i].voters)
-                        )
-                        .foregroundStyle(Color.primaryDim)
+                        // TODO: check and remove later
+                        // Since iOS 17.4 update cycle is broken somehow and it crashes here with our of index
+                        // when we switch filter, so we need to make another check here 🤯
+                        if i < dataSource.userBuckets.count {
+                            BarMark (
+                                x: .value("Bucket", dataSource.userBuckets[i].votes),
+                                y: .value("Voters", dataSource.userBuckets[i].voters)
+                            )
+                            .foregroundStyle(Color.primaryDim)
+                        }
                     }
 
                     if let selectedBucket {

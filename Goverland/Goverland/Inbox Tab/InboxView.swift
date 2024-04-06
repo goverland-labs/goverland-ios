@@ -65,23 +65,30 @@ struct InboxView: View {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.inboxEventOpenDao)
                             }) {
-                                ProposalSharingMenu(link: proposal.link, isRead: isRead) {
-                                    if isRead {
-                                        Tracker.track(.inboxEventMarkUnread)
-                                        data.markUnread(eventID: event.id)
-                                    } else {
-                                        Tracker.track(.inboxEventMarkRead)
-                                        data.markRead(eventID: event.id)
+                                ProposalSharingMenu(
+                                    link: proposal.link,
+                                    isRead: isRead,
+                                    markCompletion: {
+                                        Haptic.medium()
+                                        if isRead {
+                                            Tracker.track(.inboxEventMarkUnread)
+                                            data.markUnread(eventID: event.id)
+                                        } else {
+                                            Tracker.track(.inboxEventMarkRead)
+                                            data.markRead(eventID: event.id)
+                                        }
+                                    },
+                                    isArchived: false,
+                                    archivationCompletion: {
+                                        archive(eventId: event.id)
                                     }
-                                }
+                                )
                             }
                             .swipeActions {
                                 Button {
-                                    Haptic.medium()
-                                    data.archive(eventID: event.id)
-                                    Tracker.track(.inboxEventArchive)
+                                    archive(eventId: event.id)
                                 } label: {
-                                    Label("Archive", systemImage: "archivebox.fill")
+                                    Label("Archive", systemImage: "trash.fill")
                                 }
                                 .tint(.clear)
                             }
@@ -153,7 +160,13 @@ struct InboxView: View {
             if data.events?.isEmpty ?? true {
                 data.refresh()
                 Tracker.track(.screenInbox)
-            }            
+            }
         }
+    }
+
+    private func archive(eventId: UUID) {
+        Haptic.medium()
+        data.archive(eventID: eventId)
+        Tracker.track(.inboxEventArchive)
     }
 }
