@@ -39,13 +39,6 @@ struct SnapshotProposalDescriptionView: View {
                 UIPasteboard.general.string = markdownDescription
                 showToast("Content copied to clipboard")
             }
-            .overlay(
-                Group {
-                    if !isExpanded && markdownDescription.count > minCharsForShowMore {
-                        ShadowOverlay()
-                    }
-                },
-                alignment: .bottom)
 
             // we will always display Show More button
             if markdownDescription.count > minCharsForShowMore {
