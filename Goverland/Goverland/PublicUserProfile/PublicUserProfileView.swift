@@ -75,8 +75,7 @@ struct PublicUserProfileView: View {
                     .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true,
-                                         navigationTitle: proposal.dao.name)
+                                         allowShowingDaoInfo: true)
                     .environmentObject(activeSheetManager)
                 }
             }

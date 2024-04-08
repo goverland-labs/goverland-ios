@@ -82,8 +82,7 @@ struct DaoInfoEventsView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: false,
-                                     navigationTitle: "")
+                                     allowShowingDaoInfo: false)
                 .onAppear {
                     Tracker.track(.daoEventOpen)
                 }
