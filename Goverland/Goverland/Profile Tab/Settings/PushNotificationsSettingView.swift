@@ -19,10 +19,25 @@ struct PushNotificationsSettingView: View {
             Section {
                 Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
                     .tint(.green)
+
+                if notificationsEnabled {
+                    Toggle("New proposal created", isOn: $notificationsEnabled)
+                        .tint(.green)
+                        .disabled(true)
+                    Toggle("Quorum reached", isOn: $notificationsEnabled)
+                        .tint(.green)
+                        .disabled(true)
+                    Toggle("Vote finishes soon", isOn: $notificationsEnabled)
+                        .tint(.green)
+                        .disabled(true)
+                    Toggle("Vote finished", isOn: $notificationsEnabled)
+                        .tint(.green)
+                        .disabled(true)
+                }
             } header: {
                 Text("Push notifications")
             } footer: {
-                Text("Get notifications about new proposals and proposal outcomes.")
+                Text("Get notifications about new proposals and proposal outcomes.\nNotifications customization is coming soon!")
                     .font(.footnoteRegular)
                     .foregroundStyle(Color.textWhite40)
             }
