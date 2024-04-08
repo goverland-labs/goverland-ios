@@ -35,7 +35,7 @@ struct PublicUserProfileView: View {
                     ShimmerProfileHeaderView()
                     Spacer()
                 } else if let profile = dataSource.profile {
-                    ProfileHeaderView(user: profile)
+                    ProfileHeaderView(user: profile, publicUser: true)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
 
