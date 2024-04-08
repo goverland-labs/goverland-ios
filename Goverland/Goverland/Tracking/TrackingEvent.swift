@@ -254,4 +254,7 @@ enum TrackingEvent: String, Trackable {
     case screenMaintenance = "screen_maintenance"
     case maintenanceScreenOpenX = "maintenance_open_X"
     case maintenanceScreenOpenDiscord = "maintenance_open_discord"
+
+    // MARK: - Push Notifications
+    case openPush = "open_push"
 }
