@@ -26,7 +26,7 @@ struct SnapshopVotingResultView: View {
                             score: scores.count != choices.count ? 0 : scores[index],
                             totalScore: scores.count != choices.count ? 100 : totalScore,
                             symbol: symbol)
-                        ProcessBarView(
+                        ProgressBarView(
                             score: scores.count != choices.count ? 0 : scores[index],
                             totalScore: scores.count != choices.count ? 100 : totalScore,
                             height: 6)
@@ -46,7 +46,7 @@ struct SnapshopVotingResultView: View {
                             .foregroundStyle(Color.textWhite)
                     }
 
-                    ProcessBarView(
+                    ProgressBarView(
                         score: Double(proposal.quorum < 100 ? proposal.quorum : 100),
                         totalScore: 100,
                         height: 6)

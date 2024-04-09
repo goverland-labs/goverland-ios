@@ -1,5 +1,5 @@
 //
-//  ProcessBarView.swift
+//  ProgressBarView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-07-26.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProcessBarView: View {
+struct ProgressBarView: View {
     let score: Double
     let totalScore: Double
     let height: CGFloat
