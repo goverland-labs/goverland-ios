@@ -29,29 +29,27 @@ struct SnapshopVotingResultView: View {
                         ProcessBarView(
                             score: scores.count != choices.count ? 0 : scores[index],
                             totalScore: scores.count != choices.count ? 100 : totalScore,
-                            width: geometry.size.width)
+                            height: 6)
                     }
                 }
             }
 
             if proposal.quorum > 0 {
-                GeometryReader { geometry in
-                    VStack(spacing: 2) {
-                        HStack {
-                            Text("Quorum")
-                                .font(.footnoteSemibold)
-                                .foregroundStyle(Color.onSecondaryContainer)
-                            Spacer()
-                            Text(Utils.percentage(of: proposal.quorum, in: 100))
-                                .font(.footnoteSemibold)
-                                .foregroundStyle(Color.textWhite)
-                        }
-
-                        ProcessBarView(
-                            score: Double(proposal.quorum < 100 ? proposal.quorum : 100),
-                            totalScore: 100,
-                            width: geometry.size.width)
+                VStack(spacing: 2) {
+                    HStack {
+                        Text("Quorum")
+                            .font(.footnoteSemibold)
+                            .foregroundStyle(Color.onSecondaryContainer)
+                        Spacer()
+                        Text(Utils.percentage(of: proposal.quorum, in: 100))
+                            .font(.footnoteSemibold)
+                            .foregroundStyle(Color.textWhite)
                     }
+
+                    ProcessBarView(
+                        score: Double(proposal.quorum < 100 ? proposal.quorum : 100),
+                        totalScore: 100,
+                        height: 6)
                 }
             }
         }
