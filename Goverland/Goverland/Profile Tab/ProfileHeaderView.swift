@@ -28,8 +28,13 @@ struct ProfileHeaderView: View {
 
                     ZStack {
                         if let name = user.resolvedName {
-                            Text(name)
-                                .truncationMode(.tail)
+                            Button {
+                                UIPasteboard.general.string = user.resolvedName
+                                showToast("ENS name copied")
+                            } label: {
+                                Text(name)
+                                    .truncationMode(.tail)
+                            }
                         } else {
                             Button {
                                 UIPasteboard.general.string = user.address.value
