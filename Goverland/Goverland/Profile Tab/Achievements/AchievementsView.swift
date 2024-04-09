@@ -56,22 +56,27 @@ fileprivate struct _AchievementsListView: View {
 
                                 Spacer()
 
-                                HStack(spacing: 8) {
-                                    if achievement.achievedAt != nil {
+                                if achievement.achievedAt == nil {
+                                    if achievement.progress.goal > 1 {
+                                        // Draw progress bar
+                                    }
+                                } else {
+                                    HStack(spacing: 8) {
                                         BubbleView(image: Image(systemName: "checkmark"),
                                                    text: Text("Unlocked"),
                                                    textColor: .textWhite,
                                                    backgroundColor: .success)
-                                    }
-                                    if achievement.exclusive {
-                                        BubbleView(image: Image(systemName: "heart"),
-                                                   text: Text("Exclusive"),
-                                                   textColor: .textWhite,
-                                                   backgroundColor: .warning)
+
+                                        if achievement.exclusive {
+                                            BubbleView(image: Image(systemName: "heart"),
+                                                       text: Text("Exclusive"),
+                                                       textColor: .textWhite,
+                                                       backgroundColor: .warning)
+                                        }
                                     }
                                 }
                             }
-                            .padding()
+                            .padding(.vertical, 16)
                             .multilineTextAlignment(.leading)
 
                             Spacer()
