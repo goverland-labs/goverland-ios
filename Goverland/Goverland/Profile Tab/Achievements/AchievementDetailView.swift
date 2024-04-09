@@ -17,10 +17,10 @@ struct AchievementDetailView: View {
     }
 
     var body: some View {
+        let size = Avatar.Size.l.achievementImageSize
         ScrollView {
             VStack(spacing: 0) {
                 ZStack {
-                    let size = Avatar.Size.l.achievementImageSize
                     let cornerRadius: CGFloat = 20
                     if locked {
                         ShimmerView()
@@ -44,8 +44,16 @@ struct AchievementDetailView: View {
                     .multilineTextAlignment(.center)
 
                 if locked {
-                    AchievementProgressView(progress: achievement.progress)
-                        .padding(.top, 12)
+                    GeometryReader { geometry in
+                        let maxWidth = min(geometry.size.width, size.width * 1.3)
+                        HStack {
+                            Spacer()
+                            AchievementProgressView(progress: achievement.progress)
+                                .padding(.top, 12)
+                                .frame(maxWidth: maxWidth)
+                            Spacer()
+                        }
+                    }
                 } else {
                     Text("Unlocked on \(Utils.shortDateWithoutTime(achievement.achievedAt!))")
                         .font(.сaptionRegular)
