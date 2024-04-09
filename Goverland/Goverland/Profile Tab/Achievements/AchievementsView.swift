@@ -36,14 +36,15 @@ struct AchievementsView: View {
 
 fileprivate struct _AchievementsListView: View {
     @ObservedObject var dataSource: AchievementsDataSource
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    let columns: [GridItem] = {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+    var columns: [GridItem] {
+        if horizontalSizeClass == .regular {
             return Array(repeating: .init(.flexible()), count: 2)
         } else {
             return Array(repeating: .init(.flexible()), count: 1)
         }
-    }()
+    }
 
     var body: some View {
         ScrollView {
