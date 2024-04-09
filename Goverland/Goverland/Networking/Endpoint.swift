@@ -227,7 +227,19 @@ struct GetAchievementsEndpoint: APIEndpoint {
     
     var path: String = "me/achievements"
     var method: HttpMethod = .get
+}
 
+struct MarkAchievementEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let achievementId: String
+
+    var path: String { "me/achivements/\(achievementId)/mark-as-read" }
+    var method: HttpMethod = .post
+
+    init(achievementId: String) {
+        self.achievementId = achievementId
+    }
 }
 
 // MARK: - DAOs
@@ -388,9 +400,7 @@ struct SubscriptionsEndpoint: APIEndpoint {
     var path: String = "subscriptions"
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
-    
-    var body: Data?
-    
+
     init(queryParameters: [URLQueryItem]? = nil) {
         self.queryParameters = queryParameters
     }

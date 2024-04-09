@@ -79,6 +79,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func markAchievementRead(achievementId: String) -> AnyPublisher<(MarkAchievementEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = MarkAchievementEndpoint(achievementId: achievementId)
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
     // MARK: - Public Profile
 
     static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {

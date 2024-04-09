@@ -41,4 +41,16 @@ class AchievementsDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+
+    func markRead(achievementId: String) {
+        APIService.markAchievementRead(achievementId: achievementId)
+            .retry(3)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak self] _, headers in
+                // update achievements lits to reflect unread indicator status
+                self?.refresh()
+            }
+            .store(in: &cancellables)
+    }
 }

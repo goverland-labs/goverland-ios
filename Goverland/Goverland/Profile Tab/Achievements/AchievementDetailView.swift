@@ -66,6 +66,7 @@ struct AchievementDetailView: View {
         .padding(.horizontal, Constants.horizontalPadding)
         .onAppear {
             Tracker.track(.screenAchievementDetails)
+            AchievementsDataSource.shared.markRead(achievementId: achievement.id)
         }
     }
 }
