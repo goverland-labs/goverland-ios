@@ -37,6 +37,12 @@ struct Achievement: Identifiable, Decodable {
         let goal: Double
         let current: Double
     }
+}
+
+extension Achievement {
+    var isUnread: Bool {
+        viewedAt == nil
+    }
 
     func image(size: Avatar.Size) -> URL? {
         images.first(where: { $0.size == size })?.link

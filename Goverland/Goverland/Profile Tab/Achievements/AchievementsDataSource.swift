@@ -55,6 +55,6 @@ class AchievementsDataSource: ObservableObject, Refreshable {
     }
 
     func hasUnreadAchievements() -> Bool {
-        achievements.reduce(false) { r, a in r || a.viewedAt != nil }
+        achievements.reduce(false) { r, a in r || a.isUnread }
     }
 }
