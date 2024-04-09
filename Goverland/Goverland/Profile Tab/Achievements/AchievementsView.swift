@@ -37,16 +37,25 @@ struct AchievementsView: View {
 fileprivate struct _AchievementsListView: View {
     @ObservedObject var dataSource: AchievementsDataSource
 
+    let columns: [GridItem] = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return Array(repeating: .init(.flexible()), count: 2)
+        } else {
+            return Array(repeating: .init(.flexible()), count: 1)
+        }
+    }()
+
     var body: some View {
         ScrollView {
-            VStack(spacing: 12) {
+            LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(dataSource.achievements) { achievement in
                     NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
                         _AchievementView(achievement: achievement)
                     }
                 }
             }
-            .padding(.vertical, 12)
+            .padding(.vertical, 8)
+            .padding(.horizontal, Constants.horizontalPadding)
         }
         .refreshable {
             dataSource.refresh()
