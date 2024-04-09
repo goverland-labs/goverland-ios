@@ -53,4 +53,8 @@ class AchievementsDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+
+    func hasUnreadAchievements() -> Bool {
+        achievements.reduce(false) { r, a in r || a.viewedAt != nil }
+    }
 }

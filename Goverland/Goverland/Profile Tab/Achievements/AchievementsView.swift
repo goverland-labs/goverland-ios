@@ -82,9 +82,17 @@ fileprivate struct _AchievementView: View {
             }
 
             VStack(alignment: .leading) {
-                Text(achievement.title)
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.textWhite)
+                HStack(spacing: 6) {
+                    if AchievementsDataSource.shared.hasUnreadAchievements() {
+                        Circle()
+                            .foregroundStyle(Color.primary)
+                            .frame(width: 4, height: 4)
+                    }
+                    Text(achievement.title)
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.textWhite)
+                }
+
                 Text(achievement.subtitle)
                     .font(.caption)
                     .foregroundStyle(Color.textWhite60)

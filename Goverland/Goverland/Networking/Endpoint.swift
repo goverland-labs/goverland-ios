@@ -234,7 +234,7 @@ struct MarkAchievementEndpoint: APIEndpoint {
 
     let achievementId: String
 
-    var path: String { "me/achivements/\(achievementId)/mark-as-read" }
+    var path: String { "me/achievements/\(achievementId)/mark-as-read" }
     var method: HttpMethod = .post
 
     init(achievementId: String) {

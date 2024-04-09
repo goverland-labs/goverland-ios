@@ -22,6 +22,25 @@ enum ProfileScreen: Hashable {
     case advanced
 }
 
+extension ProfileFilter {
+    var content: some View {
+        Group {
+            if self == .achievements {
+                HStack(spacing: 6) {
+                    if AchievementsDataSource.shared.hasUnreadAchievements() {
+                        Circle()
+                            .foregroundStyle(Color.primary)
+                            .frame(width: 4, height: 4)
+                    }
+                    Text(localizedName)
+                }
+            } else {
+                Text(localizedName)
+            }
+        }
+    }
+}
+
 struct ProfileView: View {
     @Binding var path: [ProfileScreen]
     @Setting(\.authToken) private var authToken
