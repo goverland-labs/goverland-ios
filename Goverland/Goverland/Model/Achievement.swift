@@ -13,7 +13,7 @@ struct Achievement: Identifiable, Decodable {
     let title: String
     let subtitle: String
     let description: String
-    let message: String?
+    let message: String
     let images: [Avatar]
     let progress: Progress
     let achievedAt: Date?

@@ -25,9 +25,7 @@ import CoinbaseWalletSDK
 ///
 @Model
 final class UserProfile {
-    /// `deviceId` is a random number that is associated this profile on this device.
-    /// We use it not to link profiles between each other.
-    @Attribute(.unique) private(set) var deviceId: String
+    private(set) var deviceId: String
     @Attribute(.unique) private(set) var sessionId: String
     /// If `address` is empty, then this is a guest profile. There can be only one guest profile on device.
     @Attribute(.unique) private(set) var address: String

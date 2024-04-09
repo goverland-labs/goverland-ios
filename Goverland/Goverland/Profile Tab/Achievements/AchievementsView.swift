@@ -92,19 +92,7 @@ fileprivate struct _AchievementView: View {
                 Spacer()
 
                 if locked {
-                    let goal = achievement.progress.goal
-                    let current = achievement.progress.current
-                    HStack {
-                        if goal > 1 {
-                            ProgressBarView(score: current, totalScore: goal, height: 4)
-                                .frame(height: 4)
-                            Text("\(String(format: "%.0f", current)) of \(String(format: "%.0f", goal))")
-                                .foregroundStyle(Color.textWhite60)
-                                .font(.сaption2Regular)
-                        } else {
-                            Spacer()
-                        }
-                    }
+                    AchievementProgressView(progress: achievement.progress)
                 } else {
                     HStack(spacing: 8) {
                         BubbleView(image: Image(systemName: "checkmark"),

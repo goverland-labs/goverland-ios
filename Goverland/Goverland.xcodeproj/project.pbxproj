@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		55039F272BBFFD190025DE03 /* PublicUserProfileDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55039F262BBFFD190025DE03 /* PublicUserProfileDaosListView.swift */; };
 		55039F292BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55039F282BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift */; };
+		55039F2B2BC582F70025DE03 /* AchievementProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55039F2A2BC582F70025DE03 /* AchievementProgressView.swift */; };
 		550ACFAF2AFED63F006EF5BB /* CastYourVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */; };
 		550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */; };
 		550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */; };
@@ -334,6 +335,7 @@
 /* Begin PBXFileReference section */
 		55039F262BBFFD190025DE03 /* PublicUserProfileDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileDaosListView.swift; sourceTree = "<group>"; };
 		55039F282BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileDaosDataSource.swift; sourceTree = "<group>"; };
+		55039F2A2BC582F70025DE03 /* AchievementProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementProgressView.swift; sourceTree = "<group>"; };
 		550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteView.swift; sourceTree = "<group>"; };
 		550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastYourVoteDataSource.swift; sourceTree = "<group>"; };
 		550ACFB22AFEDF93006EF5BB /* ProposalAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalAddressValidation.swift; sourceTree = "<group>"; };
@@ -1384,6 +1386,7 @@
 			isa = PBXGroup;
 			children = (
 				BA5D7ACB2B71370300CD3FDB /* AchievementsView.swift */,
+				55039F2A2BC582F70025DE03 /* AchievementProgressView.swift */,
 				BA789BCB2B73D2C50064D6FE /* AchievementDetailView.swift */,
 				BA789BC92B73CE090064D6FE /* AchievementsDataSource.swift */,
 				BA789BCF2B7420C90064D6FE /* GuestAchievementsView.swift */,
@@ -2018,6 +2021,7 @@
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				55CAC9D02B6D3EA200767454 /* CrashlyticsLogHandler.swift in Sources */,
+				55039F2B2BC582F70025DE03 /* AchievementProgressView.swift in Sources */,
 				55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
