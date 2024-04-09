@@ -109,12 +109,13 @@ class EcosystemDashboardDataSource: ObservableObject {
 
     func refresh() {
         failedToLoadInitialData = false
-        isLoading = true
+        isLoading = false
         cancellables = Set<AnyCancellable>()
-        loadInitialData()
+        loadData()
     }
 
-    private func loadInitialData() {
+    private func loadData() {
+        isLoading = true
         APIService.ecosystemCharts(days: periodInDays)
             .sink { [weak self] completion in
                 self?.isLoading = false
