@@ -46,7 +46,7 @@ fileprivate struct _AchievementsListView: View {
                     }
                 }
             }
-            .padding(.top, 12)
+            .padding(.vertical, 12)
         }
         .refreshable {
             dataSource.refresh()
@@ -57,10 +57,29 @@ fileprivate struct _AchievementsListView: View {
 fileprivate struct _AchievementView: View {
     let achievement: Achievement
 
+    var locked: Bool {
+        achievement.achievedAt == nil
+    }
+
     var body: some View {
         HStack(spacing: 12) {
-            RectanglePictureView(image: achievement.image(size: .s),
-                                 imageSize: Avatar.Size.s.achievementImageSize)
+            ZStack {
+                let size = Avatar.Size.s.achievementImageSize
+                let cornerRadius = size.width / 8
+                if locked {
+                    ShimmerView()
+                        .frame(width: size.width, height: size.height)
+                        .cornerRadius(cornerRadius)
+
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Color.textWhite60)
+                } else {
+                    RectanglePictureView(image: achievement.image(size: .s),
+                                         imageSize: size,
+                                         cornerRadius: cornerRadius)
+                }
+            }
 
             VStack(alignment: .leading) {
                 Text(achievement.title)
@@ -72,7 +91,7 @@ fileprivate struct _AchievementView: View {
 
                 Spacer()
 
-                if achievement.achievedAt == nil {
+                if locked {
                     let goal = achievement.progress.goal
                     let current = achievement.progress.current
                     HStack {
@@ -107,7 +126,6 @@ fileprivate struct _AchievementView: View {
             .padding(.vertical, 16)
             .multilineTextAlignment(.leading)
         }
-        .frame(maxWidth: .infinity)
         .frame(height: 116)
         .padding(.leading, Constants.horizontalPadding)
         .padding(.trailing, 20)
