@@ -8,27 +8,53 @@
 	
 
 import Foundation
+import Combine
 
-struct Achievement: Identifiable, Hashable {
-    let id = UUID()
-    let imageName: String
-    let isVisible: Bool
-    let title: String
-    let subtitle: String?
-}
-
-class AchievementsDataSource: ObservableObject {
-    let achievements = [
-        Achievement(imageName: "early-tester",
-                    isVisible: true,
-                    title: "Early Tester",
-                    subtitle: "It is awarded to our App early TestFlight users.\n\nThank you for trying us so early! 🙏"),
-        Achievement(imageName: "", isVisible: false, title: "", subtitle: nil),
-        Achievement(imageName: "", isVisible: false, title: "", subtitle: nil),
-        Achievement(imageName: "", isVisible: false, title: "", subtitle: nil),
-        Achievement(imageName: "", isVisible: false, title: "", subtitle: nil),
-        Achievement(imageName: "", isVisible: false, title: "", subtitle: nil)
-    ]
+class AchievementsDataSource: ObservableObject, Refreshable {
+    @Published var achievements: [Achievement] = []
+    @Published var failedToLoadInitialData = false
+    @Published var isLoading = false
+    private var cancellables = Set<AnyCancellable>()
     
-    init() {}
+    static let shared = AchievementsDataSource()
+
+    func refresh() {
+        achievements = []
+        failedToLoadInitialData = false
+        isLoading = false
+        cancellables = Set<AnyCancellable>()
+
+        loadAchievements()
+    }
+
+    private func loadAchievements() {
+        isLoading = true
+        APIService.getAchievements()
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] achievements, headers in
+                self?.achievements = achievements
+            }
+            .store(in: &cancellables)
+    }
+
+    func markRead(achievementId: String) {
+        APIService.markAchievementRead(achievementId: achievementId)
+            .retry(3)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak self] _, headers in
+                // update achievements lits to reflect unread indicator status
+                self?.refresh()
+            }
+            .store(in: &cancellables)
+    }
+
+    func hasUnreadAchievements() -> Bool {
+        achievements.reduce(false) { r, a in r || a.isUnread }
+    }
 }
