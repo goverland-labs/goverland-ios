@@ -24,11 +24,14 @@ class UserBucketsDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     var groups: String {
-        let arr = Array(
-            stride(from: selectedFilteringOption.rawValue, 
+        var arr = Array(
+            stride(from: selectedFilteringOption.rawValue,
                    through: selectedFilteringOption.rawValue * 15, 
                    by: selectedFilteringOption.rawValue)
         )
+        if selectedFilteringOption != .one {
+            arr.insert(contentsOf: [1], at: 0)
+        }
         let first = arr[0]
         return arr.dropFirst().reduce("\(first)") { r, next in
             if next <= dao.proposals {
