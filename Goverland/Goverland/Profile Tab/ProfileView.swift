@@ -108,6 +108,7 @@ fileprivate struct _ProfileView: View {
                 ProfileHeaderView(user: profile.account)
 
                 FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter) { _ in }
+                    .id(achievementsDataSource.hasUnreadAchievements()) // redraw once we get achievements data
 
                 switch profileDataSource.filter {
                 case .activity:
