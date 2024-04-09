@@ -42,50 +42,7 @@ fileprivate struct _AchievementsListView: View {
             VStack(spacing: 12) {
                 ForEach(dataSource.achievements) { achievement in
                     NavigationLink(destination: AchievementDetailView(achievement: achievement)) {
-                        HStack(spacing: 12) {
-                            RectanglePictureView(image: achievement.image(size: .s), 
-                                                 imageSize: Avatar.Size.s.achievementImageSize)
-
-                            VStack(alignment: .leading) {
-                                Text(achievement.title)
-                                    .font(.subheadlineSemibold)
-                                    .foregroundStyle(Color.textWhite)
-                                Text(achievement.subtitle)
-                                    .font(.caption)
-                                    .foregroundStyle(Color.textWhite60)
-
-                                Spacer()
-
-                                if achievement.achievedAt == nil {
-                                    if achievement.progress.goal > 1 {
-                                        // Draw progress bar
-                                    }
-                                } else {
-                                    HStack(spacing: 8) {
-                                        BubbleView(image: Image(systemName: "checkmark"),
-                                                   text: Text("Unlocked"),
-                                                   textColor: .textWhite,
-                                                   backgroundColor: .success)
-
-                                        if achievement.exclusive {
-                                            BubbleView(image: Image(systemName: "heart"),
-                                                       text: Text("Exclusive"),
-                                                       textColor: .textWhite,
-                                                       backgroundColor: .warning)
-                                        }
-                                    }
-                                }
-                            }
-                            .padding(.vertical, 16)
-                            .multilineTextAlignment(.leading)
-
-                            Spacer()
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 116)
-                        .padding(.horizontal, Constants.horizontalPadding)
-                        .background(Color.container)
-                        .cornerRadius(20)
+                        _AchievementView(achievement: achievement)
                     }
                 }
             }
@@ -94,5 +51,67 @@ fileprivate struct _AchievementsListView: View {
         .refreshable {
             dataSource.refresh()
         }
+    }
+}
+
+fileprivate struct _AchievementView: View {
+    let achievement: Achievement
+
+    var body: some View {
+        HStack(spacing: 12) {
+            RectanglePictureView(image: achievement.image(size: .s),
+                                 imageSize: Avatar.Size.s.achievementImageSize)
+
+            VStack(alignment: .leading) {
+                Text(achievement.title)
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Text(achievement.subtitle)
+                    .font(.caption)
+                    .foregroundStyle(Color.textWhite60)
+
+                Spacer()
+
+                if achievement.achievedAt == nil {
+                    let goal = achievement.progress.goal
+                    let current = achievement.progress.current
+                    HStack {
+                        if goal > 1 {
+                            ProgressBarView(score: current, totalScore: goal, height: 4)
+                                .frame(height: 4)
+                            Text("\(String(format: "%.0f", current)) of \(String(format: "%.0f", goal))")
+                                .foregroundStyle(Color.textWhite60)
+                                .font(.сaption2Regular)
+                        } else {
+                            Spacer()
+                        }
+                    }
+                } else {
+                    HStack(spacing: 8) {
+                        BubbleView(image: Image(systemName: "checkmark"),
+                                   text: Text("Unlocked"),
+                                   textColor: .textWhite,
+                                   backgroundColor: .success)
+
+                        if achievement.exclusive {
+                            BubbleView(image: Image(systemName: "heart"),
+                                       text: Text("Exclusive"),
+                                       textColor: .textWhite,
+                                       backgroundColor: .warning)
+                        }
+
+                        Spacer()
+                    }
+                }
+            }
+            .padding(.vertical, 16)
+            .multilineTextAlignment(.leading)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 116)
+        .padding(.leading, Constants.horizontalPadding)
+        .padding(.trailing, 20)
+        .background(Color.container)
+        .cornerRadius(20)
     }
 }

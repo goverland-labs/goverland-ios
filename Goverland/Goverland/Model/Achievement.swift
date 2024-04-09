@@ -34,8 +34,8 @@ struct Achievement: Identifiable, Decodable {
     }
 
     struct Progress: Decodable {
-        let goal: Int
-        let current: Int
+        let goal: Double
+        let current: Double
     }
 
     func image(size: Avatar.Size) -> URL? {

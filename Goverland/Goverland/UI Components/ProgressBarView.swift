@@ -21,7 +21,7 @@ struct ProgressBarView: View {
                     .frame(height: height)
                 RoundedRectangle(cornerRadius: height / 2, style: .continuous)
                     .fill(Color.primaryDim)
-                    .frame(width: CGFloat(geometry.size.width * score / totalScore), height: height, alignment: .center)
+                    .frame(width: CGFloat(geometry.size.width * score / totalScore), height: height)
             }
         }
     }
