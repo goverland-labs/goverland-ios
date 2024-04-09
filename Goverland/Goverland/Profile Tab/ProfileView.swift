@@ -22,6 +22,25 @@ enum ProfileScreen: Hashable {
     case advanced
 }
 
+extension ProfileFilter {
+    var content: some View {
+        Group {
+            if self == .achievements {
+                HStack(spacing: 6) {
+                    if AchievementsDataSource.shared.hasUnreadAchievements() {
+                        Circle()
+                            .foregroundStyle(Color.primary)
+                            .frame(width: 4, height: 4)
+                    }
+                    Text(localizedName)
+                }
+            } else {
+                Text(localizedName)
+            }
+        }
+    }
+}
+
 struct ProfileView: View {
     @Binding var path: [ProfileScreen]
     @Setting(\.authToken) private var authToken
@@ -73,22 +92,24 @@ struct ProfileView: View {
 fileprivate struct _ProfileView: View {
     @Binding var path: [ProfileScreen]
 
-    @StateObject private var dataSource = ProfileDataSource.shared
+    @StateObject private var profileDataSource = ProfileDataSource.shared
+    @StateObject private var achievementsDataSource = AchievementsDataSource.shared
     @State private var showSignIn = false
 
     var body: some View {
         Group {
-            if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the profile")
-            } else if dataSource.profile == nil { // is loading
+            if profileDataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: profileDataSource, message: "Sorry, we couldn’t load the profile")
+            } else if profileDataSource.profile == nil { // is loading
                 ShimmerProfileHeaderView()
                 Spacer()
-            } else if let profile = dataSource.profile {
+            } else if let profile = profileDataSource.profile {
                 ProfileHeaderView(user: profile.account, publicUser: false)
 
-                FilterButtonsView<ProfileFilter>(filter: $dataSource.filter) { _ in }
+                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter) { _ in }
+                    .id(achievementsDataSource.hasUnreadAchievements()) // redraw once we get achievements data
 
-                switch dataSource.filter {
+                switch profileDataSource.filter {
                 case .activity:
                     if profile.role == .guest {
                         _SignInToVoteButton {
@@ -100,10 +121,10 @@ fileprivate struct _ProfileView: View {
 
                     _ProfileListView(profile: profile, path: $path)
                 case .achievements:
-                    if profile.role != .guest {
-                        AchievementsView()
-                    } else {
+                    if profile.role == .guest {
                         GuestAchievementsView()
+                    } else {
+                        AchievementsView()
                     }
                 }
             }
@@ -114,8 +135,11 @@ fileprivate struct _ProfileView: View {
         }
         .onAppear {
             Tracker.track(.screenProfile)
-            if dataSource.profile == nil {
-                dataSource.refresh()
+            if profileDataSource.profile == nil {
+                profileDataSource.refresh()
+            }
+            if achievementsDataSource.achievements.isEmpty {
+                achievementsDataSource.refresh()
             }
         }
     }
