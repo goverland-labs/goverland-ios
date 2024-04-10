@@ -10,7 +10,7 @@ import SwiftUI
 struct SignInView: View {
     let source: Source
 
-    @State private var didSignIn = false
+    @Setting(\.authToken) private var authToken
 
     @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
@@ -28,15 +28,15 @@ struct SignInView: View {
             VStack {
                 _SignInHeaderView()
                 Spacer()
-                _SignInFooterControlsView(didSignIn: $didSignIn)
+                _SignInFooterControlsView()
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
             .onAppear() {
                 Tracker.track(.screenSignIn, parameters: ["source" : source.rawValue])
             }
-            .onChange(of: didSignIn) { _, didSignIn in
-                guard didSignIn else { return }
+            .onChange(of: authToken) { _, authToken in
+                guard !authToken.isEmpty else { return }
                 if isPresented {
                     dismiss()
                 }
@@ -73,8 +73,6 @@ fileprivate struct _SignInHeaderView: View {
 }
 
 fileprivate struct _SignInFooterControlsView: View {
-    @Binding var didSignIn: Bool
-
     @State private var showSignIn = false
     @StateObject private var dataSource = SignInDataSource()
 
@@ -112,9 +110,7 @@ fileprivate struct _SignInFooterControlsView: View {
             .padding(.bottom)
         }
         .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView {
-                didSignIn = true
-            }
+            SignInTwoStepsView { /* do nothing on sign in */ }
             .presentationDetents([.height(500), .large])
         }
     }

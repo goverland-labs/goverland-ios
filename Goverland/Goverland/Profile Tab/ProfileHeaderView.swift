@@ -11,16 +11,30 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     let user: User?
+    let publicUser: Bool
+    @State private var showAlert = false
 
     var body: some View {
         VStack(alignment: .center) {
             VStack(spacing: 12) {
                 if let user {
                     RoundPictureView(image: user.avatar(size: .l), imageSize: Avatar.Size.l.profileImageSize)
+                        .onTapGesture {
+                            Tracker.track(.tapOnProfileImage)
+                            if !publicUser {
+                                showAlert = true
+                            }
+                        }
+
                     ZStack {
                         if let name = user.resolvedName {
-                            Text(name)
-                                .truncationMode(.tail)
+                            Button {
+                                UIPasteboard.general.string = user.resolvedName
+                                showToast("ENS name copied")
+                            } label: {
+                                Text(name)
+                                    .truncationMode(.tail)
+                            }
                         } else {
                             Button {
                                 UIPasteboard.general.string = user.address.value
@@ -46,6 +60,18 @@ struct ProfileHeaderView: View {
             .padding(.bottom, 6)
         }
         .padding(24)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Did you add an avatar to your ENS name? We'll show it here!"),
+                message: nil,
+                primaryButton: .default(Text("Read more")) {
+                    Tracker.track(.openEnsHelpArticle)
+                    openUrl(URL(string: "https://support.ens.domains/en/articles/7883271-how-to-set-an-avatar?utm_source=goverland")!)
+
+                },
+                secondaryButton: .default(Text("Got it!"))
+            )
+        }
     }
 
     struct CounterView: View {

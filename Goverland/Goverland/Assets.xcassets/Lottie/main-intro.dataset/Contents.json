@@ -1,8 +1,9 @@
 {
   "data" : [
     {
-      "filename" : "main.json",
-      "idiom" : "universal"
+      "filename" : "Main 4s v0.7.json",
+      "idiom" : "universal",
+      "universal-type-identifier" : "public.json"
     }
   ],
   "info" : {

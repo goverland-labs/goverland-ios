@@ -196,8 +196,9 @@ struct SnapshotProposalVoteTabView: View {
         }
         .sheet(isPresented: $showVote) {
             CastYourVoteView(proposal: proposal, choice: choice) {
+                chosenTab = .votes
                 // TODO: check for achievements here
-            }            
+            }
         }
         .sheet(isPresented: $showReconnectWallet) {
             ReconnectWalletView(user: selectedProfile!.user)

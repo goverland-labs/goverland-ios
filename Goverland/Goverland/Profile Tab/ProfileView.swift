@@ -75,8 +75,7 @@ struct ProfileView: View {
                 case .votes: ProfileVotesListView(path: $path)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true,
-                                         navigationTitle: proposal.dao.name)
+                                         allowShowingDaoInfo: true)
 
                 // Settings
                 case .pushNofitications: PushNotificationsSettingView()
@@ -105,7 +104,7 @@ fileprivate struct _ProfileView: View {
                 ShimmerProfileHeaderView()
                 Spacer()
             } else if let profile = profileDataSource.profile {
-                ProfileHeaderView(user: profile.account)
+                ProfileHeaderView(user: profile.account, publicUser: false)
 
                 FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter) { _ in }
                     .id(achievementsDataSource.hasUnreadAchievements()) // redraw once we get achievements data

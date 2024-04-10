@@ -35,7 +35,7 @@ struct PublicUserProfileView: View {
                     ShimmerProfileHeaderView()
                     Spacer()
                 } else if let profile = dataSource.profile {
-                    ProfileHeaderView(user: profile)
+                    ProfileHeaderView(user: profile, publicUser: true)
 
                     FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
 
@@ -75,8 +75,7 @@ struct PublicUserProfileView: View {
                     .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true,
-                                         navigationTitle: proposal.dao.name)
+                                         allowShowingDaoInfo: true)
                     .environmentObject(activeSheetManager)
                 }
             }

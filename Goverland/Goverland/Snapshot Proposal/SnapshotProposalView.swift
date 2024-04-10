@@ -11,16 +11,14 @@ import SwiftDate
 
 struct SnapshotProposalView: View {
     let allowShowingDaoInfo: Bool
-    let navigationTitle: String
 
     /// 16.02.2024
     /// On iPad on the latest version (17.3.1) if we use here StateObject instead of ObservedObject, the redraw cycle is broken.
     /// iPad takes some old cached value of dataSource, because the view that we try to redraw is still on the screen.
     @ObservedObject private var dataSource: SnapshotProposalDataSource
 
-    init(proposal: Proposal, allowShowingDaoInfo: Bool, navigationTitle: String) {
+    init(proposal: Proposal, allowShowingDaoInfo: Bool) {
         self.allowShowingDaoInfo = allowShowingDaoInfo
-        self.navigationTitle = navigationTitle
         _dataSource = ObservedObject(wrappedValue: SnapshotProposalDataSource(proposal: proposal))
     }
 
@@ -44,7 +42,6 @@ struct SnapshotProposalView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(navigationTitle)
         .toolbar {
             if let proposal {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -92,12 +89,14 @@ fileprivate struct _ProposalView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                _SnapshotProposalHeaderView(title: proposal.title)
-
                 _SnapshotProposalCreatorView(dao: proposal.dao,
                                              creator: proposal.author,
                                              allowShowingDaoInfo: allowShowingDaoInfo,
                                              proposal: proposal)
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
+
+                _SnapshotProposalHeaderView(title: proposal.title)
                     .padding(.bottom, 16)
 
                 _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
@@ -141,7 +140,6 @@ fileprivate struct _SnapshotProposalHeaderView: View {
     var body: some View {
         Text(title)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 20)
             .font(.title3Semibold)
             .foregroundStyle(Color.textWhite)
             .lineLimit(3)
@@ -158,16 +156,24 @@ fileprivate struct _SnapshotProposalCreatorView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
-        HStack(spacing: 5) {
+        HStack(spacing: 6) {
             // DAO identity view
             HStack(spacing: 6) {
                 RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
-                Text(dao.name)
-                    .font(.footnoteRegular)
-                    .lineLimit(1)
-                    .fontWeight(.medium)
-                    .foregroundStyle(Color.textWhite)
 
+                HStack(spacing: 4) {
+                    Text(dao.name)
+                        .font(.footnoteRegular)
+                        .lineLimit(1)
+                        .fontWeight(.medium)
+                        .foregroundStyle(Color.textWhite)
+
+                    if dao.verified {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(Color.textWhite)
+                            .font(.system(size: 14))
+                    }
+                }
             }
             .gesture(TapGesture().onEnded { _ in
                 if allowShowingDaoInfo {

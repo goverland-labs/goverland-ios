@@ -236,18 +236,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
         }
 
-        //        // paired with NotificationService
-        //        switch response.actionIdentifier {
-        //        case "action1":
-        //            print("action 1 should be running")
-        //            break
-        //        case "action2":
-        //            print("action 2 should be running")
-        //            break
-        //        default:
-        //            print("unknowen action item")
-        //            break
-        //        }
+        Tracker.track(.openPush)
 
         completionHandler()
     }

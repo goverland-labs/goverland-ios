@@ -19,6 +19,7 @@ struct EcosystemDashboardView: View {
                 Text("7 days").tag(7)
                 Text("30 days").tag(30)
             }
+            .disabled(dataSource.isLoading)
             .pickerStyle(.segmented)
             .padding(.bottom)
             .onChange(of: selectedDuration) { _, newValue in

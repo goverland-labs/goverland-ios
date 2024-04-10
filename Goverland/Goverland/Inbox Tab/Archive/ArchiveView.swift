@@ -124,8 +124,7 @@ struct ArchiveView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: false,
-                                     navigationTitle: proposal.dao.name)
+                                     allowShowingDaoInfo: false)
             }
         }
         .tint(.textWhite)
