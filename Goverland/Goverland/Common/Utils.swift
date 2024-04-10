@@ -73,6 +73,20 @@ enum Utils {
         openUrl(url)
     }
     
+    static func openWarpcast() {
+        let url = URL(string: "https://warpcast.com/goverland")!
+        openUrl(url)
+    }
+    
+    static func openOrb() {
+        let url = URL(string: "https://orb.club/@goverland")!
+        openUrl(url)
+    }
+    
+    static func openHey() {
+        let url = URL(string: "https://hey.xyz/u/goverland")!
+        openUrl(url)
+    }
     
     // MARK: - HTTP Headers
 

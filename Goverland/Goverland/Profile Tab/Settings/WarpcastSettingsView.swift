@@ -1,22 +1,23 @@
 //
-//  XSettingsView.swift
+//  WarpcastSettingsView.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-05-31.
+//  Created by Jenny Shalai on 2024-04-10.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
+
 import SwiftUI
 
-struct XSettingsView: View {
+struct WarpcastSettingsView: View {
     var body: some View {
         HStack {
-            Image("x")
+            Image("x") //Image("warpcast")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
-            Button("Follow on X") {
-                Tracker.track(.settingsOpenX)
-                Utils.openX()
+            Button("Follow on Warpcast") {
+                Tracker.track(.settingsOpenWarpcast)
+                Utils.openWarpcast()
             }
             Spacer()
             Image(systemName: "arrow.up.right")

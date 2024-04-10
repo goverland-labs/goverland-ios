@@ -14,6 +14,7 @@ struct SettingsView: View {
     @StateObject private var dataSource = ProfileDataSource.shared
     @State private var isSignOutPopoverPresented = false
     @State private var isDeleteProfilePopoverPresented = false
+    @State private var isOpenLensPopoverPresented = false
 
     var body: some View {
         List {
@@ -77,9 +78,14 @@ struct SettingsView: View {
             }
 
             Section(header: Text("Contact Us")) {
-                XSettingsView()
                 DiscordSettingsView()
                 MailSettingView()
+                XSettingsView()
+                WarpcastSettingsView()
+                LensSettingsView()
+                    .onTapGesture {
+                        isOpenLensPopoverPresented.toggle()
+                    }
             }
             .ignoresSafeArea(edges: .horizontal)
 
@@ -106,6 +112,10 @@ struct SettingsView: View {
         .sheet(isPresented: $isDeleteProfilePopoverPresented) {
             DeleteProfilePopoverView()
                 .presentationDetents([.height(320), .large])
+        }
+        .sheet(isPresented: $isOpenLensPopoverPresented) {
+            LensPopoverView()
+                .presentationDetents([.height(128)])
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Settings")
