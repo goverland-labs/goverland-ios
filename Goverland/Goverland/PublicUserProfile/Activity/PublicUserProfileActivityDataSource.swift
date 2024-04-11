@@ -13,7 +13,7 @@ import Combine
 class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
     private let address: Address
 
-    @Published var votedProposals: [Proposal]?
+    @Published var votedProposals: [Proposal] = []
     @Published var votedDaos: [Dao]?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
@@ -25,7 +25,7 @@ class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
     }
 
     func refresh() {
-        votedProposals = nil
+        votedProposals = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -37,7 +37,6 @@ class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
         isLoading = true
         APIService.getPublicProfileVotes(address: address)
             .sink { [weak self] completion in
-                self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
@@ -45,14 +44,24 @@ class PublicUserProfileActivityDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] proposals, headers in
                 guard let self else { return }
                 self.votedProposals = proposals
-                self.votedDaos = getDaos(from: proposals)
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
+    
+        APIService.getPublicProfileDaos(address: address)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] daos, headers in
+                self?.votedDaos = daos
+            }
+            .store(in: &cancellables)
     }
-
-    private func getDaos(from proposals: [Proposal]) -> [Dao] {
-        let uniqueDaos = Set(proposals.map { $0.dao })
-        return Array(uniqueDaos).sorted { $0.voters > $1.voters }
+    
+    func getUserAddress() -> Address {
+        return self.address
     }
 }

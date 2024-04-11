@@ -80,7 +80,7 @@ fileprivate struct _VotedProposalsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var votedProposals: [Proposal] {
-        dataSource.votedProposals ?? []
+        dataSource.votedProposals
     }
 
     var votesHeader: String {
@@ -96,7 +96,7 @@ fileprivate struct _VotedProposalsView: View {
                     .foregroundStyle(Color.textWhite)
                 Spacer()
                 if !votedProposals.isEmpty {
-                    NavigationLink("See all", value: PublicUserProfileScreen.votes(votedProposals))
+                    NavigationLink("See all", value: PublicUserProfileScreen.votes)
                         .font(.subheadlineSemibold)
                         .foregroundStyle(Color.primaryDim)
                 }
@@ -108,12 +108,12 @@ fileprivate struct _VotedProposalsView: View {
                 RefreshIcon {
                     dataSource.refresh()
                 }
-            } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
+            } else if dataSource.isLoading && dataSource.votedProposals.isEmpty { // initial loading
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
-            } else if dataSource.votedProposals?.isEmpty ?? false {
+            } else if dataSource.votedProposals.isEmpty {
                 // User has not voted yet. Message will be displayed in other component.
                 Text("")
             } else {

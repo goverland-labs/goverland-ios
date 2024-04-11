@@ -214,11 +214,9 @@ struct PublicProfileVotesEndpoint: APIEndpoint {
     
     var path: String { "user/\(address)/votes" }
     var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
 
-    init(address: Address, queryParameters: [URLQueryItem]) {
+    init(address: Address) {
         self.address = address
-        self.queryParameters = queryParameters
     }
 }
 

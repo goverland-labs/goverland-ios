@@ -10,32 +10,38 @@
 import SwiftUI
 
 struct PublicUserProfileVotesListView: View {
-    let user: User
-    let votedProposals: [Proposal]
-    @Binding var path: [PublicUserProfileScreen]
-
+    @StateObject private var dataSource: PublicUserProfileActivityDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @State private var selectedVoteIndex: Int?
+    @Binding var path: [PublicUserProfileScreen]
+    @State private var selectedVoteIndex: Int? = nil
+
+    init(address: Address) {
+        _dataSource = StateObject(wrappedValue: PublicUserProfileActivityDataSource(address: address))
+    }
 
     var body: some View {
-        List(0..<votedProposals.count, id: \.self, selection: $selectedVoteIndex) { index in
-            let proposal = votedProposals[index]
-            ProposalListItemView(proposal: proposal,
-                                 isSelected: false,
-                                 isRead: false) {
-                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                Tracker.track(.publicPrfVotesFullOpenDao)
-            } menuContent: {
-                ProposalSharingMenu(link: proposal.link)
+        List(0..<dataSource.votedProposals.count, id: \.self, selection: $selectedVoteIndex) { index in
+            if index == dataSource.votedProposals.count - 1 { //&& votedProposals.count < dataSource.total ?? 0 {
+                //pagination here
+            } else {
+                let proposal = dataSource.votedProposals[index]
+                ProposalListItemView(proposal: proposal,
+                                     isSelected: false,
+                                     isRead: false) {
+                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    Tracker.track(.publicPrfVotesFullOpenDao)
+                } menuContent: {
+                    ProposalSharingMenu(link: proposal.link)
+                }
+                .listRowSeparator(.hidden)
+                .listRowInsets(Constants.listInsets)
+                .listRowBackground(Color.clear)
             }
-            .listRowSeparator(.hidden)
-            .listRowInsets(Constants.listInsets)
-            .listRowBackground(Color.clear)
         }
         .onChange(of: selectedVoteIndex) { _, _ in
-            if let index = selectedVoteIndex, votedProposals.count > index {
+            if let index = selectedVoteIndex, dataSource.votedProposals.count > index {
                 Tracker.track(.publicPrfVotesFullOpenProposal)
-                let proposal = votedProposals[index]
+                let proposal = dataSource.votedProposals[index]
                 path.append(.vote(proposal))
             }
         }
@@ -44,7 +50,7 @@ struct PublicUserProfileVotesListView: View {
             Tracker.track(.screenPublicProfileVotesFull)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(user.usernameShort)")
+        .navigationTitle("\(dataSource.getUserAddress().value)")
         .listStyle(.plain)
         .scrollIndicators(.hidden)
     }

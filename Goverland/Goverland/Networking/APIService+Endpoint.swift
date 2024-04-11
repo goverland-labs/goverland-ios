@@ -101,11 +101,7 @@ extension APIService {
     }
 
     static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
-            URLQueryItem(name: "limit", value: "10000"),
-
-        ]
-        let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
+        let endpoint = PublicProfileVotesEndpoint(address: address)
         return shared.request(endpoint)
     }
 
