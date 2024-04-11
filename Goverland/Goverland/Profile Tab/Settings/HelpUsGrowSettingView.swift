@@ -48,7 +48,32 @@ struct HelpUsGrowSettingView: View {
                             .frame(width: 30)
                         Text("Share a post on X")
                         Spacer()
-                        Image(systemName: "arrow.up.right")
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(Color.textWhite40)
+                    }
+                }
+            }
+            
+            Button(action: {
+                let postText = "Check out Goverland App by @goverland!"
+                let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(postUrl ?? "")")
+
+                if let url = warpcastUrl {
+                    Haptic.medium()
+                    openUrl(url)
+                }
+                
+                Tracker.track(.settingsShareWarpcastPost)
+            }) {
+                HStack {
+                    HStack {
+                        Image("warpcast")
+                            .foregroundStyle(Color.primaryDim)
+                            .frame(width: 30)
+                        Text("Share a post on Wapcast")
+                        Spacer()
+                        Image(systemName: "square.and.arrow.up")
                             .foregroundStyle(Color.textWhite40)
                     }
                 }
