@@ -100,10 +100,12 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func getPublicProfileVotes(address: Address) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func getPublicProfileVotes(address: Address,
+                                      offset: Int = 0,
+                                      limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "limit", value: "10000"),
-
+            URLQueryItem(name: "offset", value: "\(offset)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
         ]
         let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
         return shared.request(endpoint)

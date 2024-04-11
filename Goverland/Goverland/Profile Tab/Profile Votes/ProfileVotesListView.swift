@@ -30,7 +30,7 @@ struct ProfileVotesListView: View {
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
                     .padding(Constants.horizontalPadding)
-            } else if dataSource.isLoading && dataSource.votedProposals == nil {
+            } else if dataSource.isLoading {
                 ScrollView {
                     ForEach(0..<7) { _ in
                         ShimmerProposalListItemView()

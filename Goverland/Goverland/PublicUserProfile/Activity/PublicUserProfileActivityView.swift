@@ -10,33 +10,42 @@
 import SwiftUI
 
 struct PublicUserProfileActivityView: View {
-    @StateObject private var dataSource: PublicUserProfileActivityDataSource
+    @StateObject private var votesDataSource: PublicUserProfileVotesDataSource
+    @StateObject private var daosDataSource: PublicUserProfileDaosDataSource
     @Binding private var path: [PublicUserProfileScreen]
 
-    init(address: Address, path: Binding<[PublicUserProfileScreen]>) {
-        _dataSource = StateObject(wrappedValue: PublicUserProfileActivityDataSource(address: address))
+    init(user: User, path: Binding<[PublicUserProfileScreen]>) {
+        _votesDataSource = StateObject(wrappedValue: PublicUserProfileVotesDataSource(user: user))
+        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: user.address))
         _path = path
     }
 
     var body: some View {
         ScrollView {
-            if let daos = dataSource.votedDaos {
-                _VotedDaosView(daos: daos)
-            }
-
-            _VotedProposalsView(dataSource: dataSource, path: $path)
+            _VotedDaosView(dataSource: daosDataSource)
+            _VotedProposalsView(dataSource: votesDataSource, path: $path)
         }
     }
 }
 
 fileprivate struct _VotedDaosView: View {
-    let daos: [Dao]
+    @ObservedObject var dataSource: PublicUserProfileDaosDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
+    var daos: [Dao] {
+        dataSource.daos
+    }
+
+    var header: String {
+        dataSource.isLoading || dataSource.failedToLoadInitialData ?
+            "Voted in DAOs" :
+            "Voted in DAOs (\(daos.count))"
+    }
 
     var body: some View {
         VStack(spacing: 12) {
             HStack {
-                Text("Voted in DAOs (\(daos.count))")
+                Text(header)
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
@@ -49,7 +58,11 @@ fileprivate struct _VotedDaosView: View {
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
 
-            if daos.count == 0 {
+            if dataSource.failedToLoadInitialData {
+                RefreshIcon {
+                    dataSource.refresh()
+                }
+            } else if daos.count == 0 && !dataSource.isLoading {
                 Text("User has not voted yet")
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
@@ -57,25 +70,38 @@ fileprivate struct _VotedDaosView: View {
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
-                        ForEach(daos) { dao in
-                            DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManager.activeSheet = .daoInfo(dao)
-                                Tracker.track(.publicPrfVotedDaoOpen)
+                        if dataSource.isLoading { // initial loading
+                            ForEach(0..<5) { _ in
+                                ShimmerView()
+                                    .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
+                                    .cornerRadius(Avatar.Size.m.daoImageSize / 2)
+                            }
+                        } else {
+                            ForEach(daos) { dao in
+                                DAORoundViewWithActiveVotes(dao: dao) {
+                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    Tracker.track(.publicPrfVotedDaoOpen)
+                                }
                             }
                         }
                     }
                     .padding(Constants.horizontalPadding)
                 }
-                .background(Color.containerBright)
+                .background(dataSource.isLoading ? Color.container : Color.containerBright)
                 .cornerRadius(20)
                 .padding(.horizontal, Constants.horizontalPadding)
+            }
+        }
+        .onAppear {
+            if daos.isEmpty {
+                dataSource.refresh()
             }
         }
     }
 }
 
 fileprivate struct _VotedProposalsView: View {
-    @ObservedObject var dataSource: PublicUserProfileActivityDataSource
+    @ObservedObject var dataSource: PublicUserProfileVotesDataSource
     @Binding var path: [PublicUserProfileScreen]
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -83,20 +109,20 @@ fileprivate struct _VotedProposalsView: View {
         dataSource.votedProposals ?? []
     }
 
-    var votesHeader: String {
-        guard let votes = dataSource.total else { return "Voted in DAOs" }
+    var header: String {
+        guard let votes = dataSource.total else { return "Votes" }
         return "Votes (\(votes))"
     }
 
     var body: some View {
         VStack {
             HStack {
-                Text(votesHeader)
+                Text(header)
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
                 if !votedProposals.isEmpty {
-                    NavigationLink("See all", value: PublicUserProfileScreen.votes(votedProposals))
+                    NavigationLink("See all", value: PublicUserProfileScreen.votes)
                         .font(.subheadlineSemibold)
                         .foregroundStyle(Color.primaryDim)
                 }
@@ -108,14 +134,11 @@ fileprivate struct _VotedProposalsView: View {
                 RefreshIcon {
                     dataSource.refresh()
                 }
-            } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
+            } else if dataSource.isLoading { // initial loading
                 ForEach(0..<3) { _ in
                     ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
-            } else if dataSource.votedProposals?.isEmpty ?? false {
-                // User has not voted yet. Message will be displayed in other component.
-                Text("")
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
                     ProposalListItemNoElipsisView(proposal: proposal) {

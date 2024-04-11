@@ -11,7 +11,7 @@ import SwiftUI
 
 enum PublicUserProfileScreen: Hashable {
     case votedInDaos
-    case votes([Proposal])
+    case votes
     case vote(Proposal)
 }
 
@@ -41,7 +41,7 @@ struct PublicUserProfileView: View {
 
                     switch dataSource.filter {
                     case .activity:
-                        PublicUserProfileActivityView(address: dataSource.address, path: $path)
+                        PublicUserProfileActivityView(user: profile, path: $path)
                     }
                 }
             }
@@ -68,11 +68,10 @@ struct PublicUserProfileView: View {
                 case .votedInDaos:
                     PublicUserProfileDaosListView(address: dataSource.address)
                         .environmentObject(activeSheetManager)
-                case .votes(let proposals):
+                case .votes:
                     PublicUserProfileVotesListView(user: dataSource.profile!,
-                                                   votedProposals: proposals,
                                                    path: $path)
-                    .environmentObject(activeSheetManager)
+                        .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true)

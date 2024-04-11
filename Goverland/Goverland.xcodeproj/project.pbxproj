@@ -59,7 +59,7 @@
 		553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */; };
 		553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */; };
 		553D0F732B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */; };
-		553E74CF2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74CE2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift */; };
+		553E74CF2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */; };
 		553E74D12BA1885800F697F8 /* PopoverNavigationViewWithToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */; };
 		553E74D32BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */; };
 		553E74D52BA4254200F697F8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74D42BA4254200F697F8 /* ProfileHeaderView.swift */; };
@@ -383,7 +383,7 @@
 		553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePictureView.swift; sourceTree = "<group>"; };
 		553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFollowedDAOsActiveVoteHorizontalListView.swift; sourceTree = "<group>"; };
 		553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDAOsActiveVoteDataSource.swift; sourceTree = "<group>"; };
-		553E74CE2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileActivityDataSource.swift; sourceTree = "<group>"; };
+		553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileVotesDataSource.swift; sourceTree = "<group>"; };
 		553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverNavigationViewWithToast.swift; sourceTree = "<group>"; };
 		553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverNavigationViewWithToast2.swift; sourceTree = "<group>"; };
 		553E74D42BA4254200F697F8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -1044,8 +1044,8 @@
 			isa = PBXGroup;
 			children = (
 				BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */,
-				553E74CE2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift */,
 				55CD8C702BB4A13E0074D734 /* PublicUserProfileVotesListView.swift */,
+				553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */,
 				55039F262BBFFD190025DE03 /* PublicUserProfileDaosListView.swift */,
 				55039F282BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift */,
 			);
@@ -1881,7 +1881,7 @@
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
 				BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */,
 				BA8455AE2B8511D700A986CC /* AllDaoVotersDataSource.swift in Sources */,
-				553E74CF2BA1793200F697F8 /* PublicUserProfileActivityDataSource.swift in Sources */,
+				553E74CF2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,
 				556D43582BAD75C000D2D64F /* Stats.swift in Sources */,
