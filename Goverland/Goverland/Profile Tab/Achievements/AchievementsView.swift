@@ -93,7 +93,7 @@ fileprivate struct _AchievementView: View {
 
             VStack(alignment: .leading) {
                 HStack(spacing: 6) {
-                    if achievement.isUnread {
+                    if achievement.isUnread && !locked {
                         Circle()
                             .foregroundStyle(Color.primary)
                             .frame(width: 4, height: 4)
