@@ -12,7 +12,7 @@ import SwiftUI
 struct WarpcastSettingsView: View {
     var body: some View {
         HStack {
-            Image("x") //Image("warpcast")
+            Image("warpcast")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Follow on Warpcast") {

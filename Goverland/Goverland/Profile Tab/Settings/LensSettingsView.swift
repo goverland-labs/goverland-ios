@@ -12,7 +12,7 @@ import SwiftUI
 struct LensSettingsView: View {
     var body: some View {
         HStack {
-            Image("x") //Image("lens")
+            Image("lens")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Follow on Lens") {
@@ -39,7 +39,7 @@ struct LensPopoverView: View {
 fileprivate struct OrbSettingsView: View {
     var body: some View {
         HStack {
-            Image("x") //Image("orb")
+            Image("lens")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Follow on Orb") {
@@ -57,7 +57,7 @@ fileprivate struct OrbSettingsView: View {
 fileprivate struct HeySettingsView: View {
     var body: some View {
         HStack {
-            Image("x") //Image("hey")
+            Image("lens")
                 .foregroundStyle(Color.primaryDim)
                 .frame(width: 30)
             Button("Follow on Hey") {
