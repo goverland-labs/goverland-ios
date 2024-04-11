@@ -257,6 +257,8 @@
 		BAC3CA252B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */; };
 		BAC3CA2C2B9CC0A9001CC6C3 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = BAC3CA2B2B9CC0A9001CC6C3 /* Version */; };
 		BAC997BA2BBF352500476735 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC997B92BBF352500476735 /* Achievement.swift */; };
+		BAC997BC2BC6F2F800476735 /* WarpcastSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC997BB2BC6F2F800476735 /* WarpcastSettingsView.swift */; };
+		BAC997BE2BC6F41600476735 /* LensSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC997BD2BC6F41600476735 /* LensSettingsView.swift */; };
 		BACF9FC42B5AC8F900D990F5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */; };
 		BACF9FC82B5AC8F900D990F5 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5225D2A279A950097068F /* XSettingsView.swift */; };
@@ -568,6 +570,8 @@
 		BAC3CA202B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileDataSource.swift; sourceTree = "<group>"; };
 		BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileActivityView.swift; sourceTree = "<group>"; };
 		BAC997B92BBF352500476735 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		BAC997BB2BC6F2F800476735 /* WarpcastSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarpcastSettingsView.swift; sourceTree = "<group>"; };
+		BAC997BD2BC6F41600476735 /* LensSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensSettingsView.swift; sourceTree = "<group>"; };
 		BACF9FC12B5AC8F900D990F5 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BACF9FC32B5AC8F900D990F5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BACF9FC52B5AC8F900D990F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1085,10 +1089,12 @@
 			isa = PBXGroup;
 			children = (
 				55D632BE29505C800073E04A /* SettingsView.swift */,
+				BAC997BD2BC6F41600476735 /* LensSettingsView.swift */,
 				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				BAD5225D2A279A950097068F /* XSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
+				BAC997BB2BC6F2F800476735 /* WarpcastSettingsView.swift */,
 				BAF651C429B3EA0100C78A8A /* MailSendingView.swift */,
 				BA84516B2A577A380088A6E6 /* PartnershipSettingView.swift */,
 				55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */,
@@ -1995,6 +2001,7 @@
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
+				BAC997BE2BC6F41600476735 /* LensSettingsView.swift in Sources */,
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
 				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
@@ -2002,6 +2009,7 @@
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
 				553E74E22BAAB14B00F697F8 /* FeaturedProposalsView.swift in Sources */,
+				BAC997BC2BC6F2F800476735 /* WarpcastSettingsView.swift in Sources */,
 				55E9D98D2B6B669100697A12 /* DaoTermsAgreementPopoverView.swift in Sources */,
 				BA6B96552A38B87300851826 /* Subscription.swift in Sources */,
 				552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */,

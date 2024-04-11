@@ -229,6 +229,10 @@ enum TrackingEvent: String, Trackable {
     case settingsOpenX = "settings_open_X"
     case settingsOpenDiscord = "settings_open_discord"
     case settingsOpenEmail = "settings_open_email"
+    case settingsOpenWarpcast = "settings_open_warpcast"
+    case settingsOpenLens = "settings_open_lens"
+    case settingsOpenOrb = "settings_open_orb"
+    case settingsOpenHey = "settings_open_hey"
 
     case screenNotifications = "screen_notifications"
     case settingsEnableGlbNotifications = "settings_enable_glb_notifications"
@@ -241,6 +245,7 @@ enum TrackingEvent: String, Trackable {
     case screenHelpUsGrow = "screen_help_us_grow"
     case settingsRateTheApp = "settings_rate_the_app"
     case settingsShareXPost = "settings_share_X_post"
+    case settingsShareWarpcastPost = "settings_share_warpcast_post"
 
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"
