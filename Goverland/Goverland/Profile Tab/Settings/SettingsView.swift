@@ -82,10 +82,10 @@ struct SettingsView: View {
                 MailSettingView()
                 XSettingsView()
                 WarpcastSettingsView()
-                LensSettingsView()
-                    .onTapGesture {
-                        isOpenLensPopoverPresented.toggle()
-                    }
+//                LensSettingsView()
+//                    .onTapGesture {
+//                        isOpenLensPopoverPresented.toggle()
+//                    }
             }
             .ignoresSafeArea(edges: .horizontal)
 
