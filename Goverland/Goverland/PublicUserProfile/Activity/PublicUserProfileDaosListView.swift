@@ -52,9 +52,6 @@ struct PublicUserProfileDaosListView: View {
         .padding(.horizontal, Constants.horizontalPadding)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Voted in DAOs")
-        .refreshable {
-            dataSource.refresh()
-        }
         .onAppear() {
             if dataSource.daos.isEmpty {
                 dataSource.refresh()
