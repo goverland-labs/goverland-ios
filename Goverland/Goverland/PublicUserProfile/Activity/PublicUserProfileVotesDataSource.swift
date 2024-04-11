@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
-    let address: Address
+    let user: User
 
     @Published var votedProposals: [Proposal] = []
     @Published var failedToLoadInitialData = false
@@ -20,8 +20,8 @@ class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
     @Published var total: Int?
     private var cancellables = Set<AnyCancellable>()
 
-    init(address: Address) {
-        self.address = address
+    init(user: User) {
+        self.user = user
     }
 
     func refresh() {
@@ -37,7 +37,7 @@ class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.getPublicProfileVotes(address: address)
+        APIService.getPublicProfileVotes(address: user.address)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -52,7 +52,7 @@ class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
     }
 
     func loadMore() {
-        APIService.getPublicProfileVotes(address: address, offset: votedProposals.count)
+        APIService.getPublicProfileVotes(address: user.address, offset: votedProposals.count)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

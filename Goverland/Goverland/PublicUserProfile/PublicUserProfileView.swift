@@ -41,7 +41,7 @@ struct PublicUserProfileView: View {
 
                     switch dataSource.filter {
                     case .activity:
-                        PublicUserProfileActivityView(address: dataSource.address, path: $path)
+                        PublicUserProfileActivityView(user: profile, path: $path)
                     }
                 }
             }
@@ -69,8 +69,9 @@ struct PublicUserProfileView: View {
                     PublicUserProfileDaosListView(address: dataSource.address)
                         .environmentObject(activeSheetManager)
                 case .votes:
-                    PublicUserProfileVotesListView(address: dataSource.address)
-                    .environmentObject(activeSheetManager)
+                    PublicUserProfileVotesListView(user: dataSource.profile!,
+                                                   path: $path)
+                        .environmentObject(activeSheetManager)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal,
                                          allowShowingDaoInfo: true)

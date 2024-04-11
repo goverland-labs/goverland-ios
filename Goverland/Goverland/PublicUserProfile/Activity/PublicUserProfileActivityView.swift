@@ -14,9 +14,9 @@ struct PublicUserProfileActivityView: View {
     @StateObject private var daosDataSource: PublicUserProfileDaosDataSource
     @Binding private var path: [PublicUserProfileScreen]
 
-    init(address: Address, path: Binding<[PublicUserProfileScreen]>) {
-        _votesDataSource = StateObject(wrappedValue: PublicUserProfileVotesDataSource(address: address))
-        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: address))
+    init(user: User, path: Binding<[PublicUserProfileScreen]>) {
+        _votesDataSource = StateObject(wrappedValue: PublicUserProfileVotesDataSource(user: user))
+        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: user.address))
         _path = path
     }
 
