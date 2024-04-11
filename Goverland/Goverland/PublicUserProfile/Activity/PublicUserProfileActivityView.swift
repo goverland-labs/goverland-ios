@@ -87,9 +87,14 @@ fileprivate struct _VotedDaosView: View {
                     }
                     .padding(Constants.horizontalPadding)
                 }
-                .background(Color.containerBright)
+                .background(dataSource.isLoading ? Color.container : Color.containerBright)
                 .cornerRadius(20)
                 .padding(.horizontal, Constants.horizontalPadding)
+            }
+        }
+        .onAppear {
+            if daos.isEmpty {
+                dataSource.refresh()
             }
         }
     }

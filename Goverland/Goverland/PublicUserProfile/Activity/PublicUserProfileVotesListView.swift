@@ -69,10 +69,6 @@ struct PublicUserProfileVotesListView: View {
                     }
                 }
             }
-
-
-
-
         }
         .onChange(of: selectedVoteIndex) { _, _ in
             if let index = selectedVoteIndex, votedProposals.count > index {
@@ -90,6 +86,5 @@ struct PublicUserProfileVotesListView: View {
         .navigationTitle("\(dataSource.user.usernameShort)")
         .listStyle(.plain)
         .scrollIndicators(.hidden)
-
     }
 }
