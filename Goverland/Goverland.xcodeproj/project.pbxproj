@@ -1040,8 +1040,8 @@
 			isa = PBXGroup;
 			children = (
 				BAC3CA242B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift */,
-				553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */,
 				55CD8C702BB4A13E0074D734 /* PublicUserProfileVotesListView.swift */,
+				553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */,
 				55039F262BBFFD190025DE03 /* PublicUserProfileDaosListView.swift */,
 				55039F282BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift */,
 			);

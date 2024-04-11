@@ -10,27 +10,28 @@
 import Foundation
 import Combine
 
-class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
+class PublicUserProfileVotesDataSource: ObservableObject, Paginatable, Refreshable {
     let user: User
 
-    @Published var votedProposals: [Proposal] = []
+    @Published var votedProposals: [Proposal]?
+    @Published var isLoading = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
-    @Published var isLoading = false
-    @Published var total: Int?
     private var cancellables = Set<AnyCancellable>()
+
+    private(set) var total: Int?
 
     init(user: User) {
         self.user = user
     }
 
     func refresh() {
-        votedProposals = []
+        votedProposals = nil
+        isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false
-        isLoading = false
-        total = nil
         cancellables = Set<AnyCancellable>()
+        total = nil
         
         loadInitialData()
     }
@@ -51,8 +52,13 @@ class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
+    func hasMore() -> Bool {
+        guard let votedProposals, let total = total else { return true }
+        return votedProposals.count < total
+    }
+
     func loadMore() {
-        APIService.getPublicProfileVotes(address: user.address, offset: votedProposals.count)
+        APIService.getPublicProfileVotes(address: user.address, offset: votedProposals?.count ?? 0)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -60,7 +66,7 @@ class PublicUserProfileVotesDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] proposals, headers in
                 guard let `self` = self else { return }
-                self.votedProposals.append(contentsOf: proposals)
+                self.votedProposals?.append(contentsOf: proposals)
                 self.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)

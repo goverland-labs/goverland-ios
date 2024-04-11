@@ -101,7 +101,7 @@ fileprivate struct _VotedProposalsView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var votedProposals: [Proposal] {
-        dataSource.votedProposals
+        dataSource.votedProposals ?? []
     }
 
     var header: String {
@@ -134,9 +134,6 @@ fileprivate struct _VotedProposalsView: View {
                     ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }
-            } else if dataSource.votedProposals.isEmpty {
-                // User has not voted yet. Message will be displayed in other component.
-                Text("")
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
                     ProposalListItemNoElipsisView(proposal: proposal) {
