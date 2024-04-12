@@ -22,7 +22,6 @@ struct SearchView: View {
     private var searchPrompt: String {
         switch model.filter {
         case .daos:
-
             if let stats = stats.stats {
                 let totalStr = Utils.formattedNumber(Double(stats.daos.total))
                 return "Search for \(totalStr) DAOs by name"

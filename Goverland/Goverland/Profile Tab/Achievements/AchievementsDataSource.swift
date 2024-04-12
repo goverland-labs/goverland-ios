@@ -18,13 +18,21 @@ class AchievementsDataSource: ObservableObject, Refreshable {
     
     static let shared = AchievementsDataSource()
 
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(voteCasted(_:)), name: .voteCasted, object: nil)
+    }
+
     func refresh() {
+        clear()
+        loadAchievements()
+    }
+
+    private func clear() {
         achievements = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-
-        loadAchievements()
     }
 
     private func loadAchievements() {
@@ -55,6 +63,14 @@ class AchievementsDataSource: ObservableObject, Refreshable {
     }
 
     func hasUnreadAchievements() -> Bool {
-        achievements.reduce(false) { r, a in r || a.isUnread }
+        achievements.reduce(false) { r, a in r || (a.isUnread && a.achievedAt != nil) }
+    }
+
+    @objc private func authTokenChanged(_ notification: Notification) {
+        clear()
+    }
+
+    @objc private func voteCasted(_ notification: Notification) {
+        refresh()
     }
 }
