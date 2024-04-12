@@ -20,6 +20,7 @@ struct AchievementsView: View {
                 ProgressView()
                     .foregroundStyle(Color.textWhite20)
                     .controlSize(.regular)
+                    .padding(.top, 16)
                 Spacer()
             } else {
                 _AchievementsListView(dataSource: dataSource)

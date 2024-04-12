@@ -239,6 +239,7 @@ class CastYourVoteDataSource: ObservableObject {
                 ProfileVotesDataSource.shared.refresh()
                 self?.submitted = true
                 self?.onSuccess()
+                NotificationCenter.default.post(name: .voteCasted, object: nil)
             }
             .store(in: &cancellables)
     }

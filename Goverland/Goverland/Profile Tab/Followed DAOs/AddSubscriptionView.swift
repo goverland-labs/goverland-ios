@@ -13,12 +13,13 @@ struct AddSubscriptionView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var dataSource = GroupedDaosDataSource.addSubscription
     @StateObject private var searchDataSource = DaosSearchDataSource.shared
+    @StateObject private var stats = StatsDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     private var searchPrompt: String {
-        if let total = dataSource.totalDaos {
-            let totalStr = Utils.formattedNumber(Double(total))
+        if let stats = stats.stats {
+            let totalStr = Utils.formattedNumber(Double(stats.daos.total))
             return "Search for \(totalStr) DAOs by name"
         }
         return ""

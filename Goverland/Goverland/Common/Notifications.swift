@@ -15,4 +15,5 @@ extension Notification.Name {
     static let eventUnarchived = Notification.Name("EventUnarchived")
     static let wcSessionUpdated = Notification.Name("WC_SessionUpdated")
     static let cbWalletAccountUpdated = Notification.Name("CoinbaseWalletAccountUpdated")
+    static let voteCasted = Notification.Name("VoteCasted")
 }

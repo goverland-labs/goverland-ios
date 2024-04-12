@@ -62,6 +62,8 @@ struct GoverlandApp: App {
                                 // Which can be done from InboxView
                                 InboxDataSource.shared.refresh()
                             }
+                            // Refresh user achievementsExp
+                            AchievementsDataSource.shared.refresh()
                         } else {
                             logInfo("[App] Auth Token is empty")
                             unreadEvents = 0
