@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 protocol APIEndpoint {
     associatedtype ResponseType: Decodable
 
