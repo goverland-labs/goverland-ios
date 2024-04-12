@@ -61,8 +61,11 @@ struct ArchiveView: View {
                             let isRead = archive.readAt != nil
                             ProposalListItemView(proposal: proposal,
                                                  isSelected: false,
-                                                 isRead: isRead
-                            ) {
+                                                 isRead: isRead,
+                                                 onDaoTap: {
+                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                                Tracker.track(.archiveEventOpenDao)
+                            }) {
                                 ProposalSharingMenu(
                                     link: proposal.link,
                                     isRead: isRead,
@@ -124,7 +127,8 @@ struct ArchiveView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: false)
+                                     allowShowingDaoInfo: true)
+                    .environmentObject(activeSheetManager)
             }
         }
         .tint(.textWhite)
@@ -136,6 +140,27 @@ struct ArchiveView: View {
         .onAppear() {
             data.refresh()
             Tracker.track(.screenArchive)
+        }
+        .sheet(item: $activeSheetManager.activeSheet) { item in
+            switch item {
+            case .daoInfo(let dao):
+                PopoverNavigationViewWithToast {
+                    DaoInfoView(dao: dao)
+                }
+
+            case .publicProfile(let address):
+                PopoverNavigationViewWithToast {
+                    PublicUserProfileView(address: address)
+                }
+
+            case .proposalVoters(let proposal):
+                PopoverNavigationViewWithToast {
+                    SnapshotAllVotesView(proposal: proposal)
+                }
+
+            default:
+                EmptyView()
+            }
         }
     }
 
