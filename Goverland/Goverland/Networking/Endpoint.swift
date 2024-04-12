@@ -23,11 +23,7 @@ extension APIEndpoint {
     var baseURL: URL { ConfigurationManager.baseURL }
 
     var headers: [String: String] {
-        var headers = [
-            "Content-Type": "application/json",
-            "X-App-Platform": "iOS",
-            "X-App-Version": Bundle.main.releaseVersionNumber!
-        ]
+        var headers = defaultHeaders
         if !SettingKeys.shared.authToken.isEmpty {
             headers["Authorization"] = SettingKeys.shared.authToken
         }
@@ -37,6 +33,14 @@ extension APIEndpoint {
 
     var body: Data? { nil }
     var queryParameters: [URLQueryItem]? { nil }
+
+    var defaultHeaders: [String: String] {
+        [
+            "Content-Type": "application/json",
+            "X-App-Platform": "iOS",
+            "X-App-Version": Bundle.main.releaseVersionNumber!
+        ]
+    }
 }
 
 struct IgnoredResponse: Decodable {
@@ -62,8 +66,8 @@ struct GuestAuthTokenEndpoint: APIEndpoint {
     var path: String = "auth/guest"
     var method: HttpMethod = .post
     var headers: [String: String] {
-        // do not set authorization header in this request
-        return ["Content-Type": "application/json"]
+        // do not set authorization token in header for this request
+        return defaultHeaders
     }
 
     var body: Data?
@@ -92,8 +96,8 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
     var path: String = "auth/siwe"
     var method: HttpMethod = .post
     var headers: [String: String] {
-        // do not set authorization header in this request
-        return ["Content-Type": "application/json"]
+        // do not set authorization token in header for this request
+        return defaultHeaders
     }
 
     var body: Data?
