@@ -82,10 +82,10 @@ struct SettingsView: View {
                 MailSettingView()
                 XSettingsView()
                 WarpcastSettingsView()
-//                LensSettingsView()
-//                    .onTapGesture {
-//                        isOpenLensPopoverPresented.toggle()
-//                    }
+                LensSettingsView()
+                    .onTapGesture {
+                        isOpenLensPopoverPresented.toggle()
+                    }
             }
             .ignoresSafeArea(edges: .horizontal)
 
@@ -115,7 +115,7 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $isOpenLensPopoverPresented) {
             LensPopoverView()
-                .presentationDetents([.height(128)])
+                .presentationDetents([.height(200)])
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Settings")
