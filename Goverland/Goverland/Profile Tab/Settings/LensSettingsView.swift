@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct LensSettingsView: View {
+    let onTap: () -> Void
+
     var body: some View {
         HStack {
             Image("lens")
@@ -17,6 +19,7 @@ struct LensSettingsView: View {
                 .frame(width: 30)
             Button("Follow on Lens") {
                 Tracker.track(.settingsOpenLens)
+                onTap()
             }
             Spacer()
             Image(systemName: "arrow.up.right")
