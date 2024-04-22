@@ -53,6 +53,7 @@ struct ConnectWalletView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .scrollIndicators(.hidden)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
