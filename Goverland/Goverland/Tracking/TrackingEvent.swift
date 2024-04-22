@@ -32,6 +32,9 @@ enum TrackingEvent: String, Trackable {
     case reconnectWalletWrongWallet = "reconnect_wallet_wrong_wallet"
     case reconnectWalletSuccess = "reconnect_wallet_success"
 
+    // MARK: - Download Wallet
+    case downloadWallet = "download_wallet"
+
     // MARK: - Push Notifications
     case screenPushNotifications = "screen_push_notifications"
     case notificationsYes = "notifications_yes"
