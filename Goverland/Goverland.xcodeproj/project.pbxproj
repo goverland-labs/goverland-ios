@@ -49,6 +49,7 @@
 		552ACFD62B623CE30038A09F /* ProfileHasVotingPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD52B623CE30038A09F /* ProfileHasVotingPowerView.swift */; };
 		552ACFD82B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */; };
 		552ACFDA2B623F320038A09F /* ProfileHasVotingPowerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */; };
+		552FBB5A2BD7EE9700D85A3C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 552FBB592BD7EE9700D85A3C /* PrivacyInfo.xcprivacy */; };
 		553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 553316FD29F162FF0034AF66 /* BlockiesSwift */; };
 		5533170229F16B290034AF66 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5533170129F16B290034AF66 /* Address.swift */; };
 		5536B8372B9CB5C400870A08 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 5536B8362B9CB5C400870A08 /* WalletConnectModal */; };
@@ -375,6 +376,7 @@
 		552ACFD52B623CE30038A09F /* ProfileHasVotingPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerView.swift; sourceTree = "<group>"; };
 		552ACFD72B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerFullView.swift; sourceTree = "<group>"; };
 		552ACFD92B623F320038A09F /* ProfileHasVotingPowerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHasVotingPowerDataSource.swift; sourceTree = "<group>"; };
+		552FBB592BD7EE9700D85A3C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5533170129F16B290034AF66 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		553744D82A7577AF00D05D8A /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		553744DB2A75802E00D05D8A /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
@@ -1175,6 +1177,7 @@
 				55C25E562A7563FD0087D56E /* Stage.xcconfig */,
 				55C25E572A75641A0087D56E /* Prod.xcconfig */,
 				BAB4B9422A4749A300D24110 /* Info.plist */,
+				552FBB592BD7EE9700D85A3C /* PrivacyInfo.xcprivacy */,
 				55B7B4412A5B059800A894AD /* Goverland.entitlements */,
 				55FD730B2AB75DC60081C38D /* Authentication */,
 				55D632B12950576C0073E04A /* Onboarding */,
@@ -1721,6 +1724,7 @@
 				BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */,
 				BA352F04298AF89F00F78958 /* IntroLoadingView.storyboard in Resources */,
 				55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */,
+				552FBB5A2BD7EE9700D85A3C /* PrivacyInfo.xcprivacy in Resources */,
 				BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
