@@ -25,8 +25,18 @@ struct ConnectWalletView: View {
                     }
 
                     Section {
-                        ForEach(Wallet.recommended) { wallet in
-                            WalletRowView(wallet: wallet, model: model)              
+                        if !Wallet.recommended.isEmpty {
+                            ForEach(Wallet.recommended) { wallet in
+                                WalletRowView(wallet: wallet, model: model)
+                            }
+                        } else {
+                            ForEach(Wallet.featured) { wallet in
+                                DownloadWalletRowView(wallet: wallet)                                
+                            }
+
+                            Text("To use the app, you must have a Web3 wallet installed on your mobile device, such as Zerion Wallet.")
+                                .foregroundStyle(Color.textWhite60)
+                                .font(.footnoteRegular)
                         }
                     }
 
@@ -43,6 +53,7 @@ struct ConnectWalletView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .scrollIndicators(.hidden)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -91,6 +102,10 @@ fileprivate struct QRRowView: View {
 fileprivate struct OtherWalletView: View {
     var body: some View {
         HStack {
+            Image("walletconnect-white")
+                .frame(width: 32, height: 32)
+                .scaledToFit()
+                .cornerRadius(4)
             Text("Other wallet")
             Spacer()
         }
@@ -127,6 +142,29 @@ fileprivate struct WalletRowView: View {
             guard !model.connecting else { return }
             Haptic.medium()
             model.connect(wallet: wallet)
+        }
+    }
+}
+
+fileprivate struct DownloadWalletRowView: View {
+    let wallet: Wallet
+
+    var body: some View {
+        HStack {
+            Image(wallet.image)
+                .frame(width: 32, height: 32)
+                .scaledToFit()
+                .cornerRadius(4)
+            Text("Download \(wallet.name)")
+            Spacer()
+        }
+        .frame(height: 48)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard let url = wallet.appStoreUrl else { return }
+            Haptic.medium()
+            Tracker.track(.downloadWallet, parameters: ["wallet" : wallet.name])
+            openUrl(url)
         }
     }
 }

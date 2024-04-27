@@ -36,6 +36,7 @@ class AchievementsDataSource: ObservableObject, Refreshable {
     }
 
     private func loadAchievements() {
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
         isLoading = true
         APIService.getAchievements()
             .sink { [weak self] completion in

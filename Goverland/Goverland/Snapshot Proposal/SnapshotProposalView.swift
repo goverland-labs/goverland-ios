@@ -154,6 +154,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
     let allowShowingDaoInfo: Bool
     let proposal: Proposal
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         HStack(spacing: 6) {
@@ -179,6 +180,8 @@ fileprivate struct _SnapshotProposalCreatorView: View {
                 if allowShowingDaoInfo {
                     activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                     Tracker.track(.snpDetailsShowDao)
+                } else {
+                    dismiss()
                 }
             })
             Text("by")

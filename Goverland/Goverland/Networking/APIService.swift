@@ -47,7 +47,7 @@ class APIService {
                     switch apiError {
                     case .notAuthorized, .forbidden:
                         Task {
-                            try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
+                            try! await UserProfile.signOutSelected(logErrorIfNotFound: false)
                         }
                     default: 
                         break

@@ -14,7 +14,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitialData: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
     private(set) var totalInCategory: [DaoCategory: Int] = [:]
-    private(set) var totalDaos: Int?
     private var cancellables = Set<AnyCancellable>()
 
     static let dashboard = GroupedDaosDataSource()
@@ -27,8 +26,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
         categoryDaos = [:]
         failedToLoadInitialData = false
         failedToLoadInCategory = [:]
-        totalInCategory = [:]
-        totalDaos = nil
+        totalInCategory = [:]        
         cancellables = Set<AnyCancellable>()
 
         loadInitialData()
@@ -48,8 +46,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                         self?.totalInCategory[category] = value.count
                     }
                 }
-
-                self?.totalDaos = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }

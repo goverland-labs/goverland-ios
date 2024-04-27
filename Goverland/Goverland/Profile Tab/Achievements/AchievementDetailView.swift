@@ -44,12 +44,18 @@ struct AchievementDetailView: View {
                     .multilineTextAlignment(.center)
 
                 if locked {
+                    Text(achievement.description)
+                        .font(.subheadlineRegular)
+                        .foregroundStyle(Color.textWhite)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 12)
+                        .padding(.bottom, 12)
+
                     GeometryReader { geometry in
                         let maxWidth = min(geometry.size.width, size.width * 1.3)
                         HStack {
                             Spacer()
                             AchievementProgressView(progress: achievement.progress)
-                                .padding(.top, 12)
                                 .frame(maxWidth: maxWidth)
                             Spacer()
                         }
@@ -59,12 +65,12 @@ struct AchievementDetailView: View {
                         .font(.сaptionRegular)
                         .foregroundStyle(Color.textWhite60)
                         .padding(.top, 4)
+                        .padding(.bottom, 12)
 
                     Text(achievement.message)
                         .font(.subheadlineRegular)
                         .foregroundStyle(Color.textWhite)
                         .multilineTextAlignment(.center)
-                        .padding(.top, 12)
                 }
             }
             .padding(.vertical, 16)

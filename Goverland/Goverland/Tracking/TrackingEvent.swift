@@ -32,6 +32,9 @@ enum TrackingEvent: String, Trackable {
     case reconnectWalletWrongWallet = "reconnect_wallet_wrong_wallet"
     case reconnectWalletSuccess = "reconnect_wallet_success"
 
+    // MARK: - Download Wallet
+    case downloadWallet = "download_wallet"
+
     // MARK: - Push Notifications
     case screenPushNotifications = "screen_push_notifications"
     case notificationsYes = "notifications_yes"
@@ -87,6 +90,7 @@ enum TrackingEvent: String, Trackable {
     case screenArchive = "screen_archive"
     case screenArchiveEmpty = "screen_archive_empty"
     case archiveEventOpen = "archive_event_open"
+    case archiveEventOpenDao = "archive_event_open_dao"
     case archiveEventUnarchive = "archive_event_unarchive"
     case archiveEventMarkRead = "archive_event_mark_read"
     case archiveEventMarkUnread = "archive_event_mark_unread"
