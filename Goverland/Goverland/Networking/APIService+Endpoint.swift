@@ -143,6 +143,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func daoDelegates(daoID: UUID) -> AnyPublisher<(DaoDelegatesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoDelegatesEndpoint(daoID: daoID)
+        return shared.request(endpoint)
+    }
+
     // MARK: - DAO Analytics
 
     static func monthlyActiveUsers(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
