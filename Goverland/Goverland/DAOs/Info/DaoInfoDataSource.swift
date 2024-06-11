@@ -18,16 +18,12 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     init(dao: Dao) {
+        // When passed from some places, the DAO object is not full, so we don't store it
         self.daoID = dao.id
-        self.dao = dao
-        // TODO: we have all info and this refresh is not needed,
-        // but without it Nav Bar controls are jumping (seems like SwifUI bug)
-        refresh()
     }
 
     init(daoID: UUID) {
         self.daoID = daoID
-        refresh()
     }
 
     func refresh() {

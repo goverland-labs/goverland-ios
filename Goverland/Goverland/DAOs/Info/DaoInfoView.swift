@@ -118,5 +118,10 @@ struct DaoInfoView: View {
         .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
             showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
         }
+        .onAppear {
+            if dataSource.dao == nil {
+                dataSource.refresh()
+            }
+        }
     }
 }
