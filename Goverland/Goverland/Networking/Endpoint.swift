@@ -759,6 +759,25 @@ struct DisableNotificationsEndpoint: APIEndpoint {
     var method: HttpMethod = .delete
 }
 
+struct NotificationsSettingsDetailsEndpoint: APIEndpoint {
+    typealias ResponseType = NotificationsSettingsDetails
+
+    var path: String = "notifications/settings/details"
+    var method: HttpMethod = .get
+}
+
+struct UpdateNotificationsSettingsDetailsEndpoint: APIEndpoint {
+    typealias ResponseType = NotificationsSettingsDetails
+
+    var path: String = "notifications/settings/details"
+    var method: HttpMethod = .post
+    var body: Data?
+
+    init(details: NotificationsSettingsDetails) {
+        self.body = try! JSONEncoder().encode(details)
+    }
+}
+
 struct MarkPushAsClickedEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 

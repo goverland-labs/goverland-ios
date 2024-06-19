@@ -416,6 +416,16 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func notificationsSettingsDetails() -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = NotificationsSettingsDetailsEndpoint()
+        return shared.request(endpoint)
+    }
+
+    static func updateNotificationsSettingsDetails(details: NotificationsSettingsDetails) -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = UpdateNotificationsSettingsDetailsEndpoint(details: details)
+        return shared.request(endpoint)
+    }
+
     static func markPushAsClicked(pushId: String) -> AnyPublisher<(MarkPushAsClickedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
         return shared.request(endpoint, defaultErrorDisplay: false)
