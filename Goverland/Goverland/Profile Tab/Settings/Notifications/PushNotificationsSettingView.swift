@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct PushNotificationsSettingView: View {
+    @ObservedObject var dataSource = PushNotificationsDataSource()
     @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
     @State private var showAlert = false
     @State private var skipTrackingOnce = false
@@ -37,7 +38,7 @@ struct PushNotificationsSettingView: View {
             } header: {
                 Text("Push notifications")
             } footer: {
-                Text("Get notifications about new proposals and proposal outcomes.\nNotifications customization is coming soon!")
+                Text("Get notifications about new proposals and proposal outcomes")
                     .font(.footnoteRegular)
                     .foregroundStyle(Color.textWhite40)
             }
@@ -58,7 +59,7 @@ struct PushNotificationsSettingView: View {
                         }
                     } else {
                         // should not happen
-                        logError(GError.appInconsistency(reason: "Enabled notifications toggle without determined permission."))
+                        logError(GError.appInconsistency(reason: "Enabled notifications toggle without determined permission"))
                     }
 
                 case .denied:
@@ -76,7 +77,9 @@ struct PushNotificationsSettingView: View {
                         } else {
                             skipTrackingOnce = false
                         }
+                        // on purpose
                         SettingKeys.shared.notificationsEnabled = true
+                        // optimistic enabling
                         NotificationsManager.shared.enableNotificationsIfNeeded()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
@@ -87,6 +90,7 @@ struct PushNotificationsSettingView: View {
                                 notificationsEnabled = true
                                 return
                             }
+                            // on purpose
                             SettingKeys.shared.notificationsEnabled = false
                         }
                     }
@@ -96,7 +100,7 @@ struct PushNotificationsSettingView: View {
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Notifications Disabled"),
-                message: Text("To receive notifications, enable them in your device's settings."),
+                message: Text("To receive notifications, enable them in your device's settings"),
                 primaryButton: .default(Text("Open Settings"), action: showAppSettings),
                 secondaryButton: .cancel()
             )

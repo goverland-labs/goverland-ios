@@ -766,8 +766,8 @@ struct UpdateNotificationsSettingsDetailsEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(details: NotificationsSettings) {
-        self.body = try! JSONEncoder().encode(details)
+    init(settings: NotificationsSettings) {
+        self.body = try! JSONEncoder().encode(settings)
     }
 }
 

@@ -23,6 +23,16 @@ struct NotificationsSettings: Codable {
             case voteFinishesSoon = "vote_finishes_soon"
             case voteFinished = "vote_finished"
         }
+
+        func with(newProposalCreated: Bool?,
+                  quorumReached: Bool?,
+                  voteFinishesSoon: Bool?,
+                  voteFinished: Bool?) -> NotificationsDaoSettings {
+            NotificationsDaoSettings(newProposalCreated: newProposalCreated ?? self.newProposalCreated,
+                                     quorumReached: quorumReached ?? self.quorumReached,
+                                     voteFinishesSoon: voteFinishesSoon ?? self.voteFinishesSoon,
+                                     voteFinished: voteFinished ?? self.voteFinished)
+        }
     }
 
     enum CodingKeys: String, CodingKey {
