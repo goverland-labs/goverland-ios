@@ -733,13 +733,6 @@ struct MarkEventUnarchivedEndpoint: APIEndpoint {
 
 // MARK: - Notifications
 
-struct NotificationsSettingsEndpoint: APIEndpoint {
-    typealias ResponseType = NotificationsSettings
-
-    var path: String = "notifications/settings"
-    var method: HttpMethod = .get
-}
-
 struct EnableNotificationsEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
@@ -760,20 +753,20 @@ struct DisableNotificationsEndpoint: APIEndpoint {
 }
 
 struct NotificationsSettingsDetailsEndpoint: APIEndpoint {
-    typealias ResponseType = NotificationsSettingsDetails
+    typealias ResponseType = NotificationsSettings
 
     var path: String = "notifications/settings/details"
     var method: HttpMethod = .get
 }
 
 struct UpdateNotificationsSettingsDetailsEndpoint: APIEndpoint {
-    typealias ResponseType = NotificationsSettingsDetails
+    typealias ResponseType = NotificationsSettings
 
     var path: String = "notifications/settings/details"
     var method: HttpMethod = .post
     var body: Data?
 
-    init(details: NotificationsSettingsDetails) {
+    init(details: NotificationsSettings) {
         self.body = try! JSONEncoder().encode(details)
     }
 }

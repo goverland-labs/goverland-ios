@@ -8,11 +8,7 @@
 
 import Foundation
 
-struct NotificationsSettings: Decodable {
-    let enabled: Bool
-}
-
-struct NotificationsSettingsDetails: Codable {
+struct NotificationsSettings: Codable {
     let daoSettings: NotificationsDaoSettings
 
     struct NotificationsDaoSettings: Codable {

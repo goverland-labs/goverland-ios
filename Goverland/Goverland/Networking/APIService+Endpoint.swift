@@ -400,12 +400,6 @@ extension APIService {
 
     // MARK: - Notifications
 
-    // TODO: atm this is not used. We will use it once we have granular notifications control
-    static func notificationsSettings() -> AnyPublisher<(NotificationsSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = NotificationsSettingsEndpoint()
-        return shared.request(endpoint)
-    }
-
     static func enableNotifications(_ token: String, defaultErrorDisplay: Bool) -> AnyPublisher<(EnableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = EnableNotificationsEndpoint(token: token)
         return shared.request(endpoint, defaultErrorDisplay: defaultErrorDisplay)
@@ -416,12 +410,12 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func notificationsSettingsDetails() -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func notificationsSettings() -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = NotificationsSettingsDetailsEndpoint()
         return shared.request(endpoint)
     }
 
-    static func updateNotificationsSettingsDetails(details: NotificationsSettingsDetails) -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func updateNotificationsSettings(details: NotificationsSettings) -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = UpdateNotificationsSettingsDetailsEndpoint(details: details)
         return shared.request(endpoint)
     }
