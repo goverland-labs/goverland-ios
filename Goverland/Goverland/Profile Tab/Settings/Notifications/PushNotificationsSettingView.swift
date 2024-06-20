@@ -18,10 +18,20 @@ struct PushNotificationsSettingView: View {
     var body: some View {
         List {
             Section {
-                Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
+                Toggle("Receive notifications", isOn: $notificationsEnabled)
                     .tint(.green)
+            } header: {
+                Text("Push notifications")
+            } footer: {
+                if !notificationsEnabled {
+                    Text("Set up customizable notifications for DAO proposals and delegates' actions")
+                        .font(.footnoteRegular)
+                        .foregroundStyle(Color.textWhite40)
+                }
+            }
 
-                if let notificationsSettings = dataSource.notificationsSettings, notificationsEnabled {
+            if let notificationsSettings = dataSource.notificationsSettings, notificationsEnabled {
+                Section("Proposals") {
                     Toggle("New proposal created", isOn: Binding(
                         get: {
                             notificationsSettings.daoSettings.newProposalCreated
@@ -32,7 +42,6 @@ struct PushNotificationsSettingView: View {
                             dataSource.updateSettings(settings: settings)
                         }))
                     .tint(.green)
-
                     Toggle("Quorum reached", isOn: Binding(
                         get: {
                             notificationsSettings.daoSettings.quorumReached
@@ -42,7 +51,7 @@ struct PushNotificationsSettingView: View {
                             )
                             dataSource.updateSettings(settings: settings)
                         }))
-                        .tint(.green)
+                    .tint(.green)
                     Toggle("Vote finishes soon", isOn: Binding(
                         get: {
                             notificationsSettings.daoSettings.voteFinishesSoon
@@ -52,7 +61,7 @@ struct PushNotificationsSettingView: View {
                             )
                             dataSource.updateSettings(settings: settings)
                         }))
-                        .tint(.green)
+                    .tint(.green)
                     Toggle("Vote finished", isOn: Binding(
                         get: {
                             notificationsSettings.daoSettings.voteFinished
@@ -62,14 +71,8 @@ struct PushNotificationsSettingView: View {
                             )
                             dataSource.updateSettings(settings: settings)
                         }))
-                        .tint(.green)
+                    .tint(.green)
                 }
-            } header: {
-                Text("Push notifications")
-            } footer: {
-                Text("Get notifications about new proposals and proposal outcomes")
-                    .font(.footnoteRegular)
-                    .foregroundStyle(Color.textWhite40)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
