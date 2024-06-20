@@ -33,15 +33,36 @@ struct PushNotificationsSettingView: View {
                         }))
                     .tint(.green)
 
-                    Toggle("Quorum reached", isOn: $notificationsEnabled)
+                    Toggle("Quorum reached", isOn: Binding(
+                        get: {
+                            notificationsSettings.daoSettings.quorumReached
+                        }, set: { newValue in
+                            let settings = NotificationsSettings(
+                                daoSettings: notificationsSettings.daoSettings.with(quorumReached: newValue)
+                            )
+                            dataSource.updateSettings(settings: settings)
+                        }))
                         .tint(.green)
-                        .disabled(true)
-                    Toggle("Vote finishes soon", isOn: $notificationsEnabled)
+                    Toggle("Vote finishes soon", isOn: Binding(
+                        get: {
+                            notificationsSettings.daoSettings.voteFinishesSoon
+                        }, set: { newValue in
+                            let settings = NotificationsSettings(
+                                daoSettings: notificationsSettings.daoSettings.with(voteFinishesSoon: newValue)
+                            )
+                            dataSource.updateSettings(settings: settings)
+                        }))
                         .tint(.green)
-                        .disabled(true)
-                    Toggle("Vote finished", isOn: $notificationsEnabled)
+                    Toggle("Vote finished", isOn: Binding(
+                        get: {
+                            notificationsSettings.daoSettings.voteFinished
+                        }, set: { newValue in
+                            let settings = NotificationsSettings(
+                                daoSettings: notificationsSettings.daoSettings.with(voteFinished: newValue)
+                            )
+                            dataSource.updateSettings(settings: settings)
+                        }))
                         .tint(.green)
-                        .disabled(true)
                 }
             } header: {
                 Text("Push notifications")
