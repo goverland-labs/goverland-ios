@@ -59,6 +59,7 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { _, _ in
                 logInfo("[PUSH SETTINGS] Successfully updated")
+                Tracker.track(.settingsSetCustomNtfDetails)
             }
             .store(in: &cancellables)
     }
