@@ -29,7 +29,6 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
     }
 
     private func loadSettings() {
-        logInfo("[PUSH SETTINGS] Start receiving value")
         APIService.notificationsSettings()
             .retry(3)
             .sink { completion in
@@ -47,7 +46,6 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
     }
 
     func updateSettings(settings: NotificationsSettings) {
-        logInfo("[PUSH SETTINGS] Update notification settings with \(settings)")
         let oldSettings = notificationsSettings
         notificationsSettings = settings
         APIService.updateNotificationsSettings(settings: settings)
