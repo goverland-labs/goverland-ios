@@ -82,15 +82,15 @@ struct PushNotificationsSettingView: View {
                     if toggleEnabled {
                         if !skipTrackingOnce {
                             Tracker.track(.settingsEnableGlbNotifications)
+                            // on purpose
+                            SettingKeys.shared.notificationsEnabled = true
+                            // optimistic enabling
+                            NotificationsManager.shared.enableNotificationsIfNeeded()
+                            // update notifications settings
+                            dataSource.refresh()
                         } else {
                             skipTrackingOnce = false
                         }
-                        // on purpose
-                        SettingKeys.shared.notificationsEnabled = true
-                        // optimistic enabling
-                        NotificationsManager.shared.enableNotificationsIfNeeded()
-                        // update notifications settings
-                        dataSource.refresh()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
                         NotificationsManager.shared.disableNotifications { disabled in
