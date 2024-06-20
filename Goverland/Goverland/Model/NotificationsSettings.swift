@@ -24,10 +24,10 @@ struct NotificationsSettings: Codable {
             case voteFinished = "vote_finished"
         }
 
-        func with(newProposalCreated: Bool?,
-                  quorumReached: Bool?,
-                  voteFinishesSoon: Bool?,
-                  voteFinished: Bool?) -> NotificationsDaoSettings {
+        func with(newProposalCreated: Bool? = nil,
+                  quorumReached: Bool? = nil,
+                  voteFinishesSoon: Bool? = nil,
+                  voteFinished: Bool? = nil) -> NotificationsDaoSettings {
             NotificationsDaoSettings(newProposalCreated: newProposalCreated ?? self.newProposalCreated,
                                      quorumReached: quorumReached ?? self.quorumReached,
                                      voteFinishesSoon: voteFinishesSoon ?? self.voteFinishesSoon,

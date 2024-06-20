@@ -760,7 +760,7 @@ struct NotificationsSettingsDetailsEndpoint: APIEndpoint {
 }
 
 struct UpdateNotificationsSettingsDetailsEndpoint: APIEndpoint {
-    typealias ResponseType = NotificationsSettings
+    typealias ResponseType = IgnoredResponse
 
     var path: String = "notifications/settings/details"
     var method: HttpMethod = .post

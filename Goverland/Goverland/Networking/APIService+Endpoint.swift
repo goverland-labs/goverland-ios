@@ -415,7 +415,7 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func updateNotificationsSettings(settings: NotificationsSettings) -> AnyPublisher<(NotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func updateNotificationsSettings(settings: NotificationsSettings) -> AnyPublisher<(UpdateNotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = UpdateNotificationsSettingsDetailsEndpoint(settings: settings)
         return shared.request(endpoint)
     }

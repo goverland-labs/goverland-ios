@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct PushNotificationsSettingView: View {
-    @ObservedObject var dataSource = PushNotificationsDataSource()
+    @ObservedObject var dataSource = PushNotificationsDataSource.shared
     @State private var notificationsEnabled = SettingKeys.shared.notificationsEnabled
     @State private var showAlert = false
     @State private var skipTrackingOnce = false
@@ -21,10 +21,18 @@ struct PushNotificationsSettingView: View {
                 Toggle("Receive updates from DAOs", isOn: $notificationsEnabled)
                     .tint(.green)
 
-                if notificationsEnabled {
-                    Toggle("New proposal created", isOn: $notificationsEnabled)
-                        .tint(.green)
-                        .disabled(true)
+                if let notificationsSettings = dataSource.notificationsSettings, notificationsEnabled {
+                    Toggle("New proposal created", isOn: Binding(
+                        get: {
+                            notificationsSettings.daoSettings.newProposalCreated
+                        }, set: { newValue in
+                            let settings = NotificationsSettings(
+                                daoSettings: notificationsSettings.daoSettings.with(newProposalCreated: newValue)
+                            )
+                            dataSource.updateSettings(settings: settings)
+                        }))
+                    .tint(.green)
+
                     Toggle("Quorum reached", isOn: $notificationsEnabled)
                         .tint(.green)
                         .disabled(true)
@@ -81,6 +89,8 @@ struct PushNotificationsSettingView: View {
                         SettingKeys.shared.notificationsEnabled = true
                         // optimistic enabling
                         NotificationsManager.shared.enableNotificationsIfNeeded()
+                        // update notifications settings
+                        dataSource.refresh()
                     } else {
                         Tracker.track(.settingsDisableGlbNotifications)
                         NotificationsManager.shared.disableNotifications { disabled in
@@ -92,6 +102,8 @@ struct PushNotificationsSettingView: View {
                             }
                             // on purpose
                             SettingKeys.shared.notificationsEnabled = false
+                            // update notifications settings
+                            dataSource.clear()
                         }
                     }
                 }
@@ -107,6 +119,9 @@ struct PushNotificationsSettingView: View {
         }
         .onAppear() {
             Tracker.track(.screenNotifications)
+            if notificationsEnabled {
+                dataSource.refresh()
+            }
         }
     }
 

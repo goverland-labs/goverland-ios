@@ -14,38 +14,53 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
     @Published var notificationsSettings: NotificationsSettings?
     private var cancellables = Set<AnyCancellable>()
 
+    static let shared = PushNotificationsDataSource()
+
+    private init() {}
+
     func refresh() {
         clear()
         loadSettings()
     }
 
-    private func clear() {
+    func clear() {
         notificationsSettings = nil
         cancellables = Set<AnyCancellable>()
     }
 
     private func loadSettings() {
+        logInfo("[PUSH SETTINGS] Start receiving value")
         APIService.notificationsSettings()
             .retry(3)
-            .sink { _ in
-                // do nothing
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    logInfo("[PUSH SETTINGS] Finished to receive value")
+                case .failure(_):
+                    logInfo("[PUSH SETTINGS] Failed to receive value")
+                }
             } receiveValue: { [weak self] settings, headers in
+                logInfo("[PUSH SETTINGS] Received value: \(settings)")
                 self?.notificationsSettings = settings
             }
             .store(in: &cancellables)
     }
 
-    func updateSettings(settings: NotificationsSettings, completion: @escaping (Bool) -> Void) {
-        logInfo("[App] Update notification settings with \(settings)")
+    func updateSettings(settings: NotificationsSettings) {
+        logInfo("[PUSH SETTINGS] Update notification settings with \(settings)")
+        let oldSettings = notificationsSettings
+        notificationsSettings = settings
         APIService.updateNotificationsSettings(settings: settings)
             .retry(3)
-            .sink { _completion in
-                switch _completion {
+            .sink { [weak self] completion in
+                switch completion {
                 case .finished: break
-                case .failure(_): completion(false)
+                case .failure(_): 
+                    logInfo("[PUSH SETTINGS] Failed to update")
+                    self?.notificationsSettings = oldSettings
                 }
-            } receiveValue: { response, headers in
-                completion(true)
+            } receiveValue: { _, _ in
+                logInfo("[PUSH SETTINGS] Successfully updated")
             }
             .store(in: &cancellables)
     }
