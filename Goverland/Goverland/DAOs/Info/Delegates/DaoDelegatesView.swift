@@ -35,7 +35,7 @@ struct DaoDelegatesView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(0..<6) { _ in
-                            ShimmerDelegateCardView()
+                            ShimmerDelegateListItemView()
                         }
                     }
                     .padding(.vertical, 8)
@@ -53,7 +53,7 @@ struct DaoDelegatesView: View {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(dataSource.delegates) { delegate in
                             NavigationLink(destination: DelegateInfoView(delegate: delegate)) {
-                                DelegateCardView(delegate: delegate)
+                                DelegateListItemView(delegate: delegate)
                             }
                         }
                     }

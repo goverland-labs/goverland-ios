@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct DelegateCardView: View {
+struct DelegateListItemView: View {
     let delegate: Delegate
     @Environment(\.isPresented) private var isPresented
 
@@ -43,7 +43,7 @@ struct DelegateCardView: View {
     }
 }
 
-struct ShimmerDelegateCardView: View {
+struct ShimmerDelegateListItemView: View {
     var body: some View {
         VStack {
             ShimmerView()

@@ -81,7 +81,7 @@
 		5569CD742C18850D001B25FD /* DaoDelegatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD732C18850D001B25FD /* DaoDelegatesView.swift */; };
 		5569CD762C18852A001B25FD /* DaoDelegatesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD752C18852A001B25FD /* DaoDelegatesDataSource.swift */; };
 		5569CD782C1886A7001B25FD /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD772C1886A7001B25FD /* Delegate.swift */; };
-		5569CD7A2C189CAF001B25FD /* DelegateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD792C189CAF001B25FD /* DelegateCardView.swift */; };
+		5569CD7A2C189CAF001B25FD /* DelegateListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD792C189CAF001B25FD /* DelegateListItemView.swift */; };
 		5569CD7C2C189ECC001B25FD /* DelegateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569CD7B2C189ECC001B25FD /* DelegateInfoView.swift */; };
 		556D43562BAD34A700D2D64F /* ChartFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43552BAD34A700D2D64F /* ChartFilters.swift */; };
 		556D43582BAD75C000D2D64F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43572BAD75C000D2D64F /* Stats.swift */; };
@@ -411,7 +411,7 @@
 		5569CD732C18850D001B25FD /* DaoDelegatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegatesView.swift; sourceTree = "<group>"; };
 		5569CD752C18852A001B25FD /* DaoDelegatesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegatesDataSource.swift; sourceTree = "<group>"; };
 		5569CD772C1886A7001B25FD /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
-		5569CD792C189CAF001B25FD /* DelegateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateCardView.swift; sourceTree = "<group>"; };
+		5569CD792C189CAF001B25FD /* DelegateListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateListItemView.swift; sourceTree = "<group>"; };
 		5569CD7B2C189ECC001B25FD /* DelegateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateInfoView.swift; sourceTree = "<group>"; };
 		556D43552BAD34A700D2D64F /* ChartFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFilters.swift; sourceTree = "<group>"; };
 		556D43572BAD75C000D2D64F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
@@ -900,7 +900,7 @@
 			children = (
 				5569CD732C18850D001B25FD /* DaoDelegatesView.swift */,
 				5569CD752C18852A001B25FD /* DaoDelegatesDataSource.swift */,
-				5569CD792C189CAF001B25FD /* DelegateCardView.swift */,
+				5569CD792C189CAF001B25FD /* DelegateListItemView.swift */,
 				5569CD7B2C189ECC001B25FD /* DelegateInfoView.swift */,
 			);
 			path = Delegates;
@@ -1899,7 +1899,7 @@
 				55FD73202AB75DC60081C38D /* ConnectWalletView.swift in Sources */,
 				5597E73F2A0A5C8800E2FAE4 /* ToastView.swift in Sources */,
 				BA15F5962AFA9FB4001107E8 /* TopDaoVoter.swift in Sources */,
-				5569CD7A2C189CAF001B25FD /* DelegateCardView.swift in Sources */,
+				5569CD7A2C189CAF001B25FD /* DelegateListItemView.swift in Sources */,
 				5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */,
 				BA352F0A298C184D00F78958 /* Dao.swift in Sources */,
 				BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */,
