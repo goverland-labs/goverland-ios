@@ -241,6 +241,7 @@ enum TrackingEvent: String, Trackable {
     case screenNotifications = "screen_notifications"
     case settingsEnableGlbNotifications = "settings_enable_glb_notifications"
     case settingsDisableGlbNotifications = "settings_disable_glb_notifications"
+    case settingsSetCustomNtfDetails = "settings_set_custom_ntf_details"
 
     case screenAbout = "screen_about"
     case settingsOpenPrivacyPolicy = "settings_open_privacy_policy"

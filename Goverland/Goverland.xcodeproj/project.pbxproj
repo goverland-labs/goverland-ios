@@ -78,6 +78,7 @@
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
 		554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
+		5555112D2C22FFA4005E1A3E /* PushNotificationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */; };
 		556D43562BAD34A700D2D64F /* ChartFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43552BAD34A700D2D64F /* ChartFilters.swift */; };
 		556D43582BAD75C000D2D64F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43572BAD75C000D2D64F /* Stats.swift */; };
 		556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43592BAD77D500D2D64F /* StatsDataSource.swift */; };
@@ -118,7 +119,7 @@
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
 		55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */; };
-		55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */; };
+		55B7B4402A5AE96900A894AD /* NotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsSettings.swift */; };
 		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
@@ -403,6 +404,7 @@
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
 		554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
+		5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsDataSource.swift; sourceTree = "<group>"; };
 		556D43552BAD34A700D2D64F /* ChartFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFilters.swift; sourceTree = "<group>"; };
 		556D43572BAD75C000D2D64F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		556D43592BAD77D500D2D64F /* StatsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSource.swift; sourceTree = "<group>"; };
@@ -442,7 +444,7 @@
 		55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaosSearchDataSource.swift; sourceTree = "<group>"; };
 		55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelectedDateExtension.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
+		55B7B43F2A5AE96900A894AD /* NotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettings.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
 		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
@@ -885,6 +887,15 @@
 			path = GoverlandTests;
 			sourceTree = "<group>";
 		};
+		5555112B2C22FF7E005E1A3E /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
+				5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		556D435B2BB277E500D2D64F /* TopVoters */ = {
 			isa = PBXGroup;
 			children = (
@@ -1090,9 +1101,9 @@
 		55D632B729505C070073E04A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5555112B2C22FF7E005E1A3E /* Notifications */,
 				55D632BE29505C800073E04A /* SettingsView.swift */,
 				BAC997BD2BC6F41600476735 /* LensSettingsView.swift */,
-				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				BAD5225D2A279A950097068F /* XSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
@@ -1332,7 +1343,7 @@
 				5533170129F16B290034AF66 /* Address.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 				556D43572BAD75C000D2D64F /* Stats.swift */,
-				55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */,
+				55B7B43F2A5AE96900A894AD /* NotificationsSettings.swift */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
 			);
@@ -2008,7 +2019,7 @@
 				BAC997BE2BC6F41600476735 /* LensSettingsView.swift in Sources */,
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
-				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
+				55B7B4402A5AE96900A894AD /* NotificationsSettings.swift in Sources */,
 				BA5D7A922B6D309D00CD3FDB /* Logger.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
@@ -2070,6 +2081,7 @@
 				BAC3CA212B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift in Sources */,
 				55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */,
 				55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */,
+				5555112D2C22FFA4005E1A3E /* PushNotificationsDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2414,7 +2426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2455,7 +2467,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
