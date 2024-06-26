@@ -94,6 +94,7 @@
 		556D43682BB2A89D00D2D64F /* TopProposalVoter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43672BB2A89D00D2D64F /* TopProposalVoter.swift */; };
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
+		557AFF852C2C198F002A8EDD /* PositiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF842C2C198F002A8EDD /* PositiveButton.swift */; };
 		557C26562B31B2E800AAF26C /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26552B31B2E800AAF26C /* Avatar.swift */; };
 		557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */; };
 		557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26592B32273D00AAF26C /* WC_SessionMeta.swift */; };
@@ -424,6 +425,7 @@
 		556D43672BB2A89D00D2D64F /* TopProposalVoter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProposalVoter.swift; sourceTree = "<group>"; };
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		557AFF842C2C198F002A8EDD /* PositiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveButton.swift; sourceTree = "<group>"; };
 		557C26552B31B2E800AAF26C /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVoteLottieView.swift; sourceTree = "<group>"; };
 		557C26592B32273D00AAF26C /* WC_SessionMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_SessionMeta.swift; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 				5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */,
 				55BD8D532AFAA4F20014982C /* SecondaryButton.swift */,
 				55EEC0352B2C93AF007962BD /* DangerButton.swift */,
+				557AFF842C2C198F002A8EDD /* PositiveButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */,
 				5526CAB02ADEA48900B727A2 /* DashboardHotProposalsView.swift in Sources */,
 				55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */,
+				557AFF852C2C198F002A8EDD /* PositiveButton.swift in Sources */,
 				55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */,
 				5597E73C2A0A5C8800E2FAE4 /* ToastViewModel.swift in Sources */,
 				BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */,

@@ -14,4 +14,8 @@ struct Delegate: Identifiable, Decodable {
     let user: User
     let about: String
     let statement: String
+    let userDelegated: Bool?
+    let delegators: Int
+    let votes: Int
+    let proposalsCreated: Int
 }

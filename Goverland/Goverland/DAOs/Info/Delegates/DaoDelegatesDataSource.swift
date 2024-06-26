@@ -55,9 +55,9 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
 //            self?.failedToLoadInitialData = true
 //            self?.delegates = []
             self?.delegates = [
-                .init(id: UUID(), user: .aaveChan, about: "test about", statement: "test statement"),
-                .init(id: UUID(), user: .flipside, about: "test about", statement: "test statement"),
-                .init(id: UUID(), user: .test, about: "test about", statement: "test statement")
+                .init(id: UUID(), user: .aaveChan, about: "test about", statement: "test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement", userDelegated: false, delegators: 12, votes: 15, proposalsCreated: 0),
+                .init(id: UUID(), user: .flipside, about: "test about", statement: "test statement", userDelegated: true, delegators: 153, votes: 26, proposalsCreated: 3),
+                .init(id: UUID(), user: .test, about: "test about", statement: "test statement", userDelegated: false, delegators: 0, votes: 0, proposalsCreated: 0)
             ]
         }
     }

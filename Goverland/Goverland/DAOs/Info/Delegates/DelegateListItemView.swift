@@ -18,50 +18,154 @@ struct DelegateListItemView: View {
     }
 
     var body: some View {
-        VStack {
-            RoundPictureView(image: delegate.user.avatar(size: .l), imageSize: Avatar.Size.l.profileImageSize)
-                .padding(.top, 18)                
-
-            HStack {
-                Spacer()
-                Text(delegate.user.username)
-                    .font(.headlineSemibold)
-                    .foregroundStyle(Color.textWhite)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, Constants.horizontalPadding)
-                Spacer()
-            }
-
-            Spacer()
+        VStack(alignment: .leading, spacing: 14) {
+            _DelegateListItemHeaderView(delegate: delegate)
+            _DelegateListItemBodyView(delegate: delegate)
+            _DelegateListItemFooterView(delegate: delegate)
         }
-        .frame(height: 230)
+        .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.vertical, Constants.horizontalPadding)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
     }
 }
 
-struct ShimmerDelegateListItemView: View {
+fileprivate struct _DelegateListItemHeaderView: View {
+    let delegate: Delegate
+
+    var body: some View {
+        HStack(spacing: Constants.horizontalPadding) {
+            RoundPictureView(image: delegate.user.avatar(size: .m), imageSize: Avatar.Size.m.profileImageSize)
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text(delegate.user.usernameShort)
+                    .foregroundStyle(Color.textWhite)
+                    .font(.bodySemibold)
+                    .lineLimit(1)
+
+                if delegate.user.resolvedName != nil {
+                    Text(delegate.user.address.short)
+                        .foregroundStyle(Color.textWhite60)
+                        .font(.footnoteRegular)
+                        .lineLimit(1)
+                }
+            }
+
+            Spacer()
+
+            if let delegated = delegate.userDelegated, delegated {
+                PositiveButton("Delegated") {
+                    logInfo("Delegated action")
+                }
+            } else {
+                SecondaryButton("Delegate", maxWidth: 100, height: 32) {
+                    logInfo("Delegate action")
+                }
+            }
+        }
+    }
+}
+
+fileprivate struct _ShimmerDelegateListItemHeaderView: View {
+    var body: some View {
+        HStack(spacing: Constants.horizontalPadding) {
+            ShimmerView()
+                .frame(width: Avatar.Size.m.profileImageSize, height: Avatar.Size.m.profileImageSize)
+                .cornerRadius(Avatar.Size.m.profileImageSize)
+
+            VStack(alignment: .leading, spacing: 6) {
+                ShimmerView()
+                    .frame(width: 130, height: 20)
+                    .cornerRadius(10)
+
+                ShimmerView()
+                    .frame(width: 90, height: 16)
+                    .cornerRadius(8)
+            }
+
+            Spacer()
+
+            ShimmerView()
+                .frame(width: 100, height: 32)
+                .cornerRadius(16)
+        }
+    }
+}
+
+fileprivate struct _DelegateListItemBodyView: View {
+    let delegate: Delegate
+
+    var body: some View {
+        Text(delegate.statement)
+            .font(.footnoteRegular)
+            .foregroundStyle(Color.textWhite)
+            .lineLimit(3)
+            .multilineTextAlignment(.leading)
+    }
+}
+
+fileprivate struct _ShimmerDelegateListItemBodyView: View {
     var body: some View {
         VStack {
-            ShimmerView()
-                .frame(width: Avatar.Size.l.profileImageSize, height: Avatar.Size.l.profileImageSize)
-                .cornerRadius(Avatar.Size.l.profileImageSize / 2)
-                .padding(.top, 18)
-
-            HStack {
-                Spacer()
+            ForEach(0..<3) { _ in
                 ShimmerView()
-                    .frame(width: 60, height: 20)
-                    .cornerRadius(10)
-                    .padding(.horizontal, Constants.horizontalPadding)
-                Spacer()
+                    .frame(height: 12)
+                    .cornerRadius(6)
             }
+        }
+    }
+}
+
+fileprivate struct _DelegateListItemFooterView: View {
+    let delegate: Delegate
+
+    var body: some View {
+        HStack(spacing: 10) {
+            HStack(spacing: 5) {
+                Image(systemName: "person.fill")
+                Text(Utils.formattedNumber(Double(delegate.delegators)))
+            }
+
+            HStack(spacing: 5) {
+                Image("ballot")
+                    .frame(width: 12)
+                Text(Utils.formattedNumber(Double(delegate.votes)))
+            }
+
+            HStack(spacing: 5) {
+                Image(systemName: "doc.text.fill")
+                Text(Utils.formattedNumber(Double(delegate.proposalsCreated)))
+            }
+
             Spacer()
         }
-        .frame(height: 230)
+        .font(.footnoteRegular)
+        .foregroundStyle(Color.textWhite40)
+    }
+}
+
+fileprivate struct _ShimmerDelegateListItemFooterView: View {
+    var body: some View {
+        HStack {
+            ShimmerView()
+                .frame(width: 120, height: 20)
+                .cornerRadius(10)
+            Spacer()
+        }
+    }
+}
+
+struct ShimmerDelegateListItemView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            _ShimmerDelegateListItemHeaderView()
+            _ShimmerDelegateListItemBodyView()
+            _ShimmerDelegateListItemFooterView()
+        }
+        .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.vertical, Constants.horizontalPadding)
+        .frame(height: 166)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))
