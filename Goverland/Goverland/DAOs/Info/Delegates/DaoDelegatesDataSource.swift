@@ -14,8 +14,10 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
     private let daoID: UUID
 
     @Published var delegates: [Delegate] = []
+    @Published var total: Int?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
+
     private var cancellables = Set<AnyCancellable>()
 
     init(dao: Dao) {
@@ -24,6 +26,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
 
     func refresh() {
         delegates = []
+        total = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -43,6 +46,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] delegates, headers in
                 self?.delegates = delegates
+                self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
@@ -59,6 +63,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
                 .init(id: UUID(), user: .flipside, about: "test about", statement: "test statement", userDelegated: true, delegators: 153, votes: 26, proposalsCreated: 3),
                 .init(id: UUID(), user: .test, about: "test about", statement: "test statement", userDelegated: false, delegators: 0, votes: 0, proposalsCreated: 0)
             ]
+            self?.total = 15222
         }
     }
 }

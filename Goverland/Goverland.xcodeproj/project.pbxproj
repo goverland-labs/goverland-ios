@@ -95,6 +95,7 @@
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		557AFF852C2C198F002A8EDD /* PositiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF842C2C198F002A8EDD /* PositiveButton.swift */; };
+		557AFF882C2D84C7002A8EDD /* DelegatesFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */; };
 		557C26562B31B2E800AAF26C /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26552B31B2E800AAF26C /* Avatar.swift */; };
 		557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */; };
 		557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26592B32273D00AAF26C /* WC_SessionMeta.swift */; };
@@ -426,6 +427,7 @@
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		557AFF842C2C198F002A8EDD /* PositiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveButton.swift; sourceTree = "<group>"; };
+		557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegatesFullListView.swift; sourceTree = "<group>"; };
 		557C26552B31B2E800AAF26C /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVoteLottieView.swift; sourceTree = "<group>"; };
 		557C26592B32273D00AAF26C /* WC_SessionMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_SessionMeta.swift; sourceTree = "<group>"; };
@@ -903,7 +905,8 @@
 				5569CD732C18850D001B25FD /* DaoDelegatesView.swift */,
 				5569CD752C18852A001B25FD /* DaoDelegatesDataSource.swift */,
 				5569CD792C189CAF001B25FD /* DelegateListItemView.swift */,
-				5569CD7B2C189ECC001B25FD /* DelegateInfoView.swift */,
+				557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */,
+				557AFF862C2D846D002A8EDD /* Delegate Profile */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -940,6 +943,14 @@
 				BAAA2BF82B0115AC0061F890 /* Ecosystem */,
 			);
 			path = "Dashboard Tab";
+			sourceTree = "<group>";
+		};
+		557AFF862C2D846D002A8EDD /* Delegate Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5569CD7B2C189ECC001B25FD /* DelegateInfoView.swift */,
+			);
+			path = "Delegate Profile";
 			sourceTree = "<group>";
 		};
 		557C9D672A30ECED001C4DEA /* Grouped */ = {
@@ -1912,6 +1923,7 @@
 				55D632B929505C4F0073E04A /* InboxView.swift in Sources */,
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */,
+				557AFF882C2D84C7002A8EDD /* DelegatesFullListView.swift in Sources */,
 				BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */,
 				BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,

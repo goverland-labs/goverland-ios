@@ -32,6 +32,10 @@ struct DaoDelegatesView: View {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegates")
             } else if dataSource.isLoading {
                 // loading in progress
+                _ShimmerDelegatesListHeaderView()
+                    .padding(.horizontal, Constants.horizontalPadding * 2)
+                    .padding(.top, Constants.horizontalPadding)
+                    .padding(.bottom, Constants.horizontalPadding / 2)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(0..<6) { _ in
@@ -49,6 +53,10 @@ struct DaoDelegatesView: View {
                     Spacer()
                 }
             } else {
+                _DelegatesListHeaderView(count: dataSource.total!)
+                    .padding(.horizontal, Constants.horizontalPadding * 2)
+                    .padding(.top, Constants.horizontalPadding)
+                    .padding(.bottom, Constants.horizontalPadding / 2)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(dataSource.delegates) { delegate in
@@ -72,6 +80,38 @@ struct DaoDelegatesView: View {
             if dataSource.delegates.isEmpty {
                 dataSource.refresh()
             }
+        }
+    }
+}
+
+fileprivate struct _DelegatesListHeaderView: View {
+    let count: Int
+
+    var formattedCount: String {
+        Utils.formattedNumber(Double(count))
+    }
+
+    var body: some View {
+        HStack {
+            Text("Delegates (\(formattedCount))")
+                .font(.subheadlineSemibold)
+                .foregroundStyle(Color.textWhite)
+            Spacer()
+            NavigationLink(destination: DelegatesFullListView()) {
+                Text("See all")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.primaryDim)
+            }
+        }
+    }
+}
+
+fileprivate struct _ShimmerDelegatesListHeaderView: View {
+    var body: some View {
+        HStack {
+            ShimmerView.rounded(width: 110, height: 26)
+            Spacer()
+            ShimmerView.rounded(width: 60, height: 26)
         }
     }
 }
