@@ -31,6 +31,10 @@ struct DaoDelegatesView: View {
         dataSource.dao
     }
 
+    var delegates: [Delegate] {
+        dataSource.delegates
+    }
+
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
@@ -62,13 +66,15 @@ struct DaoDelegatesView: View {
                     .padding(.horizontal, Constants.horizontalPadding * 2)
                     .padding(.top, Constants.horizontalPadding)
                     .padding(.bottom, Constants.horizontalPadding / 2)
+
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
-                        ForEach(dataSource.delegates) { delegate in
-                            DelegateListItemView(dao: dao, delegate: delegate)
-                                .onTapGesture {
-                                    activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate)
-                                }                            
+                        ForEach(delegates) { delegate in
+                            DelegateListItemView(dao: dao, delegate: delegate) {
+                                activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate)
+                            } menuContent: {
+                                DaoDelegateSharingMenu()
+                            }
                         }
                     }
                     .padding(.vertical, 8)

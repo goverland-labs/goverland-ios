@@ -104,25 +104,9 @@ struct ProposalListItemView<Content: View>: View {
                                           isPresented: isPresented,
                                           onDaoTap: onDaoTap)
 
-            // Place Menu into botter right corner
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
-                    // but it still glitches a bit and there are errors in the console:
-                    // List failed to visit cell content, returning an empty cell.
-                    LazyVStack(alignment: .trailing) {
-                        Menu {
-                            menuContent
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundStyle(Color.textWhite40)
-                                .fontWeight(.heavy)
-                                .frame(width: 56, height: 40)
-                        }
-                    }
-                }
+            // we don't need isMenuOpened binding here
+            BottomRightEllipsisView(isMenuOpened: .constant(false)) {
+                menuContent
             }
         }
     }
