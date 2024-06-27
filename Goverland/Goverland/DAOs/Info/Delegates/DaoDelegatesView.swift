@@ -12,6 +12,7 @@ import SwiftUI
 struct DaoDelegatesView: View {
     @StateObject private var dataSource: DaoDelegatesDataSource
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(dao: Dao) {
         let dataSource = DaoDelegatesDataSource(dao: dao)
@@ -24,6 +25,10 @@ struct DaoDelegatesView: View {
         } else {
             return Array(repeating: .init(.flexible()), count: 1)
         }
+    }
+
+    var dao: Dao {
+        dataSource.dao
     }
 
     var body: some View {
@@ -60,9 +65,10 @@ struct DaoDelegatesView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(dataSource.delegates) { delegate in
-                            NavigationLink(destination: DelegateInfoView(delegate: delegate)) {
-                                DelegateListItemView(delegate: delegate)
-                            }
+                            DelegateListItemView(dao: dao, delegate: delegate)
+                                .onTapGesture {
+                                    activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate)
+                                }                            
                         }
                     }
                     .padding(.vertical, 8)

@@ -14,6 +14,7 @@ struct SecondaryButton: View {
     let height: CGFloat
     let isEnabled: Bool
     let disabledText: String?
+    let font: Font
     let action: () -> Void
 
     init(_ text: String,
@@ -21,6 +22,7 @@ struct SecondaryButton: View {
          height: CGFloat = 54,
          isEnabled: Bool = true,
          disabledText: String? = nil,
+         font: Font = .headlineSemibold,
          action: @escaping () -> Void) {
         self.text = text
         self.action = action
@@ -28,6 +30,7 @@ struct SecondaryButton: View {
         self.height = height
         self.isEnabled = isEnabled
         self.disabledText = disabledText
+        self.font = font
     }
 
     var body: some View {
@@ -49,7 +52,7 @@ struct SecondaryButton: View {
                 Capsule()
                     .stroke(Color.textWhite, lineWidth: 1)
             )
-            .font(.headlineSemibold)
+            .font(font)
             .opacity(isEnabled ? 1.0 : 0.3)
         }
         .disabled(!isEnabled)

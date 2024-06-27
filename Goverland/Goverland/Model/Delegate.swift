@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct Delegate: Identifiable, Decodable {
+struct Delegate: Identifiable, Decodable, Equatable {
     let id: UUID
     let user: User
     let about: String

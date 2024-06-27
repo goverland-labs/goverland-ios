@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct DelegateListItemView: View {
+    let dao: Dao
     let delegate: Delegate
     @Environment(\.isPresented) private var isPresented
 
@@ -19,7 +20,7 @@ struct DelegateListItemView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            _DelegateListItemHeaderView(delegate: delegate)
+            _DelegateListItemHeaderView(dao: dao, delegate: delegate)
             _DelegateListItemBodyView(delegate: delegate)
             _DelegateListItemFooterView(delegate: delegate)
         }
@@ -32,7 +33,9 @@ struct DelegateListItemView: View {
 }
 
 fileprivate struct _DelegateListItemHeaderView: View {
+    let dao: Dao
     let delegate: Delegate
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
@@ -56,11 +59,11 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             if let delegated = delegate.userDelegated, delegated {
                 PositiveButton("Delegated") {
-                    logInfo("Delegated action")
+                    activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
                 }
             } else {
-                SecondaryButton("Delegate", maxWidth: 100, height: 32) {
-                    logInfo("Delegate action")
+                SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
+                    activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
                 }
             }
         }

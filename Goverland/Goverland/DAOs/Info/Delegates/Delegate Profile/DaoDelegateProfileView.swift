@@ -1,5 +1,5 @@
 //
-//  DelegateInfoView.swift
+//  DaoDelegateProfileView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 11.06.24.
@@ -9,7 +9,8 @@
 
 import SwiftUI
 
-struct DelegateInfoView: View {
+struct DaoDelegateProfileView: View {
+    let dao: Dao
     let delegate: Delegate
     
     var body: some View {

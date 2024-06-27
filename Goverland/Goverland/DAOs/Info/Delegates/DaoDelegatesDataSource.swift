@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 class DaoDelegatesDataSource: ObservableObject, Refreshable {
-    private let daoID: UUID
+    let dao: Dao
 
     @Published var delegates: [Delegate] = []
     @Published var total: Int?
@@ -21,7 +21,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     init(dao: Dao) {
-        self.daoID = dao.id
+        self.dao = dao
     }
 
     func refresh() {
@@ -37,7 +37,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.daoDelegates(daoID: daoID)
+        APIService.daoDelegates(daoID: dao.id)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
