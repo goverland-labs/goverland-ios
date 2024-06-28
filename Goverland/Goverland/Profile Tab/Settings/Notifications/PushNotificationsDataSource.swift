@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 class PushNotificationsDataSource: ObservableObject, Refreshable {
-    @Published var notificationsSettings: NotificationsSettings?
+    @Published var notificationsSettings: PushNotificationSettings?
     private var cancellables = Set<AnyCancellable>()
 
     static let shared = PushNotificationsDataSource()
@@ -45,10 +45,10 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    func updateSettings(settings: NotificationsSettings) {
+    func updateSettings(settings: PushNotificationSettings) {
         let oldSettings = notificationsSettings
         notificationsSettings = settings
-        APIService.updateNotificationsSettings(settings: settings)
+        APIService.updatePushNotificationSettings(settings: settings)
             .retry(3)
             .sink { [weak self] completion in
                 switch completion {

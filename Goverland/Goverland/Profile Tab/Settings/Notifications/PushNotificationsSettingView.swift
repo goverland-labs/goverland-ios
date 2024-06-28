@@ -36,7 +36,7 @@ struct PushNotificationsSettingView: View {
                         get: {
                             notificationsSettings.daoSettings.newProposalCreated
                         }, set: { newValue in
-                            let settings = NotificationsSettings(
+                            let settings = PushNotificationSettings(
                                 daoSettings: notificationsSettings.daoSettings.with(newProposalCreated: newValue)
                             )
                             dataSource.updateSettings(settings: settings)
@@ -46,7 +46,7 @@ struct PushNotificationsSettingView: View {
                         get: {
                             notificationsSettings.daoSettings.quorumReached
                         }, set: { newValue in
-                            let settings = NotificationsSettings(
+                            let settings = PushNotificationSettings(
                                 daoSettings: notificationsSettings.daoSettings.with(quorumReached: newValue)
                             )
                             dataSource.updateSettings(settings: settings)
@@ -56,7 +56,7 @@ struct PushNotificationsSettingView: View {
                         get: {
                             notificationsSettings.daoSettings.voteFinishesSoon
                         }, set: { newValue in
-                            let settings = NotificationsSettings(
+                            let settings = PushNotificationSettings(
                                 daoSettings: notificationsSettings.daoSettings.with(voteFinishesSoon: newValue)
                             )
                             dataSource.updateSettings(settings: settings)
@@ -66,7 +66,7 @@ struct PushNotificationsSettingView: View {
                         get: {
                             notificationsSettings.daoSettings.voteFinished
                         }, set: { newValue in
-                            let settings = NotificationsSettings(
+                            let settings = PushNotificationSettings(
                                 daoSettings: notificationsSettings.daoSettings.with(voteFinished: newValue)
                             )
                             dataSource.updateSettings(settings: settings)
