@@ -66,7 +66,6 @@ struct DaoDelegatesView: View {
                     .padding(.horizontal, Constants.horizontalPadding * 2)
                     .padding(.top, Constants.horizontalPadding)
                     .padding(.bottom, Constants.horizontalPadding / 2)
-
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(delegates) { delegate in
@@ -121,9 +120,9 @@ fileprivate struct _DelegatesListHeaderView: View {
 fileprivate struct _ShimmerDelegatesListHeaderView: View {
     var body: some View {
         HStack {
-            ShimmerView.rounded(width: 110, height: 26)
+            ShimmerView.rounded(width: 110, height: 18)
             Spacer()
-            ShimmerView.rounded(width: 60, height: 26)
+            ShimmerView.rounded(width: 60, height: 18)
         }
     }
 }

@@ -60,6 +60,7 @@ fileprivate struct _DelegateListItemNoElipsisView: View {
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, Constants.horizontalPadding)
+        .frame(height: 174)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
@@ -112,20 +113,13 @@ fileprivate struct _ShimmerDelegateListItemHeaderView: View {
                 .cornerRadius(Avatar.Size.m.profileImageSize)
 
             VStack(alignment: .leading, spacing: 6) {
-                ShimmerView()
-                    .frame(width: 130, height: 20)
-                    .cornerRadius(10)
-
-                ShimmerView()
-                    .frame(width: 90, height: 16)
-                    .cornerRadius(8)
+                ShimmerView.rounded(width: 130, height: 18)
+                ShimmerView.rounded(width: 90, height: 14)
             }
 
             Spacer()
 
-            ShimmerView()
-                .frame(width: 100, height: 32)
-                .cornerRadius(16)
+            ShimmerView.rounded(width: 100, height: 32)
         }
     }
 }
@@ -134,11 +128,15 @@ fileprivate struct _DelegateListItemBodyView: View {
     let delegate: Delegate
 
     var body: some View {
-        Text(delegate.statement)
-            .font(.footnoteRegular)
-            .foregroundStyle(Color.textWhite)
-            .lineLimit(3)
-            .multilineTextAlignment(.leading)
+        VStack {
+            Text(delegate.statement)
+                .font(.footnoteRegular)
+                .foregroundStyle(Color.textWhite)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+
+            Spacer()
+        }
     }
 }
 
@@ -185,9 +183,7 @@ fileprivate struct _DelegateListItemFooterView: View {
 fileprivate struct _ShimmerDelegateListItemFooterView: View {
     var body: some View {
         HStack {
-            ShimmerView()
-                .frame(width: 120, height: 20)
-                .cornerRadius(10)
+            ShimmerView.rounded(width: 120, height: 20)
             Spacer()
         }
     }
@@ -202,7 +198,7 @@ struct ShimmerDelegateListItemView: View {
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, Constants.horizontalPadding)
-        .frame(height: 166)
+        .frame(height: 174)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container))
