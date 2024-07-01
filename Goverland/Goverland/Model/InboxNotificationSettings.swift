@@ -13,11 +13,20 @@ struct InboxNotificationSettings: Codable {
     let archiveProposalAfterVote: Bool
     let autoarchiveAfter: Timeframe
 
-    enum Timeframe: String, Codable {
+    enum Timeframe: String, Codable, CaseIterable {
         case oneDay = "1d"
         case threeDays = "3d"
         case oneWeek = "1w"
         case oneMonth = "1m"
+
+        var localizedDescription: String {
+            switch self {
+            case .oneDay: "1 day"
+            case .threeDays: "3 days"
+            case .oneWeek: "1 week"
+            case .oneMonth: "1 month"
+            }
+        }
     }
 
     enum CodingKeys: String, CodingKey {

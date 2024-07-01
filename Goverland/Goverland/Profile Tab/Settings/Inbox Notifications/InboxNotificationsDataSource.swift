@@ -12,7 +12,7 @@ import Combine
 
 class InboxNotificationsDataSource: ObservableObject, Refreshable {
     @Published var notificationsSettings: InboxNotificationSettings?
-    @Published var isLoading = false
+    @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
 
     static let shared = InboxNotificationsDataSource()
@@ -21,26 +21,26 @@ class InboxNotificationsDataSource: ObservableObject, Refreshable {
 
     func refresh() {
         clear()
-        loadSettings()
+        loadTestData()
+//        loadSettings()
     }
 
     func clear() {
         notificationsSettings = nil
-        isLoading = false
+        failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
     }
 
     private func loadSettings() {
-        isLoading = true
         APIService.inboxNotificationSettings()
             .retry(3)
             .sink { [weak self] completion in
-                self?.isLoading = false
                 switch completion {
                 case .finished:
                     logInfo("[INBOX SETTINGS] Finished to receive value")
                 case .failure(_):
                     logInfo("[INBOX SETTINGS] Failed to receive value")
+                    self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] settings, headers in
                 logInfo("[INBOX SETTINGS] Received value: \(settings)")
@@ -66,5 +66,13 @@ class InboxNotificationsDataSource: ObservableObject, Refreshable {
                 Tracker.track(.settingsInboxSetCustomNtf)
             }
             .store(in: &cancellables)
+    }
+
+    private func loadTestData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.notificationsSettings = InboxNotificationSettings(
+                archiveProposalAfterVote: false,
+                autoarchiveAfter: .oneDay)
+        }
     }
 }

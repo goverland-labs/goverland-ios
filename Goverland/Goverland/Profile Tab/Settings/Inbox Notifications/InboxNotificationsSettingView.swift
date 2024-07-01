@@ -8,31 +8,47 @@
 	
 
 import SwiftUI
+import SwiftData
 
 struct InboxNotificationsSettingView: View {
     @ObservedObject var dataSource = InboxNotificationsDataSource.shared
+    @Query private var profiles: [UserProfile]
+
+    var selectedProfileIsGuest: Bool {
+        profiles.first(where: { $0.selected })?.address.isEmpty ?? false
+    }
 
     var body: some View {
         Group {
-            if dataSource.isLoading {
-                ProgressView()
-                    .foregroundStyle(Color.textWhite20)
-                    .controlSize(.regular)
-                Spacer()
+            if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the settings")
             } else if let notificationSettings = dataSource.notificationsSettings {
                 List {
                     Section {
-                        Toggle("Archive proposal notifications after vote", isOn: Binding(
+                        if !selectedProfileIsGuest {
+                            Toggle("Archive proposals after vote", isOn: Binding(
+                                get: {
+                                    notificationSettings.archiveProposalAfterVote
+                                }, set: { newValue in
+                                    let settings = notificationSettings.with(archiveProposalAfterVote: newValue)
+                                    dataSource.updateSettings(settings: settings)
+                                }))
+                            .tint(.green)
+                        }
+
+                        Picker("Auto archive finished proposals after", selection: Binding(
                             get: {
-                                notificationSettings.archiveProposalAfterVote
-                            }, set: { newValue in
-                                let settings = notificationSettings.with(archiveProposalAfterVote: newValue)
+                                notificationSettings.autoarchiveAfter
+                            },
+                            set: { newValue in
+                                let settings = notificationSettings.with(autoarchiveAfter: newValue)
                                 dataSource.updateSettings(settings: settings)
-                            }))
-                        .tint(.green)
-
-                    // TODO: atoarchive after
-
+                            }
+                        )) {
+                            ForEach(InboxNotificationSettings.Timeframe.allCases, id: \.self) { option in
+                                Text(option.localizedDescription).tag(option)
+                            }
+                        }
                     } header: {
                         Text("Archive")
                     } footer: {
@@ -41,8 +57,11 @@ struct InboxNotificationsSettingView: View {
                             .foregroundStyle(Color.textWhite40)
                     }
                 }
-            } else {
-                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the settings")
+            } else { // is loading
+                ProgressView()
+                    .foregroundStyle(Color.textWhite20)
+                    .controlSize(.regular)
+                Spacer()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -55,4 +74,3 @@ struct InboxNotificationsSettingView: View {
         }
     }
 }
-
