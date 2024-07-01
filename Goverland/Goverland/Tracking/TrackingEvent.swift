@@ -238,20 +238,28 @@ enum TrackingEvent: String, Trackable {
     case settingsOpenOrb = "settings_open_orb"
     case settingsOpenHey = "settings_open_hey"
 
+    // Push Notifications
     case screenNotifications = "screen_notifications"
     case settingsEnableGlbNotifications = "settings_enable_glb_notifications"
     case settingsDisableGlbNotifications = "settings_disable_glb_notifications"
     case settingsSetCustomNtfDetails = "settings_set_custom_ntf_details"
 
+    // Inbox Notifications
+    case screenInboxNotifications = "screen_inbox_notifications"
+    case settingsInboxSetCustomNtf = "settings_inbox_set_custom_ntf"
+
+    // About
     case screenAbout = "screen_about"
     case settingsOpenPrivacyPolicy = "settings_open_privacy_policy"
     case settingsOpenTerms = "settings_open_terms"
 
+    // Help Us Grow
     case screenHelpUsGrow = "screen_help_us_grow"
     case settingsRateTheApp = "settings_rate_the_app"
     case settingsShareXPost = "settings_share_X_post"
     case settingsShareWarpcastPost = "settings_share_warpcast_post"
 
+    // Advanced
     case screenAdvancedSettings = "screen_advanced_settings"
     case settingsDisableTracking = "settings_disable_tracking"
     

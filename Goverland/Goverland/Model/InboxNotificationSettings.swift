@@ -24,4 +24,10 @@ struct InboxNotificationSettings: Codable {
         case archiveProposalAfterVote = "archive_proposal_after_vote"
         case autoarchiveAfter = "autoarchive_after"
     }
+
+    func with(archiveProposalAfterVote: Bool? = nil,
+              autoarchiveAfter: Timeframe? = nil) -> InboxNotificationSettings {
+        InboxNotificationSettings(archiveProposalAfterVote: archiveProposalAfterVote ?? self.archiveProposalAfterVote,
+                                  autoarchiveAfter: autoarchiveAfter ?? self.autoarchiveAfter)
+    }
 }

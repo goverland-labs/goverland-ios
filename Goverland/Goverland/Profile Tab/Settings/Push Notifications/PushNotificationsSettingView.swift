@@ -76,7 +76,7 @@ struct PushNotificationsSettingView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Notifications")
+        .navigationTitle("Push Notifications")
         .onChange(of: notificationsEnabled) { _, toggleEnabled in
             NotificationsManager.shared.getNotificationsStatus { status in
                 switch status {
