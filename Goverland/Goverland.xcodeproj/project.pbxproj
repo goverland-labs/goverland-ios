@@ -155,6 +155,9 @@
 		55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */; };
 		55EEC0342B2BB326007962BD /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 55EEC0332B2BB326007962BD /* CryptoSwift */; };
 		55EEC0362B2C93AF007962BD /* DangerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EEC0352B2C93AF007962BD /* DangerButton.swift */; };
+		55EFF8542C3307EB00047108 /* InboxNotificationsSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFF8532C3307EB00047108 /* InboxNotificationsSettingView.swift */; };
+		55EFF8562C33080B00047108 /* InboxNotificationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFF8552C33080B00047108 /* InboxNotificationsDataSource.swift */; };
+		55EFF8582C3308EA00047108 /* InboxNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFF8572C3308EA00047108 /* InboxNotificationSettings.swift */; };
 		55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */; };
 		55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F143DE294B1DDA00D00B73 /* ContentView.swift */; };
 		55F143E1294B1DDC00D00B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F143E0294B1DDC00D00B73 /* Assets.xcassets */; };
@@ -481,6 +484,9 @@
 		55EEA87D2B237EE600242817 /* ScreenExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenExtention.swift; sourceTree = "<group>"; };
 		55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectWalletView.swift; sourceTree = "<group>"; };
 		55EEC0352B2C93AF007962BD /* DangerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangerButton.swift; sourceTree = "<group>"; };
+		55EFF8532C3307EB00047108 /* InboxNotificationsSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsSettingView.swift; sourceTree = "<group>"; };
+		55EFF8552C33080B00047108 /* InboxNotificationsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationsDataSource.swift; sourceTree = "<group>"; };
+		55EFF8572C3308EA00047108 /* InboxNotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNotificationSettings.swift; sourceTree = "<group>"; };
 		55F143DC294B1DDA00D00B73 /* GoverlandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoverlandApp.swift; sourceTree = "<group>"; };
 		55F143DE294B1DDA00D00B73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F143E0294B1DDC00D00B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -887,13 +893,13 @@
 			path = GoverlandTests;
 			sourceTree = "<group>";
 		};
-		5555112B2C22FF7E005E1A3E /* Notifications */ = {
+		5555112B2C22FF7E005E1A3E /* Push Notifications */ = {
 			isa = PBXGroup;
 			children = (
 				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
 				5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */,
 			);
-			path = Notifications;
+			path = "Push Notifications";
 			sourceTree = "<group>";
 		};
 		556D435B2BB277E500D2D64F /* TopVoters */ = {
@@ -1101,7 +1107,8 @@
 		55D632B729505C070073E04A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5555112B2C22FF7E005E1A3E /* Notifications */,
+				5555112B2C22FF7E005E1A3E /* Push Notifications */,
+				55EFF8522C3307C700047108 /* Inbox Notifications */,
 				55D632BE29505C800073E04A /* SettingsView.swift */,
 				BAC997BD2BC6F41600476735 /* LensSettingsView.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
@@ -1152,6 +1159,15 @@
 				55EEA87F2B2389A300242817 /* ReconnectWalletView.swift */,
 			);
 			path = "Reconnect Wallet";
+			sourceTree = "<group>";
+		};
+		55EFF8522C3307C700047108 /* Inbox Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				55EFF8532C3307EB00047108 /* InboxNotificationsSettingView.swift */,
+				55EFF8552C33080B00047108 /* InboxNotificationsDataSource.swift */,
+			);
+			path = "Inbox Notifications";
 			sourceTree = "<group>";
 		};
 		55F143D0294B1DDA00D00B73 = {
@@ -1344,6 +1360,7 @@
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 				556D43572BAD75C000D2D64F /* Stats.swift */,
 				55B7B43F2A5AE96900A894AD /* PushNotificationSettings.swift */,
+				55EFF8572C3308EA00047108 /* InboxNotificationSettings.swift */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
 			);
@@ -1871,6 +1888,7 @@
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
 				550E856E2A5F4C3400B0CFDD /* SnapshotRankedChoiceVotingView.swift in Sources */,
+				55EFF8582C3308EA00047108 /* InboxNotificationSettings.swift in Sources */,
 				5521D27529EF137C00A09FD4 /* DateView.swift in Sources */,
 				5516042A2B74DDC300AA5784 /* Haptic.swift in Sources */,
 				55E9D98F2B6BE85900697A12 /* BubbleView.swift in Sources */,
@@ -2041,6 +2059,7 @@
 				BA4A1C792A71D80700AC7470 /* ProgressBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */,
+				55EFF8562C33080B00047108 /* InboxNotificationsDataSource.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
 				55D632C52950CB4A0073E04A /* TermsView.swift in Sources */,
 				55CAC9D02B6D3EA200767454 /* CrashlyticsLogHandler.swift in Sources */,
@@ -2074,6 +2093,7 @@
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
 				55039F272BBFFD190025DE03 /* PublicUserProfileDaosListView.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,
+				55EFF8542C3307EB00047108 /* InboxNotificationsSettingView.swift in Sources */,
 				556D435F2BB2784A00D2D64F /* TopVotersDataSource.swift in Sources */,
 				55F700252AB05149008EA30C /* GraphView.swift in Sources */,
 				55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */,

@@ -29,7 +29,7 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
     }
 
     private func loadSettings() {
-        APIService.notificationsSettings()
+        APIService.pushNotificationSettingsDetails()
             .retry(3)
             .sink { completion in
                 switch completion {

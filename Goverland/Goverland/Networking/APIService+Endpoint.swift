@@ -398,7 +398,7 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    // MARK: - Notifications
+    // MARK: - Push Notifications
 
     static func enableNotifications(_ token: String, defaultErrorDisplay: Bool) -> AnyPublisher<(EnableNotificationsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = EnableNotificationsEndpoint(token: token)
@@ -410,18 +410,30 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func notificationsSettings() -> AnyPublisher<(PushNotificationSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func pushNotificationSettingsDetails() -> AnyPublisher<(PushNotificationSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = PushNotificationSettingsDetailsEndpoint()
         return shared.request(endpoint)
     }
 
-    static func updatePushNotificationSettings(settings: PushNotificationSettings) -> AnyPublisher<(UpdatePushNotificationsSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = UpdatePushNotificationsSettingsDetailsEndpoint(settings: settings)
+    static func updatePushNotificationSettings(settings: PushNotificationSettings) -> AnyPublisher<(UpdatePushNotificationSettingsDetailsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = UpdatePushNotificationSettingsDetailsEndpoint(settings: settings)
         return shared.request(endpoint)
     }
 
     static func markPushAsClicked(pushId: String) -> AnyPublisher<(MarkPushAsClickedEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = MarkPushAsClickedEndpoint(pushId: pushId)
         return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
+    // MARK: - Inbox Notifications
+
+    static func inboxNotificationSettings() -> AnyPublisher<(InboxNotificationSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = InboxNotificationSettingsEndpoint()
+        return shared.request(endpoint)
+    }
+
+    static func updateInboxNotificationSettings(settings: InboxNotificationSettings) -> AnyPublisher<(UpdateInboxNotificationSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = UpdateInboxNotificationSettingsEndpoint(settings: settings)
+        return shared.request(endpoint)
     }
 }
