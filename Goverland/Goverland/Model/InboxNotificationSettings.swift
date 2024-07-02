@@ -16,8 +16,8 @@ struct InboxNotificationSettings: Codable {
     enum Timeframe: String, Codable, CaseIterable {
         case oneDay = "1d"
         case threeDays = "3d"
-        case oneWeek = "1w"
-        case oneMonth = "1m"
+        case oneWeek = "7d"
+        case oneMonth = "30d"
 
         var localizedDescription: String {
             switch self {

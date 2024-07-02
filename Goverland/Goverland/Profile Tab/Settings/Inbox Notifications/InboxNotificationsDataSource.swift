@@ -21,8 +21,7 @@ class InboxNotificationsDataSource: ObservableObject, Refreshable {
 
     func refresh() {
         clear()
-        loadTestData()
-//        loadSettings()
+        loadSettings()
     }
 
     func clear() {
@@ -66,13 +65,5 @@ class InboxNotificationsDataSource: ObservableObject, Refreshable {
                 Tracker.track(.settingsInboxSetCustomNtf)
             }
             .store(in: &cancellables)
-    }
-
-    private func loadTestData() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.notificationsSettings = InboxNotificationSettings(
-                archiveProposalAfterVote: false,
-                autoarchiveAfter: .oneDay)
-        }
     }
 }
