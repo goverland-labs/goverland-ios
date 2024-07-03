@@ -27,7 +27,7 @@ struct DashboardView: View {
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
-        EcosystemDashboardDataSource.shared.refresh()
+//        EcosystemDashboardDataSource.shared.refresh()
         StatsDataSource.shared.refresh()
     }
 
@@ -73,9 +73,9 @@ struct DashboardView: View {
                     ProfileHasVotingPowerDataSource.dashboard.refresh()
                 }
 
-                if EcosystemDashboardDataSource.shared.charts == nil {
-                    EcosystemDashboardDataSource.shared.refresh()
-                }
+//                if EcosystemDashboardDataSource.shared.charts == nil {
+//                    EcosystemDashboardDataSource.shared.refresh()
+//                }
 
                 if StatsDataSource.shared.stats == nil {
                     StatsDataSource.shared.refresh()
@@ -152,14 +152,15 @@ fileprivate struct SignedOutUserDashboardView: View {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
+            .padding(.bottom, 30)
 
-        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-        // Enable after public launch
-//                {
-//                    path.append(Path.ecosystemCharts)
-//                }
-        EcosystemDashboardView()
-            .padding(.bottom, 40)
+//        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
+//        // Enable after public launch
+////                {
+////                    path.append(Path.ecosystemCharts)
+////                }
+//        EcosystemDashboardView()
+//            .padding(.bottom, 40)
     }
 }
 
@@ -219,13 +220,14 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.newDaos)
         }
         DashboardNewDaosView()
+            .padding(.bottom, 30)
 
-        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
-//                {
-//                    path.append(Path.ecosystemCharts)
-//                }
-        EcosystemDashboardView()
-            .padding(.bottom, 40)
+//        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
+////                {
+////                    path.append(Path.ecosystemCharts)
+////                }
+//        EcosystemDashboardView()
+//            .padding(.bottom, 40)
     }
 }
 
