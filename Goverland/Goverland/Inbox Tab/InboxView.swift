@@ -140,8 +140,7 @@ struct InboxView: View {
         }  detail: {
             if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
-                SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true)
+                SnapshotProposalView(proposal: proposal)
             } else {
                 EmptyView()
             }
