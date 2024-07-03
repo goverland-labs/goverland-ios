@@ -20,7 +20,8 @@ struct SettingsView: View {
         List {
             if let profile = dataSource.profile, !authToken.isEmpty {
                 Section("Goverland") {
-                    NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
+                    NavigationLink("Push notifications", value: ProfileScreen.pushNofitications)
+                    NavigationLink("Inbox notifications", value: ProfileScreen.inboxNofitications)
                 }
                 
                 Section("Devices") {

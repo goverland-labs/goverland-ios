@@ -1,8 +1,8 @@
 //
-//  PushNotificationsDataSource.swift
+//  InboxNotificationsDataSource.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 19.06.24.
+//  Created by Andrey Scherbovich on 01.07.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 	
@@ -10,11 +10,12 @@
 import Foundation
 import Combine
 
-class PushNotificationsDataSource: ObservableObject, Refreshable {
-    @Published var notificationsSettings: NotificationsSettings?
+class InboxNotificationsDataSource: ObservableObject, Refreshable {
+    @Published var notificationsSettings: InboxNotificationSettings?
+    @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
 
-    static let shared = PushNotificationsDataSource()
+    static let shared = InboxNotificationsDataSource()
 
     private init() {}
 
@@ -25,41 +26,43 @@ class PushNotificationsDataSource: ObservableObject, Refreshable {
 
     func clear() {
         notificationsSettings = nil
+        failedToLoadInitialData = false
         cancellables = Set<AnyCancellable>()
     }
 
     private func loadSettings() {
-        APIService.notificationsSettings()
+        APIService.inboxNotificationSettings()
             .retry(3)
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    logInfo("[PUSH SETTINGS] Finished to receive value")
+                    logInfo("[INBOX SETTINGS] Finished to receive value")
                 case .failure(_):
-                    logInfo("[PUSH SETTINGS] Failed to receive value")
+                    logInfo("[INBOX SETTINGS] Failed to receive value")
+                    self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] settings, headers in
-                logInfo("[PUSH SETTINGS] Received value: \(settings)")
+                logInfo("[INBOX SETTINGS] Received value: \(settings)")
                 self?.notificationsSettings = settings
             }
             .store(in: &cancellables)
     }
 
-    func updateSettings(settings: NotificationsSettings) {
+    func updateSettings(settings: InboxNotificationSettings) {
         let oldSettings = notificationsSettings
         notificationsSettings = settings
-        APIService.updateNotificationsSettings(settings: settings)
+        APIService.updateInboxNotificationSettings(settings: settings)
             .retry(3)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
-                case .failure(_): 
-                    logInfo("[PUSH SETTINGS] Failed to update")
+                case .failure(_):
+                    logInfo("[INBOX SETTINGS] Failed to update")
                     self?.notificationsSettings = oldSettings
                 }
             } receiveValue: { _, _ in
-                logInfo("[PUSH SETTINGS] Successfully updated")
-                Tracker.track(.settingsSetCustomNtfDetails)
+                logInfo("[INBOX SETTINGS] Successfully updated")
+                Tracker.track(.settingsInboxSetCustomNtf)
             }
             .store(in: &cancellables)
     }

@@ -1,5 +1,5 @@
 //
-//  NotificationsSettings.swift
+//  PushNotificationSettings.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 09.07.23.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NotificationsSettings: Codable {
+struct PushNotificationSettings: Codable {
     let daoSettings: NotificationsDaoSettings
 
     struct NotificationsDaoSettings: Codable {
