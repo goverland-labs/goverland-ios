@@ -73,6 +73,16 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                     lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
                 }
                 .presentationDetents([.height(height), .large])
+
+            case .daoDelegateProfile(let dao, let delegate):
+                PopoverNavigationViewWithToast2 {
+                    DaoDelegateProfileView(dao: dao, delegate: delegate)
+                }
+
+            case .daoDelegateAction(let dao, let delegate):
+                PopoverNavigationViewWithToast2 {
+                    DaoDelegateActionView(dao: dao, delegate: delegate)
+                }            
             }
         }
         .tint(.textWhite)

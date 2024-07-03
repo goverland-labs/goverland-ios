@@ -122,6 +122,16 @@ struct GoverlandApp: App {
                             lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
                         }
                         .presentationDetents([.height(height), .large])
+
+                    case .daoDelegateProfile(let dao, let delegate):
+                        PopoverNavigationViewWithToast {
+                            DaoDelegateProfileView(dao: dao, delegate: delegate)
+                        }
+
+                    case .daoDelegateAction(let dao, let delegate):
+                        PopoverNavigationViewWithToast {
+                            DaoDelegateActionView(dao: dao, delegate: delegate)
+                        }
                     }
                 }
                 .onChange(of: recommendedDaosDataSource.recommendedDaos) { _, daos in

@@ -11,6 +11,7 @@ import SwiftUI
 enum DaoInfoFilter: Int, FilterOptions {
     case activity = 0
     case insights
+    case delegates
     case about
 
     var localizedName: String {
@@ -19,6 +20,8 @@ enum DaoInfoFilter: Int, FilterOptions {
             return "Activity"
         case .insights:
             return "Insights"
+        case .delegates:
+            return "Delegates"
         case .about:
             return "About"
         }
@@ -62,8 +65,9 @@ struct DaoInfoView: View {
 
                     switch filter {
                     case .activity: DaoInfoEventsView(dao: dao)
-                    case .about: DaoInfoAboutDaoView(dao: dao)
                     case .insights: DaoInsightsView(dao: dao)
+                    case .delegates: DaoDelegatesView(dao: dao)
+                    case .about: DaoInfoAboutDaoView(dao: dao)
                     }
                 }
             }
@@ -113,6 +117,11 @@ struct DaoInfoView: View {
         }
         .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
             showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
+        }
+        .onAppear {
+            if dataSource.dao == nil {
+                dataSource.refresh()
+            }
         }
     }
 }

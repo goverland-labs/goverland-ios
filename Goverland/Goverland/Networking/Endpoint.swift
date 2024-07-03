@@ -288,6 +288,19 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+struct DaoDelegatesEndpoint: APIEndpoint {
+    typealias ResponseType = [Delegate]
+
+    let daoID: UUID
+
+    var path: String { "dao/\(daoID)/delegates" }
+    var method: HttpMethod = .get
+
+    init(daoID: UUID) {
+        self.daoID = daoID
+    }
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
