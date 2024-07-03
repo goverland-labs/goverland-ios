@@ -9,6 +9,9 @@
 
 import Foundation
 import Combine
+import SwiftDate
+
+fileprivate var cachedProposals = [String: (cachedDate: Date, proposal: Proposal)]()
 
 class SnapshotProposalDataSource: ObservableObject, Refreshable {
     private let proposalId: String
@@ -17,6 +20,14 @@ class SnapshotProposalDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
+
+    init(proposalId: String) {
+        self.proposalId = proposalId
+        // SwiftUI redraw cycles often call this init, so we use a cached value to make UX smoother
+        if let (cachedDate, proposal) = cachedProposals[proposalId], .now - 1.hours < cachedDate  {
+            self.proposal = proposal
+        }
+    }
 
     init(proposal: Proposal) {
         self.proposalId = proposal.id
@@ -41,6 +52,7 @@ class SnapshotProposalDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] proposal, _ in
                 self?.proposal = proposal
+                cachedProposals[proposal.id] = (Date(), proposal)
             }
             .store(in: &cancellables)
     }

@@ -18,6 +18,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case archive
     case subscribeToNotifications
     case recommendedDaos([Dao])
+    case proposal(String)
 
     var id: Int {
         switch self {
@@ -30,6 +31,7 @@ enum ActiveSheet: Identifiable, Equatable {
         case .archive: return 6
         case .subscribeToNotifications: return 7
         case .recommendedDaos: return 8
+        case .proposal: return 9
         }
     }
 }

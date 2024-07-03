@@ -103,8 +103,7 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true)
+                SnapshotProposalView(proposal: proposal)
             }
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

@@ -73,9 +73,8 @@ struct PublicUserProfileView: View {
                                                    path: $path)
                         .environmentObject(activeSheetManager)
                 case .vote(let proposal):
-                    SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true)
-                    .environmentObject(activeSheetManager)
+                    SnapshotProposalView(proposal: proposal)
+                        .environmentObject(activeSheetManager)
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in

@@ -73,6 +73,11 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
                     lastAttemptToPromotedPushNotifications = Date().timeIntervalSinceReferenceDate
                 }
                 .presentationDetents([.height(height), .large])
+
+            case .proposal(let proposalId):
+                PopoverNavigationViewWithToast {
+                    SnapshotProposalView(proposalId: proposalId, isRootView: true)
+                }
             }
         }
         .tint(.textWhite)

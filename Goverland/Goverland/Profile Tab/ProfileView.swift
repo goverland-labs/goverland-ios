@@ -75,8 +75,7 @@ struct ProfileView: View {
                 case .followedDaos: FollowedDaosView()
                 case .votes: ProfileVotesListView(path: $path)
                 case .vote(let proposal):
-                    SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true)
+                    SnapshotProposalView(proposal: proposal)
 
                 // Settings
                 case .pushNofitications: PushNotificationsSettingView()

@@ -11,15 +11,32 @@ import SwiftDate
 
 struct SnapshotProposalView: View {
     let allowShowingDaoInfo: Bool
+    let isRootView: Bool
 
     /// 16.02.2024
     /// On iPad on the latest version (17.3.1) if we use here StateObject instead of ObservedObject, the redraw cycle is broken.
     /// iPad takes some old cached value of dataSource, because the view that we try to redraw is still on the screen.
     @ObservedObject private var dataSource: SnapshotProposalDataSource
 
-    init(proposal: Proposal, allowShowingDaoInfo: Bool) {
+    @Environment(\.dismiss) private var dismiss
+
+    init(proposal: Proposal, allowShowingDaoInfo: Bool = true, isRootView: Bool = false) {
         self.allowShowingDaoInfo = allowShowingDaoInfo
+        self.isRootView = isRootView
         _dataSource = ObservedObject(wrappedValue: SnapshotProposalDataSource(proposal: proposal))
+    }
+
+    /// 03.07.2024
+    /// If it is created from a Push notification, onAppear is not called (seems like SwiftUI bug), so we need to trigger refresh() manually
+    init(proposalId: String, allowShowingDaoInfo: Bool = true, isRootView: Bool = false) {
+        self.allowShowingDaoInfo = allowShowingDaoInfo
+        self.isRootView = isRootView
+
+        _dataSource = ObservedObject(wrappedValue: SnapshotProposalDataSource(proposalId: proposalId))
+        if _dataSource.wrappedValue.proposal == nil {
+            // no cached proposal is found
+            _dataSource.wrappedValue.refresh()
+        }
     }
 
     var proposal: Proposal? {
@@ -43,6 +60,17 @@ struct SnapshotProposalView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            if isRootView {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
+            }
+
             if let proposal {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
