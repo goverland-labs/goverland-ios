@@ -51,7 +51,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    // TODO: delete
+    // TODO: delete when API ready
     private func loadTestData() {
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
@@ -59,9 +59,70 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
 //            self?.failedToLoadInitialData = true
 //            self?.delegates = []
             self?.delegates = [
-                .init(id: UUID(), user: .aaveChan, about: "test about", statement: "test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement", userDelegated: false, delegators: 12, votes: 15, proposalsCreated: 0),
-                .init(id: UUID(), user: .flipside, about: "test about", statement: "test statement", userDelegated: true, delegators: 153, votes: 26, proposalsCreated: 3),
-                .init(id: UUID(), user: .test, about: "test about", statement: "test statement", userDelegated: false, delegators: 0, votes: 0, proposalsCreated: 0)
+                .init(id: UUID(), 
+                      user: .aaveChan,
+                      about: "test about",
+                      statement: "test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement",
+                      userDelegated: false,
+                      delegators: 12,
+                      votes: 15,
+                      proposalsCreated: 0),
+                .init(id: UUID(), 
+                      user: .flipside,
+                      about: "test about",
+                      statement: "test statement",
+                      userDelegated: true,
+                      delegators: 153,
+                      votes: 26,
+                      proposalsCreated: 3),
+                .init(id: UUID(), 
+                      user: .test,
+                      about: "test about",
+                      statement: "test statement",
+                      userDelegated: false,
+                      delegators: 0,
+                      votes: 0,
+                      proposalsCreated: 0),
+                .init(id: UUID(),
+                      user: .aaveChan,
+                      about: "test about",
+                      statement: "test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement",
+                      userDelegated: false,
+                      delegators: 12,
+                      votes: 15,
+                      proposalsCreated: 0),
+                .init(id: UUID(),
+                      user: .flipside,
+                      about: "test about",
+                      statement: "test statement",
+                      userDelegated: true,
+                      delegators: 153,
+                      votes: 26,
+                      proposalsCreated: 3),
+                .init(id: UUID(),
+                      user: .test,
+                      about: "test about",
+                      statement: "test statement",
+                      userDelegated: false,
+                      delegators: 0,
+                      votes: 0,
+                      proposalsCreated: 0),
+                .init(id: UUID(),
+                      user: .aaveChan,
+                      about: "test about",
+                      statement: "test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement test statement",
+                      userDelegated: false,
+                      delegators: 12,
+                      votes: 15,
+                      proposalsCreated: 0),
+                .init(id: UUID(),
+                      user: .flipside,
+                      about: "test about",
+                      statement: "test statement",
+                      userDelegated: true,
+                      delegators: 153,
+                      votes: 26,
+                      proposalsCreated: 3)
             ]
             self?.total = 15222
         }

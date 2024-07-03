@@ -60,7 +60,6 @@ fileprivate struct _DelegateListItemNoElipsisView: View {
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, Constants.horizontalPadding)
-        .frame(height: 174)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
