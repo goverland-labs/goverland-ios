@@ -149,8 +149,7 @@ struct GoverlandApp: App {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .proposalPushOpened)) { notification in
                     if let proposalIds = notification.object as? [String],
-                        let proposalId = proposalIds.first,
-                        activeSheetManager.activeSheet == nil 
+                        let proposalId = proposalIds.first
                     {
                         activeSheetManager.activeSheet = .proposal(proposalId)
                     }
