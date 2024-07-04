@@ -52,7 +52,7 @@ struct ProfileVotesView: View {
                         ShimmerProposalListItemView()
                     }
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, 4)
                 .padding(.horizontal, Constants.horizontalPadding)
             } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
@@ -73,7 +73,7 @@ struct ProfileVotesView: View {
                         }
                     }
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, 4)
                 .padding(.horizontal, Constants.horizontalPadding)
             }
         }
