@@ -340,7 +340,7 @@ fileprivate struct _SuccessView: View {
                     .padding(.horizontal, Constants.horizontalPadding)
                 }
                 // this is needed as on iPad GeometryReader breaks VStack layout
-                .frame(width: geometry.size.width - Constants.horizontalPadding * 2)
+                .frame(maxWidth: geometry.size.width - Constants.horizontalPadding * 2, minHeight: geometry.size.height - 50)
                 .padding(.horizontal, Constants.horizontalPadding)
                 .padding(.bottom, 16)
                 .padding(.top, 24)
