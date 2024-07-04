@@ -134,55 +134,58 @@ struct SnapshotProposalVoteTabView: View {
                 .padding(.bottom)
             }
             
-            switch chosenTab {
-            case .vote:
-                switch proposal.type {
-                case .basic: 
-                    SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
-                case .singleChoice: 
-                    SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
-                case .approval: 
-                    SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
-                case .rankedChoice: 
-                    SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
-                case .weighted, .quadratic:
-                    SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Double]>())
-                }
-
-                if proposal.state == .active {
-                    if authToken.isEmpty || selectedProfileIsGuest {
-                        VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
-                            showSignIn = true
-                        }
-                    } else {
-                        VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
-                            vote()
-                        }
-                    }
-                }
-
-            case .results:
-                SnapshopVotingResultView(proposal: proposal)
-                    .padding(.bottom, 16)
-
-            case .votes:
-                if proposal.privacy == .shutter && proposal.state == .active {
-                    // Votes are encrypted
-                    SnapshotVotesView<String>(proposal: proposal)
-                } else {
+            Group {
+                switch chosenTab {
+                case .vote:
                     switch proposal.type {
-                    case .basic, .singleChoice:
-                        SnapshotVotesView<Int>(proposal: proposal)
-                    case .approval, .rankedChoice:
-                        SnapshotVotesView<[Int]>(proposal: proposal)
+                    case .basic:
+                        SnapshotBasicVotingView(voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                    case .singleChoice:
+                        SnapshotSingleChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<Int>())
+                    case .approval:
+                        SnapshotApprovalVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
+                    case .rankedChoice:
+                        SnapshotRankedChoiceVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[Int]>())
                     case .weighted, .quadratic:
-                        SnapshotVotesView<[String: Double]>(proposal: proposal)
+                        SnapshotWeightedVotingView(proposal: proposal, voteButtonDisabled: $voteButtonDisabled, choice: $choice.asOptionalTypedBinding<[String: Double]>())
                     }
-                }
 
-            case .info:
-                SnapshotProposalInfoView(proposal: proposal)
+                    if proposal.state == .active {
+                        if authToken.isEmpty || selectedProfileIsGuest {
+                            VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
+                                showSignIn = true
+                            }
+                        } else {
+                            VoteButton(disabled: $voteButtonDisabled, title: "Vote") {
+                                vote()
+                            }
+                        }
+                    }
+
+                case .results:
+                    SnapshopVotingResultView(proposal: proposal)
+                        .padding(.bottom, 16)
+
+                case .votes:
+                    if proposal.privacy == .shutter && proposal.state == .active {
+                        // Votes are encrypted
+                        SnapshotVotesView<String>(proposal: proposal)
+                    } else {
+                        switch proposal.type {
+                        case .basic, .singleChoice:
+                            SnapshotVotesView<Int>(proposal: proposal)
+                        case .approval, .rankedChoice:
+                            SnapshotVotesView<[Int]>(proposal: proposal)
+                        case .weighted, .quadratic:
+                            SnapshotVotesView<[String: Double]>(proposal: proposal)
+                        }
+                    }
+
+                case .info:
+                    SnapshotProposalInfoView(proposal: proposal)
+                }
             }
+            .frame(maxWidth: 500)
         }
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView { /* do nothing on sign in */ }
