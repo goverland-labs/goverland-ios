@@ -62,7 +62,7 @@ struct DaoDelegatesView: View {
                     Spacer()
                 }
             } else {
-                _DelegatesListHeaderView(count: dataSource.total!)
+                _DelegatesListHeaderView(dao: dao, count: dataSource.total!)
                     .padding(.horizontal, Constants.horizontalPadding * 2)
                     .padding(.top, Constants.horizontalPadding)
                     .padding(.bottom, Constants.horizontalPadding / 2)
@@ -96,6 +96,7 @@ struct DaoDelegatesView: View {
 }
 
 fileprivate struct _DelegatesListHeaderView: View {
+    let dao: Dao
     let count: Int
 
     var formattedCount: String {
@@ -108,7 +109,7 @@ fileprivate struct _DelegatesListHeaderView: View {
                 .font(.subheadlineSemibold)
                 .foregroundStyle(Color.textWhite)
             Spacer()
-            NavigationLink(destination: DelegatesFullListView()) {
+            NavigationLink(destination: DelegatesFullListView(dao: dao)) {
                 Text("See all")
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.primaryDim)
