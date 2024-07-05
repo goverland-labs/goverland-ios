@@ -13,9 +13,18 @@ struct ProfileVotesView: View {
     @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileVotesDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var votedProposals: [Proposal] {
         dataSource.votedProposals ?? []
+    }
+
+    var columns: [GridItem] {
+        if horizontalSizeClass == .regular {
+            return Array(repeating: .init(.flexible()), count: 2)
+        } else {
+            return Array(repeating: .init(.flexible()), count: 1)
+        }
     }
 
     var body: some View {
@@ -37,27 +46,35 @@ struct ProfileVotesView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
-                ForEach(0..<3) { _ in
-                    ShimmerProposalListItemView()
-                        .padding(.horizontal, Constants.horizontalPadding)
+                LazyVGrid(columns: columns, spacing: 8) {
+                    let count = columns.count == 1 ? 3 : 4
+                    ForEach(0..<count, id: \.self) { _ in
+                        ShimmerProposalListItemView()
+                    }
                 }
+                .padding(.vertical, 4)
+                .padding(.horizontal, Constants.horizontalPadding)
             } else if dataSource.votedProposals?.isEmpty ?? false {
                 Text("You have not voted yet")
                     .foregroundStyle(Color.textWhite)
                     .font(.bodyRegular)
                     .padding(16)
             } else {
-                ForEach(votedProposals.prefix(3)) { proposal in
-                    ProposalListItemNoElipsisView(proposal: proposal) {
+                LazyVGrid(columns: columns, spacing: 8) {
+                    let count = columns.count == 1 ? 3 : 4
+                    ForEach(votedProposals.prefix(count)) { proposal in
+                        ProposalListItemNoElipsisView(proposal: proposal) {
                             Tracker.track(.prfVotesOpenDao)
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                         }
-                        .padding(.horizontal, Constants.horizontalPadding)
                         .onTapGesture {
                             Tracker.track(.prfVotesOpenProposal)
                             path.append(.vote(proposal))
                         }
+                    }
                 }
+                .padding(.vertical, 4)
+                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
         .padding(.bottom, 16)

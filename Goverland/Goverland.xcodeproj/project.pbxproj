@@ -2424,7 +2424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2465,7 +2465,7 @@
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2901,7 +2901,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.22.1;
+				minimumVersion = 10.28.1;
 			};
 		};
 		55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
@@ -2909,7 +2909,7 @@
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.0;
+				minimumVersion = 2.3.1;
 			};
 		};
 		55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
@@ -2917,7 +2917,7 @@
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.1;
+				minimumVersion = 1.8.2;
 			};
 		};
 		55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */ = {
@@ -2932,8 +2932,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 7.11.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
 			};
 		};
 		BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
@@ -2949,7 +2949,7 @@
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.1;
+				minimumVersion = 4.4.3;
 			};
 		};
 		BAC3CA2A2B9CC034001CC6C3 /* XCRemoteSwiftPackageReference "Version" */ = {
