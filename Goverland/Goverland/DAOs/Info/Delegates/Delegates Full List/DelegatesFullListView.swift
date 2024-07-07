@@ -50,7 +50,7 @@ fileprivate struct _DelegatesListView: View {
                     ScrollView(showsIndicators: false) {
                         LazyVStack {
                             if dataSource.isLoading {
-                                ForEach(0..<7) { _ in
+                                ForEach(0..<5) { _ in
                                     ShimmerDelegateFullListItemView()
                                 }
                             } else {
@@ -66,8 +66,6 @@ fileprivate struct _DelegatesListView: View {
                                         }
                                     } else {
                                         if index < dataSource.delegates.count {
-                                            // We caught `Index out of range` crashes. It should not happen, but as dataSource
-                                            // is shared, could happen in some case.
                                             let delegate = dataSource.delegates[index]
                                                 DelegateFullListItemView(delegate: delegate)
                                         }
@@ -119,14 +117,12 @@ fileprivate struct _DelegatesSearchListView: View {
 
 
 fileprivate struct DelegateFullListItemView: View {
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     let delegate: Delegate
 
     var body: some View {
         HStack {
             RoundPictureView(image: delegate.user.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-//                .onTapGesture {
-//                    onDaoOpen()
-//                }
             
             Text(delegate.user.usernameShort)
                 .font(.caption2)
@@ -134,8 +130,15 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-            Text("DELEGATED")
-            //FollowButtonView(daoID: dao.id, subscriptionID: subscriptionMeta?.id, onFollowToggle: onFollowToggle)
+            if let delegated = delegate.userDelegated, delegated {
+                PositiveButton("Delegated") {
+                    //TODO: open delegate form to reassign permissions
+                }
+            } else {
+                SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
+                    //TODO: open delegate form to reassign permissions
+                }
+            }
         }
         .padding(12)
         .contentShape(Rectangle())
