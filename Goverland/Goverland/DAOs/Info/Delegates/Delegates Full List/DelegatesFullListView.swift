@@ -42,6 +42,10 @@ struct DelegatesFullListView: View {
 fileprivate struct _DelegatesListView: View {
     @ObservedObject var dataSource: DelegatesFullListDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    
+    var dao: Dao {
+        return dataSource.dao
+    }
 
     var body: some View {
         Group {
@@ -67,7 +71,7 @@ fileprivate struct _DelegatesListView: View {
                                     } else {
                                         if index < dataSource.delegates.count {
                                             let delegate = dataSource.delegates[index]
-                                                DelegateFullListItemView(delegate: delegate)
+                                            DelegateFullListItemView(delegate: delegate, dao: dao)
                                         }
                                     }
                                 }
@@ -107,7 +111,7 @@ fileprivate struct _DelegatesSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDelegates) { delegate in
-                        DelegateFullListItemView(delegate: delegate)
+                        DelegateFullListItemView(delegate: delegate, dao: dataSource.dao)
                     }
                 }
             }
@@ -119,33 +123,44 @@ fileprivate struct _DelegatesSearchListView: View {
 fileprivate struct DelegateFullListItemView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     let delegate: Delegate
+    let dao: Dao
 
     var body: some View {
-        HStack {
+        HStack(spacing: Constants.horizontalPadding) {
             RoundPictureView(image: delegate.user.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
             
-            Text(delegate.user.usernameShort)
-                .font(.caption2)
-                .foregroundStyle(Color.textWhite60)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(delegate.user.usernameShort)
+                    .foregroundStyle(Color.textWhite)
+                    .font(.bodySemibold)
+                    .lineLimit(1)
+
+                if delegate.user.resolvedName != nil {
+                    Text(delegate.user.address.short)
+                        .foregroundStyle(Color.textWhite60)
+                        .font(.footnoteRegular)
+                        .lineLimit(1)
+                }
+                
+                // TODO: "Delegated: 50% of your VP"
+                // show delegated power if applicable
+            }
             
             Spacer()
             
             if let delegated = delegate.userDelegated, delegated {
                 PositiveButton("Delegated") {
-                    //TODO: open delegate form to reassign permissions
+                    // TODO: open daoDelegateActionView
                 }
             } else {
                 SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
-                    //TODO: open delegate form to reassign permissions
+                    // TODO: open daoDelegateActionView
                 }
             }
         }
         .padding(12)
         .contentShape(Rectangle())
         .listRowSeparator(.hidden)
-//        .onTapGesture {
-//            onSelectDao?(dao)
-//        }
     }
 }
 
