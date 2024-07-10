@@ -32,95 +32,143 @@ enum VotingNetworkType: Int, Identifiable {
 struct DaoDelegateActionView: View {
     let dao: Dao
     let delegate: Delegate
+    
     @State private var chosenNetwork: VotingNetworkType = .gnosis
     @Namespace var namespace
+    @State private var isTooltipVisible = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
-            VStack {
-                HStack {
-                    Text("Selected wallet")
-                        .font(.bodyRegular)
-                        .foregroundColor(.textWhite)
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 6) {
-                        //TODO: Replace with wallet icons
-                        RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                        RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                        RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                        Text(delegate.user.usernameShort)
-                    }
-                }
-                
-                HStack {
-                    Text("Voting power")
-                        .font(.bodyRegular)
-                        .foregroundColor(.textWhite)
-                    Spacer()
-                    // TODO: fix when endpoint is ready
-                    Text("43 UNI")
-                }
-                
-                Divider()
-                    .background(Color.secondaryContainer)
-                    .padding(.vertical)
-                
-                HStack {
-                    Text("Delegation scope")
-                        .font(.bodyRegular)
-                        .foregroundColor(.textWhite)
-                    Spacer()
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 12) {
                     HStack {
-                        RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
-                        Text(dao.name)
-                            .font(.bodySemibold)
-                            .foregroundStyle(Color.textWhite)
+                        Text("Selected wallet")
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                        Spacer()
+                        HStack(spacing: 6) {
+                            //TODO: Replace with wallet icons
+                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
+                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
+                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
+                            Text(delegate.user.usernameShort)
+                        }
                     }
-                }
-                
-                HStack {
                     
+                    HStack {
+                        Text("Voting power")
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                        Spacer()
+                        // TODO: fix when endpoint is ready
+                        Text("43 UNI")
+                    }
+                    
+                    Divider()
+                        .background(Color.secondaryContainer)
+                        .padding(.vertical)
+                    
+                    HStack {
+                        Text("Delegation scope")
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                        Spacer()
+                        HStack {
+                            RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
+                            Text(dao.name)
+                                .font(.bodySemibold)
+                                .foregroundStyle(Color.textWhite)
+                        }
+                    }
+                    
+                    HStack {
                         Text("Network")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
-                    
-                    Spacer()
-                    HStack {
-                        ForEach(VotingNetworkType.allNetwork) { network in
-                            ZStack {
-                                if chosenNetwork == network {
+                        Spacer()
+                        HStack {
+                            ForEach(VotingNetworkType.allNetwork) { network in
+                                ZStack {
+                                    if chosenNetwork == network {
+                                        Text(network.localizedName())
+                                            .foregroundColor(.clear)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 6)
+                                            .background(Color.secondaryContainer)
+                                            .cornerRadius(20)
+                                            .matchedGeometryEffect(id: "network-background", in: namespace)
+                                    }
+                                    
                                     Text(network.localizedName())
-                                        .foregroundColor(.clear)
+                                        .foregroundColor(Color.onSecondaryContainer)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
-                                        .background(Color.secondaryContainer)
-                                        .cornerRadius(20)
-                                        .matchedGeometryEffect(id: "network-background", in: namespace)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.secondaryContainer, lineWidth: 1)
+                                        )
                                 }
-                                
-                                Text(network.localizedName())
-                                    .foregroundColor(Color.onSecondaryContainer)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.secondaryContainer, lineWidth: 1)
-                                    )
-                            }
-                            .font(.caption2Semibold)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.5)) {
-                                    chosenNetwork = network
+                                .font(.caption2Semibold)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.5)) {
+                                        chosenNetwork = network
+                                    }
                                 }
                             }
-                            
                         }
+                    }
+                    
+                    HStack {
+                        HStack {
+                            Text("Delegate to")
+                                .font(.bodyRegular)
+                                .foregroundColor(.textWhite)
+                            
+                            Image(systemName: "questionmark.circle")
+                                .foregroundStyle(Color.textWhite40)
+                                .padding(.trailing)
+                                .tooltip($isTooltipVisible, side: .bottomRight, width: 200) {
+                                    Text("Tooltip text goes here")
+                                        .foregroundStyle(Color.textWhite60)
+                                        .font(.сaptionRegular)
+                                }
+                                .onTapGesture() {
+                                    withAnimation {
+                                        isTooltipVisible.toggle()
+                                        // Shoe tooltip for 5 sec only
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                            if isTooltipVisible {
+                                                isTooltipVisible.toggle()
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        DelegateVotingPowerChoseView()
                     }
                 }
             }
-            Spacer()
+            
+            HStack {
+                HStack {
+                    SecondaryButton("Cancel") {
+                        dismiss()
+                    }
+                    
+                    PrimaryButton("Confirm") {
+                        Haptic.medium()
+                        Task {
+                            // TODO: api call to assign delegate
+                        }
+                        dismiss()
+                    }
+                }
+            }
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)
@@ -130,6 +178,61 @@ struct DaoDelegateActionView: View {
                 Text("Delegate")
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
+            }
+        }
+    }
+}
+
+
+fileprivate struct DelegateVotingPowerChoseView: View {
+    
+    @State private var votingPower: Double = 43.0
+    private var 
+    
+    
+    var body: some View {
+        VStack {
+            ForEach(0..<3) {_ in
+                HStack {
+                    IdentityView(user: User.aaveChan, onTap: nil)
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 0) {
+                        Button(action: {
+                            
+                        }) {
+                            Image(systemName: "minus")
+                                .frame(width: 40)
+                                .padding(.vertical)
+                        }
+                        
+                        Text(String(format: "%.0f", 2))
+                            .frame(width: 20)
+                        
+                        Button(action: {
+                            //increaseVotingPower(for: index)
+                            //voteButtonDisabled = totalPower == 0
+                        }) {
+                            Image(systemName: "plus")
+                                .frame(width: 40)
+                                .padding(.vertical)
+                        }
+                        
+                        Text("30%")
+                            .frame(width: 55)
+                    }
+                    .font(.footnoteSemibold)
+                    .foregroundColor(.onSecondaryContainer)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+                .padding(.horizontal)
+                .background(true ? Color.secondaryContainer : Color.clear)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.secondaryContainer, lineWidth: 1)
+                )
             }
         }
     }
