@@ -158,6 +158,13 @@ enum Utils {
         formatter.locale = Locale.current
         return formatter.string(from: date)
     }
+    
+    static func monthAndDayAndYear(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy"
+        formatter.locale = Locale.current
+        return formatter.string(from: date)
+    }
 
     static func formatDateToStartOfMonth(_ date: Date, day: Int = 1) -> Date {
         let calendar = Calendar(identifier: .gregorian)
