@@ -41,7 +41,7 @@ struct GraphHeaderView: View {
                     .onTapGesture() {
                         withAnimation {
                             isTooltipVisible.toggle()
-                            // Shoe tooltip for 5 sec only
+                            // Show tooltip for 5 sec only
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                                 if isTooltipVisible {
                                     isTooltipVisible.toggle()
