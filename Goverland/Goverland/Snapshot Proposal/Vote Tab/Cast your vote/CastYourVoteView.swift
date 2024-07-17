@@ -330,9 +330,12 @@ fileprivate struct _SuccessView: View {
 
                             let now = Date().timeIntervalSinceReferenceDate
                             if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
-                                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                if let scene = UIApplication.shared.connectedScenes
+                                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                                {
                                     SKStoreReviewController.requestReview(in: scene)
                                     lastSuggestedToRateTime = now
+                                    Tracker.track(.snpVoteShowRateApp)
                                 }
                             }
                         }
