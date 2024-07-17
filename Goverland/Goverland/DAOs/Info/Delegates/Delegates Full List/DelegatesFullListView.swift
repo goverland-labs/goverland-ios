@@ -11,7 +11,6 @@ import SwiftUI
 
 struct DelegatesFullListView: View {
     @StateObject var dataSource: DelegatesFullListDataSource
-    let dao:Dao
 
     private var searchPrompt: String {
         if let total = dataSource.total {
@@ -22,14 +21,13 @@ struct DelegatesFullListView: View {
     }
 
     init(dao: Dao) {
-        self.dao = dao
         _dataSource = StateObject(wrappedValue: DelegatesFullListDataSource(dao: dao))
     }
     
     var body: some View {
         _DelegatesListView(dataSource: dataSource)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(dao.name)
+            .navigationTitle(dataSource.dao.name)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
