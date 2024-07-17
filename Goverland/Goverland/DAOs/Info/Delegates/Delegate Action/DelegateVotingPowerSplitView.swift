@@ -1,5 +1,5 @@
 //
-//  DelegateVotingPowerChoseView.swift
+//  DelegateVotingPowerSplitView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-07-11.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct DelegateVotingPowerChoseView: View {
+struct DelegateVotingPowerSplitView: View {
     @State private var delegates: [Int: (User, Double)] = [0: (User.aaveChan, 11.0),
                                                            1: (User.flipside, 32.0)]
     
