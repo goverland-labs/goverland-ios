@@ -83,12 +83,6 @@ fileprivate struct _DelegatesListView: View {
                 _DelegatesSearchListView(dataSource: dataSource)
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .subscriptionDidToggle)) { _ in
-            // refresh if some popover sheet is presented
-            if activeSheetManager.activeSheet != nil {
-                dataSource.refresh()
-            }
-        }
     }
 }
 
@@ -105,7 +99,7 @@ fileprivate struct _DelegatesSearchListView: View {
                         .padding(.top, 16)
                 } else if dataSource.searchResultDelegates.isEmpty { // initial searching
                     ForEach(0..<7) { _ in
-                        ShimmerDaoListItemView()
+                        ShimmerDelegateFullListItemView()
                     }
                 } else {
                     ForEach(dataSource.searchResultDelegates) { delegate in

@@ -36,8 +36,9 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
     
     func refresh() {
         delegates = []
-        total = 300
+        total = nil
         failedToLoadInitialData = false
+        failedToLoadMore = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
