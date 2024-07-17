@@ -16,6 +16,7 @@ enum ProfileScreen: Hashable {
 
     // Settings
     case pushNofitications
+    case inboxNofitications
     case about
     case helpUsGrow
     case partnership
@@ -74,11 +75,11 @@ struct ProfileView: View {
                 case .followedDaos: FollowedDaosView()
                 case .votes: ProfileVotesListView(path: $path)
                 case .vote(let proposal):
-                    SnapshotProposalView(proposal: proposal,
-                                         allowShowingDaoInfo: true)
+                    SnapshotProposalView(proposal: proposal)
 
                 // Settings
                 case .pushNofitications: PushNotificationsSettingView()
+                case .inboxNofitications: InboxNotificationsSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
                 case .partnership: PartnershipSettingView()

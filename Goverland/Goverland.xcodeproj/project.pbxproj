@@ -128,7 +128,6 @@
 		55B7B4272A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4262A5ACA0B00A894AD /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */; };
 		55B7B42C2A5ACD6400A894AD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */; };
-		55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */; };
 		55B7B4432A5B087200A894AD /* GoogleService-Info.Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */; };
 		55B7B4452A5C292B00A894AD /* DaoInfoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */; };
 		55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7B4462A5C299200A894AD /* DaoInfoEventsDataSource.swift */; };
@@ -136,7 +135,6 @@
 		55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */; };
 		55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */; };
 		55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BD8D532AFAA4F20014982C /* SecondaryButton.swift */; };
-		55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */; };
 		55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */; };
 		55C154182AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */; };
 		55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */; };
@@ -151,6 +149,12 @@
 		55D632C329505DFF0073E04A /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C229505DFF0073E04A /* AppTabView.swift */; };
 		55D632C52950CB4A0073E04A /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C42950CB4A0073E04A /* TermsView.swift */; };
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
+		55DA3E372C47EFA60027CC0B /* PushNotificationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E312C47EFA60027CC0B /* PushNotificationsDataSource.swift */; };
+		55DA3E382C47EFA60027CC0B /* PushNotificationsSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E322C47EFA60027CC0B /* PushNotificationsSettingView.swift */; };
+		55DA3E392C47EFA60027CC0B /* InboxNotificationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E342C47EFA60027CC0B /* InboxNotificationsDataSource.swift */; };
+		55DA3E3A2C47EFA60027CC0B /* InboxNotificationsSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E352C47EFA60027CC0B /* InboxNotificationsSettingView.swift */; };
+		55DA3E3D2C47EFDE0027CC0B /* PushNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E3B2C47EFDE0027CC0B /* PushNotificationSettings.swift */; };
+		55DA3E3E2C47EFDE0027CC0B /* InboxNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA3E3C2C47EFDE0027CC0B /* InboxNotificationSettings.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
@@ -465,7 +469,6 @@
 		55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaosSearchDataSource.swift; sourceTree = "<group>"; };
 		55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelectedDateExtension.swift; sourceTree = "<group>"; };
 		55B7B4212A5AC28700A894AD /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStatus.swift; sourceTree = "<group>"; };
 		55B7B4412A5B059800A894AD /* Goverland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Goverland.entitlements; sourceTree = "<group>"; };
 		55B7B4422A5B087200A894AD /* GoogleService-Info.Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Production.plist"; sourceTree = "<group>"; };
 		55B7B4442A5C292B00A894AD /* DaoInfoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoInfoEventsView.swift; sourceTree = "<group>"; };
@@ -474,7 +477,6 @@
 		55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOutPopoverView.swift; sourceTree = "<group>"; };
 		55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteProfilePopoverView.swift; sourceTree = "<group>"; };
 		55BD8D532AFAA4F20014982C /* SecondaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
-		55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingView.swift; sourceTree = "<group>"; };
 		55C154152AFAFA7E0096F0A4 /* AboutSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingView.swift; sourceTree = "<group>"; };
 		55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpUsGrowSettingView.swift; sourceTree = "<group>"; };
 		55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingView.swift; sourceTree = "<group>"; };
@@ -491,6 +493,12 @@
 		55D632C229505DFF0073E04A /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		55DA3E312C47EFA60027CC0B /* PushNotificationsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsDataSource.swift; sourceTree = "<group>"; };
+		55DA3E322C47EFA60027CC0B /* PushNotificationsSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingView.swift; sourceTree = "<group>"; };
+		55DA3E342C47EFA60027CC0B /* InboxNotificationsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxNotificationsDataSource.swift; sourceTree = "<group>"; };
+		55DA3E352C47EFA60027CC0B /* InboxNotificationsSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxNotificationsSettingView.swift; sourceTree = "<group>"; };
+		55DA3E3B2C47EFDE0027CC0B /* PushNotificationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationSettings.swift; sourceTree = "<group>"; };
+		55DA3E3C2C47EFDE0027CC0B /* InboxNotificationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxNotificationSettings.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E800A32AF825D900A43D5F /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -1150,9 +1158,10 @@
 		55D632B729505C070073E04A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				55DA3E362C47EFA60027CC0B /* Inbox Notifications */,
+				55DA3E332C47EFA60027CC0B /* Push Notifications */,
 				55D632BE29505C800073E04A /* SettingsView.swift */,
 				BAC997BD2BC6F41600476735 /* LensSettingsView.swift */,
-				55C154112AFAFA150096F0A4 /* PushNotificationsSettingView.swift */,
 				55BD8D4E2AFAA4820014982C /* SignOutPopoverView.swift */,
 				BAD5225D2A279A950097068F /* XSettingsView.swift */,
 				BAD522612A279B4E0097068F /* DiscordSettingsView.swift */,
@@ -1165,6 +1174,24 @@
 				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		55DA3E332C47EFA60027CC0B /* Push Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				55DA3E312C47EFA60027CC0B /* PushNotificationsDataSource.swift */,
+				55DA3E322C47EFA60027CC0B /* PushNotificationsSettingView.swift */,
+			);
+			path = "Push Notifications";
+			sourceTree = "<group>";
+		};
+		55DA3E362C47EFA60027CC0B /* Inbox Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				55DA3E342C47EFA60027CC0B /* InboxNotificationsDataSource.swift */,
+				55DA3E352C47EFA60027CC0B /* InboxNotificationsSettingView.swift */,
+			);
+			path = "Inbox Notifications";
 			sourceTree = "<group>";
 		};
 		55DE41B12B17B8DD008617F5 /* Persistence */ = {
@@ -1393,7 +1420,8 @@
 				5533170129F16B290034AF66 /* Address.swift */,
 				BA6B96542A38B87300851826 /* Subscription.swift */,
 				556D43572BAD75C000D2D64F /* Stats.swift */,
-				55B7B43F2A5AE96900A894AD /* NotificationsStatus.swift */,
+				55DA3E3C2C47EFDE0027CC0B /* InboxNotificationSettings.swift */,
+				55DA3E3B2C47EFDE0027CC0B /* PushNotificationSettings.swift */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
 			);
@@ -1931,6 +1959,7 @@
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */,
 				BA5D7ACC2B71370300CD3FDB /* AchievementsView.swift in Sources */,
+				55DA3E3E2C47EFDE0027CC0B /* InboxNotificationSettings.swift in Sources */,
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				5569CD742C18850D001B25FD /* DaoDelegatesView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
@@ -1959,6 +1988,7 @@
 				55B7B4472A5C299200A894AD /* DaoInfoEventsDataSource.swift in Sources */,
 				BAE1AB2F2AF04914001B89F3 /* SuccessfulProposalsView.swift in Sources */,
 				557AFF882C2D84C7002A8EDD /* DelegatesFullListView.swift in Sources */,
+				55DA3E392C47EFA60027CC0B /* InboxNotificationsDataSource.swift in Sources */,
 				BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */,
 				BA3C9F692ABF527700E66BD4 /* ArchiveDataSource.swift in Sources */,
 				BAD522622A279B4E0097068F /* DiscordSettingsView.swift in Sources */,
@@ -2016,6 +2046,7 @@
 				55EEA87E2B237EE600242817 /* ScreenExtention.swift in Sources */,
 				55EEA8802B2389A300242817 /* ReconnectWalletView.swift in Sources */,
 				55D632BB29505C600073E04A /* SearchView.swift in Sources */,
+				55DA3E382C47EFA60027CC0B /* PushNotificationsSettingView.swift in Sources */,
 				BAE1AB312AF04926001B89F3 /* SuccessfulProposalsDataSource.swift in Sources */,
 				BA57D21A295CB35400DB1963 /* ProposalListItemView.swift in Sources */,
 				BA36DF032B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift in Sources */,
@@ -2082,16 +2113,17 @@
 				BA4A1C7D2A74238300AC7470 /* DaoInsightsView.swift in Sources */,
 				BAE1AB232AEBEF7A001B89F3 /* RecentlyViewedDaosHorizontalListView.swift in Sources */,
 				5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */,
+				55DA3E3D2C47EFDE0027CC0B /* PushNotificationSettings.swift in Sources */,
 				553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */,
 				55BD8D522AFAA4820014982C /* DeleteProfilePopoverView.swift in Sources */,
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
+				55DA3E3A2C47EFA60027CC0B /* InboxNotificationsSettingView.swift in Sources */,
 				557AFF8D2C2DA401002A8EDD /* BottomRightEllipsisView.swift in Sources */,
 				BAC997BE2BC6F41600476735 /* LensSettingsView.swift in Sources */,
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,
-				55B7B4402A5AE96900A894AD /* NotificationsStatus.swift in Sources */,
 				BA5D7A922B6D309D00CD3FDB /* Logger.swift in Sources */,
 				BA6B96532A376CEF00851826 /* FollowButtonDataSource.swift in Sources */,
 				BAD5225E2A279A950097068F /* XSettingsView.swift in Sources */,
@@ -2128,6 +2160,7 @@
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
+				55DA3E372C47EFA60027CC0B /* PushNotificationsDataSource.swift in Sources */,
 				553E74D72BA42D5B00F697F8 /* ToolbarTitle.swift in Sources */,
 				550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */,
 				55DE41B72B193882008617F5 /* UserProfile.swift in Sources */,
@@ -2153,7 +2186,6 @@
 				55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */,
 				BAC3CA212B9A3C0E001CC6C3 /* PublicUserProfileDataSource.swift in Sources */,
 				55FD731E2AB75DC60081C38D /* ConnectWalletModel.swift in Sources */,
-				55C154122AFAFA150096F0A4 /* PushNotificationsSettingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,8 +12,8 @@ struct InboxView: View {
     @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    @State private var selectedEventIndex: Int?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var shouldRefreshAfterVote = false
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -38,7 +38,7 @@ struct InboxView: View {
                     }
                     .padding(.top, Constants.horizontalPadding / 2)
                 } else {
-                    List(0..<events.count, id: \.self, selection: $selectedEventIndex) { index in
+                    List(0..<events.count, id: \.self, selection: $data.selectedEventIndex) { index in
                         let event = events[index]
                         if index == events.count - 1 && data.hasMore() {
                             ZStack {
@@ -59,7 +59,7 @@ struct InboxView: View {
                             let proposal = event.eventData! as! Proposal
                             let isRead = event.readAt != nil
                             ProposalListItemView(proposal: proposal,
-                                                 isSelected: selectedEventIndex == index,
+                                                 isSelected: data.selectedEventIndex == index,
                                                  isRead: isRead,
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
@@ -138,21 +138,27 @@ struct InboxView: View {
                 }
             }
         }  detail: {
-            if let index = selectedEventIndex, events.count > index,
+            if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
-                SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true)
+                SnapshotProposalView(proposal: proposal)
             } else {
                 EmptyView()
             }
         }
-        .onChange(of: selectedEventIndex) { _, _ in
-            if let index = selectedEventIndex, events.count > index {
+        .onReceive(NotificationCenter.default.publisher(for: .voteCasted)) { notification in
+            shouldRefreshAfterVote = true
+        }
+        .onChange(of: data.selectedEventIndex) { _, _ in
+            if let index = data.selectedEventIndex, events.count > index {
                 let event = events[index]
                 Tracker.track(.inboxEventOpen)
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
+            }
+            // refresh after a vote to enable auto-archiving
+            if shouldRefreshAfterVote {
+                data.refresh()
             }
         }
         .onAppear() {

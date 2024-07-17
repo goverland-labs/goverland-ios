@@ -236,7 +236,6 @@ class CastYourVoteDataSource: ObservableObject {
                 }
             } receiveValue: { [weak self] resp, _ in
                 logInfo("[VOTE]: Succesfully submitted: \(resp)")
-                ProfileVotesDataSource.shared.refresh()
                 self?.submitted = true
                 self?.onSuccess()
                 NotificationCenter.default.post(name: .voteCasted, object: nil)

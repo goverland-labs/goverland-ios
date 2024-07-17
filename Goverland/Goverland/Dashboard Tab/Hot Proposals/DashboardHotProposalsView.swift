@@ -12,6 +12,15 @@ struct DashboardHotProposalsView: View {
     @StateObject var dataSource = TopProposalsDataSource.dashboard
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    var columns: [GridItem] {
+        if horizontalSizeClass == .regular {
+            return Array(repeating: .init(.flexible()), count: 2)
+        } else {
+            return Array(repeating: .init(.flexible()), count: 1)
+        }
+    }
 
     var body: some View {
         Group {
@@ -19,23 +28,29 @@ struct DashboardHotProposalsView: View {
                 RefreshIcon {
                     dataSource.refresh()
                 }
-            } else if dataSource.isLoading && dataSource.proposals.count == 0 {
-                ForEach(0..<3) { _ in
-                    ShimmerProposalListItemView()
-                        .padding(.horizontal, Constants.horizontalPadding)
+            } else if dataSource.isLoading && dataSource.proposals.count == 0 { // initial loading
+                LazyVGrid(columns: columns, spacing: 8) {
+                    let count = columns.count == 1 ? 3 : 4
+                    ForEach(0..<count, id: \.self) { _ in
+                        ShimmerProposalListItemView()
+                    }
                 }
+                .padding(.horizontal, Constants.horizontalPadding)
             } else {
-                ForEach(dataSource.proposals.prefix(3)) { proposal in
-                    ProposalListItemNoElipsisView(proposal: proposal) {
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                        Tracker.track(.dashHotOpenDao)
-                    }
-                    .padding(.horizontal, Constants.horizontalPadding)
-                    .onTapGesture {
-                        Tracker.track(.dashHotOpenPrp)
-                        path.append(proposal)
+                LazyVGrid(columns: columns, spacing: 8) {
+                    let count = columns.count == 1 ? 3 : 4
+                    ForEach(dataSource.proposals.prefix(count)) { proposal in
+                        ProposalListItemNoElipsisView(proposal: proposal) {
+                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            Tracker.track(.dashHotOpenDao)
+                        }
+                        .onTapGesture {
+                            Tracker.track(.dashHotOpenPrp)
+                            path.append(proposal)
+                        }
                     }
                 }
+                .padding(.horizontal, Constants.horizontalPadding)
             }
         }
     }
