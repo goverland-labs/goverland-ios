@@ -27,7 +27,16 @@ enum InboxFilter: Int, FilterOptions {
 }
 
 class InboxDataSource: ObservableObject, Paginatable, Refreshable {
-    @Published var events: [InboxEvent]?
+    @Published var events: [InboxEvent]? {
+        didSet {
+            if let events, let selectedEventIndex {
+                if selectedEventIndex > events.count - 1 {
+                    self.selectedEventIndex = events.count > 0 ? events.count - 1 : nil
+                }
+            }
+        }
+    }
+    @Published var selectedEventIndex: Int?
     @Published var filter: InboxFilter = .all
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
@@ -59,6 +68,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     func refresh() {
         events = nil
+        // do not nullify selectedEventIndex
         isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false

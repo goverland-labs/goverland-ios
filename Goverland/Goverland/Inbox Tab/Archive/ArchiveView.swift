@@ -126,8 +126,7 @@ struct ArchiveView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal,
-                                     allowShowingDaoInfo: true)
+                SnapshotProposalView(proposal: proposal)
                     .environmentObject(activeSheetManager)
             }
         }

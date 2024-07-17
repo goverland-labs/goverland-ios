@@ -18,11 +18,12 @@ struct SettingsView: View {
 
     var body: some View {
         List {
-            Section("Goverland") {
-                NavigationLink("Notifications", value: ProfileScreen.pushNofitications)
-            }
-
             if let profile = dataSource.profile, !authToken.isEmpty {
+                Section("Goverland") {
+                    NavigationLink("Push notifications", value: ProfileScreen.pushNofitications)
+                    NavigationLink("Inbox notifications", value: ProfileScreen.inboxNofitications)
+                }
+                
                 Section("Devices") {
                     ForEach(profile.sessions) { s in
                         HStack {

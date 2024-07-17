@@ -271,77 +271,87 @@ fileprivate struct _SuccessView: View {
     @StateObject private var orientationManager = DeviceOrientationManager.shared
 
     private var scaleRatio: Double {
-        if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.isSmall {
-            return 3/5
+        if orientationManager.currentOrientation.isLandscape {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                return 0 // hide animation
+            } else {
+                return 1/3
+            }
         } else {
-            return 4/5
+            return 3/5
         }
     }
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 16) {
-                Text("Your vote is in!")
-                    .foregroundStyle(Color.textWhite)
-                    .font(.title3Semibold)
-
-                Spacer()
-
-                SuccessVoteLottieView()
-                    .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
-                    .id(orientationManager.currentOrientation)
-
-                Spacer()
-
-                Text("Votes can be changed while the proposal is active")
-                    .foregroundStyle(Color.textWhite60)
-                    .font(.footnoteRegular)
-
+            ScrollView {
                 VStack(spacing: 16) {
-                    SecondaryButton("Share on X") {
-                        let postText = messageToShare()
-                        let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-                        if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
-                            Haptic.medium()
-                            openUrl(url)
+                    Text("Your vote is in!")
+                        .foregroundStyle(Color.textWhite)
+                        .font(.title3Semibold)
+
+                    Spacer()
+
+                    SuccessVoteLottieView()
+                        .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
+                        .id(orientationManager.currentOrientation)
+
+                    Spacer()
+
+                    Text("Votes can be changed while the proposal is active")
+                        .foregroundStyle(Color.textWhite60)
+                        .font(.footnoteRegular)
+
+                    VStack(spacing: 16) {
+                        SecondaryButton("Share on X") {
+                            let postText = messageToShare()
+                            let postUrl = postText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                            if let url = URL(string: "https://x.com/intent/tweet?text=\(postUrl)") {
+                                Haptic.medium()
+                                openUrl(url)
+                            }
+                            Tracker.track(.snpSuccessVoteShareX)
                         }
-                        Tracker.track(.snpSuccessVoteShareX)
-                    }
 
-                    SecondaryButton("Share on Warpcast") {
-                        let castText = messageToShare()
-                        let castUrl = castText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-                        let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(castUrl)")
-                        if let url = warpcastUrl {
-                            Haptic.medium()
-                            openUrl(url)
+                        SecondaryButton("Share on Warpcast") {
+                            let castText = messageToShare()
+                            let castUrl = castText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+                            let warpcastUrl = URL(string: "https://warpcast.com/~/compose?text=\(castUrl)")
+                            if let url = warpcastUrl {
+                                Haptic.medium()
+                                openUrl(url)
+                            }
+                            Tracker.track(.snpSuccessVoteShareWarpcast)
                         }
-                        Tracker.track(.snpSuccessVoteShareWarpcast)
-                    }
 
-                    PrimaryButton("Done") {
-                        Haptic.medium()
-                        dismiss()
+                        PrimaryButton("Done") {
+                            Haptic.medium()
+                            dismiss()
 
-                        let now = Date().timeIntervalSinceReferenceDate
-                        if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
-                            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                                SKStoreReviewController.requestReview(in: scene)
-                                lastSuggestedToRateTime = now
+                            let now = Date().timeIntervalSinceReferenceDate
+                            if now - lastSuggestedToRateTime > ConfigurationManager.suggestToRateRequestInterval {
+                                if let scene = UIApplication.shared.connectedScenes
+                                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                                {
+                                    SKStoreReviewController.requestReview(in: scene)
+                                    lastSuggestedToRateTime = now
+                                    Tracker.track(.snpVoteShowRateApp)
+                                }
                             }
                         }
                     }
+                    .padding(.horizontal, Constants.horizontalPadding)
                 }
+                // this is needed as on iPad GeometryReader breaks VStack layout
+                .frame(maxWidth: geometry.size.width - Constants.horizontalPadding * 2, minHeight: geometry.size.height - 50)
                 .padding(.horizontal, Constants.horizontalPadding)
+                .padding(.bottom, 16)
+                .padding(.top, 24)
+                .onAppear {
+                    Tracker.track(.screenSnpVoteSuccess)
+                }
             }
-            // this is needed as on iPad GeometryReader breaks VStack layout
-            .frame(width: geometry.size.width - Constants.horizontalPadding * 2)
-            .padding(.horizontal, Constants.horizontalPadding)
-            .padding(.bottom, 16)
-            .padding(.top, 24)
-            .onAppear {
-                Tracker.track(.screenSnpVoteSuccess)
-            }
+            .scrollIndicators(.hidden)
         }
     }
 

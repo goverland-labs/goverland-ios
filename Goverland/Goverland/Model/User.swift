@@ -74,7 +74,13 @@ extension User {
     static var flipside: User {
         User(address: Address("0x62a43123FE71f9764f26554b3F5017627996816a"),
              resolvedName: "flipsidecrypto.eth",
-             avatars: [])
+             avatars: [
+                Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x62a43123FE71f9764f26554b3F5017627996816a?s=138")!),
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x62a43123FE71f9764f26554b3F5017627996816a?s=138")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x62a43123FE71f9764f26554b3F5017627996816a?s=138")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x62a43123FE71f9764f26554b3F5017627996816a?s=138")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x62a43123FE71f9764f26554b3F5017627996816a?s=138")!)
+             ])
     }
 
     static var aaveChan: User {
@@ -82,7 +88,10 @@ extension User {
              resolvedName: "aavechan.eth",
              avatars: [
                 Avatar(size: .xs, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!),
-                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!)
+                Avatar(size: .s, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!),
+                Avatar(size: .m, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!),
+                Avatar(size: .l, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!),
+                Avatar(size: .xl, link: URL(string: "https://cdn.stamp.fyi/avatar/eth:0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4?s=138")!)
              ])
     }
 

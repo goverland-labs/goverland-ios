@@ -132,6 +132,11 @@ struct GoverlandApp: App {
                         PopoverNavigationViewWithToast {
                             DaoDelegateActionView(dao: dao, delegate: delegate)
                         }
+                        
+                    case .proposal(let proposalId):
+                        PopoverNavigationViewWithToast {
+                            SnapshotProposalView(proposalId: proposalId, isRootView: true)
+                        }
                     }
                 }
                 .onChange(of: recommendedDaosDataSource.recommendedDaos) { _, daos in
@@ -150,6 +155,13 @@ struct GoverlandApp: App {
                     // This approach is used on AppTabView and DaoInfoView
                     if activeSheetManager.activeSheet == nil {
                         activeSheetManager.activeSheet = .signIn
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .proposalPushOpened)) { notification in
+                    if let proposalIds = notification.object as? [String],
+                        let proposalId = proposalIds.first
+                    {
+                        activeSheetManager.activeSheet = .proposal(proposalId)
                     }
                 }
                 .onChange(of: lastAttemptToPromotedPushNotifications) { _, _ in
@@ -246,6 +258,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         if let pushId = userInfo["id"] as? String {
             NotificationsManager.shared.markPushNotificationAsClicked(pushId: pushId)
+        }
+
+        if let proposals = userInfo["proposals"] as? [String] {
+            NotificationCenter.default.post(name: .proposalPushOpened, object: proposals)
         }
 
         Tracker.track(.openPush)

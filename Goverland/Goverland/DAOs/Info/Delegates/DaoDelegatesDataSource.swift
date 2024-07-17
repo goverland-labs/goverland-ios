@@ -54,7 +54,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
     // TODO: delete when API ready
     private func loadTestData() {
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.isLoading = false
 //            self?.failedToLoadInitialData = true
 //            self?.delegates = []

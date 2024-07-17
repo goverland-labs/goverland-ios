@@ -83,6 +83,10 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 PopoverNavigationViewWithToast2 {
                     DaoDelegateActionView(dao: dao, delegate: delegate)
                 }            
+            case .proposal(let proposalId):
+                PopoverNavigationViewWithToast2 {
+                    SnapshotProposalView(proposalId: proposalId, isRootView: true)
+                }
             }
         }
         .tint(.textWhite)

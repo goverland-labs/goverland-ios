@@ -80,6 +80,9 @@ class MetricNumberFormatter: NumberFormatter {
             scaledNumber = NSNumber(value: numberAsDouble / pow(10.0, Double(suffix.rawValue)))
         }
 
+        // Instead of 99.55K show just 99K
+        let decimals = (numberAsDouble > 0 && numberAsDouble < 1_000_000) ? 0 : decimals
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = decimals
