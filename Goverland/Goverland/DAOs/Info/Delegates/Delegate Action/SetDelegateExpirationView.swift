@@ -74,7 +74,7 @@ fileprivate struct DatePickerView: View {
     
     var body: some View {
         VStack {
-            DatePicker("Select a date", selection: $selectedDate, displayedComponents: .date)
+            DatePicker("Select a date", selection: $selectedDate, in: Date().addingTimeInterval(86400)..., displayedComponents: .date)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .padding()
             
