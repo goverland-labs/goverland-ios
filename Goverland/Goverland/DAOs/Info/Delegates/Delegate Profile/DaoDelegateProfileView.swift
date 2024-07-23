@@ -10,10 +10,19 @@
 import SwiftUI
 
 struct DaoDelegateProfileView: View {
-    let dao: Dao
-    let delegate: Delegate
+    @StateObject private var dataSource: DaoDelegateProfileDataSource
+    
+    init(dao: Dao, delegate: Delegate) {
+        _dataSource = StateObject(wrappedValue: DaoDelegateProfileDataSource(dao: dao, delegate: delegate))
+    }
     
     var body: some View {
-        Text("Delegate info view")
+        VStack {
+            Text("Delegate info view")
+            Text("\(dataSource.delegateProfile?.id.description)")
+        }
+        .onAppear() {
+            dataSource.refresh()
+        }
     }
 }
