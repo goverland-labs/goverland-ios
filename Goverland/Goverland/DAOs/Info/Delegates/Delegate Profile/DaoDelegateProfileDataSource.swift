@@ -27,7 +27,7 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
     }
 }
 
-class DaoDelegateProfileDataSource: ObservableObject {
+class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     let dao: Dao
     let delegate: Delegate
     
@@ -56,7 +56,10 @@ class DaoDelegateProfileDataSource: ObservableObject {
     
     private func loadMOCKdata() {
         self.isLoading = true
-        let mockDP = DelegateProfile(id: UUID(), proposals: [.aaveTest, .aaveTest, .aaveTest])
+        let mockDP = DelegateProfile(id: UUID(), 
+                                     dao: dao,
+                                     delegate: delegate,
+                                     proposals: [.aaveTest, .aaveTest, .aaveTest])
         self.delegateProfile = mockDP
         self.isLoading = false
     }
@@ -80,5 +83,7 @@ class DaoDelegateProfileDataSource: ObservableObject {
 
 struct DelegateProfile: Decodable {
     let id: UUID
+    let dao: Dao
+    let delegate: Delegate
     let proposals: [Proposal]
 }
