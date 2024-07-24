@@ -208,6 +208,7 @@
 		BA2413572C502C60009F0736 /* DaoDelegateProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */; };
 		BA24135A2C513A3E009F0736 /* DelegateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413592C513A3E009F0736 /* DelegateButtonView.swift */; };
 		BA24135C2C513B4F009F0736 /* DelegateButtonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA24135B2C513B4F009F0736 /* DelegateButtonDataSource.swift */; };
+		BA24135F2C51A3C7009F0736 /* DaoDelegateProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -547,6 +548,7 @@
 		BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileDataSource.swift; sourceTree = "<group>"; };
 		BA2413592C513A3E009F0736 /* DelegateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateButtonView.swift; sourceTree = "<group>"; };
 		BA24135B2C513B4F009F0736 /* DelegateButtonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateButtonDataSource.swift; sourceTree = "<group>"; };
+		BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -979,6 +981,7 @@
 			children = (
 				5569CD7B2C189ECC001B25FD /* DaoDelegateProfileView.swift */,
 				BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */,
+				BA24135D2C51A39D009F0736 /* DaoDelegateProfileActivity */,
 			);
 			path = "Delegate Profile";
 			sourceTree = "<group>";
@@ -1419,6 +1422,14 @@
 				BA24135B2C513B4F009F0736 /* DelegateButtonDataSource.swift */,
 			);
 			path = "Delegate Button";
+			sourceTree = "<group>";
+		};
+		BA24135D2C51A39D009F0736 /* DaoDelegateProfileActivity */ = {
+			isa = PBXGroup;
+			children = (
+				BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */,
+			);
+			path = DaoDelegateProfileActivity;
 			sourceTree = "<group>";
 		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
@@ -2172,6 +2183,7 @@
 				55039F2B2BC582F70025DE03 /* AchievementProgressView.swift in Sources */,
 				55FD731A2AB75DC60081C38D /* WC_Manager.swift in Sources */,
 				5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */,
+				BA24135F2C51A3C7009F0736 /* DaoDelegateProfileActivityView.swift in Sources */,
 				55143B562A585AC8003103B1 /* Vote.swift in Sources */,
 				556D435D2BB2780A00D2D64F /* VoterVotingPower.swift in Sources */,
 				BA8451732A5B97F40088A6E6 /* TopProposalsDataSource.swift in Sources */,
