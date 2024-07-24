@@ -111,9 +111,12 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-            PositiveButton("Delegated") {
-                // TODO: open daoDelegateActionView
-            }
+            DelegateButtonView(delegationID: nil,
+                               onDelegateToggle: { didDelegate in
+                if didDelegate {
+                    //TODO: Traker here
+                }
+            })
         }
         
     }
