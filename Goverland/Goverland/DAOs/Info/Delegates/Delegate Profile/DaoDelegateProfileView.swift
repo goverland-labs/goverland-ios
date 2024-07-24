@@ -45,6 +45,7 @@ struct DaoDelegateProfileView: View {
                     case .insights: EmptyView()
                     }
                 }
+                Spacer()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -111,13 +112,11 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-            DelegateButtonView(delegationID: nil,
-                               onDelegateToggle: { didDelegate in
+            DelegateButtonView(delegationID: nil, onDelegateToggle: { didDelegate in
                 if didDelegate {
                     //TODO: Traker here
                 }
             })
         }
-        
     }
 }
