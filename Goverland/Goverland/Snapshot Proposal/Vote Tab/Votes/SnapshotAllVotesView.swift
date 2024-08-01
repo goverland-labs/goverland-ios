@@ -32,6 +32,10 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
     @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
     @Environment(\.dismiss) private var dismiss
+    
+    private var searchPrompt: String {
+        return "Search for \(data.totalVotes) votes by name or address"
+    }
 
     init(proposal: Proposal) {
         self.proposal = proposal
@@ -40,48 +44,79 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     
     var body: some View {
         Group {
-            if data.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: data, message: "Sorry, we couldn’t load the votes list")
-            } else {
-                if data.isLoading {
-                    List(0..<7, id: \.self) { _ in
-                        ShimmerVoteListItemView()
-                            .padding([.top, .bottom])
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets())
-                    }
+            if data.searchText == "" {
+                if data.failedToLoadInitialData {
+                    RetryInitialLoadingView(dataSource: data, message: "Sorry, we couldn’t load the votes list")
                 } else {
-                    List(0..<data.votes.count, id: \.self) { index in
-                        if index == data.votes.count - 1 && data.hasMore() {
-                            if !data.failedToLoadMore {
-                                ShimmerVoteListItemView()
-                                    .padding([.top, .bottom])
-                                    .listRowBackground(Color.clear)
-                                    .listRowInsets(EdgeInsets())
-                                    .onAppear {
-                                        data.loadMore()
-                                    }
-                            } else {
-                                RetryLoadMoreListItemView(dataSource: data) .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.clear)
-                                    .listRowInsets(EdgeInsets())
-                            }
-                        } else {
-                            let vote = data.votes[index]
-                            VoteListItemView(proposal: proposal, vote: vote)
+                    if data.isLoading {
+                        List(0..<7, id: \.self) { _ in
+                            ShimmerVoteListItemView()
                                 .padding([.top, .bottom])
                                 .listRowBackground(Color.clear)
                                 .listRowInsets(EdgeInsets())
                         }
+                    } else {
+                        List(0..<data.votes.count, id: \.self) { index in
+                            if index == data.votes.count - 1 && data.hasMore() {
+                                if !data.failedToLoadMore {
+                                    ShimmerVoteListItemView()
+                                        .padding([.top, .bottom])
+                                        .listRowBackground(Color.clear)
+                                        .listRowInsets(EdgeInsets())
+                                        .onAppear {
+                                            data.loadMore()
+                                        }
+                                } else {
+                                    RetryLoadMoreListItemView(dataSource: data) .listRowSeparator(.hidden)
+                                        .listRowBackground(Color.clear)
+                                        .listRowInsets(EdgeInsets())
+                                }
+                            } else {
+                                let vote = data.votes[index]
+                                VoteListItemView(proposal: proposal, vote: vote)
+                                    .padding([.top, .bottom])
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                            }
+                        }
+                        .scrollIndicators(.hidden)
                     }
-                    .scrollIndicators(.hidden)
                 }
+            } else {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 12) {
+                        if data.nothingFound {
+                            Text("Nothing found")
+                                .font(.body)
+                                .foregroundStyle(Color.textWhite)
+                                .padding(.top, 16)
+                        } else if data.searchResultVotes.isEmpty { // initial searching
+                            ForEach(0..<7) { _ in
+                                ShimmerVoteListItemView()
+                                    .padding([.top, .bottom])
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                            }
+                        } else {
+                            ForEach(data.searchResultVotes) { vote in
+                                VoteListItemView(proposal: proposal, vote: vote)
+                                    .padding([.top, .bottom])
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
             }
         }
         .onAppear() {
             data.refresh()
             Tracker.track(.screenSnpVoters)
         }
+        .searchable(text: $data.searchText,
+                    placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: searchPrompt)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Votes")
         .toolbar {

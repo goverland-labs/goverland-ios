@@ -11,7 +11,6 @@ import SwiftUI
 struct SnapshotVotesView<ChoiceType: Decodable>: View {
     private let proposal: Proposal
     @StateObject private var dataSource: SnapsotVotesDataSource<ChoiceType>
-
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(proposal: Proposal) {

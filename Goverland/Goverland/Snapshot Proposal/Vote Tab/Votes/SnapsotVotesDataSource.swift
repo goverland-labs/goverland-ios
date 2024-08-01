@@ -16,8 +16,13 @@ class SnapsotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatab
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
+    @Published var searchText = ""
+    @Published var searchResultVotes: [Vote<ChoiceType>] = []
+    @Published var nothingFound: Bool = false
+    
     private(set) var total: Int?
     private var cancellables = Set<AnyCancellable>()
+    private var searchCancellable: AnyCancellable!
     
     var totalVotes: Int {
         return total ?? 0
@@ -25,13 +30,23 @@ class SnapsotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatab
 
     init(proposal: Proposal) {
         self.proposal = proposal
+        
+        searchCancellable = $searchText
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                self?.performSearch(searchText)
+            }
     }
 
     func refresh() {
         votes = []
         failedToLoadInitialData = false
         isLoading = false
+        searchText = ""
+        searchResultVotes = []
+        nothingFound = false
         cancellables = Set<AnyCancellable>()
+        // do not clear searchCancellable
         
         loadInitialData()
     }
@@ -75,5 +90,22 @@ class SnapsotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatab
     func hasMore() -> Bool {
         guard let total = total else { return true }
         return votes.count < total
+    }
+    
+    private func performSearch(_ searchText: String) {
+        nothingFound = false
+        guard searchText != "" else { return }
+
+        APIService.votes(proposalID: proposal.id, offset: 0, query: searchText)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.nothingFound = true
+                }
+            } receiveValue: { [weak self] (votes: [Vote<ChoiceType>], headers) in
+                self?.nothingFound = false
+                self?.searchResultVotes = votes
+            }
+            .store(in: &cancellables)
     }
 }
