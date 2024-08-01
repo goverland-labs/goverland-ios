@@ -64,6 +64,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(voteCasted(_:)), name: .voteCasted, object: nil)
     }
 
     func refresh() {
@@ -100,6 +101,11 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 self.storeUnreadEventsCount(headers: headers)
             }
             .store(in: &cancellables)
+
+        // to check user's archiving options
+        if InboxNotificationsDataSource.shared.notificationsSettings == nil {
+            InboxNotificationsDataSource.shared.refresh()
+        }
     }
 
     func storeUnreadEventsCount(headers: HttpHeaders) {
@@ -213,7 +219,6 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                             SettingKeys.shared.unreadEvents -= 1
                         }
                     }
-                    self.events?.remove(at: index)
                 }
             }
             .store(in: &cancellables)
@@ -234,6 +239,15 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             refresh()
         } else {
             SettingKeys.shared.unreadEvents = 0
+        }
+    }
+
+    @objc func voteCasted(_ notification: Notification) {
+        guard let proposal = notification.object as? Proposal else { return }
+        if let index = events?.firstIndex(where: { ($0.eventData as? Proposal)?.id == proposal.id }),
+            let inboxSettings = InboxNotificationsDataSource.shared.notificationsSettings, inboxSettings.archiveProposalAfterVote 
+        {
+            events?[index].visible = false
         }
     }
 }

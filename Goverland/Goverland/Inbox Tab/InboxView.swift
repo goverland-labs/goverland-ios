@@ -13,7 +13,6 @@ struct InboxView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var shouldRefreshAfterVote = false
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -149,9 +148,6 @@ struct InboxView: View {
                 EmptyView()
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .voteCasted)) { notification in
-            shouldRefreshAfterVote = true
-        }
         .onChange(of: data.selectedEventIndex) { _, _ in
             if let index = data.selectedEventIndex, events.count > index {
                 let event = events[index]
@@ -159,11 +155,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
-            }
-            // refresh after a vote to enable auto-archiving
-            if shouldRefreshAfterVote {
-                data.refresh()
-            }
+            }           
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
