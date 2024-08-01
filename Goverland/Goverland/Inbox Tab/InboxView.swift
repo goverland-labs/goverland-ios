@@ -56,45 +56,49 @@ struct InboxView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             // For now we recognise only proposals
-                            let proposal = event.eventData! as! Proposal
-                            let isRead = event.readAt != nil
-                            ProposalListItemView(proposal: proposal,
-                                                 isSelected: data.selectedEventIndex == index,
-                                                 isRead: isRead,
-                                                 onDaoTap: {
-                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                                Tracker.track(.inboxEventOpenDao)
-                            }) {
-                                ProposalSharingMenu(
-                                    link: proposal.link,
-                                    isRead: isRead,
-                                    markCompletion: {
-                                        Haptic.medium()
-                                        if isRead {
-                                            Tracker.track(.inboxEventMarkUnread)
-                                            data.markUnread(eventID: event.id)
-                                        } else {
-                                            Tracker.track(.inboxEventMarkRead)
-                                            data.markRead(eventID: event.id)
+                            if let proposal = event.eventData! as? Proposal, event.visible {
+                                let isRead = event.readAt != nil
+                                ProposalListItemView(proposal: proposal,
+                                                     isSelected: data.selectedEventIndex == index,
+                                                     isRead: isRead,
+                                                     onDaoTap: {
+                                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                                    Tracker.track(.inboxEventOpenDao)
+                                }) {
+                                    ProposalSharingMenu(
+                                        link: proposal.link,
+                                        isRead: isRead,
+                                        markCompletion: {
+                                            Haptic.medium()
+                                            if isRead {
+                                                Tracker.track(.inboxEventMarkUnread)
+                                                data.markUnread(eventID: event.id)
+                                            } else {
+                                                Tracker.track(.inboxEventMarkRead)
+                                                data.markRead(eventID: event.id)
+                                            }
+                                        },
+                                        isArchived: false,
+                                        archivationCompletion: {
+                                            archive(eventId: event.id)
                                         }
-                                    },
-                                    isArchived: false,
-                                    archivationCompletion: {
-                                        archive(eventId: event.id)
-                                    }
-                                )
-                            }
-                            .swipeActions {
-                                Button {
-                                    archive(eventId: event.id)
-                                } label: {
-                                    Label("Archive", systemImage: "trash.fill")
+                                    )
                                 }
-                                .tint(.clear)
+                                .swipeActions {
+                                    Button {
+                                        archive(eventId: event.id)
+                                    } label: {
+                                        Label("Archive", systemImage: "trash.fill")
+                                    }
+                                    .tint(.clear)
+                                }
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(Constants.listInsets)
+                                .listRowBackground(Color.clear)
+                            } else {
+                                // event is not visible or not recognized
+                                EmptyView()
                             }
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(Constants.listInsets)
-                            .listRowBackground(Color.clear)
                         }
                     }
                     .refreshable {
