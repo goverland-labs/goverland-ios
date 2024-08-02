@@ -13,7 +13,6 @@ struct InboxView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var shouldRefreshAfterVote = false
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -56,45 +55,49 @@ struct InboxView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             // For now we recognise only proposals
-                            let proposal = event.eventData! as! Proposal
-                            let isRead = event.readAt != nil
-                            ProposalListItemView(proposal: proposal,
-                                                 isSelected: data.selectedEventIndex == index,
-                                                 isRead: isRead,
-                                                 onDaoTap: {
-                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                                Tracker.track(.inboxEventOpenDao)
-                            }) {
-                                ProposalSharingMenu(
-                                    link: proposal.link,
-                                    isRead: isRead,
-                                    markCompletion: {
-                                        Haptic.medium()
-                                        if isRead {
-                                            Tracker.track(.inboxEventMarkUnread)
-                                            data.markUnread(eventID: event.id)
-                                        } else {
-                                            Tracker.track(.inboxEventMarkRead)
-                                            data.markRead(eventID: event.id)
+                            if let proposal = event.eventData! as? Proposal, event.visible {
+                                let isRead = event.readAt != nil
+                                ProposalListItemView(proposal: proposal,
+                                                     isSelected: data.selectedEventIndex == index,
+                                                     isRead: isRead,
+                                                     onDaoTap: {
+                                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                                    Tracker.track(.inboxEventOpenDao)
+                                }) {
+                                    ProposalSharingMenu(
+                                        link: proposal.link,
+                                        isRead: isRead,
+                                        markCompletion: {
+                                            Haptic.medium()
+                                            if isRead {
+                                                Tracker.track(.inboxEventMarkUnread)
+                                                data.markUnread(eventID: event.id)
+                                            } else {
+                                                Tracker.track(.inboxEventMarkRead)
+                                                data.markRead(eventID: event.id)
+                                            }
+                                        },
+                                        isArchived: false,
+                                        archivationCompletion: {
+                                            archive(eventId: event.id)
                                         }
-                                    },
-                                    isArchived: false,
-                                    archivationCompletion: {
-                                        archive(eventId: event.id)
-                                    }
-                                )
-                            }
-                            .swipeActions {
-                                Button {
-                                    archive(eventId: event.id)
-                                } label: {
-                                    Label("Archive", systemImage: "trash.fill")
+                                    )
                                 }
-                                .tint(.clear)
+                                .swipeActions {
+                                    Button {
+                                        archive(eventId: event.id)
+                                    } label: {
+                                        Label("Archive", systemImage: "trash.fill")
+                                    }
+                                    .tint(.clear)
+                                }
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(Constants.listInsets)
+                                .listRowBackground(Color.clear)
+                            } else {
+                                // event is not visible or not recognized
+                                EmptyView()
                             }
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(Constants.listInsets)
-                            .listRowBackground(Color.clear)
                         }
                     }
                     .refreshable {
@@ -145,9 +148,6 @@ struct InboxView: View {
                 EmptyView()
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .voteCasted)) { notification in
-            shouldRefreshAfterVote = true
-        }
         .onChange(of: data.selectedEventIndex) { _, _ in
             if let index = data.selectedEventIndex, events.count > index {
                 let event = events[index]
@@ -155,11 +155,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
-            }
-            // refresh after a vote to enable auto-archiving
-            if shouldRefreshAfterVote {
-                data.refresh()
-            }
+            }           
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {

@@ -71,7 +71,10 @@ struct InboxEvent: Identifiable, Decodable {
 
     let type: EventType
     let eventData: EventData?
-    
+
+    // we hide proposal event manually after a succussful vote or archiving
+    var visible: Bool
+
     init(id: UUID,
          createdAt: Date,
          updatedAt: Date,
@@ -84,6 +87,7 @@ struct InboxEvent: Identifiable, Decodable {
         self.readAt = readAt
         self.type = type
         self.eventData = eventData
+        self.visible = true
     }
     
     enum CodingKeys: String, CodingKey {
@@ -126,6 +130,8 @@ struct InboxEvent: Identifiable, Decodable {
             }
             self.eventData = nil
         }
+
+        self.visible = true
     }
 }
 
