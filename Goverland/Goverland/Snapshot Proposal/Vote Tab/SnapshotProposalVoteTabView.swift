@@ -38,7 +38,6 @@ enum SnapshotVoteTabType: Int, Identifiable {
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
     @Namespace var namespace    
-    @Setting(\.authToken) private var authToken
 
     @Query private var profiles: [UserProfile]
     @Query private var termsAgreements: [DaoTermsAgreement]
@@ -151,7 +150,7 @@ struct SnapshotProposalVoteTabView: View {
                     }
 
                     if proposal.state == .active {
-                        if authToken.isEmpty || selectedProfileIsGuest {
+                        if selectedProfile == nil || selectedProfileIsGuest {
                             VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
                                 showSignIn = true
                             }
