@@ -29,32 +29,33 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
 
             if dataSource.isLoading {
                 ShimmerVoteListItemView()
-            }
+            } else {
+                let count = dataSource.votes.count
+                ForEach(0..<min(5, count), id: \.self) { index in
+                    let vote = dataSource.votes[index]
+                    Divider()
+                        .background(Color.primary)
+                    VoteListItemView(proposal: proposal, vote: vote)
+                }
 
-            let count = dataSource.votes.count
-            ForEach(0..<min(5, count), id: \.self) { index in
-                let vote = dataSource.votes[index]
-                Divider()
-                    .background(Color.secondaryContainer)
-                VoteListItemView(proposal: proposal, vote: vote)
-            }
-
-            if dataSource.totalVotes >= 5 {
-                VStack {
-                    Spacer()
-                        .padding(.bottom, 8)
-                    Text("See all")
-                        .frame(width: 124, height: 32, alignment: .center)
-                        .background(Capsule(style: .circular)
-                            .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
-                        .tint(.onSecondaryContainer)
-                        .font(.footnoteSemibold)
-                        .onTapGesture {
-                            activeSheetManager.activeSheet = .proposalVoters(proposal)
-                        }
+                if dataSource.totalVotes >= 5 {
+                    VStack {
+                        Spacer()
+                            .padding(.bottom, 8)
+                        Text("See all")
+                            .frame(width: 124, height: 32, alignment: .center)
+                            .background(Capsule(style: .circular)
+                                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                            .tint(.onSecondaryContainer)
+                            .font(.footnoteSemibold)
+                            .onTapGesture {
+                                activeSheetManager.activeSheet = .proposalVoters(proposal)
+                            }
+                    }
                 }
             }
         }
+        .listRowSeparator(.hidden)
         .onAppear() {
             dataSource.refresh()
         }
@@ -102,7 +103,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                 }
             }
         }
-        .padding(.vertical, 4)
+        .padding(6)
         .font(.footnoteRegular)
         .contentShape(Rectangle())
         .onTapGesture {
@@ -127,19 +128,24 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
 
 struct ShimmerVoteListItemView: View {
     var body: some View {
-        HStack {
-            ShimmerView()
-                .frame(width: 60, height: 20)
-                .cornerRadius(10)
-            Spacer()
-            ShimmerView()
-                .frame(width: 60, height: 20)
-                .cornerRadius(8)
-            Spacer()
-            ShimmerView()
-                .frame(width: 60, height: 20)
-                .cornerRadius(8)
+        VStack {
+            HStack {
+                ShimmerView()
+                    .frame(width: 60, height: 20)
+                    .cornerRadius(10)
+                Spacer()
+                ShimmerView()
+                    .frame(width: 60, height: 20)
+                    .cornerRadius(8)
+                Spacer()
+                ShimmerView()
+                    .frame(width: 60, height: 20)
+                    .cornerRadius(8)
+            }
+            
+            Divider()
+                .background(Color.primary)
         }
-        .padding(.vertical, 4)
+        .padding(6)
     }
 }

@@ -103,7 +103,7 @@ class SnapsotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatab
                 case .failure(_): self?.nothingFound = true
                 }
             } receiveValue: { [weak self] (votes: [Vote<ChoiceType>], headers) in
-                self?.nothingFound = false
+                self?.nothingFound = votes.isEmpty
                 self?.searchResultVotes = votes
             }
             .store(in: &cancellables)

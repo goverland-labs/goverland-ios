@@ -294,7 +294,7 @@ extension APIService {
         ]
         
         if let query = query {
-            queryParameters.append(URLQueryItem(name: "query", value: query))
+            queryParameters.append(URLQueryItem(name: "name", value: query))
         }
 
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
