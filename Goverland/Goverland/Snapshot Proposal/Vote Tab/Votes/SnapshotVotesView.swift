@@ -141,9 +141,9 @@ struct ShimmerVoteListItemView: View {
                     .frame(width: 60, height: 20)
                     .cornerRadius(8)
             }
+            .padding(6)
             
             Divider()
         }
-        .padding(6)
     }
 }
