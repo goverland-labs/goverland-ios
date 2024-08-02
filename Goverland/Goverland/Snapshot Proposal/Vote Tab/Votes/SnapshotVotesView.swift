@@ -34,7 +34,6 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
                 ForEach(0..<min(5, count), id: \.self) { index in
                     let vote = dataSource.votes[index]
                     Divider()
-                        .background(Color.primary)
                     VoteListItemView(proposal: proposal, vote: vote)
                 }
 
@@ -144,7 +143,6 @@ struct ShimmerVoteListItemView: View {
             }
             
             Divider()
-                .background(Color.primary)
         }
         .padding(6)
     }

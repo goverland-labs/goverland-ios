@@ -34,7 +34,7 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     @Environment(\.dismiss) private var dismiss
     
     private var searchPrompt: String {
-        return "Search for \(data.totalVotes) votes by name or address"
+        return "Search for \(data.totalVotes) votes"
     }
     
     init(proposal: Proposal) {
@@ -68,7 +68,6 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
                                             let vote = data.votes[index]
                                             VoteListItemView(proposal: proposal, vote: vote)
                                             Divider()
-                                                .background(Color.primary)
                                         }
                                     }
                                 }
