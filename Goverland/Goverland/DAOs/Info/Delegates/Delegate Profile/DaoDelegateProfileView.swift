@@ -33,7 +33,7 @@ struct DaoDelegateProfileView: View {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegate information")
             } else if let delegateProfile = dataSource.delegateProfile {
                 VStack(spacing: 0) {
-                    DaoDelegateProfileHeaderView(delegateProfile: delegateProfile)
+                    DaoDelegateProfileHeaderView(delegateProfile: delegateProfile, delegate: delegate, dao: dao)
                         .padding(.horizontal)
                         .padding(.bottom)
 
@@ -77,6 +77,10 @@ struct DaoDelegateProfileView: View {
 
 struct DaoDelegateProfileHeaderView: View {
     let delegateProfile: DelegateProfile
+    let delegate: Delegate
+    let dao: Dao
+    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var body: some View {
         VStack(spacing: 10) {
@@ -112,11 +116,9 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-//            DelegateButtonView(delegationID: nil, onDelegateToggle: { didDelegate in
-//                if didDelegate {
-//                    //TODO: Traker here
-//                }
-//            })
+            DelegateButton(isDelegated: true) {
+                activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
+            }
         }
     }
 }

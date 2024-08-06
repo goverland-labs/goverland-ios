@@ -140,9 +140,10 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-//            DelegateButtonView(delegationID: UUID()) { didDelegate in
-//                // TODO: open delegation action here
-//            }
+            DelegateButton(isDelegated: false) {
+                // TODO: open delegation action here
+            }
+            
         }
         .padding(12)
         .contentShape(Rectangle())
