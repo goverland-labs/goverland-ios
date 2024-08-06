@@ -91,15 +91,9 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             Spacer()
 
-            if let delegated = delegate.userDelegated, delegated {
-                PositiveButton("Delegated") {
-                    activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
-                }
-            } else {
-                SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
-                    activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
-                }
-            }
+//            DelegateButtonView(delegationID: UUID()) { didDelegate in
+//                // TODO: open delegation action here
+//            }
         }
     }
 }

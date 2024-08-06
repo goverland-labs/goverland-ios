@@ -140,15 +140,9 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-            if let delegated = delegate.userDelegated, delegated {
-                PositiveButton("Delegated") {
-                    // TODO: open daoDelegateActionView
-                }
-            } else {
-                SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
-                    // TODO: open daoDelegateActionView
-                }
-            }
+//            DelegateButtonView(delegationID: UUID()) { didDelegate in
+//                // TODO: open delegation action here
+//            }
         }
         .padding(12)
         .contentShape(Rectangle())
