@@ -14,7 +14,7 @@ extension Color {
     static var primaryDim = Color("Primary Dim")
     static var secondaryContainer = Color("Secondary Container")
     static var onSecondaryContainer = Color("On Secondary Container")
-    static var tertiaryContainer = Color("Container Tertiary")
+    static var tertiaryContainer = Color("Tertiary Container")
 
     static var danger = Color("Danger")
     static var warning = Color("Warning")

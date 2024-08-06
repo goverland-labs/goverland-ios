@@ -91,9 +91,10 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             Spacer()
 
-//            DelegateButtonView(delegationID: UUID()) { didDelegate in
-//                // TODO: open delegation action here
-//            }
+            DelegateButton(isDelegated: true) {
+                // TODO: open delegation action here
+                
+            }
         }
     }
 }

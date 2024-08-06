@@ -207,6 +207,7 @@
 		BA2413552C406E27009F0736 /* DelegateVotingPowerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413542C406E27009F0736 /* DelegateVotingPowerSplitView.swift */; };
 		BA2413572C502C60009F0736 /* DaoDelegateProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */; };
 		BA24135F2C51A3C7009F0736 /* DaoDelegateProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */; };
+		BA2413872C6298F6009F0736 /* DelegateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413862C6298F6009F0736 /* DelegateButton.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -545,6 +546,7 @@
 		BA2413542C406E27009F0736 /* DelegateVotingPowerSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateVotingPowerSplitView.swift; sourceTree = "<group>"; };
 		BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileDataSource.swift; sourceTree = "<group>"; };
 		BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityView.swift; sourceTree = "<group>"; };
+		BA2413862C6298F6009F0736 /* DelegateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateButton.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1020,6 +1022,7 @@
 				55BD8D532AFAA4F20014982C /* SecondaryButton.swift */,
 				55EEC0352B2C93AF007962BD /* DangerButton.swift */,
 				557AFF842C2C198F002A8EDD /* PositiveButton.swift */,
+				BA2413862C6298F6009F0736 /* DelegateButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -2157,6 +2160,7 @@
 				BA09B30C2A2A3B6600223049 /* SnapshotProposalView.swift in Sources */,
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
+				BA2413872C6298F6009F0736 /* DelegateButton.swift in Sources */,
 				BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProgressBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
