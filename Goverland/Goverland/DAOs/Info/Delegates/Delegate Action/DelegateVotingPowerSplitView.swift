@@ -10,13 +10,17 @@
 import SwiftUI
 
 struct DelegateVotingPowerSplitView: View {
-    @State private var delegates: [Int: (User, Double)] = [0: (User.aaveChan, 11.0),
-                                                           1: (User.flipside, 32.0)]
+    @State private var delegates: [Int: (User, Int)] = [0: (User.aaveChan, 1),
+                                                           1: (User.flipside, 3)]
     
     @State private var timer: Timer?
-    private let votingPower: Double = 43.0
-    private var sortedDelegates: [(key: Int, value: (User, Double))] {
+    @State private var isTooltipVisible = false
+    
+    private var sortedDelegates: [(key: Int, value: (User, Int))] {
         delegates.sorted { $0.key < $1.key }
+    }
+    private var totalAssignedPower: Int {
+        delegates.values.reduce(0) { $0 + $1.1 }
     }
     
     var body: some View {
@@ -30,7 +34,7 @@ struct DelegateVotingPowerSplitView: View {
                     HStack(spacing: 0) {
                         Image(systemName: "minus")
                             .frame(width: 40, height: 40)
-                            .background(element.value.1 == 0.0 ? Color.clear : Color.secondaryContainer)
+                            .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
                             .gesture(
                                 LongPressGesture(minimumDuration: 0.3)
                                     .onEnded { value in
@@ -51,12 +55,12 @@ struct DelegateVotingPowerSplitView: View {
                                     }
                             )
                         
-                        Text(String(format: "%.0f", element.value.1))
+                        Text(String(element.value.1))
                             .frame(width: 20)
                         
                         Image(systemName: "plus")
                             .frame(width: 40, height: 40)
-                            .background(element.value.1 == 0.0 ? Color.clear : Color.secondaryContainer)
+                            .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
                             .gesture(
                                 LongPressGesture(minimumDuration: 0.3)
                                     .onEnded { value in
@@ -86,45 +90,64 @@ struct DelegateVotingPowerSplitView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                 .padding(.horizontal)
-                .background(element.value.1 == 0.0 ? Color.clear : Color.secondaryContainer)
+                .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
                 .cornerRadius(20)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.secondaryContainer, lineWidth: 1)
                 )
             }
+            
+            HStack {
+                 HStack {
+                    Text("Keep for yourself")
+                        .font(.bodyRegular)
+                        .foregroundColor(.textWhite)
+                    
+                    Image(systemName: "questionmark.circle")
+                        .foregroundStyle(Color.textWhite40)
+                        .padding(.trailing)
+                        .tooltip($isTooltipVisible, side: .topRight, width: 200) {
+                            Text("Keep for yourself")
+                                .foregroundStyle(Color.textWhite60)
+                                .font(.сaptionRegular)
+                        }
+                        .onTapGesture() {
+                            withAnimation {
+                                isTooltipVisible.toggle()
+                                // Show tooltip for 5 sec only
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                    if isTooltipVisible {
+                                        isTooltipVisible.toggle()
+                                    }
+                                }
+                            }
+                        }
+                }
+                Spacer()
+            }
         }
     }
     
     private func increaseVotingPower(forIndex index: Int) {
         if let delegate = delegates[index] {
-            let newPower = delegate.1 + 1.0
-            let totalPower = getTotalVotingPower()
+            let newPower = delegate.1 + 1
+            delegates[index] = (delegate.0, newPower)
             
-            if totalPower + (newPower - delegate.1) <= votingPower {
-                delegates[index] = (delegate.0, newPower)
-            } else {
-                // TODO: Handle exceeding limit (show an alert)
-                print("Exceeds total voting power limit!")
-            }
         }
     }
     
     private func decreaseVotingPower(forIndex index: Int) {
         if let delegate = delegates[index] {
-            let newPower = delegate.1 - 1.0
-            
+            let newPower = delegate.1 - 1
             if newPower >= 0 {
                 delegates[index] = (delegate.0, newPower)
             }
         }
     }
     
-    private func getTotalVotingPower() -> Double {
-        return delegates.reduce(0.0) { $0 + $1.value.1 }
-    }
-    
     private func percentage(for index: Int) -> String {
-        return Utils.percentage(of: delegates[index]!.1, in: votingPower)
+        guard totalAssignedPower > 0, let delegateValue = delegates[index]?.1 else { return "0" }
+        return Utils.percentage(of: delegateValue, in: totalAssignedPower)
     }
 }
