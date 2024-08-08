@@ -130,7 +130,7 @@ fileprivate struct _ProposalView: View {
                 _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 16)
 
-                SnapshotProposalDescriptionView(proposalBody: proposal.body)
+                SnapshotProposalDescriptionView(proposal: proposal)
                     .padding(.bottom, 32)
 
                 HStack {

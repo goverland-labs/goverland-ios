@@ -9,12 +9,40 @@
 import SwiftUI
 import MarkdownUI
 
+fileprivate enum _DescriptionTab: Int, Identifiable {
+    var id: Int { self.rawValue }
+
+    case full = 0
+    case ai
+
+    static var allTabs: [_DescriptionTab] {
+        [.full, .ai]
+    }
+
+    func image() -> Image {
+        switch self {
+        case .full:
+            return Image(systemName: "scroll")
+        case .ai:
+            return Image(systemName: "wand.and.stars")
+        }
+    }
+}
+
 struct SnapshotProposalDescriptionView: View {
-    let proposalBody: [Proposal.ProposalBody]
+    @StateObject private var dataSource: SnapshotProposalDescriptionViewDataSource
+    @State private var chosenTab: _DescriptionTab
+    @Namespace var namespace
+
+    init(proposal: Proposal) {
+        let dataSource = SnapshotProposalDescriptionViewDataSource(proposal: proposal)
+        _dataSource = StateObject(wrappedValue: dataSource)
+        _chosenTab = State(wrappedValue: .full)
+    }
 
     var markdownDescription: String {
         // we always expect to have a markdown text
-        return proposalBody.first { $0.type == .markdown }?.body ?? ""
+        return dataSource.proposal.body.first { $0.type == .markdown }?.body ?? ""
     }
 
     @State private var isExpanded = false
@@ -28,6 +56,28 @@ struct SnapshotProposalDescriptionView: View {
 
     var body: some View {
         VStack {
+            HStack(spacing: 10) {
+                Spacer()
+
+                ForEach(_DescriptionTab.allTabs) { tab in
+                    ZStack {
+                        if chosenTab == tab {
+                            Circle()
+                                .fill(Color.secondaryContainer)
+                                .matchedGeometryEffect(id: "tab-background", in: namespace)
+                        }
+                        tab.image()
+                            .foregroundStyle(Color.onSecondaryContainer)
+                    }
+                    .frame(width: 40, height: 40)
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.5)) {
+                            chosenTab = tab
+                        }
+                    }
+                }
+            }
+
             ScrollView {
                 Markdown(markdownDescription)
                     .markdownTheme(.goverland)
