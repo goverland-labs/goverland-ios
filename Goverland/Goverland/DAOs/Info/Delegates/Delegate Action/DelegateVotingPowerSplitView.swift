@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct DelegateVotingPowerSplitView: View {
+    private let owner: User = .aaveChan
+    @State private var ownerPowerReserved: Double = 10.0
     @State private var delegates: [Int: (User, Int)] = [0: (User.aaveChan, 1),
                                                            1: (User.flipside, 3)]
     
@@ -126,10 +128,84 @@ struct DelegateVotingPowerSplitView: View {
                 }
                 Spacer()
             }
+            .padding(.vertical)
+            
+            HStack {
+                IdentityView(user: owner, onTap: nil)
+                
+                Spacer()
+                
+                HStack(spacing: 0) {
+                    Image(systemName: "minus")
+                        .frame(width: 40, height: 40)
+                        .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+                        .gesture(
+                            LongPressGesture(minimumDuration: 0.3)
+                                .onEnded { value in
+                                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                                        decreaseOwnerVotingPower()
+                                    }
+                                }
+                                .sequenced(before: DragGesture(minimumDistance: 0)
+                                    .onEnded { _ in
+                                        self.timer?.invalidate()
+                                    }
+                                )
+                        )
+                        .simultaneousGesture(
+                            TapGesture()
+                                .onEnded {
+                                    decreaseOwnerVotingPower()
+                                }
+                        )
+                    
+                    Text(Utils.numberWithPercent(from: ownerPowerReserved))
+                        .frame(width: 40)
+                    
+                    Image(systemName: "plus")
+                        .frame(width: 40, height: 40)
+                        .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+                        .gesture(
+                            LongPressGesture(minimumDuration: 0.3)
+                                .onEnded { value in
+                                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                                        increaseOwnerVotingPower()
+                                    }
+                                }
+                                .sequenced(before: DragGesture(minimumDistance: 0)
+                                    .onEnded { _ in
+                                        self.timer?.invalidate()
+                                    }
+                                )
+                        )
+                        .simultaneousGesture(
+                            TapGesture()
+                                .onEnded {
+                                    self.timer?.invalidate()
+                                    increaseOwnerVotingPower()
+                                }
+                        )
+                }
+                .font(.footnoteSemibold)
+                .foregroundColor(.onSecondaryContainer)
+            }
+            .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+            .padding(.horizontal)
+            .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.secondaryContainer, lineWidth: 1)
+            )
+            
         }
     }
     
     private func increaseVotingPower(forIndex index: Int) {
+        if ownerPowerReserved == 100 {
+            // TODO: warning here
+            return
+        }
         if let delegate = delegates[index] {
             let newPower = delegate.1 + 1
             delegates[index] = (delegate.0, newPower)
@@ -146,8 +222,34 @@ struct DelegateVotingPowerSplitView: View {
         }
     }
     
+    private func increaseOwnerVotingPower() {
+        if self.ownerPowerReserved < 100 {
+            self.ownerPowerReserved += 1
+        }
+        if self.ownerPowerReserved == 100 {
+            resetAllDelegatesVotingPower()
+        }
+    }
+    
+    private func decreaseOwnerVotingPower() {
+        if self.ownerPowerReserved > 0 {
+            self.ownerPowerReserved -= 1
+        }
+    }
+    
     private func percentage(for index: Int) -> String {
-        guard totalAssignedPower > 0, let delegateValue = delegates[index]?.1 else { return "0" }
-        return Utils.percentage(of: delegateValue, in: totalAssignedPower)
+        guard totalAssignedPower > 0, let delegateAssignedPower = delegates[index]?.1 else { return "0" }
+        let availablePowerPercantage = 100.0 - ownerPowerReserved
+        let p = availablePowerPercantage / Double(totalAssignedPower) * Double(delegateAssignedPower)
+        return Utils.numberWithPercent(from: p)
+    }
+    
+    private func resetAllDelegatesVotingPower() {
+        for key in delegates.keys {
+            if var tuple = delegates[key] {
+                tuple.1 = 0
+                delegates[key] = tuple
+            }
+        }
     }
 }
