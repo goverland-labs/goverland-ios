@@ -127,6 +127,16 @@ struct DelegateVotingPowerSplitView: View {
                         }
                 }
                 Spacer()
+                
+                HStack {
+                    Image(systemName: "delete.right")
+                    Text("Clear all delegations")
+                }
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite60)
+                .onTapGesture {
+                    resetAllDelegatesVotingPower()
+                }
             }
             .padding(.vertical)
             
