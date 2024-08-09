@@ -80,10 +80,3 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
 //    }
 }
 
-
-struct DelegateProfile: Decodable {
-    let id: UUID
-    let dao: Dao
-    let delegate: Delegate
-    let proposals: [Proposal]
-}
