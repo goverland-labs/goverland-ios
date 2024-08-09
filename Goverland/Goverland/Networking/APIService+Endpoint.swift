@@ -288,10 +288,14 @@ extension APIService {
                                              offset: Int = 0,
                                              limit: Int = ConfigurationManager.defaultPaginationCount,
                                              query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint<ChoiceType>.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
+        var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
+        
+        if let query = query {
+            queryParameters.append(URLQueryItem(name: "query", value: query))
+        }
 
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
         return shared.request(endpoint)

@@ -23,7 +23,7 @@
 		550E85722A5F4C3400B0CFDD /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85602A5F4C3400B0CFDD /* VoteButton.swift */; };
 		550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85612A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift */; };
 		550E85742A5F4C3400B0CFDD /* SnapshotApprovalVotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85622A5F4C3400B0CFDD /* SnapshotApprovalVotingView.swift */; };
-		550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */; };
+		550E85752A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85642A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift */; };
 		550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85652A5F4C3400B0CFDD /* SnapshotVotesView.swift */; };
 		550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */; };
 		55143B542A56BDE8003103B1 /* ActiveSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */; };
@@ -356,7 +356,7 @@
 		550E85602A5F4C3400B0CFDD /* VoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteButton.swift; sourceTree = "<group>"; };
 		550E85612A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotSingleChoiceVotingView.swift; sourceTree = "<group>"; };
 		550E85622A5F4C3400B0CFDD /* SnapshotApprovalVotingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotApprovalVotingView.swift; sourceTree = "<group>"; };
-		550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapsotVotesDataSource.swift; sourceTree = "<group>"; };
+		550E85642A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotVotesDataSource.swift; sourceTree = "<group>"; };
 		550E85652A5F4C3400B0CFDD /* SnapshotVotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotVotesView.swift; sourceTree = "<group>"; };
 		550E85672A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalInfoView.swift; sourceTree = "<group>"; };
 		55143B532A56BDE8003103B1 /* ActiveSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheetManager.swift; sourceTree = "<group>"; };
@@ -748,7 +748,7 @@
 			isa = PBXGroup;
 			children = (
 				550E85652A5F4C3400B0CFDD /* SnapshotVotesView.swift */,
-				550E85642A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift */,
+				550E85642A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift */,
 				BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */,
 			);
 			path = Votes;
@@ -2073,7 +2073,7 @@
 				BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
-				550E85752A5F4C3400B0CFDD /* SnapsotVotesDataSource.swift in Sources */,
+				550E85752A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift in Sources */,
 				553E74D72BA42D5B00F697F8 /* ToolbarTitle.swift in Sources */,
 				550E85772A5F4C3400B0CFDD /* SnapshotProposalInfoView.swift in Sources */,
 				55DE41B72B193882008617F5 /* UserProfile.swift in Sources */,
