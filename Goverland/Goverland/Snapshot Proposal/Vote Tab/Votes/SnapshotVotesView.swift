@@ -10,12 +10,12 @@ import SwiftUI
 
 struct SnapshotVotesView<ChoiceType: Decodable>: View {
     private let proposal: Proposal
-    @StateObject private var dataSource: SnapsotVotesDataSource<ChoiceType>
+    @StateObject private var dataSource: SnapshotVotesDataSource<ChoiceType>
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(proposal: Proposal) {
         self.proposal = proposal
-        _dataSource = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
+        _dataSource = StateObject(wrappedValue: SnapshotVotesDataSource<ChoiceType>(proposal: proposal))
     }
 
     var body: some View {

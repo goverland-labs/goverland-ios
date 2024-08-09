@@ -30,7 +30,7 @@ struct SnapshotAllVotesView: View {
 
 fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     let proposal: Proposal
-    @StateObject private var data: SnapsotVotesDataSource<ChoiceType>
+    @StateObject private var data: SnapshotVotesDataSource<ChoiceType>
     @Environment(\.dismiss) private var dismiss
     
     private var searchPrompt: String {
@@ -39,7 +39,7 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     
     init(proposal: Proposal) {
         self.proposal = proposal
-        _data = StateObject(wrappedValue: SnapsotVotesDataSource<ChoiceType>(proposal: proposal))
+        _data = StateObject(wrappedValue: SnapshotVotesDataSource<ChoiceType>(proposal: proposal))
     }
     
     var body: some View {
@@ -106,6 +106,7 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
         .searchable(text: $data.searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: searchPrompt)
+        .autocapitalization(.none)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Votes")
         .toolbar {

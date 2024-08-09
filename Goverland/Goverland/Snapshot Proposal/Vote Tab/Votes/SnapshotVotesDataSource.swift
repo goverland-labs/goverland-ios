@@ -1,5 +1,5 @@
 //
-//  SnapsotVotersDataSource.swift
+//  SnapshotVotersDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-07-12.
@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-class SnapsotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatable, Refreshable {
+class SnapshotVotesDataSource<ChoiceType: Decodable>: ObservableObject, Paginatable, Refreshable {
     private let proposal: Proposal
     
     @Published var votes: [Vote<ChoiceType>] = []
