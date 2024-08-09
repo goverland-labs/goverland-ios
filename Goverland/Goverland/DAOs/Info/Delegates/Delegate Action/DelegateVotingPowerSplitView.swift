@@ -34,55 +34,18 @@ struct DelegateVotingPowerSplitView: View {
                     Spacer()
                     
                     HStack(spacing: 0) {
-                        Image(systemName: "minus")
-                            .frame(width: 40, height: 40)
-                            .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
-                            .gesture(
-                                LongPressGesture(minimumDuration: 0.3)
-                                    .onEnded { value in
-                                        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                                            self.decreaseVotingPower(forIndex: index)
-                                        }
-                                    }
-                                    .sequenced(before: DragGesture(minimumDistance: 0)
-                                        .onEnded { _ in
-                                            self.timer?.invalidate()
-                                        }
-                                    )
-                            )
-                            .simultaneousGesture(
-                                TapGesture()
-                                    .onEnded {
-                                        self.decreaseVotingPower(forIndex: index)
-                                    }
-                            )
+                        CounterControlView(systemImageName: "minus",
+                                           backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                            decreaseVotingPower(forIndex: index)
+                        }
                         
                         Text(String(element.value.1))
                             .frame(width: 20)
                         
-                        Image(systemName: "plus")
-                            .frame(width: 40, height: 40)
-                            .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
-                            .gesture(
-                                LongPressGesture(minimumDuration: 0.3)
-                                    .onEnded { value in
-                                        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                                            self.increaseVotingPower(forIndex: index)
-                                        }
-                                    }
-                                    .sequenced(before: DragGesture(minimumDistance: 0)
-                                        .onEnded { _ in
-                                            self.timer?.invalidate()
-                                        }
-                                    )
-                            )
-                            .simultaneousGesture(
-                                TapGesture()
-                                    .onEnded {
-                                        self.timer?.invalidate()
-                                        self.increaseVotingPower(forIndex: index)
-                                    }
-                            )
+                        CounterControlView(systemImageName: "plus",
+                                           backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                            increaseVotingPower(forIndex: index)
+                        }
                         
                         Text(percentage(for: index))
                             .frame(width: 55)
@@ -146,55 +109,20 @@ struct DelegateVotingPowerSplitView: View {
                 Spacer()
                 
                 HStack(spacing: 0) {
-                    Image(systemName: "minus")
-                        .frame(width: 40, height: 40)
-                        .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
-                        .gesture(
-                            LongPressGesture(minimumDuration: 0.3)
-                                .onEnded { value in
-                                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                                        decreaseOwnerVotingPower()
-                                    }
-                                }
-                                .sequenced(before: DragGesture(minimumDistance: 0)
-                                    .onEnded { _ in
-                                        self.timer?.invalidate()
-                                    }
-                                )
-                        )
-                        .simultaneousGesture(
-                            TapGesture()
-                                .onEnded {
-                                    decreaseOwnerVotingPower()
-                                }
-                        )
+                    CounterControlView(systemImageName: "minus",
+                                       backgroundColor: ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       longPressTimeInterval: 0.05) {
+                        decreaseOwnerVotingPower()
+                    }
                     
                     Text(Utils.numberWithPercent(from: ownerPowerReserved))
                         .frame(width: 40)
                     
-                    Image(systemName: "plus")
-                        .frame(width: 40, height: 40)
-                        .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
-                        .gesture(
-                            LongPressGesture(minimumDuration: 0.3)
-                                .onEnded { value in
-                                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                                        increaseOwnerVotingPower()
-                                    }
-                                }
-                                .sequenced(before: DragGesture(minimumDistance: 0)
-                                    .onEnded { _ in
-                                        self.timer?.invalidate()
-                                    }
-                                )
-                        )
-                        .simultaneousGesture(
-                            TapGesture()
-                                .onEnded {
-                                    self.timer?.invalidate()
-                                    increaseOwnerVotingPower()
-                                }
-                        )
+                    CounterControlView(systemImageName: "plus",
+                                       backgroundColor: ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       longPressTimeInterval: 0.05) {
+                        increaseOwnerVotingPower()
+                    }
                 }
                 .font(.footnoteSemibold)
                 .foregroundColor(.onSecondaryContainer)
@@ -261,5 +189,6 @@ struct DelegateVotingPowerSplitView: View {
                 delegates[key] = tuple
             }
         }
+        self.ownerPowerReserved = 100
     }
 }
