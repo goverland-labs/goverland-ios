@@ -57,10 +57,10 @@ struct InboxView: View {
                             // For now we recognise only proposals
                             if let proposal = event.eventData! as? Proposal, event.visible {
                                 let isRead = event.readAt != nil
-                                ProposalListItemNoElipsisView(proposal: proposal,
-                                                              isSelected: data.selectedEventIndex == index,
-                                                              isRead: isRead,
-                                                              onDaoTap: {
+                                ProposalListItemView(proposal: proposal,
+                                                     isSelected: data.selectedEventIndex == index,
+                                                     isRead: isRead,
+                                                     onDaoTap: {
                                     activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                     Tracker.track(.inboxEventOpenDao)
                                 })

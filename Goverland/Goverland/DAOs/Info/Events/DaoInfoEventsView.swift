@@ -59,9 +59,9 @@ struct DaoInfoEventsView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
-                            ProposalListItemNoElipsisView(proposal: proposal,
-                                                          isSelected: false,
-                                                          isRead: false)
+                            ProposalListItemView(proposal: proposal,
+                                                 isSelected: false,
+                                                 isRead: false)
                             .listRowSeparator(.hidden)
                             .listRowInsets(Constants.listInsets)
                             .listRowBackground(Color.clear)
@@ -80,11 +80,11 @@ struct DaoInfoEventsView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal, allowShowingDaoInfo: false)
-                .onAppear {
-                    Tracker.track(.daoEventOpen)
-                }
+                    .onAppear {
+                        Tracker.track(.daoEventOpen)
+                    }
                 // TODO: create Apple ticket with found bug
-                .environmentObject(activeSheetManager)
+                    .environmentObject(activeSheetManager)
             }
         }
         .onAppear() {

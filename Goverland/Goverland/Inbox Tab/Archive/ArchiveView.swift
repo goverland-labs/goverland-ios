@@ -59,10 +59,10 @@ struct ArchiveView: View {
                         } else {
                             let proposal = archive.eventData! as! Proposal
                             let isRead = archive.readAt != nil
-                            ProposalListItemNoElipsisView(proposal: proposal,
-                                                          isSelected: false,
-                                                          isRead: isRead,
-                                                          onDaoTap: {
+                            ProposalListItemView(proposal: proposal,
+                                                 isSelected: false,
+                                                 isRead: isRead,
+                                                 onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.archiveEventOpenDao)
                             })

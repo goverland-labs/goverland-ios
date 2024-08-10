@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 05.02.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -13,13 +13,13 @@ struct ProfileVotesListView: View {
     @Binding var path: [ProfileScreen]
     @StateObject private var dataSource = ProfileVotesDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
+    
     @State private var selectedVoteIndex: Int?
-
+    
     var votedProposals: [Proposal] {
         dataSource.votedProposals ?? []
     }
-
+    
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
@@ -57,15 +57,15 @@ struct ProfileVotesListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = votedProposals[index]
-                        ProposalListItemNoElipsisView(proposal: proposal,
-                                                      isSelected: false,
-                                                      isRead: false) {
+                        ProposalListItemView(proposal: proposal,
+                                             isSelected: false,
+                                             isRead: false) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.prfVotesFullOpenDao)
                         }
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(Constants.listInsets)
-                        .listRowBackground(Color.clear)
+                                             .listRowSeparator(.hidden)
+                                             .listRowInsets(Constants.listInsets)
+                                             .listRowBackground(Color.clear)
                     }
                 }
             }
