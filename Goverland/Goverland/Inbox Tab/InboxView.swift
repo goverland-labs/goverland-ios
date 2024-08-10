@@ -57,32 +57,14 @@ struct InboxView: View {
                             // For now we recognise only proposals
                             if let proposal = event.eventData! as? Proposal, event.visible {
                                 let isRead = event.readAt != nil
-                                ProposalListItemView(proposal: proposal,
-                                                     isSelected: data.selectedEventIndex == index,
-                                                     isRead: isRead,
-                                                     onDaoTap: {
+                                ProposalListItemNoElipsisView(proposal: proposal,
+                                                              isSelected: data.selectedEventIndex == index,
+                                                              isRead: isRead,
+                                                              onDaoTap: {
                                     activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                     Tracker.track(.inboxEventOpenDao)
-                                }) {
-                                    ProposalSharingMenu(
-                                        link: proposal.link,
-                                        isRead: isRead,
-                                        markCompletion: {
-                                            Haptic.medium()
-                                            if isRead {
-                                                Tracker.track(.inboxEventMarkUnread)
-                                                data.markUnread(eventID: event.id)
-                                            } else {
-                                                Tracker.track(.inboxEventMarkRead)
-                                                data.markRead(eventID: event.id)
-                                            }
-                                        },
-                                        isArchived: false,
-                                        archivationCompletion: {
-                                            archive(eventId: event.id)
-                                        }
-                                    )
-                                }
+                                })
+                                // TODO: submit bug to Apple: onLongPressGesture overrides list selection
                                 .swipeActions {
                                     Button {
                                         archive(eventId: event.id)
@@ -141,6 +123,7 @@ struct InboxView: View {
                 }
             }
         }  detail: {
+            // when data is loading it is also possible to select shimmer view
             if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
@@ -155,7 +138,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
-            }           
+            }
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {

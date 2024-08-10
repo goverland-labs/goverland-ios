@@ -55,13 +55,11 @@ struct PublicUserProfileVotesListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = votedProposals[index]
-                        ProposalListItemView(proposal: proposal,
+                        ProposalListItemNoElipsisView(proposal: proposal,
                                              isSelected: false,
                                              isRead: false) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.publicPrfVotesFullOpenDao)
-                        } menuContent: {
-                            ProposalSharingMenu(link: proposal.link)
                         }
                         .listRowSeparator(.hidden)
                         .listRowInsets(Constants.listInsets)

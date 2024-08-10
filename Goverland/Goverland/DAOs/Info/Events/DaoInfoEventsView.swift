@@ -59,11 +59,9 @@ struct DaoInfoEventsView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             let proposal = event.eventData! as! Proposal
-                            ProposalListItemView(proposal: proposal,
-                                                 isSelected: false,
-                                                 isRead: false) {
-                                ProposalSharingMenu(link: proposal.link)
-                            }
+                            ProposalListItemNoElipsisView(proposal: proposal,
+                                                          isSelected: false,
+                                                          isRead: false)
                             .listRowSeparator(.hidden)
                             .listRowInsets(Constants.listInsets)
                             .listRowBackground(Color.clear)

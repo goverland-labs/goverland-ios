@@ -59,32 +59,13 @@ struct ArchiveView: View {
                         } else {
                             let proposal = archive.eventData! as! Proposal
                             let isRead = archive.readAt != nil
-                            ProposalListItemView(proposal: proposal,
-                                                 isSelected: false,
-                                                 isRead: isRead,
-                                                 onDaoTap: {
+                            ProposalListItemNoElipsisView(proposal: proposal,
+                                                          isSelected: false,
+                                                          isRead: isRead,
+                                                          onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.archiveEventOpenDao)
-                            }) {
-                                ProposalSharingMenu(
-                                    link: proposal.link,
-                                    isRead: isRead,
-                                    markCompletion: {
-                                        Haptic.medium()
-                                        if isRead {
-                                            Tracker.track(.archiveEventMarkUnread)
-                                            data.markUnread(eventID: archive.id)
-                                        } else {
-                                            Tracker.track(.archiveEventMarkRead)
-                                            data.markRead(eventID: archive.id)
-                                        }
-                                    },
-                                    isArchived: true,
-                                    archivationCompletion: {
-                                        unarchive(eventId: archive.id)
-                                    }
-                                )
-                            }
+                            })
                             .swipeActions {
                                 Button {
                                     unarchive(eventId: archive.id)
