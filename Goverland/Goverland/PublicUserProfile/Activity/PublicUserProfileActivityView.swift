@@ -16,7 +16,7 @@ struct PublicUserProfileActivityView: View {
 
     init(user: User, path: Binding<[PublicUserProfileScreen]>) {
         _votesDataSource = StateObject(wrappedValue: PublicUserProfileVotesDataSource(user: user))
-        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: user.address))
+        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(profileId: user.address.value))
         _path = path
     }
 

@@ -38,7 +38,7 @@ class PublicUserProfileVotesDataSource: ObservableObject, Paginatable, Refreshab
 
     private func loadInitialData() {
         isLoading = true
-        APIService.getPublicProfileVotes(address: user.address)
+        APIService.getPublicProfileVotes(profileId: user.address.value)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -58,7 +58,7 @@ class PublicUserProfileVotesDataSource: ObservableObject, Paginatable, Refreshab
     }
 
     func loadMore() {
-        APIService.getPublicProfileVotes(address: user.address, offset: votedProposals?.count ?? 0)
+        APIService.getPublicProfileVotes(profileId: user.address.value, offset: votedProposals?.count ?? 0)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break

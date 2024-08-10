@@ -86,28 +86,28 @@ extension APIService {
 
     // MARK: - Public Profile
 
-    static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = PublicProfileEndpoint(address: address)
+    static func publicProfile(profileId: String) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileEndpoint(profileId: profileId)
         return shared.request(endpoint)
     }
 
-    static func getPublicProfileDaos(address: Address) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func getPublicProfileDaos(profileId: String) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "limit", value: "10000"),
 
         ]
-        let endpoint = PublicProfileDaosEndpoint(address: address, queryParameters: queryParameters)
+        let endpoint = PublicProfileDaosEndpoint(profileId: profileId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
-    static func getPublicProfileVotes(address: Address,
+    static func getPublicProfileVotes(profileId: String,
                                       offset: Int = 0,
                                       limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
-        let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
+        let endpoint = PublicProfileVotesEndpoint(profileId: profileId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

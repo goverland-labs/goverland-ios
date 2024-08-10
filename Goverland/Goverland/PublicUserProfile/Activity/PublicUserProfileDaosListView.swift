@@ -13,8 +13,8 @@ struct PublicUserProfileDaosListView: View {
     @StateObject private var dataSource: PublicUserProfileDaosDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(address: Address) {
-        _dataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: address))
+    init(profileId: String) {
+        _dataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(profileId: profileId))
     }
 
     var body: some View {

@@ -12,7 +12,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case signIn
     case daoInfo(Dao)
     case daoInfoById(String)
-    case publicProfile(Address)
+    case publicProfileById(String)
     case daoVoters(Dao, DatesFiltetingOption)
     case proposalVoters(Proposal)
     case followDaos
@@ -26,7 +26,7 @@ enum ActiveSheet: Identifiable, Equatable {
         case .signIn: return 0
         case .daoInfo: return 1
         case .daoInfoById: return 2
-        case .publicProfile: return 3
+        case .publicProfileById: return 3
         case .daoVoters: return 4
         case .proposalVoters: return 5
         case .followDaos: return 6

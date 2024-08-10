@@ -76,7 +76,7 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
     var body: some View {
         HStack {
             IdentityView(user: vote.voter, font: byUser ? .footnoteSemibold : nil) {
-                activeSheetManager.activeSheet = .publicProfile(vote.voter.address)
+                activeSheetManager.activeSheet = .publicProfileById(vote.voter.address.value)
                 Tracker.track(.snpDetailsVotesShowUserProfile)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

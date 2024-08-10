@@ -140,7 +140,7 @@ struct ProposalListItemHeaderView: View {
         HStack {
             HStack(spacing: 6) {
                 IdentityView(user: proposal.author) {
-                    activeSheetManager.activeSheet = .publicProfile(proposal.author.address)
+                    activeSheetManager.activeSheet = .publicProfileById(proposal.author.address.value)
                     // TODO: track
                 }
                 DateView(date: proposal.created,

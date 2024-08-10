@@ -184,27 +184,27 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
 struct PublicProfileEndpoint: APIEndpoint {
     typealias ResponseType = User
 
-    let address: Address
-    
-    var path: String { "user/\(address)" }
+    let profileId: String
+
+    var path: String { "user/\(profileId)" }
     var method: HttpMethod = .get
 
-    init(address: Address) {
-        self.address = address
+    init(profileId: String) {
+        self.profileId = profileId
     }
 }
 
 struct PublicProfileDaosEndpoint: APIEndpoint {
     typealias ResponseType = [Dao]
 
-    let address: Address
+    let profileId: String
 
-    var path: String { "user/\(address)/participated-daos" }
+    var path: String { "user/\(profileId)/participated-daos" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
-    init(address: Address, queryParameters: [URLQueryItem]) {
-        self.address = address
+    init(profileId: String, queryParameters: [URLQueryItem]) {
+        self.profileId = profileId
         self.queryParameters = queryParameters
     }
 }
@@ -212,14 +212,14 @@ struct PublicProfileDaosEndpoint: APIEndpoint {
 struct PublicProfileVotesEndpoint: APIEndpoint {
     typealias ResponseType = [Proposal]
     
-    let address: Address
-    
-    var path: String { "user/\(address)/votes" }
+    let profileId: String
+
+    var path: String { "user/\(profileId)/votes" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
-    init(address: Address, queryParameters: [URLQueryItem]) {
-        self.address = address
+    init(profileId: String, queryParameters: [URLQueryItem]) {
+        self.profileId = profileId
         self.queryParameters = queryParameters
     }
 }

@@ -94,9 +94,9 @@ struct GoverlandApp: App {
                             DaoInfoView(daoId: daoId)
                         }
 
-                    case .publicProfile(let address):
+                    case .publicProfileById(let profileId):
                         PopoverNavigationViewWithToast {
-                            PublicUserProfileView(address: address)
+                            PublicUserProfileView(profileId: profileId)
                         }
 
                     case .daoVoters(let dao, let filteringOption):
@@ -189,6 +189,9 @@ struct GoverlandApp: App {
             case "proposals":
                 let proposalId = pathComponents[2]
                 activeSheetManager.activeSheet = .proposal(proposalId)
+            case "profiles":
+                let profileId = pathComponents[2]
+                activeSheetManager.activeSheet = .publicProfileById(profileId)
             default:
                 break
             }
