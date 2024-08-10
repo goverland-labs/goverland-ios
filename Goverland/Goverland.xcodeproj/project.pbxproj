@@ -1325,6 +1325,7 @@
 			isa = PBXGroup;
 			children = (
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
+				BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */,
 				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				556D43642BB29DFE00D2D64F /* Top Voters */,
@@ -1459,7 +1460,6 @@
 			children = (
 				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
 				BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */,
-				BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */,
 			);
 			path = "Inbox List Item";
 			sourceTree = "<group>";
