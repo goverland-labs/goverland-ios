@@ -278,13 +278,13 @@ struct DaoTopEndpoint: APIEndpoint {
 struct DaoInfoEndpoint: APIEndpoint {
     typealias ResponseType = Dao
     
-    let daoID: UUID
-    
-    var path: String { "dao/\(daoID)" }
+    let daoId: String
+
+    var path: String { "dao/\(daoId)" }
     var method: HttpMethod = .get
 
-    init(daoID: UUID) {
-        self.daoID = daoID
+    init(daoId: String) {
+        self.daoId = daoId
     }
 }
 

@@ -40,6 +40,11 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                     DaoInfoView(dao: dao)
                 }
 
+            case .daoInfoById(let daoId):
+                PopoverNavigationViewWithToast2 {
+                    DaoInfoView(daoId: daoId)
+                }
+
             case .publicProfile(let address):
                 PopoverNavigationViewWithToast2 {
                     PublicUserProfileView(address: address)

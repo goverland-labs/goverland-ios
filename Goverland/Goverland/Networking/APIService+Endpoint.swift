@@ -138,8 +138,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func daoInfo(id: UUID) -> AnyPublisher<(DaoInfoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoInfoEndpoint(daoID: id)
+    static func daoInfo(daoId: String) -> AnyPublisher<(DaoInfoEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoInfoEndpoint(daoId: daoId)
         return shared.request(endpoint)
     }
 

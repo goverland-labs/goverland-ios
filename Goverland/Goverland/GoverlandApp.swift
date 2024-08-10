@@ -89,6 +89,11 @@ struct GoverlandApp: App {
                             DaoInfoView(dao: dao)
                         }
 
+                    case .daoInfoById(let daoId):
+                        PopoverNavigationViewWithToast {
+                            DaoInfoView(daoId: daoId)
+                        }
+
                     case .publicProfile(let address):
                         PopoverNavigationViewWithToast {
                             PublicUserProfileView(address: address)
@@ -173,6 +178,20 @@ struct GoverlandApp: App {
         if (try? CoinbaseWalletSDK.shared.handleResponse(url)) == true {
             logInfo("[CoinbaseWallet] Handled universal link")
             return
+        }
+
+        let pathComponents = url.pathComponents
+        if pathComponents.count > 2 {
+            switch pathComponents[1] {
+            case "dao":
+                let daoId = pathComponents[2]
+                activeSheetManager.activeSheet = .daoInfoById(daoId)
+            case "proposals":
+                let proposalId = pathComponents[2]
+                activeSheetManager.activeSheet = .proposal(proposalId)
+            default:
+                break
+            }
         }
     }
 }

@@ -34,8 +34,8 @@ struct DaoInfoView: View {
 
     var dao: Dao? { dataSource.dao }
 
-    init(daoID: UUID) {
-        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoID: daoID))
+    init(daoId: String) {
+        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoId: daoId))
     }
 
     init(dao: Dao) {
