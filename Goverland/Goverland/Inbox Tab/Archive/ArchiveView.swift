@@ -66,11 +66,30 @@ struct ArchiveView: View {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.archiveEventOpenDao)
                             })
-                            .swipeActions {
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
                                     unarchive(eventId: archive.id)
                                 } label: {
                                     Label("Unarchive", systemImage: "trash.slash.fill")
+                                }
+                                .tint(.clear)
+                            }
+                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                Button {
+                                    Haptic.medium()
+                                    if isRead {
+                                        Tracker.track(.archiveEventMarkUnread)
+                                        data.markUnread(eventID: archive.id)
+                                    } else {
+                                        Tracker.track(.archiveEventMarkRead)
+                                        data.markRead(eventID: archive.id)
+                                    }
+                                } label: {
+                                    if isRead {
+                                        Label("Mark as unread", systemImage: "envelope.fill")
+                                    } else {
+                                        Label("Mark as read", systemImage: "envelope.open.fill")
+                                    }
                                 }
                                 .tint(.clear)
                             }
