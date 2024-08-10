@@ -15,9 +15,9 @@ struct ProposalListItemView: View {
     let isPresented: Bool
     let isHighlighted: Bool
     let onDaoTap: (() -> Void)?
-    
+
     @Environment(\.isPresented) private var _isPresented
-    
+
     init(proposal: Proposal,
          isSelected: Bool = false,
          isRead: Bool = false,
@@ -31,30 +31,30 @@ struct ProposalListItemView: View {
         self.isHighlighted = isHighlighted
         self.onDaoTap = onDaoTap
     }
-    
+
     private var backgroundColor: Color {
         if isSelected {
             return .secondaryContainer
         }
-        
+
         if UIDevice.current.userInterfaceIdiom == .pad {
             return .containerBright
         }
-        
-        if isPresented || _isPresented {            
+
+        if isPresented || _isPresented {
             return .containerBright
         }
-        
+
         return .container
     }
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor)
                 .stroke(isHighlighted ? Color.secondaryContainer : .clear, lineWidth: 1)
-            
-            
+
+
             VStack(spacing: 12) {
                 ProposalListItemHeaderView(proposal: proposal)
                 ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
@@ -65,7 +65,7 @@ struct ProposalListItemView: View {
             }
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
-            
+
             if isRead && !isSelected {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.containerDim.opacity(0.6))
@@ -78,11 +78,11 @@ struct ProposalListItemView: View {
 struct ProposalListItemHeaderView: View {
     let proposal: Proposal
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    
+
     private var voted: Bool {
         proposal.userVote != nil
     }
-    
+
     var body: some View {
         HStack {
             HStack(spacing: 6) {
@@ -95,7 +95,7 @@ struct ProposalListItemHeaderView: View {
                          font: .footnoteRegular,
                          color: .textWhite40)
             }
-            
+
             Spacer()
             HStack(spacing: 6) {
                 if voted {
@@ -115,11 +115,11 @@ struct ProposalListItemBodyView: View {
     let proposal: Proposal
     let displayStatus: Bool
     let onDaoTap: (() -> Void)?
-    
+
     var shouldShowVoteChoice: Bool {
         Utils.userChoice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
     }
-    
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 5) {
@@ -127,7 +127,7 @@ struct ProposalListItemBodyView: View {
                     .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-                
+
                 if displayStatus {
                     if shouldShowVoteChoice {
                         VStack(alignment: .leading, spacing: 4) {
@@ -136,7 +136,7 @@ struct ProposalListItemBodyView: View {
                                 let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
                                 Text("User choice: \(choiceStr)")
                             }
-                            
+
                             if let userChoice = Utils.userChoice(from: proposal) {
                                 // user voted
                                 let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
@@ -152,7 +152,7 @@ struct ProposalListItemBodyView: View {
                                 .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                                 .font(.footnoteRegular)
                                 .lineLimit(1)
-                            
+
                             DateView(date: proposal.votingEnd,
                                      style: .numeric,
                                      font: .footnoteRegular,
@@ -161,7 +161,7 @@ struct ProposalListItemBodyView: View {
                     }
                 }
             }
-            
+
             Spacer()
             RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
                 .allowsHitTesting(onDaoTap == nil ? false : true)
@@ -177,7 +177,7 @@ fileprivate struct VoteFooterView: View {
     let votesHighlighted: Bool
     let quorum: Int
     let quorumHighlighted: Bool
-    
+
     var body: some View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
@@ -186,7 +186,7 @@ fileprivate struct VoteFooterView: View {
             }
             .font(.footnoteRegular)
             .foregroundStyle(votesHighlighted ? Color.textWhite : .textWhite40)
-            
+
             if quorum > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
@@ -195,7 +195,7 @@ fileprivate struct VoteFooterView: View {
                 .font(.footnoteRegular)
                 .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
             }
-            
+
             Spacer()
         }
     }
@@ -206,7 +206,7 @@ struct ShimmerProposalListItemView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.container)
-            
+
             VStack(spacing: 12) {
                 HStack {
                     ShimmerView()
@@ -218,7 +218,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: 90)
                 }
                 .frame(height: 20)
-                
+
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
@@ -229,7 +229,7 @@ struct ShimmerProposalListItemView: View {
                         .frame(width: Avatar.Size.m.daoImageSize, height: Avatar.Size.m.daoImageSize)
                 }
                 .frame(height: 50)
-                
+
                 HStack {
                     ShimmerView()
                         .cornerRadius(20)
