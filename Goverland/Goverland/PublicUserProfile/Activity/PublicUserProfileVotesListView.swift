@@ -55,7 +55,7 @@ struct PublicUserProfileVotesListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = votedProposals[index]
-                        ProposalListItemNoElipsisView(proposal: proposal,
+                        ProposalListItemView(proposal: proposal,
                                              isSelected: false,
                                              isRead: false) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
