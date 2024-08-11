@@ -45,8 +45,6 @@ struct SnapshotProposalDescriptionView: View {
         return dataSource.proposal.body.first { $0.type == .markdown }?.body ?? ""
     }
 
-    @State private var isExpanded = false
-
     var heightLimit: CGFloat {
         // can be calculated based on device
         return 250
@@ -79,11 +77,36 @@ struct SnapshotProposalDescriptionView: View {
             }
 
             ScrollView {
-                Markdown(markdownDescription)
-                    .markdownTheme(.goverland)
+                switch chosenTab {
+                case .full:
+                    Markdown(markdownDescription)
+                        .markdownTheme(.goverland)
+                case .ai:
+                    Group {
+                        if let aiMarkdownDescription = dataSource.aiDescription {
+                            Markdown(aiMarkdownDescription)
+                                .markdownTheme(.goverland)
+                        } else if dataSource.isLoading {
+                            ProgressView()
+                                .foregroundStyle(Color.textWhite20)
+                                .controlSize(.regular)
+                                .padding()
+                        } else {
+                            RefreshIcon {
+                                dataSource.refresh()
+                            }
+                        }
+                    }
+                    .onAppear {
+                        logInfo("[App] proposal AI description selected")
+                        if dataSource.aiDescription == nil {
+                            dataSource.refresh()
+                        }
+                    }
+                }
             }
             .scrollDisabled(true)
-            .frame(maxHeight: isExpanded ? .infinity : heightLimit)
+            .frame(maxHeight: dataSource.descriptionIsExpanded ? .infinity : heightLimit)
             .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
             .onLongPressGesture(minimumDuration: 1) {
                 UIPasteboard.general.string = markdownDescription
@@ -92,13 +115,13 @@ struct SnapshotProposalDescriptionView: View {
 
             // we will always display Show More button
             if markdownDescription.count > minCharsForShowMore {
-                Button(isExpanded ? "Show less" : "Show more") {
-                    if !isExpanded {
+                Button(dataSource.descriptionIsExpanded ? "Show less" : "Show more") {
+                    if !dataSource.descriptionIsExpanded {
                         Haptic.medium()
                         Tracker.track(.snpDetailsShowFullDscr)
                     }
                     withAnimation {
-                        isExpanded.toggle()
+                        dataSource.descriptionIsExpanded.toggle()
                     }
                 }
                 .frame(width: 100, height: 30, alignment: .center)
