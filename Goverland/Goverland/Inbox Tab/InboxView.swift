@@ -15,6 +15,8 @@ struct InboxView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
     @State private var showReminderErrorAlert = false
+    @State private var showReminderSelection = false
+    @State private var proposalForReminder: Proposal?
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -99,7 +101,7 @@ struct InboxView: View {
                                     Button {
                                         RemindersManager.shared.requestAccess { granted in
                                             if granted {
-                                                RemindersManager.shared.createVoteReminder(proposal: proposal)
+                                                proposalForReminder = proposal // will show a popover
                                             } else {
                                                 showReminderErrorAlert = true
                                             }
@@ -191,6 +193,14 @@ struct InboxView: View {
         }
         .alert(isPresented: $showReminderErrorAlert) {
             RemindersManager.accessRequiredAlert()
+        }
+        .onChange(of: proposalForReminder) { oldValue, newValue in
+            guard newValue != nil else { return }
+            showReminderSelection = true
+        }
+        .sheet(isPresented: $showReminderSelection) {
+            ProposalReminderSelectionView(proposal: proposalForReminder!)
+                .presentationDetents([.height(600)])
         }
     }
 }

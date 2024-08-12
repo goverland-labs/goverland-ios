@@ -26,13 +26,12 @@ class RemindersManager {
         }
     }
 
-    func createVoteReminder(proposal: Proposal) {
+    func createVoteReminder(proposal: Proposal, reminderDate: Date) {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = "Vote on proposal: \(proposal.title)"
         reminder.notes = "https://app.goverland.xyz/proposals/\(proposal.id)"
         reminder.priority = 1  // 1..4 is a High priority
 
-        let reminderDate = Calendar.current.date(byAdding: .hour, value: -4, to: proposal.votingEnd)!
         let alarm = EKAlarm(absoluteDate: reminderDate)
         reminder.addAlarm(alarm)
 
@@ -48,7 +47,7 @@ class RemindersManager {
     }
 
     static func accessRequiredAlert() -> Alert {
-        Alert(title: Text("Reminders access required"),
+        Alert(title: Text("Access denied"),
               message: Text("Please grant access to Reminders in settings"),
               primaryButton: .default(Text("Open Settings"), action: Utils.openAppSettings),
               secondaryButton: .cancel())
