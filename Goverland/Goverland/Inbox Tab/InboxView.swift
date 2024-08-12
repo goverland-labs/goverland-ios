@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import EventKit
 
 struct InboxView: View {
     @StateObject private var data = InboxDataSource.shared
@@ -15,7 +14,6 @@ struct InboxView: View {
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
-    @State private var eventStore = EKEventStore()
     @State private var showReminderErrorAlert = false
 
     var events: [InboxEvent] {
@@ -99,7 +97,13 @@ struct InboxView: View {
                                     .tint(.clear)
 
                                     Button {
-                                        requestAccessAndCreateReminder(proposal: proposal)
+                                        RemindersManager.shared.requestAccess { granted in
+                                            if granted {
+                                                RemindersManager.shared.createVoteReminder(proposal: proposal)
+                                            } else {
+                                                showReminderErrorAlert = true
+                                            }
+                                        }
                                     } label: {
                                         Label("Remind to Vote", systemImage: "bell.fill")
                                     }
@@ -186,43 +190,7 @@ struct InboxView: View {
             }
         }
         .alert(isPresented: $showReminderErrorAlert) {
-            Alert(title: Text("Error"), 
-                  message: Text("Unable to create reminder. Please check your settings."),
-                  primaryButton: .default(Text("Open Settings"), action: Utils.openAppSettings),
-                  secondaryButton: .cancel())
-        }
-    }
-
-    private func requestAccessAndCreateReminder(proposal: Proposal) {
-        eventStore.requestFullAccessToReminders { granted, error in
-            if granted {
-                createVoteReminder(proposal: proposal)
-            } else {
-                DispatchQueue.main.async {
-                    showReminderErrorAlert = true
-                }
-            }
-        }
-    }
-
-    private func createVoteReminder(proposal: Proposal) {
-        let reminder = EKReminder(eventStore: eventStore)
-        reminder.title = "Vote on proposal: \(proposal.title)"
-        reminder.notes = "https://app.goverland.xyz/proposals/\(proposal.id)"
-        reminder.priority = 1  // 1..4 is a High priority
-
-        let reminderDate = Calendar.current.date(byAdding: .hour, value: -4, to: proposal.votingEnd)!
-        let alarm = EKAlarm(absoluteDate: reminderDate)
-        reminder.addAlarm(alarm)
-
-        let calendar = eventStore.defaultCalendarForNewReminders()
-        reminder.calendar = calendar
-
-        do {
-            try eventStore.save(reminder, commit: true)
-            showToast("Reminder set 4 hours before voting ends")
-        } catch {
-            logError(GError.failedToCreateReminderToVote)
+            RemindersManager.accessRequiredAlert()
         }
     }
 }
