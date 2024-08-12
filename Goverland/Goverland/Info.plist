@@ -17,12 +17,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>DAO_TERMS_AGREEMENT_REQUEST_INTERVAL</key>
+	<string>$(DAO_TERMS_AGREEMENT_REQUEST_INTERVAL)</string>
 	<key>DEFAULT_PAGINATION_COUNT</key>
 	<string>$(DEFAULT_PAGINATION_COUNT)</string>
 	<key>ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL</key>
 	<string>$(ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL)</string>
-	<key>DAO_TERMS_AGREEMENT_REQUEST_INTERVAL</key>
-	<string>$(DAO_TERMS_AGREEMENT_REQUEST_INTERVAL)</string>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -41,6 +41,8 @@
 		<string>exodus</string>
 		<string>ledgerlive</string>
 	</array>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Access is required to enable the addition of reminders for voting on proposals</string>
 	<key>SUGGEST_TO_RATE_REQUEST_INTERVAL</key>
 	<string>$(SUGGEST_TO_RATE_REQUEST_INTERVAL)</string>
 	<key>TIMEOUT</key>

@@ -7,12 +7,16 @@
 //
 
 import SwiftUI
+import EventKit
 
 struct InboxView: View {
     @StateObject private var data = InboxDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+
+    @State private var eventStore = EKEventStore()
+    @State private var showReminderErrorAlert = false
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -91,6 +95,13 @@ struct InboxView: View {
                                         } else {
                                             Label("Mark as read", systemImage: "envelope.open.fill")
                                         }
+                                    }
+                                    .tint(.clear)
+
+                                    Button {
+                                        requestAccessAndCreateReminder(proposal: proposal)
+                                    } label: {
+                                        Label("Remind to Vote", systemImage: "bell.fill")
                                     }
                                     .tint(.clear)
                                 }
@@ -173,6 +184,45 @@ struct InboxView: View {
                 data.refresh()
                 Tracker.track(.screenInbox)
             }
+        }
+        .alert(isPresented: $showReminderErrorAlert) {
+            Alert(title: Text("Error"), 
+                  message: Text("Unable to create reminder. Please check your settings."),
+                  primaryButton: .default(Text("Open Settings"), action: Utils.openAppSettings),
+                  secondaryButton: .cancel())
+        }
+    }
+
+    private func requestAccessAndCreateReminder(proposal: Proposal) {
+        eventStore.requestFullAccessToReminders { granted, error in
+            if granted {
+                createVoteReminder(proposal: proposal)
+            } else {
+                DispatchQueue.main.async {
+                    showReminderErrorAlert = true
+                }
+            }
+        }
+    }
+
+    private func createVoteReminder(proposal: Proposal) {
+        let reminder = EKReminder(eventStore: eventStore)
+        reminder.title = "Vote on proposal: \(proposal.title)"
+        reminder.notes = "Don't forget to vote!"
+        reminder.priority = 1  // High priority
+
+        let reminderDate = Calendar.current.date(byAdding: .hour, value: -4, to: proposal.votingEnd)!
+        let alarm = EKAlarm(absoluteDate: reminderDate)
+        reminder.addAlarm(alarm)
+
+        let calendar = eventStore.defaultCalendarForNewReminders()
+        reminder.calendar = calendar
+
+        do {
+            try eventStore.save(reminder, commit: true)
+            showToast("Reminder set 4 hours before voting ends")
+        } catch {
+            logInfo("Error creating reminder: \(error.localizedDescription)")
         }
     }
 }

@@ -56,6 +56,15 @@ func showEnablePushNotificationsIfNeeded(activeSheetManager: ActiveSheetManager)
 }
 
 enum Utils {
+    // MARK: - App Settings
+    
+    static func openAppSettings() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        UIApplication.shared.open(settingsURL)
+    }
+
     // MARK: - Third Party Applications
     
     static func openDiscord() {
