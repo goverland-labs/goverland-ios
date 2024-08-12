@@ -208,8 +208,8 @@ struct InboxView: View {
     private func createVoteReminder(proposal: Proposal) {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = "Vote on proposal: \(proposal.title)"
-        reminder.notes = "Don't forget to vote!"
-        reminder.priority = 1  // High priority
+        reminder.notes = "https://app.goverland.xyz/proposals/\(proposal.id)"
+        reminder.priority = 1  // 1..4 is a High priority
 
         let reminderDate = Calendar.current.date(byAdding: .hour, value: -4, to: proposal.votingEnd)!
         let alarm = EKAlarm(absoluteDate: reminderDate)
@@ -222,7 +222,7 @@ struct InboxView: View {
             try eventStore.save(reminder, commit: true)
             showToast("Reminder set 4 hours before voting ends")
         } catch {
-            logInfo("Error creating reminder: \(error.localizedDescription)")
+            logError(GError.failedToCreateReminderToVote)
         }
     }
 }
