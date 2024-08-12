@@ -132,6 +132,13 @@ struct InboxView: View {
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
+
+                        Button {
+                            TabManager.shared.selectedTab = .profile
+                            TabManager.shared.profilePath = [.settings, .inboxNofitications]
+                        } label: {
+                            Label("Inbox Settings", systemImage: "gearshape.fill")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.textWhite)
