@@ -63,31 +63,34 @@ struct InboxView: View {
                                                      onDaoTap: {
                                     activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                     Tracker.track(.inboxEventOpenDao)
-                                }) {
-                                    ProposalSharingMenu(
-                                        link: proposal.link,
-                                        isRead: isRead,
-                                        markCompletion: {
-                                            Haptic.medium()
-                                            if isRead {
-                                                Tracker.track(.inboxEventMarkUnread)
-                                                data.markUnread(eventID: event.id)
-                                            } else {
-                                                Tracker.track(.inboxEventMarkRead)
-                                                data.markRead(eventID: event.id)
-                                            }
-                                        },
-                                        isArchived: false,
-                                        archivationCompletion: {
-                                            archive(eventId: event.id)
-                                        }
-                                    )
-                                }
-                                .swipeActions {
+                                })
+                                // TODO: submit bug to Apple: onLongPressGesture overrides list selection
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button {
-                                        archive(eventId: event.id)
+                                        Haptic.medium()
+                                        data.archive(eventID: event.id)
+                                        Tracker.track(.inboxEventArchive)
                                     } label: {
                                         Label("Archive", systemImage: "trash.fill")
+                                    }
+                                    .tint(.clear)
+                                }
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                    Button {
+                                        Haptic.medium()
+                                        if isRead {
+                                            Tracker.track(.inboxEventMarkUnread)
+                                            data.markUnread(eventID: event.id)
+                                        } else {
+                                            Tracker.track(.inboxEventMarkRead)
+                                            data.markRead(eventID: event.id)
+                                        }
+                                    } label: {
+                                        if isRead {
+                                            Label("Mark as unread", systemImage: "envelope.fill")
+                                        } else {
+                                            Label("Mark as read", systemImage: "envelope.open.fill")
+                                        }
                                     }
                                     .tint(.clear)
                                 }
@@ -148,6 +151,7 @@ struct InboxView: View {
                 }
             }
         }  detail: {
+            // when data is loading it is also possible to select shimmer view
             if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
@@ -162,7 +166,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
-            }           
+            }
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
@@ -170,11 +174,5 @@ struct InboxView: View {
                 Tracker.track(.screenInbox)
             }
         }
-    }
-
-    private func archive(eventId: UUID) {
-        Haptic.medium()
-        data.archive(eventID: eventId)
-        Tracker.track(.inboxEventArchive)
     }
 }

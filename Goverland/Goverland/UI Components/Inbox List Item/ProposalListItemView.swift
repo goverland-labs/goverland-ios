@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProposalListItemNoElipsisView: View {
+struct ProposalListItemView: View {
     let proposal: Proposal
     let isSelected: Bool
     let isRead: Bool
@@ -41,7 +41,7 @@ struct ProposalListItemNoElipsisView: View {
             return .containerBright
         }
 
-        if isPresented || _isPresented {            
+        if isPresented || _isPresented {
             return .containerBright
         }
 
@@ -70,59 +70,6 @@ struct ProposalListItemNoElipsisView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.containerDim.opacity(0.6))
                     .allowsHitTesting(false)
-            }
-        }
-    }
-}
-
-struct ProposalListItemView<Content: View>: View {
-    let proposal: Proposal
-    let isSelected: Bool
-    let isRead: Bool
-    let onDaoTap: (() -> Void)?
-    let menuContent: Content
-
-    @Environment(\.isPresented) private var isPresented
-
-    init(proposal: Proposal,
-         isSelected: Bool,
-         isRead: Bool,
-         onDaoTap: (() -> Void)? = nil,
-         @ViewBuilder menuContent: () -> Content) {
-        self.proposal = proposal
-        self.isSelected = isSelected
-        self.isRead = isRead
-        self.onDaoTap = onDaoTap
-        self.menuContent = menuContent()
-    }
-
-    var body: some View {
-        ZStack {
-            ProposalListItemNoElipsisView(proposal: proposal,
-                                          isSelected: isSelected,
-                                          isRead: isRead,
-                                          isPresented: isPresented,
-                                          onDaoTap: onDaoTap)
-
-            // Place Menu into botter right corner
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    // TODO: Magic. Using HStack here crashes the app. With LazyVStack app doesn't crash,
-                    // but it still glitches a bit and there are errors in the console:
-                    // List failed to visit cell content, returning an empty cell.
-                    LazyVStack(alignment: .trailing) {
-                        Menu {
-                            menuContent
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundStyle(Color.textWhite40)
-                                .fontWeight(.heavy)
-                                .frame(width: 56, height: 40)
-                        }
-                    }
-                }
             }
         }
     }
