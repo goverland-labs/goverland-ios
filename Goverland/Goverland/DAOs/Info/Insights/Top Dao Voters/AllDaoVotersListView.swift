@@ -87,7 +87,7 @@ fileprivate struct TopVoteListItemView: View {
     var body: some View {
         HStack {
             IdentityView(user: voter.voter) {
-                activeSheetManager.activeSheet = .publicProfile(voter.voter.address)
+                activeSheetManager.activeSheet = .publicProfileById(voter.voter.address.value)
                 // TODO: track
             }
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class DaoInfoDataSource: ObservableObject, Refreshable {
-    private let daoID: UUID
+    private let daoId: String
 
     @Published var dao: Dao?
     @Published var failedToLoadInitialData = false
@@ -18,19 +18,20 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     init(dao: Dao) {
-        self.daoID = dao.id
+        self.daoId = dao.id.uuidString
         self.dao = dao
         // TODO: we have all info and this refresh is not needed,
         // but without it Nav Bar controls are jumping (seems like SwifUI bug)
         refresh()
     }
 
-    init(daoID: UUID) {
-        self.daoID = daoID
+    init(daoId: String) {
+        self.daoId = daoId
         refresh()
     }
 
     func refresh() {
+        dao = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -39,7 +40,7 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.daoInfo(id: daoID)
+        APIService.daoInfo(daoId: daoId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {

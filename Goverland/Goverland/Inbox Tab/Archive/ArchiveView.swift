@@ -147,9 +147,9 @@ struct ArchiveView: View {
                     DaoInfoView(dao: dao)
                 }
 
-            case .publicProfile(let address):
+            case .publicProfileById(let profileId):
                 PopoverNavigationViewWithToast {
-                    PublicUserProfileView(address: address)
+                    PublicUserProfileView(profileId: profileId)
                 }
 
             case .proposalVoters(let proposal):

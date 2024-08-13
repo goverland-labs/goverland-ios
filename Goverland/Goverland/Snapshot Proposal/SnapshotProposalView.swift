@@ -217,7 +217,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
                 .foregroundStyle(Color.textWhite60)
             
             IdentityView(user: creator) {
-                activeSheetManager.activeSheet = .publicProfile(creator.address)
+                activeSheetManager.activeSheet = .publicProfileById(creator.address.value)
                 Tracker.track(.snpDetailsShowUserProfile)
             }
 

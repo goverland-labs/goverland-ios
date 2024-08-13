@@ -113,7 +113,7 @@ fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
                             // Skip tapping on `Other`
                             if index < 10 {
                                 let address = dataSource.top10votersGraphData[index].voter.address
-                                activeSheetManager.activeSheet = .publicProfile(address)
+                                activeSheetManager.activeSheet = .publicProfileById(address.value)
                             }
                         }
                     }
