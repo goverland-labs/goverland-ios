@@ -74,7 +74,7 @@ struct SnapshotProposalView: View {
             if let proposal {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        ProposalEllipsisMenu(link: proposal.link)
+                        ProposalEllipsisMenu(link: proposal.snapshotLink)
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.textWhite)

@@ -365,7 +365,7 @@ My choice: \(choice)
         if let reason, !reason.isEmpty {
             message += "\nMy reason: \(reason)"
         }
-        message += "\n\(proposal.link)"
+        message += "\n\(proposal.snapshotLink)"
         return message
     }
 }
