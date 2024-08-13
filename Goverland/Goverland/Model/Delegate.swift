@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 11.06.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import Foundation
 
@@ -14,10 +14,35 @@ struct Delegate: Identifiable, Decodable, Equatable {
     let user: User
     let about: String
     let statement: String
-    let userDelegated: Bool?
+    //let userDelegated: Bool?
     let delegators: Int
     let votes: Int
     let proposalsCreated: Int
+    let votingPower: Double
+    let percentVotingPower: Double
+    let delegationInfo: DelegationInfo
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case user
+        case about
+        case statement
+        //case userDelegated = "user_delegation_info"
+        case delegators = "delegator_count"
+        case votes = "votes_count"
+        case proposalsCreated = "created_proposals_count"
+        case votingPower = "voting_power"
+        case percentVotingPower = "percent_of_voting_power"
+        case delegationInfo = "user_delegation_info"
+    }
+}
+
+struct DelegationInfo: Decodable, Equatable {
+    let percentDelegated: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case percentDelegated = "percent_of_delegated"
+    }
 }
 
 struct DelegateVotingPower: Decodable {
@@ -74,6 +99,23 @@ struct Chain: Decodable {
         case feeApproximation = "fee_approximation"
         case txScanTemplate = "tx_scan_template"
     }
+}
+
+extension Delegate {
+    static let delegateAaveChan = Delegate(id: UUID(),
+                                           user: .aaveChan,
+                                           about: "Delegate aaveChan about information",
+                                           statement: "Delegate aaveChan statement should be here",
+                                           delegators: 20,
+                                           votes: 21,
+                                           proposalsCreated: 1,
+                                           votingPower: 14285728.4328434,
+                                           percentVotingPower: 1.12,
+                                           delegationInfo: .testDelegationInfo)
+}
+
+extension DelegationInfo {
+    static let testDelegationInfo = DelegationInfo(percentDelegated: 100.0)
 }
 
 extension DelegateVotingPower {
