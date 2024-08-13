@@ -46,21 +46,21 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
         //loadInitialData()
     }
     
-//    private func loadInitialData() {
-//        isLoading = true
-//        APIService.daoDelegates(daoID: dao.id)
-//            .sink { [weak self] completion in
-//                self?.isLoading = false
-//                switch completion {
-//                case .finished: break
-//                case .failure(_): self?.failedToLoadInitialData = true
-//                }
-//            } receiveValue: { [weak self] delegates, headers in
-//                self?.delegates = delegates
-//                self?.total = Utils.getTotal(from: headers)
-//            }
-//            .store(in: &cancellables)
-//    }
+    private func loadInitialData() {
+        isLoading = true
+        APIService.daoDelegates(daoID: dao.id)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] delegates, headers in
+                self?.delegates = delegates
+                self?.total = Utils.getTotal(from: headers)
+            }
+            .store(in: &cancellables)
+    }
     
     func loadMore() {
         // TODO: pagination when api ready

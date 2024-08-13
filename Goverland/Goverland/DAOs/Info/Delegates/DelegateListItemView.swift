@@ -91,7 +91,7 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             Spacer()
 
-            DelegateButton(isDelegated: true) {
+            DelegateButton(isDelegated: delegate.delegationInfo != nil) {
                 activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
             }
         }

@@ -14,9 +14,6 @@ struct DaoDelegateProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var filter: DaoDelegateProfileFilter = .activity
     
-    var dao: Dao { dataSource.dao }
-    var delegate: Delegate { dataSource.delegate }
-    
     init(dao: Dao, delegate: Delegate) {
         _dataSource = StateObject(wrappedValue: DaoDelegateProfileDataSource(dao: dao, delegate: delegate))
     }
@@ -33,7 +30,7 @@ struct DaoDelegateProfileView: View {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegate information")
             } else if let delegateProfile = dataSource.delegateProfile {
                 VStack(spacing: 0) {
-                    DaoDelegateProfileHeaderView(delegateProfile: delegateProfile, delegate: delegate, dao: dao)
+                    DaoDelegateProfileHeaderView(delegate: dataSource.delegate, dao: dataSource.dao)
                         .padding(.horizontal)
                         .padding(.bottom)
 
@@ -60,7 +57,7 @@ struct DaoDelegateProfileView: View {
             }
 
             ToolbarItem(placement: .principal) {
-                Text(dao.name)
+                Text(dataSource.dao.name)
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
             }
@@ -76,7 +73,6 @@ struct DaoDelegateProfileView: View {
 
 
 struct DaoDelegateProfileHeaderView: View {
-    let delegateProfile: DelegateProfile
     let delegate: Delegate
     let dao: Dao
     
@@ -102,21 +98,21 @@ struct DaoDelegateProfileHeaderView: View {
             HStack(spacing: 10) {
                 HStack(spacing: 2) {
                     Image(systemName: "person.fill")
-                    Text("543")
+                    Text(String(delegate.delegators))
                 }
                 HStack(spacing: 2) {
                     Image(systemName: "person.fill")
-                    Text("543")
+                    Text(String(delegate.votes))
                 }
                 HStack(spacing: 2) {
                     Image(systemName: "doc.text")
-                    Text("0")
+                    Text(String(delegate.proposalsCreated))
                 }
             }
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-            DelegateButton(isDelegated: true) {
+            DelegateButton(isDelegated: delegate.delegationInfo != nil) {
                 activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
             }
         }

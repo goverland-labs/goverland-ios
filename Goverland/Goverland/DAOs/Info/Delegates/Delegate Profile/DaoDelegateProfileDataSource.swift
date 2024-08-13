@@ -65,19 +65,19 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
         self.isLoading = false
     }
     
-//    private func loadData() {
-//        isLoading = true
-//        APIService.
-//            .sink { [weak self] completion in
-//                self?.isLoading = false
-//                switch completion {
-//                case .finished: break
-//                case .failure(_): self?.failedToLoadInitialData = true
-//                }
-//            } receiveValue: { [weak self] delegateProfile, _ in
-//                self?.delegateProfile = delegateProfile
-//            }
-//            .store(in: &cancellables)
-//    }
+    private func loadData() {
+        isLoading = true
+        APIService.daoDelegateProfile(daoID: dao.id)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] delegateProfile, _ in
+                self?.delegateProfile = delegateProfile
+            }
+            .store(in: &cancellables)
+    }
 }
 

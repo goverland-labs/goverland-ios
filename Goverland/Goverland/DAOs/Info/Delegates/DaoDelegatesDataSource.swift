@@ -56,9 +56,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.isLoading = false
-//            self?.failedToLoadInitialData = true
-//            self?.delegates = []
-            self?.delegates = [.delegateAaveChan]
+            self?.delegates = [.delegateAaveChan, .delegateNoDelegated]
             self?.total = 15222
         }
     }
