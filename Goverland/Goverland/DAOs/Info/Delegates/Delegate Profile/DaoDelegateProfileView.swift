@@ -38,7 +38,7 @@ struct DaoDelegateProfileView: View {
 
                     switch filter {
                     case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
-                    case .about: EmptyView()
+                    case .about: DaoDelegateProfileAbout(delegate: dataSource.delegate)
                     case .insights: EmptyView()
                     }
                 }

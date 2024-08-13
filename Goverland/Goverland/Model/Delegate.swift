@@ -12,7 +12,7 @@ import Foundation
 struct Delegate: Identifiable, Decodable, Equatable {
     let id: UUID
     let user: User
-    let about: String
+    let about: String?
     let statement: String
     //let userDelegated: Bool?
     let delegators: Int
@@ -114,7 +114,7 @@ extension Delegate {
                                            delegationInfo: .testDelegationInfo)
     static let delegateNoDelegated = Delegate(id: UUID(),
                                            user: .test,
-                                           about: "Delegate aaveChan about information",
+                                           about: nil,
                                            statement: "Delegate aaveChan statement should be here",
                                            delegators: 20,
                                            votes: 21,
