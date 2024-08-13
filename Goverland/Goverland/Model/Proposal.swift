@@ -42,6 +42,10 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let dao: Dao
     let timeline: [TimelineEvent]
 
+    var goverlandLink: URL {
+        URL(string: "https://app.goverland.xyz/proposals/\(id)")!
+    }
+
     enum ProposalType: String, Decodable {
         case basic
         case singleChoice = "single-choice"

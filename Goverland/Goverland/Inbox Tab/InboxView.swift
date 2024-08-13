@@ -107,7 +107,7 @@ struct InboxView: View {
                                             }
                                         }
                                     } label: {
-                                        Label("Remind to Vote", systemImage: "bell.fill")
+                                        Label("Remind to vote", systemImage: "bell.fill")
                                     }
                                     .tint(.clear)
                                 }
