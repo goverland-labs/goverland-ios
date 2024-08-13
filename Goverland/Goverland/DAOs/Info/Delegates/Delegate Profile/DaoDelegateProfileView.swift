@@ -40,7 +40,7 @@ struct DaoDelegateProfileView: View {
                     FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter) { _ in }
 
                     switch filter {
-                    case .activity: DaoDelegateProfileActivityView(proposals: delegateProfile.proposals)
+                    case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
                     case .about: EmptyView()
                     case .insights: EmptyView()
                     }
@@ -84,14 +84,14 @@ struct DaoDelegateProfileHeaderView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            RoundPictureView(image: delegateProfile.delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
+            RoundPictureView(image: delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
             
-            Text(delegateProfile.delegate.user.usernameShort)
+            Text(delegate.user.usernameShort)
                 .font(.title3Semibold)
                 .foregroundColor(.textWhite)
             HStack {
-                Text(delegateProfile.delegate.user.address.short)
-                if let resolvedName =  delegateProfile.delegate.user.resolvedName {
+                Text(delegate.user.address.short)
+                if let resolvedName =  delegate.user.resolvedName {
                     Text("|")
                     Text(resolvedName)
                 }

@@ -51,27 +51,55 @@ struct DelegateProfile: Decodable {
         let symbol: String
         let power: Double
     }
+}
+
+struct Chains: Decodable {
+    let eth: Chain
+    let gnosis: Chain
+}
+
+struct Chain: Decodable {
+    let id: Int
+    let name: String
+    let balance: Double
+    let symbol: String
+    let feeApproximation: Double
+    let txScanTemplate: String
     
-    struct Chains: Decodable {
-        let eth: Chain
-        let gnosis: Chain
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case balance
+        case symbol
+        case feeApproximation = "fee_approximation"
+        case txScanTemplate = "tx_scan_template"
     }
-    
-    struct Chain: Decodable {
-        let id: Int
-        let name: String
-        let balance: Double
-        let symbol: String
-        let feeApproximation: Double
-        let txScanTemplate: String
-        
-        enum CodingKeys: String, CodingKey {
-            case id
-            case name
-            case balance
-            case symbol
-            case feeApproximation = "fee_approximation"
-            case txScanTemplate = "tx_scan_template"
-        }
-    }
+}
+
+extension DelegateVotingPower {
+    static let delegateAaveChan = DelegateVotingPower(user: .aaveChan,
+                                                      powerPercent: 33.3,
+                                                      powerRatio: 2)
+    static let delegateFlipside = DelegateVotingPower(user: .flipside,
+                                                      powerPercent: 66.6,
+                                                      powerRatio: 1)
+}
+
+extension Chain {
+    static let gnosis = Chain(id: 100,
+                              name: "Gnosis Chain",
+                              balance: 10.0,
+                              symbol: "xDai",
+                              feeApproximation: 0.001,
+                              txScanTemplate: "https://gnosisscan.io/tx/:id")
+    static let etherium = Chain(id: 1,
+                                name: "Ethereum",
+                                balance: 0.01,
+                                symbol: "Eth",
+                                feeApproximation: 0.02,
+                                txScanTemplate: "https://etherscan.io/tx/:id")
+}
+
+extension Chains {
+    static let testChains = Chains(eth: .etherium, gnosis: .gnosis)
 }

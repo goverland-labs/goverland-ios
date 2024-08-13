@@ -56,10 +56,11 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     
     private func loadMOCKdata() {
         self.isLoading = true
-        let mockDP = DelegateProfile(id: UUID(), 
-                                     dao: dao,
-                                     delegate: delegate,
-                                     proposals: [.aaveTest, .aaveTest, .aaveTest])
+        let mockDP = DelegateProfile(dao: .aave,
+                                     votingPower: DelegateProfile.VotingPower(symbol: "UNI", power: 43.1),
+                                     chains: [.etherium, .gnosis],
+                                     delegates: [.delegateAaveChan, .delegateFlipside],
+                                     expirationDate: "2025-07-04T11:35:17Z")
         self.delegateProfile = mockDP
         self.isLoading = false
     }
