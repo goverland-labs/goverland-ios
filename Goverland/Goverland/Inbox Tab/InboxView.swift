@@ -99,6 +99,7 @@ struct InboxView: View {
                                     .tint(.clear)
 
                                     Button {
+                                        Tracker.track(.inboxEventAddReminder)
                                         RemindersManager.shared.requestAccess { granted in
                                             if granted {
                                                 proposalForReminder = proposal // will show a popover

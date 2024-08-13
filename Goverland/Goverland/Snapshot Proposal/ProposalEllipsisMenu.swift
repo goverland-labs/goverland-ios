@@ -19,6 +19,7 @@ struct ProposalEllipsisMenu: View {
 
         if let url = Utils.urlFromString(proposal.snapshotLink) {
             Button {
+                Tracker.track(.snpDetailsOpenOnSnanpshot)
                 UIApplication.shared.open(url)
             } label: {
                 // for now we handle only Snapshot proposals
@@ -27,6 +28,7 @@ struct ProposalEllipsisMenu: View {
         }
 
         Button {
+            Tracker.track(.snpDetailsAddReminder)
             onRemindToVote()
         } label: {
             Label("Remind to vote", systemImage: "bell.fill")

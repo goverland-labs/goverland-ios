@@ -77,7 +77,7 @@ struct SnapshotProposalView: View {
             if let proposal {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        ProposalEllipsisMenu(proposal: proposal) { // onRemindToVote
+                        ProposalEllipsisMenu(proposal: proposal) { // onRemindToVote                            
                             RemindersManager.shared.requestAccess { granted in
                                 if granted {
                                     showReminderSelection = true // will show a popover
@@ -103,7 +103,7 @@ struct SnapshotProposalView: View {
         }
         .sheet(isPresented: $showReminderSelection) {
             ProposalReminderSelectionView(proposal: proposal!)
-                .presentationDetents([.height(560)])                
+                .presentationDetents([.height(560)])
         }
         .onAppear() {
             Tracker.track(.screenSnpDetails)
