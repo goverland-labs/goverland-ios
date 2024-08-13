@@ -1,5 +1,5 @@
 //
-//  ProposalSharingMenu.swift
+//  ProposalEllipsisMenu.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-08-29.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProposalSharingMenu: View {
+struct ProposalEllipsisMenu: View {
     let link: String
 
     var body: some View {

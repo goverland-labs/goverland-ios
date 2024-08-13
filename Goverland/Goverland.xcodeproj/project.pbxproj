@@ -252,7 +252,7 @@
 		BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9432A47522300D24110 /* Chillax-Medium.otf */; };
 		BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */; };
 		BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9482A47522300D24110 /* Chillax-Bold.otf */; };
-		BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */; };
+		BAB960AD2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */; };
 		BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */; };
 		BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */; };
 		BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */; };
@@ -573,7 +573,7 @@
 		BAB4B9432A47522300D24110 /* Chillax-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Medium.otf"; sourceTree = "<group>"; };
 		BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Semibold.otf"; sourceTree = "<group>"; };
 		BAB4B9482A47522300D24110 /* Chillax-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Bold.otf"; sourceTree = "<group>"; };
-		BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalSharingMenu.swift; sourceTree = "<group>"; };
+		BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalEllipsisMenu.swift; sourceTree = "<group>"; };
 		BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveUsers.swift; sourceTree = "<group>"; };
 		BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersGraphView.swift; sourceTree = "<group>"; };
@@ -1339,7 +1339,7 @@
 			isa = PBXGroup;
 			children = (
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
-				BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */,
+				BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */,
 				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				556D43642BB29DFE00D2D64F /* Top Voters */,
@@ -2103,7 +2103,7 @@
 				BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */,
 				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */,
-				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
+				BAB960AD2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift in Sources */,
 				556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */,
 				553E74DB2BA960FD00F697F8 /* RecommendedDaosView.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,

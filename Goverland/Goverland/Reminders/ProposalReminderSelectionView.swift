@@ -8,42 +8,57 @@
 	
 
 import SwiftUI
+import SwiftDate
 
 struct ProposalReminderSelectionView: View {
     let proposal: Proposal
 
     @Environment(\.dismiss) private var dismiss
+    @State private var showReminderDateSelection = false
 
     var body: some View {
         VStack(spacing: 8) {
             Text("Add a reminder to vote")
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
-                .padding(.top, 8)
-                .padding(.bottom, 16)
+                .padding(.vertical, 8)
 
             Spacer()
 
             ForEach([1, 3, 6, 12, 24], id: \.self) { hours in
-                ReminderButton(hours: hours,
-                               endDate: proposal.votingEnd) { reminderDate in
-                    Haptic.medium()
-                    RemindersManager.shared.createVoteReminder(proposal: proposal, reminderDate: reminderDate)
-                    dismiss()
+                _ReminderButton(hours: hours,
+                                endDate: proposal.votingEnd) { reminderDate in
+                    addReminder(date: reminderDate)
                 }
+            }
+
+            SecondaryButton("Custom reminder", height: 58) {
+                showReminderDateSelection = true
             }
 
             SecondaryButton("Cancel") {
                 dismiss()
             }
-            .padding(.top, 16)
+            .padding(.top, 12)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, 16)
+        .sheet(isPresented: $showReminderDateSelection) {
+            _DatePickerView { reminderDate in
+                addReminder(date: reminderDate)
+            }
+            .presentationDetents([.height(540)])
+        }
+    }
+
+    private func addReminder(date: Date) {
+        Haptic.medium()
+        RemindersManager.shared.createVoteReminder(proposal: proposal, reminderDate: date)
+        dismiss()
     }
 }
 
-fileprivate struct ReminderButton: View {
+fileprivate struct _ReminderButton: View {
     let hours: Int
     let endDate: Date
     let reminderDate: Date
@@ -66,7 +81,7 @@ fileprivate struct ReminderButton: View {
         self.endDate = endDate
         self.reminderDate = Calendar.current.date(byAdding: .hour, value: -hours, to: endDate)!
         self.maxWidth = 400
-        self.height = 60
+        self.height = 58
         self.action = action
     }
 
@@ -98,6 +113,35 @@ fileprivate struct ReminderButton: View {
             .opacity(isEnabled ? 1.0 : 0.3)
         }
         .disabled(!isEnabled)
+    }
+}
+
+fileprivate struct _DatePickerView: View {
+    @State private var date = Date.now + 1.hours
+    var onConfirm: (Date) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack {
+            DatePicker("Select a date", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                .datePickerStyle(.graphical)
+                .padding()
+
+            Spacer()
+
+            HStack(spacing: 12) {
+                SecondaryButton("Cancle") {
+                    dismiss()
+                }
+
+                PrimaryButton("Confirm") {
+                    dismiss()
+                    onConfirm(date)
+                }
+            }
+        }
+        .padding(.horizontal, Constants.horizontalPadding)
     }
 }
 

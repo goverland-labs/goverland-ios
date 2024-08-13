@@ -28,7 +28,7 @@ class RemindersManager {
 
     func createVoteReminder(proposal: Proposal, reminderDate: Date) {
         let reminder = EKReminder(eventStore: eventStore)
-        reminder.title = "Vote on proposal: \(proposal.title)"
+        reminder.title = "\(proposal.title)"
         reminder.notes = "https://app.goverland.xyz/proposals/\(proposal.id)"
         reminder.priority = 1  // 1..4 is a High priority
 
@@ -40,7 +40,7 @@ class RemindersManager {
 
         do {
             try eventStore.save(reminder, commit: true)
-            showToast("Reminder set 4 hours before voting ends")
+            showToast("Reminder is added")
         } catch {
             logError(GError.failedToCreateReminderToVote)
         }
