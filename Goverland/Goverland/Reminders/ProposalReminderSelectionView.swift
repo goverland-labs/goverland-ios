@@ -47,7 +47,7 @@ struct ProposalReminderSelectionView: View {
             _DatePickerView { reminderDate in
                 addReminder(date: reminderDate)
             }
-            .presentationDetents([.height(540)])
+            .presentationDetents([.height(560)])
         }
     }
 
@@ -142,6 +142,7 @@ fileprivate struct _DatePickerView: View {
             }
         }
         .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.bottom, 16)
     }
 }
 
