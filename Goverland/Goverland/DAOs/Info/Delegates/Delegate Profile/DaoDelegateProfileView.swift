@@ -101,7 +101,7 @@ struct DaoDelegateProfileHeaderView: View {
                     Text(String(delegate.delegators))
                 }
                 HStack(spacing: 2) {
-                    Image(systemName: "person.fill")
+                    Image("cast-your-vote-grey")
                     Text(String(delegate.votes))
                 }
                 HStack(spacing: 2) {
@@ -112,7 +112,7 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-            DelegateButton(isDelegated: delegate.delegationInfo != nil) {
+            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
                 activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
             }
         }

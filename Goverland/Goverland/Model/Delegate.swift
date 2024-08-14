@@ -10,7 +10,6 @@
 import Foundation
 
 struct Delegate: Identifiable, Decodable, Equatable {
-    let id: UUID
     let user: User
     let about: String?
     let statement: String
@@ -20,10 +19,13 @@ struct Delegate: Identifiable, Decodable, Equatable {
     let proposalsCreated: Int
     let votingPower: Double
     let percentVotingPower: Double
-    let delegationInfo: DelegationInfo?
+    let delegationInfo: DelegationInfo
+    
+    var id: String {
+        user.address.value
+    }
     
     enum CodingKeys: String, CodingKey {
-        case id
         case user
         case about
         case statement
@@ -102,8 +104,7 @@ struct Chain: Decodable {
 }
 
 extension Delegate {
-    static let delegateAaveChan = Delegate(id: UUID(),
-                                           user: .aaveChan,
+    static let delegateAaveChan = Delegate(user: .aaveChan,
                                            about: "Delegate aaveChan about information",
                                            statement: "Delegate aaveChan statement should be here",
                                            delegators: 20,
@@ -112,16 +113,15 @@ extension Delegate {
                                            votingPower: 14285728.4328434,
                                            percentVotingPower: 1.12,
                                            delegationInfo: .testDelegationInfo)
-    static let delegateNoDelegated = Delegate(id: UUID(),
-                                           user: .test,
-                                           about: nil,
-                                           statement: "Delegate aaveChan statement should be here",
-                                           delegators: 20,
-                                           votes: 21,
-                                           proposalsCreated: 1,
-                                           votingPower: 14285728.4328434,
-                                           percentVotingPower: 1.12,
-                                           delegationInfo: nil)
+    static let delegateNoDelegated = Delegate(user: .test,
+                                              about: nil,
+                                              statement: "Delegate aaveChan statement should be here",
+                                              delegators: 20,
+                                              votes: 21,
+                                              proposalsCreated: 1,
+                                              votingPower: 14285728.4328434,
+                                              percentVotingPower: 1.12,
+                                              delegationInfo: DelegationInfo(percentDelegated: 0.0))
 }
 
 extension DelegationInfo {

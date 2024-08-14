@@ -31,8 +31,8 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadTestData()
-//        loadInitialData()
+        //loadTestData()
+        loadInitialData()
     }
 
     private func loadInitialData() {
