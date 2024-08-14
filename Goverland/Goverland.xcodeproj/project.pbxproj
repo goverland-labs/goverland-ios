@@ -145,6 +145,8 @@
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
+		55E545812C6A4D1F00E479E4 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E545802C6A4D1F00E479E4 /* RemindersManager.swift */; };
+		55E545842C6A54B300E479E4 /* ProposalReminderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E545832C6A54B300E479E4 /* ProposalReminderSelectionView.swift */; };
 		55E800A42AF825D900A43D5F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A32AF825D900A43D5F /* SignInView.swift */; };
 		55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E800A52AF8419E00A43D5F /* SignInDataSource.swift */; };
 		55E9D9882B6A7F4500697A12 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9D9872B6A7F4500697A12 /* Network.swift */; };
@@ -250,7 +252,7 @@
 		BAB4B9492A47522300D24110 /* Chillax-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9432A47522300D24110 /* Chillax-Medium.otf */; };
 		BAB4B94B2A47522300D24110 /* Chillax-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */; };
 		BAB4B94E2A47522300D24110 /* Chillax-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BAB4B9482A47522300D24110 /* Chillax-Bold.otf */; };
-		BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */; };
+		BAB960AD2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */; };
 		BAB960AF2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */; };
 		BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */; };
 		BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */; };
@@ -475,6 +477,8 @@
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		55E545802C6A4D1F00E479E4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
+		55E545832C6A54B300E479E4 /* ProposalReminderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalReminderSelectionView.swift; sourceTree = "<group>"; };
 		55E800A32AF825D900A43D5F /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		55E800A52AF8419E00A43D5F /* SignInDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDataSource.swift; sourceTree = "<group>"; };
 		55E9D9872B6A7F4500697A12 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -569,7 +573,7 @@
 		BAB4B9432A47522300D24110 /* Chillax-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Medium.otf"; sourceTree = "<group>"; };
 		BAB4B9452A47522300D24110 /* Chillax-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Semibold.otf"; sourceTree = "<group>"; };
 		BAB4B9482A47522300D24110 /* Chillax-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Chillax-Bold.otf"; sourceTree = "<group>"; };
-		BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalSharingMenu.swift; sourceTree = "<group>"; };
+		BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalEllipsisMenu.swift; sourceTree = "<group>"; };
 		BAB960AE2AA6245500DC2D92 /* MonthlyActiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAB960B02AA6263B00DC2D92 /* MonthlyActiveUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveUsers.swift; sourceTree = "<group>"; };
 		BAB960B32AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyActiveVotersGraphView.swift; sourceTree = "<group>"; };
@@ -1134,6 +1138,15 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		55E545822C6A547700E479E4 /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				55E545802C6A4D1F00E479E4 /* RemindersManager.swift */,
+				55E545832C6A54B300E479E4 /* ProposalReminderSelectionView.swift */,
+			);
+			path = Reminders;
+			sourceTree = "<group>";
+		};
 		55E800A22AF825D900A43D5F /* Sign in */ = {
 			isa = PBXGroup;
 			children = (
@@ -1222,6 +1235,7 @@
 				55F143E2294B1DDC00D00B73 /* Preview Content */,
 				BAC3CA1D2B9A377D001CC6C3 /* PublicUserProfile */,
 				BAF651FB29C8AFAF00C78A8A /* Tracking */,
+				55E545822C6A547700E479E4 /* Reminders */,
 			);
 			path = Goverland;
 			sourceTree = "<group>";
@@ -1325,7 +1339,7 @@
 			isa = PBXGroup;
 			children = (
 				BA09B3062A2A3B6600223049 /* SnapshotProposalView.swift */,
-				BAB960AC2A9E8D8400DC2D92 /* ProposalSharingMenu.swift */,
+				BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */,
 				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
 				556D43642BB29DFE00D2D64F /* Top Voters */,
@@ -2072,6 +2086,7 @@
 				55FD73212AB75DC60081C38D /* Wallet.swift in Sources */,
 				BA36DEF72B178DDC002EBEB0 /* MonthlyTotalDaos.swift in Sources */,
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
+				55E545812C6A4D1F00E479E4 /* RemindersManager.swift in Sources */,
 				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift in Sources */,
 				553E74D72BA42D5B00F697F8 /* ToolbarTitle.swift in Sources */,
@@ -2084,10 +2099,11 @@
 				552ACFD62B623CE30038A09F /* ProfileHasVotingPowerView.swift in Sources */,
 				BAB960B82AAF86B700DC2D92 /* UserBuckets.swift in Sources */,
 				557C26562B31B2E800AAF26C /* Avatar.swift in Sources */,
+				55E545842C6A54B300E479E4 /* ProposalReminderSelectionView.swift in Sources */,
 				BAE1AB2D2AF036BE001B89F3 /* MonthlyNewProposals.swift in Sources */,
 				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */,
-				BAB960AD2A9E8D8400DC2D92 /* ProposalSharingMenu.swift in Sources */,
+				BAB960AD2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift in Sources */,
 				556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */,
 				553E74DB2BA960FD00F697F8 /* RecommendedDaosView.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
@@ -2433,7 +2449,7 @@
 				INFOPLIST_FILE = Goverland/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2474,7 +2490,7 @@
 				INFOPLIST_FILE = Goverland/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Goverland;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is required to scan QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

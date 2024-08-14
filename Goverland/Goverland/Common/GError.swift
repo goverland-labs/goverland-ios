@@ -18,17 +18,18 @@ enum GError: Error {
     case appInconsistency(reason: String)
     case errorDecodingData(error: Error, context: String)
     case wrongPushNotificationFormat
+    case failedToCreateReminderToVote
 
     var localizedDescription: String {
         switch self {
         case .missingTotalCount:
-            return "Missing x-total-count."
+            return "Missing x-total-count"
         case .missingUnreadCount:
-            return "Missing x-unread-count."
+            return "Missing x-unread-count"
         case .missingNextPage:
-            return "Missing x-next-page."
+            return "Missing x-next-page"
         case .missingSubscriptionsCount:
-            return "Missing x-subscriptions-count."
+            return "Missing x-subscriptions-count"
         case .voteResultsInconsistency(let id):
             return "Index out of range for proposal id: \(id)"
         case .failedVotesDecoding(let proposalID):
@@ -38,7 +39,9 @@ enum GError: Error {
         case .errorDecodingData(let error, let context):
             return "Error decoding data: \(error.localizedDescription); Context: \(context)"
         case .wrongPushNotificationFormat:
-            return "Received unexpected push notification format."
+            return "Received unexpected push notification format"
+        case .failedToCreateReminderToVote:
+            return "Failed to create a reminder to vote"
         }
     }
 }
