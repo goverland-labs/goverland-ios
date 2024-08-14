@@ -14,6 +14,10 @@ struct ProposalReminderSelectionView: View {
     let proposal: Proposal
 
     @Environment(\.dismiss) private var dismiss
+
+    @State private var selectedHours: Int?
+    @State private var selectedReminderDate: Date?
+    @State private var custromReminderDate: Date?
     @State private var showReminderDateSelection = false
 
     var body: some View {
@@ -25,27 +29,37 @@ struct ProposalReminderSelectionView: View {
 
             Spacer()
 
-            ForEach([1, 3, 6, 12, 24], id: \.self) { hours in
+            ForEach([1, 3, 6, 12, 24, 0], id: \.self) { hours in
                 _ReminderButton(hours: hours,
-                                endDate: proposal.votingEnd) { reminderDate in
-                    addReminder(date: reminderDate)
+                                endDate: proposal.votingEnd,
+                                isSelected: selectedHours == hours,
+                                reminderDate: hours == 0 ? custromReminderDate : nil) { hours, date in
+                    if hours != 0 {
+                        selectedHours = hours
+                        selectedReminderDate = date
+                    } else {
+                        showReminderDateSelection = true
+                    }
                 }
             }
 
-            SecondaryButton("Custom reminder", height: 58) {
-                showReminderDateSelection = true
-            }
-
-            SecondaryButton("Cancel") {
-                dismiss()
+            HStack {
+                SecondaryButton("Cancel") {
+                    dismiss()
+                }
+                PrimaryButton("Add", isEnabled: selectedReminderDate != nil) {
+                    addReminder(date: selectedReminderDate!)
+                }
             }
             .padding(.top, 12)
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, 16)
         .sheet(isPresented: $showReminderDateSelection) {
-            _DatePickerView { reminderDate in
-                addReminder(date: reminderDate)
+            _DatePickerView(date: custromReminderDate) { reminderDate in
+                selectedReminderDate = reminderDate
+                custromReminderDate = reminderDate
+                selectedHours = 0
             }
             .presentationDetents([.height(560)])
         }
@@ -61,25 +75,36 @@ struct ProposalReminderSelectionView: View {
 fileprivate struct _ReminderButton: View {
     let hours: Int
     let endDate: Date
-    let reminderDate: Date
+    let reminderDate: Date?
     let maxWidth: CGFloat
     let height: CGFloat
-    let action: (Date) -> Void
+    let isSelected: Bool
+    let action: (Int, Date?) -> Void
 
     var text: String {
         "Remind \(hours)h before end"
     }
 
     var isEnabled: Bool {
-        Date.now < reminderDate
+        if hours == 0 { return true } // custom reminder is always enabled
+        return Date.now < reminderDate!
     }
 
     init(hours: Int,
          endDate: Date,
-         action: @escaping (Date) -> Void) {
+         isSelected: Bool,
+         reminderDate: Date?,
+         action: @escaping (Int, Date?) -> Void) {
         self.hours = hours
         self.endDate = endDate
-        self.reminderDate = Calendar.current.date(byAdding: .hour, value: -hours, to: endDate)!
+        self.isSelected = isSelected
+        if let reminderDate {
+            self.reminderDate = reminderDate
+        } else if hours != 0 {
+            self.reminderDate = Calendar.current.date(byAdding: .hour, value: -hours, to: endDate)!
+        } else {
+            self.reminderDate = nil
+        }
         self.maxWidth = 400
         self.height = 58
         self.action = action
@@ -87,17 +112,26 @@ fileprivate struct _ReminderButton: View {
 
     var body: some View {
         Button(action: {
-            action(reminderDate)
+            action(hours, reminderDate)
         }) {
-            HStack {
-                Spacer()
-                VStack {
-                    Text(text)
-                        .font(.bodySemibold)
-                    Text(Utils.mediumDate(reminderDate))
-                        .font(.footnoteRegular)
+            ZStack {
+                if isSelected {
+                    Capsule()
+                        .fill(Color.secondaryContainer)
                 }
-                Spacer()
+
+                HStack {
+                    Spacer()
+                    VStack {
+                        Text(hours != 0 ? text : "Custom reminder")
+                            .font(.bodySemibold)
+                        if let reminderDate {
+                            Text(Utils.mediumDate(reminderDate))
+                                .font(.footnoteRegular)
+                        }
+                    }
+                    Spacer()
+                }
             }
             .frame(minWidth: maxWidth * 1/3,
                    maxWidth: maxWidth,
@@ -107,7 +141,7 @@ fileprivate struct _ReminderButton: View {
             .tint(.textWhite)
             .background(
                 Capsule()
-                    .stroke(Color.textWhite, lineWidth: 1)
+                    .stroke(Color.secondaryContainer, lineWidth: 1)
             )
             .font(.headlineSemibold)
             .opacity(isEnabled ? 1.0 : 0.3)
@@ -117,10 +151,20 @@ fileprivate struct _ReminderButton: View {
 }
 
 fileprivate struct _DatePickerView: View {
-    @State private var date = Date.now + 1.hours
+    @State private var date: Date
     var onConfirm: (Date) -> Void
 
     @Environment(\.dismiss) private var dismiss
+
+    init(date: Date?,
+         onConfirm: @escaping (Date) -> Void) {
+        if let date {
+            self._date = State(wrappedValue: date)
+        } else {
+            self._date = State(wrappedValue: Date.now + 1.hours)
+        }
+        self.onConfirm = onConfirm
+    }
 
     var body: some View {
         VStack {
