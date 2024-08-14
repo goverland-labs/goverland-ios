@@ -103,7 +103,7 @@ struct SnapshotProposalView: View {
         }
         .sheet(isPresented: $showReminderSelection) {
             ProposalReminderSelectionView(proposal: proposal!)
-                .presentationDetents([.height(560)])
+                .presentationDetents([.height(600)])
         }
         .onAppear() {
             Tracker.track(.screenSnpDetails)

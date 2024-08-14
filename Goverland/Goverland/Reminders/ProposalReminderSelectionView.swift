@@ -51,7 +51,7 @@ struct ProposalReminderSelectionView: View {
                     addReminder(date: selectedReminderDate!)
                 }
             }
-            .padding(.top, 12)
+            .padding(.top, 24)
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, 16)
@@ -61,7 +61,7 @@ struct ProposalReminderSelectionView: View {
                 custromReminderDate = reminderDate
                 selectedHours = 0
             }
-            .presentationDetents([.height(560)])
+            .presentationDetents([.height(600)])
         }
     }
 
@@ -188,10 +188,4 @@ fileprivate struct _DatePickerView: View {
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.bottom, 16)
     }
-}
-
-
-#Preview {
-    ProposalReminderSelectionView(proposal: .aaveTest)
-        .background(Color.container)
 }

@@ -201,7 +201,7 @@ struct InboxView: View {
         }
         .sheet(isPresented: $showReminderSelection) {
             ProposalReminderSelectionView(proposal: proposalForReminder!)
-                .presentationDetents([.height(560)])
+                .presentationDetents([.height(600)])
                 .onDisappear {
                     proposalForReminder = nil // to allow repeatitive selection
                 }
