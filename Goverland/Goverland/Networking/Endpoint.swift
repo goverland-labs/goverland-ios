@@ -295,9 +295,11 @@ struct DaoDelegatesEndpoint: APIEndpoint {
 
     var path: String { "dao/\(daoID)/delegates" }
     var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
 
-    init(daoID: UUID) {
+    init(daoID: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoID = daoID
+        self.queryParameters = queryParameters
     }
 }
 

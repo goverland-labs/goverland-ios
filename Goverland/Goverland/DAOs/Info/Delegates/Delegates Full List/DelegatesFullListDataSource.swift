@@ -32,6 +32,7 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
             .sink { [weak self] searchText in
                 self?.performSearch(searchText)
             }
+        refresh()
     }
     
     func refresh() {
@@ -42,8 +43,7 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadTestData()
-        //loadInitialData()
+        loadInitialData()
     }
     
     private func loadInitialData() {
@@ -64,25 +64,23 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
     
     func loadMore() {
         // TODO: pagination when api ready
-        loadTestData()
     }
     
     private func performSearch(_ searchText: String) {
         nothingFound = false
         guard searchText != "" else { return }
         
-        // TODO: update when api ready
-        //        APIService.delegateSearch(delegate: delegate, query: searchText)
-        //            .sink { [weak self] completion in
-        //                switch completion {
-        //                case .finished: break
-        //                case .failure(_): self?.nothingFound = true
-        //                }
-        //            } receiveValue: { [weak self] result, headers in
-        //                self?.nothingFound = result.isEmpty
-        //                self?.searchResultDaos = result
-        //            }
-        //            .store(in: &cancellables)
+        APIService.daoDelegates(daoID: dao.id, query: searchText)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.nothingFound = true
+                }
+            } receiveValue: { [weak self] result, headers in
+                self?.nothingFound = result.isEmpty
+                self?.searchResultDelegates = result
+            }
+            .store(in: &cancellables)
     }
     
     func retryLoadMore() {
@@ -93,16 +91,5 @@ class DelegatesFullListDataSource: ObservableObject, Refreshable, Paginatable {
     func hasMore() -> Bool {
         guard let total = total else { return true }
         return delegates.count < total
-    }
-    
-    
-    // TODO: delete when API ready
-    private func loadTestData() {
-        isLoading = true
-        let delegates: [Delegate] = [.delegateAaveChan]
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.delegates.append(contentsOf: delegates)
-            self?.isLoading = false
-        }
     }
 }

@@ -143,8 +143,9 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func daoDelegates(daoID: UUID) -> AnyPublisher<(DaoDelegatesEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoDelegatesEndpoint(daoID: daoID)
+    static func daoDelegates(daoID: UUID, query: String? = nil) -> AnyPublisher<(DaoDelegatesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [URLQueryItem(name: "query", value: query)]
+        let endpoint = DaoDelegatesEndpoint(daoID: daoID, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
     
