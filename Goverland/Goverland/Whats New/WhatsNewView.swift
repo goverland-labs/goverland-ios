@@ -8,9 +8,33 @@
 	
 
 import SwiftUI
+import MarkdownUI
 
 struct WhatsNewView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    private var markdown: String {
+        WhatsNewDataSource.shared.markdown
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack() {
+                ScrollView {
+                    Markdown(markdown)
+                        .markdownTheme(.gitHub)
+                }
+                .scrollIndicators(.hidden)
+
+                SecondaryButton("Close") {
+                    dismiss()
+                }
+                .padding(.top, 8)
+                .padding(.bottom, 16)
+            }
+            .padding(.horizontal, Constants.horizontalPadding)
+            .navigationTitle("What's new")
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }

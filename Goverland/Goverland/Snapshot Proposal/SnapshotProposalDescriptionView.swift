@@ -34,6 +34,7 @@ struct SnapshotProposalDescriptionView: View {
             }
             .scrollDisabled(true)
             .frame(maxHeight: isExpanded ? .infinity : heightLimit)
+            // TODO: check it out
             .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
             .onLongPressGesture(minimumDuration: 1) {
                 UIPasteboard.general.string = markdownDescription

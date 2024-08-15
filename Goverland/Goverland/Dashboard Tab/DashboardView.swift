@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Version
 
 fileprivate enum Path {
     case hotProposals
@@ -19,7 +20,11 @@ fileprivate enum Path {
 struct DashboardView: View {
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    
     @Setting(\.authToken) private var authToken
+
+    @Setting(\.lastWhatsNewVersionDisplaied) private var lastWhatsNewVersionDisplaied
+    @State private var showWhatsNew = false
 
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
@@ -51,6 +56,18 @@ struct DashboardView: View {
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
+
+                if let versionNumber = Bundle.main.releaseVersionNumber, versionNumber != lastWhatsNewVersionDisplaied {
+                    WhatsNewDataSource.shared.loadData { latestVersion in
+                        guard latestVersion.description == versionNumber else {
+                            // might happen if release is there, but we haven't added
+                            // what's new description for this version
+                            return
+                        }
+                        showWhatsNew = true
+                        lastWhatsNewVersionDisplaied = versionNumber
+                    }
+                }
 
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
                     FeaturedProposalsDataSource.dashboard.refresh()
@@ -116,6 +133,12 @@ struct DashboardView: View {
             }
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal)
+            }
+            .sheet(isPresented: $showWhatsNew) {
+                WhatsNewView()
+                    .onAppear {
+                        // TODO: track
+                    }
             }
         }
     }

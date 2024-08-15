@@ -39,6 +39,8 @@ class SettingKeys: ObservableObject {
     }
     @AppStorage("deviceId") var deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 
+    @AppStorage("lastWhatsNewVersionDisplaied") var lastWhatsNewVersionDisplaied = ""
+
     static var shared = SettingKeys()
 
     private init() {
@@ -61,6 +63,7 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.lastPromotedPushNotificationsTime = 0
         SettingKeys.shared.lastSuggestedToRateTime = 0
         SettingKeys.shared.unreadEvents = 0
+        SettingKeys.shared.lastWhatsNewVersionDisplaied = ""
     }
 }
 
