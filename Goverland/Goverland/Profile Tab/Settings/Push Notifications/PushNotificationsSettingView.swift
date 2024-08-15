@@ -137,7 +137,7 @@ struct PushNotificationsSettingView: View {
             Alert(
                 title: Text("Notifications Disabled"),
                 message: Text("To receive notifications, enable them in your device's settings"),
-                primaryButton: .default(Text("Open Settings"), action: showAppSettings),
+                primaryButton: .default(Text("Open Settings"), action: Utils.openAppSettings),
                 secondaryButton: .cancel()
             )
         }
@@ -147,14 +147,7 @@ struct PushNotificationsSettingView: View {
                 dataSource.refresh()
             }
         }
-    }
-
-    private func showAppSettings() {
-        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        UIApplication.shared.open(settingsURL)
-    }
+    }    
 }
 
 

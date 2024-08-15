@@ -14,6 +14,10 @@ struct InboxView: View {
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
+    @State private var showReminderErrorAlert = false
+    @State private var showReminderSelection = false
+    @State private var proposalForReminder: Proposal?
+
     var events: [InboxEvent] {
         data.events ?? []
     }
@@ -91,6 +95,20 @@ struct InboxView: View {
                                         } else {
                                             Label("Mark as read", systemImage: "envelope.open.fill")
                                         }
+                                    }
+                                    .tint(.clear)
+
+                                    Button {
+                                        Tracker.track(.inboxEventAddReminder)
+                                        RemindersManager.shared.requestAccess { granted in
+                                            if granted {
+                                                proposalForReminder = proposal // will show a popover
+                                            } else {
+                                                showReminderErrorAlert = true
+                                            }
+                                        }
+                                    } label: {
+                                        Label("Remind to vote", systemImage: "bell.fill")
                                     }
                                     .tint(.clear)
                                 }
@@ -173,6 +191,20 @@ struct InboxView: View {
                 data.refresh()
                 Tracker.track(.screenInbox)
             }
+        }
+        .alert(isPresented: $showReminderErrorAlert) {
+            RemindersManager.accessRequiredAlert()
+        }
+        .onChange(of: proposalForReminder) { oldValue, newValue in
+            guard newValue != nil else { return }
+            showReminderSelection = true
+        }
+        .sheet(isPresented: $showReminderSelection) {
+            ProposalReminderSelectionView(proposal: proposalForReminder!)
+                .presentationDetents([.height(600)])
+                .onDisappear {
+                    proposalForReminder = nil // to allow repeatitive selection
+                }
         }
     }
 }

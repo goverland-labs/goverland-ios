@@ -85,6 +85,7 @@ enum TrackingEvent: String, Trackable {
     case inboxEventArchive = "inbox_event_archive"
     case inboxEventMarkRead = "inbox_event_mark_read"
     case inboxEventMarkUnread = "inbox_event_mark_unread"
+    case inboxEventAddReminder = "inbox_event_add_reminder"
 
     // MARK: - Archive
     case screenArchive = "screen_archive"
@@ -119,6 +120,8 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
+    case snpDetailsOpenOnSnanpshot = "snp_details_open_on_snanpshot"
+    case snpDetailsAddReminder = "snp_details_add_reminder"
     case snpDetailsShowDao = "snp_details_show_dao"
     case snpDetailsShowUserProfile = "snp_details_show_user_profile"
     case snpDetailsVotesShowUserProfile = "snp_details_votes_show_user_profile"

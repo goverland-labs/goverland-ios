@@ -363,9 +363,9 @@ Proposal: \(proposal.title)
 My choice: \(choice)
 """
         if let reason, !reason.isEmpty {
-            message += "\nMy reason: \(reason)"
+            message += "\nReason: \(reason)"
         }
-        message += "\n\(proposal.link)"
+        message += "\n\(proposal.goverlandLink.absoluteString)"
         return message
     }
 }
