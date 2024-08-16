@@ -16,6 +16,7 @@
 		550ACFB52AFEED3A006EF5BB /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB42AFEED3A006EF5BB /* Profile.swift */; };
 		550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */; };
 		550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550ACFB92B02F11B006EF5BB /* VoteTypedData.swift */; };
+		550CA5022C6F5F4B00DD5753 /* TestMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CA5012C6F5F4B00DD5753 /* TestMarkdownView.swift */; };
 		550E2C392C6CDDD300411FF0 /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E2C382C6CDDD300411FF0 /* WhatsNewView.swift */; };
 		550E2C3B2C6CDDEF00411FF0 /* WhatsNewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E2C3A2C6CDDEF00411FF0 /* WhatsNewDataSource.swift */; };
 		550E2C3D2C6CDF5B00411FF0 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E2C3C2C6CDF5B00411FF0 /* AppVersion.swift */; };
@@ -354,6 +355,7 @@
 		550ACFB42AFEED3A006EF5BB /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataSource.swift; sourceTree = "<group>"; };
 		550ACFB92B02F11B006EF5BB /* VoteTypedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteTypedData.swift; sourceTree = "<group>"; };
+		550CA5012C6F5F4B00DD5753 /* TestMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMarkdownView.swift; sourceTree = "<group>"; };
 		550E2C382C6CDDD300411FF0 /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
 		550E2C3A2C6CDDEF00411FF0 /* WhatsNewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewDataSource.swift; sourceTree = "<group>"; };
 		550E2C3C2C6CDF5B00411FF0 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
@@ -1140,6 +1142,7 @@
 				55C154172AFAFAA80096F0A4 /* HelpUsGrowSettingView.swift */,
 				55C154192AFAFAD00096F0A4 /* AdvancedSettingView.swift */,
 				55BD8D4F2AFAA4820014982C /* DeleteProfilePopoverView.swift */,
+				550CA5012C6F5F4B00DD5753 /* TestMarkdownView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2024,6 +2027,7 @@
 				BA15F5942AFA9DDA001107E8 /* TopDaoVotersView.swift in Sources */,
 				556D43562BAD34A700D2D64F /* ChartFilters.swift in Sources */,
 				BA3C9F672ABF513000E66BD4 /* ArchiveView.swift in Sources */,
+				550CA5022C6F5F4B00DD5753 /* TestMarkdownView.swift in Sources */,
 				552885982A28EB1900ED2BCD /* Extentions.swift in Sources */,
 				BAB960B62AAF865000DC2D92 /* UserBucketsDataSource.swift in Sources */,
 				550ACFB32AFEDF93006EF5BB /* ProposalAddressValidation.swift in Sources */,

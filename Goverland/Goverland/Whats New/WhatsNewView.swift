@@ -22,7 +22,7 @@ struct WhatsNewView: View {
             VStack() {
                 ScrollView {
                     Markdown(markdown)
-                        .markdownTheme(.gitHub)
+                        .markdownTheme(.goverland)
                 }
                 .scrollIndicators(.hidden)
 
