@@ -30,8 +30,7 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-        
-        //loadTestData()
+
         loadInitialData()
     }
 
@@ -49,15 +48,5 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable {
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
-    }
-
-    // TODO: delete when API ready
-    private func loadTestData() {
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.isLoading = false
-            self?.delegates = [.delegateAaveChan, .delegateNoDelegated]
-            self?.total = 15222
-        }
     }
 }
