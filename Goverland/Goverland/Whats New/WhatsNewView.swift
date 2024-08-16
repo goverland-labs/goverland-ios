@@ -11,6 +11,8 @@ import SwiftUI
 import MarkdownUI
 
 struct WhatsNewView: View {
+    let displayCloseButton: Bool
+
     @Environment(\.dismiss) private var dismiss
 
     private var markdown: String {
@@ -18,23 +20,25 @@ struct WhatsNewView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack() {
-                ScrollView {
-                    Markdown(markdown)
-                        .markdownTheme(.goverland)
-                }
-                .scrollIndicators(.hidden)
+        VStack(spacing: 0) {
+            ScrollView {
+                Markdown(markdown)
+                    .markdownTheme(.goverland)
+            }
+            .scrollIndicators(.hidden)
 
+            if displayCloseButton {
                 SecondaryButton("Close") {
                     dismiss()
                 }
-                .padding(.top, 8)
-                .padding(.bottom, 16)
+                .padding(.vertical, 8)                
             }
-            .padding(.horizontal, Constants.horizontalPadding)
-            .navigationTitle("What's new")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .padding(.horizontal, Constants.horizontalPadding)
+        .navigationTitle("What's new")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            // TODO: track
         }
     }
 }

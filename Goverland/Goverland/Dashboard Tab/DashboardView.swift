@@ -135,10 +135,9 @@ struct DashboardView: View {
                 SnapshotProposalView(proposal: proposal)
             }
             .sheet(isPresented: $showWhatsNew) {
-                WhatsNewView()
-                    .onAppear {
-                        // TODO: track
-                    }
+                NavigationStack {
+                    WhatsNewView(displayCloseButton: true)
+                }
             }
         }
     }
