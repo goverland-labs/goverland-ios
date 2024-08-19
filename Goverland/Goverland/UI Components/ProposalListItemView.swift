@@ -58,10 +58,7 @@ struct ProposalListItemView: View {
             VStack(spacing: 12) {
                 _ProposalListItemHeaderView(proposal: proposal)
                 _ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
-                _VoteFooterView(votes: proposal.votes,
-                                votesHighlighted: proposal.state == .active,
-                                quorum: proposal.quorum,
-                                quorumHighlighted: proposal.quorum >= 100)
+                _VoteFooterView(proposal: proposal)
             }
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
@@ -161,24 +158,29 @@ struct _ProposalListItemBodyView: View {
 }
 
 fileprivate struct _VoteFooterView: View {
-    let votes: Int
-    let votesHighlighted: Bool
-    let quorum: Int
-    let quorumHighlighted: Bool
+    let proposal: Proposal
+
+    var votesHighlighted: Bool {
+        proposal.state == .active
+    }
+
+    var quorumHighlighted: Bool {
+        proposal.state == .active || proposal.quorum >= 100
+    }
 
     var body: some View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-                Text(Utils.formattedNumber(Double(votes)))
+                Text(Utils.formattedNumber(Double(proposal.votes)))
             }
             .font(.footnoteRegular)
             .foregroundStyle(votesHighlighted ? Color.textWhite : .textWhite40)
 
-            if quorum > 0 {
+            if proposal.quorum > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
-                    Text(Utils.numberWithPercent(from: quorum))
+                    Text(Utils.numberWithPercent(from: proposal.quorum))
                 }
                 .font(.footnoteRegular)
                 .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)
