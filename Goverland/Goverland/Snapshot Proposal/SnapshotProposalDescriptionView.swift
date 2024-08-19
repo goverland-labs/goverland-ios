@@ -38,8 +38,7 @@ struct SnapshotProposalDescriptionView: View {
     @State private var chosenTab: _DescriptionTab {
         didSet {
             if chosenTab == .ai {
-                // TODO: track
-                logInfo("[App] proposal AI description selected")
+                Tracker.track(.snpDetailsViewSummary)                
                 if userSignedIn && dataSource.aiDescription == nil {
                     dataSource.refresh()
                 }
