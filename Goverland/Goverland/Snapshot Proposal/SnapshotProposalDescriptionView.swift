@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import MarkdownUI
 
 fileprivate enum _DescriptionTab: Int, Identifiable {
@@ -31,7 +32,11 @@ fileprivate enum _DescriptionTab: Int, Identifiable {
 
 struct SnapshotProposalDescriptionView: View {
     @StateObject private var dataSource: SnapshotProposalDescriptionViewDataSource
+
     @State private var chosenTab: _DescriptionTab
+    @State private var showSignIn = false
+    @Query private var profiles: [UserProfile]
+
     @Namespace var namespace
 
     init(proposal: Proposal) {
@@ -48,6 +53,11 @@ struct SnapshotProposalDescriptionView: View {
     var heightLimit: CGFloat {
         // can be calculated based on device
         return 250
+    }
+
+    var userSignedIn: Bool {
+        guard let selected = profiles.first(where: { $0.selected }) else { return false }
+        return !selected.isGuest
     }
 
     let minCharsForShowMore = 300
@@ -86,29 +96,44 @@ struct SnapshotProposalDescriptionView: View {
                     Markdown(markdownDescription)
                         .markdownTheme(.goverland)
                 case .ai:
-                    Group {
-                        if let aiMarkdownDescription = dataSource.aiDescription {
-                            Markdown(aiMarkdownDescription)
-                                .markdownTheme(.goverland)
-                        } else if dataSource.isLoading {
-                            ProgressView()
-                                .foregroundStyle(Color.textWhite20)
-                                .controlSize(.regular)
-                                .padding()
-                        } else if dataSource.failedToLoadInitialData {
-                            RefreshIcon {
+                    if userSignedIn {
+                        Group {
+                            if let aiMarkdownDescription = dataSource.aiDescription {
+                                Markdown(aiMarkdownDescription)
+                                    .markdownTheme(.goverland)
+                            } else if dataSource.isLoading {
+                                ProgressView()
+                                    .foregroundStyle(Color.textWhite20)
+                                    .controlSize(.regular)
+                                    .padding()
+                            } else if dataSource.failedToLoadInitialData {
+                                RefreshIcon {
+                                    dataSource.refresh()
+                                }
+                            } else if dataSource.limitReachedOnSummary {
+                                Text("You've reached your AI summarization limit for this month. Your usage will reset at the beginning of next month. Thank you for your understanding!")
+                                    .font(.bodyRegular)
+                                    .foregroundStyle(Color.textWhite)
+                            }
+                        }
+                        .onAppear {
+                            // TODO: track
+                            logInfo("[App] proposal AI description selected")
+                            if dataSource.aiDescription == nil {
                                 dataSource.refresh()
                             }
-                        } else if dataSource.limitReachedOnSummary {
-                            Text("You've reached your AI summarization limit for this month. Your usage will reset at the beginning of next month. Thank you for your understanding!")
+                        }
+                    } else { // user is guest or not signed in
+                        VStack(alignment: .leading) {
+                            Text("Please sign in to access the AI summarization for this proposal")
                                 .font(.bodyRegular)
                                 .foregroundStyle(Color.textWhite)
-                        }
-                    }
-                    .onAppear {
-                        logInfo("[App] proposal AI description selected")
-                        if dataSource.aiDescription == nil {
-                            dataSource.refresh()
+                            PrimaryButton("Sign in with wallet",
+                                          height: 40,
+                                          font: .footnoteSemibold) {
+                                Haptic.medium()
+                                showSignIn = true
+                            }
                         }
                     }
                 }
@@ -121,39 +146,41 @@ struct SnapshotProposalDescriptionView: View {
                 showToast("Content copied to clipboard")
             }
 
-            // we will always display Show More button
-            if markdownDescription.count > minCharsForShowMore {
-                Button(dataSource.descriptionIsExpanded ? "Show less" : "Show more") {
-                    if !dataSource.descriptionIsExpanded {
-                        Haptic.light()
-                        Tracker.track(.snpDetailsShowFullDscr)
-                    }
-                    withAnimation {
-                        dataSource.descriptionIsExpanded.toggle()
-                    }
+            switch chosenTab {
+            case .full:
+                if markdownDescription.count > minCharsForShowMore {
+                    _ShowMoreButton(dataSource: dataSource)
                 }
-                .frame(width: 100, height: 30, alignment: .center)
-                .background(Capsule(style: .circular)
-                    .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 1)))
-                .tint(.onSecondaryContainer)
-                .font(.footnoteSemibold)
+            case .ai:
+                if let aiMarkdownDescription = dataSource.aiDescription, aiMarkdownDescription.count > minCharsForShowMore {
+                    _ShowMoreButton(dataSource: dataSource)
+                }
             }
+        }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
         }
     }
 }
 
-fileprivate struct ShadowOverlay: View {
-    @Environment(\.isPresented) private var isPresented
-    
-    private var gradientColors: [Color] {
-        return [.clear, .surface.opacity(isPresented ? 0.2 : 0.4)]
-    }
+fileprivate struct _ShowMoreButton: View {
+    @ObservedObject var dataSource: SnapshotProposalDescriptionViewDataSource
 
     var body: some View {
-        Rectangle().fill(
-            LinearGradient(colors: gradientColors,
-                           startPoint: .top,
-                           endPoint: .bottom))
-        .frame(height: 50)
+        Button(dataSource.descriptionIsExpanded ? "Show less" : "Show more") {
+            if !dataSource.descriptionIsExpanded {
+                Haptic.light()
+                Tracker.track(.snpDetailsShowFullDscr)
+            }
+            withAnimation {
+                dataSource.descriptionIsExpanded.toggle()
+            }
+        }
+        .frame(width: 100, height: 30, alignment: .center)
+        .background(Capsule(style: .circular)
+            .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 1)))
+        .tint(.onSecondaryContainer)
+        .font(.footnoteSemibold)
     }
 }

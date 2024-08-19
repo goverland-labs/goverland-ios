@@ -73,7 +73,7 @@ struct SnapshotProposalVoteTabView: View {
     }
 
     private var selectedProfileIsGuest: Bool {
-        selectedProfile?.address.isEmpty ?? false
+        selectedProfile?.isGuest ?? false
     }
 
     private var userAgreedWithDaoTerms: Bool {
