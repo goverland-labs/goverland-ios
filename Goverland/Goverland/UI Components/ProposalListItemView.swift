@@ -57,7 +57,7 @@ struct ProposalListItemView: View {
 
             VStack(spacing: 12) {
                 _ProposalListItemHeaderView(proposal: proposal)
-                _ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
+                _ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
                 _VoteFooterView(votes: proposal.votes,
                                 votesHighlighted: proposal.state == .active,
                                 quorum: proposal.quorum,
@@ -88,7 +88,6 @@ struct _ProposalListItemHeaderView: View {
             HStack(spacing: 6) {
                 IdentityView(user: proposal.author) {
                     activeSheetManager.activeSheet = .publicProfileById(proposal.author.address.value)
-                    // TODO: track
                 }
                 DateView(date: proposal.created,
                          style: .named,
@@ -113,61 +112,50 @@ struct _ProposalListItemHeaderView: View {
 
 struct _ProposalListItemBodyView: View {
     let proposal: Proposal
-    let displayStatus: Bool
     let onDaoTap: (() -> Void)?
 
-    var shouldShowVoteChoice: Bool {
-        Utils.userChoice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
-    }
-
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
                 Text(proposal.title)
                     .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-
-                if displayStatus {
-                    if shouldShowVoteChoice {
-                        VStack(alignment: .leading, spacing: 4) {
-                            if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
-                                // public user voted
-                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
-                                Text("User choice: \(choiceStr)")
-                            }
-
-                            if let userChoice = Utils.userChoice(from: proposal) {
-                                // user voted
-                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
-                                Text("Your choice: \(choiceStr)")
-                            }
-                        }
-                        .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
-                        .font(.footnoteRegular)
-                        .lineLimit(2)
-                    } else {
-                        HStack(spacing: 0) {
-                            Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                                .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
-                                .font(.footnoteRegular)
-                                .lineLimit(1)
-
-                            DateView(date: proposal.votingEnd,
-                                     style: .numeric,
-                                     font: .footnoteRegular,
-                                     color: proposal.state == .active ? .primaryDim : .textWhite40)
-                        }
+                Spacer()
+                RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
+                    .allowsHitTesting(onDaoTap == nil ? false : true)
+                    .onTapGesture {
+                        onDaoTap?()
                     }
+            }
+            .frame(height: 48)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 0) {
+                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                        .lineLimit(1)
+                    DateView(date: proposal.votingEnd,
+                             style: .numeric,
+                             font: .footnoteRegular,
+                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                }
+
+                if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
+                    // public user voted
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
+                    Text("User choice: \(choiceStr)")
+                        .lineLimit(1)
+                }
+
+                if let userChoice = Utils.userChoice(from: proposal) {
+                    // user voted
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
+                    Text("Your choice: \(choiceStr)")
+                        .lineLimit(1)
                 }
             }
-
-            Spacer()
-            RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-                .allowsHitTesting(onDaoTap == nil ? false : true)
-                .onTapGesture {
-                    onDaoTap?()
-                }
+            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+            .font(.footnoteRegular)
         }
     }
 }
