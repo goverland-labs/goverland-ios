@@ -95,10 +95,14 @@ struct SnapshotProposalDescriptionView: View {
                                 .foregroundStyle(Color.textWhite20)
                                 .controlSize(.regular)
                                 .padding()
-                        } else {
+                        } else if dataSource.failedToLoadInitialData {
                             RefreshIcon {
                                 dataSource.refresh()
                             }
+                        } else if dataSource.limitReachedOnSummary {
+                            Text("You've reached your AI summarization limit for this month. Your usage will reset at the beginning of next month. Thank you for your understanding!")
+                                .font(.bodyRegular)
+                                .foregroundStyle(Color.textWhite)
                         }
                     }
                     .onAppear {

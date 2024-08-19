@@ -15,6 +15,8 @@ class SnapshotProposalDescriptionViewDataSource: ObservableObject, Refreshable {
 
     @Published var aiDescription: String?
     @Published var isLoading = false
+    @Published var failedToLoadInitialData = false
+    @Published var limitReachedOnSummary = false
     @Published var descriptionIsExpanded = false
     private var cancellables = Set<AnyCancellable>()
 
@@ -26,6 +28,8 @@ class SnapshotProposalDescriptionViewDataSource: ObservableObject, Refreshable {
         logInfo("[App] loading proposal ai description")
         aiDescription = nil
         isLoading = false
+        failedToLoadInitialData = false
+        failedToLoadInitialData = false
         descriptionIsExpanded = false
         cancellables = Set<AnyCancellable>()
         load_AI_description()
@@ -34,11 +38,22 @@ class SnapshotProposalDescriptionViewDataSource: ObservableObject, Refreshable {
     func load_AI_description() {
         guard aiDescription == nil else { return }
 
-        // TODO: implement networking
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-            self?.isLoading = false
-//            self?.aiDescription = "Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa. Test description aaa."
-        }
+        APIService.proposalSummary(id: proposal.id)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(let apiError):
+                    if case .badRequest(_) = apiError {
+                        self?.limitReachedOnSummary = true
+                    } else {
+                        self?.failedToLoadInitialData = true
+                    }
+                }
+            } receiveValue: { [weak self] summary, _ in
+                self?.aiDescription = summary.summaryMarkdown
+            }
+            .store(in: &cancellables)
     }
 }
