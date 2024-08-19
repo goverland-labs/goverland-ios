@@ -56,12 +56,12 @@ struct ProposalListItemView: View {
 
 
             VStack(spacing: 12) {
-                ProposalListItemHeaderView(proposal: proposal)
-                ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
-                VoteFooterView(votes: proposal.votes,
-                               votesHighlighted: proposal.state == .active,
-                               quorum: proposal.quorum,
-                               quorumHighlighted: proposal.quorum >= 100)
+                _ProposalListItemHeaderView(proposal: proposal)
+                _ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
+                _VoteFooterView(votes: proposal.votes,
+                                votesHighlighted: proposal.state == .active,
+                                quorum: proposal.quorum,
+                                quorumHighlighted: proposal.quorum >= 100)
             }
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
@@ -75,7 +75,7 @@ struct ProposalListItemView: View {
     }
 }
 
-struct ProposalListItemHeaderView: View {
+struct _ProposalListItemHeaderView: View {
     let proposal: Proposal
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -111,7 +111,7 @@ struct ProposalListItemHeaderView: View {
     }
 }
 
-struct ProposalListItemBodyView: View {
+struct _ProposalListItemBodyView: View {
     let proposal: Proposal
     let displayStatus: Bool
     let onDaoTap: (() -> Void)?
@@ -172,7 +172,7 @@ struct ProposalListItemBodyView: View {
     }
 }
 
-fileprivate struct VoteFooterView: View {
+fileprivate struct _VoteFooterView: View {
     let votes: Int
     let votesHighlighted: Bool
     let quorum: Int

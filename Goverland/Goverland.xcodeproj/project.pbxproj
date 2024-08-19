@@ -192,7 +192,6 @@
 		BA15F5942AFA9DDA001107E8 /* TopDaoVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15F5932AFA9DDA001107E8 /* TopDaoVotersView.swift */; };
 		BA15F5962AFA9FB4001107E8 /* TopDaoVoter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA15F5952AFA9FB4001107E8 /* TopDaoVoter.swift */; };
 		BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */; };
-		BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */; };
 		BA1A6FC02B7AC62D00D76BCA /* AppUpdateBlockingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */; };
 		BA1A6FC22B7BB27400D76BCA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = BA1A6FC12B7BB27400D76BCA /* FirebaseRemoteConfig */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
@@ -520,7 +519,6 @@
 		BA15F5932AFA9DDA001107E8 /* TopDaoVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDaoVotersView.swift; sourceTree = "<group>"; };
 		BA15F5952AFA9FB4001107E8 /* TopDaoVoter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDaoVoter.swift; sourceTree = "<group>"; };
 		BA18F3952A891DB1008ED818 /* SnapshotAllVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAllVotesView.swift; sourceTree = "<group>"; };
-		BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalListItemCondensedView.swift; sourceTree = "<group>"; };
 		BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateBlockingView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
@@ -823,8 +821,8 @@
 				557C265B2B323E8F00AAF26C /* InfoMessageView.swift */,
 				553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */,
 				553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */,
+				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
-				BAAA526D2953ABF9003177BC /* Inbox List Item */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -1475,15 +1473,6 @@
 			path = Ecosystem;
 			sourceTree = "<group>";
 		};
-		BAAA526D2953ABF9003177BC /* Inbox List Item */ = {
-			isa = PBXGroup;
-			children = (
-				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
-				BA18F3992A9E876C008ED818 /* ProposalListItemCondensedView.swift */,
-			);
-			path = "Inbox List Item";
-			sourceTree = "<group>";
-		};
 		BAB4B93F2A47490800D24110 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -1975,7 +1964,6 @@
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */,
-				BA18F39A2A9E876C008ED818 /* ProposalListItemCondensedView.swift in Sources */,
 				BA8455AC2B85110F00A986CC /* AllDaoVotersListView.swift in Sources */,
 				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
