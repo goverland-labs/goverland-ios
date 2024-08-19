@@ -54,26 +54,30 @@ struct SnapshotProposalDescriptionView: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 10) {
+            HStack {
                 Spacer()
 
-                ForEach(_DescriptionTab.allTabs) { tab in
-                    ZStack {
-                        if chosenTab == tab {
-                            Circle()
-                                .fill(Color.secondaryContainer)
-                                .matchedGeometryEffect(id: "tab-background", in: namespace)
+                HStack {
+                    ForEach(_DescriptionTab.allTabs) { tab in
+                        ZStack {
+                            if chosenTab == tab {
+                                Circle()
+                                    .fill(Color.secondaryContainer)
+                                    .matchedGeometryEffect(id: "tab-background", in: namespace)
+                            }
+                            tab.image()
+                                .foregroundStyle(Color.onSecondaryContainer)
                         }
-                        tab.image()
-                            .foregroundStyle(Color.onSecondaryContainer)
-                    }
-                    .frame(width: 40, height: 40)
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.5)) {
-                            chosenTab = tab
+                        .frame(width: 40, height: 40)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.5)) {
+                                chosenTab = tab
+                            }
                         }
                     }
                 }
+                .background(Capsule(style: .circular)
+                    .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 1)))
             }
 
             ScrollView {
@@ -117,7 +121,7 @@ struct SnapshotProposalDescriptionView: View {
             if markdownDescription.count > minCharsForShowMore {
                 Button(dataSource.descriptionIsExpanded ? "Show less" : "Show more") {
                     if !dataSource.descriptionIsExpanded {
-                        Haptic.medium()
+                        Haptic.light()
                         Tracker.track(.snpDetailsShowFullDscr)
                     }
                     withAnimation {
@@ -126,7 +130,7 @@ struct SnapshotProposalDescriptionView: View {
                 }
                 .frame(width: 100, height: 30, alignment: .center)
                 .background(Capsule(style: .circular)
-                    .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 2)))
+                    .stroke(Color.secondaryContainer, style: StrokeStyle(lineWidth: 1)))
                 .tint(.onSecondaryContainer)
                 .font(.footnoteSemibold)
             }

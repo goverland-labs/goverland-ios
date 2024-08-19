@@ -161,7 +161,7 @@ fileprivate struct _SeeAllButtonView: View {
         Text("See all")
             .frame(width: 124, height: 32, alignment: .center)
             .background(Capsule(style: .circular)
-                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 1)))
             .tint(.onSecondaryContainer)
             .font(.footnoteSemibold)
             .onTapGesture {
