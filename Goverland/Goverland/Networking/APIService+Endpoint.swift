@@ -282,6 +282,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func proposalSummary(id: String) -> AnyPublisher<(ProposalSummaryEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalSummaryEndpoint(proposalId: id)
+        return shared.request(endpoint)
+    }
+
     // MARK: - Voting & Votes
 
     static func votes<ChoiceType: Decodable>(proposalID: String,

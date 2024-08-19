@@ -77,6 +77,8 @@
 		554301232A4C897C00029BC3 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC92A4087E000739002 /* AddSubscriptionView.swift */; };
 		554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */; };
+		5552CB692C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552CB682C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift */; };
+		5552CB6B2C735258009EBB17 /* ProposalSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552CB6A2C735258009EBB17 /* ProposalSummary.swift */; };
 		555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */; };
 		5555112D2C22FFA4005E1A3E /* PushNotificationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */; };
 		556D43562BAD34A700D2D64F /* ChartFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D43552BAD34A700D2D64F /* ChartFilters.swift */; };
@@ -408,6 +410,8 @@
 		554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricNumberFormatterTests.swift; sourceTree = "<group>"; };
 		55458AC92A4087E000739002 /* AddSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubscriptionView.swift; sourceTree = "<group>"; };
 		554BDA732A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTrackingHandler.swift; sourceTree = "<group>"; };
+		5552CB682C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionViewDataSource.swift; sourceTree = "<group>"; };
+		5552CB6A2C735258009EBB17 /* ProposalSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalSummary.swift; sourceTree = "<group>"; };
 		555310EA299F732500AB7557 /* EnablePushNotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnablePushNotificationsView.swift; sourceTree = "<group>"; };
 		5555112C2C22FFA4005E1A3E /* PushNotificationsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsDataSource.swift; sourceTree = "<group>"; };
 		556D43552BAD34A700D2D64F /* ChartFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFilters.swift; sourceTree = "<group>"; };
@@ -1342,6 +1346,7 @@
 				BAB960AC2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift */,
 				5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */,
 				55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */,
+				5552CB682C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift */,
 				556D43642BB29DFE00D2D64F /* Top Voters */,
 				550E85532A5F4C3400B0CFDD /* Vote Tab */,
 			);
@@ -1368,6 +1373,7 @@
 				BAC997B92BBF352500476735 /* Achievement.swift */,
 				BA352F09298C184D00F78958 /* Dao.swift */,
 				559025002A3DF6BE001B1770 /* Proposal.swift */,
+				5552CB6A2C735258009EBB17 /* ProposalSummary.swift */,
 				55E9D9872B6A7F4500697A12 /* Network.swift */,
 				BA2EA20C2968904C00FB87AC /* InboxEvent.swift */,
 				BA2EA20E2968912B00FB87AC /* User.swift */,
@@ -1898,6 +1904,7 @@
 				BA18F3962A891DB1008ED818 /* SnapshotAllVotesView.swift in Sources */,
 				BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */,
 				BA5D7ACC2B71370300CD3FDB /* AchievementsView.swift in Sources */,
+				5552CB692C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift in Sources */,
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,
@@ -2037,6 +2044,7 @@
 				553E74E62BAB32D900F697F8 /* Constants.swift in Sources */,
 				552ACFD82B623E5A0038A09F /* ProfileHasVotingPowerFullView.swift in Sources */,
 				BA36DEFB2B178EB4002EBEB0 /* MonthlyTotalDaosDataSource.swift in Sources */,
+				5552CB6B2C735258009EBB17 /* ProposalSummary.swift in Sources */,
 				BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */,
 				BA36DEF92B178E98002EBEB0 /* MonthlyTotalDaosView.swift in Sources */,
 				553E74DD2BA9612300F697F8 /* RecommendedDaosDataSource.swift in Sources */,

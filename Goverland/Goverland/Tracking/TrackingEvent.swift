@@ -117,7 +117,6 @@ enum TrackingEvent: String, Trackable {
     case daoInsightsMutualFollow = "dao_insights_mutual_follow"
     case screenDaoInsightsTopVoters = "screen_dao_insights_top_voters"
 
-
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
     case snpDetailsOpenOnSnanpshot = "snp_details_open_on_snanpshot"
@@ -127,7 +126,7 @@ enum TrackingEvent: String, Trackable {
     case snpDetailsVotesShowUserProfile = "snp_details_votes_show_user_profile"
     case snpDetailsShowFullDscr = "snp_details_show_full_dscr"
     case snpDetailsVote = "snp_details_vote"
-    case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"
+    case snpDetailsViewSummary = "snp_details_view_summary"
 
     // MARK: - Snapshot Proposal Votes
     case screenSnpVoters = "screen_snp_voters"

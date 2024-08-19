@@ -37,7 +37,7 @@ enum SnapshotVoteTabType: Int, Identifiable {
 
 struct SnapshotProposalVoteTabView: View {
     let proposal: Proposal
-    @Namespace var namespace    
+    @Namespace var namespace
 
     @Query private var profiles: [UserProfile]
     @Query private var termsAgreements: [DaoTermsAgreement]
@@ -73,7 +73,7 @@ struct SnapshotProposalVoteTabView: View {
     }
 
     private var selectedProfileIsGuest: Bool {
-        selectedProfile?.address.isEmpty ?? false
+        selectedProfile?.isGuest ?? false
     }
 
     private var userAgreedWithDaoTerms: Bool {
@@ -152,6 +152,7 @@ struct SnapshotProposalVoteTabView: View {
                     if proposal.state == .active {
                         if selectedProfile == nil || selectedProfileIsGuest {
                             VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
+                                Haptic.medium()
                                 showSignIn = true
                             }
                         } else {
