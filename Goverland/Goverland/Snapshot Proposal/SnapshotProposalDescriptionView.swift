@@ -32,11 +32,21 @@ fileprivate enum _DescriptionTab: Int, Identifiable {
 
 struct SnapshotProposalDescriptionView: View {
     @StateObject private var dataSource: SnapshotProposalDescriptionViewDataSource
-
-    @State private var chosenTab: _DescriptionTab
-    @State private var showSignIn = false
     @Query private var profiles: [UserProfile]
+    @Setting(\.authToken) private var authToken
 
+    @State private var chosenTab: _DescriptionTab {
+        didSet {
+            if chosenTab == .ai {
+                // TODO: track
+                logInfo("[App] proposal AI description selected")
+                if userSignedIn && dataSource.aiDescription == nil {
+                    dataSource.refresh()
+                }
+            }
+        }
+    }
+    @State private var showSignIn = false
     @Namespace var namespace
 
     init(proposal: Proposal) {
@@ -116,13 +126,6 @@ struct SnapshotProposalDescriptionView: View {
                                     .foregroundStyle(Color.textWhite)
                             }
                         }
-                        .onAppear {
-                            // TODO: track
-                            logInfo("[App] proposal AI description selected")
-                            if dataSource.aiDescription == nil {
-                                dataSource.refresh()
-                            }
-                        }
                     } else { // user is guest or not signed in
                         VStack(alignment: .leading) {
                             Text("Please sign in to access the AI summarization for this proposal")
@@ -160,6 +163,9 @@ struct SnapshotProposalDescriptionView: View {
         .sheet(isPresented: $showSignIn) {
             SignInTwoStepsView { /* do nothing on sign in */ }
                 .presentationDetents([.height(500), .large])
+        }
+        .onChange(of: authToken) { _, _ in
+            chosenTab = .full
         }
     }
 }
