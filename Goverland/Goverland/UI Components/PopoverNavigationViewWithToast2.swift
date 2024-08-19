@@ -40,9 +40,14 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
                     DaoInfoView(dao: dao)
                 }
 
-            case .publicProfile(let address):
+            case .daoInfoById(let daoId):
                 PopoverNavigationViewWithToast {
-                    PublicUserProfileView(address: address)
+                    DaoInfoView(daoId: daoId)
+                }
+
+            case .publicProfileById(let profileId):
+                PopoverNavigationViewWithToast {
+                    PublicUserProfileView(profileId: profileId)
                 }
 
             case .daoVoters(let dao, let filteringOption):

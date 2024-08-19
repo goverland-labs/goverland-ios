@@ -40,7 +40,7 @@ struct DashboardHotProposalsView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     let count = columns.count == 1 ? 3 : 4
                     ForEach(dataSource.proposals.prefix(count)) { proposal in
-                        ProposalListItemNoElipsisView(proposal: proposal) {
+                        ProposalListItemView(proposal: proposal) {
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                             Tracker.track(.dashHotOpenDao)
                         }

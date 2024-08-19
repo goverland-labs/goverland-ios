@@ -14,6 +14,10 @@ struct InboxView: View {
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
+    @State private var showReminderErrorAlert = false
+    @State private var showReminderSelection = false
+    @State private var proposalForReminder: Proposal?
+
     var events: [InboxEvent] {
         data.events ?? []
     }
@@ -63,31 +67,48 @@ struct InboxView: View {
                                                      onDaoTap: {
                                     activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                     Tracker.track(.inboxEventOpenDao)
-                                }) {
-                                    ProposalSharingMenu(
-                                        link: proposal.link,
-                                        isRead: isRead,
-                                        markCompletion: {
-                                            Haptic.medium()
-                                            if isRead {
-                                                Tracker.track(.inboxEventMarkUnread)
-                                                data.markUnread(eventID: event.id)
-                                            } else {
-                                                Tracker.track(.inboxEventMarkRead)
-                                                data.markRead(eventID: event.id)
-                                            }
-                                        },
-                                        isArchived: false,
-                                        archivationCompletion: {
-                                            archive(eventId: event.id)
-                                        }
-                                    )
-                                }
-                                .swipeActions {
+                                })
+                                // TODO: submit bug to Apple: onLongPressGesture overrides list selection
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button {
-                                        archive(eventId: event.id)
+                                        Haptic.medium()
+                                        data.archive(eventID: event.id)
+                                        Tracker.track(.inboxEventArchive)
                                     } label: {
                                         Label("Archive", systemImage: "trash.fill")
+                                    }
+                                    .tint(.clear)
+                                }
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                    Button {
+                                        Haptic.medium()
+                                        if isRead {
+                                            Tracker.track(.inboxEventMarkUnread)
+                                            data.markUnread(eventID: event.id)
+                                        } else {
+                                            Tracker.track(.inboxEventMarkRead)
+                                            data.markRead(eventID: event.id)
+                                        }
+                                    } label: {
+                                        if isRead {
+                                            Label("Mark as unread", systemImage: "envelope.fill")
+                                        } else {
+                                            Label("Mark as read", systemImage: "envelope.open.fill")
+                                        }
+                                    }
+                                    .tint(.clear)
+
+                                    Button {
+                                        Tracker.track(.inboxEventAddReminder)
+                                        RemindersManager.shared.requestAccess { granted in
+                                            if granted {
+                                                proposalForReminder = proposal // will show a popover
+                                            } else {
+                                                showReminderErrorAlert = true
+                                            }
+                                        }
+                                    } label: {
+                                        Label("Remind to vote", systemImage: "bell.fill")
                                     }
                                     .tint(.clear)
                                 }
@@ -132,6 +153,13 @@ struct InboxView: View {
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
+
+                        Button {
+                            TabManager.shared.selectedTab = .profile
+                            TabManager.shared.profilePath = [.settings, .inboxNofitications]
+                        } label: {
+                            Label("Inbox Settings", systemImage: "gearshape.fill")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.textWhite)
@@ -141,6 +169,7 @@ struct InboxView: View {
                 }
             }
         }  detail: {
+            // when data is loading it is also possible to select shimmer view
             if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
@@ -155,7 +184,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
-            }           
+            }
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
@@ -163,11 +192,19 @@ struct InboxView: View {
                 Tracker.track(.screenInbox)
             }
         }
-    }
-
-    private func archive(eventId: UUID) {
-        Haptic.medium()
-        data.archive(eventID: eventId)
-        Tracker.track(.inboxEventArchive)
+        .alert(isPresented: $showReminderErrorAlert) {
+            RemindersManager.accessRequiredAlert()
+        }
+        .onChange(of: proposalForReminder) { oldValue, newValue in
+            guard newValue != nil else { return }
+            showReminderSelection = true
+        }
+        .sheet(isPresented: $showReminderSelection) {
+            ProposalReminderSelectionView(proposal: proposalForReminder!)
+                .presentationDetents([.height(600)])
+                .onDisappear {
+                    proposalForReminder = nil // to allow repeatitive selection
+                }
+        }
     }
 }

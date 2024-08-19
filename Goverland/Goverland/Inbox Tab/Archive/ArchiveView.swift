@@ -65,31 +65,31 @@ struct ArchiveView: View {
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfo(proposal.dao)
                                 Tracker.track(.archiveEventOpenDao)
-                            }) {
-                                ProposalSharingMenu(
-                                    link: proposal.link,
-                                    isRead: isRead,
-                                    markCompletion: {
-                                        Haptic.medium()
-                                        if isRead {
-                                            Tracker.track(.archiveEventMarkUnread)
-                                            data.markUnread(eventID: archive.id)
-                                        } else {
-                                            Tracker.track(.archiveEventMarkRead)
-                                            data.markRead(eventID: archive.id)
-                                        }
-                                    },
-                                    isArchived: true,
-                                    archivationCompletion: {
-                                        unarchive(eventId: archive.id)
-                                    }
-                                )
-                            }
-                            .swipeActions {
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
                                     unarchive(eventId: archive.id)
                                 } label: {
                                     Label("Unarchive", systemImage: "trash.slash.fill")
+                                }
+                                .tint(.clear)
+                            }
+                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                Button {
+                                    Haptic.medium()
+                                    if isRead {
+                                        Tracker.track(.archiveEventMarkUnread)
+                                        data.markUnread(eventID: archive.id)
+                                    } else {
+                                        Tracker.track(.archiveEventMarkRead)
+                                        data.markRead(eventID: archive.id)
+                                    }
+                                } label: {
+                                    if isRead {
+                                        Label("Mark as unread", systemImage: "envelope.fill")
+                                    } else {
+                                        Label("Mark as read", systemImage: "envelope.open.fill")
+                                    }
                                 }
                                 .tint(.clear)
                             }
@@ -147,9 +147,9 @@ struct ArchiveView: View {
                     DaoInfoView(dao: dao)
                 }
 
-            case .publicProfile(let address):
+            case .publicProfileById(let profileId):
                 PopoverNavigationViewWithToast {
-                    PublicUserProfileView(address: address)
+                    PublicUserProfileView(profileId: profileId)
                 }
 
             case .proposalVoters(let proposal):

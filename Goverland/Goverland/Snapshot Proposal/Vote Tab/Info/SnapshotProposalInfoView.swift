@@ -16,7 +16,7 @@ struct SnapshotProposalInfoView: View {
     }
 
     var strategiesUrl: URL? {
-        Utils.urlFromString(proposal.link)
+        Utils.urlFromString(proposal.snapshotLink)
     }
 
     var ipfs: String {
