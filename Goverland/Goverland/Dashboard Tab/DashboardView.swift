@@ -44,6 +44,11 @@ struct DashboardView: View {
             .onChange(of: authToken) { _, _ in
                 Self.refresh()
             }
+            .onReceive(NotificationCenter.default.publisher(for: .appEnteredForeground)) { _ in
+                if path.isEmpty {
+                    Self.refresh()
+                }
+            }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
