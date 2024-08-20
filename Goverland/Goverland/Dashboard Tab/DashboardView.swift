@@ -189,15 +189,21 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
+        if shouldShowDaosWithActiveVote {
+            SectionHeader(header: "Followed DAOs with active vote")
+            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        }
+
         if shouldShowFeaturedProposal {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
         }
 
-        if shouldShowDaosWithActiveVote {
-            SectionHeader(header: "Followed DAOs with active vote")
-            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
         }
+        DashboardNewDaosView()
+            .padding(.bottom, 30)
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
@@ -215,12 +221,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
-
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 ////                {
