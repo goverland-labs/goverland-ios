@@ -112,7 +112,7 @@ struct _ProposalListItemBodyView: View {
     let onDaoTap: (() -> Void)?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(proposal.title)
                     .foregroundStyle(Color.textWhite)
@@ -126,6 +126,7 @@ struct _ProposalListItemBodyView: View {
                     }
             }
             .frame(height: 48)
+            .padding(.bottom, 4)
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 0) {
@@ -153,6 +154,8 @@ struct _ProposalListItemBodyView: View {
             }
             .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
             .font(.footnoteRegular)
+
+            Spacer() // In a two-column design stratch to a height of a neighbour
         }
     }
 }
