@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct DelegatesFullListView: View {
-    @StateObject var dataSource: DelegatesFullListDataSource
+    @StateObject var dataSource: DaoDelegatesDataSource
 
     private var searchPrompt: String {
         if let total = dataSource.total {
@@ -21,7 +21,7 @@ struct DelegatesFullListView: View {
     }
 
     init(dao: Dao) {
-        _dataSource = StateObject(wrappedValue: DelegatesFullListDataSource(dao: dao))
+        _dataSource = StateObject(wrappedValue: DaoDelegatesDataSource(dao: dao))
     }
     
     var body: some View {
@@ -32,13 +32,15 @@ struct DelegatesFullListView: View {
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
             .onAppear {
-                dataSource.refresh()
+                if dataSource.delegates.isEmpty {
+                    dataSource.refresh()
+                }
             }
     }
 }
 
 fileprivate struct _DelegatesListView: View {
-    @ObservedObject var dataSource: DelegatesFullListDataSource
+    @ObservedObject var dataSource: DaoDelegatesDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var dao: Dao {
@@ -87,7 +89,7 @@ fileprivate struct _DelegatesListView: View {
 }
 
 fileprivate struct _DelegatesSearchListView: View {
-    @ObservedObject var dataSource: DelegatesFullListDataSource
+    @ObservedObject var dataSource: DaoDelegatesDataSource
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -140,15 +142,10 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-            if let delegated = delegate.userDelegated, delegated {
-                PositiveButton("Delegated") {
-                    // TODO: open daoDelegateActionView
-                }
-            } else {
-                SecondaryButton("Delegate", maxWidth: 100, height: 32, font: .footnoteSemibold) {
-                    // TODO: open daoDelegateActionView
-                }
+            DelegateButton(isDelegated: false) {
+                // TODO: open delegation action here
             }
+            
         }
         .padding(12)
         .contentShape(Rectangle())

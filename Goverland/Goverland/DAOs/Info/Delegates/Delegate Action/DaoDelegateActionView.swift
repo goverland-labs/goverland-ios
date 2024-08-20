@@ -148,7 +148,7 @@ struct DaoDelegateActionView: View {
                         Spacer()
                     }
                     
-                    DelegateVotingPowerSplitView()
+                    DelegateSplitVotingPowerView()
                         .padding(.bottom)
 
                     SetDelegateExpirationView()
