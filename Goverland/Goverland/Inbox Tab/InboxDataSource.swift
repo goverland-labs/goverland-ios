@@ -68,8 +68,16 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func refresh() {
+        refresh(nullifySelectedEventIndex: false)
+    }
+
+    func refresh(nullifySelectedEventIndex: Bool) {
         events = nil
-        // do not nullify selectedEventIndex
+        if nullifySelectedEventIndex {
+            // refresh happens in different places
+            // and often we need to keep the selected element index
+            selectedEventIndex = nil
+        }
         isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false

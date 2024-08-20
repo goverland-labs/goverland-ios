@@ -28,7 +28,7 @@ class TabManager: ObservableObject {
                     dashboardPath = NavigationPath()
                 case .inbox:
                     inboxViewId = UUID()
-                    InboxDataSource.shared.refresh()
+                    InboxDataSource.shared.refresh(nullifySelectedEventIndex: true)
                 case .search:
                     SearchModel.shared.refresh()
                     GroupedDaosDataSource.search.refresh()

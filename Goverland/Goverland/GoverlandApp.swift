@@ -48,6 +48,7 @@ struct GoverlandApp: App {
 
                     case .active:
                         logInfo("[App] Did enter foreground")
+                        NotificationCenter.default.post(name: .appEnteredForeground, object: nil)
 
                         // Fetch remote config values in case app was not used for a while
                         RemoteConfigManager.shared.fetchFirebaseRemoteConfig()

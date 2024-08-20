@@ -44,6 +44,11 @@ struct DashboardView: View {
             .onChange(of: authToken) { _, _ in
                 Self.refresh()
             }
+            .onReceive(NotificationCenter.default.publisher(for: .appEnteredForeground)) { _ in
+                if path.isEmpty {
+                    Self.refresh()
+                }
+            }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -115,7 +120,9 @@ struct DashboardView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal)
+                // We want to always load data from backend as Top proposals are cached for some time
+                // so we use initializer with proposal.id instead of passing the cached proposal object
+                SnapshotProposalView(proposalId: proposal.id)
             }
         }
     }
@@ -189,15 +196,21 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
+        if shouldShowDaosWithActiveVote {
+            SectionHeader(header: "Followed DAOs with active vote")
+            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        }
+
         if shouldShowFeaturedProposal {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
         }
 
-        if shouldShowDaosWithActiveVote {
-            SectionHeader(header: "Followed DAOs with active vote")
-            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
         }
+        DashboardNewDaosView()
+            .padding(.bottom, 30)
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
@@ -215,12 +228,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
-
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 ////                {
