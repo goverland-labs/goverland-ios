@@ -19,14 +19,6 @@ struct ProfileVotesView: View {
         dataSource.votedProposals ?? []
     }
     
-    var columns: [GridItem] {
-        if horizontalSizeClass == .regular {
-            return Array(repeating: .init(.flexible()), count: 2)
-        } else {
-            return Array(repeating: .init(.flexible()), count: 1)
-        }
-    }
-    
     var body: some View {
         VStack {
             HStack {
@@ -46,9 +38,8 @@ struct ProfileVotesView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading && dataSource.votedProposals == nil { // initial loading
-                LazyVGrid(columns: columns, spacing: 8) {
-                    let count = columns.count == 1 ? 3 : 4
-                    ForEach(0..<count, id: \.self) { _ in
+                VStack {
+                    ForEach(0..<3, id: \.self) { _ in
                         ShimmerProposalListItemView()
                     }
                 }
@@ -60,9 +51,8 @@ struct ProfileVotesView: View {
                     .font(.bodyRegular)
                     .padding(16)
             } else {
-                LazyVGrid(columns: columns, spacing: 8) {
-                    let count = columns.count == 1 ? 3 : 4
-                    ForEach(votedProposals.prefix(count)) { proposal in
+                VStack {
+                    ForEach(votedProposals.prefix(3)) { proposal in
                         ProposalListItemView(proposal: proposal) {
                             Tracker.track(.prfVotesOpenDao)
                             activeSheetManager.activeSheet = .daoInfo(proposal.dao)
