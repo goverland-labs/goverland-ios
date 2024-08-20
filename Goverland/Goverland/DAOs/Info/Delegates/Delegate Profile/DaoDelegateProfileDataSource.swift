@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import SwiftDate
 
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
@@ -31,7 +32,7 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     let dao: Dao
     let delegate: Delegate
     
-    @Published var delegateProfile: DelegateProfile?
+    @Published var delegateProfile: DaoUserDelegation?
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
@@ -56,11 +57,11 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     
     private func loadMOCKdata() {
         self.isLoading = true
-        let mockDP = DelegateProfile(dao: .aave,
-                                     votingPower: DelegateProfile.VotingPower(symbol: "UNI", power: 43.1),
-                                     chains: [.etherium, .gnosis],
+        let mockDP = DaoUserDelegation(dao: .aave,
+                                     votingPower: DaoUserDelegation.VotingPower(symbol: "UNI", power: 43.1),
+                                       chains: Chains(eth: .etherium, gnosis: .gnosis),
                                      delegates: [.delegateAaveChan, .delegateFlipside],
-                                     expirationDate: "2025-07-04T11:35:17Z")
+                                       expirationDate: .now + 5.days) // delete SwiftDate lib when deleting this mock
         self.delegateProfile = mockDP
         self.isLoading = false
     }

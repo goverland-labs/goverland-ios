@@ -149,8 +149,8 @@ extension APIService {
         return shared.request(endpoint)
     }
     
-    static func daoDelegateProfile(daoID: UUID) -> AnyPublisher<(DaoDelegateProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoDelegateProfileEndpoint(daoID: daoID)
+    static func daoDelegateProfile(daoID: UUID) -> AnyPublisher<(DaoUserDelegationEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoUserDelegationEndpoint(daoID: daoID)
         return shared.request(endpoint)
     }
 

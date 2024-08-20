@@ -303,8 +303,8 @@ struct DaoDelegatesEndpoint: APIEndpoint {
     }
 }
 
-struct DaoDelegateProfileEndpoint: APIEndpoint {
-    typealias ResponseType = DelegateProfile
+struct DaoUserDelegationEndpoint: APIEndpoint {
+    typealias ResponseType = DaoUserDelegation
 
     let daoID: UUID
 
