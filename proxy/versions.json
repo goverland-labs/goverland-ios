@@ -1,0 +1,17 @@
+[
+    {
+        "version": "1.1.0",
+        "platform": "iOS",
+        "markdown_description": "- **Push Notifications:** Added granular control for push notifications related to DAO proposals\n- **Inbox Notifications:** Enabled options for archiving proposals in your inbox\n- **iPad UX Improvements:** Adjusted the UI of the Home and Profile tabs for wider screens\n- **Bug Fixes:** Made several improvements to enhance app stability\n\n![Sample Image](https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png)"
+    },
+    {
+        "version": "1.0.0",
+        "platform": "iOS",
+        "markdown_description": "We are live! 🚀\n\n- **Recommended DAOs**: Discover tailored DAO recommendations after sign-in.\n- **Public User Profiles**: See users' governance participation.\n- **Top 10 Voters**: See the top voters on proposals and within DAOs.\n- **Achievements**: Earn recognition for your contributions.\n- **Charts Filtering**: Customize your data visualization experience.\n- **Featured Proposals:** Stay informed with highlights.\n\n![Dancing Cat](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)"
+    },
+    {
+        "version": "1.1.1",
+        "platform": "iOS",
+        "markdown_description": "- **Stability improvements**"
+    }
+]

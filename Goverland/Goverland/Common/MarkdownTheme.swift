@@ -36,7 +36,7 @@ extension Theme {
                     .markdownMargin(top: 24, bottom: 16)
                     .markdownTextStyle {
                         FontWeight(.semibold)
-                        FontSize(.em(1.5))
+                        FontSize(.em(1.4))
                     }
                 Divider()//.overlay(Color.textWhite20)
             }

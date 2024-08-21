@@ -35,10 +35,11 @@ struct WhatsNewView: View {
             }
         }
         .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.vertical, 20)
         .navigationTitle("What's new")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            // TODO: track
+            Tracker.track(.screenWhatsNew)
         }
     }
 }
