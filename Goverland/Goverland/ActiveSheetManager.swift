@@ -19,7 +19,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case subscribeToNotifications
     case recommendedDaos([Dao])
     case daoDelegateProfile(Dao, Delegate)
-    case daoDelegateAction(Dao, Delegate)
+    case daoUserDelegate(Dao, Delegate)
     case proposal(String)
 
     var id: Int {
@@ -34,7 +34,7 @@ enum ActiveSheet: Identifiable, Equatable {
         case .subscribeToNotifications: return 7
         case .recommendedDaos: return 8
         case .daoDelegateProfile: return 9
-        case .daoDelegateAction: return 10
+        case .daoUserDelegate: return 10
         case .proposal: return 11
         }
     }

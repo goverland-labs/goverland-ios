@@ -32,7 +32,7 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     let dao: Dao
     let delegate: Delegate
     
-    @Published var delegateProfile: DaoUserDelegation?
+    @Published var userDelegation: DaoUserDelegation?
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
@@ -45,38 +45,26 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
     }
     
     func refresh() {
-        delegateProfile = nil
+        userDelegation = nil
         failedToLoadInitialData = false
         filter = .activity
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadMOCKdata()
-        //loadData()
-    }
-    
-    private func loadMOCKdata() {
-        self.isLoading = true
-        let mockDP = DaoUserDelegation(dao: .aave,
-                                     votingPower: DaoUserDelegation.VotingPower(symbol: "UNI", power: 43.1),
-                                       chains: Chains(eth: .etherium, gnosis: .gnosis),
-                                     delegates: [.delegateAaveChan, .delegateFlipside],
-                                       expirationDate: .now + 5.days) // delete SwiftDate lib when deleting this mock
-        self.delegateProfile = mockDP
-        self.isLoading = false
+        loadData()
     }
     
     private func loadData() {
         isLoading = true
-        APIService.daoDelegateProfile(daoID: dao.id)
+        APIService.daoUserDelegation(daoID: dao.id)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] delegateProfile, _ in
-                self?.delegateProfile = delegateProfile
+            } receiveValue: { [weak self] userDelegation, _ in
+                self?.userDelegation = userDelegation
             }
             .store(in: &cancellables)
     }

@@ -5,45 +5,34 @@
 //  Created by Andrey Scherbovich on 11.06.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
 struct DaoDelegateProfileView: View {
-    @StateObject private var dataSource: DaoDelegateProfileDataSource
+    let dao: Dao
+    let delegate: Delegate
+    
     @Environment(\.dismiss) private var dismiss
     @State private var filter: DaoDelegateProfileFilter = .activity
     
-    init(dao: Dao, delegate: Delegate) {
-        _dataSource = StateObject(wrappedValue: DaoDelegateProfileDataSource(dao: dao, delegate: delegate))
-    }
-    
     var body: some View {
         VStack {
-            if dataSource.isLoading {
-                // Unfortunately shimmer or reducted view here breaks presentation in a popover view
-                ProgressView()
-                    .foregroundStyle(Color.textWhite20)
-                    .controlSize(.regular)
-                Spacer()
-            } else if dataSource.failedToLoadInitialData {
-                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegate information")
-            } else if let delegateProfile = dataSource.delegateProfile {
-                VStack(spacing: 0) {
-                    DaoDelegateProfileHeaderView(delegate: dataSource.delegate, dao: dataSource.dao)
-                        .padding(.horizontal)
-                        .padding(.bottom)
-
-                    FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter) { _ in }
-
-                    switch filter {
-                    case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
-                    case .about: DaoDelegateProfileAboutView(delegate: dataSource.delegate)
-                    case .insights: EmptyView()
-                    }
+            
+            VStack(spacing: 0) {
+                DaoDelegateProfileHeaderView(delegate: delegate, dao: dao)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                
+                FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter) { _ in }
+                
+                switch filter {
+                case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
+                case .about: DaoDelegateProfileAboutView(delegate: delegate)
+                case .insights: EmptyView()
                 }
-                Spacer()
             }
+            Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -55,16 +44,11 @@ struct DaoDelegateProfileView: View {
                     Image(systemName: "xmark")
                 }
             }
-
+            
             ToolbarItem(placement: .principal) {
-                Text(dataSource.dao.name)
+                Text(dao.name)
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
-            }
-        }
-        .onAppear() {
-            if dataSource.delegateProfile == nil {
-                dataSource.refresh()
             }
         }
     }
@@ -111,7 +95,7 @@ struct DaoDelegateProfileHeaderView: View {
             .font(.footnoteRegular)
             
             DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoDelegateAction(dao, delegate)
+                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate)
             }
         }
     }

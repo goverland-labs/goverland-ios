@@ -1,5 +1,5 @@
 //
-//  DaoDelegateActionView.swift
+//  DaoUserDelegationView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 27.06.24.
@@ -29,7 +29,7 @@ enum VotingNetworkType: Int, Identifiable {
     }
 }
 
-struct DaoDelegateActionView: View {
+struct DaoUserDelegationView: View {
     let dao: Dao
     let delegate: Delegate
     
@@ -148,7 +148,7 @@ struct DaoDelegateActionView: View {
                         Spacer()
                     }
                     
-                    DelegateSplitVotingPowerView()
+                    UserDelegationSplitVotingPowerView()
                         .padding(.bottom)
 
                     SetDelegateExpirationView()

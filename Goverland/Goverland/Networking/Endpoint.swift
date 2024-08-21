@@ -308,7 +308,7 @@ struct DaoUserDelegationEndpoint: APIEndpoint {
 
     let daoID: UUID
 
-    var path: String { "dao/\(daoID)/delegate-profile" }
+    var path: String { "dao/\(daoID)/user-delegation" }
     var method: HttpMethod = .get
 
     init(daoID: UUID) {

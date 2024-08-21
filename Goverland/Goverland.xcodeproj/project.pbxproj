@@ -96,7 +96,7 @@
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		557AFF852C2C198F002A8EDD /* PositiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF842C2C198F002A8EDD /* PositiveButton.swift */; };
 		557AFF882C2D84C7002A8EDD /* DelegatesFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */; };
-		557AFF8B2C2D993E002A8EDD /* DaoDelegateActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF8A2C2D993E002A8EDD /* DaoDelegateActionView.swift */; };
+		557AFF8B2C2D993E002A8EDD /* DaoUserDelegationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF8A2C2D993E002A8EDD /* DaoUserDelegationView.swift */; };
 		557AFF8D2C2DA401002A8EDD /* BottomRightEllipsisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF8C2C2DA401002A8EDD /* BottomRightEllipsisView.swift */; };
 		557AFF8F2C2DA6C8002A8EDD /* DaoDelegateSharingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AFF8E2C2DA6C8002A8EDD /* DaoDelegateSharingMenu.swift */; };
 		557C26562B31B2E800AAF26C /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26552B31B2E800AAF26C /* Avatar.swift */; };
@@ -204,7 +204,7 @@
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */; };
 		BA2413532C406D54009F0736 /* SetDelegateExpirationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413522C406D54009F0736 /* SetDelegateExpirationView.swift */; };
-		BA2413552C406E27009F0736 /* DelegateSplitVotingPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413542C406E27009F0736 /* DelegateSplitVotingPowerView.swift */; };
+		BA2413552C406E27009F0736 /* UserDelegationSplitVotingPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413542C406E27009F0736 /* UserDelegationSplitVotingPowerView.swift */; };
 		BA2413572C502C60009F0736 /* DaoDelegateProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */; };
 		BA24135F2C51A3C7009F0736 /* DaoDelegateProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */; };
 		BA2413872C6298F6009F0736 /* DelegateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413862C6298F6009F0736 /* DelegateButton.swift */; };
@@ -447,7 +447,7 @@
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		557AFF842C2C198F002A8EDD /* PositiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveButton.swift; sourceTree = "<group>"; };
 		557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegatesFullListView.swift; sourceTree = "<group>"; };
-		557AFF8A2C2D993E002A8EDD /* DaoDelegateActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateActionView.swift; sourceTree = "<group>"; };
+		557AFF8A2C2D993E002A8EDD /* DaoUserDelegationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoUserDelegationView.swift; sourceTree = "<group>"; };
 		557AFF8C2C2DA401002A8EDD /* BottomRightEllipsisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomRightEllipsisView.swift; sourceTree = "<group>"; };
 		557AFF8E2C2DA6C8002A8EDD /* DaoDelegateSharingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateSharingMenu.swift; sourceTree = "<group>"; };
 		557C26552B31B2E800AAF26C /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -549,7 +549,7 @@
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		BA2413522C406D54009F0736 /* SetDelegateExpirationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDelegateExpirationView.swift; sourceTree = "<group>"; };
-		BA2413542C406E27009F0736 /* DelegateSplitVotingPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateSplitVotingPowerView.swift; sourceTree = "<group>"; };
+		BA2413542C406E27009F0736 /* UserDelegationSplitVotingPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegationSplitVotingPowerView.swift; sourceTree = "<group>"; };
 		BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileDataSource.swift; sourceTree = "<group>"; };
 		BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityView.swift; sourceTree = "<group>"; };
 		BA2413862C6298F6009F0736 /* DelegateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateButton.swift; sourceTree = "<group>"; };
@@ -947,8 +947,8 @@
 				557AFF8E2C2DA6C8002A8EDD /* DaoDelegateSharingMenu.swift */,
 				5569CD792C189CAF001B25FD /* DelegateListItemView.swift */,
 				557AFF872C2D84C7002A8EDD /* DelegatesFullListView.swift */,
+				BA2413992C767530009F0736 /* User Delegation */,
 				557AFF862C2D846D002A8EDD /* Delegate Profile */,
-				557AFF892C2D991E002A8EDD /* Delegate Action */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -991,21 +991,10 @@
 			isa = PBXGroup;
 			children = (
 				5569CD7B2C189ECC001B25FD /* DaoDelegateProfileView.swift */,
-				BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */,
 				BA24138A2C6C04C8009F0736 /* DaoDelegateProfileAboutView.swift */,
-				BA24135D2C51A39D009F0736 /* DaoDelegateProfileActivity */,
+				BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */,
 			);
 			path = "Delegate Profile";
-			sourceTree = "<group>";
-		};
-		557AFF892C2D991E002A8EDD /* Delegate Action */ = {
-			isa = PBXGroup;
-			children = (
-				557AFF8A2C2D993E002A8EDD /* DaoDelegateActionView.swift */,
-				BA2413542C406E27009F0736 /* DelegateSplitVotingPowerView.swift */,
-				BA2413522C406D54009F0736 /* SetDelegateExpirationView.swift */,
-			);
-			path = "Delegate Action";
 			sourceTree = "<group>";
 		};
 		557C9D672A30ECED001C4DEA /* Grouped */ = {
@@ -1427,14 +1416,6 @@
 			path = "Top Dao Voters";
 			sourceTree = "<group>";
 		};
-		BA24135D2C51A39D009F0736 /* DaoDelegateProfileActivity */ = {
-			isa = PBXGroup;
-			children = (
-				BA24135E2C51A3C6009F0736 /* DaoDelegateProfileActivityView.swift */,
-			);
-			path = DaoDelegateProfileActivity;
-			sourceTree = "<group>";
-		};
 		BA24138C2C74CA5C009F0736 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1446,6 +1427,17 @@
 				BA24138F2C74CABD009F0736 /* Chain.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		BA2413992C767530009F0736 /* User Delegation */ = {
+			isa = PBXGroup;
+			children = (
+				557AFF8A2C2D993E002A8EDD /* DaoUserDelegationView.swift */,
+				BA2413562C502C60009F0736 /* DaoDelegateProfileDataSource.swift */,
+				BA2413542C406E27009F0736 /* UserDelegationSplitVotingPowerView.swift */,
+				BA2413522C406D54009F0736 /* SetDelegateExpirationView.swift */,
+			);
+			path = "User Delegation";
 			sourceTree = "<group>";
 		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
@@ -2120,11 +2112,11 @@
 				557AFF8F2C2DA6C8002A8EDD /* DaoDelegateSharingMenu.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
-				BA2413552C406E27009F0736 /* DelegateSplitVotingPowerView.swift in Sources */,
+				BA2413552C406E27009F0736 /* UserDelegationSplitVotingPowerView.swift in Sources */,
 				55CAC9CE2B6D3DC700767454 /* SystemLogHandler.swift in Sources */,
 				BADB16692B2019DF00CB99CC /* MonthlyTotalVoters.swift in Sources */,
 				55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */,
-				557AFF8B2C2D993E002A8EDD /* DaoDelegateActionView.swift in Sources */,
+				557AFF8B2C2D993E002A8EDD /* DaoUserDelegationView.swift in Sources */,
 				557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */,
 				BAE1AB2B2AF035B2001B89F3 /* MonthlyNewProposalsDataSource.swift in Sources */,
 				554BDA742A5FE8AB00796CC9 /* FirebaseTrackingHandler.swift in Sources */,
