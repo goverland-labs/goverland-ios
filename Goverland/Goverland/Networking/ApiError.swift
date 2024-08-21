@@ -26,7 +26,7 @@ enum APIError: Error {
         case .forbidden:
             return "Request forbidden. Please sign in."
         case .notFound:
-            return "Content not found."
+            return "Content not found"
         case .serverError(let statusCode):
             return "Server error (\(statusCode)). Please try again later."
         case .system(let description):
