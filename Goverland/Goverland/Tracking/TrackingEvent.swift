@@ -15,6 +15,9 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
 
+    // MARK: - What's new
+    case screenWhatsNew = "screen_whats_new"
+
     // MARK: - Sign In
     case screenSignIn = "screen_sign_in"
     case signInWithWallet = "sign_in_with_wallet"

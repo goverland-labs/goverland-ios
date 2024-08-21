@@ -113,6 +113,15 @@ struct RegularAuthTokenEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - What's New
+
+struct AppVersionsEndpoint: APIEndpoint {
+    typealias ResponseType = [AppVersion]
+
+    var path: String = "versions"
+    var method: HttpMethod = .get
+}
+
 // MARK: - Profile
 
 struct ProfileEndpoint: APIEndpoint {

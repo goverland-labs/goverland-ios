@@ -19,7 +19,11 @@ fileprivate enum Path {
 struct DashboardView: View {
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    
     @Setting(\.authToken) private var authToken
+
+    @Setting(\.lastWhatsNewVersionDisplaied) private var lastWhatsNewVersionDisplaied
+    @State private var showWhatsNew = false
 
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
@@ -56,6 +60,21 @@ struct DashboardView: View {
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
+
+                if WhatsNewDataSource.shared.appVersion.description != lastWhatsNewVersionDisplaied {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        // Versions data is loaded on App launch.
+                        // If data is not loaded within 1 sec, What's new dialogue will not be displayed.
+                        // But it will be displayed on the next Dashboard tab selection if loaded.
+                        guard WhatsNewDataSource.shared.latestVersionIsAppVerion else {
+                            // might happen if release is there, but we haven't added
+                            // what's new description for this version
+                            return
+                        }
+                        showWhatsNew = true
+                        lastWhatsNewVersionDisplaied = WhatsNewDataSource.shared.appVersion.description
+                    }
+                }
 
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
                     FeaturedProposalsDataSource.dashboard.refresh()
@@ -123,6 +142,11 @@ struct DashboardView: View {
                 // We want to always load data from backend as Top proposals are cached for some time
                 // so we use initializer with proposal.id instead of passing the cached proposal object
                 SnapshotProposalView(proposalId: proposal.id)
+            }
+            .sheet(isPresented: $showWhatsNew) {
+                NavigationStack {
+                    WhatsNewView(displayCloseButton: true)
+                }
             }
         }
     }

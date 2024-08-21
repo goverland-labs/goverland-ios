@@ -15,6 +15,8 @@ struct AdvancedSettingView: View {
     @State private var accepted = false
     @Environment(\.modelContext) private var modelContext
 
+    @State private var showTestMarkdown = false
+
     var body: some View {
         List {
             #if STAGE
@@ -43,6 +45,14 @@ struct AdvancedSettingView: View {
                     showLocalNotification(title: "Test local notification",
                                           body: "Local notification body",
                                           delay: 3.0)
+                }
+
+                NavigationLink("Show Test Markdown in stack") {
+                    TestMarkdownView()
+                }
+
+                Button("Show Test Markdown in popover") {
+                    showTestMarkdown = true
                 }
             }
             #endif
@@ -95,6 +105,9 @@ struct AdvancedSettingView: View {
         .onAppear() {
             accepted = SettingKeys.shared.trackingAccepted
             Tracker.track(.screenAdvancedSettings)
+        }
+        .sheet(isPresented: $showTestMarkdown) {
+            TestMarkdownView()
         }
     }
 }

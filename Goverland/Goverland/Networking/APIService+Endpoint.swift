@@ -32,6 +32,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    // MARK: - What's New
+
+    static func versions() -> AnyPublisher<(AppVersionsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = AppVersionsEndpoint()
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
     // MARK: - Profile
 
     static func profile() -> AnyPublisher<(ProfileEndpoint.ResponseType, HttpHeaders), APIError> {
