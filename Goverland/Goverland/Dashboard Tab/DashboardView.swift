@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Version
 
 fileprivate enum Path {
     case hotProposals

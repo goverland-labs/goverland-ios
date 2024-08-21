@@ -226,7 +226,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
 
-        // Load App Version
+        // Load App Versions
         WhatsNewDataSource.shared.loadData()
 
         // Setup appearance
