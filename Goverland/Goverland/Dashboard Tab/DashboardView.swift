@@ -63,13 +63,18 @@ struct DashboardView: View {
                 Tracker.track(.screenDashboard)
 
                 if WhatsNewDataSource.shared.appVersion.description != lastWhatsNewVersionDisplaied {
-                    guard WhatsNewDataSource.shared.latestVersionIsAppVerion else {
-                        // might happen if release is there, but we haven't added
-                        // what's new description for this version
-                        return
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        // Versions data is loaded on App launch.
+                        // If data is not loaded within 1 sec, What's new dialogue will not be displayed.
+                        // But it will be displayed on the next Dashboard tab selection if loaded.
+                        guard WhatsNewDataSource.shared.latestVersionIsAppVerion else {
+                            // might happen if release is there, but we haven't added
+                            // what's new description for this version
+                            return
+                        }
+                        showWhatsNew = true
+                        lastWhatsNewVersionDisplaied = WhatsNewDataSource.shared.appVersion.description
                     }
-                    showWhatsNew = true
-                    lastWhatsNewVersionDisplaied = WhatsNewDataSource.shared.appVersion.description
                 }
 
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {

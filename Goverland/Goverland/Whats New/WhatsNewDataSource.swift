@@ -12,17 +12,12 @@ import Version
 
 class WhatsNewDataSource {
     var markdown: String {
-        guard let versions = versions?
-                // cut off other platforms and versions for not installed releases
-            .filter({ $0.platform == .iOS && $0.version <= appVersion })
-            .sorted(by: { $0.version > $1.version }), versions.count > 0 else { return "" }
+        guard let versions = versions, versions.count > 0 else { return "" }
         return versions.reduce("") { r, v in "\(r)# \(v.version)\n\n\(v.markdownDescription)\n\n" }
     }
 
     var latestVersion: Version {
-        versions?
-            .filter { $0.platform == .iOS && $0.version <= appVersion }
-            .sorted { $0.version > $1.version }.first?.version ?? Version(1, 0, 0)
+        versions?.first?.version ?? Version(1, 0, 0)
     }
 
     let appVersion: Version  = {
@@ -34,7 +29,7 @@ class WhatsNewDataSource {
         latestVersion == appVersion
     }
 
-    private var versions: [AppVersion]?
+    private(set) var versions: [AppVersion]?
     private var cancellables = Set<AnyCancellable>()
 
     static let shared = WhatsNewDataSource()
@@ -46,7 +41,10 @@ class WhatsNewDataSource {
             .sink { _ in
                 // do nothing
             } receiveValue: { [unowned self] versions, _ in
+                // filter and sort
                 self.versions = versions
+                    .filter { $0.platform == .iOS && $0.version <= self.appVersion }
+                    .sorted { $0.version > $1.version }
             }
             .store(in: &cancellables)
     }
