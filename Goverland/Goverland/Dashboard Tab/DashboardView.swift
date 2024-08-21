@@ -62,16 +62,14 @@ struct DashboardView: View {
             .onAppear {
                 Tracker.track(.screenDashboard)
 
-                if let versionNumber = Bundle.main.releaseVersionNumber, versionNumber != lastWhatsNewVersionDisplaied {
-                    WhatsNewDataSource.shared.loadData { latestVersion in
-                        guard latestVersion.description == versionNumber else {
-                            // might happen if release is there, but we haven't added
-                            // what's new description for this version
-                            return
-                        }
-                        showWhatsNew = true
-                        lastWhatsNewVersionDisplaied = versionNumber
+                if WhatsNewDataSource.shared.appVersion.description != lastWhatsNewVersionDisplaied {
+                    guard WhatsNewDataSource.shared.latestVersionIsAppVerion else {
+                        // might happen if release is there, but we haven't added
+                        // what's new description for this version
+                        return
                     }
+                    showWhatsNew = true
+                    lastWhatsNewVersionDisplaied = WhatsNewDataSource.shared.appVersion.description
                 }
 
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
