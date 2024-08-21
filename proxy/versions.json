@@ -13,5 +13,10 @@
         "version": "1.1.1",
         "platform": "iOS",
         "markdown_description": "- **Stability improvements**"
+    },
+    {
+        "version": "5.0.0",
+        "platform": "iOS",
+        "markdown_description": "- to be skipped"
     }
 ]
