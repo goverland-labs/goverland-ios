@@ -482,6 +482,19 @@ struct ProposalEndpoint: APIEndpoint {
     }
 }
 
+struct ProposalSummaryEndpoint: APIEndpoint {
+    typealias ResponseType = ProposalSummary
+
+    let proposalId: String
+
+    var path: String { "proposals/\(proposalId)/summary" }
+    var method: HttpMethod = .get
+
+    init(proposalId: String) {
+        self.proposalId = proposalId
+    }
+}
+
 // MARK: - Voting & Votes
 
 fileprivate enum TypedValue: Encodable {

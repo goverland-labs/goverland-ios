@@ -56,12 +56,9 @@ struct ProposalListItemView: View {
 
 
             VStack(spacing: 12) {
-                ProposalListItemHeaderView(proposal: proposal)
-                ProposalListItemBodyView(proposal: proposal, displayStatus: true, onDaoTap: onDaoTap)
-                VoteFooterView(votes: proposal.votes,
-                               votesHighlighted: proposal.state == .active,
-                               quorum: proposal.quorum,
-                               quorumHighlighted: proposal.quorum >= 100)
+                _ProposalListItemHeaderView(proposal: proposal)
+                _ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
+                _VoteFooterView(proposal: proposal)
             }
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
@@ -75,7 +72,7 @@ struct ProposalListItemView: View {
     }
 }
 
-struct ProposalListItemHeaderView: View {
+struct _ProposalListItemHeaderView: View {
     let proposal: Proposal
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -88,7 +85,6 @@ struct ProposalListItemHeaderView: View {
             HStack(spacing: 6) {
                 IdentityView(user: proposal.author) {
                     activeSheetManager.activeSheet = .publicProfileById(proposal.author.address.value)
-                    // TODO: track
                 }
                 DateView(date: proposal.created,
                          style: .named,
@@ -111,86 +107,83 @@ struct ProposalListItemHeaderView: View {
     }
 }
 
-struct ProposalListItemBodyView: View {
+struct _ProposalListItemBodyView: View {
     let proposal: Proposal
-    let displayStatus: Bool
     let onDaoTap: (() -> Void)?
 
-    var shouldShowVoteChoice: Bool {
-        Utils.userChoice(from: proposal) != nil || Utils.publicUserChoice(from: proposal) != nil
-    }
-
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
                 Text(proposal.title)
                     .foregroundStyle(Color.textWhite)
                     .font(.headlineSemibold)
                     .lineLimit(2)
-
-                if displayStatus {
-                    if shouldShowVoteChoice {
-                        VStack(alignment: .leading, spacing: 4) {
-                            if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
-                                // public user voted
-                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
-                                Text("User choice: \(choiceStr)")
-                            }
-
-                            if let userChoice = Utils.userChoice(from: proposal) {
-                                // user voted
-                                let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
-                                Text("Your choice: \(choiceStr)")
-                            }
-                        }
-                        .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
-                        .font(.footnoteRegular)
-                        .lineLimit(2)
-                    } else {
-                        HStack(spacing: 0) {
-                            Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
-                                .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
-                                .font(.footnoteRegular)
-                                .lineLimit(1)
-
-                            DateView(date: proposal.votingEnd,
-                                     style: .numeric,
-                                     font: .footnoteRegular,
-                                     color: proposal.state == .active ? .primaryDim : .textWhite40)
-                        }
+                Spacer()
+                RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
+                    .allowsHitTesting(onDaoTap == nil ? false : true)
+                    .onTapGesture {
+                        onDaoTap?()
                     }
+            }
+            .frame(height: 48)
+            .padding(.bottom, 4)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 0) {
+                    Text(proposal.votingEnd.isInPast ? "Vote finished " : "Vote finishes ")
+                        .lineLimit(1)
+                    DateView(date: proposal.votingEnd,
+                             style: .numeric,
+                             font: .footnoteRegular,
+                             color: proposal.state == .active ? .primaryDim : .textWhite40)
+                }
+
+                if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
+                    // public user voted
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
+                    Text("User choice: \(choiceStr)")
+                        .lineLimit(1)
+                }
+
+                if let userChoice = Utils.userChoice(from: proposal) {
+                    // user voted
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
+                    Text("Your choice: \(choiceStr)")
+                        .lineLimit(1)
                 }
             }
+            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+            .font(.footnoteRegular)
 
-            Spacer()
-            RoundPictureView(image: proposal.dao.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-                .allowsHitTesting(onDaoTap == nil ? false : true)
-                .onTapGesture {
-                    onDaoTap?()
-                }
+            Spacer() // In a two-column design stratch to a height of a neighbour
         }
     }
 }
 
-fileprivate struct VoteFooterView: View {
-    let votes: Int
-    let votesHighlighted: Bool
-    let quorum: Int
-    let quorumHighlighted: Bool
+fileprivate struct _VoteFooterView: View {
+    let proposal: Proposal
+
+    var votesHighlighted: Bool {
+        proposal.state == .active
+    }
+
+    var quorumHighlighted: Bool {
+        proposal.state == .active || proposal.quorum >= 100
+    }
 
     var body: some View {
         HStack(spacing: 10) {
             HStack(spacing: 5) {
                 Image(systemName: "person.fill")
-                Text(Utils.formattedNumber(Double(votes)))
+                Text(Utils.formattedNumber(Double(proposal.votes)))
             }
             .font(.footnoteRegular)
             .foregroundStyle(votesHighlighted ? Color.textWhite : .textWhite40)
 
-            if quorum > 0 {
+            if proposal.quorum > 0 {
                 HStack(spacing: 5) {
                     Image(systemName: "flag.checkered")
-                    Text(Utils.numberWithPercent(from: quorum))
+                    Text(Utils.numberWithPercent(from: proposal.quorum))
                 }
                 .font(.footnoteRegular)
                 .foregroundStyle(quorumHighlighted ? Color.textWhite : .textWhite40)

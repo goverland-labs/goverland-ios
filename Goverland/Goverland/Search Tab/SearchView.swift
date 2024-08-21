@@ -103,7 +103,9 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal)
+                // We want to always load data from backend as Top proposals are cached for some time
+                // so we use initializer with proposal.id instead of passing the cached proposal object
+                SnapshotProposalView(proposalId: proposal.id)
             }
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
