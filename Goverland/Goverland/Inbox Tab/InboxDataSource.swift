@@ -9,22 +9,22 @@
 import Foundation
 import Combine
 
-enum InboxFilter: Int, FilterOptions {
-    case all = 0
-    case vote
-    case treasury
-
-    var localizedName: String {
-        switch self {
-        case .all:
-            return "All"
-        case .vote:
-            return "Vote"
-        case .treasury:
-            return "Treasury"
-        }
-    }
-}
+//enum InboxFilter: Int, FilterOptions {
+//    case all = 0
+//    case vote
+//    case treasury
+//
+//    var localizedName: String {
+//        switch self {
+//        case .all:
+//            return "All"
+//        case .vote:
+//            return "Vote"
+//        case .treasury:
+//            return "Treasury"
+//        }
+//    }
+//}
 
 class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var events: [InboxEvent]? {
@@ -37,7 +37,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         }
     }
     @Published var selectedEventIndex: Int?
-    @Published var filter: InboxFilter = .all
+//    @Published var filter: InboxFilter = .all
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -47,17 +47,6 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
 
     private var total: Int?
     private var totalSkipped: Int?
-
-    // Computed var properties overrided in DaoInfoEventsDataSource
-
-    var authRequired: Bool  { true }
-
-    var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents()
-    }
-    var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents(offset: events?.count ?? 0)
-    }
 
     // subclassable
     init() {
@@ -83,16 +72,17 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         failedToLoadMore = false
         cancellables = Set<AnyCancellable>()
         total = nil
+        totalSkipped = nil
 
         loadInitialData()
     }
 
     private func loadInitialData() {
         // Fool protection
-        guard !authRequired || !SettingKeys.shared.authToken.isEmpty else { return }
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
 
         isLoading = true
-        initialLoadingPublisher
+        APIService.inboxEvents()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -129,7 +119,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func loadMore() {
-        loadMorePublisher
+        APIService.inboxEvents(offset: events?.count ?? 0)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
