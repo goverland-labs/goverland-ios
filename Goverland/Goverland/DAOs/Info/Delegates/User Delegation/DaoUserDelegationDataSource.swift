@@ -1,5 +1,5 @@
 //
-//  DaoDelegateProfileDataSource.swift
+//  DaoUserDelegationDataSource.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-07-23.
@@ -11,24 +11,7 @@ import Foundation
 import Combine
 import SwiftDate
 
-enum DaoDelegateProfileFilter: Int, FilterOptions {
-    case activity = 0
-    case about
-    case insights
-
-    var localizedName: String {
-        switch self {
-        case .activity:
-            return "Activity"
-        case .about:
-            return "About"
-        case .insights:
-            return "Insights"
-        }
-    }
-}
-
-class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
+class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     let dao: Dao
     let delegate: Delegate
     

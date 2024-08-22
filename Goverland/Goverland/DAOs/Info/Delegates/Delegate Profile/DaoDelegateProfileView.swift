@@ -9,6 +9,23 @@
 
 import SwiftUI
 
+enum DaoDelegateProfileFilter: Int, FilterOptions {
+    case activity = 0
+    case about
+    case insights
+
+    var localizedName: String {
+        switch self {
+        case .activity:
+            return "Activity"
+        case .about:
+            return "About"
+        case .insights:
+            return "Insights"
+        }
+    }
+}
+
 struct DaoDelegateProfileView: View {
     let dao: Dao
     let delegate: Delegate

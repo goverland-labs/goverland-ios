@@ -33,10 +33,22 @@ struct DaoUserDelegationView: View {
     let dao: Dao
     let delegate: Delegate
     
+    var userDelegation: DaoUserDelegation? {
+        return dataSource.userDelegation
+    }
+    
+    @StateObject private var dataSource: DaoUserDelegationDataSource
     @State private var chosenNetwork: VotingNetworkType = .gnosis
     @Namespace var namespace
     @State private var isTooltipVisible = false
     @Environment(\.dismiss) private var dismiss
+    
+    init(dao: Dao, delegate: Delegate) {
+        let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
+        _dataSource = StateObject(wrappedValue: dataSource)
+        self.dao = dao
+        self.delegate = delegate
+    }
     
     var body: some View {
         VStack {
@@ -61,8 +73,14 @@ struct DaoUserDelegationView: View {
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
                         Spacer()
-                        // TODO: fix when endpoint is ready
-                        Text("43 UNI")
+                        
+                        if let userDelegationVotingPower = userDelegation?.votingPower {
+                            HStack(spacing: 3) {
+                                Text(userDelegationVotingPower.power.description)
+                                Text(userDelegationVotingPower.symbol)
+                            }
+                        }
+                        
                     }
                     
                     Divider()
@@ -179,6 +197,11 @@ struct DaoUserDelegationView: View {
                 Text("Delegate")
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
+            }
+        }
+        .onAppear() {
+            if dataSource.userDelegation == nil {
+                dataSource.refresh()
             }
         }
     }
