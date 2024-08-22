@@ -31,7 +31,7 @@ struct FeaturedProposalsView: View {
                     ProposalListItemView(proposal: proposal,
                                          isHighlighted: true) {
                         Tracker.track(.dashFeaturedPrpOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     }
                                          .padding(.horizontal, Constants.horizontalPadding)
                                          .onTapGesture {

@@ -58,7 +58,7 @@ struct PublicUserProfileVotesListView: View {
                         ProposalListItemView(proposal: proposal,
                                              isSelected: false,
                                              isRead: false) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(.publicPrfVotesFullOpenDao)
                         }
                         .listRowSeparator(.hidden)

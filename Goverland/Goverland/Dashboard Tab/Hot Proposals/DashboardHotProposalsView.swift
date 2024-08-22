@@ -41,7 +41,7 @@ struct DashboardHotProposalsView: View {
                     let count = columns.count == 1 ? 3 : 4
                     ForEach(dataSource.proposals.prefix(count)) { proposal in
                         ProposalListItemView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(.dashHotOpenDao)
                         }
                         .onTapGesture {

@@ -47,7 +47,7 @@ struct DashboardPopularDaosHorizontalListView: View {
                                 }
                             } else {
                                 DAORoundViewWithActiveVotes(dao: dao) {
-                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                     Tracker.track(.dashPopularDaoOpen)
                                 }
                             }
@@ -75,7 +75,7 @@ struct DashboardPopularDaosCardsView: View {
         } else {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.popular,
-                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpen) },
+                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashPopularDaoOpen) },
                                      onFollowToggle: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollow) } })
             .padding(.leading, Constants.horizontalPadding)
         }

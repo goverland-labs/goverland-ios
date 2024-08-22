@@ -37,7 +37,7 @@ struct PublicUserProfileDaosListView: View {
                                 dao: dao,
                                 subscriptionMeta: dao.subscriptionMeta,
                                 onSelectDao: { dao in
-                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                     Tracker.track(.publicPrfDaoFullOpenDao)
                                 },
                                 onFollowToggle: { didFollow in

@@ -35,7 +35,7 @@ struct ProposalsSearchResultsListView: View {
                 List(0..<dataSource.searchResultProposals.count, id: \.self, selection: $selectedProposalSearchIndex) { index in
                     let proposal = dataSource.searchResultProposals[index]
                     ProposalListItemView(proposal: proposal) {
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                         Tracker.track(.searchPrpOpenDaoFromSearch)
                     }
                     .listRowSeparator(.hidden)

@@ -79,7 +79,7 @@ fileprivate struct _VotedDaosView: View {
                         } else {
                             ForEach(daos) { dao in
                                 DAORoundViewWithActiveVotes(dao: dao) {
-                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                     Tracker.track(.publicPrfVotedDaoOpen)
                                 }
                             }
@@ -143,7 +143,7 @@ fileprivate struct _VotedProposalsView: View {
                 ForEach(votedProposals.prefix(3)) { proposal in
                     ProposalListItemView(proposal: proposal) {
                         Tracker.track(.publicPrfVotesOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     }
                     .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {

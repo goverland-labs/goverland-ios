@@ -85,11 +85,6 @@ struct GoverlandApp: App {
                     case .signIn:
                         SignInView(source: .popover)
 
-                    case .daoInfo(let dao):
-                        PopoverNavigationViewWithToast {
-                            DaoInfoView(dao: dao)
-                        }
-
                     case .daoInfoById(let daoId):
                         PopoverNavigationViewWithToast {
                             DaoInfoView(daoId: daoId)

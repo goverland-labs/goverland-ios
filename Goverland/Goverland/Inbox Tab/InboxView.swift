@@ -65,7 +65,7 @@ struct InboxView: View {
                                                      isSelected: data.selectedEventIndex == index,
                                                      isRead: isRead,
                                                      onDaoTap: {
-                                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                                     Tracker.track(.inboxEventOpenDao)
                                 })
                                 // TODO: submit bug to Apple: onLongPressGesture overrides list selection
