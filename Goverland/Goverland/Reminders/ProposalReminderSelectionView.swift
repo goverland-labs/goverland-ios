@@ -15,16 +15,15 @@ struct ProposalReminderSelectionView: View {
 
     @Environment(\.dismiss) private var dismiss
 
-    @State private var selectedHours: Int?
-    @State private var selectedReminderDate: Date?
-    @State private var custromReminderDate: Date?
+    @State private var selectedHoursDates = [Int:Date]()
     @State private var showReminderDateSelection = false
 
     var body: some View {
         VStack(spacing: 8) {
-            Text("Add a reminder to vote")
+            Text("Add a voting reminder with your selected alerts")
                 .font(.title3Semibold)
                 .foregroundStyle(Color.textWhite)
+                .multilineTextAlignment(.center)
                 .padding(.vertical, 8)
 
             Spacer()
@@ -32,11 +31,14 @@ struct ProposalReminderSelectionView: View {
             ForEach([1, 3, 6, 12, 24, 0], id: \.self) { hours in
                 _ReminderButton(hours: hours,
                                 endDate: proposal.votingEnd,
-                                isSelected: selectedHours == hours,
-                                reminderDate: hours == 0 ? custromReminderDate : nil) { hours, date in
+                                isSelected: selectedHoursDates[hours] != nil,
+                                reminderDate: hours == 0 ? selectedHoursDates[0] : nil) { hours, date in
                     if hours != 0 {
-                        selectedHours = hours
-                        selectedReminderDate = date
+                        if selectedHoursDates[hours] == nil {
+                            selectedHoursDates[hours] = date
+                        } else {
+                            selectedHoursDates.removeValue(forKey: hours)
+                        }
                     } else {
                         showReminderDateSelection = true
                     }
@@ -47,8 +49,8 @@ struct ProposalReminderSelectionView: View {
                 SecondaryButton("Cancel") {
                     dismiss()
                 }
-                PrimaryButton("Add", isEnabled: selectedReminderDate != nil) {
-                    addReminder(date: selectedReminderDate!)
+                PrimaryButton("Add", isEnabled: !selectedHoursDates.isEmpty) {
+                    addReminder(dates: selectedHoursDates.values.sorted())
                 }
             }
             .padding(.top, 24)
@@ -56,18 +58,16 @@ struct ProposalReminderSelectionView: View {
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, 16)
         .sheet(isPresented: $showReminderDateSelection) {
-            _DatePickerView(date: custromReminderDate) { reminderDate in
-                selectedReminderDate = reminderDate
-                custromReminderDate = reminderDate
-                selectedHours = 0
+            _DatePickerView(date: selectedHoursDates[0]) { reminderDate in
+                selectedHoursDates[0] = reminderDate
             }
             .presentationDetents([.height(600)])
         }
     }
 
-    private func addReminder(date: Date) {
+    private func addReminder(dates: [Date]) {
         Haptic.medium()
-        RemindersManager.shared.createVoteReminder(proposal: proposal, reminderDate: date)
+        RemindersManager.shared.createVoteReminders(proposal: proposal, reminderDates: dates)
         dismiss()
     }
 }
@@ -82,7 +82,7 @@ fileprivate struct _ReminderButton: View {
     let action: (Int, Date?) -> Void
 
     var text: String {
-        "Remind \(hours)h before end"
+        "Alert \(hours)h before deadline"
     }
 
     var isEnabled: Bool {
@@ -123,7 +123,7 @@ fileprivate struct _ReminderButton: View {
                 HStack {
                     Spacer()
                     VStack {
-                        Text(hours != 0 ? text : "Custom reminder")
+                        Text(hours != 0 ? text : "Custom alert date")
                             .font(.bodySemibold)
                         if let reminderDate {
                             Text(Utils.mediumDate(reminderDate))
@@ -152,12 +152,12 @@ fileprivate struct _ReminderButton: View {
 
 fileprivate struct _DatePickerView: View {
     @State private var date: Date
-    var onConfirm: (Date) -> Void
+    var onConfirm: (Date?) -> Void
 
     @Environment(\.dismiss) private var dismiss
 
     init(date: Date?,
-         onConfirm: @escaping (Date) -> Void) {
+         onConfirm: @escaping (Date?) -> Void) {
         if let date {
             self._date = State(wrappedValue: date)
         } else {
@@ -175,8 +175,9 @@ fileprivate struct _DatePickerView: View {
             Spacer()
 
             HStack(spacing: 12) {
-                SecondaryButton("Cancle") {
+                SecondaryButton("Clear") {
                     dismiss()
+                    onConfirm(nil)
                 }
 
                 PrimaryButton("Confirm") {
