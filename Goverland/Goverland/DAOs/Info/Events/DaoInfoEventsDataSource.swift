@@ -23,7 +23,6 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
 
     init(daoID: UUID) {
         self.daoID = daoID
-        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(voteCasted(_:)), name: .voteCasted, object: nil)
     }
 
@@ -60,8 +59,8 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
 
     func hasMore() -> Bool {
         guard let events = events,
-                let total = total,
-                let totalSkipped = totalSkipped else { return true }
+              let total = total,
+              let totalSkipped = totalSkipped else { return true }
         return events.count < total - totalSkipped
     }
 
@@ -87,13 +86,9 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
         self.failedToLoadMore = false
     }
 
-    @objc func authTokenChanged(_ notification: Notification) {
+    @objc func voteCasted(_ notification: Notification) {
         // Andrey (22.08.2024): I have tested and it works well when voting from a paginated
         // proposal. Refresh doesn't break the presented view.
-        refresh()
-    }
-
-    @objc func voteCasted(_ notification: Notification) {        
         refresh()
     }
 }

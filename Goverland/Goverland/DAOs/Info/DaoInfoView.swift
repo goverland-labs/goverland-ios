@@ -38,10 +38,6 @@ struct DaoInfoView: View {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoId: daoId))
     }
 
-    init(dao: Dao) {
-        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(dao: dao))
-    }
-
     var body: some View {
         VStack {
             if dataSource.isLoading {
@@ -103,6 +99,11 @@ struct DaoInfoView: View {
                             .frame(height: 20)
                     }
                 }
+            }
+        }
+        .onAppear {
+            if dataSource.dao == nil {
+                dataSource.refresh()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in
