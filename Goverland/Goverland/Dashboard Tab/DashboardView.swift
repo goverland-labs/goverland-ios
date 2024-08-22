@@ -38,11 +38,14 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                if !authToken.isEmpty {
-                    SignedInUserDashboardView(path: $path)
-                } else {
-                    SignedOutUserDashboardView(path: $path)
+                Group {
+                    if !authToken.isEmpty {
+                        SignedInUserDashboardView(path: $path)
+                    } else {
+                        SignedOutUserDashboardView(path: $path)
+                    }
                 }
+                .padding(.bottom, 30)
             }
             .id(authToken) // redraw completely on auth token change
             .onChange(of: authToken) { _, _ in
@@ -183,7 +186,6 @@ fileprivate struct SignedOutUserDashboardView: View {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 //        // Enable after public launch
@@ -191,7 +193,6 @@ fileprivate struct SignedOutUserDashboardView: View {
 ////                    path.append(Path.ecosystemCharts)
 ////                }
 //        EcosystemDashboardView()
-//            .padding(.bottom, 40)
     }
 }
 
@@ -234,7 +235,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.newDaos)
         }
         DashboardNewDaosView()
-            .padding(.bottom, 30)
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
