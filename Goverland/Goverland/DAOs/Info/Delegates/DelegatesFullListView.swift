@@ -115,9 +115,10 @@ fileprivate struct _DelegatesSearchListView: View {
 
 
 fileprivate struct DelegateFullListItemView: View {
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     let delegate: Delegate
     let dao: Dao
+
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
@@ -142,8 +143,8 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-            DelegateButton(isDelegated: false) {
-                // TODO: open delegation action here
+            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
+                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate)
             }
             
         }

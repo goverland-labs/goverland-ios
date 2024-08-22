@@ -75,7 +75,7 @@ struct DaoUserDelegationView: View {
                         Spacer()
                         
                         if let userDelegationVotingPower = userDelegation?.votingPower {
-                            HStack(spacing: 3) {
+                            HStack(spacing: 4) {
                                 Text(userDelegationVotingPower.power.description)
                                 Text(userDelegationVotingPower.symbol)
                             }
