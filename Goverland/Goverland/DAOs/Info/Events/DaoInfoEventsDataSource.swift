@@ -88,12 +88,12 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     @objc func authTokenChanged(_ notification: Notification) {
-        // TODO: properly refresh
-//        logInfo("[App] Auth token changed to \(authToken)")
-//        refresh()
+        // Andrey (22.08.2024): I have tested and it works well when voting from a paginated
+        // proposal. Refresh doesn't break the presented view.
+        refresh()
     }
 
-    @objc func voteCasted(_ notification: Notification) {
-        // TODO: mark oject as vote casted
+    @objc func voteCasted(_ notification: Notification) {        
+        refresh()
     }
 }
