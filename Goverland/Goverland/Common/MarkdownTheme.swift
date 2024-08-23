@@ -15,7 +15,7 @@ extension Theme {
         .text {
             ForegroundColor(.textWhite)
             BackgroundColor(.clear)
-            FontSize(.em(1))
+            FontSize(.em(0.85))
         }
         .code {
             FontFamilyVariant(.monospaced)
@@ -36,7 +36,7 @@ extension Theme {
                     .markdownMargin(top: 24, bottom: 16)
                     .markdownTextStyle {
                         FontWeight(.semibold)
-                        FontSize(.em(1.4))
+                        FontSize(.em(1.3))
                     }
                 Divider()//.overlay(Color.textWhite20)
             }
@@ -49,9 +49,9 @@ extension Theme {
                     .markdownMargin(top: 24, bottom: 16)
                     .markdownTextStyle {
                         FontWeight(.semibold)
-                        FontSize(.em(1.3))
+                        FontSize(.em(1.1))
                     }
-                Divider().overlay(Color.textWhite20)
+                Divider()//.overlay(Color.textWhite20)
             }
         }
         .heading3 { configuration in
@@ -60,7 +60,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.em(1.1))
+                    FontSize(.em(1.0))
                 }
         }
         .heading4 { configuration in
@@ -69,6 +69,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
+                    FontSize(.em(0.9))
                 }
         }
         .heading5 { configuration in
@@ -77,7 +78,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.em(0.875))
+                    FontSize(.em(0.85))
                 }
         }
         .heading6 { configuration in
@@ -86,7 +87,7 @@ extension Theme {
                 .markdownMargin(top: 24, bottom: 16)
                 .markdownTextStyle {
                     FontWeight(.semibold)
-                    FontSize(.em(0.85))
+                    FontSize(.em(0.8))
                     //              ForegroundColor(.tertiaryText)
                 }
         }
