@@ -365,7 +365,7 @@ My choice: \(choice)
         if let reason, !reason.isEmpty {
             message += "\nReason: \(reason)"
         }
-        message += "\n\(proposal.goverlandLink.absoluteString)"
+        message += "\n\(proposal.goverlandUrl.absoluteString)"
         return message
     }
 }

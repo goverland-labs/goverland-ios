@@ -87,7 +87,7 @@ struct DaoInfoAboutDaoView: View {
                         }
                 }
 
-                if let snapshotUrl = Utils.urlFromString("https://snapshot.org/#/\(dao.alias)") {
+                if let snapshotUrl = dao.snapshotUrl {
                     Image("dao-info-snapshot")
                         .resizable()
                         .scaledToFit()

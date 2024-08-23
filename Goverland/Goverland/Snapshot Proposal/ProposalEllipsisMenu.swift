@@ -13,7 +13,7 @@ struct ProposalEllipsisMenu: View {
     let onRemindToVote: () -> Void
 
     var body: some View {
-        ShareLink(item: proposal.goverlandLink) {
+        ShareLink(item: proposal.goverlandUrl) {
             Label("Share", systemImage: "square.and.arrow.up.fill")
         }
 
