@@ -8,6 +8,7 @@
 	
 
 import SwiftUI
+import SwiftData
 
 enum VotingNetworkType: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -31,23 +32,27 @@ enum VotingNetworkType: Int, Identifiable {
 
 struct DaoUserDelegationView: View {
     let dao: Dao
-    let delegate: Delegate
+    
+    @StateObject private var dataSource: DaoUserDelegationDataSource
+    @State private var chosenNetwork: VotingNetworkType = .gnosis
+    @Query private var profiles: [UserProfile]
+    @Namespace var namespace
+    @State private var isTooltipVisible = false
+    @Environment(\.dismiss) private var dismiss
     
     var userDelegation: DaoUserDelegation? {
         return dataSource.userDelegation
     }
     
-    @StateObject private var dataSource: DaoUserDelegationDataSource
-    @State private var chosenNetwork: VotingNetworkType = .gnosis
-    @Namespace var namespace
-    @State private var isTooltipVisible = false
-    @Environment(\.dismiss) private var dismiss
+    private var user: User {
+        let profile = profiles.first(where: { $0.selected })!
+        return profile.user
+    }
     
     init(dao: Dao, delegate: Delegate) {
-        let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
+        let dataSource = DaoUserDelegationDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
         self.dao = dao
-        self.delegate = delegate
     }
     
     var body: some View {
@@ -57,15 +62,20 @@ struct DaoUserDelegationView: View {
                     HStack {
                         Text("Selected wallet")
                             .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
+                            .foregroundStyle(Color.textWhite)
+
                         Spacer()
-                        HStack(spacing: 6) {
-                            //TODO: Replace with wallet icons
-                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                            RoundPictureView(image: delegate.user.avatar(size: .xs), imageSize: Avatar.Size.xs.profileImageSize)
-                            Text(delegate.user.usernameShort)
+                        
+                        if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+                            walletImage
+                                .frame(width: Avatar.Size.xs.profileImageSize, height: Avatar.Size.xs.profileImageSize)
+                                .scaledToFit()
+                                .clipShape(Circle())
+                        } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                            RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                         }
+
+                        IdentityView(user: user, size: .xs, font: .bodyRegular, onTap: nil)
                     }
                     
                     HStack {
@@ -79,6 +89,8 @@ struct DaoUserDelegationView: View {
                                 Text(userDelegationVotingPower.power.description)
                                 Text(userDelegationVotingPower.symbol)
                             }
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
                         }
                         
                     }
@@ -166,8 +178,10 @@ struct DaoUserDelegationView: View {
                         Spacer()
                     }
                     
-                    UserDelegationSplitVotingPowerView()
-                        .padding(.bottom)
+                    if let userDelegation {
+                        UserDelegationSplitVotingPowerView(owner: user, userDelegation: userDelegation)
+                            .padding(.bottom)
+                    }
 
                     SetDelegateExpirationView()
                 }

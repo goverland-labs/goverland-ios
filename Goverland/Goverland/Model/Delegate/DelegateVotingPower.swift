@@ -9,10 +9,14 @@
 
 import Foundation
 
-struct DelegateVotingPower: Decodable {
+struct DelegateVotingPower: Decodable, Identifiable {
     let user: User
     let powerPercent: Double
     let powerRatio: Int
+    
+    var id: String {
+        user.address.value
+    }
     
     enum CodingKeys: String, CodingKey {
         case user

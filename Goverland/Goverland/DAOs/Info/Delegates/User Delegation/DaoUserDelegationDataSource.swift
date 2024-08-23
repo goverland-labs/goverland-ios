@@ -13,18 +13,17 @@ import SwiftDate
 
 class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     let dao: Dao
-    let delegate: Delegate
     
     @Published var userDelegation: DaoUserDelegation?
+    
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(dao: Dao, delegate: Delegate) {
+    init(dao: Dao) {
         self.dao = dao
-        self.delegate = delegate
     }
     
     func refresh() {

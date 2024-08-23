@@ -144,7 +144,7 @@ fileprivate struct DelegateFullListItemView: View {
             Spacer()
             
             DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate)
+                //activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate)
             }
             
         }
