@@ -224,7 +224,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
             }
             .gesture(TapGesture().onEnded { _ in
                 if allowShowingDaoInfo {
-                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     Tracker.track(.snpDetailsShowDao)
                 } else {
                     dismiss()

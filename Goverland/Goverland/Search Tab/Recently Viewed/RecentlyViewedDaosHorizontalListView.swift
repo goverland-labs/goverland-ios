@@ -29,7 +29,7 @@ struct RecentlyViewedDaosHorizontalListView: View {
                     } else {
                         ForEach(dataSource.recentlyViewedDaos) { dao in
                             DAORoundViewWithActiveVotes(dao: dao) {
-                                activeSheetManager.activeSheet = .daoInfo(dao)
+                                activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                 Tracker.track(.searchRecentDaoOpen)
                             }                            
                         }

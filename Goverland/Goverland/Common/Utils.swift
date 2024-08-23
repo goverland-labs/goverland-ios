@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 func showToast(_ message: String) {
+    logInfo("[App] Toast diaplayed with message: \(message)")
     DispatchQueue.main.async {
         ToastViewModel.shared.setErrorMessage(message)
     }

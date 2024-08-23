@@ -47,7 +47,7 @@ struct TopProposalsListView: View {
                     } else {
                         let proposal = dataSource.proposals[index]
                         ProposalListItemView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(openDaoFromListItemTrackingEvent)
                         }
                         .listRowSeparator(.hidden)

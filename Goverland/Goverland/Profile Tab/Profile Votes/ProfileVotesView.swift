@@ -65,7 +65,7 @@ struct ProfileVotesView: View {
                     ForEach(votedProposals.prefix(count)) { proposal in
                         ProposalListItemView(proposal: proposal) {
                             Tracker.track(.prfVotesOpenDao)
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                         }
                         .onTapGesture {
                             Tracker.track(.prfVotesOpenProposal)

@@ -63,7 +63,7 @@ struct ArchiveView: View {
                                                  isSelected: false,
                                                  isRead: isRead,
                                                  onDaoTap: {
-                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                                activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                                 Tracker.track(.archiveEventOpenDao)
                             })
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -142,9 +142,9 @@ struct ArchiveView: View {
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
-            case .daoInfo(let dao):
+            case .daoInfoById(let daoId):
                 PopoverNavigationViewWithToast {
-                    DaoInfoView(dao: dao)
+                    DaoInfoView(daoId: daoId)
                 }
 
             case .publicProfileById(let profileId):

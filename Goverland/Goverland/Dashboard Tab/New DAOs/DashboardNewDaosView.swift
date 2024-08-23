@@ -20,7 +20,7 @@ struct DashboardNewDaosView: View {
         } else {
             DaoThreadForCategoryView(dataSource: dataSource,
                                      category: DaoCategory.new,
-                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpen) },
+                                     onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashNewDaoOpen) },
                                      onFollowToggle: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollow) } })
             .padding(.leading, Constants.horizontalPadding)
         }

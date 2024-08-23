@@ -11,25 +11,17 @@ import Combine
 
 class DaoInfoDataSource: ObservableObject, Refreshable {
     private let daoId: String
-
+    
     @Published var dao: Dao?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-
-    init(dao: Dao) {
-        self.daoId = dao.id.uuidString
-        self.dao = dao
-        // TODO: we have all info and this refresh is not needed,
-        // but without it Nav Bar controls are jumping (seems like SwifUI bug)
-        refresh()
-    }
-
+    
     init(daoId: String) {
         self.daoId = daoId
-        refresh()
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
     }
-
+    
     func refresh() {
         dao = nil
         failedToLoadInitialData = false
@@ -37,7 +29,7 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
         cancellables = Set<AnyCancellable>()
         loadInitialData()
     }
-
+    
     private func loadInitialData() {
         isLoading = true
         APIService.daoInfo(daoId: daoId)
@@ -52,5 +44,11 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
                 RecentlyViewedDaosDataSource.search.refresh()
             }
             .store(in: &cancellables)
+    }
+    
+    @objc func authTokenChanged(_ notification: Notification) {
+        // Andrey (22.08.2024): this will cause navigating back from navigation stack in Activity
+        // but this is ok
+        refresh()
     }
 }

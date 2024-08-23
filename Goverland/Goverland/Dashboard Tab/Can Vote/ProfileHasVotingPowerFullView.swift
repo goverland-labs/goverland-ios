@@ -33,7 +33,7 @@ struct ProfileHasVotingPowerFullView: View {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = dataSource.proposals![index]
                         ProposalListItemView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }
                         .listRowSeparator(.hidden)

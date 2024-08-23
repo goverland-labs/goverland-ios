@@ -38,11 +38,14 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                if !authToken.isEmpty {
-                    SignedInUserDashboardView(path: $path)
-                } else {
-                    SignedOutUserDashboardView(path: $path)
+                Group {
+                    if !authToken.isEmpty {
+                        SignedInUserDashboardView(path: $path)
+                    } else {
+                        SignedOutUserDashboardView(path: $path)
+                    }
                 }
+                .padding(.bottom, 30)
             }
             .id(authToken) // redraw completely on auth token change
             .onChange(of: authToken) { _, _ in
@@ -119,16 +122,16 @@ struct DashboardView: View {
                     .navigationTitle("Hot Proposals")
                 case .newDaos:
                     FollowCategoryDaosListView(category: .new,
-                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashNewDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashNewDaoOpenFromSearch) },
                                                onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                     .navigationTitle("New DAOs")
                 case .popularDaos:
                     FollowCategoryDaosListView(category: .popular,
-                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashPopularDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashPopularDaoOpenFromSearch) },
                                                onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
@@ -183,7 +186,6 @@ fileprivate struct SignedOutUserDashboardView: View {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 //        // Enable after public launch
@@ -191,7 +193,6 @@ fileprivate struct SignedOutUserDashboardView: View {
 ////                    path.append(Path.ecosystemCharts)
 ////                }
 //        EcosystemDashboardView()
-//            .padding(.bottom, 40)
     }
 }
 
@@ -234,7 +235,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.newDaos)
         }
         DashboardNewDaosView()
-            .padding(.bottom, 30)
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {

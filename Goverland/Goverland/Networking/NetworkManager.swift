@@ -40,6 +40,7 @@ class NetworkManager {
                            let errorMessage = dictionary["message"] as? String {
                             errorString = errorMessage
                         } else {
+                            logInfo("[App] wrong backend error response format. Message not found.")
                             errorString = "Unknown error"
                         }
                         throw APIError.badRequest(error: errorString)

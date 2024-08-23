@@ -10,6 +10,7 @@
 import Foundation
 import EventKit
 import SwiftUI
+import SwiftDate
 
 class RemindersManager {
     private let eventStore = EKEventStore()
@@ -26,14 +27,18 @@ class RemindersManager {
         }
     }
 
-    func createVoteReminder(proposal: Proposal, reminderDate: Date) {
+    func createVoteReminders(proposal: Proposal, reminderDates: [Date]) {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = "\(proposal.title)"
         reminder.notes = proposal.goverlandLink.absoluteString
         reminder.priority = 1  // 1..4 is a High priority
 
-        let alarm = EKAlarm(absoluteDate: reminderDate)
-        reminder.addAlarm(alarm)
+        // One reminder will be created with the earliest date.
+        // Push alerts will appear for each date until the system reminder is marked as completed.
+        reminderDates.forEach { date in
+            let alarm = EKAlarm(absoluteDate: date)
+            reminder.addAlarm(alarm)
+        }
 
         let calendar = eventStore.defaultCalendarForNewReminders()
         reminder.calendar = calendar
