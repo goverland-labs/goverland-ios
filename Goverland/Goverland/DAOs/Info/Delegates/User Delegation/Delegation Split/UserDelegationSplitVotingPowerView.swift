@@ -10,24 +10,16 @@
 import SwiftUI
 
 struct UserDelegationSplitVotingPowerView: View {
-    private let owner: User = .aaveChan
-    @State private var ownerPowerReserved: Double = 10.0
-    @State private var delegates: [Int: (User, Int)] = [0: (User.aaveChan, 1),
-                                                           1: (User.flipside, 3)]
+    @StateObject private var viewModel: UserDelegationSplitViewModel
     
-    @State private var timer: Timer?
-    @State private var isTooltipVisible = false
-    
-    private var sortedDelegates: [(key: Int, value: (User, Int))] {
-        delegates.sorted { $0.key < $1.key }
-    }
-    private var totalAssignedPower: Int {
-        delegates.values.reduce(0) { $0 + $1.1 }
+    init(owner: User, userDelegation: DaoUserDelegation) {
+        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         VStack {
-            ForEach(Array(sortedDelegates.enumerated()), id: \.1.key) { (index, element) in
+            ForEach(Array(viewModel.sortedDelegates.enumerated()), id: \.1.key) { (index, element) in
                 HStack {
                     IdentityView(user: element.value.0, onTap: nil)
                     
@@ -36,7 +28,7 @@ struct UserDelegationSplitVotingPowerView: View {
                     HStack(spacing: 0) {
                         CounterControlView(systemImageName: "minus",
                                            backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
-                            decreaseVotingPower(forIndex: index)
+                            viewModel.decreaseVotingPower(forIndex: index)
                         }
                         
                         Text(String(element.value.1))
@@ -44,10 +36,10 @@ struct UserDelegationSplitVotingPowerView: View {
                         
                         CounterControlView(systemImageName: "plus",
                                            backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
-                            increaseVotingPower(forIndex: index)
+                            viewModel.increaseVotingPower(forIndex: index)
                         }
                         
-                        Text(percentage(for: index))
+                        Text(viewModel.percentage(for: index))
                             .frame(width: 55)
                     }
                     .font(.footnoteSemibold)
@@ -72,18 +64,18 @@ struct UserDelegationSplitVotingPowerView: View {
                     Image(systemName: "questionmark.circle")
                         .foregroundStyle(Color.textWhite40)
                         .padding(.trailing)
-                        .tooltip($isTooltipVisible, side: .topRight, width: 200) {
+                        .tooltip($viewModel.isTooltipVisible, side: .topRight, width: 200) {
                             Text("Keep for yourself")
                                 .foregroundStyle(Color.textWhite60)
                                 .font(.сaptionRegular)
                         }
                         .onTapGesture() {
                             withAnimation {
-                                isTooltipVisible.toggle()
+                                viewModel.isTooltipVisible.toggle()
                                 // Show tooltip for 5 sec only
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                    if isTooltipVisible {
-                                        isTooltipVisible.toggle()
+                                    if viewModel.isTooltipVisible {
+                                        viewModel.isTooltipVisible.toggle()
                                     }
                                 }
                             }
@@ -98,30 +90,30 @@ struct UserDelegationSplitVotingPowerView: View {
                 .font(.footnoteRegular)
                 .foregroundColor(.textWhite60)
                 .onTapGesture {
-                    resetAllDelegatesVotingPower()
+                    viewModel.resetAllDelegatesVotingPower()
                 }
             }
             .padding(.vertical)
             
             HStack {
-                IdentityView(user: owner, onTap: nil)
+                IdentityView(user: viewModel.owner, onTap: nil)
                 
                 Spacer()
                 
                 HStack(spacing: 0) {
                     CounterControlView(systemImageName: "minus",
-                                       backgroundColor: ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
-                        decreaseOwnerVotingPower()
+                        viewModel.decreaseOwnerVotingPower()
                     }
                     
-                    Text(Utils.numberWithPercent(from: ownerPowerReserved))
+                    Text(Utils.numberWithPercent(from: viewModel.ownerPowerReserved))
                         .frame(width: 40)
                     
                     CounterControlView(systemImageName: "plus",
-                                       backgroundColor: ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
-                        increaseOwnerVotingPower()
+                        viewModel.increaseOwnerVotingPower()
                     }
                 }
                 .font(.footnoteSemibold)
@@ -129,7 +121,7 @@ struct UserDelegationSplitVotingPowerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
             .padding(.horizontal)
-            .background(ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+            .background(viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
@@ -137,58 +129,5 @@ struct UserDelegationSplitVotingPowerView: View {
             )
             
         }
-    }
-    
-    private func increaseVotingPower(forIndex index: Int) {
-        if ownerPowerReserved == 100 {
-            // TODO: warning here
-            return
-        }
-        if let delegate = delegates[index] {
-            let newPower = delegate.1 + 1
-            delegates[index] = (delegate.0, newPower)
-            
-        }
-    }
-    
-    private func decreaseVotingPower(forIndex index: Int) {
-        if let delegate = delegates[index] {
-            let newPower = delegate.1 - 1
-            if newPower >= 0 {
-                delegates[index] = (delegate.0, newPower)
-            }
-        }
-    }
-    
-    private func increaseOwnerVotingPower() {
-        if self.ownerPowerReserved < 100 {
-            self.ownerPowerReserved += 1
-        }
-        if self.ownerPowerReserved == 100 {
-            resetAllDelegatesVotingPower()
-        }
-    }
-    
-    private func decreaseOwnerVotingPower() {
-        if self.ownerPowerReserved > 0 {
-            self.ownerPowerReserved -= 1
-        }
-    }
-    
-    private func percentage(for index: Int) -> String {
-        guard totalAssignedPower > 0, let delegateAssignedPower = delegates[index]?.1 else { return "0" }
-        let availablePowerPercantage = 100.0 - ownerPowerReserved
-        let p = availablePowerPercantage / Double(totalAssignedPower) * Double(delegateAssignedPower)
-        return Utils.numberWithPercent(from: p)
-    }
-    
-    private func resetAllDelegatesVotingPower() {
-        for key in delegates.keys {
-            if var tuple = delegates[key] {
-                tuple.1 = 0
-                delegates[key] = tuple
-            }
-        }
-        self.ownerPowerReserved = 100
     }
 }

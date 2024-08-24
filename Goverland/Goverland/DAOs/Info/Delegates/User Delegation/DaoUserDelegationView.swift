@@ -179,7 +179,7 @@ struct DaoUserDelegationView: View {
                     }
                     
                     if let userDelegation {
-                        UserDelegationSplitVotingPowerView()
+                        UserDelegationSplitVotingPowerView(owner: user, userDelegation: userDelegation)
                             .padding(.bottom)
                     }
 
