@@ -32,6 +32,7 @@ enum VotingNetworkType: Int, Identifiable {
 
 struct DaoUserDelegationView: View {
     let dao: Dao
+    let delegate: Delegate
     
     @StateObject private var dataSource: DaoUserDelegationDataSource
     @State private var chosenNetwork: VotingNetworkType = .gnosis
@@ -53,6 +54,7 @@ struct DaoUserDelegationView: View {
         let dataSource = DaoUserDelegationDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
         self.dao = dao
+        self.delegate = delegate
     }
     
     var body: some View {
@@ -179,7 +181,7 @@ struct DaoUserDelegationView: View {
                     }
                     
                     if let userDelegation {
-                        UserDelegationSplitVotingPowerView(owner: user, userDelegation: userDelegation)
+                        UserDelegationSplitVotingPowerView()
                             .padding(.bottom)
                     }
 

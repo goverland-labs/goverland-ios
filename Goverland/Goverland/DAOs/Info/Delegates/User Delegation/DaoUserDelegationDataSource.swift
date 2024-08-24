@@ -33,7 +33,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadData()
+        //loadData()
+        self.userDelegation = .testUserDelegation
     }
     
     private func loadData() {
