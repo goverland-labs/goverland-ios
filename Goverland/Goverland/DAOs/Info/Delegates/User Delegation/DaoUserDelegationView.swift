@@ -32,6 +32,7 @@ enum VotingNetworkType: Int, Identifiable {
 
 struct DaoUserDelegationView: View {
     let dao: Dao
+    let tappedDelegate: User
     
     @StateObject private var dataSource: DaoUserDelegationDataSource
     @State private var chosenNetwork: VotingNetworkType = .gnosis
@@ -44,15 +45,17 @@ struct DaoUserDelegationView: View {
         return dataSource.userDelegation
     }
     
-    private var user: User {
+    private var appUser: User {
         let profile = profiles.first(where: { $0.selected })!
         return profile.user
     }
     
-    init(dao: Dao) {
-        let dataSource = DaoUserDelegationDataSource(dao: dao)
+    init(dao: Dao, tappedDelegate: User) {
+        let dataSource = DaoUserDelegationDataSource(dao: dao, tappedDelegate: tappedDelegate)
         _dataSource = StateObject(wrappedValue: dataSource)
         self.dao = dao
+        self.tappedDelegate = tappedDelegate
+        
     }
     
     var body: some View {
@@ -75,7 +78,7 @@ struct DaoUserDelegationView: View {
                             RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                         }
 
-                        IdentityView(user: user, size: .xs, font: .bodyRegular, onTap: nil)
+                        IdentityView(user: appUser, size: .xs, font: .bodyRegular, onTap: nil)
                     }
                     
                     HStack {
@@ -179,7 +182,9 @@ struct DaoUserDelegationView: View {
                     }
                     
                     if let userDelegation {
-                        UserDelegationSplitVotingPowerView(owner: user, userDelegation: userDelegation)
+                        UserDelegationSplitVotingPowerView(owner: appUser, 
+                                                           userDelegation: userDelegation,
+                                                           tappedDelegate: tappedDelegate)
                             .padding(.bottom)
                     }
 

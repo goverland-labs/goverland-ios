@@ -42,9 +42,9 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable, Paginatable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        //loadInitialData()
-        self.delegates = [.delegateNoDelegated, .delegateAaveChan]
-        self.total = 1
+        loadInitialData()
+//        self.delegates = [.delegateNoDelegated, .delegateAaveChan]
+//        self.total = 1
     }
     
     private func loadInitialData() {

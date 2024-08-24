@@ -12,8 +12,8 @@ import SwiftUI
 struct UserDelegationSplitVotingPowerView: View {
     @StateObject private var viewModel: UserDelegationSplitViewModel
     
-    init(owner: User, userDelegation: DaoUserDelegation) {
-        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation)
+    init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
+        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, tappedDelegate: tappedDelegate)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     

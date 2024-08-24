@@ -12,9 +12,10 @@ import Foundation
 class UserDelegationSplitViewModel: ObservableObject {
     let owner: User
     let userDelegation: DaoUserDelegation
+    let tappedDelegate: User
     
-    @Published var ownerPowerReserved: Double = 10.0
-    @Published var delegates: [Int: (User, Int)] = [0: (User.aaveChan, 1), 1: (User.flipside, 3)]
+    @Published var ownerPowerReserved: Double = 0.0
+    @Published var delegates = [Int: (User, Int)]()
     
     @Published var timer: Timer?
     @Published var isTooltipVisible = false
@@ -27,9 +28,22 @@ class UserDelegationSplitViewModel: ObservableObject {
         delegates.values.reduce(0) { $0 + $1.1 }
     }
     
-    init(owner: User, userDelegation: DaoUserDelegation) {
+    init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
         self.owner = owner
         self.userDelegation = userDelegation
+        self.tappedDelegate = tappedDelegate
+        
+        self.delegates[0] = (tappedDelegate, 0)
+        
+        for (index, del) in userDelegation.delegates.enumerated() {
+            if del.user.address == owner.address {
+                ownerPowerReserved = del.powerPercent
+            } else if del.user.address == tappedDelegate.address {
+                self.delegates[0]!.1 = del.powerRatio
+            } else {
+                self.delegates[index+1] = (del.user, del.powerRatio)
+            }
+        }
     }
     
     func increaseVotingPower(forIndex index: Int) {
@@ -85,5 +99,3 @@ class UserDelegationSplitViewModel: ObservableObject {
         self.ownerPowerReserved = 100
     }
 }
-    
-

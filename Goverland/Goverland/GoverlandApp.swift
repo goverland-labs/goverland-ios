@@ -128,9 +128,9 @@ struct GoverlandApp: App {
                             DaoDelegateProfileView(dao: dao, delegate: delegate)
                         }
 
-                    case .daoUserDelegate(let dao):
+                    case .daoUserDelegate(let dao, let user):
                         PopoverNavigationViewWithToast {
-                            DaoUserDelegationView(dao: dao)
+                            DaoUserDelegationView(dao: dao, tappedDelegate: user)
                         }
                         
                     case .proposal(let proposalId):
