@@ -32,7 +32,6 @@ enum VotingNetworkType: Int, Identifiable {
 
 struct DaoUserDelegationView: View {
     let dao: Dao
-    let delegate: Delegate
     
     @StateObject private var dataSource: DaoUserDelegationDataSource
     @State private var chosenNetwork: VotingNetworkType = .gnosis
@@ -50,11 +49,10 @@ struct DaoUserDelegationView: View {
         return profile.user
     }
     
-    init(dao: Dao, delegate: Delegate) {
+    init(dao: Dao) {
         let dataSource = DaoUserDelegationDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
         self.dao = dao
-        self.delegate = delegate
     }
     
     var body: some View {
