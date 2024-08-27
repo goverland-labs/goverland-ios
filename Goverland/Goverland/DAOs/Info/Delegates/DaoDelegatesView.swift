@@ -98,6 +98,8 @@ struct DaoDelegatesView: View {
 fileprivate struct _DelegatesListHeaderView: View {
     let dao: Dao
     let count: Int
+    
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var formattedCount: String {
         Utils.formattedNumber(Double(count))
@@ -109,7 +111,7 @@ fileprivate struct _DelegatesListHeaderView: View {
                 .font(.subheadlineSemibold)
                 .foregroundStyle(Color.textWhite)
             Spacer()
-            NavigationLink(destination: DelegatesFullListView(dao: dao)) {
+            NavigationLink(destination: DelegatesFullListView(dao: dao).environmentObject(activeSheetManager)) {
                 Text("See all")
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.primaryDim)

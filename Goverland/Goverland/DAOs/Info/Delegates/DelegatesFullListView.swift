@@ -41,7 +41,6 @@ struct DelegatesFullListView: View {
 
 fileprivate struct _DelegatesListView: View {
     @ObservedObject var dataSource: DaoDelegatesDataSource
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     var dao: Dao {
         return dataSource.dao
@@ -144,7 +143,7 @@ fileprivate struct DelegateFullListItemView: View {
             Spacer()
             
             DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                //activeSheetManager.activeSheet = .daoUserDelegate(dao)
+                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
             }
             
         }
