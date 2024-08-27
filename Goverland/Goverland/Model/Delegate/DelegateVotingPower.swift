@@ -32,4 +32,7 @@ extension DelegateVotingPower {
     static let delegateFlipside = DelegateVotingPower(user: .flipside,
                                                       powerPercent: 66.6,
                                                       powerRatio: 1)
+    static let delegateTest = DelegateVotingPower(user: .test, 
+                                                  powerPercent: 12,
+                                                  powerRatio: 1)
 }

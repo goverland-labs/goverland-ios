@@ -11,6 +11,7 @@ import SwiftUI
 
 struct UserDelegationSplitVotingPowerView: View {
     @StateObject private var viewModel: UserDelegationSplitViewModel
+    @State private var isTooltipVisible = false
     
     init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
         let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, tappedDelegate: tappedDelegate)
@@ -19,45 +20,83 @@ struct UserDelegationSplitVotingPowerView: View {
     
     var body: some View {
         VStack {
-            ForEach(Array(viewModel.sortedDelegates.enumerated()), id: \.1.key) { (index, element) in
+            if viewModel.delegates.count > 0 {
                 HStack {
-                    IdentityView(user: element.value.0, onTap: nil)
-                    
+                    HStack {
+                        Text("Delegate to")
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                        
+                        Image(systemName: "questionmark.circle")
+                            .foregroundStyle(Color.textWhite40)
+                            .padding(.trailing)
+                            .tooltip($isTooltipVisible, side: .topRight, width: 200) {
+                                Text("Tooltip text goes here")
+                                    .foregroundStyle(Color.textWhite60)
+                                    .font(.сaptionRegular)
+                            }
+                            .onTapGesture() {
+                                withAnimation {
+                                    isTooltipVisible.toggle()
+                                    // Show tooltip for 5 sec only
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                        if isTooltipVisible {
+                                            isTooltipVisible.toggle()
+                                        }
+                                    }
+                                }
+                            }
+                    }
                     Spacer()
                     
-                    HStack(spacing: 0) {
-                        CounterControlView(systemImageName: "minus",
-                                           backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
-                            viewModel.decreaseVotingPower(forIndex: index)
+                    if viewModel.delegates.count > 1 {
+                        HStack {
+                            Image(systemName: "divide")
+                            Text("Divide equally")
                         }
-                        
-                        Text(String(element.value.1))
-                            .frame(width: 20)
-                        
-                        CounterControlView(systemImageName: "plus",
-                                           backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
-                            viewModel.increaseVotingPower(forIndex: index)
+                        .font(.footnoteRegular)
+                        .foregroundColor(.textWhite60)
+                        .onTapGesture {
+                            viewModel.divideEquallyVotingPower()
                         }
-                        
-                        Text(viewModel.percentage(for: index))
-                            .frame(width: 55)
                     }
-                    .font(.footnoteSemibold)
-                    .foregroundColor(.onSecondaryContainer)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
-                .padding(.horizontal)
-                .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.secondaryContainer, lineWidth: 1)
-                )
+                
+                ForEach(Array(viewModel.sortedDelegates.enumerated()), id: \.1.key) { (index, element) in
+                    HStack {
+                        IdentityView(user: element.value.0, onTap: nil)
+                        Spacer()
+                        HStack(spacing: 0) {
+                            CounterControlView(systemImageName: "minus",
+                                               backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                viewModel.decreaseVotingPower(forIndex: index)
+                            }
+                            Text(String(element.value.1))
+                                .frame(width: 20)
+                            CounterControlView(systemImageName: "plus",
+                                               backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                viewModel.increaseVotingPower(forIndex: index)
+                            }
+                            Text(viewModel.percentage(for: index))
+                                .frame(width: 55)
+                        }
+                        .font(.footnoteSemibold)
+                        .foregroundColor(.onSecondaryContainer)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+                    .padding(.horizontal)
+                    .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
+                    .cornerRadius(20)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.secondaryContainer, lineWidth: 1)
+                    )
+                }
             }
             
             HStack {
                  HStack {
-                    Text("Keep for yourself")
+                     Text(viewModel.delegates.count > 0 ? "Keep for yourself" : "Delegate to yourself")
                         .font(.bodyRegular)
                         .foregroundColor(.textWhite)
                     
@@ -72,7 +111,6 @@ struct UserDelegationSplitVotingPowerView: View {
                         .onTapGesture() {
                             withAnimation {
                                 viewModel.isTooltipVisible.toggle()
-                                // Show tooltip for 5 sec only
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                                     if viewModel.isTooltipVisible {
                                         viewModel.isTooltipVisible.toggle()
@@ -83,33 +121,31 @@ struct UserDelegationSplitVotingPowerView: View {
                 }
                 Spacer()
                 
-                HStack {
-                    Image(systemName: "delete.right")
-                    Text("Clear all delegations")
-                }
-                .font(.footnoteRegular)
-                .foregroundColor(.textWhite60)
-                .onTapGesture {
-                    viewModel.resetAllDelegatesVotingPower()
+                if viewModel.delegates.count > 1 {
+                    HStack {
+                        Image(systemName: "delete.right")
+                        Text("Clear all delegations")
+                    }
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite60)
+                    .onTapGesture {
+                        viewModel.resetAllDelegatesVotingPower()
+                    }
                 }
             }
             .padding(.vertical)
             
             HStack {
                 IdentityView(user: viewModel.owner, onTap: nil)
-                
                 Spacer()
-                
                 HStack(spacing: 0) {
                     CounterControlView(systemImageName: "minus",
                                        backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
                         viewModel.decreaseOwnerVotingPower()
                     }
-                    
                     Text(Utils.numberWithPercent(from: viewModel.ownerPowerReserved))
-                        .frame(width: 40)
-                    
+                        .frame(width: 45)
                     CounterControlView(systemImageName: "plus",
                                        backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {

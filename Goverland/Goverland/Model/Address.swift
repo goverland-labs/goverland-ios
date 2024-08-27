@@ -36,6 +36,10 @@ struct Address: Codable, CustomStringConvertible, Equatable {
         let container = try decoder.singleValueContainer()
         self.value = try container.decode(String.self)
     }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.value.lowercased() == rhs.value.lowercased()
+    }
 }
 
 extension Address {

@@ -38,7 +38,6 @@ struct DaoUserDelegationView: View {
     @State private var chosenNetwork: VotingNetworkType = .gnosis
     @Query private var profiles: [UserProfile]
     @Namespace var namespace
-    @State private var isTooltipVisible = false
     @Environment(\.dismiss) private var dismiss
     
     var userDelegation: DaoUserDelegation? {
@@ -152,37 +151,8 @@ struct DaoUserDelegationView: View {
                         }
                     }
                     
-                    HStack {
-                        HStack {
-                            Text("Delegate to")
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                            
-                            Image(systemName: "questionmark.circle")
-                                .foregroundStyle(Color.textWhite40)
-                                .padding(.trailing)
-                                .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                                    Text("Tooltip text goes here")
-                                        .foregroundStyle(Color.textWhite60)
-                                        .font(.сaptionRegular)
-                                }
-                                .onTapGesture() {
-                                    withAnimation {
-                                        isTooltipVisible.toggle()
-                                        // Show tooltip for 5 sec only
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                            if isTooltipVisible {
-                                                isTooltipVisible.toggle()
-                                            }
-                                        }
-                                    }
-                                }
-                        }
-                        Spacer()
-                    }
-                    
                     if let userDelegation {
-                        UserDelegationSplitVotingPowerView(owner: appUser, 
+                        UserDelegationSplitVotingPowerView(owner: appUser,
                                                            userDelegation: userDelegation,
                                                            tappedDelegate: tappedDelegate)
                             .padding(.bottom)
