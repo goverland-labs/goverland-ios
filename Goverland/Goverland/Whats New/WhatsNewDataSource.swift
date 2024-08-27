@@ -13,7 +13,7 @@ import Version
 class WhatsNewDataSource {
     var markdown: String {
         guard let versions = versions, versions.count > 0 else { return "" }
-        return versions.reduce("") { r, v in "\(r)# \(v.version)\n\n\(v.markdownDescription)\n\n" }
+        return versions.reduce("") { r, v in "\(r)# \(v.version)\n\(v.markdownDescription)\n\n" }
     }
 
     var latestVersion: Version {

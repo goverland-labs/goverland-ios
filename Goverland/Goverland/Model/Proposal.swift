@@ -42,7 +42,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let dao: Dao
     let timeline: [TimelineEvent]
 
-    var goverlandLink: URL {
+    var goverlandUrl: URL {
         URL(string: "https://app.goverland.xyz/proposals/\(id)")!
     }
 

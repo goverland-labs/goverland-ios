@@ -10,18 +10,15 @@ import SwiftUI
 
 struct DaoSharingMenu: View {
     let dao: Dao
-    var link: String {
-        "https://snapshot.org/#/\(dao.alias)"
-    }
 
     var body: some View {
-        if let url = Utils.urlFromString(link) {
-            ShareLink(item: url) {
+        if let snapshotUrl = dao.snapshotUrl, let goverlandUrl = dao.goverlandUrl {
+            ShareLink(item: goverlandUrl) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
 
             Button {
-                openUrl(url)
+                openUrl(snapshotUrl)
             } label: {
                 // for now we handle only Snapshot proposals
                 Label("Open on Snapshot", systemImage: "arrow.up.right")

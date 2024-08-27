@@ -41,25 +41,45 @@ extension TestMarkdownView {
 
 # Heading Level 1
 
-text 1
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 ## Heading Level 2
 
-text 2
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 ### Heading Level 3
 
-text 3
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 #### Heading Level 4
 
-text 4
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 ##### Heading Level 5
 
-text 5
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 ###### Heading Level 6
+
+**Proposal Summaries**: Quickly understand complex proposals with concise summaries
+
+- **Vote Reminders**: Set reminders to vote on important proposals
+- **Voter Search**: Easily find other voters and see their stance on proposals
 
 ---
 

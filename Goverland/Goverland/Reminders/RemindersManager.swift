@@ -30,7 +30,7 @@ class RemindersManager {
     func createVoteReminders(proposal: Proposal, reminderDates: [Date]) {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = "\(proposal.title)"
-        reminder.notes = proposal.goverlandLink.absoluteString
+        reminder.notes = proposal.goverlandUrl.absoluteString
         reminder.priority = 1  // 1..4 is a High priority
 
         // One reminder will be created with the earliest date.
