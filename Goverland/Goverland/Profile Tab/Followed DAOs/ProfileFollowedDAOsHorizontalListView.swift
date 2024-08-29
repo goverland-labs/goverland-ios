@@ -31,7 +31,7 @@ struct ProfileFollowedDAOsHorizontalListView: View {
                         } else {
                             ForEach(dataSource.subscriptions) { subscription in
                                 DAORoundViewWithActiveVotes(dao: subscription.dao) {
-                                    activeSheetManager.activeSheet = .daoInfo(subscription.dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(subscription.dao.id.uuidString)
                                     Tracker.track(.dashPopularDaoOpen)
                                 }
                             }

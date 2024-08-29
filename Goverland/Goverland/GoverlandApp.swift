@@ -48,6 +48,7 @@ struct GoverlandApp: App {
 
                     case .active:
                         logInfo("[App] Did enter foreground")
+                        NotificationCenter.default.post(name: .appEnteredForeground, object: nil)
 
                         // Fetch remote config values in case app was not used for a while
                         RemoteConfigManager.shared.fetchFirebaseRemoteConfig()
@@ -84,14 +85,14 @@ struct GoverlandApp: App {
                     case .signIn:
                         SignInView(source: .popover)
 
-                    case .daoInfo(let dao):
+                    case .daoInfoById(let daoId):
                         PopoverNavigationViewWithToast {
-                            DaoInfoView(dao: dao)
+                            DaoInfoView(daoId: daoId)
                         }
 
-                    case .publicProfile(let address):
+                    case .publicProfileById(let profileId):
                         PopoverNavigationViewWithToast {
-                            PublicUserProfileView(address: address)
+                            PublicUserProfileView(profileId: profileId)
                         }
 
                     case .daoVoters(let dao, let filteringOption):
@@ -184,6 +185,23 @@ struct GoverlandApp: App {
             logInfo("[CoinbaseWallet] Handled universal link")
             return
         }
+
+        let pathComponents = url.pathComponents
+        if pathComponents.count > 2 {
+            switch pathComponents[1] {
+            case "dao":
+                let daoId = pathComponents[2]
+                activeSheetManager.activeSheet = .daoInfoById(daoId)
+            case "proposals":
+                let proposalId = pathComponents[2]
+                activeSheetManager.activeSheet = .proposal(proposalId)
+            case "profiles":
+                let profileId = pathComponents[2]
+                activeSheetManager.activeSheet = .publicProfileById(profileId)
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -212,6 +230,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Setup Push Notifications Manager
         NotificationsManager.shared.setUpMessaging(delegate: self)
+
+        // Load App Versions
+        WhatsNewDataSource.shared.loadData()
 
         // Setup appearance
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.containerBright)

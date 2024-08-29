@@ -42,7 +42,7 @@ struct RecommendedDaosView: View {
                 DaoCardWideView(
                     dao: dao,
                     onSelectDao: { dao in
-                        activeSheetManager.activeSheet = .daoInfo(dao)
+                        activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                         Tracker.track(.daosRecommendationOpenDao)
                     },
                     onFollowToggle: { didFollow in
@@ -64,9 +64,9 @@ struct RecommendedDaosView: View {
         .scrollIndicators(.hidden)
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
-            case .daoInfo(let dao):
+            case .daoInfoById(let daoId):
                 PopoverNavigationViewWithToast {
-                    DaoInfoView(dao: dao)
+                    DaoInfoView(daoId: daoId)
                 }
             default:
                 // should not happen

@@ -30,9 +30,9 @@ struct AddSubscriptionView: View {
             if searchDataSource.searchText == "" {
                 if !dataSource.failedToLoadInitialData {
                     GroupedDaosView(dataSource: dataSource,
-                                    onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCard) },
-                                    onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgList) },
-                                    onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
+                                    onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.followedAddOpenDaoFromCard) },
+                                    onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.followedAddOpenDaoFromCtgList) },
+                                    onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.followedAddOpenDaoFromCtgSearch) },
 
                                     onFollowToggleFromCard: { didFollow in if didFollow { Tracker.track(.followedAddFollowFromCard) } },
                                     onFollowToggleFromCategoryList: { didFollow in if didFollow { Tracker.track(.followedAddFollowFromCtgList) } },
@@ -44,7 +44,7 @@ struct AddSubscriptionView: View {
                 }
             } else {
                 DaosSearchListView(onSelectDao: { dao in
-                    activeSheetManager.activeSheet = .daoInfo(dao)
+                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                     Tracker.track(.followedAddOpenDaoFromSearch)
                 },
                                    onFollowToggle: { didFollow in

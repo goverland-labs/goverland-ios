@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 25.01.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -32,8 +32,8 @@ struct ProfileHasVotingPowerFullView: View {
                 if let count = dataSource.proposals?.count, count > 0 {
                     List(0..<count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = dataSource.proposals![index]
-                        ProposalListItemNoElipsisView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        ProposalListItemView(proposal: proposal) {
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(.dashCanVoteOpenDaoFromList)
                         }
                         .listRowSeparator(.hidden)

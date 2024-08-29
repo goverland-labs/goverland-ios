@@ -37,12 +37,8 @@ struct DaoInfoView: View {
 
     var dao: Dao? { dataSource.dao }
 
-    init(daoID: UUID) {
-        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoID: daoID))
-    }
-
-    init(dao: Dao) {
-        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(dao: dao))
+    init(daoId: String) {
+        _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoId: daoId))
     }
 
     var body: some View {
@@ -107,6 +103,11 @@ struct DaoInfoView: View {
                             .frame(height: 20)
                     }
                 }
+            }
+        }
+        .onAppear {
+            if dataSource.dao == nil {
+                dataSource.refresh()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in

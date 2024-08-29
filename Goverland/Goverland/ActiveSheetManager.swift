@@ -10,8 +10,8 @@ import Foundation
 
 enum ActiveSheet: Identifiable, Equatable {
     case signIn
-    case daoInfo(Dao)
-    case publicProfile(Address)
+    case daoInfoById(String)
+    case publicProfileById(String)
     case daoVoters(Dao, DatesFiltetingOption)
     case proposalVoters(Proposal)
     case followDaos
@@ -25,8 +25,8 @@ enum ActiveSheet: Identifiable, Equatable {
     var id: Int {
         switch self {
         case .signIn: return 0
-        case .daoInfo: return 1
-        case .publicProfile: return 2
+        case .daoInfoById: return 1
+        case .publicProfileById: return 2
         case .daoVoters: return 3
         case .proposalVoters: return 4
         case .followDaos: return 5

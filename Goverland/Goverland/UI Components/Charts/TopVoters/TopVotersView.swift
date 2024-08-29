@@ -113,7 +113,7 @@ fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
                             // Skip tapping on `Other`
                             if index < 10 {
                                 let address = dataSource.top10votersGraphData[index].voter.address
-                                activeSheetManager.activeSheet = .publicProfile(address)
+                                activeSheetManager.activeSheet = .publicProfileById(address.value)
                             }
                         }
                     }
@@ -161,7 +161,7 @@ fileprivate struct _SeeAllButtonView: View {
         Text("See all")
             .frame(width: 124, height: 32, alignment: .center)
             .background(Capsule(style: .circular)
-                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 2)))
+                .stroke(Color.secondaryContainer,style: StrokeStyle(lineWidth: 1)))
             .tint(.onSecondaryContainer)
             .font(.footnoteSemibold)
             .onTapGesture {

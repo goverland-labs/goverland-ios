@@ -57,9 +57,9 @@ struct SearchView: View {
                             if !daos.failedToLoadInitialData {
                                 GroupedDaosView(dataSource: daos,
                                                 showRecentlyViewedDAOs: true,                                                
-                                                onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCard) },
-                                                onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgList) },
-                                                onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
+                                                onSelectDaoFromGroup: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.searchDaosOpenDaoFromCard) },
+                                                onSelectDaoFromCategoryList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.searchDaosOpenDaoFromCtgList) },
+                                                onSelectDaoFromCategorySearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.searchDaosOpenDaoFromCtgSearch) },
 
                                                 onFollowToggleFromCard: { didFollow in if didFollow { Tracker.track(.searchDaosFollowFromCard) } },
                                                 onFollowToggleFromCategoryList: { didFollow in if didFollow { Tracker.track(.searchDaosFollowFromCtgList) } },
@@ -90,7 +90,7 @@ struct SearchView: View {
                     switch model.filter {
                     case .daos:
                         DaosSearchListView(onSelectDao: { dao in
-                            activeSheetManager.activeSheet = .daoInfo(dao)
+                            activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                             Tracker.track(.searchDaosOpenDaoFromSearch)
                         },
                                            onFollowToggle: { didFollow in
@@ -103,7 +103,9 @@ struct SearchView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal)
+                // We want to always load data from backend as Top proposals are cached for some time
+                // so we use initializer with proposal.id instead of passing the cached proposal object
+                SnapshotProposalView(proposalId: proposal.id)
             }
             .searchable(text: searchText,
                         placement: .navigationBarDrawer(displayMode: .always),

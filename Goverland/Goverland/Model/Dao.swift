@@ -28,7 +28,15 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
     let github: String?
     let coingecko: String?
     let terms: URL?
-    
+
+    var snapshotUrl: URL? {
+        Utils.urlFromString("https://snapshot.org/#/\(alias)")
+    }
+
+    var goverlandUrl: URL? {
+        Utils.urlFromString("https://app.goverland.xyz/dao/\(alias)")
+    }
+
     init(id: UUID,
          alias: String,
          name: String,

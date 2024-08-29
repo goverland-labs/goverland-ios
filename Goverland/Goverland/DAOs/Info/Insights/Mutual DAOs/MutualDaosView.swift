@@ -63,7 +63,7 @@ fileprivate struct MutualDaosScrollView: View {
                         let percentage = Utils.numberWithPercent(from: obj.votersPercent)
                         DaoCardView(dao: dao,
                                     subheader: "\(percentage) voters",
-                                    onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.daoInsightsMutualOpen) },
+                                    onSelectDao: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.daoInsightsMutualOpen) },
                                     onFollowToggle: { didFollow in if didFollow { Tracker.track(.daoInsightsMutualFollow) } })
                     }
                 }

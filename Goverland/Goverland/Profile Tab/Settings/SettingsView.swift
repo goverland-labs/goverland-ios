@@ -64,7 +64,13 @@ struct SettingsView: View {
                 NavigationLink("Help us grow", value: ProfileScreen.helpUsGrow)
                 NavigationLink("Partnership", value: ProfileScreen.partnership)
                 NavigationLink("Advanced", value: ProfileScreen.advanced)
-                LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
+                if !WhatsNewDataSource.shared.markdown.isEmpty {
+                    NavigationLink(value: ProfileScreen.whatsNew) {
+                        LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
+                    }
+                } else {
+                    LabeledContent("App version", value: Bundle.main.releaseVersionNumber!)
+                }
             }
 
             if !authToken.isEmpty {

@@ -236,9 +236,10 @@ class CastYourVoteDataSource: ObservableObject {
                 }
             } receiveValue: { [weak self] resp, _ in
                 logInfo("[VOTE]: Succesfully submitted: \(resp)")
-                self?.submitted = true
-                self?.onSuccess()
-                NotificationCenter.default.post(name: .voteCasted, object: nil)
+                guard let self else { return }
+                self.submitted = true
+                self.onSuccess()
+                NotificationCenter.default.post(name: .voteCasted, object: self.proposal)
             }
             .store(in: &cancellables)
     }

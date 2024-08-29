@@ -13,7 +13,10 @@ struct InboxView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var shouldRefreshAfterVote = false
+
+    @State private var showReminderErrorAlert = false
+    @State private var showReminderSelection = false
+    @State private var proposalForReminder: Proposal?
 
     var events: [InboxEvent] {
         data.events ?? []
@@ -56,19 +59,28 @@ struct InboxView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             // For now we recognise only proposals
-                            let proposal = event.eventData! as! Proposal
-                            let isRead = event.readAt != nil
-                            ProposalListItemView(proposal: proposal,
-                                                 isSelected: data.selectedEventIndex == index,
-                                                 isRead: isRead,
-                                                 onDaoTap: {
-                                activeSheetManager.activeSheet = .daoInfo(proposal.dao)
-                                Tracker.track(.inboxEventOpenDao)
-                            }) {
-                                ProposalSharingMenu(
-                                    link: proposal.link,
-                                    isRead: isRead,
-                                    markCompletion: {
+                            if let proposal = event.eventData! as? Proposal, event.visible {
+                                let isRead = event.readAt != nil
+                                ProposalListItemView(proposal: proposal,
+                                                     isSelected: data.selectedEventIndex == index,
+                                                     isRead: isRead,
+                                                     onDaoTap: {
+                                    activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
+                                    Tracker.track(.inboxEventOpenDao)
+                                })
+                                // TODO: submit bug to Apple: onLongPressGesture overrides list selection
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button {
+                                        Haptic.medium()
+                                        data.archive(eventID: event.id)
+                                        Tracker.track(.inboxEventArchive)
+                                    } label: {
+                                        Label("Archive", systemImage: "trash.fill")
+                                    }
+                                    .tint(.clear)
+                                }
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                    Button {
                                         Haptic.medium()
                                         if isRead {
                                             Tracker.track(.inboxEventMarkUnread)
@@ -77,24 +89,36 @@ struct InboxView: View {
                                             Tracker.track(.inboxEventMarkRead)
                                             data.markRead(eventID: event.id)
                                         }
-                                    },
-                                    isArchived: false,
-                                    archivationCompletion: {
-                                        archive(eventId: event.id)
+                                    } label: {
+                                        if isRead {
+                                            Label("Mark as unread", systemImage: "envelope.fill")
+                                        } else {
+                                            Label("Mark as read", systemImage: "envelope.open.fill")
+                                        }
                                     }
-                                )
-                            }
-                            .swipeActions {
-                                Button {
-                                    archive(eventId: event.id)
-                                } label: {
-                                    Label("Archive", systemImage: "trash.fill")
+                                    .tint(.clear)
+
+                                    Button {
+                                        Tracker.track(.inboxEventAddReminder)
+                                        RemindersManager.shared.requestAccess { granted in
+                                            if granted {
+                                                proposalForReminder = proposal // will show a popover
+                                            } else {
+                                                showReminderErrorAlert = true
+                                            }
+                                        }
+                                    } label: {
+                                        Label("Remind to vote", systemImage: "bell.fill")
+                                    }
+                                    .tint(.clear)
                                 }
-                                .tint(.clear)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(Constants.listInsets)
+                                .listRowBackground(Color.clear)
+                            } else {
+                                // event is not visible or not recognized
+                                EmptyView()
                             }
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(Constants.listInsets)
-                            .listRowBackground(Color.clear)
                         }
                     }
                     .refreshable {
@@ -129,6 +153,13 @@ struct InboxView: View {
                         } label: {
                             Label("My followed DAOs", systemImage: "d.circle.fill")
                         }
+
+                        Button {
+                            TabManager.shared.selectedTab = .profile
+                            TabManager.shared.profilePath = [.settings, .inboxNofitications]
+                        } label: {
+                            Label("Inbox Settings", systemImage: "gearshape.fill")
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.textWhite)
@@ -138,15 +169,13 @@ struct InboxView: View {
                 }
             }
         }  detail: {
+            // when data is loading it is also possible to select shimmer view
             if let index = data.selectedEventIndex, events.count > index,
                let proposal = events[index].eventData as? Proposal {
                 SnapshotProposalView(proposal: proposal)
             } else {
                 EmptyView()
             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .voteCasted)) { notification in
-            shouldRefreshAfterVote = true
         }
         .onChange(of: data.selectedEventIndex) { _, _ in
             if let index = data.selectedEventIndex, events.count > index {
@@ -156,10 +185,6 @@ struct InboxView: View {
                     data.markRead(eventID: event.id)
                 }
             }
-            // refresh after a vote to enable auto-archiving
-            if shouldRefreshAfterVote {
-                data.refresh()
-            }
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
@@ -167,11 +192,19 @@ struct InboxView: View {
                 Tracker.track(.screenInbox)
             }
         }
-    }
-
-    private func archive(eventId: UUID) {
-        Haptic.medium()
-        data.archive(eventID: eventId)
-        Tracker.track(.inboxEventArchive)
+        .alert(isPresented: $showReminderErrorAlert) {
+            RemindersManager.accessRequiredAlert()
+        }
+        .onChange(of: proposalForReminder) { oldValue, newValue in
+            guard newValue != nil else { return }
+            showReminderSelection = true
+        }
+        .sheet(isPresented: $showReminderSelection) {
+            ProposalReminderSelectionView(proposal: proposalForReminder!)
+                .presentationDetents([.height(600)])
+                .onDisappear {
+                    proposalForReminder = nil // to allow repeatitive selection
+                }
+        }
     }
 }

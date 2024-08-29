@@ -14,11 +14,11 @@ struct ProfileVotesView: View {
     @StateObject private var dataSource = ProfileVotesDataSource.shared
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var votedProposals: [Proposal] {
         dataSource.votedProposals ?? []
     }
-
+    
     var columns: [GridItem] {
         if horizontalSizeClass == .regular {
             return Array(repeating: .init(.flexible()), count: 2)
@@ -26,7 +26,7 @@ struct ProfileVotesView: View {
             return Array(repeating: .init(.flexible()), count: 1)
         }
     }
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -40,7 +40,7 @@ struct ProfileVotesView: View {
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
-
+            
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
                     dataSource.refresh()
@@ -63,9 +63,9 @@ struct ProfileVotesView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     let count = columns.count == 1 ? 3 : 4
                     ForEach(votedProposals.prefix(count)) { proposal in
-                        ProposalListItemNoElipsisView(proposal: proposal) {
+                        ProposalListItemView(proposal: proposal) {
                             Tracker.track(.prfVotesOpenDao)
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                         }
                         .onTapGesture {
                             Tracker.track(.prfVotesOpenProposal)

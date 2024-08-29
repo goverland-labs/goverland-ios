@@ -21,6 +21,7 @@ enum ProfileScreen: Hashable {
     case helpUsGrow
     case partnership
     case advanced
+    case whatsNew
 }
 
 extension ProfileFilter {
@@ -84,6 +85,7 @@ struct ProfileView: View {
                 case .helpUsGrow: HelpUsGrowSettingView()
                 case .partnership: PartnershipSettingView()
                 case .advanced: AdvancedSettingView()
+                case .whatsNew: WhatsNewView(displayCloseButton: false)
                 }
             }
         }

@@ -32,6 +32,13 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    // MARK: - What's New
+
+    static func versions() -> AnyPublisher<(AppVersionsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = AppVersionsEndpoint()
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
     // MARK: - Profile
 
     static func profile() -> AnyPublisher<(ProfileEndpoint.ResponseType, HttpHeaders), APIError> {
@@ -86,28 +93,28 @@ extension APIService {
 
     // MARK: - Public Profile
 
-    static func publicProfile(address: Address) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = PublicProfileEndpoint(address: address)
+    static func publicProfile(profileId: String) -> AnyPublisher<(PublicProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = PublicProfileEndpoint(profileId: profileId)
         return shared.request(endpoint)
     }
 
-    static func getPublicProfileDaos(address: Address) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func getPublicProfileDaos(profileId: String) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "limit", value: "10000"),
 
         ]
-        let endpoint = PublicProfileDaosEndpoint(address: address, queryParameters: queryParameters)
+        let endpoint = PublicProfileDaosEndpoint(profileId: profileId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
-    static func getPublicProfileVotes(address: Address,
+    static func getPublicProfileVotes(profileId: String,
                                       offset: Int = 0,
                                       limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(PublicProfileVotesEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
-        let endpoint = PublicProfileVotesEndpoint(address: address, queryParameters: queryParameters)
+        let endpoint = PublicProfileVotesEndpoint(profileId: profileId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 
@@ -138,8 +145,8 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func daoInfo(id: UUID) -> AnyPublisher<(DaoInfoEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = DaoInfoEndpoint(daoID: id)
+    static func daoInfo(daoId: String) -> AnyPublisher<(DaoInfoEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoInfoEndpoint(daoId: daoId)
         return shared.request(endpoint)
     }
 
@@ -293,16 +300,25 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func proposalSummary(id: String) -> AnyPublisher<(ProposalSummaryEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = ProposalSummaryEndpoint(proposalId: id)
+        return shared.request(endpoint)
+    }
+
     // MARK: - Voting & Votes
 
     static func votes<ChoiceType: Decodable>(proposalID: String,
                                              offset: Int = 0,
                                              limit: Int = ConfigurationManager.defaultPaginationCount,
                                              query: String? = nil) -> AnyPublisher<(ProposalVotesEndpoint<ChoiceType>.ResponseType, HttpHeaders), APIError> {
-        let queryParameters = [
+        var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
+        
+        if let query = query {
+            queryParameters.append(URLQueryItem(name: "query", value: query))
+        }
 
         let endpoint = ProposalVotesEndpoint<ChoiceType>(proposalID: proposalID, queryParameters: queryParameters)
         return shared.request(endpoint)

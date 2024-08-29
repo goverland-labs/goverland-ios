@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 25.01.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -14,7 +14,7 @@ struct ProfileHasVotingPowerView: View {
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var columns: [GridItem] {
         if horizontalSizeClass == .regular {
             return Array(repeating: .init(.flexible()), count: 2)
@@ -22,7 +22,7 @@ struct ProfileHasVotingPowerView: View {
             return Array(repeating: .init(.flexible()), count: 1)
         }
     }
-
+    
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
@@ -41,8 +41,8 @@ struct ProfileHasVotingPowerView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     let count = columns.count == 1 ? 3 : 4
                     ForEach((dataSource.proposals ?? []).prefix(count)) { proposal in
-                        ProposalListItemNoElipsisView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        ProposalListItemView(proposal: proposal) {
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(.dashCanVoteOpenDao)
                         }
                         .onTapGesture {

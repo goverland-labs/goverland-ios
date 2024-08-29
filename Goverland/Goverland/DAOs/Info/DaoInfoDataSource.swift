@@ -10,32 +10,29 @@ import SwiftUI
 import Combine
 
 class DaoInfoDataSource: ObservableObject, Refreshable {
-    private let daoID: UUID
-
+    private let daoId: String
+    
     @Published var dao: Dao?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-
-    init(dao: Dao) {
-        // When passed from some places, the DAO object is not full, so we don't store it
-        self.daoID = dao.id
+    
+    init(daoId: String) {
+        self.daoId = daoId
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
     }
-
-    init(daoID: UUID) {
-        self.daoID = daoID
-    }
-
+    
     func refresh() {
+        dao = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
         loadInitialData()
     }
-
+    
     private func loadInitialData() {
         isLoading = true
-        APIService.daoInfo(id: daoID)
+        APIService.daoInfo(daoId: daoId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -47,5 +44,11 @@ class DaoInfoDataSource: ObservableObject, Refreshable {
                 RecentlyViewedDaosDataSource.search.refresh()
             }
             .store(in: &cancellables)
+    }
+    
+    @objc func authTokenChanged(_ notification: Notification) {
+        // Andrey (22.08.2024): this will cause navigating back from navigation stack in Activity
+        // but this is ok
+        refresh()
     }
 }

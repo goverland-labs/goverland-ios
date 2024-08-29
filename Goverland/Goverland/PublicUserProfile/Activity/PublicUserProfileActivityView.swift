@@ -5,7 +5,7 @@
 //  Created by Jenny Shalai on 2024-03-07.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -16,7 +16,7 @@ struct PublicUserProfileActivityView: View {
 
     init(user: User, path: Binding<[PublicUserProfileScreen]>) {
         _votesDataSource = StateObject(wrappedValue: PublicUserProfileVotesDataSource(user: user))
-        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: user.address))
+        _daosDataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(profileId: user.address.value))
         _path = path
     }
 
@@ -38,8 +38,8 @@ fileprivate struct _VotedDaosView: View {
 
     var header: String {
         dataSource.isLoading || dataSource.failedToLoadInitialData ?
-            "Voted in DAOs" :
-            "Voted in DAOs (\(daos.count))"
+        "Voted in DAOs" :
+        "Voted in DAOs (\(daos.count))"
     }
 
     var body: some View {
@@ -79,7 +79,7 @@ fileprivate struct _VotedDaosView: View {
                         } else {
                             ForEach(daos) { dao in
                                 DAORoundViewWithActiveVotes(dao: dao) {
-                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                     Tracker.track(.publicPrfVotedDaoOpen)
                                 }
                             }
@@ -129,7 +129,7 @@ fileprivate struct _VotedProposalsView: View {
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
-
+            
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
                     dataSource.refresh()
@@ -141,9 +141,9 @@ fileprivate struct _VotedProposalsView: View {
                 }
             } else {
                 ForEach(votedProposals.prefix(3)) { proposal in
-                    ProposalListItemNoElipsisView(proposal: proposal) {
+                    ProposalListItemView(proposal: proposal) {
                         Tracker.track(.publicPrfVotesOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     }
                     .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {

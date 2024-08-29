@@ -9,22 +9,22 @@
 import Foundation
 import Combine
 
-enum InboxFilter: Int, FilterOptions {
-    case all = 0
-    case vote
-    case treasury
-
-    var localizedName: String {
-        switch self {
-        case .all:
-            return "All"
-        case .vote:
-            return "Vote"
-        case .treasury:
-            return "Treasury"
-        }
-    }
-}
+//enum InboxFilter: Int, FilterOptions {
+//    case all = 0
+//    case vote
+//    case treasury
+//
+//    var localizedName: String {
+//        switch self {
+//        case .all:
+//            return "All"
+//        case .vote:
+//            return "Vote"
+//        case .treasury:
+//            return "Treasury"
+//        }
+//    }
+//}
 
 class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     @Published var events: [InboxEvent]? {
@@ -37,7 +37,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         }
     }
     @Published var selectedEventIndex: Int?
-    @Published var filter: InboxFilter = .all
+//    @Published var filter: InboxFilter = .all
     @Published var isLoading: Bool = false
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -48,42 +48,41 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     private var total: Int?
     private var totalSkipped: Int?
 
-    // Computed var properties overrided in DaoInfoEventsDataSource
-
-    var authRequired: Bool  { true }
-
-    var initialLoadingPublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents()
-    }
-    var loadMorePublisher: AnyPublisher<([InboxEvent], HttpHeaders), APIError> {
-        APIService.inboxEvents(offset: events?.count ?? 0)
-    }
-
     // subclassable
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDidToggle(_:)), name: .subscriptionDidToggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventUnarchived(_:)), name: .eventUnarchived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(voteCasted(_:)), name: .voteCasted, object: nil)
     }
 
     func refresh() {
+        refresh(nullifySelectedEventIndex: false)
+    }
+
+    func refresh(nullifySelectedEventIndex: Bool) {
         events = nil
-        // do not nullify selectedEventIndex
+        if nullifySelectedEventIndex {
+            // refresh happens in different places
+            // and often we need to keep the selected element index
+            selectedEventIndex = nil
+        }
         isLoading = false
         failedToLoadInitialData = false
         failedToLoadMore = false
         cancellables = Set<AnyCancellable>()
         total = nil
+        totalSkipped = nil
 
         loadInitialData()
     }
 
     private func loadInitialData() {
         // Fool protection
-        guard !authRequired || !SettingKeys.shared.authToken.isEmpty else { return }
+        guard !SettingKeys.shared.authToken.isEmpty else { return }
 
         isLoading = true
-        initialLoadingPublisher
+        APIService.inboxEvents()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -100,6 +99,11 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 self.storeUnreadEventsCount(headers: headers)
             }
             .store(in: &cancellables)
+
+        // to check user's archiving options
+        if InboxNotificationsDataSource.shared.notificationsSettings == nil {
+            InboxNotificationsDataSource.shared.refresh()
+        }
     }
 
     func storeUnreadEventsCount(headers: HttpHeaders) {
@@ -115,7 +119,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func loadMore() {
-        loadMorePublisher
+        APIService.inboxEvents(offset: events?.count ?? 0)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -203,9 +207,9 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 }
             } receiveValue: { [weak self] _, _ in
                 showToast("Moved to Archive")
-                guard let `self` = self else { return }
+                guard let self else { return }
                 if let index = self.events?.firstIndex(where: { $0.id == eventID }) {
-                    self.total? -= 1 // to properly handle load more
+                    self.events?[index].visible = false
 
                     if let event = self.events?[index], event.readAt == nil {
                         // fool protection
@@ -213,7 +217,6 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                             SettingKeys.shared.unreadEvents -= 1
                         }
                     }
-                    self.events?.remove(at: index)
                 }
             }
             .store(in: &cancellables)
@@ -234,6 +237,15 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             refresh()
         } else {
             SettingKeys.shared.unreadEvents = 0
+        }
+    }
+
+    @objc func voteCasted(_ notification: Notification) {
+        guard let proposal = notification.object as? Proposal else { return }
+        if let index = events?.firstIndex(where: { ($0.eventData as? Proposal)?.id == proposal.id }),
+            let inboxSettings = InboxNotificationsDataSource.shared.notificationsSettings, inboxSettings.archiveProposalAfterVote 
+        {
+            events?[index].visible = false
         }
     }
 }

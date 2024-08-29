@@ -11,15 +11,15 @@ import Foundation
 import Combine
 
 class PublicUserProfileDaosDataSource: ObservableObject, Refreshable {
-    let address: Address
+    let profileId: String
 
     @Published var daos: [Dao] = []
     @Published var failedToLoadInitialData = false
     @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
-    init(address: Address) {
-        self.address = address
+    init(profileId: String) {
+        self.profileId = profileId
     }
 
     func refresh() {
@@ -32,7 +32,7 @@ class PublicUserProfileDaosDataSource: ObservableObject, Refreshable {
 
     private func loadData() {
         isLoading = true
-        APIService.getPublicProfileDaos(address: address)
+        APIService.getPublicProfileDaos(profileId: profileId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {

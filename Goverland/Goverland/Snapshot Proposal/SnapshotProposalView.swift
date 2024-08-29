@@ -20,6 +20,9 @@ struct SnapshotProposalView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @State private var showReminderErrorAlert = false
+    @State private var showReminderSelection = false
+
     init(proposal: Proposal, allowShowingDaoInfo: Bool = true, isRootView: Bool = false) {
         self.allowShowingDaoInfo = allowShowingDaoInfo
         self.isRootView = isRootView
@@ -74,7 +77,15 @@ struct SnapshotProposalView: View {
             if let proposal {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        ProposalSharingMenu(link: proposal.link)
+                        ProposalEllipsisMenu(proposal: proposal) { // onRemindToVote                            
+                            RemindersManager.shared.requestAccess { granted in
+                                if granted {
+                                    showReminderSelection = true // will show a popover
+                                } else {
+                                    showReminderErrorAlert = true
+                                }
+                            }
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.textWhite)
@@ -86,6 +97,13 @@ struct SnapshotProposalView: View {
         }
         .refreshable {
             dataSource.refresh()
+        }
+        .alert(isPresented: $showReminderErrorAlert) {
+            RemindersManager.accessRequiredAlert()
+        }
+        .sheet(isPresented: $showReminderSelection) {
+            ProposalReminderSelectionView(proposal: proposal!)
+                .presentationDetents([.height(600)])
         }
         .onAppear() {
             Tracker.track(.screenSnpDetails)
@@ -130,7 +148,7 @@ fileprivate struct _ProposalView: View {
                 _SnapshotProposalStatusBarView(state: proposal.state, voted: voted, votingEnd: proposal.votingEnd)
                     .padding(.bottom, 16)
 
-                SnapshotProposalDescriptionView(proposalBody: proposal.body)
+                SnapshotProposalDescriptionView(proposal: proposal)
                     .padding(.bottom, 32)
 
                 HStack {
@@ -206,7 +224,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
             }
             .gesture(TapGesture().onEnded { _ in
                 if allowShowingDaoInfo {
-                    activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                    activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     Tracker.track(.snpDetailsShowDao)
                 } else {
                     dismiss()
@@ -217,7 +235,7 @@ fileprivate struct _SnapshotProposalCreatorView: View {
                 .foregroundStyle(Color.textWhite60)
             
             IdentityView(user: creator) {
-                activeSheetManager.activeSheet = .publicProfile(creator.address)
+                activeSheetManager.activeSheet = .publicProfileById(creator.address.value)
                 Tracker.track(.snpDetailsShowUserProfile)
             }
 

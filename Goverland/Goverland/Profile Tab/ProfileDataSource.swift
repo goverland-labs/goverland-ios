@@ -90,7 +90,7 @@ class ProfileDataSource: ObservableObject, Refreshable {
                 Task {
                     try! await UserProfile.signOutSelected(logErrorIfNotFound: true)
                     DispatchQueue.main.async {
-                        showToast("Profile deleted.")
+                        showToast("Profile deleted")
                     }
                 }
             }

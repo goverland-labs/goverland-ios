@@ -46,8 +46,8 @@ struct TopProposalsListView: View {
                         .listRowBackground(Color.clear)
                     } else {
                         let proposal = dataSource.proposals[index]
-                        ProposalListItemNoElipsisView(proposal: proposal) {
-                            activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        ProposalListItemView(proposal: proposal) {
+                            activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             Tracker.track(openDaoFromListItemTrackingEvent)
                         }
                         .listRowSeparator(.hidden)

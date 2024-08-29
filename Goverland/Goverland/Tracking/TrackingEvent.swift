@@ -15,6 +15,9 @@ protocol Trackable {
 enum TrackingEvent: String, Trackable {
     var eventName: String { rawValue }
 
+    // MARK: - What's new
+    case screenWhatsNew = "screen_whats_new"
+
     // MARK: - Sign In
     case screenSignIn = "screen_sign_in"
     case signInWithWallet = "sign_in_with_wallet"
@@ -85,6 +88,7 @@ enum TrackingEvent: String, Trackable {
     case inboxEventArchive = "inbox_event_archive"
     case inboxEventMarkRead = "inbox_event_mark_read"
     case inboxEventMarkUnread = "inbox_event_mark_unread"
+    case inboxEventAddReminder = "inbox_event_add_reminder"
 
     // MARK: - Archive
     case screenArchive = "screen_archive"
@@ -116,15 +120,16 @@ enum TrackingEvent: String, Trackable {
     case daoInsightsMutualFollow = "dao_insights_mutual_follow"
     case screenDaoInsightsTopVoters = "screen_dao_insights_top_voters"
 
-
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
+    case snpDetailsOpenOnSnanpshot = "snp_details_open_on_snanpshot"
+    case snpDetailsAddReminder = "snp_details_add_reminder"
     case snpDetailsShowDao = "snp_details_show_dao"
     case snpDetailsShowUserProfile = "snp_details_show_user_profile"
     case snpDetailsVotesShowUserProfile = "snp_details_votes_show_user_profile"
     case snpDetailsShowFullDscr = "snp_details_show_full_dscr"
     case snpDetailsVote = "snp_details_vote"
-    case snpDetailsContinueOnboarding = "snp_details_continue_onboarding"
+    case snpDetailsViewSummary = "snp_details_view_summary"
 
     // MARK: - Snapshot Proposal Votes
     case screenSnpVoters = "screen_snp_voters"

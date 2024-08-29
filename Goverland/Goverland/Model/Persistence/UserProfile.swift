@@ -80,6 +80,10 @@ extension UserProfile {
                     resolvedName: resolvedName,
                     avatars: avatars)
     }
+
+    var isGuest: Bool {
+        address.isEmpty
+    }
 }
 
 // MARK: - Avatar extension

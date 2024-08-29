@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 func showToast(_ message: String) {
+    logInfo("[App] Toast diaplayed with message: \(message)")
     DispatchQueue.main.async {
         ToastViewModel.shared.setErrorMessage(message)
     }
@@ -56,6 +57,15 @@ func showEnablePushNotificationsIfNeeded(activeSheetManager: ActiveSheetManager)
 }
 
 enum Utils {
+    // MARK: - App Settings
+    
+    static func openAppSettings() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        UIApplication.shared.open(settingsURL)
+    }
+
     // MARK: - Third Party Applications
     
     static func openDiscord() {

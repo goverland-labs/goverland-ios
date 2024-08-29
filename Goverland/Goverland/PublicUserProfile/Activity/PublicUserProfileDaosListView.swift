@@ -13,8 +13,8 @@ struct PublicUserProfileDaosListView: View {
     @StateObject private var dataSource: PublicUserProfileDaosDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(address: Address) {
-        _dataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(address: address))
+    init(profileId: String) {
+        _dataSource = StateObject(wrappedValue: PublicUserProfileDaosDataSource(profileId: profileId))
     }
 
     var body: some View {
@@ -37,7 +37,7 @@ struct PublicUserProfileDaosListView: View {
                                 dao: dao,
                                 subscriptionMeta: dao.subscriptionMeta,
                                 onSelectDao: { dao in
-                                    activeSheetManager.activeSheet = .daoInfo(dao)
+                                    activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString)
                                     Tracker.track(.publicPrfDaoFullOpenDao)
                                 },
                                 onFollowToggle: { didFollow in

@@ -22,8 +22,8 @@ struct PublicUserProfileView: View {
     @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(address: Address) {
-        _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(address: address))
+    init(profileId: String) {
+        _dataSource = StateObject(wrappedValue: PublicUserProfileDataSource(profileId: profileId))
     }
 
     var body: some View {
@@ -66,7 +66,7 @@ struct PublicUserProfileView: View {
             .navigationDestination(for: PublicUserProfileScreen.self) { publicUserProfileScreen in
                 switch publicUserProfileScreen {
                 case .votedInDaos:
-                    PublicUserProfileDaosListView(address: dataSource.address)
+                    PublicUserProfileDaosListView(profileId: dataSource.profileId)
                         .environmentObject(activeSheetManager)
                 case .votes:
                     PublicUserProfileVotesListView(user: dataSource.profile!,

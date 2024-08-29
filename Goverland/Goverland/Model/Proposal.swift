@@ -32,7 +32,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
 
     // Swift can automatically decode urls with special characters.
     // One option is to decode manually using percent-encoding, but for now we will make it a string
-    let link: String
+    let snapshotLink: String
 
     let scores: [Double]
     let scoresTotal: Double
@@ -41,6 +41,10 @@ struct Proposal: Decodable, Hashable, Identifiable {
     let publicUserVote: AnyVote?
     let dao: Dao
     let timeline: [TimelineEvent]
+
+    var goverlandUrl: URL {
+        URL(string: "https://app.goverland.xyz/proposals/\(id)")!
+    }
 
     enum ProposalType: String, Decodable {
         case basic
@@ -124,7 +128,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         case network
         case state
        // case strategies
-        case link
+        case snapshotLink = "link"
         case scores
         case scoresTotal = "scores_total"
         case votes
@@ -160,7 +164,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
          snapshot: String,
          network: String,
          state: State,
-         link: String,
+         snapshotLink: String,
          scores: [Double],
          scoresTotal: Double,
          votes: Int,
@@ -187,7 +191,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
         self.snapshot = snapshot
         self.network = network
         self.state = state
-        self.link = link
+        self.snapshotLink = snapshotLink
         self.scores = scores
         self.scoresTotal = scoresTotal
         self.votes = votes
@@ -255,7 +259,7 @@ struct Proposal: Decodable, Hashable, Identifiable {
             throw GError.errorDecodingData(error: error, context: "Decoding `state`: Proposal ID: \(id)")
         }
 
-        self.link = try container.decode(String.self, forKey: .link)
+        self.snapshotLink = try container.decode(String.self, forKey: .snapshotLink)
         self.scores = try container.decode([Double].self, forKey: .scores)
         self.scoresTotal = try container.decode(Double.self, forKey: .scoresTotal)
         self.votes = try container.decode(Int.self, forKey: .votes)
@@ -353,7 +357,7 @@ extension Proposal {
         network: "1",
         state: .active,
         //strategies: [],
-        link: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
+        snapshotLink: "https://snapshot.org/#/aavegotchi.eth/proposal/0x17b63fde4c0045768a12dc14c8a09b2a2bc6a5a7df7ef392e82e291904784e02",
         scores: [1742479.9190794732, 626486.0352702027],
         scoresTotal: 2368965.954349676,
         votes: 731, 

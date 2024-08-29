@@ -19,7 +19,11 @@ fileprivate enum Path {
 struct DashboardView: View {
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    
     @Setting(\.authToken) private var authToken
+
+    @Setting(\.lastWhatsNewVersionDisplaied) private var lastWhatsNewVersionDisplaied
+    @State private var showWhatsNew = false
 
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
@@ -34,15 +38,23 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                if !authToken.isEmpty {
-                    SignedInUserDashboardView(path: $path)
-                } else {
-                    SignedOutUserDashboardView(path: $path)
+                Group {
+                    if !authToken.isEmpty {
+                        SignedInUserDashboardView(path: $path)
+                    } else {
+                        SignedOutUserDashboardView(path: $path)
+                    }
                 }
+                .padding(.bottom, 30)
             }
             .id(authToken) // redraw completely on auth token change
             .onChange(of: authToken) { _, _ in
                 Self.refresh()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .appEnteredForeground)) { _ in
+                if path.isEmpty {
+                    Self.refresh()
+                }
             }
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
@@ -51,6 +63,21 @@ struct DashboardView: View {
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
+
+                if WhatsNewDataSource.shared.appVersion.description != lastWhatsNewVersionDisplaied {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        // Versions data is loaded on App launch.
+                        // If data is not loaded within 1 sec, What's new dialogue will not be displayed.
+                        // But it will be displayed on the next Dashboard tab selection if loaded.
+                        guard WhatsNewDataSource.shared.latestVersionIsAppVerion else {
+                            // might happen if release is there, but we haven't added
+                            // what's new description for this version
+                            return
+                        }
+                        showWhatsNew = true
+                        lastWhatsNewVersionDisplaied = WhatsNewDataSource.shared.appVersion.description
+                    }
+                }
 
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
                     FeaturedProposalsDataSource.dashboard.refresh()
@@ -95,16 +122,16 @@ struct DashboardView: View {
                     .navigationTitle("Hot Proposals")
                 case .newDaos:
                     FollowCategoryDaosListView(category: .new,
-                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashNewDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashNewDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashNewDaoOpenFromSearch) },
                                                onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashNewDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashNewDao) })
                     .navigationTitle("New DAOs")
                 case .popularDaos:
                     FollowCategoryDaosListView(category: .popular,
-                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromList) },
-                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfo(dao); Tracker.track(.dashPopularDaoOpenFromSearch) },
+                                               onSelectDaoFromList: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashPopularDaoOpenFromList) },
+                                               onSelectDaoFromSearch: { dao in activeSheetManager.activeSheet = .daoInfoById(dao.id.uuidString); Tracker.track(.dashPopularDaoOpenFromSearch) },
                                                onFollowToggleFromList: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromList) } },
                                                onFollowToggleFromSearch: { didFollow in if didFollow { Tracker.track(.dashPopularDaoFollowFromSearch) } },
                                                onCategoryListAppear: { Tracker.track(.screenDashPopularDao) })
@@ -115,7 +142,14 @@ struct DashboardView: View {
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
-                SnapshotProposalView(proposal: proposal)
+                // We want to always load data from backend as Top proposals are cached for some time
+                // so we use initializer with proposal.id instead of passing the cached proposal object
+                SnapshotProposalView(proposalId: proposal.id)
+            }
+            .sheet(isPresented: $showWhatsNew) {
+                NavigationStack {
+                    WhatsNewView(displayCloseButton: true)
+                }
             }
         }
     }
@@ -152,7 +186,6 @@ fileprivate struct SignedOutUserDashboardView: View {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 //        // Enable after public launch
@@ -160,7 +193,6 @@ fileprivate struct SignedOutUserDashboardView: View {
 ////                    path.append(Path.ecosystemCharts)
 ////                }
 //        EcosystemDashboardView()
-//            .padding(.bottom, 40)
     }
 }
 
@@ -189,15 +221,20 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
+        if shouldShowDaosWithActiveVote {
+            SectionHeader(header: "Followed DAOs with active vote")
+            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        }
+
         if shouldShowFeaturedProposal {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
         }
 
-        if shouldShowDaosWithActiveVote {
-            SectionHeader(header: "Followed DAOs with active vote")
-            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
         }
+        DashboardNewDaosView()
 
         if shouldShowRecommendationToVote {
             SectionHeader(header: "You have voting power") {
@@ -215,12 +252,6 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
-
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-            .padding(.bottom, 30)
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 ////                {

@@ -5,7 +5,7 @@
 //  Created by Andrey Scherbovich on 20.03.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
@@ -28,16 +28,16 @@ struct FeaturedProposalsView: View {
                 }
             } else {
                 ForEach((dataSource.proposals ?? []).prefix(1)) { proposal in
-                    ProposalListItemNoElipsisView(proposal: proposal,
-                                                  isHighlighted: true) {
+                    ProposalListItemView(proposal: proposal,
+                                         isHighlighted: true) {
                         Tracker.track(.dashFeaturedPrpOpenDao)
-                        activeSheetManager.activeSheet = .daoInfo(proposal.dao)
+                        activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                     }
-                    .padding(.horizontal, Constants.horizontalPadding)
-                    .onTapGesture {
-                        Tracker.track(.dashFeaturedPrpOpenPrp)
-                        path.append(proposal)
-                    }
+                                         .padding(.horizontal, Constants.horizontalPadding)
+                                         .onTapGesture {
+                                             Tracker.track(.dashFeaturedPrpOpenPrp)
+                                             path.append(proposal)
+                                         }
                 }
             }
         }

@@ -14,44 +14,48 @@ class NetworkManager {
 
     init() {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = ConfigurationManager.timeout        
+        configuration.timeoutIntervalForRequest = ConfigurationManager.timeout
         self.session = URLSession(configuration: configuration)
     }
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
-        #if STAGE
+#if STAGE
         var body = ""
         if let bodyData = urlRequest.httpBody {
             body = String(data: bodyData, encoding: .utf8)!
         }
         logInfo("[REQUEST \(urlRequest.httpMethod ?? "")] \(urlRequest.description); \(body)")
-        #endif
+#endif
 
         return session
             .dataTaskPublisher(for: urlRequest)
             .tryMap { data, response in
                 if let httpResponse = response as? HTTPURLResponse,
-                    let headers = httpResponse.allHeaderFields as? HttpHeaders {
-                    if httpResponse.statusCode == 400 {
+                   let headers = httpResponse.allHeaderFields as? HttpHeaders {
+                    switch httpResponse.statusCode {
+                    case 400, 405...499:
                         let errorString: String
                         if let json = try? JSONSerialization.jsonObject(with: data, options: []),
                            let dictionary = json as? [String: Any],
-                           let errorMessage = dictionary["error"] as? String {
-                               errorString = errorMessage
+                           let errorMessage = dictionary["message"] as? String {
+                            errorString = errorMessage
                         } else {
+                            logInfo("[App] wrong backend error response format. Message not found.")
                             errorString = "Unknown error"
-                        }                        
+                        }
                         throw APIError.badRequest(error: errorString)
-                    } else if httpResponse.statusCode == 401 {
+                    case 401:
                         throw APIError.notAuthorized
-                    } else if httpResponse.statusCode == 403 {
+                    case 403:
                         throw APIError.forbidden
-                    } else if httpResponse.statusCode == 404 {
+                    case 404:
                         throw APIError.notFound
-                    } else if (500...599).contains(httpResponse.statusCode) {
+                    case 500...599:
                         throw APIError.serverError(statusCode: httpResponse.statusCode)
+                    default:
+                        // all good
+                        return (data, headers)
                     }
-                    return (data, headers)
                 } else {
                     logError(APIError.unknown)
                     throw APIError.unknown

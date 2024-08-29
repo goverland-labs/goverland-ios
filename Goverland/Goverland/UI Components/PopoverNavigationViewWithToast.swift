@@ -32,17 +32,17 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
             case .signIn:
                 SignInView(source: .popover)
 
-            case .daoInfo(let dao):
+            case .daoInfoById(let daoId):
                 // Can't use recursive approache with PopoverNavigationViewWithToast here
                 // because of compilation error
                 // TODO: submit issue to Apple
                 PopoverNavigationViewWithToast2 {
-                    DaoInfoView(dao: dao)
+                    DaoInfoView(daoId: daoId)
                 }
 
-            case .publicProfile(let address):
+            case .publicProfileById(let profileId):
                 PopoverNavigationViewWithToast2 {
-                    PublicUserProfileView(address: address)
+                    PublicUserProfileView(profileId: profileId)
                 }
 
             case .daoVoters(let dao, let filteringOption):
