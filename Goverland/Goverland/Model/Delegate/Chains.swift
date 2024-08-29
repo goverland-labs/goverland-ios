@@ -13,7 +13,3 @@ struct Chains: Decodable {
     let eth: Chain
     let gnosis: Chain
 }
-
-extension Chains {
-    static let testChains = Chains(eth: .etherium, gnosis: .gnosis)
-}

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftDate
 
 struct Dao: Identifiable, Decodable, Equatable, Hashable {
     let id: UUID
@@ -261,45 +260,4 @@ enum DaoSorting: String {
     case votersAsc
     case proposalsDesc
     case proposalsAsc
-}
-
-extension Dao {
-    static let gnosis = Dao(
-        id: UUID(),
-        alias: "gnosis.eth",
-        name: "Gnosis DAO",
-        avatars: [],
-        createdAt: .now - 5.days,
-        activitySince: .now - 1.years,
-        about: [], 
-        categories: [.protocol],
-        proposals: 100,
-        voters: 4567, 
-        activeVotes: 2, 
-        verified: true,
-        subscriptionMeta: nil,
-        website: URL(string: "https://gnosis.io"),
-        X: "gnosisdao",
-        github: "gnosis",
-        coingecko: "gnosis",
-        terms: nil)
-    static let aave = Dao(
-        id: UUID(),
-        alias: "aave.eth",
-        name: "Aave",
-        avatars: [],
-        createdAt: .now - 5.days,
-        activitySince: .now - 1.years,
-        about: [], 
-        categories: [.protocol],
-        proposals: 150,
-        voters: 45678, 
-        activeVotes: 20, 
-        verified: true,
-        subscriptionMeta: nil,
-        website: nil,
-        X: "AaveAave",
-        github: "aave",
-        coingecko: "aave",
-        terms: nil)
 }

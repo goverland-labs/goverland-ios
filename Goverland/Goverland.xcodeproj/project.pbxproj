@@ -127,6 +127,8 @@
 		558ACC7F2C80DC1C002FAE75 /* DelegatesFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC712C80DC1C002FAE75 /* DelegatesFullListView.swift */; };
 		558ACC822C80DD9C002FAE75 /* DelegateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC802C80DD9C002FAE75 /* DelegateButton.swift */; };
 		558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
+		558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */; };
+		558ACC982C80E797002FAE75 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC952C80E6FA002FAE75 /* TestData.swift */; };
 		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
 		5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */; };
 		5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */; };
@@ -486,6 +488,8 @@
 		558ACC712C80DC1C002FAE75 /* DelegatesFullListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegatesFullListView.swift; sourceTree = "<group>"; };
 		558ACC802C80DD9C002FAE75 /* DelegateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateButton.swift; sourceTree = "<group>"; };
 		558ACC882C80DEA4002FAE75 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegationSplitViewModelTests.swift; sourceTree = "<group>"; };
+		558ACC952C80E6FA002FAE75 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientationManager.swift; sourceTree = "<group>"; };
@@ -957,6 +961,8 @@
 		554301212A4C897C00029BC3 /* GoverlandTests */ = {
 			isa = PBXGroup;
 			children = (
+				558ACC952C80E6FA002FAE75 /* TestData.swift */,
+				558ACC922C80E599002FAE75 /* Delegates */,
 				554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */,
 			);
 			path = GoverlandTests;
@@ -1078,6 +1084,14 @@
 				558ACC6F2C80DC1C002FAE75 /* DaoDelegatesView.swift */,
 				558ACC702C80DC1C002FAE75 /* DelegateListItemView.swift */,
 				558ACC712C80DC1C002FAE75 /* DelegatesFullListView.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		558ACC922C80E599002FAE75 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -1977,6 +1991,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */,
 				558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2216,6 +2231,7 @@
 				BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProgressBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
+				558ACC982C80E797002FAE75 /* TestData.swift in Sources */,
 				553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */,
 				55EFF8562C33080B00047108 /* InboxNotificationsDataSource.swift in Sources */,
 				558ACC592C80DBCC002FAE75 /* Chains.swift in Sources */,
