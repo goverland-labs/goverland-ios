@@ -60,6 +60,7 @@ extension MetricSuffix: Comparable {
 }
 
 class MetricNumberFormatter: NumberFormatter {
+    let numberFormatter = NumberFormatter()
     var delimiter: String = ""
     var decimals: Int = 2
     var localizationDictionary: [MetricSuffix: String] = MetricSuffix.latinSuffixes
@@ -92,11 +93,10 @@ class MetricNumberFormatter: NumberFormatter {
             decimals = 2 // 1.12M
         }
 
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = decimals
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = decimals
 
-        guard let formattedNumber = formatter.string(from: scaledNumber) else { return nil }
+        guard let formattedNumber = numberFormatter.string(from: scaledNumber) else { return nil }
 
         if suffix == .zero {
             return formattedNumber
