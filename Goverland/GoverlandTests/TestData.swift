@@ -110,6 +110,25 @@ extension Dao {
 
 // MARK: - Chains
 
+extension Chain {
+    static var gnosis: Chain {
+        Chain(id: 100,
+              name: "Gnosis Chain",
+              balance: 10.0,
+              symbol: "xDai",
+              feeApproximation: 0.001,
+              txScanTemplate: "https://gnosisscan.io/tx/:id")
+    }
+    static var etherium: Chain {
+        Chain(id: 1,
+              name: "Ethereum",
+              balance: 0.01,
+              symbol: "Eth",
+              feeApproximation: 0.02,
+              txScanTemplate: "https://etherscan.io/tx/:id")
+    }
+}
+
 extension Chains {
     static var testChains: Chains { Chains(eth: .etherium, gnosis: .gnosis) }
 }

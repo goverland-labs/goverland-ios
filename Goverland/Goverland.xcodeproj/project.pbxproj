@@ -104,7 +104,6 @@
 		5582EF942B679EB60062970C /* GraphHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5582EF932B679EB60062970C /* GraphHeaderView.swift */; };
 		5586BB8B2A39F0C000A6E316 /* DaoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */; };
 		5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */; };
-		558ACC582C80DBCC002FAE75 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC512C80DBCC002FAE75 /* Chain.swift */; };
 		558ACC592C80DBCC002FAE75 /* Chains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC522C80DBCC002FAE75 /* Chains.swift */; };
 		558ACC5A2C80DBCC002FAE75 /* DaoUserDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC532C80DBCC002FAE75 /* DaoUserDelegation.swift */; };
 		558ACC5B2C80DBCC002FAE75 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC542C80DBCC002FAE75 /* Delegate.swift */; };
@@ -464,7 +463,6 @@
 		5582EF932B679EB60062970C /* GraphHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphHeaderView.swift; sourceTree = "<group>"; };
 		5586BB8A2A39F0C000A6E316 /* DaoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoListItemView.swift; sourceTree = "<group>"; };
 		5586BB8C2A3AFF6D00A6E316 /* DaoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoCardView.swift; sourceTree = "<group>"; };
-		558ACC512C80DBCC002FAE75 /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		558ACC522C80DBCC002FAE75 /* Chains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chains.swift; sourceTree = "<group>"; };
 		558ACC532C80DBCC002FAE75 /* DaoUserDelegation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaoUserDelegation.swift; sourceTree = "<group>"; };
 		558ACC542C80DBCC002FAE75 /* Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
@@ -1031,7 +1029,6 @@
 		558ACC572C80DBCC002FAE75 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				558ACC512C80DBCC002FAE75 /* Chain.swift */,
 				558ACC522C80DBCC002FAE75 /* Chains.swift */,
 				558ACC532C80DBCC002FAE75 /* DaoUserDelegation.swift */,
 				558ACC542C80DBCC002FAE75 /* Delegate.swift */,
@@ -2263,7 +2260,6 @@
 				55BD8D512AFAA4820014982C /* SignOutPopoverView.swift in Sources */,
 				551524212B56601F005FBF86 /* CoinbaseWalletManager.swift in Sources */,
 				BAB960AD2A9E8D8400DC2D92 /* ProposalEllipsisMenu.swift in Sources */,
-				558ACC582C80DBCC002FAE75 /* Chain.swift in Sources */,
 				556D435A2BAD77D500D2D64F /* StatsDataSource.swift in Sources */,
 				553E74DB2BA960FD00F697F8 /* RecommendedDaosView.swift in Sources */,
 				5533170229F16B290034AF66 /* Address.swift in Sources */,
