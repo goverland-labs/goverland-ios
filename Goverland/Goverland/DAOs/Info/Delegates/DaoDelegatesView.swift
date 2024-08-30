@@ -71,8 +71,6 @@ struct DaoDelegatesView: View {
                         ForEach(delegates) { delegate in
                             DelegateListItemView(dao: dao, delegate: delegate) {
                                 activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate)
-                            } menuContent: {
-                                DaoDelegateSharingMenu()
                             }
                         }
                     }

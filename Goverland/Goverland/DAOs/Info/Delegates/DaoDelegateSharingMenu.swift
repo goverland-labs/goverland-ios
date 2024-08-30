@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct DaoDelegateSharingMenu: View {
+    // TODO: implement properly
     var body: some View {
         if let url = Utils.urlFromString("https://goverland.xyz") {
             ShareLink(item: url) {

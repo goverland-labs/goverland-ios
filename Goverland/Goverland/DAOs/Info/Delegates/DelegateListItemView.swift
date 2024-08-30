@@ -9,43 +9,11 @@
 
 import SwiftUI
 
-struct DelegateListItemView<Content: View>: View {
+struct DelegateListItemView: View {
     let dao: Dao
     let delegate: Delegate
     let onTap: () -> Void
-    let menuContent: Content
 
-    @State var isMenuOpened: Bool = false
-
-    init(dao: Dao,
-         delegate: Delegate,
-         onTap: @escaping () -> Void,
-         @ViewBuilder menuContent: () -> Content) {
-        self.dao = dao
-        self.delegate = delegate
-        self.onTap = onTap
-        self.menuContent = menuContent()
-    }
-
-    var body: some View {
-        ZStack {
-            _DelegateListItemNoElipsisView(dao: dao, delegate: delegate)
-                .onTapGesture {
-                    if !isMenuOpened {
-                        onTap()
-                    }
-                }
-
-            BottomRightEllipsisView(isMenuOpened: $isMenuOpened) {
-                menuContent
-            }
-        }
-    }
-}
-
-fileprivate struct _DelegateListItemNoElipsisView: View {
-    let dao: Dao
-    let delegate: Delegate
     @Environment(\.isPresented) private var isPresented
 
     private var backgroundColor: Color {
@@ -63,6 +31,9 @@ fileprivate struct _DelegateListItemNoElipsisView: View {
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
+        .onTapGesture {
+            onTap()
+        }
     }
 }
 

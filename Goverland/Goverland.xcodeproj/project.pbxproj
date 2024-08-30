@@ -110,7 +110,6 @@
 		558ACC5B2C80DBCC002FAE75 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC542C80DBCC002FAE75 /* Delegate.swift */; };
 		558ACC5C2C80DBCC002FAE75 /* DelegateVotingPower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC552C80DBCC002FAE75 /* DelegateVotingPower.swift */; };
 		558ACC5D2C80DBCC002FAE75 /* DelegationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC562C80DBCC002FAE75 /* DelegationInfo.swift */; };
-		558ACC602C80DBFD002FAE75 /* BottomRightEllipsisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC5E2C80DBF8002FAE75 /* BottomRightEllipsisView.swift */; };
 		558ACC612C80DBFD002FAE75 /* CounterControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC5F2C80DBF8002FAE75 /* CounterControlView.swift */; };
 		558ACC732C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */; };
 		558ACC742C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */; };
@@ -471,7 +470,6 @@
 		558ACC542C80DBCC002FAE75 /* Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		558ACC552C80DBCC002FAE75 /* DelegateVotingPower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateVotingPower.swift; sourceTree = "<group>"; };
 		558ACC562C80DBCC002FAE75 /* DelegationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationInfo.swift; sourceTree = "<group>"; };
-		558ACC5E2C80DBF8002FAE75 /* BottomRightEllipsisView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomRightEllipsisView.swift; sourceTree = "<group>"; };
 		558ACC5F2C80DBF8002FAE75 /* CounterControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterControlView.swift; sourceTree = "<group>"; };
 		558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileAboutView.swift; sourceTree = "<group>"; };
 		558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityView.swift; sourceTree = "<group>"; };
@@ -887,7 +885,6 @@
 				553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */,
 				553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */,
 				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
-				558ACC5E2C80DBF8002FAE75 /* BottomRightEllipsisView.swift */,
 				558ACC5F2C80DBF8002FAE75 /* CounterControlView.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
 			);
@@ -2109,7 +2106,6 @@
 				55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */,
 				558ACC612C80DBFD002FAE75 /* CounterControlView.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
-				558ACC602C80DBFD002FAE75 /* BottomRightEllipsisView.swift in Sources */,
 				BAB960BA2AAF886A00DC2D92 /* UserBucketsGraphView.swift in Sources */,
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */,
