@@ -20,7 +20,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               chains: .testChains,
                                               delegates: [],
                                               expirationDate: nil),
-            tappedDelegate: .appUser)
+            delegate: .appUser)
         
         XCTAssertEqual(model.ownerPowerReserved, 100)
         XCTAssertEqual(model.delegates.count, 0)
@@ -39,7 +39,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 33.3,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
-            tappedDelegate: .appUser)
+            delegate: .appUser)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
@@ -65,7 +65,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 66.6,
                                                                               powerRatio: 2)],
                                               expirationDate: nil),
-            tappedDelegate: .appUser)
+            delegate: .appUser)
         
         XCTAssertEqual(model.ownerPowerReserved , 10.0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
@@ -83,7 +83,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               chains: .testChains,
                                               delegates: [],
                                               expirationDate: nil),
-            tappedDelegate: .aaveChan)
+            delegate: .aaveChan)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
         XCTAssertTrue(model.delegates.first?.user == .aaveChan)
@@ -104,7 +104,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 66.6,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
-            tappedDelegate: .test)
+            delegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
         XCTAssertTrue(model.delegates[0].user == .test)
@@ -132,7 +132,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 66.6,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
-            tappedDelegate: .test)
+            delegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 10.0)
         XCTAssertTrue(model.delegates[0].user == .test)
@@ -160,7 +160,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 25.0,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
-            tappedDelegate: .test)
+            delegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
@@ -191,7 +191,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                                                               powerPercent: 20.0,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
-            tappedDelegate: .test)
+            delegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 20.0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)

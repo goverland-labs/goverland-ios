@@ -13,7 +13,7 @@ import SwiftDate
 
 class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     let dao: Dao
-    let tappedDelegate: User
+    let delegate: User
     
     @Published var userDelegation: DaoUserDelegation?
     
@@ -23,9 +23,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(dao: Dao, tappedDelegate: User) {
+    init(dao: Dao, delegate: User) {
         self.dao = dao
-        self.tappedDelegate = tappedDelegate
+        self.delegate = delegate
     }
     
     func refresh() {
@@ -36,7 +36,6 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         cancellables = Set<AnyCancellable>()
         
         loadData()
-        //self.userDelegation = .testUserDelegation
     }
     
     private func loadData() {

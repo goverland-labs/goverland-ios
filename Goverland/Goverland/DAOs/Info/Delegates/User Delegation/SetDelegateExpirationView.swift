@@ -74,6 +74,7 @@ fileprivate struct DatePickerView: View {
     
     var body: some View {
         VStack {
+            // TODO: improve time interval
             DatePicker("Select a date", selection: $selectedDate, in: Date().addingTimeInterval(86400)..., displayedComponents: .date)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .padding()

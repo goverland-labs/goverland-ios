@@ -81,7 +81,7 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
 
             case .daoUserDelegate(let dao, let user):
                 PopoverNavigationViewWithToast2 {
-                    DaoUserDelegationView(dao: dao, tappedDelegate: user)
+                    DaoUserDelegationView(dao: dao, delegate: user)
                 }            
             case .proposal(let proposalId):
                 PopoverNavigationViewWithToast2 {

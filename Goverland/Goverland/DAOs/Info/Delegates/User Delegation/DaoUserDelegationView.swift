@@ -5,7 +5,6 @@
 //  Created by Andrey Scherbovich on 27.06.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
 
 import SwiftUI
 import SwiftData
@@ -32,31 +31,31 @@ enum VotingNetworkType: Int, Identifiable {
 
 struct DaoUserDelegationView: View {
     let dao: Dao
-    let tappedDelegate: User
-    
+    let delegate: User
+
     @StateObject private var dataSource: DaoUserDelegationDataSource
     @State private var chosenNetwork: VotingNetworkType = .gnosis
     @Query private var profiles: [UserProfile]
     @Namespace var namespace
     @Environment(\.dismiss) private var dismiss
-    
+
     var userDelegation: DaoUserDelegation? {
         return dataSource.userDelegation
     }
-    
+
     private var appUser: User {
         let profile = profiles.first(where: { $0.selected })!
         return profile.user
     }
-    
-    init(dao: Dao, tappedDelegate: User) {
-        let dataSource = DaoUserDelegationDataSource(dao: dao, tappedDelegate: tappedDelegate)
+
+    init(dao: Dao, delegate: User) {
+        let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
         _dataSource = StateObject(wrappedValue: dataSource)
         self.dao = dao
-        self.tappedDelegate = tappedDelegate
-        
+        self.delegate = delegate
+
     }
-    
+
     var body: some View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -67,7 +66,7 @@ struct DaoUserDelegationView: View {
                             .foregroundStyle(Color.textWhite)
 
                         Spacer()
-                        
+
                         if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
                             walletImage
                                 .frame(width: Avatar.Size.xs.profileImageSize, height: Avatar.Size.xs.profileImageSize)
@@ -79,13 +78,13 @@ struct DaoUserDelegationView: View {
 
                         IdentityView(user: appUser, size: .xs, font: .bodyRegular, onTap: nil)
                     }
-                    
+
                     HStack {
                         Text("Voting power")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
                         Spacer()
-                        
+
                         if let userDelegationVotingPower = userDelegation?.votingPower {
                             HStack(spacing: 4) {
                                 Text(userDelegationVotingPower.power.description)
@@ -94,13 +93,12 @@ struct DaoUserDelegationView: View {
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
                         }
-                        
                     }
-                    
+
                     Divider()
                         .background(Color.secondaryContainer)
                         .padding(.vertical)
-                    
+
                     HStack {
                         Text("Delegation scope")
                             .font(.bodyRegular)
@@ -113,7 +111,7 @@ struct DaoUserDelegationView: View {
                                 .foregroundStyle(Color.textWhite)
                         }
                     }
-                    
+
                     HStack {
                         Text("Network")
                             .font(.bodyRegular)
@@ -131,7 +129,7 @@ struct DaoUserDelegationView: View {
                                             .cornerRadius(20)
                                             .matchedGeometryEffect(id: "network-background", in: namespace)
                                     }
-                                    
+
                                     Text(network.localizedName())
                                         .foregroundColor(Color.onSecondaryContainer)
                                         .padding(.horizontal, 10)
@@ -150,24 +148,24 @@ struct DaoUserDelegationView: View {
                             }
                         }
                     }
-                    
+
                     if let userDelegation {
                         UserDelegationSplitVotingPowerView(owner: appUser,
                                                            userDelegation: userDelegation,
-                                                           tappedDelegate: tappedDelegate)
-                            .padding(.bottom)
+                                                           delegate: delegate)
+                        .padding(.bottom)
                     }
 
                     SetDelegateExpirationView()
                 }
             }
-            
+
             HStack {
                 HStack {
                     SecondaryButton("Cancel") {
                         dismiss()
                     }
-                    
+
                     PrimaryButton("Confirm") {
                         Haptic.medium()
                         Task {

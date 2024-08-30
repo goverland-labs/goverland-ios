@@ -12,7 +12,7 @@ import Foundation
 class UserDelegationSplitViewModel: ObservableObject {
     let owner: User
     let userDelegation: DaoUserDelegation
-    private let tappedDelegate: User
+    private let delegate: User
     
     @Published var ownerPowerReserved: Double = 0.0
     @Published var delegates = [(user: User, powerRatio: Int)]()
@@ -24,10 +24,10 @@ class UserDelegationSplitViewModel: ObservableObject {
         delegates.reduce(0) { $0 + $1.1 }
     }
     
-    init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
+    init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
         self.owner = owner
         self.userDelegation = userDelegation
-        self.tappedDelegate = tappedDelegate
+        self.delegate = delegate
         
         for del in userDelegation.delegates {
             if del.user.address == owner.address {
@@ -38,9 +38,9 @@ class UserDelegationSplitViewModel: ObservableObject {
         }
         
         // Shift existing elements to insert the new delegate at the beginning
-        if !delegates.contains(where: { $0.0 == tappedDelegate }) && tappedDelegate != owner {
+        if !delegates.contains(where: { $0.0 == delegate }) && delegate != owner {
             var tempDelegates = [(User, Int)]()
-            tempDelegates.append((tappedDelegate, delegates.isEmpty ? 1 : 0))
+            tempDelegates.append((delegate, delegates.isEmpty ? 1 : 0))
             tempDelegates.append(contentsOf: delegates)
             delegates = tempDelegates
         }

@@ -16,8 +16,8 @@ struct UserDelegationSplitVotingPowerView: View {
     @State private var isTooltipVisible = false
     @State private var showAddDelegate = false
 
-    init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
-        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, tappedDelegate: tappedDelegate)
+    init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
+        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, delegate: delegate)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
