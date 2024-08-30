@@ -100,7 +100,7 @@ struct DaoDelegateProfileHeaderView: View {
                     Text(String(delegate.delegators))
                 }
                 HStack(spacing: 2) {
-                    Image("cast-your-vote-grey")
+                    Image("ballot")
                     Text(String(delegate.votes))
                 }
                 HStack(spacing: 2) {
