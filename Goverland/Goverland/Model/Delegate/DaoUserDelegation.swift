@@ -29,11 +29,3 @@ struct DaoUserDelegation: Decodable {
         let power: Double
     }
 }
-
-extension DaoUserDelegation {
-    static let testUserDelegation = DaoUserDelegation(dao: .aave, 
-                                                      votingPower: .init(symbol: "UTI", power: 12.5),
-                                                      chains: .testChains,
-                                                      delegates: [.delegateAaveChan, .delegateFlipside],
-                                                      expirationDate: nil)
-}

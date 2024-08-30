@@ -36,24 +36,3 @@ struct Delegate: Identifiable, Decodable, Equatable {
         case delegationInfo = "user_delegation_info"
     }
 }
-
-extension Delegate {
-    static let delegateAaveChan = Delegate(user: .aaveChan,
-                                           about: "Delegate aaveChan about information",
-                                           statement: "Delegate aaveChan statement should be here",
-                                           delegators: 20,
-                                           votes: 21,
-                                           proposalsCreated: 1,
-                                           votingPower: 14285728.4328434,
-                                           percentVotingPower: 1.12,
-                                           delegationInfo: .testDelegationInfo)
-    static let delegateNoDelegated = Delegate(user: .test,
-                                              about: "",
-                                              statement: "Delegate aaveChan statement should be here",
-                                              delegators: 20,
-                                              votes: 21,
-                                              proposalsCreated: 1,
-                                              votingPower: 14285728.4328434,
-                                              percentVotingPower: 1.12,
-                                              delegationInfo: DelegationInfo(percentDelegated: 0.0))
-}

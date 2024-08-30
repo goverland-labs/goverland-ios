@@ -16,7 +16,3 @@ struct DelegationInfo: Decodable, Equatable {
         case percentDelegated = "percent_of_delegated"
     }
 }
-
-extension DelegationInfo {
-    static let testDelegationInfo = DelegationInfo(percentDelegated: 100.0)
-}

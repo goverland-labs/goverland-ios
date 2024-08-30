@@ -132,3 +132,31 @@ extension Chain {
 extension Chains {
     static var testChains: Chains { Chains(eth: .etherium, gnosis: .gnosis) }
 }
+
+// MARK: - Delegates
+
+extension Delegate {
+    static var delegateAaveChan: Delegate {
+        Delegate(user: .aaveChan,
+                 about: "Delegate aaveChan about information",
+                 statement: "Delegate aaveChan statement should be here",
+                 delegators: 20,
+                 votes: 21,
+                 proposalsCreated: 1,
+                 votingPower: 14285728.4328434,
+                 percentVotingPower: 1.12,
+                 delegationInfo: DelegationInfo(percentDelegated: 100.0))
+    }
+
+    static var delegateNoDelegated: Delegate {
+        Delegate(user: .test,
+                 about: "",
+                 statement: "Delegate aaveChan statement should be here",
+                 delegators: 20,
+                 votes: 21,
+                 proposalsCreated: 1,
+                 votingPower: 14285728.4328434,
+                 percentVotingPower: 1.12,
+                 delegationInfo: DelegationInfo(percentDelegated: 0.0))
+    }
+}
