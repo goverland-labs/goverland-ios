@@ -15,8 +15,8 @@ class UserDelegationSplitViewModel: ObservableObject {
     private let tappedDelegate: User
     
     @Published var ownerPowerReserved: Double = 0.0
-    @Published var delegates = [(User, Int)]() // [(delegate, powerRatio)]()
-    
+    @Published var delegates = [(user: User, powerRatio: Int)]()
+
     @Published var timer: Timer?
     @Published var isTooltipVisible = false
     

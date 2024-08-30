@@ -12,7 +12,7 @@ import XCTest
 
 final class UserDelegationSplitViewModelTests: XCTestCase {
     
-    func test_whenDelegatingToSelf_and_noPriorDelegations() throws {
+    func test_delegatingToSelf_and_noPriorDelegations() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -25,30 +25,31 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
         XCTAssertEqual(model.ownerPowerReserved, 100)
         XCTAssertEqual(model.delegates.count, 0)
     }
-    func test_whenDelegatingToSelf_and_hasPriorDelegations_noSelf() throws {
-        
+
+    func test_delegatingToSelf_and_hasPriorDelegations_noSelf() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
-                                                                              powerPercent: 33.3,
+                                                                              powerPercent: 66.6,
                                                                               powerRatio: 2),
                                                           DelegateVotingPower(user: .flipside,
-                                                                              powerPercent: 66.6,
+                                                                              powerPercent: 33.3,
                                                                               powerRatio: 1)],
                                               expirationDate: nil),
             tappedDelegate: .appUser)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
-        XCTAssertTrue(model.delegates[0].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[0].1, 2)
-        XCTAssertTrue(model.delegates[1].0 == .flipside)
-        XCTAssertEqual(model.delegates[1].1, 1)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 2)
+        XCTAssertTrue(model.delegates[1].user == .flipside)
+        XCTAssertEqual(model.delegates[1].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 2)
     }
-    func test_whenDelegatingToSelf_and_hasPriorDelegations_withSelf() throws {
+
+    func test_delegatingToSelf_and_hasPriorDelegations_withSelf() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -67,14 +68,14 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .appUser)
         
         XCTAssertEqual(model.ownerPowerReserved , 10.0)
-        XCTAssertTrue(model.delegates[0].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[0].1, 1)
-        XCTAssertTrue(model.delegates[1].0 == .flipside)
-        XCTAssertEqual(model.delegates[1].1, 2)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 1)
+        XCTAssertTrue(model.delegates[1].user == .flipside)
+        XCTAssertEqual(model.delegates[1].powerRatio, 2)
         XCTAssertEqual(model.delegates.count, 2)
     }
     
-    func test_whenDelegatingToDelegate_and_noPriorDelegations() throws {
+    func test_delegatingToDelegate_and_noPriorDelegations() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -85,11 +86,12 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .aaveChan)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
-        XCTAssertTrue(model.delegates.first?.0 == .aaveChan)
-        XCTAssertEqual(model.delegates.first?.1, 1)
+        XCTAssertTrue(model.delegates.first?.user == .aaveChan)
+        XCTAssertEqual(model.delegates.first?.powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 1)
     }
-    func test_whenDelegatingToDelegate_and_hasPriorDelegations_noSelf_noDelegate() throws {
+
+    func test_delegatingToDelegate_and_hasPriorDelegations_noSelf_noDelegate() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -105,15 +107,16 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
-        XCTAssertTrue(model.delegates[0].0 == .test)
-        XCTAssertEqual(model.delegates[0].1, 0)
-        XCTAssertTrue(model.delegates[1].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[1].1, 2)
-        XCTAssertTrue(model.delegates[2].0 == .flipside)
-        XCTAssertEqual(model.delegates[2].1, 1)
+        XCTAssertTrue(model.delegates[0].user == .test)
+        XCTAssertEqual(model.delegates[0].powerRatio, 0)
+        XCTAssertTrue(model.delegates[1].user == .aaveChan)
+        XCTAssertEqual(model.delegates[1].powerRatio, 2)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
     }
-    func test_whenDelegatingToDelegate_and_hasPriorDelegations_withSelf_noDelegate() throws {
+
+    func test_delegatingToDelegate_and_hasPriorDelegations_withSelf_noDelegate() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -132,15 +135,16 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 10.0)
-        XCTAssertTrue(model.delegates[0].0 == .test)
-        XCTAssertEqual(model.delegates[0].1, 0)
-        XCTAssertTrue(model.delegates[1].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[1].1, 2)
-        XCTAssertTrue(model.delegates[2].0 == .flipside)
-        XCTAssertEqual(model.delegates[2].1, 1)
+        XCTAssertTrue(model.delegates[0].user == .test)
+        XCTAssertEqual(model.delegates[0].powerRatio, 0)
+        XCTAssertTrue(model.delegates[1].user == .aaveChan)
+        XCTAssertEqual(model.delegates[1].powerRatio, 2)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
     }
-    func test_whenDelegatingToDelegate_and_hasPriorDelegations_noSelf_withDelegate() throws {
+
+    func test_delegatingToDelegate_and_hasPriorDelegations_noSelf_withDelegate() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -159,15 +163,16 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 0)
-        XCTAssertTrue(model.delegates[0].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[0].1, 2)
-        XCTAssertTrue(model.delegates[1].0 == .test)
-        XCTAssertEqual(model.delegates[1].1, 1)
-        XCTAssertTrue(model.delegates[2].0 == .flipside)
-        XCTAssertEqual(model.delegates[2].1, 1)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 2)
+        XCTAssertTrue(model.delegates[1].user == .test)
+        XCTAssertEqual(model.delegates[1].powerRatio, 1)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
     }
-    func test_whenDelegatingToDelegate_and_hasPriorDelegations_withSelf_withDelegate() throws {
+
+    func test_delegatingToDelegate_and_hasPriorDelegations_withSelf_withDelegate() throws {
         let model = UserDelegationSplitViewModel(
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
@@ -189,12 +194,12 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             tappedDelegate: .test)
         
         XCTAssertEqual(model.ownerPowerReserved , 20.0)
-        XCTAssertTrue(model.delegates[0].0 == .aaveChan)
-        XCTAssertEqual(model.delegates[0].1, 2)
-        XCTAssertTrue(model.delegates[1].0 == .test)
-        XCTAssertEqual(model.delegates[1].1, 1)
-        XCTAssertTrue(model.delegates[2].0 == .flipside)
-        XCTAssertEqual(model.delegates[2].1, 1)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 2)
+        XCTAssertTrue(model.delegates[1].user == .test)
+        XCTAssertEqual(model.delegates[1].powerRatio, 1)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
     }
 }
