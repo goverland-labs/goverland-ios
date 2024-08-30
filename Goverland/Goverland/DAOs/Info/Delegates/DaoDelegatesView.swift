@@ -111,7 +111,10 @@ fileprivate struct _DelegatesListHeaderView: View {
                 .font(.subheadlineSemibold)
                 .foregroundStyle(Color.textWhite)
             Spacer()
-            NavigationLink(destination: DelegatesFullListView(dao: dao).environmentObject(activeSheetManager)) {
+            NavigationLink(
+                destination: DelegatesFullListView(dao: dao, action: .delegate)
+                    .environmentObject(activeSheetManager)
+            ) {
                 Text("See all")
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.primaryDim)

@@ -9,8 +9,20 @@
 
 import SwiftUI
 
+enum DelegateListAction {
+    case delegate
+    case add(onAdd: (Delegate) -> Void)
+}
+
 struct DelegatesFullListView: View {
+    let action: DelegateListAction
+
     @StateObject var dataSource: DaoDelegatesDataSource
+
+    init(dao: Dao, action: DelegateListAction) {
+        self.action = action
+        _dataSource = StateObject(wrappedValue: DaoDelegatesDataSource(dao: dao))
+    }
 
     private var searchPrompt: String {
         if let total = dataSource.total {
@@ -20,14 +32,17 @@ struct DelegatesFullListView: View {
         return ""
     }
 
-    init(dao: Dao) {
-        _dataSource = StateObject(wrappedValue: DaoDelegatesDataSource(dao: dao))
+    private var title: String {
+        switch action {
+        case .delegate: return dataSource.dao.name
+        case .add(_): return "Add Delegate"
+        }
     }
-    
+
     var body: some View {
-        _DelegatesListView(dataSource: dataSource)
+        _DelegatesListView(action: action, dataSource: dataSource)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(dataSource.dao.name)
+            .navigationTitle(title)
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
@@ -35,11 +50,13 @@ struct DelegatesFullListView: View {
                 if dataSource.delegates.isEmpty {
                     dataSource.refresh()
                 }
+                // TODO: add tracking
             }
     }
 }
 
 fileprivate struct _DelegatesListView: View {
+    let action: DelegateListAction
     @ObservedObject var dataSource: DaoDelegatesDataSource
     
     var dao: Dao {
@@ -70,7 +87,7 @@ fileprivate struct _DelegatesListView: View {
                                     } else {
                                         if index < dataSource.delegates.count {
                                             let delegate = dataSource.delegates[index]
-                                            DelegateFullListItemView(delegate: delegate, dao: dao)
+                                            DelegateFullListItemView(action: action, delegate: delegate, dao: dao)
                                         }
                                     }
                                 }
@@ -81,13 +98,14 @@ fileprivate struct _DelegatesListView: View {
                     RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegates")
                 }
             } else {
-                _DelegatesSearchListView(dataSource: dataSource)
+                _DelegatesSearchListView(action: action, dataSource: dataSource)
             }
         }
     }
 }
 
 fileprivate struct _DelegatesSearchListView: View {
+    let action: DelegateListAction
     @ObservedObject var dataSource: DaoDelegatesDataSource
 
     var body: some View {
@@ -104,7 +122,7 @@ fileprivate struct _DelegatesSearchListView: View {
                     }
                 } else {
                     ForEach(dataSource.searchResultDelegates) { delegate in
-                        DelegateFullListItemView(delegate: delegate, dao: dataSource.dao)
+                        DelegateFullListItemView(action: action, delegate: delegate, dao: dataSource.dao)
                     }
                 }
             }
@@ -114,10 +132,12 @@ fileprivate struct _DelegatesSearchListView: View {
 
 
 fileprivate struct DelegateFullListItemView: View {
+    let action: DelegateListAction
     let delegate: Delegate
     let dao: Dao
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
@@ -142,10 +162,17 @@ fileprivate struct DelegateFullListItemView: View {
             
             Spacer()
             
-            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            switch action {
+            case .delegate:
+                DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
+                    activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+                }
+            case .add(let onAdd):
+                SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {
+                    dismiss()
+                    onAdd(delegate)
+                }
             }
-            
         }
         .padding(12)
         .contentShape(Rectangle())

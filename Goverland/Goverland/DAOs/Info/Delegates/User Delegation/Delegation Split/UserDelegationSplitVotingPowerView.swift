@@ -11,10 +11,11 @@ import SwiftUI
 
 struct UserDelegationSplitVotingPowerView: View {
     @StateObject private var viewModel: UserDelegationSplitViewModel
-    @State private var isTooltipVisible = false
-    
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    
+
+    @State private var isTooltipVisible = false
+    @State private var showAddDelegate = false
+
     init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
         let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, tappedDelegate: tappedDelegate)
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -65,19 +66,18 @@ struct UserDelegationSplitVotingPowerView: View {
                     }
                 }
                 ForEach(Array(viewModel.delegates.enumerated()), id: \.offset) { index, delegate in
-                    let (user, powerRatio) = delegate
                     HStack {
-                        IdentityView(user: delegate.0, onTap: nil)
+                        IdentityView(user: delegate.user, onTap: nil)
                         Spacer()
                         HStack(spacing: 0) {
                             CounterControlView(systemImageName: "minus",
-                                               backgroundColor: delegate.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                               backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
                                 viewModel.decreaseVotingPower(forIndex: index)
                             }
-                            Text(String(delegate.1))
+                            Text(String(delegate.powerRatio))
                                 .frame(width: 20)
                             CounterControlView(systemImageName: "plus",
-                                               backgroundColor: delegate.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                               backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
                                 viewModel.increaseVotingPower(forIndex: index)
                             }
                             Text(viewModel.percentage(for: index))
@@ -88,7 +88,7 @@ struct UserDelegationSplitVotingPowerView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                     .padding(.horizontal)
-                    .background(delegate.1 == 0 ? Color.clear : Color.secondaryContainer)
+                    .background(delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer)
                     .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -98,16 +98,17 @@ struct UserDelegationSplitVotingPowerView: View {
             }
             
             HStack {
-                NavigationLink(destination: DelegatesFullListView(dao: viewModel.userDelegation.dao).environmentObject(activeSheetManager)) {
-                    HStack(spacing: 3) {
-                        Image(systemName: "plus")
-                        Text("Add delegate")
-                            .underline()
-                    }
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
+                HStack(spacing: 3) {
+                    Image(systemName: "plus")
+                    Text("Add delegate")
+                        .underline()
                 }
-                
+                .font(.footnoteRegular)
+                .foregroundColor(.textWhite60)
+                .onTapGesture {
+                    showAddDelegate = true
+                }
+
                 Spacer()
                 
                 if viewModel.delegates.count > 1 {
@@ -183,7 +184,17 @@ struct UserDelegationSplitVotingPowerView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.secondaryContainer, lineWidth: 1)
             )
-            
+        }
+        .sheet(isPresented: $showAddDelegate) {
+            NavigationStack {
+                DelegatesFullListView(dao: viewModel.userDelegation.dao, action: .add(onAdd: { delegate in
+                    logInfo("Selected delegate: \(delegate)")
+                }))
+            }
+            .overlay {
+                ToastView()
+                    .environmentObject(activeSheetManager)
+            }
         }
     }
 }
