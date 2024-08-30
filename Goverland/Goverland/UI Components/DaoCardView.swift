@@ -106,7 +106,7 @@ struct ShimmerDaoCardView: View {
             ShimmerView()
                 .frame(width: Avatar.Size.xl.daoImageSize, height: Avatar.Size.xl.daoImageSize)
                 .cornerRadius(Avatar.Size.xl.daoImageSize / 2)
-                .padding(.top, 17)
+                .padding(.top, 18)
 
             VStack(spacing: 3) {
                 ShimmerView()

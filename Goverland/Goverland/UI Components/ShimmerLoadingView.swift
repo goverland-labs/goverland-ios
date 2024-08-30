@@ -43,4 +43,10 @@ struct ShimmerView: View {
 //                }
 //        }
     }
+
+    static func rounded(width: CGFloat, height: CGFloat) -> some View {
+        ShimmerView()
+            .frame(width: width, height: height)
+            .cornerRadius(height/2)
+    }
 }

@@ -124,6 +124,16 @@ struct GoverlandApp: App {
                         }
                         .presentationDetents([.height(height), .large])
 
+                    case .daoDelegateProfile(let dao, let delegate):
+                        PopoverNavigationViewWithToast {
+                            DaoDelegateProfileView(dao: dao, delegate: delegate)
+                        }
+
+                    case .daoUserDelegate(let dao, let user):
+                        PopoverNavigationViewWithToast {
+                            DaoUserDelegationView(dao: dao, delegate: user)
+                        }
+                        
                     case .proposal(let proposalId):
                         PopoverNavigationViewWithToast {
                             SnapshotProposalView(proposalId: proposalId, isRootView: true)
