@@ -13,6 +13,8 @@ struct UserDelegationSplitVotingPowerView: View {
     @StateObject private var viewModel: UserDelegationSplitViewModel
     @State private var isTooltipVisible = false
     
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    
     init(owner: User, userDelegation: DaoUserDelegation, tappedDelegate: User) {
         let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, tappedDelegate: tappedDelegate)
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -50,31 +52,32 @@ struct UserDelegationSplitVotingPowerView: View {
                     Spacer()
                     
                     if viewModel.delegates.count > 1 {
-                        HStack {
+                        HStack(spacing: 3) {
                             Image(systemName: "divide")
                             Text("Divide equally")
+                                .underline()
                         }
                         .font(.footnoteRegular)
-                        .foregroundColor(.textWhite60)
+                        .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
                         .onTapGesture {
                             viewModel.divideEquallyVotingPower()
                         }
                     }
                 }
-                
-                ForEach(Array(viewModel.sortedDelegates.enumerated()), id: \.1.key) { (index, element) in
+                ForEach(Array(viewModel.delegates.enumerated()), id: \.offset) { index, delegate in
+                    let (user, powerRatio) = delegate
                     HStack {
-                        IdentityView(user: element.value.0, onTap: nil)
+                        IdentityView(user: delegate.0, onTap: nil)
                         Spacer()
                         HStack(spacing: 0) {
                             CounterControlView(systemImageName: "minus",
-                                               backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                               backgroundColor: delegate.1 == 0 ? Color.clear : Color.secondaryContainer) {
                                 viewModel.decreaseVotingPower(forIndex: index)
                             }
-                            Text(String(element.value.1))
+                            Text(String(delegate.1))
                                 .frame(width: 20)
                             CounterControlView(systemImageName: "plus",
-                                               backgroundColor: element.value.1 == 0 ? Color.clear : Color.secondaryContainer) {
+                                               backgroundColor: delegate.1 == 0 ? Color.clear : Color.secondaryContainer) {
                                 viewModel.increaseVotingPower(forIndex: index)
                             }
                             Text(viewModel.percentage(for: index))
@@ -85,7 +88,7 @@ struct UserDelegationSplitVotingPowerView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                     .padding(.horizontal)
-                    .background(element.value.1 == 0 ? Color.clear : Color.secondaryContainer)
+                    .background(delegate.1 == 0 ? Color.clear : Color.secondaryContainer)
                     .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -93,6 +96,35 @@ struct UserDelegationSplitVotingPowerView: View {
                     )
                 }
             }
+            
+            HStack {
+                NavigationLink(destination: DelegatesFullListView(dao: viewModel.userDelegation.dao).environmentObject(activeSheetManager)) {
+                    HStack(spacing: 3) {
+                        Image(systemName: "plus")
+                        Text("Add delegate")
+                            .underline()
+                    }
+                    .font(.footnoteRegular)
+                    .foregroundColor(.textWhite60)
+                }
+                
+                Spacer()
+                
+                if viewModel.delegates.count > 1 {
+                    HStack(spacing: 3) {
+                        Image(systemName: "delete.right")
+                        Text("Clear all delegations")
+                            .underline()
+                    }
+                    .font(.footnoteRegular)
+                    .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
+                    .onTapGesture {
+                        viewModel.resetAllDelegatesVotingPower()
+                    }
+                }
+            }
+            .padding(.top, 10)
+
             
             HStack {
                  HStack {
@@ -120,18 +152,6 @@ struct UserDelegationSplitVotingPowerView: View {
                         }
                 }
                 Spacer()
-                
-                if viewModel.delegates.count > 1 {
-                    HStack {
-                        Image(systemName: "delete.right")
-                        Text("Clear all delegations")
-                    }
-                    .font(.footnoteRegular)
-                    .foregroundColor(.textWhite60)
-                    .onTapGesture {
-                        viewModel.resetAllDelegatesVotingPower()
-                    }
-                }
             }
             .padding(.vertical)
             
