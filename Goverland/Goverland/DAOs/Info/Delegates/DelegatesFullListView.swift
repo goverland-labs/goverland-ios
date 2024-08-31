@@ -16,7 +16,8 @@ enum DelegateListAction {
 
 struct DelegatesFullListView: View {
     let action: DelegateListAction
-
+    
+    @Environment(\.dismiss) private var dismiss
     @StateObject var dataSource: DaoDelegatesDataSource
 
     init(dao: Dao, action: DelegateListAction) {
@@ -43,6 +44,15 @@ struct DelegatesFullListView: View {
         _DelegatesListView(action: action, dataSource: dataSource)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(title)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)

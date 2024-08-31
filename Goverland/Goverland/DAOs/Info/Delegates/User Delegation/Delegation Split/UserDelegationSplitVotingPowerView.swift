@@ -183,7 +183,7 @@ struct UserDelegationSplitVotingPowerView: View {
         .sheet(isPresented: $showAddDelegate) {
             NavigationStack {
                 DelegatesFullListView(dao: viewModel.userDelegation.dao, action: .add(onAdd: { delegate in
-                    logInfo("Selected delegate: \(delegate)")
+                    viewModel.addDelegate(delegate.user)
                 }))
             }
             .overlay {

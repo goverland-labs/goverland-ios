@@ -24,6 +24,10 @@ class UserDelegationSplitViewModel: ObservableObject {
         delegates.reduce(0) { $0 + $1.1 }
     }
     
+    var isConfirmEnable: Bool {
+        !(self.totalAssignedPower == 0 && self.ownerPowerReserved < 100)
+    }
+    
     init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
         self.owner = owner
         self.userDelegation = userDelegation
@@ -37,19 +41,23 @@ class UserDelegationSplitViewModel: ObservableObject {
             }
         }
         
-        // Shift existing elements to insert the new delegate at the beginning
-        if !delegates.contains(where: { $0.0 == delegate }) && delegate != owner {
-            var tempDelegates = [(User, Int)]()
-            tempDelegates.append((delegate, delegates.isEmpty ? 1 : 0))
-            tempDelegates.append(contentsOf: delegates)
-            delegates = tempDelegates
-        }
+        self.addDelegate(self.delegate)
         
         // when tapped user is the owner and no prior delegates from api
         if self.delegates.count == 0 {
             self.ownerPowerReserved = 100
         } else if self.delegates.count == 1 && delegates.first?.1 == 0 {
             self.ownerPowerReserved = 0
+        }
+    }
+    
+    func addDelegate(_ delegate: User) {
+        if !delegates.contains(where: { $0.0 == delegate }) && delegate != owner {
+            // Shift existing elements to insert the new delegate at the beginning
+            var tempDelegates = [(User, Int)]()
+            tempDelegates.append((delegate, delegates.isEmpty ? 1 : 0))
+            tempDelegates.append(contentsOf: delegates)
+            delegates = tempDelegates
         }
     }
     
