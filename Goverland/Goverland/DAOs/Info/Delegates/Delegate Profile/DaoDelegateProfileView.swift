@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import SwiftData
 
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
@@ -76,6 +77,16 @@ struct DaoDelegateProfileHeaderView: View {
     let dao: Dao
     
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @Query private var profiles: [UserProfile]
+    @State private var showSignIn = false
+    
+    private var selectedProfile: UserProfile? {
+        profiles.first(where: { $0.selected })
+    }
+    
+    private var selectedProfileIsGuest: Bool {
+        selectedProfile?.isGuest ?? false
+    }
     
     var body: some View {
         VStack(spacing: 10) {
@@ -111,9 +122,19 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
             
-            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            if selectedProfile == nil || selectedProfileIsGuest {
+                DelegateButton(isDelegated: false) {
+                    showSignIn = true
+                }
+            } else {
+                DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
+                    activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+                }
             }
+        }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
         }
     }
 }

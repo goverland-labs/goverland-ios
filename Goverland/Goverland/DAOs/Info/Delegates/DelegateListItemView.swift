@@ -8,6 +8,7 @@
 	
 
 import SwiftUI
+import SwiftData
 
 struct DelegateListItemView: View {
     let dao: Dao
@@ -40,8 +41,19 @@ struct DelegateListItemView: View {
 fileprivate struct _DelegateListItemHeaderView: View {
     let dao: Dao
     let delegate: Delegate
+    
+    @State private var showSignIn = false
+    @Query private var profiles: [UserProfile]
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
+    
+    private var selectedProfile: UserProfile? {
+        profiles.first(where: { $0.selected })
+    }
+    
+    private var selectedProfileIsGuest: Bool {
+        selectedProfile?.isGuest ?? false
+    }
+    
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
             RoundPictureView(image: delegate.user.avatar(size: .m), imageSize: Avatar.Size.m.profileImageSize)
@@ -62,9 +74,19 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             Spacer()
 
-            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            if selectedProfile == nil || selectedProfileIsGuest {
+                DelegateButton(isDelegated: false) {
+                    showSignIn = true
+                }
+            } else {
+                DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
+                    activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+                }
             }
+        }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
         }
     }
 }
