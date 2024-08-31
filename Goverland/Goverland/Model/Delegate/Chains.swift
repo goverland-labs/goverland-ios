@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct Chain: Decodable {
+struct Chain: Decodable, Identifiable, Equatable {
     let id: Int
     let name: String
     let balance: Double

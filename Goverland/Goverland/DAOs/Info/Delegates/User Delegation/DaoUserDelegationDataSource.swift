@@ -5,7 +5,7 @@
 //  Created by Jenny Shalai on 2024-07-23.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import Foundation
 import Combine
@@ -16,6 +16,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     let delegate: User
     
     @Published var userDelegation: DaoUserDelegation?
+    @Published var selectedChain: Chain?
     
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
@@ -49,6 +50,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] userDelegation, _ in
                 self?.userDelegation = userDelegation
+                // TODO: implement proper logic
+                self?.selectedChain = userDelegation.chains.gnosis
             }
             .store(in: &cancellables)
     }

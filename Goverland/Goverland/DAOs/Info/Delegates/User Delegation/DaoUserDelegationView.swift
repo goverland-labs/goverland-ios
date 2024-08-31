@@ -9,51 +9,69 @@
 import SwiftUI
 import SwiftData
 
-enum VotingNetworkType: Int, Identifiable {
-    var id: Int { self.rawValue }
+struct DaoUserDelegationView: View {
+    @StateObject private var dataSource: DaoUserDelegationDataSource
 
-    case gnosis = 0
-    case etherium
-
-    static var allNetwork: [VotingNetworkType] {
-        [.gnosis, .etherium]
+    init(dao: Dao, delegate: User) {
+        let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
+        _dataSource = StateObject(wrappedValue: dataSource)
     }
 
-    func localizedName() -> String {
-        switch self {
-        case .gnosis:
-            return "Gnosis Chain"
-        case .etherium:
-            return "Etherium"
+    var body: some View {
+        Group {
+            if dataSource.isLoading {
+                VStack {
+                    ProgressView()
+                        .foregroundStyle(Color.textWhite20)
+                        .controlSize(.regular)
+                    Spacer()
+                }
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegation information")
+            } else if dataSource.userDelegation != nil {
+                _DaoUserDelegationView(dataSource: dataSource)
+            }
+        }
+        .padding()
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Delegate")
+                    .font(.title3Semibold)
+                    .foregroundStyle(Color.textWhite)
+            }
+        }
+        .onAppear() {
+            if dataSource.userDelegation == nil {
+                dataSource.refresh()
+            }
         }
     }
 }
 
-struct DaoUserDelegationView: View {
-    let dao: Dao
-    let delegate: User
+fileprivate struct _DaoUserDelegationView: View {
+    @ObservedObject var dataSource: DaoUserDelegationDataSource
 
-    @StateObject private var dataSource: DaoUserDelegationDataSource
-    @State private var chosenNetwork: VotingNetworkType = .gnosis
     @Query private var profiles: [UserProfile]
     @Namespace var namespace
     @Environment(\.dismiss) private var dismiss
 
-    var userDelegation: DaoUserDelegation? {
-        return dataSource.userDelegation
+    private var userDelegation: DaoUserDelegation! {
+        dataSource.userDelegation
+    }
+
+    private var dao: Dao {
+        dataSource.dao
+    }
+
+    private var delegate: User {
+        dataSource.delegate
     }
 
     private var appUser: User {
         let profile = profiles.first(where: { $0.selected })!
         return profile.user
-    }
-
-    init(dao: Dao, delegate: User) {
-        let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
-        _dataSource = StateObject(wrappedValue: dataSource)
-        self.dao = dao
-        self.delegate = delegate
-
     }
 
     var body: some View {
@@ -85,14 +103,12 @@ struct DaoUserDelegationView: View {
                             .foregroundColor(.textWhite)
                         Spacer()
 
-                        if let userDelegationVotingPower = userDelegation?.votingPower {
-                            HStack(spacing: 4) {
-                                Text(userDelegationVotingPower.power.description)
-                                Text(userDelegationVotingPower.symbol)
-                            }
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
+                        HStack(spacing: 4) {
+                            Text(userDelegation.votingPower.power.description)
+                            Text(userDelegation.votingPower.symbol)
                         }
+                        .font(.bodyRegular)
+                        .foregroundColor(.textWhite)
                     }
 
                     Divider()
@@ -118,10 +134,11 @@ struct DaoUserDelegationView: View {
                             .foregroundColor(.textWhite)
                         Spacer()
                         HStack {
-                            ForEach(VotingNetworkType.allNetwork) { network in
+                            let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
+                            ForEach(chains) { chain in
                                 ZStack {
-                                    if chosenNetwork == network {
-                                        Text(network.localizedName())
+                                    if dataSource.selectedChain == chain {
+                                        Text(chain.name)
                                             .foregroundColor(.clear)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 6)
@@ -130,7 +147,7 @@ struct DaoUserDelegationView: View {
                                             .matchedGeometryEffect(id: "network-background", in: namespace)
                                     }
 
-                                    Text(network.localizedName())
+                                    Text(chain.name)
                                         .foregroundColor(Color.onSecondaryContainer)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
@@ -142,19 +159,17 @@ struct DaoUserDelegationView: View {
                                 .font(.caption2Semibold)
                                 .onTapGesture {
                                     withAnimation(.spring(response: 0.5)) {
-                                        chosenNetwork = network
+                                        dataSource.selectedChain = chain
                                     }
                                 }
                             }
                         }
                     }
 
-                    if let userDelegation {
-                        UserDelegationSplitVotingPowerView(owner: appUser,
-                                                           userDelegation: userDelegation,
-                                                           delegate: delegate)
-                        .padding(.bottom)
-                    }
+                    UserDelegationSplitVotingPowerView(owner: appUser,
+                                                       userDelegation: userDelegation,
+                                                       delegate: delegate)
+                    .padding(.bottom)
 
                     SetDelegateExpirationView()
                 }
@@ -174,21 +189,6 @@ struct DaoUserDelegationView: View {
                         dismiss()
                     }
                 }
-            }
-        }
-        .padding()
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Delegate")
-                    .font(.title3Semibold)
-                    .foregroundStyle(Color.textWhite)
-            }
-        }
-        .onAppear() {
-            if dataSource.userDelegation == nil {
-                dataSource.refresh()
             }
         }
     }
