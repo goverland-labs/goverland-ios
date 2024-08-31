@@ -55,5 +55,30 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
+    
+    func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {
+        // TODO: implement proper logic
+        var requestDelegates = [DaoUserDelegationRequest.RequestDelegate]()
+        for (index, delegate) in splitModel.delegates.enumerated() {
+            let powerPercent: Double = splitModel.percentage(for: index)
+            requestDelegates.append(
+                DaoUserDelegationRequest.RequestDelegate(address: delegate.user.address.value,
+                                                         percentOfDelegated: powerPercent)
+            )
+        }
+        
+        // TODO: add expiration date logic
+        let request = DaoUserDelegationRequest(chainId: selectedChain!.id, delegates: requestDelegates, expirationDate: nil)
+        
+        logInfo("[App] DaoUserDelegationRequest: \(request)")
+        
+        APIService.daoPrepareSplitDelegation(daoId: dao.id, request: request)
+            .sink { _ in
+                // TODO: block Confirm button while request is executing
+            } receiveValue: { [weak self] preparedData, _ in
+                // TODO: implement proper logic
+                logInfo("[App] prepared data: \(preparedData)")
+            }
+            .store(in: &cancellables)
+    }
 }
-

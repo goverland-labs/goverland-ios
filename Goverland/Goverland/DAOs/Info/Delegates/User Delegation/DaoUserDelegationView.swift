@@ -190,9 +190,7 @@ fileprivate struct _DaoUserDelegationView: View {
 
                 PrimaryButton("Confirm") {
                     Haptic.medium()
-                    Task {
-                        // TODO: api call to assign delegate
-                    }
+                    dataSource.prepareSplitDelegation(splitModel: splitViewModel)
                     dismiss()
                 }
             }

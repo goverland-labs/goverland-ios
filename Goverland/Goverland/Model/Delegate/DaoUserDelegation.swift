@@ -32,13 +32,23 @@ struct DaoUserDelegation: Decodable {
 
 struct DaoUserDelegationRequest: Encodable {
     let chainId: Int
-    let delegates: [DelegateVotingPower]
+    let delegates: [RequestDelegate]
     let expirationDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case chainId = "chain_id"
         case delegates
         case expirationDate = "expiration_date"
+    }
+
+    struct RequestDelegate: Encodable {
+        let address: String
+        let percentOfDelegated: Double
+
+        enum CodingKeys: String, CodingKey {
+            case address
+            case percentOfDelegated = "percent_of_delegated"
+        }
     }
 }
 

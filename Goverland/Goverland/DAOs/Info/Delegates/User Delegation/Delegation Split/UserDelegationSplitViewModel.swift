@@ -89,12 +89,17 @@ class UserDelegationSplitViewModel: ObservableObject {
             self.ownerPowerReserved = max(round(self.ownerPowerReserved - 1), 0)
         }
     }
-    
-    func percentage(for index: Int) -> String {
-        guard totalAssignedPower > 0, index < delegates.count else { return "0" }
+
+    func percentage(for index: Int) -> Double {
+        guard totalAssignedPower > 0, index < delegates.count else { return 0 }
         let delegateAssignedPower = delegates[index].1
         let availablePowerPercentage = 100.0 - ownerPowerReserved
-        let p = availablePowerPercentage / Double(totalAssignedPower) * Double(delegateAssignedPower)
+        return availablePowerPercentage / Double(totalAssignedPower) * Double(delegateAssignedPower)
+    }
+
+    func percentage(for index: Int) -> String {
+        let p: Double = percentage(for: index)
+        guard p > 0 else { return "0" }
         return Utils.numberWithPercent(from: p)
     }
     
