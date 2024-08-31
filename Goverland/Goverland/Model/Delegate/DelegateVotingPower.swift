@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct DelegateVotingPower: Decodable, Identifiable {
+struct DelegateVotingPower: Codable, Identifiable {
     let user: User
     let powerPercent: Double
     let powerRatio: Int

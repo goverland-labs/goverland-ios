@@ -9,6 +9,7 @@
 
 import Foundation
 
+// TODO: remove
 struct DelegationInfo: Decodable, Equatable {
     let percentDelegated: Double
     

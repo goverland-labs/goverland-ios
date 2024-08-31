@@ -297,6 +297,8 @@ struct DaoInfoEndpoint: APIEndpoint {
     }
 }
 
+// MARK: - Delegates
+
 struct DaoDelegatesEndpoint: APIEndpoint {
     typealias ResponseType = [Delegate]
 
@@ -322,6 +324,22 @@ struct DaoUserDelegationEndpoint: APIEndpoint {
 
     init(daoID: UUID) {
         self.daoID = daoID
+    }
+}
+
+struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
+    typealias ResponseType = DaoUserDelegationPreparedData
+
+    let daoId: UUID
+
+    var path: String { "dao/\(daoId)/prepare-split-delegation" }
+    var method: HttpMethod = .post
+
+    var body: Data?
+
+    init(daoId: UUID, request: DaoUserDelegationRequest) {
+        self.daoId = daoId
+        self.body = try! JSONEncoder().encode(request)
     }
 }
 
