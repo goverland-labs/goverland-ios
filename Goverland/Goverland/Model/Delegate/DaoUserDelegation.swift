@@ -29,3 +29,39 @@ struct DaoUserDelegation: Decodable {
         let power: Double
     }
 }
+
+struct DaoUserDelegationRequest: Encodable {
+    let chainId: Int
+    let delegates: [RequestDelegate]
+    let expirationDate: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case chainId = "chain_id"
+        case delegates
+        case expirationDate = "expiration_date"
+    }
+
+    struct RequestDelegate: Encodable {
+        let address: String
+        let percentOfDelegated: Double
+
+        enum CodingKeys: String, CodingKey {
+            case address
+            case percentOfDelegated = "percent_of_delegated"
+        }
+    }
+}
+
+struct DaoUserDelegationPreparedData: Decodable {
+    let to: String
+    let data: String
+    let gasPrice: String
+    let gas: String
+
+    enum CodingKeys: String, CodingKey {
+        case to
+        case data
+        case gasPrice = "gas_price"
+        case gas
+    }
+}

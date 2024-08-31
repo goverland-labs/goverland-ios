@@ -10,16 +10,11 @@
 import SwiftUI
 
 struct UserDelegationSplitVotingPowerView: View {
-    @StateObject private var viewModel: UserDelegationSplitViewModel
+    @ObservedObject var viewModel: UserDelegationSplitViewModel
+    
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
     @State private var isTooltipVisible = false
     @State private var showAddDelegate = false
-
-    init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
-        let viewModel = UserDelegationSplitViewModel(owner: owner, userDelegation: userDelegation, delegate: delegate)
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
     
     var body: some View {
         VStack {
