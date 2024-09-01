@@ -24,6 +24,14 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     
     private var cancellables = Set<AnyCancellable>()
     
+    var isEnoughBalance: Bool {
+        selectedChain?.balance ?? 0 >= selectedChain?.feeApproximation ?? 0
+    }
+    
+    var deltaBalance: Double {
+        (selectedChain?.feeApproximation ?? 0) - (selectedChain?.balance ?? 0)
+    }
+    
     init(dao: Dao, delegate: User) {
         self.dao = dao
         self.delegate = delegate
@@ -50,10 +58,26 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] userDelegation, _ in
                 self?.userDelegation = userDelegation
-                // TODO: implement proper logic
-                self?.selectedChain = userDelegation.chains.gnosis
+                self?.assignPreferredChain()
             }
             .store(in: &cancellables)
+    }
+    
+    private func assignPreferredChain() {
+        if let delegation = self.userDelegation {
+            let gnsBalance = delegation.chains.gnosis.balance
+            let gnsFee = delegation.chains.gnosis.feeApproximation
+            let ethBalance = delegation.chains.eth.balance
+            let ethFee = delegation.chains.eth.feeApproximation
+            
+            if gnsFee <= gnsBalance {
+                self.selectedChain = delegation.chains.gnosis
+            } else if ethFee <= ethBalance {
+                self.selectedChain = delegation.chains.eth
+            } else {
+                self.selectedChain = delegation.chains.gnosis
+            }
+        }
     }
     
     func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {

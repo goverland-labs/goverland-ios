@@ -111,7 +111,7 @@ extension Dao {
 // MARK: - Chains
 
 extension Chain {
-    static var gnosis: Chain {
+    static var gnosisTest: Chain {
         Chain(id: 100,
               name: "Gnosis Chain",
               balance: 10.0,
@@ -119,7 +119,7 @@ extension Chain {
               feeApproximation: 0.001,
               txScanTemplate: "https://gnosisscan.io/tx/:id")
     }
-    static var etherium: Chain {
+    static var etheriumTest: Chain {
         Chain(id: 1,
               name: "Ethereum",
               balance: 0.01,
@@ -130,7 +130,7 @@ extension Chain {
 }
 
 extension Chains {
-    static var testChains: Chains { Chains(eth: .etherium, gnosis: .gnosis) }
+    static var testChains: Chains { Chains(eth: .etheriumTest, gnosis: .gnosisTest) }
 }
 
 // MARK: - Delegates
