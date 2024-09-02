@@ -85,139 +85,133 @@ fileprivate struct _DaoUserDelegationView: View {
     }
 
     var body: some View {
-        if dataSource.isLoading {
-            ProgressView()
-        } else if dataSource.failedToLoadInitialData {
-            RetryInitialLoadingView(dataSource: dataSource)
-        } else {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 12) {
-                    HStack {
-                        Text("Selected wallet")
-                            .font(.bodyRegular)
-                            .foregroundStyle(Color.textWhite)
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 12) {
+                HStack {
+                    Text("Selected wallet")
+                        .font(.bodyRegular)
+                        .foregroundStyle(Color.textWhite)
 
-                        Spacer()
+                    Spacer()
 
-                        if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
-                            walletImage
-                                .frame(width: Avatar.Size.xs.profileImageSize, height: Avatar.Size.xs.profileImageSize)
-                                .scaledToFit()
-                                .clipShape(Circle())
-                        } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
-                            RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
-                        }
-
-                        IdentityView(user: appUser, size: .xs, font: .bodyRegular, onTap: nil)
+                    if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+                        walletImage
+                            .frame(width: Avatar.Size.xs.profileImageSize, height: Avatar.Size.xs.profileImageSize)
+                            .scaledToFit()
+                            .clipShape(Circle())
+                    } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                        RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                     }
 
-                    HStack {
-                        Text("Voting power")
-                            .font(.bodyRegular)
-                            .foregroundColor(.textWhite)
-                        Spacer()
+                    IdentityView(user: appUser, size: .xs, font: .bodyRegular, onTap: nil)
+                }
 
-                        HStack(spacing: 4) {
-                            Text(userDelegation.votingPower.power.description)
-                            Text(userDelegation.votingPower.symbol)
-                        }
+                HStack {
+                    Text("Voting power")
                         .font(.bodyRegular)
                         .foregroundColor(.textWhite)
+                    Spacer()
+
+                    HStack(spacing: 4) {
+                        Text(userDelegation.votingPower.power.description)
+                        Text(userDelegation.votingPower.symbol)
                     }
+                    .font(.bodyRegular)
+                    .foregroundColor(.textWhite)
+                }
 
-                    Divider()
-                        .background(Color.secondaryContainer)
-                        .padding(.vertical)
+                Divider()
+                    .background(Color.secondaryContainer)
+                    .padding(.vertical)
 
+                HStack {
+                    Text("Delegation scope")
+                        .font(.bodyRegular)
+                        .foregroundColor(.textWhite)
+                    Spacer()
                     HStack {
-                        Text("Delegation scope")
+                        RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
+                        Text(dao.name)
+                            .font(.bodySemibold)
+                            .foregroundStyle(Color.textWhite)
+                    }
+                }
+
+                VStack {
+                    HStack {
+                        Text("Network")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
                         Spacer()
                         HStack {
-                            RoundPictureView(image: dao.avatar(size: .xs), imageSize: Avatar.Size.xs.daoImageSize)
-                            Text(dao.name)
-                                .font(.bodySemibold)
-                                .foregroundStyle(Color.textWhite)
-                        }
-                    }
-
-                    VStack {
-                        HStack {
-                            Text("Network")
-                                .font(.bodyRegular)
-                                .foregroundColor(.textWhite)
-                            Spacer()
-                            HStack {
-                                let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
-                                ForEach(chains) { chain in
-                                    ZStack {
-                                        if dataSource.selectedChain == chain {
-                                            Text(chain.name)
-                                                .foregroundColor(.clear)
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 6)
-                                                .background(Color.secondaryContainer)
-                                                .cornerRadius(20)
-                                                .matchedGeometryEffect(id: "network-background", in: namespace)
-                                        }
-                                        
+                            let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
+                            ForEach(chains) { chain in
+                                ZStack {
+                                    if dataSource.selectedChain == chain {
                                         Text(chain.name)
-                                            .foregroundColor(Color.onSecondaryContainer)
+                                            .foregroundColor(.clear)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 6)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(Color.secondaryContainer, lineWidth: 1)
-                                            )
+                                            .background(Color.secondaryContainer)
+                                            .cornerRadius(20)
+                                            .matchedGeometryEffect(id: "network-background", in: namespace)
                                     }
-                                    .font(.caption2Semibold)
-                                    .onTapGesture {
-                                        withAnimation(.spring(response: 0.5)) {
-                                            dataSource.selectedChain = chain
-                                        }
+
+                                    Text(chain.name)
+                                        .foregroundColor(Color.onSecondaryContainer)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.secondaryContainer, lineWidth: 1)
+                                        )
+                                }
+                                .font(.caption2Semibold)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.5)) {
+                                        dataSource.selectedChain = chain
                                     }
                                 }
                             }
-                        }
-                        
-                        if !dataSource.isEnoughBalance {
-                            HStack {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "exclamationmark.triangle.fill")
-                                        .resizable()
-                                        .foregroundStyle(Color.containerBright, Color.warning)
-                                        .frame(width: 17, height: 15, alignment: .center)
-                                    Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "") or choose another network.")
-                                        .font(.bodyRegular)
-                                        .foregroundColor(.textWhite)
-                                }
-                                Spacer()
-                            }
-                            .padding()
-                            .background(Color.containerBright)
-                            .cornerRadius(20)
                         }
                     }
 
-                    UserDelegationSplitVotingPowerView(viewModel: splitViewModel)
-                        .padding(.bottom)
-
-                    SetDelegateExpirationView()
+                    if !dataSource.isEnoughBalance {
+                        HStack {
+                            HStack(spacing: 10) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .resizable()
+                                    .foregroundStyle(Color.containerBright, Color.warning)
+                                    .frame(width: 17, height: 15, alignment: .center)
+                                Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "") or choose another network.")
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.containerBright)
+                        .cornerRadius(20)
+                    }
                 }
+
+                UserDelegationSplitVotingPowerView(viewModel: splitViewModel)
+                    .padding(.bottom)
+
+                SetDelegateExpirationView()
             }
+        }
 
+        HStack {
             HStack {
-                HStack {
-                    SecondaryButton("Cancel") {
-                        dismiss()
-                    }
+                SecondaryButton("Cancel") {
+                    dismiss()
+                }
 
-                    PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnable) {
-                        Haptic.medium()
-                        dataSource.prepareSplitDelegation(splitModel: splitViewModel)
-                        dismiss()
-                    }
+                PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnable) {
+                    Haptic.medium()
+                    dataSource.prepareSplitDelegation(splitModel: splitViewModel)
+                    dismiss()
                 }
             }
         }
