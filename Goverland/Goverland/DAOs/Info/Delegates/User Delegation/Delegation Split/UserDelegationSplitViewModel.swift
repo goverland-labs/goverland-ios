@@ -24,7 +24,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         delegates.reduce(0) { $0 + $1.powerRatio }
     }
     
-    var isConfirmEnable: Bool {
+    var isConfirmEnabled: Bool {
         !(self.totalDelegatesAssignedPowerRatios == 0 && self.ownerReservedPercentage < 100)
     }
     

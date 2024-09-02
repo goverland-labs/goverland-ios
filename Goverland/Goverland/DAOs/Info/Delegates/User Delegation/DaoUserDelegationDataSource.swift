@@ -25,11 +25,13 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
     
     var isEnoughBalance: Bool {
-        selectedChain?.balance ?? 0 >= selectedChain?.feeApproximation ?? 0
+        guard let selectedChain else { return false }
+        return selectedChain.balance >= selectedChain.feeApproximation
     }
     
     var deltaBalance: Double {
-        (selectedChain?.feeApproximation ?? 0) - (selectedChain?.balance ?? 0)
+        guard let selectedChain else { return 0.0 }
+        return selectedChain.feeApproximation - selectedChain.balance
     }
     
     init(dao: Dao, delegate: User) {
@@ -64,19 +66,19 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     }
     
     private func assignPreferredChain() {
-        if let delegation = self.userDelegation {
-            let gnsBalance = delegation.chains.gnosis.balance
-            let gnsFee = delegation.chains.gnosis.feeApproximation
-            let ethBalance = delegation.chains.eth.balance
-            let ethFee = delegation.chains.eth.feeApproximation
-            
-            if gnsFee <= gnsBalance {
-                self.selectedChain = delegation.chains.gnosis
-            } else if ethFee <= ethBalance {
-                self.selectedChain = delegation.chains.eth
-            } else {
-                self.selectedChain = delegation.chains.gnosis
-            }
+        guard let userDelegation else { return }
+
+        let xdaiBalance = userDelegation.chains.gnosis.balance
+        let xdaiFee = userDelegation.chains.gnosis.feeApproximation
+        let ethBalance = userDelegation.chains.eth.balance
+        let ethFee = userDelegation.chains.eth.feeApproximation
+
+        if xdaiFee <= xdaiBalance {
+            self.selectedChain = userDelegation.chains.gnosis
+        } else if ethFee <= ethBalance {
+            self.selectedChain = userDelegation.chains.eth
+        } else {
+            self.selectedChain = userDelegation.chains.gnosis
         }
     }
     

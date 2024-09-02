@@ -208,7 +208,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     dismiss()
                 }
 
-                PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnable) {
+                PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnabled) {
                     Haptic.medium()
                     dataSource.prepareSplitDelegation(splitModel: splitViewModel)
                     dismiss()
