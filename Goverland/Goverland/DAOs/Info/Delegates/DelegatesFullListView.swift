@@ -46,11 +46,13 @@ struct DelegatesFullListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(title)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
+                if case .add(_) = action {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
                     }
                 }
             }

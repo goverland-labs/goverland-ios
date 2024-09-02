@@ -185,6 +185,7 @@ struct UserDelegationSplitVotingPowerView: View {
                 DelegatesFullListView(dao: viewModel.userDelegation.dao, action: .add(onAdd: { delegate in
                     viewModel.addDelegate(delegate.user)
                 }))
+                .navigationBarBackButtonHidden(true)
             }
             .overlay {
                 ToastView()

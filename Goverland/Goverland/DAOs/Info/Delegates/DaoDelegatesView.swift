@@ -112,7 +112,6 @@ fileprivate struct _DelegatesListHeaderView: View {
             NavigationLink(
                 destination: DelegatesFullListView(dao: dao, action: .delegate)
                     .environmentObject(activeSheetManager)
-                    .navigationBarBackButtonHidden(true)
             ) {
                 Text("See all")
                     .font(.subheadlineSemibold)
