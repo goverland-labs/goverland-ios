@@ -8,7 +8,6 @@
 
 
 import SwiftUI
-import SwiftData
 
 enum DelegateListAction {
     case delegate
@@ -149,18 +148,7 @@ fileprivate struct DelegateFullListItemView: View {
     let delegate: Delegate
     let dao: Dao
 
-    @Query private var profiles: [UserProfile]
-    @State private var showSignIn = false
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Environment(\.dismiss) private var dismiss
-    
-    private var selectedProfile: UserProfile? {
-        profiles.first(where: { $0.selected })
-    }
-    
-    private var selectedProfileIsGuest: Bool {
-        selectedProfile?.isGuest ?? false
-    }
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
@@ -187,14 +175,8 @@ fileprivate struct DelegateFullListItemView: View {
             
             switch action {
             case .delegate:
-                if selectedProfile == nil || selectedProfileIsGuest {
-                    DelegateButton(isDelegated: false) {
-                        showSignIn = true
-                    }
-                } else {
-                    DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                        activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
-                    }
+                DelegateButton(dao: dao, delegate: delegate) {
+                    // TODO: track
                 }
             case .add(let onAdd):
                 SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {
@@ -206,10 +188,6 @@ fileprivate struct DelegateFullListItemView: View {
         .padding(12)
         .contentShape(Rectangle())
         .listRowSeparator(.hidden)
-        .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView { /* do nothing on sign in */ }
-                .presentationDetents([.height(500), .large])
-        }
     }
 }
 

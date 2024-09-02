@@ -8,7 +8,6 @@
 
 
 import SwiftUI
-import SwiftData
 
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
@@ -75,33 +74,6 @@ struct DaoDelegateProfileView: View {
 struct DaoDelegateProfileHeaderView: View {
     let delegate: Delegate
     let dao: Dao
-    
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    @Query private var profiles: [UserProfile]
-    
-    @State private var showSignIn = false
-    @State private var showReconnectWallet = false
-
-    private var selectedProfile: UserProfile? {
-        profiles.first(where: { $0.selected })
-    }
-
-    private var selectedProfileIsRegularUser: Bool {
-        guard let selectedProfile else { return false }
-        return selectedProfile.isRegular
-    }
-
-    private var coinbaseWalletConnected: Bool {
-        CoinbaseWalletManager.shared.account != nil
-    }
-
-    private var wcSessionExistsAndNotExpired: Bool {
-        WC_Manager.shared.sessionExistsAndNotExpired
-    }
-
-    private var shouldShowReconnectWallet: Bool {
-        !(coinbaseWalletConnected || wcSessionExistsAndNotExpired)
-    }
 
     var body: some View {
         VStack(spacing: 10) {
@@ -136,33 +108,10 @@ struct DaoDelegateProfileHeaderView: View {
             }
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
-            
-            if !selectedProfileIsRegularUser {
-                DelegateButton(isDelegated: false) {
-                    showSignIn = true
-                }
-            } else {
-                DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                    showDelegation()
-                }
-            }
-        }
-        .sheet(isPresented: $showSignIn) {
-            SignInTwoStepsView { /* do nothing on sign in */ }
-                .presentationDetents([.height(500), .large])
-        }
-        .sheet(isPresented: $showReconnectWallet) {
-            ReconnectWalletView(user: selectedProfile!.user)
-        }
-    }
 
-    private func showDelegation() {
-        // TODO: track
-        Haptic.medium()
-        if shouldShowReconnectWallet {
-            showReconnectWallet = true
-        } else {
-            activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            DelegateButton(dao: dao, delegate: delegate) {
+                // TODO: track
+            }
         }
     }
 }

@@ -8,26 +8,73 @@
 	
 
 import SwiftUI
+import SwiftData
 
+/// Delegate button has it's own logic, but will also call a onTap completion if additional logic is needed
 struct DelegateButton: View {
+    let dao: Dao
+    let delegate: Delegate
     let width: CGFloat
     let height: CGFloat
-    let isDelegated: Bool
-    let action: () -> Void
+    let onTap: () -> Void
 
-    init(width: CGFloat = 100,
+    @Query private var profiles: [UserProfile]
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
+    @State private var showSignIn = false
+    @State private var showReconnectWallet = false
+
+    init(dao: Dao,
+         delegate: Delegate,
+         width: CGFloat = 100,
          height: CGFloat = 32,
-         isDelegated: Bool,
-         action: @escaping () -> Void) {
+         onTap: @escaping () -> Void)
+    {
+        self.dao = dao
+        self.delegate = delegate
         self.width = width
         self.height = height
-        self.isDelegated = isDelegated
-        self.action = action
+        self.onTap = onTap
+    }
+
+    private var isDelegated: Bool {
+        delegate.delegationInfo.percentDelegated != 0
+    }
+
+    private var selectedProfile: UserProfile? {
+        profiles.first(where: { $0.selected })
+    }
+
+    private var selectedProfileIsRegularUser: Bool {
+        guard let selectedProfile else { return false }
+        return selectedProfile.isRegular
+    }
+
+    private var coinbaseWalletConnected: Bool {
+        CoinbaseWalletManager.shared.account != nil
+    }
+
+    private var wcSessionExistsAndNotExpired: Bool {
+        WC_Manager.shared.sessionExistsAndNotExpired
+    }
+
+    private var shouldShowReconnectWallet: Bool {
+        !(coinbaseWalletConnected || wcSessionExistsAndNotExpired)
     }
 
     var body: some View {
         Button(action: {
-            action()
+            Haptic.medium()
+
+            if !selectedProfileIsRegularUser {
+                showSignIn = true
+            } else if shouldShowReconnectWallet {
+                showReconnectWallet = true
+            } else {
+                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            }
+
+            onTap()
         }) {
             HStack {
                 Spacer()
@@ -43,6 +90,13 @@ struct DelegateButton: View {
             )
             .clipShape(Capsule())
             .tint(.onPrimary)
+        }
+        .sheet(isPresented: $showSignIn) {
+            SignInTwoStepsView { /* do nothing on sign in */ }
+                .presentationDetents([.height(500), .large])
+        }
+        .sheet(isPresented: $showReconnectWallet) {
+            ReconnectWalletView(user: selectedProfile!.user)
         }
     }
 }
