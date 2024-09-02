@@ -82,12 +82,12 @@ class UserDelegationSplitViewModel: ObservableObject {
     }
     
     func increaseOwnerVotingPower() {
-        if self.ownerReservedPercentage < 100 {
-            self.ownerReservedPercentage = min(round(self.ownerReservedPercentage + 1), 100)
+        if ownerReservedPercentage < 100 {
+            ownerReservedPercentage = min(round(ownerReservedPercentage + 1), 100)
         }
-        // TODO: fix or remove. Now it does nothing
-        if self.ownerReservedPercentage == 100 {
-            resetAllDelegatesVotingPower()
+
+        if ownerReservedPercentage == 100 {
+            setAllDelegateWeights(to: 0)
         }
     }
     
@@ -111,16 +111,17 @@ class UserDelegationSplitViewModel: ObservableObject {
     }
     
     func resetAllDelegatesVotingPower() {
-        if self.ownerReservedPercentage == 100 {
-            return
-        }
-        delegates = delegates.map { (user, _) in (user, 0) }
-        self.ownerReservedPercentage = 100
+        setAllDelegateWeights(to: 0)
+        ownerReservedPercentage = 100
     }
     
     func divideEquallyVotingPower() {
         if ownerReservedPercentage < 100 {
-            delegates = delegates.map { (user, _) in (user, 1) }
+            setAllDelegateWeights(to: 1)
         }
+    }
+
+    private func setAllDelegateWeights(to value: Int) {
+        delegates = delegates.map { (user, _) in (user, value) }
     }
 }
