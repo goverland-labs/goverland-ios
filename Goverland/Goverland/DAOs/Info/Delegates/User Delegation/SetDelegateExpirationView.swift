@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct SetDelegateExpirationView: View {
+    let dao: Dao
+
     @State private var isChecked = false
     @State private var selectedDate = Date()
     @State private var isDatePickerPresented = false
@@ -25,7 +27,7 @@ struct SetDelegateExpirationView: View {
                     .foregroundStyle(Color.textWhite40)
                     .padding(.trailing)
                     .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                        Text("Tooltip set expiration text goes here")
+                        Text("You can set an expiration date for your delegation and change your delegates or the expiration date at any time. Once the expiration date is reached, your delegation for \(dao.name) will be revoked")
                             .foregroundStyle(Color.textWhite60)
                             .font(.сaptionRegular)
                     }

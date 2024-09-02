@@ -66,7 +66,8 @@ fileprivate struct _DaoUserDelegationView: View {
     init(appUser: User, dataSource: DaoUserDelegationDataSource) {
         self.appUser = appUser
         _dataSource = ObservedObject(wrappedValue: dataSource)
-        let splitViewModel = UserDelegationSplitViewModel(owner: appUser,
+        let splitViewModel = UserDelegationSplitViewModel(dao: dataSource.dao,
+                                                          owner: appUser,
                                                           userDelegation: dataSource.userDelegation!,
                                                           delegate: dataSource.delegate)
         _splitViewModel = StateObject(wrappedValue: splitViewModel)
@@ -183,7 +184,7 @@ fileprivate struct _DaoUserDelegationView: View {
                                     .resizable()
                                     .foregroundStyle(Color.containerBright, Color.warning)
                                     .frame(width: 17, height: 15, alignment: .center)
-                                Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "") or choose another network.")
+                                Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "").")
                                     .font(.bodyRegular)
                                     .foregroundColor(.textWhite)
                             }
@@ -198,7 +199,7 @@ fileprivate struct _DaoUserDelegationView: View {
                 UserDelegationSplitVotingPowerView(viewModel: splitViewModel)
                     .padding(.bottom)
 
-                SetDelegateExpirationView()
+                SetDelegateExpirationView(dao: dao)
             }
         }
 

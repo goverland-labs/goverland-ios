@@ -10,6 +10,7 @@
 import Foundation
 
 class UserDelegationSplitViewModel: ObservableObject {
+    let dao: Dao
     let owner: User
     let userDelegation: DaoUserDelegation
     private let delegate: User
@@ -28,7 +29,8 @@ class UserDelegationSplitViewModel: ObservableObject {
         !(self.totalDelegatesAssignedPowerRatios == 0 && self.ownerReservedPercentage < 100)
     }
     
-    init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
+    init(dao: Dao, owner: User, userDelegation: DaoUserDelegation, delegate: User) {
+        self.dao = dao
         self.owner = owner
         self.userDelegation = userDelegation
         self.delegate = delegate
