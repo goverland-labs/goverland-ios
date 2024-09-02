@@ -84,6 +84,10 @@ extension UserProfile {
     var isGuest: Bool {
         address.isEmpty
     }
+
+    var isRegular: Bool {
+        !isGuest
+    }
 }
 
 // MARK: - Avatar extension

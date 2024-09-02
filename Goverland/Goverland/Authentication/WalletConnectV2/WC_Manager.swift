@@ -36,6 +36,14 @@ class WC_Manager {
         }
     }
 
+    var sessionExistsAndNotExpired: Bool {
+        if let sessionMeta, !sessionMeta.isExpired {
+            return true
+        }
+        logInfo("[WC] Session expiration date: \(WC_Manager.shared.sessionMeta?.session.expiryDate.toISO() ?? "NO SESSION")")
+        return false
+    }
+
     static func showModal() {
         WalletConnectModal.present()
     }
