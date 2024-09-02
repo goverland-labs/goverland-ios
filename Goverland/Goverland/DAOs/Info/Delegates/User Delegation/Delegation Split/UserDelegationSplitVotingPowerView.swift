@@ -29,7 +29,7 @@ struct UserDelegationSplitVotingPowerView: View {
                             .foregroundStyle(Color.textWhite40)
                             .padding(.trailing)
                             .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                                Text("In \(viewModel.dao.name), you can delegate your voting power to multiple delegates simultaneously while retaining some for yourself. Only the delegated voting power is eligible to participate in governance.")
+                                Text("In \(viewModel.dao.name), you can delegate your voting power to multiple delegates simultaneously while retaining some for yourself. Only the delegated voting power is eligible to participate in governance")
                                     .foregroundStyle(Color.textWhite60)
                                     .font(.сaptionRegular)
                             }
@@ -134,7 +134,7 @@ struct UserDelegationSplitVotingPowerView: View {
                      // TODO: fix tooltip visibility - now it is cut. User pagination inside this subview to make it displaied properly, or even better
                      // TODO: replace all tooltips with custom design info popover
                         .tooltip($viewModel.isTooltipVisible, side: .topRight, width: 200) {
-                            Text("You can keep all or part of your voting power for yourself, distributing the rest among one or more delegates.")
+                            Text("You can keep all or part of your voting power for yourself, distributing the rest among one or more delegates")
                                 .foregroundStyle(Color.textWhite60)
                                 .font(.сaptionRegular)
                         }
