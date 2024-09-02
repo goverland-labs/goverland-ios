@@ -33,6 +33,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         self.userDelegation = userDelegation
         self.delegate = delegate
         
+        // add to model delegates returned by backend
         for del in userDelegation.delegates {
             if del.user.address == owner.address {
                 self.ownerReservedPercentage = del.powerPercent
@@ -41,45 +42,42 @@ class UserDelegationSplitViewModel: ObservableObject {
             }
         }
         
+        // add to model selected delegate
         self.addDelegate(self.delegate)
-        
-        // when tapped user is the owner and no prior delegates from api
+
         if self.delegates.count == 0 {
+            // when tapped user is the owner and no prior delegates from backend
             self.ownerReservedPercentage = 100
-        } else if self.delegates.count == 1 && delegates.first?.1 == 0 {
+        } else if self.delegates.count == 1 && delegates.first?.powerRatio == 0 {
+            // when tapped user is a new delegate and no prior delegates from backend
             self.ownerReservedPercentage = 0
         }
+
+        // TODO: add powerRatio normalization. E.g. if we have now two delegates with 3/3 and owner 40%
     }
     
     func addDelegate(_ delegate: User) {
-        if !delegates.contains(where: { $0.0 == delegate }) && delegate != owner {
-            // Shift existing elements to insert the new delegate at the beginning
-            var tempDelegates = [(User, Int)]()
-            tempDelegates.append((delegate, delegates.isEmpty ? 1 : 0))
-            tempDelegates.append(contentsOf: delegates)
-            delegates = tempDelegates
-        }
+        guard !delegates.contains(where: { $0.0 == delegate }) && delegate != owner else { return }
+        delegates.insert((user: delegate, powerRatio: delegates.isEmpty ? 1 : 0), at: 0)
     }
     
     func increaseVotingPower(forIndex index: Int) {
+        guard index < delegates.count else { return }
         if ownerReservedPercentage == 100 {
-            // TODO: warning here
+            // TODO: add an alert with warning here
             return
         }
-        if index < delegates.count {
-            let delegate = delegates[index]
-            let newPower = delegate.1 + 1
-            delegates[index] = (delegate.0, newPower)
-        }
+        let delegate = delegates[index]
+        let newPowerRatio = delegate.powerRatio + 1
+        delegates[index] = (delegate.0, newPowerRatio)
     }
     
     func decreaseVotingPower(forIndex index: Int) {
-        if index < delegates.count {
-            let delegate = delegates[index]
-            let newPower = delegate.1 - 1
-            if newPower >= 0 {
-                delegates[index] = (delegate.0, newPower)
-            }
+        guard index < delegates.count else { return }
+        let delegate = delegates[index]
+        let newPowerRatio = delegate.1 - 1
+        if newPowerRatio >= 0 {
+            delegates[index] = (delegate.0, newPowerRatio)
         }
     }
     
@@ -87,6 +85,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         if self.ownerReservedPercentage < 100 {
             self.ownerReservedPercentage = min(round(self.ownerReservedPercentage + 1), 100)
         }
+        // TODO: fix or remove. Now it does nothing
         if self.ownerReservedPercentage == 100 {
             resetAllDelegatesVotingPower()
         }
@@ -115,11 +114,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         if self.ownerReservedPercentage == 100 {
             return
         }
-        for index in delegates.indices {
-            var tuple = delegates[index]
-            tuple.1 = 0
-            delegates[index] = tuple
-        }
+        delegates = delegates.map { (user, _) in (user, 0) }
         self.ownerReservedPercentage = 100
     }
     
