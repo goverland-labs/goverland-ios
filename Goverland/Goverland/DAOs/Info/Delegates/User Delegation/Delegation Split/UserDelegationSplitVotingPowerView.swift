@@ -54,7 +54,7 @@ struct UserDelegationSplitVotingPowerView: View {
                                 .underline()
                         }
                         .font(.footnoteRegular)
-                        .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
+                        .foregroundColor(viewModel.ownerReservedPercentage == 100 ? .textWhite20 : .textWhite60)
                         .onTapGesture {
                             viewModel.divideEquallyVotingPower()
                         }
@@ -113,7 +113,7 @@ struct UserDelegationSplitVotingPowerView: View {
                             .underline()
                     }
                     .font(.footnoteRegular)
-                    .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
+                    .foregroundColor(viewModel.ownerReservedPercentage == 100 ? .textWhite20 : .textWhite60)
                     .onTapGesture {
                         viewModel.resetAllDelegatesVotingPower()
                     }
@@ -156,14 +156,14 @@ struct UserDelegationSplitVotingPowerView: View {
                 Spacer()
                 HStack(spacing: 0) {
                     CounterControlView(systemImageName: "minus",
-                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
                         viewModel.decreaseOwnerVotingPower()
                     }
-                    Text(Utils.numberWithPercent(from: viewModel.ownerPowerReserved))
+                    Text(Utils.numberWithPercent(from: viewModel.ownerReservedPercentage))
                         .frame(width: 45)
                     CounterControlView(systemImageName: "plus",
-                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
                         viewModel.increaseOwnerVotingPower()
                     }
@@ -173,7 +173,7 @@ struct UserDelegationSplitVotingPowerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
             .padding(.horizontal)
-            .background(viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+            .background(viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer)
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
