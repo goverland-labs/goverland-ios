@@ -86,7 +86,9 @@ fileprivate struct _DaoUserDelegationView: View {
     }
 
     private var isConfirmEnabled: Bool {
-        splitViewModel.isConfirmEnabled && !dataSource.isPreparingRequest
+        splitViewModel.isConfirmEnabled && 
+        !dataSource.isPreparingRequest &&
+        dataSource.chainIsApprovedByWallet
     }
 
     var body: some View {
@@ -181,22 +183,10 @@ fileprivate struct _DaoUserDelegationView: View {
                         }
                     }
 
-                    if !dataSource.isEnoughBalance {
-                        HStack {
-                            HStack(spacing: 10) {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .resizable()
-                                    .foregroundStyle(Color.containerBright, Color.warning)
-                                    .frame(width: 17, height: 15, alignment: .center)
-                                Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "").")
-                                    .font(.bodyRegular)
-                                    .foregroundColor(.textWhite)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                        .background(Color.containerBright)
-                        .cornerRadius(20)
+                    if !dataSource.chainIsApprovedByWallet {
+                        WarningView(message: "Your connected wallet does not have approval to use \(dataSource.selectedChain?.name ?? "unknown chain"). To resolve this, please disconnect your wallet in the profile settings and create a new session to approve the necessary permissions.")
+                    } else if !dataSource.isEnoughBalance {
+                        WarningView(message: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")")
                     }
                 }
 
@@ -204,6 +194,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     .padding(.bottom)
 
                 SetDelegateExpirationView(dataSource: dataSource)
+                    .padding(.bottom, 30)
             }
         }
 
@@ -215,9 +206,28 @@ fileprivate struct _DaoUserDelegationView: View {
 
                 PrimaryButton("Confirm", isEnabled: isConfirmEnabled) {
                     Haptic.medium()
-                    dataSource.prepareSplitDelegation(splitModel: splitViewModel)                    
+                    dataSource.prepareSplitDelegation(splitModel: splitViewModel)
                 }
             }
         }
+    }
+}
+
+fileprivate struct WarningView: View {
+    let message: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .resizable()
+                .foregroundStyle(Color.containerBright, Color.warning)
+                .frame(width: 17, height: 15, alignment: .center)
+            Text(message)
+                .font(.bodyRegular)
+                .foregroundColor(.textWhite)
+        }
+        .padding()
+        .background(Color.containerBright)
+        .cornerRadius(20)
     }
 }

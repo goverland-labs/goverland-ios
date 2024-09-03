@@ -176,7 +176,8 @@ extension SessionParams {
     static let goverland: Self = {
         let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData", "eth_signTypedData_v4"]
         let events: Set<String> = ["chainChanged", "accountsChanged"]
-        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!]
+        // TODO: we will need a smart logic. Issues with MetaMask, Rainbow (and probably many other wallets)
+        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!/*, Blockchain("eip155:100")!*/]
         let namespaces: [String: ProposalNamespace] = [
             "eip155": ProposalNamespace(
                 chains: blockchains,

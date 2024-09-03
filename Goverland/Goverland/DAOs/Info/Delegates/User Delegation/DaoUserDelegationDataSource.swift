@@ -33,7 +33,22 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         guard let selectedChain else { return false }
         return selectedChain.balance >= selectedChain.feeApproximation
     }
-    
+
+    var chainIsApprovedByWallet: Bool {
+        guard let selectedChain else { return false }
+
+        if let cbAddress { return true } // no need to check for Coinbase wallet
+        
+        guard let wcSession = WC_Manager.shared.sessionMeta?.session,
+              let chains = wcSession.namespaces["eip155"]?.chains else {
+            return false
+        }
+        // Wallets approve available blockchains for every session
+        return chains.contains { c in
+            c.reference == String(selectedChain.id)
+        }
+    }
+
     var deltaBalance: Double {
         guard let selectedChain else { return 0.0 }
         return selectedChain.feeApproximation - selectedChain.balance
@@ -162,18 +177,12 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
               let address = wcAddress,
               let chainId = selectedChain?.id else { return }
 
-        let payload: [String: String] = [
-            "from": address,
-            "to": preparedData.to,
-            "data": preparedData.data,
-            "gasPrice": preparedData.gasPrice,
-            "gas": preparedData.gas
-        ]
+        let tx = Transaction.from(address, preparedDeleagtionData: preparedData)
 
         let request = try! Request(
             topic: session.topic,
             method: "eth_sendTransaction",
-            params: AnyCodable([payload]),
+            params: AnyCodable([tx]),
             chainId: Blockchain("eip155:\(chainId)")!)
 
         Task {
