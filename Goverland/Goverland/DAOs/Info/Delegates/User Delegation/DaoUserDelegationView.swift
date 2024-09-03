@@ -66,7 +66,8 @@ fileprivate struct _DaoUserDelegationView: View {
     init(appUser: User, dataSource: DaoUserDelegationDataSource) {
         self.appUser = appUser
         _dataSource = ObservedObject(wrappedValue: dataSource)
-        let splitViewModel = UserDelegationSplitViewModel(owner: appUser,
+        let splitViewModel = UserDelegationSplitViewModel(dao: dataSource.dao,
+                                                          owner: appUser,
                                                           userDelegation: dataSource.userDelegation!,
                                                           delegate: dataSource.delegate)
         _splitViewModel = StateObject(wrappedValue: splitViewModel)
@@ -137,48 +138,68 @@ fileprivate struct _DaoUserDelegationView: View {
                     }
                 }
 
-                HStack {
-                    Text("Network")
-                        .font(.bodyRegular)
-                        .foregroundColor(.textWhite)
-                    Spacer()
+                VStack {
                     HStack {
-                        let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
-                        ForEach(chains) { chain in
-                            ZStack {
-                                if dataSource.selectedChain == chain {
+                        Text("Network")
+                            .font(.bodyRegular)
+                            .foregroundColor(.textWhite)
+                        Spacer()
+                        HStack {
+                            let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
+                            ForEach(chains) { chain in
+                                ZStack {
+                                    if dataSource.selectedChain == chain {
+                                        Text(chain.name)
+                                            .foregroundColor(.clear)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 6)
+                                            .background(Color.secondaryContainer)
+                                            .cornerRadius(20)
+                                            .matchedGeometryEffect(id: "network-background", in: namespace)
+                                    }
+
                                     Text(chain.name)
-                                        .foregroundColor(.clear)
+                                        .foregroundColor(Color.onSecondaryContainer)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
-                                        .background(Color.secondaryContainer)
-                                        .cornerRadius(20)
-                                        .matchedGeometryEffect(id: "network-background", in: namespace)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.secondaryContainer, lineWidth: 1)
+                                        )
                                 }
-
-                                Text(chain.name)
-                                    .foregroundColor(Color.onSecondaryContainer)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.secondaryContainer, lineWidth: 1)
-                                    )
-                            }
-                            .font(.caption2Semibold)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.5)) {
-                                    dataSource.selectedChain = chain
+                                .font(.caption2Semibold)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.5)) {
+                                        dataSource.selectedChain = chain
+                                    }
                                 }
                             }
                         }
+                    }
+
+                    if !dataSource.isEnoughBalance {
+                        HStack {
+                            HStack(spacing: 10) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .resizable()
+                                    .foregroundStyle(Color.containerBright, Color.warning)
+                                    .frame(width: 17, height: 15, alignment: .center)
+                                Text("You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "").")
+                                    .font(.bodyRegular)
+                                    .foregroundColor(.textWhite)
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.containerBright)
+                        .cornerRadius(20)
                     }
                 }
 
                 UserDelegationSplitVotingPowerView(viewModel: splitViewModel)
                     .padding(.bottom)
 
-                SetDelegateExpirationView()
+                SetDelegateExpirationView(dao: dao)
             }
         }
 
@@ -188,7 +209,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     dismiss()
                 }
 
-                PrimaryButton("Confirm") {
+                PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnabled) {
                     Haptic.medium()
                     dataSource.prepareSplitDelegation(splitModel: splitViewModel)
                     dismiss()

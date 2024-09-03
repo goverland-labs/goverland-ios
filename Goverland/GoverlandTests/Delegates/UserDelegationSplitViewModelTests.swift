@@ -22,7 +22,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .appUser)
         
-        XCTAssertEqual(model.ownerPowerReserved, 100)
+        XCTAssertEqual(model.ownerReservedPercentage, 100)
         XCTAssertEqual(model.delegates.count, 0)
     }
 
@@ -41,7 +41,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .appUser)
         
-        XCTAssertEqual(model.ownerPowerReserved , 0)
+        XCTAssertEqual(model.ownerReservedPercentage , 0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
         XCTAssertEqual(model.delegates[0].powerRatio, 2)
         XCTAssertTrue(model.delegates[1].user == .flipside)
@@ -67,7 +67,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .appUser)
         
-        XCTAssertEqual(model.ownerPowerReserved , 10.0)
+        XCTAssertEqual(model.ownerReservedPercentage , 10.0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
         XCTAssertEqual(model.delegates[0].powerRatio, 1)
         XCTAssertTrue(model.delegates[1].user == .flipside)
@@ -85,7 +85,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .aaveChan)
         
-        XCTAssertEqual(model.ownerPowerReserved , 0)
+        XCTAssertEqual(model.ownerReservedPercentage , 0)
         XCTAssertTrue(model.delegates.first?.user == .aaveChan)
         XCTAssertEqual(model.delegates.first?.powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 1)
@@ -106,7 +106,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .test)
         
-        XCTAssertEqual(model.ownerPowerReserved , 0)
+        XCTAssertEqual(model.ownerReservedPercentage , 0)
         XCTAssertTrue(model.delegates[0].user == .test)
         XCTAssertEqual(model.delegates[0].powerRatio, 0)
         XCTAssertTrue(model.delegates[1].user == .aaveChan)
@@ -134,7 +134,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .test)
         
-        XCTAssertEqual(model.ownerPowerReserved , 10.0)
+        XCTAssertEqual(model.ownerReservedPercentage , 10.0)
         XCTAssertTrue(model.delegates[0].user == .test)
         XCTAssertEqual(model.delegates[0].powerRatio, 0)
         XCTAssertTrue(model.delegates[1].user == .aaveChan)
@@ -162,7 +162,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .test)
         
-        XCTAssertEqual(model.ownerPowerReserved , 0)
+        XCTAssertEqual(model.ownerReservedPercentage , 0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
         XCTAssertEqual(model.delegates[0].powerRatio, 2)
         XCTAssertTrue(model.delegates[1].user == .test)
@@ -193,7 +193,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .test)
         
-        XCTAssertEqual(model.ownerPowerReserved , 20.0)
+        XCTAssertEqual(model.ownerReservedPercentage , 20.0)
         XCTAssertTrue(model.delegates[0].user == .aaveChan)
         XCTAssertEqual(model.delegates[0].powerRatio, 2)
         XCTAssertTrue(model.delegates[1].user == .test)

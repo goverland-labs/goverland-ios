@@ -74,9 +74,7 @@ struct DaoDelegateProfileView: View {
 struct DaoDelegateProfileHeaderView: View {
     let delegate: Delegate
     let dao: Dao
-    
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-    
+
     var body: some View {
         VStack(spacing: 10) {
             RoundPictureView(image: delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
@@ -110,9 +108,9 @@ struct DaoDelegateProfileHeaderView: View {
             }
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
-            
-            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+
+            DelegateButton(dao: dao, delegate: delegate) {
+                // TODO: track
             }
         }
     }

@@ -10,91 +10,100 @@
 import Foundation
 
 class UserDelegationSplitViewModel: ObservableObject {
+    let dao: Dao
     let owner: User
     let userDelegation: DaoUserDelegation
     private let delegate: User
     
-    @Published var ownerPowerReserved: Double = 0.0
+    @Published var ownerReservedPercentage: Double = 0.0
     @Published var delegates = [(user: User, powerRatio: Int)]()
 
     @Published var timer: Timer?
     @Published var isTooltipVisible = false
     
-    var totalAssignedPower: Int {
-        delegates.reduce(0) { $0 + $1.1 }
+    var totalDelegatesAssignedPowerRatios: Int {
+        delegates.reduce(0) { $0 + $1.powerRatio }
     }
     
-    init(owner: User, userDelegation: DaoUserDelegation, delegate: User) {
+    var isConfirmEnabled: Bool {
+        !(self.totalDelegatesAssignedPowerRatios == 0 && self.ownerReservedPercentage < 100)
+    }
+    
+    init(dao: Dao, owner: User, userDelegation: DaoUserDelegation, delegate: User) {
+        self.dao = dao
         self.owner = owner
         self.userDelegation = userDelegation
         self.delegate = delegate
         
+        // add to model delegates returned by backend
         for del in userDelegation.delegates {
             if del.user.address == owner.address {
-                self.ownerPowerReserved = del.powerPercent
+                self.ownerReservedPercentage = del.powerPercent
             } else {
                 self.delegates.append((del.user, del.powerRatio))
             }
         }
         
-        // Shift existing elements to insert the new delegate at the beginning
-        if !delegates.contains(where: { $0.0 == delegate }) && delegate != owner {
-            var tempDelegates = [(User, Int)]()
-            tempDelegates.append((delegate, delegates.isEmpty ? 1 : 0))
-            tempDelegates.append(contentsOf: delegates)
-            delegates = tempDelegates
-        }
-        
-        // when tapped user is the owner and no prior delegates from api
+        // add to model selected delegate
+        self.addDelegate(self.delegate)
+
         if self.delegates.count == 0 {
-            self.ownerPowerReserved = 100
-        } else if self.delegates.count == 1 && delegates.first?.1 == 0 {
-            self.ownerPowerReserved = 0
+            // when tapped user is the owner and no prior delegates from backend
+            self.ownerReservedPercentage = 100
+        } else if self.delegates.count == 1 && delegates.first?.powerRatio == 0 {
+            // when tapped user is a new delegate and no prior delegates from backend
+            self.ownerReservedPercentage = 0
         }
+
+        // TODO: add powerRatio normalization. E.g. if we have now two delegates with 3/3 and owner 40%
+    }
+    
+    func addDelegate(_ delegate: User) {
+        guard !delegates.contains(where: { $0.0 == delegate }) && delegate != owner else { return }
+        delegates.insert((user: delegate, powerRatio: delegates.isEmpty ? 1 : 0), at: 0)
     }
     
     func increaseVotingPower(forIndex index: Int) {
-        if ownerPowerReserved == 100 {
-            // TODO: warning here
+        guard index < delegates.count else { return }
+        if ownerReservedPercentage == 100 {
+            // TODO: add an alert with warning here
             return
         }
-        if index < delegates.count {
-            let delegate = delegates[index]
-            let newPower = delegate.1 + 1
-            delegates[index] = (delegate.0, newPower)
-        }
+        let delegate = delegates[index]
+        let newPowerRatio = delegate.powerRatio + 1
+        delegates[index] = (delegate.0, newPowerRatio)
     }
     
     func decreaseVotingPower(forIndex index: Int) {
-        if index < delegates.count {
-            let delegate = delegates[index]
-            let newPower = delegate.1 - 1
-            if newPower >= 0 {
-                delegates[index] = (delegate.0, newPower)
-            }
+        guard index < delegates.count else { return }
+        let delegate = delegates[index]
+        let newPowerRatio = delegate.1 - 1
+        if newPowerRatio >= 0 {
+            delegates[index] = (delegate.0, newPowerRatio)
         }
     }
     
     func increaseOwnerVotingPower() {
-        if self.ownerPowerReserved < 100 {
-            self.ownerPowerReserved = min(round(self.ownerPowerReserved + 1), 100)
+        if ownerReservedPercentage < 100 {
+            ownerReservedPercentage = min(round(ownerReservedPercentage + 1), 100)
         }
-        if self.ownerPowerReserved == 100 {
-            resetAllDelegatesVotingPower()
+
+        if ownerReservedPercentage == 100 {
+            setAllDelegateWeights(to: 0)
         }
     }
     
     func decreaseOwnerVotingPower() {
-        if self.ownerPowerReserved > 0 {
-            self.ownerPowerReserved = max(round(self.ownerPowerReserved - 1), 0)
+        if self.ownerReservedPercentage > 0 {
+            self.ownerReservedPercentage = max(round(self.ownerReservedPercentage - 1), 0)
         }
     }
 
     func percentage(for index: Int) -> Double {
-        guard totalAssignedPower > 0, index < delegates.count else { return 0 }
+        guard totalDelegatesAssignedPowerRatios > 0, index < delegates.count else { return 0 }
         let delegateAssignedPower = delegates[index].1
-        let availablePowerPercentage = 100.0 - ownerPowerReserved
-        return availablePowerPercentage / Double(totalAssignedPower) * Double(delegateAssignedPower)
+        let availablePowerPercentage = 100.0 - ownerReservedPercentage
+        return availablePowerPercentage / Double(totalDelegatesAssignedPowerRatios) * Double(delegateAssignedPower)
     }
 
     func percentage(for index: Int) -> String {
@@ -104,20 +113,17 @@ class UserDelegationSplitViewModel: ObservableObject {
     }
     
     func resetAllDelegatesVotingPower() {
-        if self.ownerPowerReserved == 100 {
-            return
-        }
-        for index in delegates.indices {
-            var tuple = delegates[index]
-            tuple.1 = 0
-            delegates[index] = tuple
-        }
-        self.ownerPowerReserved = 100
+        setAllDelegateWeights(to: 0)
+        ownerReservedPercentage = 100
     }
     
     func divideEquallyVotingPower() {
-        if ownerPowerReserved < 100 {
-            delegates = delegates.map { (user, _) in (user, 1) }
+        if ownerReservedPercentage < 100 {
+            setAllDelegateWeights(to: 1)
         }
+    }
+
+    private func setAllDelegateWeights(to value: Int) {
+        delegates = delegates.map { (user, _) in (user, value) }
     }
 }

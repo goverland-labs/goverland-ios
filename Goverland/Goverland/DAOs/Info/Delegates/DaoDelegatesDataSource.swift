@@ -32,6 +32,8 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable, Paginatable {
             .sink { [weak self] searchText in
                 self?.performSearch(searchText)
             }
+
+        // TODO: refresh on sign in
     }
     
     func refresh() {

@@ -16,7 +16,8 @@ enum DelegateListAction {
 
 struct DelegatesFullListView: View {
     let action: DelegateListAction
-
+    
+    @Environment(\.dismiss) private var dismiss
     @StateObject var dataSource: DaoDelegatesDataSource
 
     init(dao: Dao, action: DelegateListAction) {
@@ -43,6 +44,17 @@ struct DelegatesFullListView: View {
         _DelegatesListView(action: action, dataSource: dataSource)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(title)
+            .toolbar {
+                if case .add(_) = action {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }
+            }
             .searchable(text: $dataSource.searchText,
                         placement: .navigationBarDrawer(displayMode: .always),
                         prompt: searchPrompt)
@@ -136,7 +148,6 @@ fileprivate struct DelegateFullListItemView: View {
     let delegate: Delegate
     let dao: Dao
 
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -164,8 +175,8 @@ fileprivate struct DelegateFullListItemView: View {
             
             switch action {
             case .delegate:
-                DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                    activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+                DelegateButton(dao: dao, delegate: delegate) {
+                    // TODO: track
                 }
             case .add(let onAdd):
                 SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {

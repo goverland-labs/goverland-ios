@@ -40,7 +40,6 @@ struct DelegateListItemView: View {
 fileprivate struct _DelegateListItemHeaderView: View {
     let dao: Dao
     let delegate: Delegate
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
@@ -62,8 +61,8 @@ fileprivate struct _DelegateListItemHeaderView: View {
 
             Spacer()
 
-            DelegateButton(isDelegated: delegate.delegationInfo.percentDelegated != 0) {
-                activeSheetManager.activeSheet = .daoUserDelegate(dao, delegate.user)
+            DelegateButton(dao: dao, delegate: delegate) {
+                // TODO: track
             }
         }
     }

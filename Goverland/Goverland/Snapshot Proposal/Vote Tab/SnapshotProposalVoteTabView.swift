@@ -72,8 +72,9 @@ struct SnapshotProposalVoteTabView: View {
         profiles.first(where: { $0.selected })
     }
 
-    private var selectedProfileIsGuest: Bool {
-        selectedProfile?.isGuest ?? false
+    private var selectedProfileIsRegular: Bool {
+        guard let selectedProfile else { return false }
+        return selectedProfile.isRegular
     }
 
     private var userAgreedWithDaoTerms: Bool {
@@ -88,15 +89,15 @@ struct SnapshotProposalVoteTabView: View {
     }
 
     private var coinbaseWalletConnected: Bool {
-        return CoinbaseWalletManager.shared.account != nil
+        CoinbaseWalletManager.shared.account != nil
     }
 
     private var wcSessionExistsAndNotExpired: Bool {
-        if let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired {
-            return true
-        }
-        logInfo("[WC] Session expiration date: \(WC_Manager.shared.sessionMeta?.session.expiryDate.toISO() ?? "NO SESSION")")
-        return false
+        WC_Manager.shared.sessionExistsAndNotExpired
+    }
+
+    private var shouldShowReconnectWallet: Bool {
+        !(coinbaseWalletConnected || wcSessionExistsAndNotExpired)
     }
 
     var body: some View {
@@ -150,7 +151,7 @@ struct SnapshotProposalVoteTabView: View {
                     }
 
                     if proposal.state == .active {
-                        if selectedProfile == nil || selectedProfileIsGuest {
+                        if !selectedProfileIsRegular {
                             VoteButton(disabled: $voteButtonDisabled, title: "Sign in to vote") {
                                 Haptic.medium()
                                 showSignIn = true
@@ -217,10 +218,10 @@ struct SnapshotProposalVoteTabView: View {
         Haptic.medium()
         if !userAgreedWithDaoTerms {
             showAgreeWithDaoTerms = true
-        } else if coinbaseWalletConnected || wcSessionExistsAndNotExpired {
-            showVote = true
-        } else {
+        } else if shouldShowReconnectWallet {
             showReconnectWallet = true
+        } else {
+            showVote = true
         }
     }
 }

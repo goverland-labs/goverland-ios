@@ -29,7 +29,7 @@ struct UserDelegationSplitVotingPowerView: View {
                             .foregroundStyle(Color.textWhite40)
                             .padding(.trailing)
                             .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                                Text("Tooltip text goes here")
+                                Text("In \(viewModel.dao.name), you can delegate your voting power to multiple delegates simultaneously while retaining some for yourself. Only the delegated voting power is eligible to participate in governance")
                                     .foregroundStyle(Color.textWhite60)
                                     .font(.сaptionRegular)
                             }
@@ -54,7 +54,7 @@ struct UserDelegationSplitVotingPowerView: View {
                                 .underline()
                         }
                         .font(.footnoteRegular)
-                        .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
+                        .foregroundColor(viewModel.ownerReservedPercentage == 100 ? .textWhite20 : .textWhite60)
                         .onTapGesture {
                             viewModel.divideEquallyVotingPower()
                         }
@@ -113,7 +113,7 @@ struct UserDelegationSplitVotingPowerView: View {
                             .underline()
                     }
                     .font(.footnoteRegular)
-                    .foregroundColor(viewModel.ownerPowerReserved == 100 ? .textWhite20 : .textWhite60)
+                    .foregroundColor(viewModel.ownerReservedPercentage == 100 ? .textWhite20 : .textWhite60)
                     .onTapGesture {
                         viewModel.resetAllDelegatesVotingPower()
                     }
@@ -131,8 +131,10 @@ struct UserDelegationSplitVotingPowerView: View {
                     Image(systemName: "questionmark.circle")
                         .foregroundStyle(Color.textWhite40)
                         .padding(.trailing)
+                     // TODO: fix tooltip visibility - now it is cut. User pagination inside this subview to make it displaied properly, or even better
+                     // TODO: replace all tooltips with custom design info popover
                         .tooltip($viewModel.isTooltipVisible, side: .topRight, width: 200) {
-                            Text("Keep for yourself")
+                            Text("You can keep all or part of your voting power for yourself, distributing the rest among one or more delegates")
                                 .foregroundStyle(Color.textWhite60)
                                 .font(.сaptionRegular)
                         }
@@ -156,14 +158,14 @@ struct UserDelegationSplitVotingPowerView: View {
                 Spacer()
                 HStack(spacing: 0) {
                     CounterControlView(systemImageName: "minus",
-                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
                         viewModel.decreaseOwnerVotingPower()
                     }
-                    Text(Utils.numberWithPercent(from: viewModel.ownerPowerReserved))
+                    Text(Utils.numberWithPercent(from: viewModel.ownerReservedPercentage))
                         .frame(width: 45)
                     CounterControlView(systemImageName: "plus",
-                                       backgroundColor: viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer,
+                                       backgroundColor: viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer,
                                        longPressTimeInterval: 0.05) {
                         viewModel.increaseOwnerVotingPower()
                     }
@@ -173,7 +175,7 @@ struct UserDelegationSplitVotingPowerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
             .padding(.horizontal)
-            .background(viewModel.ownerPowerReserved == 0 ? Color.clear : Color.secondaryContainer)
+            .background(viewModel.ownerReservedPercentage == 0 ? Color.clear : Color.secondaryContainer)
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
@@ -183,8 +185,9 @@ struct UserDelegationSplitVotingPowerView: View {
         .sheet(isPresented: $showAddDelegate) {
             NavigationStack {
                 DelegatesFullListView(dao: viewModel.userDelegation.dao, action: .add(onAdd: { delegate in
-                    logInfo("Selected delegate: \(delegate)")
+                    viewModel.addDelegate(delegate.user)
                 }))
+                .navigationBarBackButtonHidden(true)
             }
             .overlay {
                 ToastView()
