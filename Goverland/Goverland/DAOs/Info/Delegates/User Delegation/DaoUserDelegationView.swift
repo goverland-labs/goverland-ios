@@ -85,6 +85,10 @@ fileprivate struct _DaoUserDelegationView: View {
         dataSource.delegate
     }
 
+    private var isConfirmEnabled: Bool {
+        splitViewModel.isConfirmEnabled && !dataSource.isPreparingRequest
+    }
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 12) {
@@ -209,7 +213,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     dismiss()
                 }
 
-                PrimaryButton("Confirm", isEnabled: splitViewModel.isConfirmEnabled) {
+                PrimaryButton("Confirm", isEnabled: isConfirmEnabled) {
                     Haptic.medium()
                     dataSource.prepareSplitDelegation(splitModel: splitViewModel)
                     dismiss()

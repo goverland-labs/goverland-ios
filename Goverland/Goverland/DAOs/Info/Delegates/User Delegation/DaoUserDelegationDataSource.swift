@@ -22,7 +22,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
-    
+    @Published var isPreparingRequest = false
+
     private var cancellables = Set<AnyCancellable>()
     
     var isEnoughBalance: Bool {
@@ -45,6 +46,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         filter = .activity
         isLoading = false
+        isPreparingRequest = false
         cancellables = Set<AnyCancellable>()
         
         loadData()
@@ -84,24 +86,15 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     }
     
     func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {
-        // TODO: implement proper logic
-        var requestDelegates = [DaoUserDelegationRequest.RequestDelegate]()
-        for (index, delegate) in splitModel.delegates.enumerated() {
-            let powerPercent: Double = splitModel.percentage(for: index)
-            requestDelegates.append(
-                DaoUserDelegationRequest.RequestDelegate(address: delegate.user.address.value,
-                                                         percentOfDelegated: powerPercent)
-            )
-        }
-        
-        // TODO: add expiration date logic
-        let request = DaoUserDelegationRequest(chainId: selectedChain!.id, delegates: requestDelegates, expirationDate: nil)
-        
-        logInfo("[App] DaoUserDelegationRequest: \(request)")
-        
+        guard let selectedChain else { return }
+        let request = DaoUserDelegationRequest(chainId: selectedChain.id,
+                                               delegates: splitModel.requestDelegates,
+                                               expirationDate: expirationDate)
+
+        isPreparingRequest = true
         APIService.daoPrepareSplitDelegation(daoId: dao.id, request: request)
-            .sink { _ in
-                // TODO: block Confirm button while request is executing
+            .sink { [weak self] _ in
+                self?.isPreparingRequest = false
             } receiveValue: { [weak self] preparedData, _ in
                 // TODO: implement proper logic
                 logInfo("[App] prepared data: \(preparedData)")
