@@ -8,12 +8,21 @@
 	
 
 import SwiftUI
+import SwiftDate
 
 struct SetDelegateExpirationView: View {
-    let dao: Dao
+    @ObservedObject var dataSource: DaoUserDelegationDataSource
 
-    @State private var isChecked = false
-    @State private var selectedDate = Date()
+    @State private var isChecked = false {
+        didSet {
+            if isChecked {
+                // by default set it 1 year ahead
+                dataSource.expirationDate = Calendar.current.startOfDay(for: .now + 1.days) + 1.years
+            } else {
+                dataSource.expirationDate = nil
+            }
+        }
+    }
     @State private var isDatePickerPresented = false
     @State private var isTooltipVisible = false
     
@@ -27,7 +36,7 @@ struct SetDelegateExpirationView: View {
                     .foregroundStyle(Color.textWhite40)
                     .padding(.trailing)
                     .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                        Text("You can set an expiration date for your delegation and change your delegates or the expiration date at any time. Once the expiration date is reached, your delegation for \(dao.name) will be revoked")
+                        Text("You can set an expiration date for your delegation and change your delegates or the expiration date at any time. Once the expiration date is reached, your delegation for \(dataSource.dao.name) will be revoked")
                             .foregroundStyle(Color.textWhite60)
                             .font(.сaptionRegular)
                     }
@@ -50,10 +59,10 @@ struct SetDelegateExpirationView: View {
                     }
             }
             
-            if isChecked {
+            if let expirationDate = dataSource.expirationDate, isChecked {
                 HStack {
                     Image(systemName: "calendar")
-                    Text(Utils.monthAndDayAndYear(selectedDate))
+                    Text(Utils.monthAndDayAndYear(expirationDate))
                     Spacer()
                 }
                 .padding()
@@ -63,7 +72,11 @@ struct SetDelegateExpirationView: View {
                     isDatePickerPresented.toggle()
                 }
                 .sheet(isPresented: $isDatePickerPresented) {
-                    DatePickerView(selectedDate: $selectedDate, isPresented: $isDatePickerPresented)
+                    DatePickerView(date: expirationDate) { date in
+                        if let date {
+                            dataSource.expirationDate = date
+                        }
+                    }
                 }
             }
         }
@@ -71,23 +84,33 @@ struct SetDelegateExpirationView: View {
 }
 
 fileprivate struct DatePickerView: View {
-    @Binding var selectedDate: Date
-    @Binding var isPresented: Bool
-    
+    @State var date: Date
+    var onConfirm: (Date?) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack {
-            // TODO: improve time interval
-            DatePicker("Select a date", selection: $selectedDate, in: Date().addingTimeInterval(86400)..., displayedComponents: .date)
-                .datePickerStyle(GraphicalDatePickerStyle())
+            let tomorrowStartOfDay = Calendar.current.startOfDay(for: .now + 1.days)
+            DatePicker("Select a date", selection: $date, in: tomorrowStartOfDay..., displayedComponents: .date)
+                .datePickerStyle(.graphical)
                 .padding()
             
             Spacer()
-            
-            PrimaryButton("Confirm") {
-                isPresented = false
+
+            HStack(spacing: 12) {
+                SecondaryButton("Cancel") {
+                    dismiss()
+                    onConfirm(nil)
+                }
+
+                PrimaryButton("Confirm") {
+                    dismiss()
+                    onConfirm(date)
+                }
             }
         }
-        .navigationBarTitle("Select Date", displayMode: .inline)
-        .padding()
+        .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.bottom, 16)
     }
 }

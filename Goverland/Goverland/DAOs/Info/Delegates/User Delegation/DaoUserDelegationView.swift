@@ -199,7 +199,7 @@ fileprivate struct _DaoUserDelegationView: View {
                 UserDelegationSplitVotingPowerView(viewModel: splitViewModel)
                     .padding(.bottom)
 
-                SetDelegateExpirationView(dao: dao)
+                SetDelegateExpirationView(dataSource: dataSource)
             }
         }
 

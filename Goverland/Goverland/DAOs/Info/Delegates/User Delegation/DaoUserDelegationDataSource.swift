@@ -17,7 +17,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     
     @Published var userDelegation: DaoUserDelegation?
     @Published var selectedChain: Chain?
-    
+    @Published var expirationDate: Date?
+
     @Published var failedToLoadInitialData = false
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
