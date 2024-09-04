@@ -29,6 +29,28 @@ class UserDelegationSplitViewModel: ObservableObject {
         !(self.totalDelegatesAssignedPowerRatios == 0 && self.ownerReservedPercentage < 100)
     }
     
+    /// Delegates for preparation reguest
+    var requestDelegates: [DaoUserDelegationRequest.RequestDelegate] {
+        var requestDelegates = [DaoUserDelegationRequest.RequestDelegate]()
+        // add all delegates with non-zero percentage
+        for (index, delegate) in delegates.enumerated() {
+            let powerPercent: Double = percentage(for: index)
+            if powerPercent > 0 {
+                requestDelegates.append(
+                    DaoUserDelegationRequest.RequestDelegate(address: delegate.user.address.checksum!,
+                                                             percentOfDelegated: powerPercent)
+                )
+            }
+        }
+        // add owner (even if it has zero percentage)
+        requestDelegates.append(
+            DaoUserDelegationRequest.RequestDelegate(address: owner.address.checksum!,
+                                                     percentOfDelegated: ownerReservedPercentage)
+        )
+
+        return requestDelegates
+    }
+
     init(dao: Dao, owner: User, userDelegation: DaoUserDelegation, delegate: User) {
         self.dao = dao
         self.owner = owner

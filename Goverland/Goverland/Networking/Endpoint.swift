@@ -339,7 +339,9 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
 
     init(daoId: UUID, request: DaoUserDelegationRequest) {
         self.daoId = daoId
-        self.body = try! JSONEncoder().encode(request)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(request)
     }
 }
 
