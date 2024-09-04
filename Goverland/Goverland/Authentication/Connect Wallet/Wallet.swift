@@ -143,9 +143,9 @@ struct Wallet: Identifiable, Equatable {
         appStoreUrl: nil
     )
 
-    // MARK: - Doesn't support eth_signTypedData(_v4)
+    // MARK: - Doesn't support eth_signTypedData_v4
 
-    // - MEW Wallet
+    // Not discovered
 
     // MARK: - Unstable with WalletConnect
 

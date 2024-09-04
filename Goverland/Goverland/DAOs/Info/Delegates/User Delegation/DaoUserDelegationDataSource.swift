@@ -10,7 +10,7 @@
 import Foundation
 import Combine
 import SwiftDate
-import WalletConnectSign
+import WalletConnectModal
 import CoinbaseWalletSDK
 
 class DaoUserDelegationDataSource: ObservableObject, Refreshable {
@@ -37,8 +37,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     var chainIsApprovedByWallet: Bool {
         guard let selectedChain else { return false }
 
-        if let cbAddress { return true } // no need to check for Coinbase wallet
-        
+        if cbAddress != nil { return true } // no need to check for Coinbase wallet
+
         guard let wcSession = WC_Manager.shared.sessionMeta?.session,
               let chains = wcSession.namespaces["eip155"]?.chains else {
             return false
@@ -112,7 +112,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             self.selectedChain = userDelegation.chains.gnosis
         }
     }
-    
+
     func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {
         guard let selectedChain else { return }
         let request = DaoUserDelegationRequest(chainId: selectedChain.id,
@@ -137,6 +137,46 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         logInfo("[App] Handle txId: \(txId)")
     }
 
+    func switchWalletToSelectedChain() {
+        // This request is possible for WalletConnect only
+        // Unfortunately, most mobile wallets don't support `wallet_switchEthereumChain`
+        guard let selectedChain, var redirectUrl = WC_Manager.sessionWalletRedirectUrl else { return }
+        if redirectUrl.absoluteString.last == "/" {
+            // trimm
+            let trimmedUrlStr = redirectUrl.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+            if let trimmedUrl = URL(string: trimmedUrlStr) {
+                redirectUrl = trimmedUrl
+            }
+        }
+        let adjustedRedirectUrl = redirectUrl
+
+        // TODO: track
+//        Tracker.track(.initiateRecommendedWltConnection, parameters: ["wallet" : wallet.name])
+
+        // TODO: special handling for MetaMask
+
+        // TODO: special handling for MEW https://mewwallet.com
+        
+
+        // Make in Modal WalletConnectModal chain as required
+        WC_Manager.shared.configure_WC_Modal(additionalRequiredChains: [Blockchain("eip155:\(selectedChain.id)")!])
+
+        Task {
+            do {
+                guard let wcUri = try await WalletConnectModal.instance.connect(topic: nil),
+                      let url = URL(string: "\(adjustedRedirectUrl)/wc?uri=\(wcUri.deeplinkUri)")
+                else {
+                    return
+                }
+                logInfo("[WC] (split-delegation) URI: \(String(describing: wcUri))")
+                logInfo("[WC] (split-delegation) URL: \(String(describing: url))")
+                openUrl(url)
+            } catch {
+                showToast("Failed to connect. Please try again later.")
+            }
+        }
+    }
+
     private func listen_WC_Responses() {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -158,6 +198,18 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 }
             }
             .store(in: &wcCancellables)
+
+        Sign.instance.sessionSettlePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] session in
+                guard let self else { return }
+                logInfo("[WC] Session settle (split delegation): \(session)")
+                showLocalNotification(title: "Wallet connection updated", body: "Open the App to proceed")
+                // TODO: implement logic for wallet on different device
+                WC_Manager.shared.sessionMeta = .init(session: session, walletOnSameDevice: true)
+                Tracker.track(.walletConnected, parameters: ["wallet": session.peer.name])
+            }
+            .store(in: &cancellables)
     }
 
     private func sendTxWithWallet(preparedData: DaoUserDelegationPreparedData) {

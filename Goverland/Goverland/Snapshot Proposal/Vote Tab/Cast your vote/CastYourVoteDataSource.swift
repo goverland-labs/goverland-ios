@@ -127,7 +127,7 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     private func signTypedData_CoinbaseWallet(_ typedData: String, address: String, prepId: UUID) {
-        logInfo("[CoinbaseWallet] eth_signTypedData(_v4): \(typedData)")
+        logInfo("[CoinbaseWallet] eth_signTypedData_v4: \(typedData)")
 
         CoinbaseWalletSDK.shared.makeRequest(
             Request(actions: [
@@ -168,7 +168,7 @@ class CastYourVoteDataSource: ObservableObject {
     }
 
     private func signTypedData_WC(_ typedData: String, address: String, topic: String, prepId: UUID) {
-        logInfo("[WC] eth_signTypedData(_v4): \(typedData)")
+        logInfo("[WC] eth_signTypedData_v4): \(typedData)")
 
         let params = AnyCodable([address, typedData])
         let request = try! Request(

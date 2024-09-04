@@ -91,6 +91,10 @@ fileprivate struct _DaoUserDelegationView: View {
         dataSource.chainIsApprovedByWallet
     }
 
+    private var selectedChainName: String {
+        dataSource.selectedChain?.name ?? "unknown chain"
+    }
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 12) {
@@ -184,7 +188,12 @@ fileprivate struct _DaoUserDelegationView: View {
                     }
 
                     if !dataSource.chainIsApprovedByWallet {
-                        WarningView(message: "Your connected wallet does not have approval to use \(dataSource.selectedChain?.name ?? "unknown chain"). To resolve this, please disconnect your wallet in the profile settings and create a new session to approve the necessary permissions.")
+                        // TODO: handle differently when Wallet on same device or not
+                        WarningView(message: "Your connected wallet does not have approval to use \(selectedChainName). To resolve this, please disconnect your wallet in the profile settings and create a new session to approve the necessary permissions.",
+                                    actionButtonTitle: "Switch to \(selectedChainName)")
+                        {
+                            dataSource.switchWalletToSelectedChain()
+                        }
                     } else if !dataSource.isEnoughBalance {
                         WarningView(message: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")")
                     }
@@ -215,16 +224,36 @@ fileprivate struct _DaoUserDelegationView: View {
 
 fileprivate struct WarningView: View {
     let message: String
+    let actionButtonTitle: String?
+    let action: (() -> Void)?
+
+    init(message: String, actionButtonTitle: String? = nil, action: (() -> Void)? = nil) {
+        self.message = message
+        self.actionButtonTitle = actionButtonTitle
+        self.action = action
+    }
 
     var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .resizable()
-                .foregroundStyle(Color.containerBright, Color.warning)
-                .frame(width: 17, height: 15, alignment: .center)
-            Text(message)
-                .font(.bodyRegular)
-                .foregroundColor(.textWhite)
+        VStack(spacing: 16) {
+            HStack(spacing: 10) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .resizable()
+                    .foregroundStyle(Color.containerBright, Color.warning)
+                    .frame(width: 17, height: 15, alignment: .center)
+                Text(message)
+                    .font(.bodyRegular)
+                    .foregroundColor(.textWhite)
+            }
+
+            if let actionButtonTitle {
+                HStack {
+                    Spacer()
+                    SecondaryButton(actionButtonTitle, maxWidth: 200, height: 32, font: .footnoteSemibold) {
+                        action?()
+                    }
+                    Spacer()
+                }
+            }
         }
         .padding()
         .background(Color.containerBright)
