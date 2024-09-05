@@ -159,6 +159,7 @@ fileprivate struct _HeaderView: View {
     }
     
     var body: some View {
+        let connectedWallet = ConnectedWallet.current()
         VStack(spacing: 8) {
             Text("Cast your vote")
                 .foregroundStyle(Color.textWhite)
@@ -176,12 +177,12 @@ fileprivate struct _HeaderView: View {
 
                 Spacer()
                 
-                if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+                if let walletImage = connectedWallet?.image {
                     walletImage
                         .frame(width: Avatar.Size.s.profileImageSize, height: Avatar.Size.s.profileImageSize)
                         .scaledToFit()
                         .clipShape(Circle())
-                } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                } else if let walletImageUrl = connectedWallet?.imageURL {
                     RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                 }
 
