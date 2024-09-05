@@ -42,11 +42,13 @@ class UserDelegationSplitViewModel: ObservableObject {
                 )
             }
         }
-        // add owner (even if it has zero percentage)
-        requestDelegates.append(
-            DaoUserDelegationRequest.RequestDelegate(address: owner.address.checksum!,
-                                                     percentOfDelegated: ownerReservedPercentage)
-        )
+        // add owner if it has non-zero percentage
+        if ownerReservedPercentage > 0 {
+            requestDelegates.append(
+                DaoUserDelegationRequest.RequestDelegate(address: owner.address.checksum!,
+                                                         percentOfDelegated: ownerReservedPercentage)
+            )
+        }
 
         return requestDelegates
     }
