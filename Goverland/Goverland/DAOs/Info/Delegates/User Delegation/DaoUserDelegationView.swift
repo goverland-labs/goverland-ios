@@ -198,7 +198,7 @@ fileprivate struct _DaoUserDelegationView: View {
                             openUrl(redirectUrl)
                         }
                     } else if !dataSource.isEnoughBalance {
-                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
+                        WarningView(markdown: "⚠️ You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
                     }
                 }
 

@@ -10,13 +10,13 @@
 import Foundation
 import Combine
 import SwiftDate
-import WalletConnectModal
+import WalletConnectSign
 import CoinbaseWalletSDK
 
 class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     let dao: Dao
     let delegate: User
-    
+
     @Published var userDelegation: DaoUserDelegation?
     @Published var selectedChain: Chain?
     @Published var expirationDate: Date?
@@ -67,7 +67,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         self.delegate = delegate
         listen_WC_Responses()
     }
-    
+
     func refresh() {
         userDelegation = nil
         failedToLoadInitialData = false
@@ -79,7 +79,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
 
         loadData()
     }
-    
+
     private func loadData() {
         isLoading = true
         APIService.daoUserDelegation(daoID: dao.id)
@@ -95,7 +95,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
-    
+
     private func assignPreferredChain() {
         guard let userDelegation else { return }
 
@@ -162,7 +162,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
 
     private func sendTxWithWallet(preparedData: DaoUserDelegationPreparedData) {
         // TODO: show into to open wallet
-//        infoMessage = nil
+        //        infoMessage = nil
 
         if wcAddress != nil {
             wcSendDelegateRequest(preparedData: preparedData)
@@ -192,9 +192,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 openUrl(redirectUrl)
             } else {
                 // TODO: implement warning message
-//                DispatchQueue.main.async {
-//                    self.infoMessage = "Please open your wallet to sign in"
-//                }
+                //                DispatchQueue.main.async {
+                //                    self.infoMessage = "Please open your wallet to sign in"
+                //                }
             }
         }
     }
