@@ -21,6 +21,6 @@ struct DelegateVotingPower: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case user
         case powerPercent = "percent_of_delegated"
-        case powerRatio = "ratio"
+        case powerRatio = "weight"
     }
 }
