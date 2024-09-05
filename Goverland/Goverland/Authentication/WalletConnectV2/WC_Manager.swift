@@ -54,8 +54,6 @@ class WC_Manager {
             try? await WalletConnectModal.instance.disconnect(topic: topic)
             try! await UserProfile.clear_WC_Sessions(topic: topic)
             WC_Manager.shared.sessionMeta = nil
-            // on disconnect, set modal to default config
-            WC_Manager.shared.configureDefault_WC_Modal()
         }
     }
 
@@ -94,27 +92,10 @@ class WC_Manager {
             socketFactory: WC_SocketFactory.shared
         )
 
-        configureDefault_WC_Modal()
+        configure_WC_Modal(additionalOptionalChains: [Blockchain("eip155:100")!])
 
         // Otherwise it fails with error. Very strange enforcements from WC team.
         Sign.configure(crypto: MockCryptoProvider())
-    }
-
-    func configureDefault_WC_Modal() {
-        // Request Gnosis Chain as optional
-        configure_WC_Modal(additionalOptionalChains: [Blockchain("eip155:100")!])
-    }
-
-    func configure_WC_Modal(additionalRequiredChains: Set<Blockchain>) {
-        // Pair.configure happens inside the Modal
-        WalletConnectModal.configure(
-            projectId: ConfigurationManager.wcProjectId,
-            metadata: metadata,
-            sessionParams: SessionParams.goverland(additionalRequiredChains: additionalRequiredChains),
-            excludedWalletIds: Wallet.excluded.map { $0.id },
-            accentColor: .primaryDim,
-            modalTopBackground: .containerBright
-        )
     }
 
     func configure_WC_Modal(additionalOptionalChains: Set<Blockchain>) {
@@ -196,25 +177,6 @@ class WC_Manager {
 }
 
 extension SessionParams {
-    static func goverland(additionalRequiredChains: Set<Blockchain>) -> Self {
-        let requiredChains = additionalRequiredChains.union([Blockchain("eip155:1")!])
-        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData_v4"]
-        let events: Set<String> = ["chainChanged", "accountsChanged"]
-        let requiredNamespaces: [String: ProposalNamespace] = [
-            "eip155": ProposalNamespace(
-                chains: requiredChains,
-                methods: methods,
-                events: events
-            )
-        ]
-
-        return SessionParams(
-            requiredNamespaces: requiredNamespaces,
-            optionalNamespaces: nil,
-            sessionProperties: nil
-        )
-    }
-
     static func goverland(additionalOptionalChains: Set<Blockchain>) -> Self {
         let requiredChains: Set<Blockchain> = [Blockchain("eip155:1")!]
         let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData_v4"]

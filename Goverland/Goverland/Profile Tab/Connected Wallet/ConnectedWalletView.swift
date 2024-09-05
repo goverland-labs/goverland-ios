@@ -10,14 +10,6 @@
 import SwiftUI
 import SwiftDate
 
-fileprivate struct ConnectedWallet {
-    let image: Image?
-    let imageURL: URL?
-    let name: String
-    let sessionExpiryDate: Date?
-    let redirectUrl: URL?
-}
-
 struct ConnectedWalletView: View {
     let user: User
     @State private var wcViewId = UUID()
@@ -32,7 +24,7 @@ struct ConnectedWalletView: View {
                 .padding(.horizontal, Constants.horizontalPadding * 2)
 
             Group {
-                if let wallet = connectedWallet() {
+                if let wallet = ConnectedWallet.current() {
                     _SwipeableConnectedWalletView(wallet: wallet)
                 } else {
                     Button {
@@ -63,55 +55,6 @@ struct ConnectedWalletView: View {
         .sheet(isPresented: $showReconnectWallet) {
             ReconnectWalletView(user: user)
         }
-    }
-
-    private func connectedWallet() -> ConnectedWallet? {
-        if CoinbaseWalletManager.shared.account != nil {
-            let cbWallet = Wallet.coinbase
-            return ConnectedWallet(
-                image: Image(cbWallet.image),
-                imageURL: nil,
-                name: cbWallet.name,
-                sessionExpiryDate: nil,
-                redirectUrl: cbWallet.link)
-        }
-
-        guard let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired else { return nil }
-
-        let session = sessionMeta.session
-        let image: Image?
-        let imageUrl: URL?
-        let redirectUrl: URL?
-
-        if let imageName = Wallet.by(name: session.peer.name)?.image {
-            image = Image(imageName)
-        } else {
-            image = nil
-        }
-
-        if let icon = session.peer.icons.first, let url = URL(string: icon) {
-            imageUrl = url
-        } else {
-            imageUrl = nil
-        }
-
-        // custom adjustment for popular wallets
-        var name = session.peer.name
-        if name == "🌈 Rainbow" {
-            name = "Rainbow"
-        }
-
-        if let url = session.peer.redirect?.universal {
-            redirectUrl = URL(string: url)
-        } else {
-            redirectUrl = nil
-        }
-
-        return ConnectedWallet(image: image,
-                               imageURL: imageUrl,
-                               name: name,
-                               sessionExpiryDate: session.expiryDate,
-                               redirectUrl: redirectUrl)
     }
 }
 

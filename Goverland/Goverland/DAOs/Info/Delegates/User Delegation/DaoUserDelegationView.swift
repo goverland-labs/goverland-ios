@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SwiftData
+import MarkdownUI
 
 struct DaoUserDelegationView: View {
     @StateObject private var dataSource: DaoUserDelegationDataSource
@@ -96,6 +97,7 @@ fileprivate struct _DaoUserDelegationView: View {
     }
 
     var body: some View {
+        let connectedWallet = ConnectedWallet.current()
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 12) {
                 HStack {
@@ -105,12 +107,13 @@ fileprivate struct _DaoUserDelegationView: View {
 
                     Spacer()
 
-                    if let walletImage = WC_Manager.shared.sessionMeta?.walletImage {
+
+                    if let walletImage = connectedWallet?.image {
                         walletImage
                             .frame(width: Avatar.Size.xs.profileImageSize, height: Avatar.Size.xs.profileImageSize)
                             .scaledToFit()
                             .clipShape(Circle())
-                    } else if let walletImageUrl = WC_Manager.shared.sessionMeta?.walletImageUrl {
+                    } else if let walletImageUrl = connectedWallet?.imageURL {
                         RoundPictureView(image: walletImageUrl, imageSize: Avatar.Size.s.profileImageSize)
                     }
 
@@ -187,15 +190,15 @@ fileprivate struct _DaoUserDelegationView: View {
                         }
                     }
 
-                    if !dataSource.chainIsApprovedByWallet {
-                        // TODO: handle differently when Wallet on same device or not
-                        WarningView(message: "Your connected wallet does not have approval to use \(selectedChainName). To resolve this, please disconnect your wallet in the profile settings and create a new session to approve the necessary permissions.",
-                                    actionButtonTitle: "Switch to \(selectedChainName)")
-                        {
-                            dataSource.switchWalletToSelectedChain()
+                    if let connectedWallet, !dataSource.chainIsApprovedByWallet {
+                        let warningMessage = connectedWallet.warningMarkdownMessageForNotConnectedChain(chainName: selectedChainName)
+                        let buttonTitle = connectedWallet.redirectUrl != nil ? "Open wallet" : nil
+                        WarningView(markdown: warningMessage, actionButtonTitle: buttonTitle) {
+                            guard let redirectUrl = connectedWallet.redirectUrl else { return }
+                            openUrl(redirectUrl)
                         }
                     } else if !dataSource.isEnoughBalance {
-                        WarningView(message: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least \(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")")
+                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
                     }
                 }
 
@@ -223,27 +226,20 @@ fileprivate struct _DaoUserDelegationView: View {
 }
 
 fileprivate struct WarningView: View {
-    let message: String
+    let markdown: String
     let actionButtonTitle: String?
     let action: (() -> Void)?
 
-    init(message: String, actionButtonTitle: String? = nil, action: (() -> Void)? = nil) {
-        self.message = message
+    init(markdown: String, actionButtonTitle: String? = nil, action: (() -> Void)? = nil) {
+        self.markdown = markdown
         self.actionButtonTitle = actionButtonTitle
         self.action = action
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 10) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .resizable()
-                    .foregroundStyle(Color.containerBright, Color.warning)
-                    .frame(width: 17, height: 15, alignment: .center)
-                Text(message)
-                    .font(.bodyRegular)
-                    .foregroundColor(.textWhite)
-            }
+        VStack(spacing: 16) {            
+            Markdown(markdown)
+                .markdownTheme(.goverland)
 
             if let actionButtonTitle {
                 HStack {
