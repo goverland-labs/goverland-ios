@@ -74,9 +74,9 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 }
                 .presentationDetents([.height(height), .large])
 
-            case .daoDelegateProfile(let dao, let delegate):
+            case .daoDelegateProfile(let dao, let delegate, let action):
                 PopoverNavigationViewWithToast2 {
-                    DaoDelegateProfileView(dao: dao, delegate: delegate)
+                    DaoDelegateProfileView(dao: dao, delegate: delegate, action: action)
                 }
 
             case .daoUserDelegate(let dao, let user):
