@@ -171,6 +171,7 @@
 		55D632C52950CB4A0073E04A /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D632C42950CB4A0073E04A /* TermsView.swift */; };
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
 		55D7177B2C87271900217C4F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7177A2C87271900217C4F /* Transaction.swift */; };
+		55D7177E2C8AF43A00217C4F /* DelegationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
@@ -532,6 +533,7 @@
 		55D632C42950CB4A0073E04A /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		55D7177A2C87271900217C4F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSuccessView.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E545802C6A4D1F00E479E4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
@@ -1062,10 +1064,11 @@
 		558ACC6C2C80DC1C002FAE75 /* User Delegation */ = {
 			isa = PBXGroup;
 			children = (
-				558ACC682C80DC1C002FAE75 /* Delegation Split */,
-				558ACC692C80DC1C002FAE75 /* DaoUserDelegationDataSource.swift */,
 				558ACC6A2C80DC1C002FAE75 /* DaoUserDelegationView.swift */,
 				558ACC6B2C80DC1C002FAE75 /* SetDelegateExpirationView.swift */,
+				558ACC692C80DC1C002FAE75 /* DaoUserDelegationDataSource.swift */,
+				558ACC682C80DC1C002FAE75 /* Delegation Split */,
+				55D7177C2C8AF3EA00217C4F /* Delegation Success */,
 			);
 			path = "User Delegation";
 			sourceTree = "<group>";
@@ -1269,6 +1272,14 @@
 				55D7177A2C87271900217C4F /* Transaction.swift */,
 			);
 			path = WalletConnect;
+			sourceTree = "<group>";
+		};
+		55D7177C2C8AF3EA00217C4F /* Delegation Success */ = {
+			isa = PBXGroup;
+			children = (
+				55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */,
+			);
+			path = "Delegation Success";
 			sourceTree = "<group>";
 		};
 		55DE41B12B17B8DD008617F5 /* Persistence */ = {
@@ -2043,6 +2054,7 @@
 				BA5D7ACC2B71370300CD3FDB /* AchievementsView.swift in Sources */,
 				558ACC762C80DC1C002FAE75 /* UserDelegationSplitViewModel.swift in Sources */,
 				5552CB692C734ADC009EBB17 /* SnapshotProposalDescriptionViewDataSource.swift in Sources */,
+				55D7177E2C8AF43A00217C4F /* DelegationSuccessView.swift in Sources */,
 				55BD8D502AFAA4820014982C /* ProfileView.swift in Sources */,
 				55F143DF294B1DDA00D00B73 /* ContentView.swift in Sources */,
 				BA36DEF42B16ABC0002EBEB0 /* EcosystemChartsFullView.swift in Sources */,

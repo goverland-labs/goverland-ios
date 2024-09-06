@@ -33,6 +33,8 @@ struct DaoUserDelegationView: View {
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegation information")
+            } else if let txId = dataSource.txId, let selectedChain = dataSource.selectedChain {
+                DelegationSuccessView(txId: txId, txScanTemplate: selectedChain.txScanTemplate)
             } else if dataSource.userDelegation != nil {
                 _DaoUserDelegationView(appUser: appUser, dataSource: dataSource)
             }
