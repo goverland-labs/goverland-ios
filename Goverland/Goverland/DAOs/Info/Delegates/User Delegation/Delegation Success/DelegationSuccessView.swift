@@ -33,5 +33,9 @@ struct DelegationSuccessView: View {
                 dismiss()
             }
         }
+        .onAppear {
+            // TODO: track
+            // TODO: monitoring
+        }
     }
 }

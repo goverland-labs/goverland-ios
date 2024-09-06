@@ -136,6 +136,11 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
+    func handleTxId(_ txId: String) {
+        // TODO: POST dao/:id/success-delegated
+        self.txId = txId
+    }
+
     private func listen_WC_Responses() {
         Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -153,7 +158,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                     }
                     logInfo("[WC] txId: \(txIdStr)")
                     showLocalNotification(title: "Transaction is sent", body: "Open the App to proceed")
-                    self?.txId = txIdStr
+                    self?.handleTxId(txIdStr)
                 }
             }
             .store(in: &wcCancellables)
@@ -229,7 +234,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 case .success(let txId_JSONString):
                     let txId = txId_JSONString.description.replacingOccurrences(of: "\"", with: "")
                     logInfo("[CoinbaseWallet] Delegation txId: \(txId)")
-                    self?.txId = txId
+                    self?.handleTxId(txId)
                 case .failure(let actionError):
                     logInfo("[CoinbaseWallet] Send tx action error: \(actionError)")
                     showToast(actionError.message)
