@@ -16,6 +16,8 @@ struct Transaction: Codable {
     let gas: String
     let gasPrice: String
     let value: String
+    let maxFeePerGas: String?
+    let maxPriorityFeePerGas: String?
 }
 
 extension Transaction {
@@ -28,7 +30,9 @@ extension Transaction {
             data: preparedDeleagtionData.data,
             gas: preparedDeleagtionData.gas,
             gasPrice: preparedDeleagtionData.gasPrice,
-            value: "0x00"
+            value: "0x00",
+            maxFeePerGas: preparedDeleagtionData.maxFeePerGas,
+            maxPriorityFeePerGas: preparedDeleagtionData.maxPriorityFeePerGas
         )
     }
 }

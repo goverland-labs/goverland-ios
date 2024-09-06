@@ -25,6 +25,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
     @Published var isPreparingRequest = false
+    @Published var infoMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
     private var wcCancellables = Set<AnyCancellable>()
@@ -74,6 +75,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         filter = .activity
         isLoading = false
         isPreparingRequest = false
+        infoMessage = nil
+
         cancellables = Set<AnyCancellable>()
         // do not reset wcCancellables
 
@@ -161,8 +164,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     }
 
     private func sendTxWithWallet(preparedData: DaoUserDelegationPreparedData) {
-        // TODO: show into to open wallet
-        //        infoMessage = nil
+        infoMessage = nil
 
         if wcAddress != nil {
             wcSendDelegateRequest(preparedData: preparedData)
@@ -191,10 +193,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
             } else {
-                // TODO: implement warning message
-                //                DispatchQueue.main.async {
-                //                    self.infoMessage = "Please open your wallet to sign in"
-                //                }
+                DispatchQueue.main.async {
+                    self.infoMessage = "Please open your wallet to continue"
+                }
             }
         }
     }
@@ -212,8 +213,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                         data: preparedData.data,
                         nonce: nil,
                         gasPriceInWei: preparedData.gasPrice,
-                        maxFeePerGas: nil,
-                        maxPriorityFeePerGas: nil,
+                        maxFeePerGas: preparedData.maxFeePerGas,
+                        maxPriorityFeePerGas: preparedData.maxPriorityFeePerGas,
                         gasLimit: preparedData.gas,
                         chainId: "\(chainId)")
                 )

@@ -57,11 +57,15 @@ struct DaoUserDelegationPreparedData: Decodable {
     let data: String
     let gasPrice: String
     let gas: String
+    let maxPriorityFeePerGas: String?
+    let maxFeePerGas: String?
 
     enum CodingKeys: String, CodingKey {
         case to
         case data
         case gasPrice = "gas_price"
         case gas
+        case maxPriorityFeePerGas = "max_priority_fee_per_gas"
+        case maxFeePerGas = "max_fee_per_gas"
     }
 }
