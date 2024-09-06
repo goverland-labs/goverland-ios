@@ -92,18 +92,22 @@ class WC_Manager {
             socketFactory: WC_SocketFactory.shared
         )
 
+        configure_WC_Modal(additionalOptionalChains: [Blockchain("eip155:100")!])
+
+        // Otherwise it fails with error. Very strange enforcements from WC team.
+        Sign.configure(crypto: MockCryptoProvider())
+    }
+
+    func configure_WC_Modal(additionalOptionalChains: Set<Blockchain>) {
         // Pair.configure happens inside the Modal
         WalletConnectModal.configure(
             projectId: ConfigurationManager.wcProjectId,
             metadata: metadata,
-            sessionParams: SessionParams.goverland,
+            sessionParams: SessionParams.goverland(additionalOptionalChains: additionalOptionalChains),
             excludedWalletIds: Wallet.excluded.map { $0.id },
             accentColor: .primaryDim,
             modalTopBackground: .containerBright
         )
-
-        // Otherwise it fails with error. Very strange enforcements from WC team.
-        Sign.configure(crypto: MockCryptoProvider())
     }
 
     // Not needed. But WalletConnectModal will not configure without it.
@@ -173,23 +177,29 @@ class WC_Manager {
 }
 
 extension SessionParams {
-    static let goverland: Self = {
-        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData", "eth_signTypedData_v4"]
+    static func goverland(additionalOptionalChains: Set<Blockchain>) -> Self {
+        let requiredChains: Set<Blockchain> = [Blockchain("eip155:1")!]
+        let methods: Set<String> = ["eth_sendTransaction", "personal_sign", "eth_signTypedData_v4"]
         let events: Set<String> = ["chainChanged", "accountsChanged"]
-        // TODO: we will need a smart logic. Issues with MetaMask, Rainbow (and probably many other wallets)
-        let blockchains: Set<Blockchain> = [Blockchain("eip155:1")!/*, Blockchain("eip155:100")!*/]
-        let namespaces: [String: ProposalNamespace] = [
+        let requiredNamespaces: [String: ProposalNamespace] = [
             "eip155": ProposalNamespace(
-                chains: blockchains,
+                chains: requiredChains,
+                methods: methods,
+                events: events
+            )
+        ]
+        let optionalNamespaces: [String: ProposalNamespace] = [
+            "eip155": ProposalNamespace(
+                chains: additionalOptionalChains,
                 methods: methods,
                 events: events
             )
         ]
 
         return SessionParams(
-            requiredNamespaces: namespaces,
-            optionalNamespaces: nil,
+            requiredNamespaces: requiredNamespaces,
+            optionalNamespaces: optionalNamespaces,
             sessionProperties: nil
         )
-    }()
+    }
 }

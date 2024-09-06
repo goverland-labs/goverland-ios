@@ -6,8 +6,7 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import SwiftUI
 
 struct Wallet: Identifiable, Equatable {
     let image: String
@@ -16,6 +15,20 @@ struct Wallet: Identifiable, Equatable {
     let scheme: String
     let id: String
     let appStoreUrl: URL?
+
+    init(image: String, 
+         name: String,
+         link: URL,
+         scheme: String,
+         id: String,
+         appStoreUrl: URL? = nil) {
+        self.image = image
+        self.name = name
+        self.link = link
+        self.scheme = scheme
+        self.id = id
+        self.appStoreUrl = appStoreUrl
+    }
 
     // MARK: - Recommended default wallets
 
@@ -64,8 +77,7 @@ struct Wallet: Identifiable, Equatable {
         name: "Rainbow",
         link: URL(string: "https://rnbwapp.com")!,
         scheme: "rainbow",
-        id: "1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369",
-        appStoreUrl: nil
+        id: "1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369"
     )
 
     static let metamask = Wallet(
@@ -73,8 +85,7 @@ struct Wallet: Identifiable, Equatable {
         name: "MetaMask",
         link: URL(string: "https://metamask.app.link")!,
         scheme: "metamask",
-        id: "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
-        appStoreUrl: nil
+        id: "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96"
     )
 
     // CoinbaseWalletSDK
@@ -83,8 +94,7 @@ struct Wallet: Identifiable, Equatable {
         name: "Coinbase Wallet",
         link: URL(string: "https://go.cb-w.com")!,
         scheme: "cbwallet",
-        id: "none",
-        appStoreUrl: nil
+        id: "none"
     )
 
     static let uniswap = Wallet(
@@ -92,8 +102,7 @@ struct Wallet: Identifiable, Equatable {
         name: "Uniswap",
         link: URL(string: "https://uniswap.org/app")!,
         scheme: "uniswap",
-        id: "c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a",
-        appStoreUrl: nil
+        id: "c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a"
     )
 
     static let oneInch = Wallet(
@@ -101,8 +110,7 @@ struct Wallet: Identifiable, Equatable {
         name: "1Inch",
         link: URL(string: "https://wallet.1inch.io")!,
         scheme: "oneinch",
-        id: "c286eebc742a537cd1d6818363e9dc53b21759a1e8e5d9b263d0c03ec7703576",
-        appStoreUrl: nil
+        id: "c286eebc742a537cd1d6818363e9dc53b21759a1e8e5d9b263d0c03ec7703576"
     )
 
     static let trust = Wallet(
@@ -110,8 +118,7 @@ struct Wallet: Identifiable, Equatable {
         name: "Trust Wallet",
         link: URL(string: "https://link.trustwallet.com")!,
         scheme: "trust",
-        id: "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0",
-        appStoreUrl: nil
+        id: "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0"
     )
 
     static let mew = Wallet(
@@ -119,8 +126,7 @@ struct Wallet: Identifiable, Equatable {
         name: "MEW wallet",
         link: URL(string: "https://mewwallet.com")!,
         scheme: "mewwallet",
-        id: "f5b4eeb6015d66be3f5940a895cbaa49ef3439e518cd771270e6b553b48f31d2",
-        appStoreUrl: nil
+        id: "f5b4eeb6015d66be3f5940a895cbaa49ef3439e518cd771270e6b553b48f31d2"
     )
 
     // MARK: - Excluded
@@ -130,8 +136,7 @@ struct Wallet: Identifiable, Equatable {
         name: "Safe",
         link: URL(string: "https://app.safe.global/")!,
         scheme: "safe",
-        id: "225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f",
-        appStoreUrl: nil
+        id: "225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f"
     )
 
     static let argent = Wallet(
@@ -139,13 +144,12 @@ struct Wallet: Identifiable, Equatable {
         name: "Argent",
         link: URL(string: "https://www.argent.xyz/app")!,
         scheme: "argent",
-        id: "bc949c5d968ae81310268bf9193f9c9fb7bb4e1283e1284af8f2bd4992535fd6",
-        appStoreUrl: nil
+        id: "bc949c5d968ae81310268bf9193f9c9fb7bb4e1283e1284af8f2bd4992535fd6"
     )
 
-    // MARK: - Doesn't support eth_signTypedData(_v4)
+    // MARK: - Doesn't support eth_signTypedData_v4
 
-    // - MEW Wallet
+    // Not discovered
 
     // MARK: - Unstable with WalletConnect
 
@@ -155,4 +159,81 @@ struct Wallet: Identifiable, Equatable {
     // MARK: - Tested SIWE + eth_signTypedData_v4
 
     // - MetaMask, Zerion, Rainbow, Trust, 1Inch, OKX
+}
+
+struct ConnectedWallet {
+    let image: Image?
+    let imageURL: URL?
+    let name: String
+    let sessionExpiryDate: Date?
+    let redirectUrl: URL?
+
+    static func current() -> ConnectedWallet? {
+        if CoinbaseWalletManager.shared.account != nil {
+            let cbWallet = Wallet.coinbase
+            return ConnectedWallet(
+                image: Image(cbWallet.image),
+                imageURL: nil,
+                name: cbWallet.name,
+                sessionExpiryDate: nil,
+                redirectUrl: cbWallet.link)
+        }
+
+        guard let sessionMeta = WC_Manager.shared.sessionMeta, !sessionMeta.isExpired else { return nil }
+
+        let session = sessionMeta.session
+        let image: Image?
+        let imageUrl: URL?
+        let redirectUrl: URL?
+
+        if let imageName = Wallet.by(name: session.peer.name)?.image {
+            image = Image(imageName)
+        } else {
+            image = nil
+        }
+
+        if let icon = session.peer.icons.first, let url = URL(string: icon) {
+            imageUrl = url
+        } else {
+            imageUrl = nil
+        }
+
+        // custom adjustment for popular wallets
+        var name = session.peer.name
+        if name == "🌈 Rainbow" {
+            name = "Rainbow"
+        }
+
+        if let url = session.peer.redirect?.universal, sessionMeta.walletOnSameDevice {
+            redirectUrl = URL(string: url)
+        } else {
+            redirectUrl = nil
+        }
+
+        return ConnectedWallet(image: image,
+                               imageURL: imageUrl,
+                               name: name,
+                               sessionExpiryDate: session.expiryDate,
+                               redirectUrl: redirectUrl)
+    }
+
+    func warningMarkdownMessageForNotConnectedChain(chainName: String) -> String {
+        let walletName = name
+            .replacingOccurrences(of: " wallet", with: "")
+            .replacingOccurrences(of: " Wallet", with: "")
+        return """
+⚠️ Your current **\(walletName)** wallet didn’t approve transacting on **\(chainName)**.
+
+> Note: Not all wallets support \(chainName). If yours doesn't, consider using a different wallet, such as [Zerion](https://apps.apple.com/app/id1456732565)
+
+**Follow these steps to fix the issue:**
+1. Open your \(walletName) wallet and select \(chainName) as the active chain
+2. Go to your profile on the Goverland app
+3. Disconnect your current \(walletName) wallet session
+4. Reconnect to \(walletName) wallet (make sure \(chainName) is set as the active chain)
+5. Try the operation again
+
+If the issue persists, please get in touch with our support team on [Discord](https://discord.gg/uerWdwtGkQ).
+"""
+    }
 }
