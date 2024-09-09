@@ -12,8 +12,11 @@ import XCTest
 
 final class UserDelegationSplitViewModelTests: XCTestCase {
     
+    // MARK: init delegates property
+    
     func test_delegatingToSelf_and_noPriorDelegations() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -28,6 +31,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToSelf_and_hasPriorDelegations_noSelf() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -51,6 +55,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToSelf_and_hasPriorDelegations_withSelf() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -77,6 +82,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
     
     func test_delegatingToDelegate_and_noPriorDelegations() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -93,6 +99,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToDelegate_and_hasPriorDelegations_noSelf_noDelegate() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -118,6 +125,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToDelegate_and_hasPriorDelegations_withSelf_noDelegate() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -146,6 +154,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToDelegate_and_hasPriorDelegations_noSelf_withDelegate() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -174,6 +183,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
 
     func test_delegatingToDelegate_and_hasPriorDelegations_withSelf_withDelegate() throws {
         let model = UserDelegationSplitViewModel(
+            dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
                                               votingPower: .init(symbol: "UTI", power: 12.5),
@@ -201,5 +211,38 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
         XCTAssertTrue(model.delegates[2].user == .flipside)
         XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
+    }
+    
+    func test_normalizing_delegates() throws {
+        let model = UserDelegationSplitViewModel(
+            dao: .aave,
+            owner: .appUser,
+            userDelegation: DaoUserDelegation(dao: .aave,
+                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              chains: .testChains,
+                                              delegates: [DelegateVotingPower(user: .aaveChan,
+                                                                              powerPercent: 40.0,
+                                                                              powerRatio: 4),
+                                                          DelegateVotingPower(user: .appUser,
+                                                                              powerPercent: 20.0,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .test,
+                                                                              powerPercent: 20.0,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .flipside,
+                                                                              powerPercent: 20.0,
+                                                                              powerRatio: 2)],
+                                              expirationDate: nil),
+            delegate: .test)
+        
+        XCTAssertEqual(model.ownerReservedPercentage , 20.0)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 2)
+        XCTAssertTrue(model.delegates[1].user == .test)
+        XCTAssertEqual(model.delegates[1].powerRatio, 1)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
+        XCTAssertEqual(model.delegates.count, 3)
+        
     }
 }

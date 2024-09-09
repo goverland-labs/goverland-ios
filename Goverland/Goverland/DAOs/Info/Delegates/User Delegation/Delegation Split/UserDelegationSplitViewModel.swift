@@ -79,7 +79,19 @@ class UserDelegationSplitViewModel: ObservableObject {
             self.ownerReservedPercentage = 0
         }
 
-        // TODO: add powerRatio normalization. E.g. if we have now two delegates with 3/3 and owner 40%
+        self.normalizeDalagates()
+    }
+    
+    func normalizeDalagates() {
+        guard let first = delegates.first?.powerRatio else { return }
+        
+        // Find GCD of all power ratios
+        let commonGCD = delegates.reduce(first) { gcd($0, $1.powerRatio) }
+        delegates = delegates.map { (user: $0.user, powerRatio: $0.powerRatio / commonGCD) }
+    }
+    
+    private func gcd(_ a: Int, _ b: Int) -> Int {
+        return b == 0 ? a : gcd(b, a % b)
     }
     
     func addDelegate(_ delegate: User) {
