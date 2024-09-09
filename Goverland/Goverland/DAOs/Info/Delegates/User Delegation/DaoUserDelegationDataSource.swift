@@ -25,6 +25,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     @Published var filter: DaoDelegateProfileFilter = .activity
     @Published var isLoading = false
     @Published var isPreparingRequest = false
+    @Published var infoMessage: String?
+
+    @Published var txId: String?
 
     private var cancellables = Set<AnyCancellable>()
     private var wcCancellables = Set<AnyCancellable>()
@@ -74,6 +77,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         filter = .activity
         isLoading = false
         isPreparingRequest = false
+        infoMessage = nil
+        txId = nil
+
         cancellables = Set<AnyCancellable>()
         // do not reset wcCancellables
 
@@ -130,11 +136,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    func handleDelegationTxId(txId: String) {
-        // TODO: implement logic
-        // 1. send success-delegated to backend
-        // 2. show monitoring view (replace current with new)
-        logInfo("[App] Handle txId: \(txId)")
+    func handleTxId(_ txId: String) {
+        // TODO: POST dao/:id/success-delegated
+        self.txId = txId
     }
 
     private func listen_WC_Responses() {
@@ -154,15 +158,14 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                     }
                     logInfo("[WC] txId: \(txIdStr)")
                     showLocalNotification(title: "Transaction is sent", body: "Open the App to proceed")
-                    self?.handleDelegationTxId(txId: txIdStr)
+                    self?.handleTxId(txIdStr)
                 }
             }
             .store(in: &wcCancellables)
     }
 
     private func sendTxWithWallet(preparedData: DaoUserDelegationPreparedData) {
-        // TODO: show into to open wallet
-        //        infoMessage = nil
+        infoMessage = nil
 
         if wcAddress != nil {
             wcSendDelegateRequest(preparedData: preparedData)
@@ -191,10 +194,9 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             if let redirectUrl = WC_Manager.sessionWalletRedirectUrl {
                 openUrl(redirectUrl)
             } else {
-                // TODO: implement warning message
-                //                DispatchQueue.main.async {
-                //                    self.infoMessage = "Please open your wallet to sign in"
-                //                }
+                DispatchQueue.main.async {
+                    self.infoMessage = "Please open your wallet to continue"
+                }
             }
         }
     }
@@ -212,8 +214,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                         data: preparedData.data,
                         nonce: nil,
                         gasPriceInWei: preparedData.gasPrice,
-                        maxFeePerGas: nil,
-                        maxPriorityFeePerGas: nil,
+                        maxFeePerGas: preparedData.maxFeePerGas,
+                        maxPriorityFeePerGas: preparedData.maxPriorityFeePerGas,
                         gasLimit: preparedData.gas,
                         chainId: "\(chainId)")
                 )
@@ -232,7 +234,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 case .success(let txId_JSONString):
                     let txId = txId_JSONString.description.replacingOccurrences(of: "\"", with: "")
                     logInfo("[CoinbaseWallet] Delegation txId: \(txId)")
-                    self?.handleDelegationTxId(txId: txId)
+                    self?.handleTxId(txId)
                 case .failure(let actionError):
                     logInfo("[CoinbaseWallet] Send tx action error: \(actionError)")
                     showToast(actionError.message)

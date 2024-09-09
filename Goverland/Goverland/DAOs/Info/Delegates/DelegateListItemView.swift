@@ -12,8 +12,8 @@ import SwiftUI
 struct DelegateListItemView: View {
     let dao: Dao
     let delegate: Delegate
-    let onTap: () -> Void
 
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @Environment(\.isPresented) private var isPresented
 
     private var backgroundColor: Color {
@@ -32,7 +32,7 @@ struct DelegateListItemView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
         .onTapGesture {
-            onTap()
+            activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate, .delegate)
         }
     }
 }

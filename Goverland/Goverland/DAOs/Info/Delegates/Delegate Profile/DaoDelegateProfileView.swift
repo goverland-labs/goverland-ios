@@ -29,7 +29,8 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
 struct DaoDelegateProfileView: View {
     let dao: Dao
     let delegate: Delegate
-    
+    let action: DelegateAction
+
     @Environment(\.dismiss) private var dismiss
     @State private var filter: DaoDelegateProfileFilter = .activity
     
@@ -37,7 +38,7 @@ struct DaoDelegateProfileView: View {
         VStack {
             
             VStack(spacing: 0) {
-                DaoDelegateProfileHeaderView(delegate: delegate, dao: dao)
+                DaoDelegateProfileHeaderView(delegate: delegate, dao: dao, action: action)
                     .padding(.horizontal)
                     .padding(.bottom)
                 
@@ -74,6 +75,9 @@ struct DaoDelegateProfileView: View {
 struct DaoDelegateProfileHeaderView: View {
     let delegate: Delegate
     let dao: Dao
+    let action: DelegateAction
+
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 10) {
@@ -109,8 +113,16 @@ struct DaoDelegateProfileHeaderView: View {
             .foregroundColor(.textWhite40)
             .font(.footnoteRegular)
 
-            DelegateButton(dao: dao, delegate: delegate) {
-                // TODO: track
+            switch action {
+            case .delegate:
+                DelegateButton(dao: dao, delegate: delegate) {
+                    // TODO: track
+                }
+            case .add(let onAdd):
+                SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {
+                    dismiss()
+                    onAdd(delegate)
+                }
             }
         }
     }

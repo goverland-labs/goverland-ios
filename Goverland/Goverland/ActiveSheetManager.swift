@@ -18,7 +18,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case archive
     case subscribeToNotifications
     case recommendedDaos([Dao])
-    case daoDelegateProfile(Dao, Delegate)
+    case daoDelegateProfile(Dao, Delegate, DelegateAction)
     case daoUserDelegate(Dao, User)
     case proposal(String)
 

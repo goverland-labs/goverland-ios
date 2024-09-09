@@ -9,18 +9,29 @@
 
 import SwiftUI
 
-enum DelegateListAction {
+enum DelegateAction: Equatable {
     case delegate
     case add(onAdd: (Delegate) -> Void)
+
+    static func == (lhs: DelegateAction, rhs: DelegateAction) -> Bool {
+        switch (lhs, rhs) {
+        case (.delegate, .delegate):
+            return true
+        case (.add, .add):
+            return false
+        default:
+            return false
+        }
+    }
 }
 
 struct DelegatesFullListView: View {
-    let action: DelegateListAction
-    
+    let action: DelegateAction
+
     @Environment(\.dismiss) private var dismiss
     @StateObject var dataSource: DaoDelegatesDataSource
 
-    init(dao: Dao, action: DelegateListAction) {
+    init(dao: Dao, action: DelegateAction) {
         self.action = action
         _dataSource = StateObject(wrappedValue: DaoDelegatesDataSource(dao: dao))
     }
@@ -68,9 +79,9 @@ struct DelegatesFullListView: View {
 }
 
 fileprivate struct _DelegatesListView: View {
-    let action: DelegateListAction
+    let action: DelegateAction
     @ObservedObject var dataSource: DaoDelegatesDataSource
-    
+
     var dao: Dao {
         return dataSource.dao
     }
@@ -117,7 +128,7 @@ fileprivate struct _DelegatesListView: View {
 }
 
 fileprivate struct _DelegatesSearchListView: View {
-    let action: DelegateListAction
+    let action: DelegateAction
     @ObservedObject var dataSource: DaoDelegatesDataSource
 
     var body: some View {
@@ -144,16 +155,19 @@ fileprivate struct _DelegatesSearchListView: View {
 
 
 fileprivate struct DelegateFullListItemView: View {
-    let action: DelegateListAction
+    let action: DelegateAction
     let delegate: Delegate
     let dao: Dao
 
+    // own active sheet manager
+    @StateObject private var activeSheetManager = ActiveSheetManager()
     @Environment(\.dismiss) private var dismiss
+
 
     var body: some View {
         HStack(spacing: Constants.horizontalPadding) {
             RoundPictureView(image: delegate.user.avatar(size: .m), imageSize: Avatar.Size.m.daoImageSize)
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text(delegate.user.usernameShort)
                     .foregroundStyle(Color.textWhite)
@@ -166,13 +180,13 @@ fileprivate struct DelegateFullListItemView: View {
                         .font(.footnoteRegular)
                         .lineLimit(1)
                 }
-                
+
                 // TODO: "Delegated: 50% of your VP"
                 // show delegated power if applicable
             }
-            
+
             Spacer()
-            
+
             switch action {
             case .delegate:
                 DelegateButton(dao: dao, delegate: delegate) {
@@ -188,6 +202,31 @@ fileprivate struct DelegateFullListItemView: View {
         .padding(12)
         .contentShape(Rectangle())
         .listRowSeparator(.hidden)
+        .onTapGesture {
+            var newAction: DelegateAction
+            switch action {
+            case .delegate:
+                newAction = action
+            case .add(onAdd: let onAdd):
+                newAction = .add { delegate in
+                    // dismiss self and make a completion
+                    dismiss()
+                    onAdd(delegate)
+                }
+            }
+            activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate, newAction)
+        }
+        .sheet(item: $activeSheetManager.activeSheet) { item in
+            switch item {
+            case .daoDelegateProfile(let dao, let delegate, let action):
+                PopoverNavigationViewWithToast {
+                    DaoDelegateProfileView(dao: dao, delegate: delegate, action: action)
+                }
+
+            default:
+                EmptyView()
+            }
+        }
     }
 }
 

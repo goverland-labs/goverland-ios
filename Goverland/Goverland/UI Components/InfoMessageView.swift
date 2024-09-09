@@ -20,6 +20,7 @@ struct InfoMessageView: View {
                 Text(message)
                     .font(.bodyRegular)
                     .foregroundStyle(Color.textWhite)
+                Spacer()
             }
             .padding(.leading, 8)
             .padding(.trailing, 12)

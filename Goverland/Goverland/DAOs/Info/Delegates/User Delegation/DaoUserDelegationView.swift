@@ -33,6 +33,8 @@ struct DaoUserDelegationView: View {
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegation information")
+            } else if let txId = dataSource.txId, let selectedChain = dataSource.selectedChain {
+                DelegationSuccessView(txId: txId, txScanTemplate: selectedChain.txScanTemplate)
             } else if dataSource.userDelegation != nil {
                 _DaoUserDelegationView(appUser: appUser, dataSource: dataSource)
             }
@@ -198,7 +200,11 @@ fileprivate struct _DaoUserDelegationView: View {
                             openUrl(redirectUrl)
                         }
                     } else if !dataSource.isEnoughBalance {
-                        WarningView(markdown: "⚠️ You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
+                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
+                    }
+
+                    if let message = dataSource.infoMessage {
+                        InfoMessageView(message: message)
                     }
                 }
 
@@ -253,6 +259,6 @@ fileprivate struct WarningView: View {
         }
         .padding()
         .background(Color.containerBright)
-        .cornerRadius(20)
+        .cornerRadius(13)
     }
 }
