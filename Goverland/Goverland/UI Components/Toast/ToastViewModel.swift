@@ -10,10 +10,10 @@ import Combine
 import Foundation
 
 class ToastViewModel: ObservableObject {
+    @Published private(set) var errorMessage: String?
+
     static let shared = ToastViewModel()
     private var timer: Timer?
-
-    @Published private(set) var errorMessage: String?
 
     private init() {}
 
