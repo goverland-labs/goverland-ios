@@ -8,7 +8,6 @@
 	
 
 import SwiftUI
-import MarkdownUI
 
 struct InfoAlertView: View {
     @StateObject var alertModel = InfoAlertModel.shared
@@ -34,13 +33,11 @@ struct InfoAlertView: View {
                 VStack(spacing: 12) {
                     if longMessage {
                         ScrollView {
-                            Markdown(message)
-                                .markdownTheme(.goverland)
+                            GMarkdown(message)
                         }
                         .scrollIndicators(.hidden)
                     } else {
-                        Markdown(message)
-                            .markdownTheme(.goverland)
+                        GMarkdown(message)
                     }
 
                     SecondaryButton("Close", maxWidth: 160, height: 32, font: .footnoteSemibold) {

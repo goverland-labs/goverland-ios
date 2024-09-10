@@ -56,7 +56,7 @@ struct AdvancedSettingView: View {
                 }
 
                 Button("Show short info alert") {
-                    showInfoAlert("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                    showInfoAlert("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et [dolore magna aliqua](https://www.openai.com).")
                 }
 
                 Button("Show almost long info alert") {

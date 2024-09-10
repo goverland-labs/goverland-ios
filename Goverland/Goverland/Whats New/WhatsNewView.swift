@@ -8,7 +8,6 @@
 	
 
 import SwiftUI
-import MarkdownUI
 
 struct WhatsNewView: View {
     let displayCloseButton: Bool
@@ -22,8 +21,7 @@ struct WhatsNewView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                Markdown(markdown)
-                    .markdownTheme(.goverland)
+                GMarkdown(markdown)
             }
             .scrollIndicators(.hidden)
 

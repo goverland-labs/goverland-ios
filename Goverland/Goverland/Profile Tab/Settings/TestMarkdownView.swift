@@ -8,7 +8,6 @@
 	
 
 import SwiftUI
-import MarkdownUI
 
 struct TestMarkdownView: View {
     @Environment(\.dismiss) private var dismiss
@@ -17,8 +16,7 @@ struct TestMarkdownView: View {
         NavigationView {
             VStack() {
                 ScrollView {
-                    Markdown(markdown)
-                        .markdownTheme(.goverland)
+                    GMarkdown(markdown)                        
                 }
                 .scrollIndicators(.hidden)
 

@@ -12,7 +12,6 @@ import SwiftUI
 struct ProfileHeaderView: View {
     let user: User?
     let publicUser: Bool
-    @State private var showAlert = false
 
     var body: some View {
         VStack(alignment: .center) {
@@ -22,7 +21,7 @@ struct ProfileHeaderView: View {
                         .onTapGesture {
                             Tracker.track(.tapOnProfileImage)
                             if !publicUser {
-                                showAlert = true
+                                showInfoAlert("Add an avatar to your ENS name to see it displayed here! [Read more](https://support.ens.domains/en/articles/7883271-how-to-set-an-avatar?utm_source=goverland)")
                             }
                         }
 
@@ -60,18 +59,6 @@ struct ProfileHeaderView: View {
             .padding(.bottom, 6)
         }
         .padding(24)
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Did you add an avatar to your ENS name? We'll show it here!"),
-                message: nil,
-                primaryButton: .default(Text("Read more")) {
-                    Tracker.track(.openEnsHelpArticle)
-                    openUrl(URL(string: "https://support.ens.domains/en/articles/7883271-how-to-set-an-avatar?utm_source=goverland")!)
-
-                },
-                secondaryButton: .default(Text("Got it!"))
-            )
-        }
     }
 
     struct CounterView: View {

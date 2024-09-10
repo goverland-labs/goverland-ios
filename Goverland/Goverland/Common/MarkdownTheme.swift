@@ -9,6 +9,29 @@
 import MarkdownUI
 import SwiftUI
 
+struct GMarkdown: View {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+
+    var body: some View {
+        Markdown(message)
+            .markdownTheme(.goverland)
+            .environment(\.openURL, OpenURLAction { url in
+                logInfo("[Markdown] Intercepted URL in Alert View: \(url.absoluteString)")
+
+                if url.absoluteString.contains("https://support.ens.domains/en/articles/7883271") {
+                    Tracker.track(.openEnsHelpArticle)
+                }
+
+                // Return .handled if you handled the URL, or .systemAction to let the system handle it
+                return .systemAction
+            })
+    }
+}
+
 extension Theme {
     // .gitHub theme as a guidance
     static let goverland = Theme()
