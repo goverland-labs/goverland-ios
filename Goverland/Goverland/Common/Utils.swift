@@ -257,6 +257,32 @@ enum Utils {
         return nil
     }
 
+    static func textWithLinkToMarkdownText(_ text: String) -> String {
+        // Regular expression to match URLs
+        let regexPattern = #"(https?://[^\s]+)"#
+
+        // Create a regular expression object
+        guard let regex = try? NSRegularExpression(pattern: regexPattern, options: .caseInsensitive) else {
+            return text
+        }
+
+        // Create a mutable copy of the original text
+        var markdownText = text
+
+        // Find matches and replace them with Markdown links
+        let matches = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
+        for match in matches.reversed() { // Reverse to avoid range conflicts during replacement
+            if let range = Range(match.range, in: text) {
+                let url = text[range]
+                // Replace the URL with Markdown format
+                let markdownLink = "[\(url)](\(url))"
+                markdownText.replaceSubrange(range, with: markdownLink)
+            }
+        }
+
+        return markdownText
+    }
+
     static func heightForDaosRecommendation(count: Int) -> CGFloat {
         switch count {
         case 1: return 300

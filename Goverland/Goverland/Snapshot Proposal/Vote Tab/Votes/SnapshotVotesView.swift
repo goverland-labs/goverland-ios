@@ -66,8 +66,6 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
     let vote: Vote<ChoiceType>
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    @State private var showReasonAlert = false
-
     var byUser: Bool {
         guard let user = ProfileDataSource.shared.profile?.account else { return false }
         return vote.voter == user
@@ -107,20 +105,14 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
         .contentShape(Rectangle())
         .onTapGesture {
             if let reason = vote.message, !reason.isEmpty {
-                showReasonAlert = true
+                let formattedReason = Utils.textWithLinkToMarkdownText(reason)
+                let message = """
+## Reason
+
+\(formattedReason)
+"""
+                showInfoAlert(message)
             }
-        }
-        .alert(isPresented: $showReasonAlert) {
-            let resaon = vote.message ?? ""
-            return Alert(
-                title: Text("Reason"),
-                message: Text(resaon),
-                primaryButton: .default(Text("Copy")) {
-                    UIPasteboard.general.string = resaon
-                    showToast("Copied")
-                },
-                secondaryButton: .default(Text("OK"))
-            )
         }
     }
 }
