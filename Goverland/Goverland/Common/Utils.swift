@@ -16,6 +16,13 @@ func showToast(_ message: String) {
     }
 }
 
+func showInfoAlert(_ message: String) {
+    logInfo("[App] Markdown alert diaplayed with message: \(message)")
+    DispatchQueue.main.async {
+        InfoAlertModel.shared.setAllertMarkdownMessage(message)
+    }
+}
+
 func openUrl(_ url: URL) {
     DispatchQueue.main.async {
         UIApplication.shared.open(url)

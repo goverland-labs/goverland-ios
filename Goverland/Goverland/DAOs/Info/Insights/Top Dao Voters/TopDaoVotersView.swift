@@ -21,8 +21,7 @@ struct TopDaoVotersView: View {
     
     var body: some View {
         GraphHeaderView(header: "Top 10 voters by average VP",
-                        subheader: "Average voting power is calculated based on the user activity during the selected period.",
-                        tooltipSide: .topLeft)
+                        subheader: "Average voting power is calculated based on the user activity during the selected period.")
 
         TopVotersView(dataSource: dataSource, showFilters: true) {
             activeSheetManager.activeSheet = .daoVoters(dataSource.dao, dataSource.selectedFilteringOption)

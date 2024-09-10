@@ -19,7 +19,7 @@ struct MutualDaosView: View {
 
     var body: some View {
         VStack {
-            GraphHeaderView(header: "Voters also participate in", subheader: "Other DAOs where voters of this DAO participate.", tooltipSide: .topLeft)
+            GraphHeaderView(header: "Voters also participate in", subheader: "Other DAOs where voters of this DAO participate.")
 
             if dataSource.failedToLoadInitialData {
                 RefreshIcon {
