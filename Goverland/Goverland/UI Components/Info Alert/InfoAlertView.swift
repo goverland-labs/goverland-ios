@@ -51,10 +51,10 @@ struct InfoAlertView: View {
                     .padding(.top, 8)
                 }
                 .if(longMessage) { view in
-                    view.frame(idealWidth: 300, maxHeight: 400)
+                    view.frame(idealWidth: 300, maxWidth: 360, maxHeight: 400)
                 }
                 .if(!longMessage) { view in
-                    view.frame(idealWidth: 300)
+                    view.frame(idealWidth: 300, maxWidth: 360)
                 }
                 .padding()
                 .background(Color.containerBright)
