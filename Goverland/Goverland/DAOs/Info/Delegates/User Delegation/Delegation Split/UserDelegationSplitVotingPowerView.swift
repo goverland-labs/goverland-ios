@@ -67,7 +67,7 @@ struct UserDelegationSplitVotingPowerView: View {
                             }
 
                             Text(viewModel.percentage(for: index))
-                                .frame(width: 55)
+                                .frame(width: 55, height: 40)
                         }
                         .font(.footnoteSemibold)
                         .foregroundColor(.onSecondaryContainer)

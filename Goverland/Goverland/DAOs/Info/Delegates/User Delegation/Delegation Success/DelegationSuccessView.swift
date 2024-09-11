@@ -13,6 +13,7 @@ struct DelegationSuccessView: View {
     let txScanTemplate: String
     @StateObject private var model: DelegationSuccessModel
 
+    @StateObject private var orientationManager = DeviceOrientationManager.shared
     @Environment(\.dismiss) private var dismiss
 
     init(chainId: Int, txHash: String, txScanTemplate: String) {
@@ -20,47 +21,87 @@ struct DelegationSuccessView: View {
         _model = StateObject(wrappedValue: DelegationSuccessModel(chainId: chainId, txHash: txHash))
     }
 
-    var txUrl: URL? {
+    private var header: String {
+        switch model.txStatus {
+        case .pending:
+            "Pending..."
+        case .success:
+            "Delegated!"
+        case .failed:
+            "Hmm, transaction is failed..."
+        }
+    }
+
+    private var txUrl: URL? {
         URL(string: txScanTemplate.replacingOccurrences(of: ":id", with: model.txHash))
     }
 
-    var body: some View {
-        VStack(spacing: 16) {
-            Text("Delegating")
-
-            Spacer()
-
-            switch model.txStatus {
-            case .pending:
-                Text("Pending")
-            case .success:
-                Text("Success")
-            case .failed:
-                Text("Failed")
+    private var scaleRatio: Double {
+        if orientationManager.currentOrientation.isLandscape {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                return 0
+            default:
+                return 1/3
             }
-
-            Spacer()
-
-            VStack {
-                Text("Delegation proportions can be changed at any time")
-                Text("View Tx")
-                    .underline()
-                    .onTapGesture {
-                        if let txUrl {
-                            openUrl(txUrl)
-                        }
-                    }
-            }
-            .foregroundStyle(Color.textWhite60)
-            .font(.footnoteRegular)
-
-            PrimaryButton("Close") {
-                dismiss()
-            }
+        } else {
+            return 3/5
         }
-        .onAppear {
-            // TODO: track
-            model.monitor()
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    Text(header)
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
+
+                    Spacer()
+
+                    switch model.txStatus {
+                    case .pending:
+                        LottieView(animationName: "pending")
+                            .frame(width: geometry.size.width / 5, height: geometry.size.width / 5 * 1.8)
+                    case .success:
+                        LottieView(animationName: "vote-success")
+                            .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
+                            .id(orientationManager.currentOrientation)
+                    case .failed:
+                        Image("maintenance-background")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.horizontal, 50)
+                    }
+
+                    Spacer()
+
+                    VStack {
+                        Text("Delegation proportions can be changed at any time")
+                        Text("View Tx")
+                            .underline()
+                            .onTapGesture {
+                                if let txUrl {
+                                    openUrl(txUrl)
+                                }
+                            }
+                    }
+                    .foregroundStyle(Color.textWhite60)
+                    .font(.footnoteRegular)
+                    .padding(.bottom, 16)
+
+                    PrimaryButton("Close") {
+                        dismiss()
+                    }
+                }
+                // this is needed as on iPad GeometryReader breaks VStack layout
+                .frame(maxWidth: geometry.size.width - Constants.horizontalPadding * 2, minHeight: geometry.size.height - 50)
+                .onAppear {
+                    // TODO: track
+                    model.monitor()
+                }
+            }
+            .scrollIndicators(.hidden)
         }
     }
 }

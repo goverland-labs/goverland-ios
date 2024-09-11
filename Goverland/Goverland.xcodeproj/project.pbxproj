@@ -1063,8 +1063,8 @@
 		558ACC682C80DC1C002FAE75 /* Delegation Split */ = {
 			isa = PBXGroup;
 			children = (
-				558ACC662C80DC1C002FAE75 /* UserDelegationSplitViewModel.swift */,
 				558ACC672C80DC1C002FAE75 /* UserDelegationSplitVotingPowerView.swift */,
+				558ACC662C80DC1C002FAE75 /* UserDelegationSplitViewModel.swift */,
 			);
 			path = "Delegation Split";
 			sourceTree = "<group>";
