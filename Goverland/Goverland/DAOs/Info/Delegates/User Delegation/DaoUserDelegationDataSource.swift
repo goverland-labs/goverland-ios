@@ -27,7 +27,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     @Published var isPreparingRequest = false
     @Published var infoMessage: String?
 
-    @Published var txId: String?
+    @Published var txHash: String?
 
     private var cancellables = Set<AnyCancellable>()
     private var wcCancellables = Set<AnyCancellable>()
@@ -80,7 +80,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         isLoading = false
         isPreparingRequest = false
         infoMessage = nil
-        txId = nil
+        txHash = nil
         delegationRequest = nil
 
         cancellables = Set<AnyCancellable>()
@@ -140,12 +140,12 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    func handleTxId(_ txId: String) {
-        self.txId = txId
+    func handleTxHash(_ txHash: String) {
+        self.txHash = txHash
 
         // notify backend about transaction for caching
         guard let delegationRequest else { return }
-        let request = delegationRequest.with(txHash: txId)
+        let request = delegationRequest.with(txHash: txHash)
         APIService.daoSuccessDelegated(daoId: dao.id, request: request)
             .sink { _ in
                 // do nothing
@@ -165,14 +165,14 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                     logInfo("[WC] Error: \(rpcError)")
                     showLocalNotification(title: "Rejected to send transaction", body: "Open the App to repeat the request")
                     showToast(rpcError.localizedDescription)
-                case .response(let txId):
-                    guard let txIdStr = txId.value as? String else {
-                        logError(GError.appInconsistency(reason: "Expected txId as string. Got \(txId)"))
+                case .response(let txHash):
+                    guard let txHashStr = txHash.value as? String else {
+                        logError(GError.appInconsistency(reason: "Expected txId as string. Got \(txHash)"))
                         return
                     }
-                    logInfo("[WC] txId: \(txIdStr)")
+                    logInfo("[WC] tx_hash: \(txHashStr)")
                     showLocalNotification(title: "Transaction is sent", body: "Open the App to proceed")
-                    self?.handleTxId(txIdStr)
+                    self?.handleTxHash(txHashStr)
                 }
             }
             .store(in: &wcCancellables)
@@ -244,10 +244,10 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 }
 
                 switch result {
-                case .success(let txId_JSONString):
-                    let txId = txId_JSONString.description.replacingOccurrences(of: "\"", with: "")
-                    logInfo("[CoinbaseWallet] Delegation txId: \(txId)")
-                    self?.handleTxId(txId)
+                case .success(let txHash_JSONString):
+                    let txHash = txHash_JSONString.description.replacingOccurrences(of: "\"", with: "")
+                    logInfo("[CoinbaseWallet] Delegation tx_hash: \(txHash)")
+                    self?.handleTxHash(txHash)
                 case .failure(let actionError):
                     logInfo("[CoinbaseWallet] Send tx action error: \(actionError)")
                     showToast(actionError.message)

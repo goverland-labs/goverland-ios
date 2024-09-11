@@ -10,24 +10,49 @@
 import SwiftUI
 
 struct DelegationSuccessView: View {
-    let txId: String
     let txScanTemplate: String
+    @StateObject private var model: DelegationSuccessModel
 
     @Environment(\.dismiss) private var dismiss
 
+    init(chainId: Int, txHash: String, txScanTemplate: String) {
+        self.txScanTemplate = txScanTemplate
+        _model = StateObject(wrappedValue: DelegationSuccessModel(chainId: chainId, txHash: txHash))
+    }
+
+    var txUrl: URL? {
+        URL(string: txScanTemplate.replacingOccurrences(of: ":id", with: model.txHash))
+    }
+
     var body: some View {
-        let url = URL(string: txScanTemplate.replacingOccurrences(of: ":id", with: txId))!
-        VStack {
+        VStack(spacing: 16) {
             Text("Delegating")
 
             Spacer()
 
-            Text(url.absoluteString)
-                .onTapGesture {
-                    openUrl(url)
-                }
+            switch model.txStatus {
+            case .pending:
+                Text("Pending")
+            case .success:
+                Text("Success")
+            case .failed:
+                Text("Failed")
+            }
 
             Spacer()
+
+            VStack {
+                Text("Delegation proportions can be changed at any time")
+                Text("View Tx")
+                    .underline()
+                    .onTapGesture {
+                        if let txUrl {
+                            openUrl(txUrl)
+                        }
+                    }
+            }
+            .foregroundStyle(Color.textWhite60)
+            .font(.footnoteRegular)
 
             PrimaryButton("Close") {
                 dismiss()
@@ -35,7 +60,7 @@ struct DelegationSuccessView: View {
         }
         .onAppear {
             // TODO: track
-            // TODO: monitoring
+            model.monitor()
         }
     }
 }

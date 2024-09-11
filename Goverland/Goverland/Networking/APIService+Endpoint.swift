@@ -484,4 +484,11 @@ extension APIService {
         let endpoint = UpdateInboxNotificationSettingsEndpoint(settings: settings)
         return shared.request(endpoint)
     }
+
+    // MARK: - Blockchain
+
+    static func txStatus(chainId: Int, txHash: String) -> AnyPublisher<(TxStatusEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = TxStatusEndpoint(chainId: chainId, txHash: txHash)
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
 }

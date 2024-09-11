@@ -891,3 +891,20 @@ struct UpdateInboxNotificationSettingsEndpoint: APIEndpoint {
         self.body = try! JSONEncoder().encode(settings)
     }
 }
+
+// MARK: - Blockchain
+
+struct TxStatusEndpoint: APIEndpoint {
+    typealias ResponseType = TxStatus
+
+    let chainId: Int
+    let txHash: String
+
+    var path: String { "chain/\(chainId)/\(txHash)" }
+    var method: HttpMethod = .get
+
+    init(chainId: Int, txHash: String) {
+        self.chainId = chainId
+        self.txHash = txHash
+    }
+}

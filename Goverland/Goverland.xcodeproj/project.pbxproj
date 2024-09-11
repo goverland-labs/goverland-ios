@@ -173,6 +173,8 @@
 		55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717812C908BDF00217C4F /* InfoAlertView.swift */; };
 		55D717842C908C9100217C4F /* InfoAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717832C908C9100217C4F /* InfoAlertModel.swift */; };
 		55D717862C909A0700217C4F /* ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717852C909A0700217C4F /* ConditionalModifier.swift */; };
+		55D717882C91A03500217C4F /* DelegationSuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717872C91A03500217C4F /* DelegationSuccessModel.swift */; };
+		55D7178A2C91A21900217C4F /* TxStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717892C91A21900217C4F /* TxStatus.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
@@ -537,6 +539,8 @@
 		55D717812C908BDF00217C4F /* InfoAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertView.swift; sourceTree = "<group>"; };
 		55D717832C908C9100217C4F /* InfoAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertModel.swift; sourceTree = "<group>"; };
 		55D717852C909A0700217C4F /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
+		55D717872C91A03500217C4F /* DelegationSuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSuccessModel.swift; sourceTree = "<group>"; };
+		55D717892C91A21900217C4F /* TxStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxStatus.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E545802C6A4D1F00E479E4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
@@ -1282,6 +1286,7 @@
 			isa = PBXGroup;
 			children = (
 				55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */,
+				55D717872C91A03500217C4F /* DelegationSuccessModel.swift */,
 			);
 			path = "Delegation Success";
 			sourceTree = "<group>";
@@ -1553,6 +1558,7 @@
 				556D43572BAD75C000D2D64F /* Stats.swift */,
 				55B7B43F2A5AE96900A894AD /* PushNotificationSettings.swift */,
 				55EFF8572C3308EA00047108 /* InboxNotificationSettings.swift */,
+				55D717892C91A21900217C4F /* TxStatus.swift */,
 				55D717792C87270000217C4F /* WalletConnect */,
 				BAB960B22AA66C7E00DC2D92 /* Charts */,
 				550ACFB82B02F012006EF5BB /* Vote */,
@@ -2177,6 +2183,7 @@
 				553E74DF2BA9B6EC00F697F8 /* DaoCardWideView.swift in Sources */,
 				550ACFB72AFEEFF8006EF5BB /* ProfileDataSource.swift in Sources */,
 				5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */,
+				55D7178A2C91A21900217C4F /* TxStatus.swift in Sources */,
 				559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */,
 				556D43612BB2787B00D2D64F /* TopVotersView.swift in Sources */,
 				BAE1AB252AEBEFBD001B89F3 /* RecentlyViewedDaosDataSource.swift in Sources */,
@@ -2215,6 +2222,7 @@
 				5528859A2A28EBF600ED2BCD /* RetryInitialLoadingView.swift in Sources */,
 				5586BB8D2A3AFF6D00A6E316 /* DaoCardView.swift in Sources */,
 				5582EF942B679EB60062970C /* GraphHeaderView.swift in Sources */,
+				55D717882C91A03500217C4F /* DelegationSuccessModel.swift in Sources */,
 				55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */,
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
