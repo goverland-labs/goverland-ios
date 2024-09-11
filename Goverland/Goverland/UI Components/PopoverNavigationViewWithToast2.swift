@@ -102,6 +102,10 @@ struct PopoverNavigationViewWithToast2<Content: View>: View {
             }
         }
         .overlay {
+            InfoAlertView()
+                .environmentObject(activeSheetManager)
+        }
+        .overlay {
             ToastView()
                 .environmentObject(activeSheetManager)
         }

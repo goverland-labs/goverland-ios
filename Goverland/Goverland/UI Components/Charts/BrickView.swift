@@ -21,8 +21,6 @@ struct BrickView: View {
     let failedToLoadInitialData: Bool
     let onRefresh: () -> Void
 
-    @State private var showAlert = false
-
     init(header: String,
          description: String,
          data: String,
@@ -68,7 +66,10 @@ struct BrickView: View {
                     HStack {
                         Text(header)
                             .font(.footnoteRegular)
+                            .minimumScaleFactor(0.7)
                         Spacer()
+                        Image(systemName: "questionmark.circle")
+                            .foregroundStyle(Color.textWhite40)
                     }
                     .foregroundStyle(Color.textWhite60)
                     
@@ -81,7 +82,7 @@ struct BrickView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    showAlert = true
+                    showInfoAlert(description)
                 }
             }
         }
@@ -89,13 +90,6 @@ struct BrickView: View {
         .padding()
         .background(Color.containerBright)
         .cornerRadius(20)
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text(header),
-                message: Text(description),
-                dismissButton: .default(Text("Got it!"))
-            )
-        }
     }
 }
 

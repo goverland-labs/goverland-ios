@@ -132,7 +132,7 @@ struct ArchiveView: View {
         }
         .tint(.textWhite)
         .overlay {
-            // we need it to espace crashes inside ToastView
+            // we need it at this level to escape crashes inside ToastView
             ToastView()
                 .environmentObject(activeSheetManager)
         }

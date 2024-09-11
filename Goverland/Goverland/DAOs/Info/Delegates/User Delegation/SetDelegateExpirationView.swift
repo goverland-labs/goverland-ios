@@ -24,8 +24,7 @@ struct SetDelegateExpirationView: View {
         }
     }
     @State private var isDatePickerPresented = false
-    @State private var isTooltipVisible = false
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -34,22 +33,9 @@ struct SetDelegateExpirationView: View {
                     .foregroundColor(.textWhite)
                 Image(systemName: "questionmark.circle")
                     .foregroundStyle(Color.textWhite40)
-                    .padding(.trailing)
-                    .tooltip($isTooltipVisible, side: .topRight, width: 200) {
-                        Text("You can set an expiration date for your delegation and change your delegates or the expiration date at any time. Once the expiration date is reached, your delegation for \(dataSource.dao.name) will be revoked")
-                            .foregroundStyle(Color.textWhite60)
-                            .font(.сaptionRegular)
-                    }
+                    .padding(.trailing)                    
                     .onTapGesture() {
-                        withAnimation {
-                            isTooltipVisible.toggle()
-                            // Show tooltip for 5 sec only
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                if isTooltipVisible {
-                                    isTooltipVisible.toggle()
-                                }
-                            }
-                        }
+                        showInfoAlert("You can set an expiration date for your delegation and change your delegates or the expiration date at any time. Once the expiration date is reached, your delegation for \(dataSource.dao.name) will be revoked.")
                     }
                 Spacer()
                 Image(systemName: isChecked ? "checkmark.square.fill" : "square")

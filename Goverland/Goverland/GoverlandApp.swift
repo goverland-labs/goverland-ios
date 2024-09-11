@@ -169,6 +169,10 @@ struct GoverlandApp: App {
                     showEnablePushNotificationsIfNeeded(activeSheetManager: activeSheetManager)
                 }
                 .overlay {
+                    InfoAlertView()
+                        .environmentObject(activeSheetManager)
+                }
+                .overlay {
                     ToastView()
                         .environmentObject(activeSheetManager)
                 }

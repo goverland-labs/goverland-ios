@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SwiftData
-import MarkdownUI
 
 fileprivate enum _DescriptionTab: Int, Identifiable {
     var id: Int { self.rawValue }
@@ -102,14 +101,12 @@ struct SnapshotProposalDescriptionView: View {
             ScrollView {
                 switch chosenTab {
                 case .full:
-                    Markdown(markdownDescription)
-                        .markdownTheme(.goverland)
+                    GMarkdown(markdownDescription)
                 case .ai:
                     if userSignedIn {
                         Group {
                             if let aiMarkdownDescription = dataSource.aiDescription {
-                                Markdown(aiMarkdownDescription)
-                                    .markdownTheme(.goverland)
+                                GMarkdown(aiMarkdownDescription)
                             } else if dataSource.isLoading {
                                 ProgressView()
                                     .foregroundStyle(Color.textWhite20)

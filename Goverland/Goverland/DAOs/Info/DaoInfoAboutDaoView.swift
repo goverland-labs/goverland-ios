@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import MarkdownUI
 import SwiftDate
 
 struct DaoInfoAboutDaoView: View {
@@ -131,8 +130,7 @@ struct DaoInfoAboutDaoView: View {
             }
 
             VStack(alignment: .leading) {
-                Markdown(markdownDescription)
-                    .markdownTheme(.goverland)
+                GMarkdown(markdownDescription)                    
             }
 
             Spacer()

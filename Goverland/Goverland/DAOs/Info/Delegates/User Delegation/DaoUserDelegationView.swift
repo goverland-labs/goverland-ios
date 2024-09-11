@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SwiftData
-import MarkdownUI
 
 struct DaoUserDelegationView: View {
     @StateObject private var dataSource: DaoUserDelegationDataSource
@@ -244,8 +243,7 @@ fileprivate struct WarningView: View {
 
     var body: some View {
         VStack(spacing: 16) {            
-            Markdown(markdown)
-                .markdownTheme(.goverland)
+            GMarkdown(markdown)                
 
             if let actionButtonTitle {
                 HStack {

@@ -38,8 +38,6 @@
 		5516042C2B760EA000AA5784 /* SnapshotProposalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */; };
 		5518CA152B6E0C7A00E6D243 /* ConnectedWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */; };
 		5518CA182B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */; };
-		551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 551E4A122AC85A9800C5F87A /* SwiftUITooltip */; };
-		551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */; };
 		5521D26E29EF092A00A09FD4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D26D29EF092900A09FD4 /* Colors.swift */; };
 		5521D27329EF0EA200A09FD4 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27229EF0EA200A09FD4 /* IdentityView.swift */; };
 		5521D27529EF137C00A09FD4 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5521D27429EF137C00A09FD4 /* DateView.swift */; };
@@ -172,6 +170,9 @@
 		55D68FDF2A43251900A22657 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D68FDE2A43251900A22657 /* Notifications.swift */; };
 		55D7177B2C87271900217C4F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7177A2C87271900217C4F /* Transaction.swift */; };
 		55D7177E2C8AF43A00217C4F /* DelegationSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */; };
+		55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717812C908BDF00217C4F /* InfoAlertView.swift */; };
+		55D717842C908C9100217C4F /* InfoAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717832C908C9100217C4F /* InfoAlertModel.swift */; };
+		55D717862C909A0700217C4F /* ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717852C909A0700217C4F /* ConditionalModifier.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
@@ -401,7 +402,6 @@
 		5516042B2B760EA000AA5784 /* SnapshotProposalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDataSource.swift; sourceTree = "<group>"; };
 		5518CA142B6E0C7A00E6D243 /* ConnectedWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedWalletView.swift; sourceTree = "<group>"; };
 		5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsView.swift; sourceTree = "<group>"; };
-		551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewExtention.swift; sourceTree = "<group>"; };
 		5521D26D29EF092900A09FD4 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5521D27229EF0EA200A09FD4 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 		5521D27429EF137C00A09FD4 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
@@ -534,6 +534,9 @@
 		55D68FDE2A43251900A22657 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		55D7177A2C87271900217C4F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		55D7177D2C8AF43A00217C4F /* DelegationSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSuccessView.swift; sourceTree = "<group>"; };
+		55D717812C908BDF00217C4F /* InfoAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertView.swift; sourceTree = "<group>"; };
+		55D717832C908C9100217C4F /* InfoAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertModel.swift; sourceTree = "<group>"; };
+		55D717852C909A0700217C4F /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E545802C6A4D1F00E479E4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
@@ -702,7 +705,6 @@
 				BA1A6FC22B7BB27400D76BCA /* FirebaseRemoteConfig in Frameworks */,
 				5515241E2B565165005FBF86 /* CoinbaseWalletSDK in Frameworks */,
 				55B7B4292A5ACA0B00A894AD /* FirebaseCrashlytics in Frameworks */,
-				551E4A132AC85A9800C5F87A /* SwiftUITooltip in Frameworks */,
 				5536B8372B9CB5C400870A08 /* WalletConnectModal in Frameworks */,
 				553316FE29F162FF0034AF66 /* BlockiesSwift in Frameworks */,
 				BAB4B91F2A44864100D24110 /* Lottie in Frameworks */,
@@ -864,6 +866,8 @@
 		5521D26F29EF0C7100A09FD4 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				55D717802C908BB600217C4F /* Info Alert */,
+				55D7177F2C908B7900217C4F /* Toast */,
 				BADB166E2B2022FA00CB99CC /* Charts */,
 				55B527302AF2A7E00038B6B5 /* View Extensions */,
 				552885992A28EBF600ED2BCD /* RetryInitialLoadingView.swift */,
@@ -1168,9 +1172,9 @@
 		55B527302AF2A7E00038B6B5 /* View Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				551E4A142AC8613500C5F87A /* TooltipViewExtention.swift */,
 				55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */,
 				55EEA87D2B237EE600242817 /* ScreenExtention.swift */,
+				55D717852C909A0700217C4F /* ConditionalModifier.swift */,
 			);
 			path = "View Extensions";
 			sourceTree = "<group>";
@@ -1282,6 +1286,24 @@
 			path = "Delegation Success";
 			sourceTree = "<group>";
 		};
+		55D7177F2C908B7900217C4F /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */,
+				5597E7392A0A5C8800E2FAE4 /* ToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		55D717802C908BB600217C4F /* Info Alert */ = {
+			isa = PBXGroup;
+			children = (
+				55D717812C908BDF00217C4F /* InfoAlertView.swift */,
+				55D717832C908C9100217C4F /* InfoAlertModel.swift */,
+			);
+			path = "Info Alert";
+			sourceTree = "<group>";
+		};
 		55DE41B12B17B8DD008617F5 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -1363,8 +1385,6 @@
 				BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */,
 				55B7B4212A5AC28700A894AD /* NotificationsManager.swift */,
 				553744D82A7577AF00D05D8A /* ConfigurationManager.swift */,
-				5597E7362A0A5C8800E2FAE4 /* ToastViewModel.swift */,
-				5597E7392A0A5C8800E2FAE4 /* ToastView.swift */,
 				551604292B74DDC300AA5784 /* Haptic.swift */,
 				55F143E0294B1DDC00D00B73 /* Assets.xcassets */,
 				55C25E562A7563FD0087D56E /* Stage.xcconfig */,
@@ -1792,7 +1812,6 @@
 				55B7B4282A5ACA0B00A894AD /* FirebaseCrashlytics */,
 				55B7B42B2A5ACD6400A894AD /* FirebaseMessaging */,
 				55FD73242AB75DF80081C38D /* Starscream */,
-				551E4A122AC85A9800C5F87A /* SwiftUITooltip */,
 				55EEC0332B2BB326007962BD /* CryptoSwift */,
 				5515241D2B565165005FBF86 /* CoinbaseWalletSDK */,
 				BA1A6FC12B7BB27400D76BCA /* FirebaseRemoteConfig */,
@@ -1879,7 +1898,6 @@
 				55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				55B7B4252A5ACA0B00A894AD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */,
-				551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 				55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */,
 				BAC3CA2A2B9CC034001CC6C3 /* XCRemoteSwiftPackageReference "Version" */,
@@ -2034,6 +2052,7 @@
 				55D7177B2C87271900217C4F /* Transaction.swift in Sources */,
 				BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */,
 				556D43662BB29E5400D2D64F /* SnapshotProposalTopVotersDataSource.swift in Sources */,
+				55D717862C909A0700217C4F /* ConditionalModifier.swift in Sources */,
 				55D632BF29505C800073E04A /* SettingsView.swift in Sources */,
 				555310EC299F732500AB7557 /* EnablePushNotificationsView.swift in Sources */,
 				BA1A6FC02B7AC62D00D76BCA /* AppUpdateBlockingView.swift in Sources */,
@@ -2098,13 +2117,13 @@
 				553E74E42BAAB14B00F697F8 /* FeaturedProposalsDataSource.swift in Sources */,
 				BAE1AB332AF0498F001B89F3 /* SuccessfulProposals.swift in Sources */,
 				55458ACA2A4087E000739002 /* AddSubscriptionView.swift in Sources */,
-				551E4A152AC8613500C5F87A /* TooltipViewExtention.swift in Sources */,
 				550E85712A5F4C3400B0CFDD /* SnapshotWeightedVotingView.swift in Sources */,
 				550ACFAF2AFED63F006EF5BB /* CastYourVoteView.swift in Sources */,
 				55E800A42AF825D900A43D5F /* SignInView.swift in Sources */,
 				559DA0C32A5DD4C8001F975D /* EmptyInboxView.swift in Sources */,
 				5542437F2ADF32FC00504E97 /* RefreshIcon.swift in Sources */,
 				553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */,
+				55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
 				558ACC5D2C80DBCC002FAE75 /* DelegationInfo.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
@@ -2147,6 +2166,7 @@
 				BA36DF032B17A63C002EBEB0 /* MonthlyTotalNewProposalsDataSource.swift in Sources */,
 				55EEC0362B2C93AF007962BD /* DangerButton.swift in Sources */,
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
+				55D717842C908C9100217C4F /* InfoAlertModel.swift in Sources */,
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
 				558ACC752C80DC1C002FAE75 /* DaoDelegateProfileView.swift in Sources */,
 				558ACC5C2C80DBCC002FAE75 /* DelegateVotingPower.swift in Sources */,
@@ -3074,14 +3094,6 @@
 				version = 1.0.5;
 			};
 		};
-		551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/quassum/SwiftUI-Tooltip.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
-			};
-		};
 		553316FC29F162FF0034AF66 /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/goverland-labs/BlockiesSwift";
@@ -3169,11 +3181,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5515241C2B565165005FBF86 /* XCRemoteSwiftPackageReference "wallet-mobile-sdk" */;
 			productName = CoinbaseWalletSDK;
-		};
-		551E4A122AC85A9800C5F87A /* SwiftUITooltip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 551E4A112AC85A9800C5F87A /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */;
-			productName = SwiftUITooltip;
 		};
 		553316FD29F162FF0034AF66 /* BlockiesSwift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -26,7 +26,7 @@ struct CastYourVoteView: View {
         } else {
             _VoteView(dataSource: dataSource)
                 .overlay {
-                    // we need it to espace crashes inside ToastView
+                    // we need it to escape crashes inside ToastView
                     ToastView()
                         .environmentObject(activeSheetManager)
                 }
