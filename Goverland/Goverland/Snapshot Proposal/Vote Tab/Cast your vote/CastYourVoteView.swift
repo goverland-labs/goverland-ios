@@ -294,7 +294,7 @@ fileprivate struct _SuccessView: View {
 
                     Spacer()
 
-                    SuccessVoteLottieView()
+                    LottieView(animationName: "vote-success")
                         .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
                         .id(orientationManager.currentOrientation)
 

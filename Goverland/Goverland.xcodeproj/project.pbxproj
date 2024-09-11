@@ -94,7 +94,6 @@
 		557177E92A3E3E1B0026B12A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557177E82A3E3E1B0026B12A /* Utils.swift */; };
 		55728B782ACD4E4E002961FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55728B772ACD4E4E002961FD /* DashboardView.swift */; };
 		557C26562B31B2E800AAF26C /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26552B31B2E800AAF26C /* Avatar.swift */; };
-		557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */; };
 		557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C26592B32273D00AAF26C /* WC_SessionMeta.swift */; };
 		557C265C2B323E8F00AAF26C /* InfoMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C265B2B323E8F00AAF26C /* InfoMessageView.swift */; };
 		557C9D662A30ECCE001C4DEA /* DaoSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */; };
@@ -175,6 +174,7 @@
 		55D717862C909A0700217C4F /* ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717852C909A0700217C4F /* ConditionalModifier.swift */; };
 		55D717882C91A03500217C4F /* DelegationSuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717872C91A03500217C4F /* DelegationSuccessModel.swift */; };
 		55D7178A2C91A21900217C4F /* TxStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D717892C91A21900217C4F /* TxStatus.swift */; };
+		55D7178C2C91E26900217C4F /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D7178B2C91E26900217C4F /* LottieView.swift */; };
 		55DDE8C22A46367F006DA335 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 55DDE8C12A46367F006DA335 /* MarkdownUI */; };
 		55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */; };
 		55DE41B72B193882008617F5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE41B62B193882008617F5 /* UserProfile.swift */; };
@@ -459,7 +459,6 @@
 		557177E82A3E3E1B0026B12A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		55728B772ACD4E4E002961FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		557C26552B31B2E800AAF26C /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
-		557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessVoteLottieView.swift; sourceTree = "<group>"; };
 		557C26592B32273D00AAF26C /* WC_SessionMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WC_SessionMeta.swift; sourceTree = "<group>"; };
 		557C265B2B323E8F00AAF26C /* InfoMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessageView.swift; sourceTree = "<group>"; };
 		557C9D652A30ECCE001C4DEA /* DaoSearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoSearchListView.swift; sourceTree = "<group>"; };
@@ -541,6 +540,7 @@
 		55D717852C909A0700217C4F /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
 		55D717872C91A03500217C4F /* DelegationSuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationSuccessModel.swift; sourceTree = "<group>"; };
 		55D717892C91A21900217C4F /* TxStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxStatus.swift; sourceTree = "<group>"; };
+		55D7178B2C91E26900217C4F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		55DDE8C32A4636DA006DA335 /* SnapshotProposalDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotProposalDescriptionView.swift; sourceTree = "<group>"; };
 		55DE41B62B193882008617F5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		55E545802C6A4D1F00E479E4 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
@@ -762,7 +762,6 @@
 			children = (
 				550ACFAE2AFED63F006EF5BB /* CastYourVoteView.swift */,
 				550ACFB02AFED65C006EF5BB /* CastYourVoteDataSource.swift */,
-				557C26572B31D58100AAF26C /* SuccessVoteLottieView.swift */,
 			);
 			path = "Cast your vote";
 			sourceTree = "<group>";
@@ -897,6 +896,7 @@
 				BA57D219295CB35400DB1963 /* ProposalListItemView.swift */,
 				558ACC5F2C80DBF8002FAE75 /* CounterControlView.swift */,
 				5596F14C2A4F494000BD55C7 /* Buttons */,
+				55D7178B2C91E26900217C4F /* LottieView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -2149,6 +2149,7 @@
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
 				BAF6520329C8C61500C78A8A /* LogInfoTrackingHandler.swift in Sources */,
+				55D7178C2C91E26900217C4F /* LottieView.swift in Sources */,
 				55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */,
 				558ACC612C80DBFD002FAE75 /* CounterControlView.swift in Sources */,
 				553744D92A7577AF00D05D8A /* ConfigurationManager.swift in Sources */,
@@ -2158,7 +2159,6 @@
 				BA8455AC2B85110F00A986CC /* AllDaoVotersListView.swift in Sources */,
 				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				550E2C3B2C6CDDEF00411FF0 /* WhatsNewDataSource.swift in Sources */,
-				557C26582B31D58100AAF26C /* SuccessVoteLottieView.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
 				55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */,
 				553E74D12BA1885800F697F8 /* PopoverNavigationViewWithToast.swift in Sources */,
