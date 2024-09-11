@@ -345,6 +345,24 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
     }
 }
 
+struct DaoSuccessDelegatedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let daoId: UUID
+
+    var path: String { "dao/\(daoId)/success-delegated" }
+    var method: HttpMethod = .post
+
+    var body: Data?
+
+    init(daoId: UUID, request: DaoUserDelegationRequest) {
+        self.daoId = daoId
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(request)
+    }
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {

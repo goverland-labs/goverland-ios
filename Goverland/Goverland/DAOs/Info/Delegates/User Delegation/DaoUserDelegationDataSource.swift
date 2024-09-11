@@ -32,6 +32,8 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
     private var wcCancellables = Set<AnyCancellable>()
 
+    private var delegationRequest: DaoUserDelegationRequest?
+
     var isEnoughBalance: Bool {
         guard let selectedChain else { return false }
         return selectedChain.balance >= selectedChain.feeApproximation
@@ -79,6 +81,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         isPreparingRequest = false
         infoMessage = nil
         txId = nil
+        delegationRequest = nil
 
         cancellables = Set<AnyCancellable>()
         // do not reset wcCancellables
@@ -121,12 +124,13 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
 
     func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {
         guard let selectedChain else { return }
-        let request = DaoUserDelegationRequest(chainId: selectedChain.id,
-                                               delegates: splitModel.requestDelegates,
-                                               expirationDate: expirationDate)
+        delegationRequest = DaoUserDelegationRequest(chainId: selectedChain.id,
+                                                     txHash: nil,
+                                                     delegates: splitModel.requestDelegates,
+                                                     expirationDate: expirationDate)
 
         isPreparingRequest = true
-        APIService.daoPrepareSplitDelegation(daoId: dao.id, request: request)
+        APIService.daoPrepareSplitDelegation(daoId: dao.id, request: delegationRequest!)
             .sink { [weak self] _ in
                 self?.isPreparingRequest = false
             } receiveValue: { [weak self] preparedData, _ in
@@ -137,8 +141,18 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
     }
 
     func handleTxId(_ txId: String) {
-        // TODO: POST dao/:id/success-delegated
         self.txId = txId
+
+        // notify backend about transaction for caching
+        guard let delegationRequest else { return }
+        let request = delegationRequest.with(txHash: txId)
+        APIService.daoSuccessDelegated(daoId: dao.id, request: request)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { _, _ in
+                logInfo("[App] notified backend about tx_hash")
+            }
+            .store(in: &cancellables)
     }
 
     private func listen_WC_Responses() {
@@ -174,7 +188,6 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         }
     }
 
-    // TODO: fix, don't work yet
     private func wcSendDelegateRequest(preparedData: DaoUserDelegationPreparedData) {
         guard let session = WC_Manager.shared.sessionMeta?.session,
               let address = wcAddress,
