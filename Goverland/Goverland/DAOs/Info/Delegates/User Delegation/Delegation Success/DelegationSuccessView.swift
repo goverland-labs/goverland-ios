@@ -36,11 +36,16 @@ struct DelegationSuccessView: View {
         URL(string: txScanTemplate.replacingOccurrences(of: ":id", with: model.txHash))
     }
 
+    private var txUrlHost: String {
+        guard let txUrl else { return "scanner" }
+        return txUrl.host() ?? "scanner"
+    }
+
     private var scaleRatio: Double {
         if orientationManager.currentOrientation.isLandscape {
             switch UIDevice.current.userInterfaceIdiom {
             case .phone:
-                return 0
+                return 1/6
             default:
                 return 1/3
             }
@@ -62,7 +67,7 @@ struct DelegationSuccessView: View {
                     switch model.txStatus {
                     case .pending:
                         LottieView(animationName: "pending")
-                            .frame(width: geometry.size.width / 5, height: geometry.size.width / 5 * 1.8)
+                            .frame(width: geometry.size.width * 0.4, height: geometry.size.width * 0.4)
                     case .success:
                         LottieView(animationName: "vote-success")
                             .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
@@ -78,7 +83,7 @@ struct DelegationSuccessView: View {
 
                     VStack {
                         Text("Delegation proportions can be changed at any time")
-                        Text("View Tx")
+                        Text("View Tx on \(txUrlHost)")
                             .underline()
                             .onTapGesture {
                                 if let txUrl {
@@ -88,14 +93,14 @@ struct DelegationSuccessView: View {
                     }
                     .foregroundStyle(Color.textWhite60)
                     .font(.footnoteRegular)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 8)
 
                     PrimaryButton("Close") {
                         dismiss()
                     }
                 }
                 // this is needed as on iPad GeometryReader breaks VStack layout
-                .frame(maxWidth: geometry.size.width - Constants.horizontalPadding * 2, minHeight: geometry.size.height - 50)
+                .frame(maxWidth: geometry.size.width, minHeight: geometry.size.height)
                 .onAppear {
                     // TODO: track
                     model.monitor()
