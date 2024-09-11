@@ -273,11 +273,12 @@ fileprivate struct _SuccessView: View {
 
     private var scaleRatio: Double {
         if orientationManager.currentOrientation.isLandscape {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                return 0 // hide animation
-            } else {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                return 0
+            default:
                 return 1/3
-            }
+            }            
         } else {
             return 3/5
         }

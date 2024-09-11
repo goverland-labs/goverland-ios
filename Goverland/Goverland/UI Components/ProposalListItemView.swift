@@ -37,7 +37,7 @@ struct ProposalListItemView: View {
             return .secondaryContainer
         }
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom != .phone {
             return .containerBright
         }
 
