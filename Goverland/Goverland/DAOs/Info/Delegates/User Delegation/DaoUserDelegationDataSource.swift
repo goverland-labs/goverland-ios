@@ -226,7 +226,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                         weiValue: "0",
                         data: preparedData.data,
                         nonce: nil,
-                        gasPriceInWei: preparedData.gasPrice,
+                        gasPriceInWei: nil,
                         maxFeePerGas: preparedData.maxFeePerGas,
                         maxPriorityFeePerGas: preparedData.maxPriorityFeePerGas,
                         gasLimit: preparedData.gas,

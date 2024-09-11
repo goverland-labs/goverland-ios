@@ -76,6 +76,7 @@ struct DelegationSuccessView: View {
                         Image("maintenance-background")
                             .resizable()
                             .scaledToFit()
+                            .frame(width: geometry.size.width * 0.6)
                             .padding(.horizontal, 50)
                     }
 
