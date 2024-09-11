@@ -51,16 +51,21 @@ struct UserDelegationSplitVotingPowerView: View {
                         IdentityView(user: delegate.user, onTap: nil)
                         Spacer()
                         HStack(spacing: 0) {
-                            CounterControlView(systemImageName: "minus",
-                                               backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
-                                viewModel.decreaseVotingPower(forIndex: index)
+                            if viewModel.delegates.count > 1 {
+                                CounterControlView(systemImageName: "minus",
+                                                   backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
+                                    viewModel.decreaseVotingPower(forIndex: index)
+                                }
+
+                                Text(String(delegate.powerRatio))
+                                    .frame(width: 20)
+
+                                CounterControlView(systemImageName: "plus",
+                                                   backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
+                                    viewModel.increaseVotingPower(forIndex: index)
+                                }
                             }
-                            Text(String(delegate.powerRatio))
-                                .frame(width: 20)
-                            CounterControlView(systemImageName: "plus",
-                                               backgroundColor: delegate.powerRatio == 0 ? Color.clear : Color.secondaryContainer) {
-                                viewModel.increaseVotingPower(forIndex: index)
-                            }
+
                             Text(viewModel.percentage(for: index))
                                 .frame(width: 55)
                         }
