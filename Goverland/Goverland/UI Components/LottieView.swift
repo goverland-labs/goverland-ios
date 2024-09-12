@@ -1,25 +1,23 @@
 //
-//  SuccessVoteLottieView.swift
+//  LottieView.swift
 //  Goverland
 //
-//  Created by Andrey Scherbovich on 19.12.23.
+//  Created by Andrey Scherbovich on 11.09.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
 	
 
-import UIKit
 import SwiftUI
 import Lottie
 
+struct LottieView: UIViewRepresentable {
+    let animationName: String
 
-struct SuccessVoteLottieView: UIViewRepresentable {    
-    typealias UIViewType = UIView
-
-    func makeUIView(context: UIViewRepresentableContext<SuccessVoteLottieView>) -> UIView {
+    func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let view = UIView(frame: .zero)
 
         let animationView = LottieAnimationView()
-        animationView.animation = LottieAnimation.named("vote-success")
+        animationView.animation = LottieAnimation.named(animationName)
 
         let mode = UIDevice.current.orientation.isPortrait ? UIView.ContentMode.scaleAspectFill : .scaleAspectFit
         animationView.contentMode = mode
@@ -37,7 +35,7 @@ struct SuccessVoteLottieView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SuccessVoteLottieView>) {
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {
         // do nothing
     }
 }

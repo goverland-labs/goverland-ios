@@ -177,6 +177,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func daoSuccessDelegated(daoId: UUID, request: DaoUserDelegationRequest) -> AnyPublisher<(DaoSuccessDelegatedEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoSuccessDelegatedEndpoint(daoId: daoId, request: request)
+        return shared.request(endpoint, defaultErrorDisplay: false)
+    }
+
     // MARK: - DAO Analytics
 
     static func monthlyActiveUsers(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
@@ -478,5 +483,12 @@ extension APIService {
     static func updateInboxNotificationSettings(settings: InboxNotificationSettings) -> AnyPublisher<(UpdateInboxNotificationSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = UpdateInboxNotificationSettingsEndpoint(settings: settings)
         return shared.request(endpoint)
+    }
+
+    // MARK: - Blockchain
+
+    static func txStatus(chainId: Int, txHash: String) -> AnyPublisher<(TxStatusEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = TxStatusEndpoint(chainId: chainId, txHash: txHash)
+        return shared.request(endpoint, defaultErrorDisplay: false)
     }
 }

@@ -345,6 +345,24 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
     }
 }
 
+struct DaoSuccessDelegatedEndpoint: APIEndpoint {
+    typealias ResponseType = IgnoredResponse
+
+    let daoId: UUID
+
+    var path: String { "dao/\(daoId)/success-delegated" }
+    var method: HttpMethod = .post
+
+    var body: Data?
+
+    init(daoId: UUID, request: DaoUserDelegationRequest) {
+        self.daoId = daoId
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.body = try! encoder.encode(request)
+    }
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {
@@ -871,5 +889,22 @@ struct UpdateInboxNotificationSettingsEndpoint: APIEndpoint {
 
     init(settings: InboxNotificationSettings) {
         self.body = try! JSONEncoder().encode(settings)
+    }
+}
+
+// MARK: - Blockchain
+
+struct TxStatusEndpoint: APIEndpoint {
+    typealias ResponseType = TxStatus
+
+    let chainId: Int
+    let txHash: String
+
+    var path: String { "chain/\(chainId)/\(txHash)" }
+    var method: HttpMethod = .get
+
+    init(chainId: Int, txHash: String) {
+        self.chainId = chainId
+        self.txHash = txHash
     }
 }

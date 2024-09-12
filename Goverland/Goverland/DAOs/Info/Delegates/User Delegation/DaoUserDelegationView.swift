@@ -11,11 +11,13 @@ import SwiftData
 
 struct DaoUserDelegationView: View {
     @StateObject private var dataSource: DaoUserDelegationDataSource
+    @StateObject private var activeSheetManager: ActiveSheetManager
     @Query private var profiles: [UserProfile]
 
     init(dao: Dao, delegate: User) {
         let dataSource = DaoUserDelegationDataSource(dao: dao, delegate: delegate)
         _dataSource = StateObject(wrappedValue: dataSource)
+        _activeSheetManager = StateObject(wrappedValue: ActiveSheetManager())
     }
 
     private var appUser: User {
@@ -25,6 +27,12 @@ struct DaoUserDelegationView: View {
 
     var body: some View {
         VStack {
+            if dataSource.txHash == nil {
+                Text("Delegate")
+                    .font(.title3Semibold)
+                    .foregroundStyle(Color.textWhite)
+            }
+
             if dataSource.isLoading {
                 ProgressView()
                     .foregroundStyle(Color.textWhite20)
@@ -32,21 +40,18 @@ struct DaoUserDelegationView: View {
                 Spacer()
             } else if dataSource.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegation information")
-            } else if let txId = dataSource.txId, let selectedChain = dataSource.selectedChain {
-                DelegationSuccessView(txId: txId, txScanTemplate: selectedChain.txScanTemplate)
+            } else if let txHash = dataSource.txHash, let selectedChain = dataSource.selectedChain {
+                DelegationSuccessView(chainId: selectedChain.id, txHash: txHash, txScanTemplate: selectedChain.txScanTemplate)
             } else if dataSource.userDelegation != nil {
                 _DaoUserDelegationView(appUser: appUser, dataSource: dataSource)
             }
         }
-        .padding()
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Delegate")
-                    .font(.title3Semibold)
-                    .foregroundStyle(Color.textWhite)
-            }
+        .padding(.horizontal, Constants.horizontalPadding)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
+        .overlay {
+            ToastView()
+                .environmentObject(activeSheetManager)
         }
         .onAppear() {
             // TODO: track
