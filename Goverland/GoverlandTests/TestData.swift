@@ -83,7 +83,8 @@ extension Dao {
             X: "gnosisdao",
             github: "gnosis",
             coingecko: "gnosis",
-            terms: nil)
+            terms: nil,
+            delegation: nil)
     }
 
     static var aave: Dao {
@@ -104,7 +105,8 @@ extension Dao {
             X: "AaveAave",
             github: "aave",
             coingecko: "aave",
-            terms: nil)
+            terms: nil, 
+            delegation: nil)
     }
 }
 

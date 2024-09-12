@@ -27,6 +27,7 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
     let github: String?
     let coingecko: String?
     let terms: URL?
+    let delegation: Delegation?
 
     var snapshotUrl: URL? {
         Utils.urlFromString("https://snapshot.org/#/\(alias)")
@@ -53,7 +54,8 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
          X: String?,
          github: String?,
          coingecko: String?,
-         terms: URL?) {
+         terms: URL?,
+         delegation: Delegation?) {
         self.id = id
         self.alias = alias
         self.name = name
@@ -72,6 +74,7 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
         self.github = github
         self.coingecko = coingecko
         self.terms = terms
+        self.delegation = delegation
     }
     
     enum CodingKeys: String, CodingKey {
@@ -94,6 +97,7 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
         case coingecko
         case email
         case terms
+        case delegation
     }
     
     init(from decoder: Decoder) throws {
@@ -158,18 +162,15 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
         } else {
             self.terms = nil
         }
-    }
-    
-    struct DaoBody: Decodable {
-        let type: BodyType
-        let body: String
 
-        enum BodyType: String, Decodable {
-            case markdown
-            case html
+        do {
+            self.delegation = try container.decodeIfPresent(Delegation.self, forKey: .delegation)
+        } catch {
+            self.delegation = nil
+            logInfo("[App] Could not decode Delegation for DAO: \(name)")
         }
     }
-    
+
     static func == (lhs: Dao, rhs: Dao) -> Bool {
         lhs.id == rhs.id && lhs.subscriptionMeta?.id == rhs.subscriptionMeta?.id
     }
@@ -205,7 +206,26 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
               X: X,
               github: github,
               coingecko: coingecko,
-              terms: terms)
+              terms: terms, 
+              delegation: delegation)
+    }
+}
+
+struct DaoBody: Decodable {
+    let type: BodyType
+    let body: String
+
+    enum BodyType: String, Decodable {
+        case markdown
+        case html
+    }
+}
+
+struct Delegation: Decodable {
+    let type: DelegationType
+
+    enum DelegationType: String, Decodable {
+        case splitDelegation = "split-delegation"
     }
 }
 
