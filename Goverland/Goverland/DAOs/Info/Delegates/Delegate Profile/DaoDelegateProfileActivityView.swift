@@ -10,20 +10,26 @@
 import SwiftUI
 
 struct DaoDelegateProfileActivityView: View {
-    let proposals: [Proposal]
-    
-    init(proposals: [Proposal]) {
-        self.proposals = proposals
+    @StateObject private var dataSource: DaoDelegateProfileActivityDataSource
+
+    init(delegateID: Address) {
+        let dataSource = DaoDelegateProfileActivityDataSource(delegateID: delegateID)
+        _dataSource = StateObject(wrappedValue: dataSource)
     }
     
     var body: some View {
-        List(0..<proposals.count, id: \.self) { i in
-            ProposalListItemView(proposal: proposals[i], isSelected: false, isRead: false) {}
+        List(0..<dataSource.votes.count, id: \.self) { i in
+            ProposalListItemView(proposal: dataSource.votes[i], isSelected: false, isRead: false) {}
                 .listRowSeparator(.hidden)
                 .listRowInsets(Constants.listInsets)
                 .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
+        .onAppear() {
+            if dataSource.votes.isEmpty {
+                dataSource.refresh()
+            }
+        }
     }
 }

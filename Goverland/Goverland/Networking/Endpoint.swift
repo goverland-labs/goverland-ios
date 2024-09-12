@@ -345,6 +345,19 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
     }
 }
 
+struct DaoDelegateVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    let delegateId: Address
+
+    var path: String { "user/\(delegateId)/votes" }
+    var method: HttpMethod = .get
+
+    init(delegateId: Address) {
+        self.delegateId = delegateId
+    }
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {

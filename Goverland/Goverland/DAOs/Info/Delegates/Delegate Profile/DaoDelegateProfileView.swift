@@ -45,7 +45,7 @@ struct DaoDelegateProfileView: View {
                 FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter) { _ in }
                 
                 switch filter {
-                case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
+                case .activity: DaoDelegateProfileActivityView(delegateID: delegate.user.address)
                 case .about: DaoDelegateProfileAboutView(delegate: delegate)
                 case .insights: EmptyView()
                 }

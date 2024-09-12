@@ -225,6 +225,7 @@
 		BA1A6FC22B7BB27400D76BCA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = BA1A6FC12B7BB27400D76BCA /* FirebaseRemoteConfig */; };
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */; };
+		BA2413AA2C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -581,6 +582,7 @@
 		BA1A6FBF2B7AC62D00D76BCA /* AppUpdateBlockingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateBlockingView.swift; sourceTree = "<group>"; };
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
+		BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityDataSource.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1049,9 +1051,10 @@
 		558ACC652C80DC1C002FAE75 /* Delegate Profile */ = {
 			isa = PBXGroup;
 			children = (
+				558ACC642C80DC1C002FAE75 /* DaoDelegateProfileView.swift */,
 				558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */,
 				558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */,
-				558ACC642C80DC1C002FAE75 /* DaoDelegateProfileView.swift */,
+				BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */,
 			);
 			path = "Delegate Profile";
 			sourceTree = "<group>";
@@ -2065,6 +2068,7 @@
 				55039F292BC00EB20025DE03 /* PublicUserProfileDaosDataSource.swift in Sources */,
 				553E74D32BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift in Sources */,
 				BA15F5922AFA9D3E001107E8 /* TopDaoVotersDataSource.swift in Sources */,
+				BA2413AA2C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift in Sources */,
 				55D632C329505DFF0073E04A /* AppTabView.swift in Sources */,
 				559DA0C52A5EF4D3001F975D /* GError.swift in Sources */,
 				BAB960B42AAF6AA700DC2D92 /* MonthlyActiveVotersGraphView.swift in Sources */,

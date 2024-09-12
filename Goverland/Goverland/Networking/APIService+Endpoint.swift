@@ -176,6 +176,11 @@ extension APIService {
         let endpoint = DaoPrepareSplitDelegationEndpoint(daoId: daoId, request: request)
         return shared.request(endpoint)
     }
+    
+    static func daoDelegateVotes(delegateId: Address) -> AnyPublisher<(DaoDelegateVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoDelegateVotesEndpoint(delegateId: delegateId)
+        return shared.request(endpoint)
+    }
 
     // MARK: - DAO Analytics
 
