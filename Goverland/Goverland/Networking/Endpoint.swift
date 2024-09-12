@@ -352,9 +352,11 @@ struct DaoDelegateVotesEndpoint: APIEndpoint {
     
     var path: String { "user/\(delegateId)/votes" }
     var method: HttpMethod = .get
-    
-    init(delegateId: Address) {
+    var queryParameters: [URLQueryItem]?
+
+    init(delegateId: Address, queryParameters: [URLQueryItem]? = nil) {
         self.delegateId = delegateId
+        self.queryParameters = queryParameters
     }
 }
 

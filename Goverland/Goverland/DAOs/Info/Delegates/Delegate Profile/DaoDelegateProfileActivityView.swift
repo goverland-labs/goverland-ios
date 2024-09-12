@@ -11,6 +11,7 @@ import SwiftUI
 
 struct DaoDelegateProfileActivityView: View {
     @StateObject private var dataSource: DaoDelegateProfileActivityDataSource
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     init(delegateID: Address) {
         let dataSource = DaoDelegateProfileActivityDataSource(delegateID: delegateID)
@@ -28,6 +29,24 @@ struct DaoDelegateProfileActivityView: View {
                     .padding(.horizontal, Constants.horizontalPadding)
             }
         } else {
+            HStack {
+                Text("Votes \(Utils.formattedNumber(Double(dataSource.total ?? 0))) ")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+                NavigationLink(
+                    destination: DaoDelegateProfileActivitySeeAllView(delegateID: dataSource.delegateID)
+                        .environmentObject(activeSheetManager)
+                ) {
+                    Text("See all")
+                        .font(.subheadlineSemibold)
+                        .foregroundStyle(Color.primaryDim)
+                }
+            }
+            .padding(.horizontal, Constants.horizontalPadding * 2)
+            .padding(.top, Constants.horizontalPadding)
+            .padding(.bottom, Constants.horizontalPadding / 2)
+            
             List(0..<dataSource.votes.count, id: \.self) { i in
                 ProposalListItemView(proposal: dataSource.votes[i], isSelected: false, isRead: false) {}
                     .listRowSeparator(.hidden)

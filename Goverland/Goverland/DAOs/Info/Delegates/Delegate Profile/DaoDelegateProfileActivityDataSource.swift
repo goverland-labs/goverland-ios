@@ -10,7 +10,7 @@
 import Foundation
 import Combine
 
-class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable {
+class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Paginatable {
     let delegateID: Address
     
     @Published var votes: [Proposal] = []
@@ -50,5 +50,29 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable {
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
+    }
+    
+    func loadMore() {
+        APIService.daoDelegateVotes(delegateId: delegateID, offset: votes.count)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] votes, headers in
+                self?.votes.append(contentsOf: votes)
+                self?.total = Utils.getTotal(from: headers)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func retryLoadMore() {
+        failedToLoadMore = true
+    }
+
+    func hasMore() -> Bool {
+        guard let total = total else { return true }
+        return votes.count < total
     }
 }
