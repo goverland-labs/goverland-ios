@@ -18,6 +18,15 @@ struct InfoAlertView: View {
         return message.count > 512
     }
 
+    var maxWidth: CGFloat {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return 280
+        default:
+            return 560
+        }
+    }
+
     var body: some View {
         // Assure that there is no other view presented on top, otherwise don't show alert message here
         if let message = alertModel.alertMarkdownMessage, activeSheetManager.activeSheet == nil {
@@ -48,10 +57,10 @@ struct InfoAlertView: View {
                     .padding(.top, 8)
                 }
                 .if(longMessage) { view in
-                    view.frame(idealWidth: 300, maxWidth: 360, maxHeight: 400)
+                    view.frame(maxWidth: maxWidth, maxHeight: 400)
                 }
                 .if(!longMessage) { view in
-                    view.frame(idealWidth: 300, maxWidth: 360)
+                    view.frame(maxWidth: maxWidth)
                 }
                 .padding()
                 .background(Color.containerBright)

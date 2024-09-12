@@ -32,38 +32,47 @@ struct DaoUserDelegation: Decodable {
 
 struct DaoUserDelegationRequest: Encodable {
     let chainId: Int
+    let txHash: String?
     let delegates: [RequestDelegate]
     let expirationDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case chainId = "chain_id"
+        case txHash = "tx_hash"
         case delegates
         case expirationDate = "expiration_date"
     }
 
     struct RequestDelegate: Encodable {
         let address: String
+        let resolvedName: String?
         let percentOfDelegated: Double
 
         enum CodingKeys: String, CodingKey {
             case address
+            case resolvedName = "resolved_name"
             case percentOfDelegated = "percent_of_delegated"
         }
+    }
+
+    func with(txHash: String) -> Self {
+        Self(chainId: self.chainId,
+             txHash: txHash,
+             delegates: self.delegates,
+             expirationDate: self.expirationDate)
     }
 }
 
 struct DaoUserDelegationPreparedData: Decodable {
     let to: String
     let data: String
-    let gasPrice: String
     let gas: String
-    let maxPriorityFeePerGas: String?
-    let maxFeePerGas: String?
+    let maxPriorityFeePerGas: String
+    let maxFeePerGas: String
 
     enum CodingKeys: String, CodingKey {
         case to
         case data
-        case gasPrice = "gas_price"
         case gas
         case maxPriorityFeePerGas = "max_priority_fee_per_gas"
         case maxFeePerGas = "max_fee_per_gas"

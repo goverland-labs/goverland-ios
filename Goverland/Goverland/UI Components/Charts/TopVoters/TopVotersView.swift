@@ -62,10 +62,11 @@ fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
     private let barColors: [Color] = [.primaryDim, .yellow, .purple, .orange, .blue, .red, .teal, .green, .red, .cyan, .secondaryContainer]
 
     let columns: [GridItem] = {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return Array(repeating: .init(.flexible()), count: 5)
-        } else {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
             return Array(repeating: .init(.flexible()), count: 3)
+        default:
+            return Array(repeating: .init(.flexible()), count: 5)
         }
     }()
 

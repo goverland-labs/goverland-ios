@@ -273,11 +273,12 @@ fileprivate struct _SuccessView: View {
 
     private var scaleRatio: Double {
         if orientationManager.currentOrientation.isLandscape {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                return 0 // hide animation
-            } else {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                return 0
+            default:
                 return 1/3
-            }
+            }            
         } else {
             return 3/5
         }
@@ -293,7 +294,7 @@ fileprivate struct _SuccessView: View {
 
                     Spacer()
 
-                    SuccessVoteLottieView()
+                    LottieView(animationName: "vote-success")
                         .frame(width: geometry.size.width * scaleRatio, height: geometry.size.width * scaleRatio)
                         .id(orientationManager.currentOrientation)
 

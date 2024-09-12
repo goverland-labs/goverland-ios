@@ -37,7 +37,8 @@ class UserDelegationSplitViewModel: ObservableObject {
             let powerPercent: Double = percentage(for: index)
             if powerPercent > 0 {
                 requestDelegates.append(
-                    DaoUserDelegationRequest.RequestDelegate(address: delegate.user.address.checksum!,
+                    DaoUserDelegationRequest.RequestDelegate(address: delegate.user.address.checksum!, 
+                                                             resolvedName: delegate.user.resolvedName,
                                                              percentOfDelegated: powerPercent)
                 )
             }
@@ -46,6 +47,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         if ownerReservedPercentage > 0 {
             requestDelegates.append(
                 DaoUserDelegationRequest.RequestDelegate(address: owner.address.checksum!,
+                                                         resolvedName: owner.resolvedName,
                                                          percentOfDelegated: ownerReservedPercentage)
             )
         }
