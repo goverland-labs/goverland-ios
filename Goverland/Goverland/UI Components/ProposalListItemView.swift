@@ -79,6 +79,10 @@ struct _ProposalListItemHeaderView: View {
     private var voted: Bool {
         proposal.userVote != nil
     }
+    
+    private var delegateVoted: Bool {
+        proposal.publicUserVote != nil
+    }
 
     var body: some View {
         HStack {
@@ -100,7 +104,14 @@ struct _ProposalListItemHeaderView: View {
                         text: nil,
                         textColor: .onSecondaryContainer,
                         backgroundColor: .secondaryContainer)
+                } else if delegateVoted {
+                    BubbleView(
+                        image: Image(systemName: "checkmark"),
+                        text: nil,
+                        textColor: .onSecondaryContainer,
+                        backgroundColor: .tertiaryContainer)
                 }
+                
                 ProposalStatusView(state: proposal.state)
             }
         }
