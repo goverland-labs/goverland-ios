@@ -48,7 +48,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack(path: $model.path) {
             VStack(spacing: 0) {
-                FilterButtonsView<SearchFilter>(filter: $model.filter) { _ in }
+                FilterButtonsView<SearchFilter>(filter: $model.filter)
 
                 if searchText.wrappedValue == "" {
                     switch model.filter {

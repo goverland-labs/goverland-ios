@@ -16,13 +16,11 @@ protocol FilterOptions: CaseIterable & Identifiable & RawRepresentable where Sel
 }
 
 extension FilterOptions {
+    var id: Int { self.rawValue }
+
     var content: Text {
         Text(localizedName)
     }
-}
-
-extension FilterOptions {
-    var id: Int { self.rawValue }
     
     static var allValues: [Self] {
         return Array(Self.allCases.sorted { $0.rawValue < $1.rawValue })
@@ -31,36 +29,43 @@ extension FilterOptions {
 
 struct FilterButtonsView<T: FilterOptions>: View {
     @Binding var filter: T
+    let filterValues: [T]
+    let onSelect: ((T) -> Void)?
 
-    var onSelect: (T) -> Void
-    
+    init(filter: Binding<T>, 
+         filterValues: [T] = T.allValues,
+         onSelect: ((T) -> Void)? = nil) {
+        self._filter = filter
+        self.filterValues = filterValues
+        self.onSelect = onSelect
+    }
+
     var body: some View {
         VStack {
             HStack(spacing: 0) {
-                ForEach(T.allValues) { filterOption in
+                ForEach(filterValues) { filterOption in
                     filterOption.content
                         .foregroundStyle(filterOption.id == filter.id ? Color.primaryDim : .textWhite60)
-
-                    .padding(.bottom, 8)
-                    .background(RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(filterOption.id == filter.id ? Color.primaryDim : Color.clear)
-                        .frame(height: 4)
-                        .offset(y: 2)
-                        .clipped()
-                        .frame(height: 2)
-                        .offset(y: 9)
-                    )
-                    .padding(.top)
-                    .font(.footnoteSemibold)
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.5)) {
-                            self.filter = filterOption
+                        .padding(.bottom, 8)
+                        .background(RoundedRectangle(cornerRadius: 2, style: .continuous)
+                            .fill(filterOption.id == filter.id ? Color.primaryDim : Color.clear)
+                            .frame(height: 4)
+                            .offset(y: 2)
+                            .clipped()
+                            .frame(height: 2)
+                            .offset(y: 9)
+                        )
+                        .padding(.top)
+                        .font(.footnoteSemibold)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.5)) {
+                                self.filter = filterOption
+                            }
+                            onSelect?(filterOption)
                         }
-                        onSelect(filterOption)
-                    }
-                    .padding(.trailing, Constants.horizontalPadding * 2)
+                        .padding(.trailing, Constants.horizontalPadding * 2)
                 }
-                
+
                 Spacer()
             }
         }

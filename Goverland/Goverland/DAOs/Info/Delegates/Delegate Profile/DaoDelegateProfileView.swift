@@ -42,7 +42,7 @@ struct DaoDelegateProfileView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 
-                FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter) { _ in }
+                FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
                 
                 switch filter {
                 case .activity: DaoDelegateProfileActivityView(proposals: [.aaveTest])
