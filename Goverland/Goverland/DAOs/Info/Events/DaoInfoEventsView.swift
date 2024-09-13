@@ -31,7 +31,12 @@ struct DaoInfoEventsView: View {
     var body: some View {
         NavigationStack(path: $path) {
             Group {
-                if data.isLoading && data.events == nil {
+                if data.failedToLoadInitialData {
+                    RefreshIcon {
+                        data.refresh()
+                    }
+                    Spacer()
+                } else if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {
                         ForEach(0..<7) { _ in

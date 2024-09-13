@@ -87,7 +87,7 @@ struct BrickView: View {
             }
         }
         .frame(width: width, height: height)
-        .padding()
+        .padding(Constants.horizontalPadding)
         .background(Color.containerBright)
         .cornerRadius(20)
     }

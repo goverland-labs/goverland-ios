@@ -36,3 +36,17 @@ struct Delegate: Identifiable, Decodable, Equatable {
         case delegationInfo = "user_delegation_info"
     }
 }
+
+struct DaoDelegate: Decodable {
+    let dao: Dao
+    let delegate: Delegate
+
+    var snapshotUrl: URL? {
+        // https://snapshot.box/#/s:safe.eth/profile/0xff705518e3b5008b39b330af9c6ea371b61cf9a2
+        Utils.urlFromString("https://snapshot.box/#/s:\(dao.alias)/profile/\(delegate.id)")
+    }
+
+    var goverlandUrl: URL? {
+        Utils.urlFromString("https://app.goverland.xyz/dao/\(dao.alias)/delegate/\(delegate.id)")
+    }
+}

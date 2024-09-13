@@ -1,54 +1,50 @@
 //
-//  DaoInfoDataSource.swift
+//  DaoDelegateProfileDataSource.swift
 //  Goverland
 //
-//  Created by Jenny Shalai on 2023-06-25.
+//  Created by Andrey Scherbovich on 13.09.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
+	
 
 import Foundation
 import Combine
 
-class DaoInfoDataSource: ObservableObject, Refreshable {
-    private let daoId: String
-    
-    @Published var dao: Dao?
+class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
+    let daoId: String
+    let delegateId: String
+
+    @Published var daoDelegate: DaoDelegate?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    
-    init(daoId: String) {
+
+    init(daoId: String, delegateId: String) {
         self.daoId = daoId
-        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+        self.delegateId = delegateId
     }
-    
+
     func refresh() {
-        dao = nil
+        daoDelegate = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
+        
         loadInitialData()
     }
-    
+
     private func loadInitialData() {
         isLoading = true
-        APIService.daoInfo(daoId: daoId)
+        APIService.daoDelegateProfile(daoId: daoId, delegateId: delegateId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] dao, headers in
-                self?.dao = dao
-                RecentlyViewedDaosDataSource.search.refresh()
+            } receiveValue: { [weak self] daoDelegate, headers in
+                self?.daoDelegate = daoDelegate
             }
             .store(in: &cancellables)
-    }
-    
-    @objc func authTokenChanged(_ notification: Notification) {
-        // Andrey (22.08.2024): this will cause navigating back from navigation stack in Activity
-        // but this is ok
-        refresh()
     }
 }

@@ -32,7 +32,7 @@ struct DelegateListItemView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(backgroundColor))
         .onTapGesture {
-            activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate, .delegate)
+            activeSheetManager.activeSheet = .daoDelegateProfileById(daoId: dao.id.uuidString, delegateId: delegate.id, delegateAction: .delegate)
         }
     }
 }

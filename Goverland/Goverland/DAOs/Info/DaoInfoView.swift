@@ -97,7 +97,7 @@ struct DaoInfoView: View {
                 }
             }
 
-            if let dao = dao {
+            if let dao {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
                         DaoSharingMenu(dao: dao)
@@ -108,11 +108,6 @@ struct DaoInfoView: View {
                             .frame(height: 20)
                     }
                 }
-            }
-        }
-        .onAppear {
-            if dataSource.dao == nil {
-                dataSource.refresh()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .unauthorizedActionAttempt)) { notification in

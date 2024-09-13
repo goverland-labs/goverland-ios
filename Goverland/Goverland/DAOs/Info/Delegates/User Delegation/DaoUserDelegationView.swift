@@ -44,6 +44,7 @@ struct DaoUserDelegationView: View {
                 DelegationSuccessView(chainId: selectedChain.id, txHash: txHash, txScanTemplate: selectedChain.txScanTemplate)
             } else if dataSource.userDelegation != nil {
                 _DaoUserDelegationView(appUser: appUser, dataSource: dataSource)
+                    .environmentObject(activeSheetManager)
             }
         }
         .padding(.horizontal, Constants.horizontalPadding)

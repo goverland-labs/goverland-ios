@@ -12,7 +12,7 @@ import SwiftUI
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
     case about
-    case insights
+//    case insights
 
     var localizedName: String {
         switch self {
@@ -20,37 +20,58 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
             return "Activity"
         case .about:
             return "About"
-        case .insights:
-            return "Insights"
+//        case .insights:
+//            return "Insights"
         }
     }
 }
 
 struct DaoDelegateProfileView: View {
-    let dao: Dao
-    let delegate: Delegate
+    @StateObject private var dataSource: DaoDelegateProfileDataSource
+
     let action: DelegateAction
 
     @Environment(\.dismiss) private var dismiss
     @State private var filter: DaoDelegateProfileFilter = .activity
-    
+
+    init(daoId: String, delegateId: String, action: DelegateAction) {
+        self.action = action
+        _dataSource = StateObject(wrappedValue: DaoDelegateProfileDataSource(daoId: daoId, delegateId: delegateId))
+    }
+
+    var daoDelegate: DaoDelegate? { dataSource.daoDelegate }
+
+    private var isDelegated: Bool {
+        guard let delegationInfo = dataSource.daoDelegate?.delegate.delegationInfo else { return false }
+        return delegationInfo.percentDelegated != 0
+    }
+
     var body: some View {
         VStack {
-            
-            VStack(spacing: 0) {
-                DaoDelegateProfileHeaderView(delegate: delegate, dao: dao, action: action)
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                
-                FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
-                
-                switch filter {
-                case .activity: DaoDelegateProfileActivityView(delegateID: delegate.user.address)
-                case .about: DaoDelegateProfileAboutView(delegate: delegate)
-                case .insights: EmptyView()
+            if dataSource.isLoading {
+                ProgressView()
+                    .foregroundStyle(Color.textWhite20)
+                    .controlSize(.regular)
+                Spacer()
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegate information")
+            } else if let daoDelegate {
+                VStack(spacing: 0) {
+                    DaoDelegateProfileHeaderView(delegate: daoDelegate.delegate, dao: daoDelegate.dao, action: action)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+
+                    FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
+
+                    switch filter {
+                    case .activity: DaoDelegateProfileActivityView(daoId: dataSource.daoId,
+                                                                   delegateId: daoDelegate.delegate.user.address.value,
+                                                                   delegated: isDelegated)
+                    case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
+//                    case .insights: EmptyView()
+                    }
                 }
             }
-            Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -64,9 +85,33 @@ struct DaoDelegateProfileView: View {
             }
             
             ToolbarItem(placement: .principal) {
-                Text(dao.name)
+                Text(daoDelegate?.dao.name ?? "DAO")
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
+
+                if daoDelegate?.dao.verified ?? false {
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundStyle(Color.textWhite)
+                }
+            }
+
+            if let daoDelegate {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        DaoDelegateSharingMenu(daoDelegate: daoDelegate)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            // TODO: track
+            if dataSource.daoDelegate == nil {
+                dataSource.refresh()
             }
         }
     }
@@ -88,10 +133,10 @@ struct DaoDelegateProfileHeaderView: View {
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
                 HStack {
-                    Text(delegate.user.address.short)
-                    if let resolvedName =  delegate.user.resolvedName {
-                        Text("|")
-                        Text(resolvedName)
+                    if delegate.user.resolvedName != nil {
+                        Text(delegate.user.address.short)
+                    } else {
+                        Text(delegate.user.address.checksum ?? "")
                     }
                 }
                 .foregroundColor(.textWhite60)
