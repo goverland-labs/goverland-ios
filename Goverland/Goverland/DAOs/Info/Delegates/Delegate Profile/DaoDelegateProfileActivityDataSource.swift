@@ -14,24 +14,25 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     let delegateId: Address
 
     @Published var proposals: [Proposal]?
-    @Published var total: Int?
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
-    
+
+    private(set) var total: Int?
+
     init(delegateId: Address) {
         self.delegateId = delegateId
     }
     
     func refresh() {
         proposals = nil
-        total = nil
         failedToLoadInitialData = false
         failedToLoadMore = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-        
+        total = nil
+
         loadInitialData()
     }
     
@@ -51,7 +52,6 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
             .store(in: &cancellables)
     }
     
-    // TODO: double-check logic
     func loadMore() {
         APIService.daoDelegateVotes(delegateId: delegateId, offset: proposals?.count ?? 0)
             .sink { [weak self] completion in
@@ -68,11 +68,12 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     }
     
     func retryLoadMore() {
-        failedToLoadMore = true
+        // This will trigger view update cycle that will trigger `loadMore` function
+        failedToLoadMore = false
     }
 
     func hasMore() -> Bool {
-        guard let total = total else { return true }
-        return proposals?.count ?? 0 < total
+        guard let proposals, let total = total else { return true }
+        return proposals.count < total
     }
 }
