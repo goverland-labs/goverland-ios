@@ -16,4 +16,3 @@ enum Constants {
                                        bottom: horizontalPadding / 2,
                                        trailing: horizontalPadding)
 }
-
