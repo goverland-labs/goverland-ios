@@ -37,7 +37,7 @@ struct PublicUserProfileView: View {
                 } else if let profile = dataSource.profile {
                     ProfileHeaderView(user: profile, publicUser: true)
 
-                    FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter) { _ in }
+                    FilterButtonsView<PublicUserProfileFilter>(filter: $dataSource.filter)
 
                     switch dataSource.filter {
                     case .activity:
