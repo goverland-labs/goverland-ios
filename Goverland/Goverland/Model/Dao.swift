@@ -30,7 +30,7 @@ struct Dao: Identifiable, Decodable, Equatable, Hashable {
     let delegation: Delegation?
 
     var snapshotUrl: URL? {
-        Utils.urlFromString("https://snapshot.org/#/\(alias)")
+        Utils.urlFromString("https://snapshot.box/#/s:\(alias)")
     }
 
     var goverlandUrl: URL? {

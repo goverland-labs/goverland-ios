@@ -10,17 +10,23 @@
 import SwiftUI
 
 struct DaoDelegateSharingMenu: View {
-    // TODO: implement properly
+    let daoDelegate: DaoDelegate
+    
     var body: some View {
-        if let url = Utils.urlFromString("https://goverland.xyz") {
-            ShareLink(item: url) {
-                Label("Share", systemImage: "square.and.arrow.up.fill")
+        if let snapshotUrl = daoDelegate.snapshotUrl, let goverlandUrl = daoDelegate.goverlandUrl {
+            ShareLink(item: goverlandUrl) {
+                Label("Share", systemImage: "square.and.arrow.up")
             }
 
             Button {
-                UIApplication.shared.open(url)
+                openUrl(snapshotUrl)
             } label: {
+                // for now we handle only Snapshot proposals
                 Label("Open on Snapshot", systemImage: "arrow.up.right")
+            }
+        } else {
+            ShareLink(item: daoDelegate.dao.alias) {
+                Label("Share", systemImage: "square.and.arrow.up")
             }
         }
     }

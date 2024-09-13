@@ -176,7 +176,12 @@ extension APIService {
         let endpoint = DaoPrepareSplitDelegationEndpoint(daoId: daoId, request: request)
         return shared.request(endpoint)
     }
-    
+
+    static func daoDelegateProfile(daoId: String, delegateId: String) -> AnyPublisher<(DaoDelegateProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoDelegateProfileEndpoint(daoId: daoId, delegateId: delegateId)
+        return shared.request(endpoint)
+    }
+
     static func daoDelegateVotes(delegateId: Address,
                                  offset: Int = 0,
                                  limit: Int = ConfigurationManager.defaultPaginationCount,

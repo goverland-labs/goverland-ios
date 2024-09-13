@@ -124,9 +124,9 @@ struct GoverlandApp: App {
                         }
                         .presentationDetents([.height(height), .large])
 
-                    case .daoDelegateProfile(let dao, let delegate, let action):
+                    case .daoDelegateProfileById(let daoId, let delegateId, let action):
                         PopoverNavigationViewWithToast {
-                            DaoDelegateProfileView(dao: dao, delegate: delegate, action: action)
+                            DaoDelegateProfileView(daoId: daoId, delegateId: delegateId, action: action)
                         }
 
                     case .daoUserDelegate(let dao, let user):
@@ -193,7 +193,14 @@ struct GoverlandApp: App {
             switch pathComponents[1] {
             case "dao":
                 let daoId = pathComponents[2]
-                activeSheetManager.activeSheet = .daoInfoById(daoId)
+                if pathComponents.count > 4 && pathComponents[3] == "delegate" {
+                    // dao delegate info
+                    let delegateId = pathComponents[4]
+                    activeSheetManager.activeSheet = .daoDelegateProfileById(daoId: daoId, delegateId: delegateId, delegateAction: .delegate)
+                } else {
+                    // dao info
+                    activeSheetManager.activeSheet = .daoInfoById(daoId)
+                }
             case "proposals":
                 let proposalId = pathComponents[2]
                 activeSheetManager.activeSheet = .proposal(proposalId)

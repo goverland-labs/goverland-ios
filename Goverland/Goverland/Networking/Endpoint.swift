@@ -345,6 +345,21 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
     }
 }
 
+struct DaoDelegateProfileEndpoint: APIEndpoint {
+    typealias ResponseType = DaoDelegate
+
+    let daoId: String
+    let delegateId: String
+
+    var path: String { "dao/\(daoId)/delegate/\(delegateId)" }
+    var method: HttpMethod = .get
+
+    init(daoId: String, delegateId: String) {
+        self.daoId = daoId
+        self.delegateId = delegateId
+    }
+}
+
 struct DaoDelegateVotesEndpoint: APIEndpoint {
     typealias ResponseType = [Proposal]
     

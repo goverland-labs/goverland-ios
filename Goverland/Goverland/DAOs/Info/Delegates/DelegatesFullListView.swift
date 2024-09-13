@@ -214,13 +214,13 @@ fileprivate struct DelegateFullListItemView: View {
                     onAdd(delegate)
                 }
             }
-            activeSheetManager.activeSheet = .daoDelegateProfile(dao, delegate, newAction)
+            activeSheetManager.activeSheet = .daoDelegateProfileById(daoId: dao.id.uuidString, delegateId: delegate.id, delegateAction: newAction)                
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
             switch item {
-            case .daoDelegateProfile(let dao, let delegate, let action):
+            case .daoDelegateProfileById(let daoId, let delegateId, let action):
                 PopoverNavigationViewWithToast {
-                    DaoDelegateProfileView(dao: dao, delegate: delegate, action: action)
+                    DaoDelegateProfileView(daoId: daoId, delegateId: delegateId, action: action)
                 }
 
             default:

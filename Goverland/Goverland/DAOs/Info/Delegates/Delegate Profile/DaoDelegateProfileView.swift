@@ -27,30 +27,45 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
 }
 
 struct DaoDelegateProfileView: View {
-    let dao: Dao
-    let delegate: Delegate
+    @StateObject private var dataSource: DaoDelegateProfileDataSource
+
     let action: DelegateAction
 
     @Environment(\.dismiss) private var dismiss
     @State private var filter: DaoDelegateProfileFilter = .activity
-    
+
+    init(daoId: String, delegateId: String, action: DelegateAction) {
+        self.action = action
+        _dataSource = StateObject(wrappedValue: DaoDelegateProfileDataSource(daoId: daoId, delegateId: delegateId))
+    }
+
+    var daoDelegate: DaoDelegate? { dataSource.daoDelegate }
+
     var body: some View {
         VStack {
-            
-            VStack(spacing: 0) {
-                DaoDelegateProfileHeaderView(delegate: delegate, dao: dao, action: action)
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                
-                FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
-                
-                switch filter {
-                case .activity: DaoDelegateProfileActivityView(delegateID: delegate.user.address)
-                case .about: DaoDelegateProfileAboutView(delegate: delegate)
-                case .insights: EmptyView()
+            if dataSource.isLoading {
+                ProgressView()
+                    .foregroundStyle(Color.textWhite20)
+                    .controlSize(.regular)
+                Spacer()
+            } else if dataSource.failedToLoadInitialData {
+                RetryInitialLoadingView(dataSource: dataSource, message: "Sorry, we couldn’t load the delegate information")
+            } else if let daoDelegate {
+                VStack(spacing: 0) {
+                    DaoDelegateProfileHeaderView(delegate: daoDelegate.delegate, dao: daoDelegate.dao, action: action)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+
+                    FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
+
+                    switch filter {
+                    case .activity: DaoDelegateProfileActivityView(delegateID: daoDelegate.delegate.user.address)
+                    case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
+                    case .insights: EmptyView()
+                    }
                 }
+                Spacer()
             }
-            Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -64,9 +79,33 @@ struct DaoDelegateProfileView: View {
             }
             
             ToolbarItem(placement: .principal) {
-                Text(dao.name)
+                Text(daoDelegate?.dao.name ?? "DAO")
                     .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
+
+                if daoDelegate?.dao.verified ?? false {
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundStyle(Color.textWhite)
+                }
+            }
+
+            if let daoDelegate {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        DaoDelegateSharingMenu(daoDelegate: daoDelegate)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            // TODO: track
+            if dataSource.daoDelegate == nil {
+                dataSource.refresh()
             }
         }
     }

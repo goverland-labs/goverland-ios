@@ -6,7 +6,7 @@
 //  Copyright © Goverland Inc. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
 class DaoInfoDataSource: ObservableObject, Refreshable {
