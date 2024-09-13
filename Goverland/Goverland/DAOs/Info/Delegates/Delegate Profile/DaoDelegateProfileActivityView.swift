@@ -10,11 +10,16 @@
 import SwiftUI
 
 struct DaoDelegateProfileActivityView: View {
+    let delegated: Bool
     @StateObject private var dataSource: DaoDelegateProfileActivityDataSource
+
+    @State private var selectedVoteIndex: Int?
+
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(delegateID: Address) {
-        let dataSource = DaoDelegateProfileActivityDataSource(delegateID: delegateID)
+    init(delegateId: Address, delegated: Bool) {
+        self.delegated = delegated
+        let dataSource = DaoDelegateProfileActivityDataSource(delegateId: delegateId)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
     
@@ -23,40 +28,39 @@ struct DaoDelegateProfileActivityView: View {
             RefreshIcon {
                 dataSource.refresh()
             }
-        } else if dataSource.isLoading && dataSource.votes.isEmpty {
-            ForEach(0..<1) { _ in
+        } else if dataSource.isLoading && dataSource.proposals.isEmpty {
+            ForEach(0..<3) { _ in
                 ShimmerProposalListItemView()
                     .padding(.horizontal, Constants.horizontalPadding)
             }
         } else {
-            HStack {
-                Text("Votes \(Utils.formattedNumber(Double(dataSource.total ?? 0))) ")
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.textWhite)
-                Spacer()
-                NavigationLink(
-                    destination: DaoDelegateProfileActivitySeeAllView(delegateID: dataSource.delegateID)
-                        .environmentObject(activeSheetManager)
-                ) {
-                    Text("See all")
-                        .font(.subheadlineSemibold)
-                        .foregroundStyle(Color.primaryDim)
-                }
-            }
-            .padding(.horizontal, Constants.horizontalPadding * 2)
-            .padding(.top, Constants.horizontalPadding)
-            .padding(.bottom, Constants.horizontalPadding / 2)
-            
-            List(0..<dataSource.votes.count, id: \.self) { i in
-                ProposalListItemView(proposal: dataSource.votes[i], isSelected: false, isRead: false) {}
+            List(0..<dataSource.proposals.count, id: \.self, selection: $selectedVoteIndex) { index in
+                let proposal = dataSource.proposals[index]
+                if index == dataSource.proposals.count - 1 && dataSource.hasMore() {
+                    ZStack {
+                        if !dataSource.failedToLoadMore {
+                            ShimmerProposalListItemView()
+                                .onAppear {
+                                    dataSource.loadMore()
+                                }
+                        } else {
+                            RetryLoadMoreListItemView(dataSource: dataSource)
+                        }
+                    }
                     .listRowSeparator(.hidden)
                     .listRowInsets(Constants.listInsets)
                     .listRowBackground(Color.clear)
+                } else {
+                    ProposalListItemView(proposal: proposal, isDelegateVoted: delegated)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(Constants.listInsets)
+                        .listRowBackground(Color.clear)
+                }
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .onAppear() {
-                if dataSource.votes.isEmpty {
+                if dataSource.proposals.isEmpty {
                     dataSource.refresh()
                 }
             }

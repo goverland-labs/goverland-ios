@@ -11,21 +11,21 @@ import Foundation
 import Combine
 
 class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Paginatable {
-    let delegateID: Address
-    
-    @Published var votes: [Proposal] = []
+    let delegateId: Address
+
+    @Published var proposals: [Proposal] = []
     @Published var total: Int?
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
     
-    init(delegateID: Address) {
-        self.delegateID = delegateID
+    init(delegateId: Address) {
+        self.delegateId = delegateId
     }
     
     func refresh() {
-        votes = []
+        proposals = []
         total = nil
         failedToLoadInitialData = false
         failedToLoadMore = false
@@ -37,31 +37,31 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     
     private func loadInitialData() {
         isLoading = true
-        APIService.daoDelegateVotes(delegateId: delegateID)
+        APIService.daoDelegateVotes(delegateId: delegateId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] votes, headers in
-                self?.votes = votes
-                print(votes)
+            } receiveValue: { [weak self] proposals, headers in
+                self?.proposals = proposals
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
     
+    // TODO: double-check logic
     func loadMore() {
-        APIService.daoDelegateVotes(delegateId: delegateID, offset: votes.count)
+        APIService.daoDelegateVotes(delegateId: delegateId, offset: proposals.count)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] votes, headers in
-                self?.votes.append(contentsOf: votes)
+            } receiveValue: { [weak self] proposals, headers in
+                self?.proposals.append(contentsOf: proposals)
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
@@ -73,6 +73,6 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
 
     func hasMore() -> Bool {
         guard let total = total else { return true }
-        return votes.count < total
+        return proposals.count < total
     }
 }

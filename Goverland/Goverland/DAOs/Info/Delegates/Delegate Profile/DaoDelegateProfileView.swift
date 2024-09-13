@@ -12,7 +12,7 @@ import SwiftUI
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
     case about
-    case insights
+//    case insights
 
     var localizedName: String {
         switch self {
@@ -20,8 +20,8 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
             return "Activity"
         case .about:
             return "About"
-        case .insights:
-            return "Insights"
+//        case .insights:
+//            return "Insights"
         }
     }
 }
@@ -41,6 +41,11 @@ struct DaoDelegateProfileView: View {
 
     var daoDelegate: DaoDelegate? { dataSource.daoDelegate }
 
+    private var isDelegated: Bool {
+        guard let delegationInfo = dataSource.daoDelegate?.delegate.delegationInfo else { return false }
+        return delegationInfo.percentDelegated != 0
+    }
+
     var body: some View {
         VStack {
             if dataSource.isLoading {
@@ -59,9 +64,9 @@ struct DaoDelegateProfileView: View {
                     FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
 
                     switch filter {
-                    case .activity: DaoDelegateProfileActivityView(delegateID: daoDelegate.delegate.user.address)
+                    case .activity: DaoDelegateProfileActivityView(delegateId: daoDelegate.delegate.user.address, delegated: isDelegated)
                     case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
-                    case .insights: EmptyView()
+//                    case .insights: EmptyView()
                     }
                 }
                 Spacer()
@@ -127,10 +132,10 @@ struct DaoDelegateProfileHeaderView: View {
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
                 HStack {
-                    Text(delegate.user.address.short)
-                    if let resolvedName =  delegate.user.resolvedName {
-                        Text("|")
-                        Text(resolvedName)
+                    if delegate.user.resolvedName != nil {
+                        Text(delegate.user.address.short)
+                    } else {
+                        Text(delegate.user.address.checksum ?? "")
                     }
                 }
                 .foregroundColor(.textWhite60)
