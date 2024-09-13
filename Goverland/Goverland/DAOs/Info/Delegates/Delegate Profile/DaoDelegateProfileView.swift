@@ -109,10 +109,10 @@ struct DaoDelegateProfileView: View {
             }
         }
         .onAppear {
-            // TODO: track
             if dataSource.daoDelegate == nil {
                 dataSource.refresh()
             }
+            Tracker.track(.screenDaoDelegateProfile)
         }
     }
 }
@@ -162,7 +162,7 @@ struct DaoDelegateProfileHeaderView: View {
                 switch action {
                 case .delegate:
                     DelegateButton(dao: dao, delegate: delegate) {
-                        // TODO: track
+                        Tracker.track(.daoDelegationActionOpenFromDeleagteProfile)
                     }
                 case .add(let onAdd):
                     SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {

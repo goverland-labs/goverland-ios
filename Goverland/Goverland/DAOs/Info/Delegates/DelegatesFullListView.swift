@@ -69,7 +69,7 @@ struct DelegatesFullListView: View {
                 if dataSource.delegates.isEmpty {
                     dataSource.refresh()
                 }
-                // TODO: add tracking
+                Tracker.track(.screenDaoDelegatesFull, parameters: ["dao_name": dataSource.dao.name])
             }
     }
 }
@@ -186,7 +186,7 @@ fileprivate struct DelegateFullListItemView: View {
             switch action {
             case .delegate:
                 DelegateButton(dao: dao, delegate: delegate) {
-                    // TODO: track
+                    Tracker.track(.daoDelegationActionOpenFromDelegatesListFull)
                 }
             case .add(let onAdd):
                 SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {
