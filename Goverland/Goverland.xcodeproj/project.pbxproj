@@ -1059,9 +1059,9 @@
 			children = (
 				558ACC642C80DC1C002FAE75 /* DaoDelegateProfileView.swift */,
 				5566EE1D2C944ED0005BE7BF /* DaoDelegateProfileDataSource.swift */,
-				558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */,
 				558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */,
 				BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */,
+				558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */,
 				558ACC6E2C80DC1C002FAE75 /* DaoDelegateSharingMenu.swift */,
 			);
 			path = "Delegate Profile";

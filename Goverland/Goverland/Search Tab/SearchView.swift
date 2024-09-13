@@ -24,13 +24,13 @@ struct SearchView: View {
         case .daos:
             if let stats = stats.stats {
                 let totalStr = Utils.formattedNumber(Double(stats.daos.total))
-                return "Search for \(totalStr) DAOs by name"
+                return "Search \(totalStr) DAOs by name"
             }
             return ""
         case .proposals:
             if let stats = stats.stats {
                 let totalStr = Utils.formattedNumber(Double(stats.proposals.total))
-                return "Search for \(totalStr) proposals by name"
+                return "Search \(totalStr) proposals by name"
             }
             return ""
         }

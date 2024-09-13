@@ -35,6 +35,7 @@ struct DaoInfoEventsView: View {
                     RefreshIcon {
                         data.refresh()
                     }
+                    Spacer()
                 } else if data.isLoading && data.events == nil {
                     // loading in progress
                     ScrollView {

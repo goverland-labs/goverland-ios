@@ -18,9 +18,9 @@ struct DaoDelegateProfileActivityView: View {
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(delegateId: Address, delegated: Bool) {
+    init(daoId: String, delegateId: String, delegated: Bool) {
         self.delegated = delegated
-        let dataSource = DaoDelegateProfileActivityDataSource(delegateId: delegateId)
+        let dataSource = DaoDelegateProfileActivityDataSource(daoId: daoId, delegateId: delegateId)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -35,6 +35,7 @@ struct DaoDelegateProfileActivityView: View {
                     RefreshIcon {
                         dataSource.refresh()
                     }
+                    Spacer()
                 } else if dataSource.isLoading && dataSource.proposals == nil {
                     ScrollView {
                         ForEach(0..<7) { _ in
@@ -43,6 +44,12 @@ struct DaoDelegateProfileActivityView: View {
                         }
                     }
                     .padding(.top, Constants.horizontalPadding / 2)
+                } else if dataSource.proposals != nil && proposals.isEmpty {
+                    Text("No votes")
+                        .font(.body)
+                        .foregroundStyle(Color.textWhite)
+                        .padding(.top, 16)
+                    Spacer()
                 } else {
                     List(0..<proposals.count, id: \.self, selection: $selectedProposalIndex) { index in
                         let proposal = proposals[index]

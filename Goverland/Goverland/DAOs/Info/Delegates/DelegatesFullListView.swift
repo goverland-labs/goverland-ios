@@ -37,11 +37,7 @@ struct DelegatesFullListView: View {
     }
 
     private var searchPrompt: String {
-        if let total = dataSource.total {
-            let totalStr = Utils.formattedNumber(Double(total))
-            return "Search for \(totalStr) delegates"
-        }
-        return ""
+        return "Search delegates"
     }
 
     private var title: String {

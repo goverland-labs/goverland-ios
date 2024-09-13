@@ -11,8 +11,8 @@ import Foundation
 import Combine
 
 class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
-    private let daoId: String
-    private let delegateId: String
+    let daoId: String
+    let delegateId: String
 
     @Published var daoDelegate: DaoDelegate?
     @Published var failedToLoadInitialData = false

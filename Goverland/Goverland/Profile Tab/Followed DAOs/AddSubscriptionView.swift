@@ -20,7 +20,7 @@ struct AddSubscriptionView: View {
     private var searchPrompt: String {
         if let stats = stats.stats {
             let totalStr = Utils.formattedNumber(Double(stats.daos.total))
-            return "Search for \(totalStr) DAOs by name"
+            return "Search \(totalStr) DAOs by name"
         }
         return ""
     }

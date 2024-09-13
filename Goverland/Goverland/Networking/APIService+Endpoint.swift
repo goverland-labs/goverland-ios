@@ -182,20 +182,17 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func daoDelegateVotes(delegateId: Address,
+    static func daoDelegateVotes(daoId: String,
+                                 delegateId: String,
                                  offset: Int = 0,
-                                 limit: Int = ConfigurationManager.defaultPaginationCount,
-                                 query: String? = nil) -> AnyPublisher<(DaoDelegateVotesEndpoint.ResponseType, HttpHeaders), APIError> {
+                                 limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(DaoDelegateVotesEndpoint.ResponseType, HttpHeaders), APIError> {
         var queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
+            URLQueryItem(name: "limit", value: "\(limit)"),
+            URLQueryItem(name: "dao", value: daoId)
         ]
         
-        if let query = query {
-            queryParameters.append(URLQueryItem(name: "query", value: query))
-        }
-        
-        let endpoint = DaoDelegateVotesEndpoint(delegateId: delegateId, queryParameters: queryParameters)
+        let endpoint = DaoDelegateVotesEndpoint(daoId: daoId, delegateId: delegateId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

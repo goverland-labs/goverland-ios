@@ -23,7 +23,7 @@ struct FollowCategoryDaosListView: View {
     private var searchPrompt: String {
         if let total = dataSource.total {
             let totalStr = Utils.formattedNumber(Double(total))
-            return "Search for \(totalStr) DAOs by name"
+            return "Search \(totalStr) DAOs by name"
         }
         return ""
     }

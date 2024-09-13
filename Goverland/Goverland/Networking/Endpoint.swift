@@ -363,13 +363,15 @@ struct DaoDelegateProfileEndpoint: APIEndpoint {
 struct DaoDelegateVotesEndpoint: APIEndpoint {
     typealias ResponseType = [Proposal]
     
-    let delegateId: Address
-    
+    let daoId: String // curently daoId is passed as query params, but soon this will be changed
+    let delegateId: String
+
     var path: String { "user/\(delegateId)/votes" }
     var method: HttpMethod = .get
     var queryParameters: [URLQueryItem]?
 
-    init(delegateId: Address, queryParameters: [URLQueryItem]? = nil) {
+    init(daoId: String, delegateId: String, queryParameters: [URLQueryItem]? = nil) {
+        self.daoId = daoId
         self.delegateId = delegateId
         self.queryParameters = queryParameters
     }

@@ -34,7 +34,7 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
     @Environment(\.dismiss) private var dismiss
     
     private var searchPrompt: String {
-        return "Search for \(data.totalVotes) votes"
+        return "Search \(data.totalVotes) votes"
     }
     
     init(proposal: Proposal) {

@@ -11,7 +11,8 @@ import Foundation
 import Combine
 
 class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Paginatable {
-    let delegateId: Address
+    let daoId: String
+    let delegateId: String
 
     @Published var proposals: [Proposal]?
     @Published var failedToLoadInitialData = false
@@ -19,9 +20,10 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     @Published var isLoading = false
     private var cancellables = Set<AnyCancellable>()
 
-    private(set) var total: Int?
+    private var total: Int?
 
-    init(delegateId: Address) {
+    init(daoId: String, delegateId: String) {
+        self.daoId = daoId
         self.delegateId = delegateId
     }
     
@@ -38,7 +40,7 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     
     private func loadInitialData() {
         isLoading = true
-        APIService.daoDelegateVotes(delegateId: delegateId)
+        APIService.daoDelegateVotes(daoId: daoId, delegateId: delegateId)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -53,7 +55,7 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     }
     
     func loadMore() {
-        APIService.daoDelegateVotes(delegateId: delegateId, offset: proposals?.count ?? 0)
+        APIService.daoDelegateVotes(daoId: daoId, delegateId: delegateId, offset: proposals?.count ?? 0)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
