@@ -14,6 +14,7 @@ struct ProposalListItemView: View {
     let isRead: Bool
     let isPresented: Bool
     let isHighlighted: Bool
+    let isDelegateVoted: Bool
     let onDaoTap: (() -> Void)?
 
     @Environment(\.isPresented) private var _isPresented
@@ -23,12 +24,14 @@ struct ProposalListItemView: View {
          isRead: Bool = false,
          isPresented: Bool = false,
          isHighlighted: Bool = false,
+         isDelegateVoted: Bool = false,
          onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
         self.isSelected = isSelected
         self.isRead = isRead
         self.isPresented = isPresented
         self.isHighlighted = isHighlighted
+        self.isDelegateVoted = isDelegateVoted
         self.onDaoTap = onDaoTap
     }
 
@@ -56,7 +59,7 @@ struct ProposalListItemView: View {
 
 
             VStack(spacing: 12) {
-                _ProposalListItemHeaderView(proposal: proposal)
+                _ProposalListItemHeaderView(proposal: proposal, isDelegateVoted: isDelegateVoted)
                 _ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
                 _VoteFooterView(proposal: proposal)
             }
@@ -74,14 +77,11 @@ struct ProposalListItemView: View {
 
 struct _ProposalListItemHeaderView: View {
     let proposal: Proposal
+    let isDelegateVoted: Bool
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     private var voted: Bool {
         proposal.userVote != nil
-    }
-    
-    private var delegateVoted: Bool {
-        proposal.publicUserVote != nil
     }
 
     var body: some View {
@@ -104,7 +104,7 @@ struct _ProposalListItemHeaderView: View {
                         text: nil,
                         textColor: .onSecondaryContainer,
                         backgroundColor: .secondaryContainer)
-                } else if delegateVoted {
+                } else if isDelegateVoted {
                     BubbleView(
                         image: Image(systemName: "checkmark"),
                         text: nil,

@@ -1062,6 +1062,7 @@
 				558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */,
 				BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */,
 				BA2413AC2C938505009F0736 /* DaoDelegateProfileActivitySeeAllView.swift */,
+				558ACC6E2C80DC1C002FAE75 /* DaoDelegateSharingMenu.swift */,
 			);
 			path = "Delegate Profile";
 			sourceTree = "<group>";
@@ -1090,13 +1091,12 @@
 		558ACC722C80DC1C002FAE75 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				558ACC652C80DC1C002FAE75 /* Delegate Profile */,
-				558ACC6C2C80DC1C002FAE75 /* User Delegation */,
 				558ACC6D2C80DC1C002FAE75 /* DaoDelegatesDataSource.swift */,
-				558ACC6E2C80DC1C002FAE75 /* DaoDelegateSharingMenu.swift */,
 				558ACC6F2C80DC1C002FAE75 /* DaoDelegatesView.swift */,
 				558ACC702C80DC1C002FAE75 /* DelegateListItemView.swift */,
 				558ACC712C80DC1C002FAE75 /* DelegatesFullListView.swift */,
+				558ACC652C80DC1C002FAE75 /* Delegate Profile */,
+				558ACC6C2C80DC1C002FAE75 /* User Delegation */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
