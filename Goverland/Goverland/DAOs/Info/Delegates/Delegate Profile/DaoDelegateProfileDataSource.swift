@@ -30,9 +30,7 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        // TODO: uncomment once implemented
-        loadMockData()
-//        loadInitialData()
+        loadInitialData()
     }
 
     private func loadInitialData() {
@@ -48,13 +46,5 @@ class DaoDelegateProfileDataSource: ObservableObject, Refreshable {
                 self?.daoDelegate = daoDelegate
             }
             .store(in: &cancellables)
-    }
-
-    private func loadMockData() {
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.isLoading = false
-            self?.daoDelegate = DaoDelegate(dao: .aave, delegate: .delegateAaveChan)
-        }
     }
 }
