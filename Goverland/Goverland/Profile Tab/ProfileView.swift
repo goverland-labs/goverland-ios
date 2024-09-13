@@ -109,7 +109,7 @@ fileprivate struct _ProfileView: View {
             } else if let profile = profileDataSource.profile {
                 ProfileHeaderView(user: profile.account, publicUser: false)
 
-                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter) { _ in }
+                FilterButtonsView<ProfileFilter>(filter: $profileDataSource.filter)
                     .id(achievementsDataSource.hasUnreadAchievements()) // redraw once we get achievements data
 
                 switch profileDataSource.filter {

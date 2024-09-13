@@ -37,6 +37,11 @@ struct DaoInfoView: View {
 
     var dao: Dao? { dataSource.dao }
 
+    var filterValues: [DaoInfoFilter] {
+        guard let dao else { return [] }
+        return dao.delegation != nil ? DaoInfoFilter.allValues : [.activity, .insights, .about]
+    }
+
     init(daoId: String) {
         _dataSource = StateObject(wrappedValue: DaoInfoDataSource(daoId: daoId))
     }
@@ -57,7 +62,7 @@ struct DaoInfoView: View {
                         .padding(.horizontal)
                         .padding(.bottom)
 
-                    FilterButtonsView<DaoInfoFilter>(filter: $filter) { _ in }
+                    FilterButtonsView<DaoInfoFilter>(filter: $filter, filterValues: filterValues)
 
                     switch filter {
                     case .activity: DaoInfoEventsView(dao: dao)
