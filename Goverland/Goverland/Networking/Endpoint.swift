@@ -345,6 +345,21 @@ struct DaoPrepareSplitDelegationEndpoint: APIEndpoint {
     }
 }
 
+struct DaoDelegateVotesEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+    
+    let delegateId: Address
+    
+    var path: String { "user/\(delegateId)/votes" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(delegateId: Address, queryParameters: [URLQueryItem]? = nil) {
+        self.delegateId = delegateId
+        self.queryParameters = queryParameters
+    }
+}
+
 struct DaoSuccessDelegatedEndpoint: APIEndpoint {
     typealias ResponseType = IgnoredResponse
 
