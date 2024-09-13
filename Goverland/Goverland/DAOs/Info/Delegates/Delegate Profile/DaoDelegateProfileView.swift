@@ -69,7 +69,6 @@ struct DaoDelegateProfileView: View {
 //                    case .insights: EmptyView()
                     }
                 }
-                Spacer()
             }
         }
         .navigationBarTitleDisplayMode(.inline)

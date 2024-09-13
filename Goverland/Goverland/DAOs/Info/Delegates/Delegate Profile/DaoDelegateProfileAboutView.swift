@@ -48,5 +48,7 @@ struct DaoDelegateProfileAboutView: View {
             Spacer()
         }
         .padding()
+
+        Spacer()
     }
 }

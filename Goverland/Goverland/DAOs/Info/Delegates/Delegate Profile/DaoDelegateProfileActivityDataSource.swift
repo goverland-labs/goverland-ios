@@ -13,7 +13,7 @@ import Combine
 class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Paginatable {
     let delegateId: Address
 
-    @Published var proposals: [Proposal] = []
+    @Published var proposals: [Proposal]?
     @Published var total: Int?
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
@@ -25,7 +25,7 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     }
     
     func refresh() {
-        proposals = []
+        proposals = nil
         total = nil
         failedToLoadInitialData = false
         failedToLoadMore = false
@@ -53,7 +53,7 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
     
     // TODO: double-check logic
     func loadMore() {
-        APIService.daoDelegateVotes(delegateId: delegateId, offset: proposals.count)
+        APIService.daoDelegateVotes(delegateId: delegateId, offset: proposals?.count ?? 0)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -61,7 +61,7 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] proposals, headers in
-                self?.proposals.append(contentsOf: proposals)
+                self?.proposals?.append(contentsOf: proposals)
                 self?.total = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
@@ -73,6 +73,6 @@ class DaoDelegateProfileActivityDataSource: ObservableObject, Refreshable, Pagin
 
     func hasMore() -> Bool {
         guard let total = total else { return true }
-        return proposals.count < total
+        return proposals?.count ?? 0 < total
     }
 }
