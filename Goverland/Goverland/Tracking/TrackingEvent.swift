@@ -101,7 +101,8 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: - DAO Info
     case daoFollow = "dao_follow"
-    // Events
+    
+    // - Events
     case screenDaoFeed = "screen_dao_feed"
     case daoEventOpen = "dao_event_open"
 
@@ -119,6 +120,20 @@ enum TrackingEvent: String, Trackable {
     case daoInsightsMutualOpen = "dao_insights_mutual_open"
     case daoInsightsMutualFollow = "dao_insights_mutual_follow"
     case screenDaoInsightsTopVoters = "screen_dao_insights_top_voters"
+    
+    // MARK: - Delegates
+    case screenDelegates = "screen_delegates"
+    case screenDelegatesFull = "screen_delegates_full"
+    case screenDelegateProfile = "screen_delegate_profile"
+    case screenSplitDelegationAction = "screen_split_dlg_action"
+    case dlgActionFromDelegateProfile = "dlg_action_from_delegate_profile"
+    case dlgActionFromDelegatesList = "dlg_action_from_delegates_list"
+    case dlgActionFromDelegatesListFull = "dlg_action_from_delegates_list_full"
+    case delegateProfileOpenProposal = "delegate_profile_open_proposal"
+    case delegateProfileOpenDao = "delegate_profile_open_dao"
+    case dlgActionPending = "dlg_action_pending"
+    case dlgActionSuccess = "dlg_action_success"
+    case dlgActionFailed = "dlg_action_failed"
 
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"

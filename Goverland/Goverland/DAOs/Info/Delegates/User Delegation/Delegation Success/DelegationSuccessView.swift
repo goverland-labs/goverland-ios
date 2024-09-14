@@ -103,7 +103,6 @@ struct DelegationSuccessView: View {
                 // this is needed as on iPad GeometryReader breaks VStack layout
                 .frame(maxWidth: geometry.size.width, minHeight: geometry.size.height)
                 .onAppear {
-                    // TODO: track
                     model.monitor()
                 }
             }

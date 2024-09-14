@@ -55,7 +55,7 @@ struct DaoUserDelegationView: View {
                 .environmentObject(activeSheetManager)
         }
         .onAppear() {
-            // TODO: track
+            Tracker.track(.screenSplitDelegationAction)
             if dataSource.userDelegation == nil {
                 dataSource.refresh()
             }

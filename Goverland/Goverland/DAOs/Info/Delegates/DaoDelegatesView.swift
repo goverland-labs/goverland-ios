@@ -81,8 +81,7 @@ struct DaoDelegatesView: View {
         }
         .scrollIndicators(.hidden)
         .onAppear() {
-            // TODO: track
-//            Tracker.track(.screenDelegates)
+            Tracker.track(.screenDelegates, parameters: ["dao_name": dao.name])
             if dataSource.delegates.isEmpty {
                 dataSource.refresh()
             }
