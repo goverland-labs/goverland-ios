@@ -125,9 +125,12 @@ enum TrackingEvent: String, Trackable {
     case screenDaoDelegates = "screen_dao_delegates"
     case screenDaoDelegatesFull = "screen_dao_delegates_full"
     case screenDaoDelegateProfile = "screen_dao_delegate_profile"
+    case screenDaoDelegationAction = "screen_dao_delegation_action"
     case daoDelegationActionOpenFromDeleagteProfile = "delegation_action_from_delegate_profile"
     case daoDelegationActionOpenFromDelegatesList = "delegation_action_from_delegates_list"
     case daoDelegationActionOpenFromDelegatesListFull = "delegation_action_from_delegates_list_full"
+    case daoDelegateProfileOpenProposal = "delegate_profile_open_proposal"
+    case daoDelegateProfileOpenDao = "delegate_profile_open_dao"
 
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
