@@ -13,12 +13,24 @@ import Combine
 class DelegationSuccessModel: ObservableObject {
     let chainId: Int
     let txHash: String
-    @Published var txStatus: TxStatus.Status
-    
-    init(chainId: Int, txHash: String, txStatus: TxStatus.Status = .pending) {
+    @Published var txStatus: TxStatus.Status {
+        didSet {
+            switch txStatus {
+            case .pending:
+                break
+            case .success:
+                Tracker.track(.dlgActionSuccess)
+            case .failed:
+                Tracker.track(.dlgActionFailed)
+            }
+        }
+    }
+
+    init(chainId: Int, txHash: String) {
         self.chainId = chainId
         self.txHash = txHash
-        self.txStatus = txStatus
+        self.txStatus = .pending
+        Tracker.track(.dlgActionPending)
     }
     
     private var timer: Timer?

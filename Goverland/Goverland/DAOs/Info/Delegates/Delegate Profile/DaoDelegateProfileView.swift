@@ -158,7 +158,7 @@ struct DaoDelegateProfileHeaderView: View {
                 switch action {
                 case .delegate:
                     DelegateButton(dao: dao, delegate: delegate) {
-                        Tracker.track(.dlgActionFromDeleagteProfile)
+                        Tracker.track(.dlgActionFromDelegateProfile)
                     }
                 case .add(let onAdd):
                     SecondaryButton("Add", maxWidth: 100, height: 32, font: .footnoteSemibold) {
