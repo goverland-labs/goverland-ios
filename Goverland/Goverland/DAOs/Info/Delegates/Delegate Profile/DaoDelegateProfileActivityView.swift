@@ -69,7 +69,7 @@ struct DaoDelegateProfileActivityView: View {
                             .listRowBackground(Color.clear)
                         } else {
                             ProposalListItemView(proposal: proposal, isDelegateVoted: delegated) {
-                                Tracker.track(.daoDelegateProfileOpenDao, parameters: ["dao" : proposal.dao.name])
+                                Tracker.track(.delegateProfileOpenDao, parameters: ["dao" : proposal.dao.name])
                                 activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             }
                             .listRowSeparator(.hidden)
@@ -91,7 +91,7 @@ struct DaoDelegateProfileActivityView: View {
             .navigationDestination(for: Proposal.self) { proposal in
                 SnapshotProposalView(proposal: proposal)
                     .onAppear {
-                        Tracker.track(.daoDelegateProfileOpenProposal, parameters: ["proposalId" : "\(proposal.id)"])
+                        Tracker.track(.delegateProfileOpenProposal, parameters: ["proposalId" : "\(proposal.id)"])
                     }
                     .environmentObject(activeSheetManager)
             }

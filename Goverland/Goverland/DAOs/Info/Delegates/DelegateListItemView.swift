@@ -62,7 +62,7 @@ fileprivate struct _DelegateListItemHeaderView: View {
             Spacer()
 
             DelegateButton(dao: dao, delegate: delegate) {
-                Tracker.track(.daoDelegationActionOpenFromDelegatesList)
+                Tracker.track(.dlgActionFromDelegatesList)
             }
         }
     }

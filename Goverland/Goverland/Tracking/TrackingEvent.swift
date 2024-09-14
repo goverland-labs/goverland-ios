@@ -121,16 +121,16 @@ enum TrackingEvent: String, Trackable {
     case daoInsightsMutualFollow = "dao_insights_mutual_follow"
     case screenDaoInsightsTopVoters = "screen_dao_insights_top_voters"
     
-    // - Delegates
-    case screenDaoDelegates = "screen_dao_delegates"
-    case screenDaoDelegatesFull = "screen_dao_delegates_full"
-    case screenDaoDelegateProfile = "screen_dao_delegate_profile"
-    case screenDaoDelegationAction = "screen_dao_delegation_action"
-    case daoDelegationActionOpenFromDeleagteProfile = "delegation_action_from_delegate_profile"
-    case daoDelegationActionOpenFromDelegatesList = "delegation_action_from_delegates_list"
-    case daoDelegationActionOpenFromDelegatesListFull = "delegation_action_from_delegates_list_full"
-    case daoDelegateProfileOpenProposal = "delegate_profile_open_proposal"
-    case daoDelegateProfileOpenDao = "delegate_profile_open_dao"
+    // MARK: - Delegates
+    case screenDelegates = "screen_delegates"
+    case screenDelegatesFull = "screen_delegates_full"
+    case screenDelegateProfile = "screen_delegate_profile"
+    case screenSplitDelegationAction = "screen_split_dlg_action"
+    case dlgActionFromDeleagteProfile = "dlg_action_from_delegate_profile"
+    case dlgActionFromDelegatesList = "dlg_action_from_delegates_list"
+    case dlgActionFromDelegatesListFull = "dlg_action_from_delegates_list_full"
+    case delegateProfileOpenProposal = "delegate_profile_open_proposal"
+    case delegateProfileOpenDao = "delegate_profile_open_dao"
 
     // MARK: - Snapshot Proposal
     case screenSnpDetails = "screen_snp_details"
