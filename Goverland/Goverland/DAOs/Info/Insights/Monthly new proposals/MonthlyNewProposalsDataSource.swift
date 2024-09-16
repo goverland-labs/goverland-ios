@@ -54,12 +54,13 @@ class MonthlyNewProposalsDataSource: ObservableObject, Refreshable {
 
         monthlyNewProposals = []
         failedToLoadInitialData = false
-        isLoading = true
+        isLoading = false
         cancellables = Set<AnyCancellable>()
         loadData()
     }
     
     private func loadData() {
+        isLoading = true
         APIService.monthlyNewProposals(id: daoID, filteringOption: selectedFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false

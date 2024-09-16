@@ -491,6 +491,17 @@ struct TopVotersEndpoint: APIEndpoint {
     }
 }
 
+struct DaoVoters_AVP_Endpoint: APIEndpoint {
+    typealias ResponseType = [Double]
+
+    let daoId: UUID
+    var path: String { "analytics/voters-avp/\(daoId)" }
+    var method: HttpMethod = .get
+
+    init(daoId: UUID) {
+        self.daoId = daoId
+    }
+}
 
 // MARK: - Stats
 

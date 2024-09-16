@@ -274,6 +274,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
+    static func allDaoVotersAVP(daoId: UUID) -> AnyPublisher<(DaoVoters_AVP_Endpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = DaoVoters_AVP_Endpoint(daoId: daoId)
+        return shared.request(endpoint)
+    }
+
     // MARK: - Stats
 
     static func stats() -> AnyPublisher<(StatsEndpoint.ResponseType, HttpHeaders), APIError> {
