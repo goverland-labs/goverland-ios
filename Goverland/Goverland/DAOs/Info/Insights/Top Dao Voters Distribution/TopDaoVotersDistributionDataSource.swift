@@ -21,24 +21,23 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         }
     }
 
-    // TODO: smooth update of charts when changin distribution filtering option
-    @Published var distributionFilteringOption: DistributionFilteringOption
+    var distributionFilteringOption: DistributionFilteringOption {
+        didSet {
+            calculateBins()
+        }
+    }
 
-    @Published private(set) var vps: [Double]?
+    private(set) var vps: [Double]? {
+        didSet {
+            calculateBins()
+        }
+    }
+
+    @Published private(set) var bins = [Bin]()
+
     @Published private(set) var failedToLoadInitialData: Bool = false
     @Published private(set) var isLoading = false
     var cancellables = Set<AnyCancellable>()
-
-    // TODO: rework
-    var bins: [Bin] {
-        if let binCachedData = binCache[datesFilteringOption]?[distributionFilteringOption] {
-            logInfo("[App] found binCache")
-            return binCachedData
-        }
-        let bins = calculateBins()
-        binCache[datesFilteringOption] = [distributionFilteringOption: bins]
-        return bins
-    }
 
     var xValues: [String] {
         guard bins.count >= 4 else {
@@ -51,7 +50,6 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private var vpCache: [DatesFiltetingOption: [Double]] = [:]
-    private var binCache: [DatesFiltetingOption: [DistributionFilteringOption: [Bin]]] = [:]
 
     init(dao: Dao,
          datesFilteringOption: DatesFiltetingOption,
@@ -75,10 +73,10 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
 
         if invalidateCache {
             vpCache = [:]
-            binCache = [:]
         }
 
         vps = nil
+        bins = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -115,23 +113,23 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    private func calculateBins() -> [Bin] {
+    private func calculateBins() {
         switch distributionFilteringOption {
         case .square:
-            return calculateSquareRootBins()
+            calculateSquareRootBins()
         case .log:
-            return calculateLogarithmicBins()
+            calculateLogarithmicBins()
         }
     }
 
     // Function to calculate bins using Square Root Choice method
-    private func calculateSquareRootBins() -> [Bin] {
-        guard let vps else { return [] }
+    private func calculateSquareRootBins() {
+        guard let vps else { return }
 
         var bins = [Bin]()
         let n = vps.count
         let numberOfBins = Int(sqrt(Double(n))) // Square root choice method
-        guard let minValue = vps.first, let maxValue = vps.last, numberOfBins > 0 else { return [] }
+        guard let minValue = vps.first, let maxValue = vps.last, numberOfBins > 0 else { return }
         let binWidth = (maxValue - minValue) / Double(numberOfBins)
 
         var currentIndex = 0
@@ -148,15 +146,15 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
             bins.append((range: binRange, count: binCount))
         }
 
-        return bins
+        self.bins = bins
     }
 
     // Function to calculate bins using Logarithmic method
-    private func calculateLogarithmicBins(base: Double = 2.0) -> [Bin] {
-        guard let vps else { return [] }
+    private func calculateLogarithmicBins(base: Double = 2.0) {
+        guard let vps else { return }
 
         var bins = [Bin]()
-        guard let minValue = vps.first, let maxValue = vps.last, minValue > 0 else { return [] } // Avoid log(0)
+        guard let minValue = vps.first, let maxValue = vps.last, minValue > 0 else { return } // Avoid log(0)
 
         func logBase(_ value: Double, base: Double) -> Double {
             return log(value) / log(base)
@@ -181,6 +179,6 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
             bins.append((range: binRange, count: binCount))
         }
 
-        return bins
+        self.bins = bins
     }
 }

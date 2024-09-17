@@ -44,10 +44,14 @@ struct TopDaoVotersDistributionView: View {
             }
         }
         .onChange(of: datesFilteringOption) { _, newValue in
-            dataSource.datesFilteringOption = newValue
+            withAnimation {
+                dataSource.datesFilteringOption = newValue
+            }
         }
         .onChange(of: distributionFilteringOption) { _, newValue in
-            dataSource.distributionFilteringOption = newValue
+            withAnimation {
+                dataSource.distributionFilteringOption = newValue
+            }
         }
     }
 }
