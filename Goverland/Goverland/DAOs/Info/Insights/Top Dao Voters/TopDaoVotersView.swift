@@ -29,7 +29,6 @@ struct TopDaoVotersView: View {
             activeSheetManager.activeSheet = .daoVoters(dataSource.dao, dataSource.selectedFilteringOption)
         }
         .onChange(of: filteringOption) { _, newValue in
-            logInfo("[App] TopDaoVotersView filteringOption: \(newValue)")
             dataSource.selectedFilteringOption = newValue
         }
     }

@@ -68,6 +68,28 @@ enum BucketGroupsFilteringOption: Int, FilteringOption {
     }
 }
 
+enum DistributionFilteringOption: Int, FilteringOption {
+    case square = 0
+    case log
+
+    var id: Int {
+        self.rawValue
+    }
+
+    static var allOptions: [Self] {
+        [.square, .log]
+    }
+
+    var localizedName: String {
+        switch self {
+        case .square:
+            "√"
+        case .log:
+            "log"
+        }
+    }
+}
+
 struct ChartFilters<Option: FilteringOption>: View {
     @Binding var selectedOption: Option
     private let options: [Option]

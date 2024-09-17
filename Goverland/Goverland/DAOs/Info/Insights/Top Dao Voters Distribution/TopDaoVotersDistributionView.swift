@@ -12,11 +12,18 @@ import Charts
 
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
-    @Binding private var filteringOption: DatesFiltetingOption
+    @Binding private var datesFilteringOption: DatesFiltetingOption
+    @State private var distributionFilteringOption: DistributionFilteringOption = .square
 
-    init(dao: Dao, filteringOption: Binding<DatesFiltetingOption>) {
-        let dataSource = TopDaoVotersDistributionDataSource(dao: dao, filteringOption: filteringOption.wrappedValue)
-        _filteringOption = filteringOption
+    init(dao: Dao,
+         datesFilteringOption: Binding<DatesFiltetingOption>,
+         distributionFilteringOption: DistributionFilteringOption = .square)
+    {
+        let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
+                                                            datesFilteringOption: datesFilteringOption.wrappedValue,
+                                                            distributionFilteringOption: distributionFilteringOption)
+        _datesFilteringOption = datesFilteringOption
+        _distributionFilteringOption = State(wrappedValue: distributionFilteringOption)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -28,26 +35,31 @@ struct TopDaoVotersDistributionView: View {
                   height: 350,
                   onRefresh: dataSource.refresh)
         {
-            _TopDaoVotersDistributionChart(dataSource: dataSource)
+            _TopDaoVotersDistributionChart(dataSource: dataSource,
+                                           distributionFilteringOption: $distributionFilteringOption)
         }
         .onAppear() {
             if dataSource.vps?.isEmpty ?? true {
                 dataSource.refresh()
             }
         }
-        .onChange(of: filteringOption) { _, newValue in
-            dataSource.filteringOption = newValue
+        .onChange(of: datesFilteringOption) { _, newValue in
+            dataSource.datesFilteringOption = newValue
+        }
+        .onChange(of: distributionFilteringOption) { _, newValue in
+            dataSource.distributionFilteringOption = newValue
         }
     }
 }
 
 fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
     @ObservedObject var dataSource: TopDaoVotersDistributionDataSource
+    @Binding var distributionFilteringOption: DistributionFilteringOption
 
     var body: some View {
         VStack {
-//            ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
-//                .padding(.leading, Constants.horizontalPadding)
+            ChartFilters(selectedOption: $distributionFilteringOption)
+                .padding(.leading, Constants.horizontalPadding)
 
             Chart {
                 ForEach(dataSource.bins.indices, id: \.self) { index in

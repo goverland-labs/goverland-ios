@@ -12,9 +12,16 @@ import Combine
 
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
-    var filteringOption: DatesFiltetingOption {
+
+    var datesFilteringOption: DatesFiltetingOption {
         didSet {
             refresh()
+        }
+    }
+
+    var distributionFilteringOption: DistributionFilteringOption {
+        didSet {
+            calculateBins()
         }
     }
 
@@ -39,9 +46,13 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 bins[bins.count - 1].range.lowerBound].map { String($0) }
     }
 
-    init(dao: Dao, filteringOption: DatesFiltetingOption) {
+    init(dao: Dao,
+         datesFilteringOption: DatesFiltetingOption,
+         distributionFilteringOption: DistributionFilteringOption)
+    {
         self.dao = dao
-        self.filteringOption = filteringOption
+        self.datesFilteringOption = datesFilteringOption
+        self.distributionFilteringOption = distributionFilteringOption
     }
 
     func refresh() {
@@ -55,7 +66,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     func loadMockData() {
-        logInfo("[App] Load data with filtering option: \(filteringOption)")
+        logInfo("[App] Load data with filtering option: \(datesFilteringOption)")
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
             self?.isLoading = false
@@ -79,6 +90,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private func calculateBins(base: Double = 2.0) {
+        logInfo("[App] Calculating bins for \(distributionFilteringOption)")
         guard let vps else { return }
 
         var distribution = [Int: Int]()
