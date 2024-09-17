@@ -12,9 +12,11 @@ import Charts
 
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
+    @Binding private var filteringOption: DatesFiltetingOption
 
-    init(dao: Dao) {
-        let dataSource = TopDaoVotersDistributionDataSource(dao: dao)
+    init(dao: Dao, filteringOption: Binding<DatesFiltetingOption>) {
+        let dataSource = TopDaoVotersDistributionDataSource(dao: dao, filteringOption: filteringOption.wrappedValue)
+        _filteringOption = filteringOption
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -32,6 +34,9 @@ struct TopDaoVotersDistributionView: View {
             if dataSource.vps?.isEmpty ?? true {
                 dataSource.refresh()
             }
+        }
+        .onChange(of: filteringOption) { _, newValue in
+            dataSource.filteringOption = newValue
         }
     }
 }

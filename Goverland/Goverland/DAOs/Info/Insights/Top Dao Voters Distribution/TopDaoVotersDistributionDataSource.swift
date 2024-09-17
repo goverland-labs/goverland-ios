@@ -12,6 +12,11 @@ import Combine
 
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
+    var filteringOption: DatesFiltetingOption {
+        didSet {
+            refresh()
+        }
+    }
 
     @Published var vps: [Double]? {
         didSet {
@@ -34,8 +39,9 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 bins[bins.count - 1].range.lowerBound].map { String($0) }
     }
 
-    init(dao: Dao) {
+    init(dao: Dao, filteringOption: DatesFiltetingOption) {
         self.dao = dao
+        self.filteringOption = filteringOption
     }
 
     func refresh() {
@@ -49,6 +55,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     func loadMockData() {
+        logInfo("[App] Load data with filtering option: \(filteringOption)")
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
             self?.isLoading = false
