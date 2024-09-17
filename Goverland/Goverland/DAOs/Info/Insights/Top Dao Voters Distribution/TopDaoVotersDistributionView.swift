@@ -63,13 +63,15 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
 
             Chart {
                 ForEach(dataSource.bins.indices, id: \.self) { index in
-                    let bin = dataSource.bins[index]
-                    BarMark (
-                        x: .value("Voting Power Range", "\(Int(bin.range.lowerBound))"),
-                        y: .value("Number of Voters", bin.count)
-                    )
-//                    .foregroundStyle(by: .value("Proposals(type)", element.proposalsType))
-                    .foregroundStyle(Color.primaryDim)
+                    if index < dataSource.bins.count {
+                        // it crashes when chaning date filtering option, doesn't refresh on time
+                        let bin = dataSource.bins[index]
+                        BarMark (
+                            x: .value("Voting Power Range", "\(Int(bin.range.lowerBound))"),
+                            y: .value("Number of Voters", bin.count)
+                        )
+                        .foregroundStyle(Color.primaryDim)
+                    }
 
 //                    if let selectedDate {
 //                        RuleMark(x: .value("Date", middleMarkDate))
@@ -91,13 +93,6 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
             }
             .chartXAxis {
                 AxisMarks(values: dataSource.xValues) { value in
-//                    AxisValueLabel {
-//                        if let value = value.as(String.self) {
-//                            Text(value)
-//                                .font(.system(size: 10))
-//                                .frame(/*maxWidth: .infinity, */alignment: .leading)
-//                        }
-//                    }
                     AxisValueLabel()
                     AxisGridLine()
                 }
