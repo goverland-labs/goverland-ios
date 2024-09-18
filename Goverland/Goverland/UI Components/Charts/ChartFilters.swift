@@ -69,7 +69,7 @@ enum BucketGroupsFilteringOption: Int, FilteringOption {
 }
 
 enum DistributionFilteringOption: Int, FilteringOption {
-    case square = 0
+    case squareRoot = 0
     case log
 
     var id: Int {
@@ -77,12 +77,12 @@ enum DistributionFilteringOption: Int, FilteringOption {
     }
 
     static var allOptions: [Self] {
-        [.square, .log]
+        [.squareRoot, .log]
     }
 
     var localizedName: String {
         switch self {
-        case .square:
+        case .squareRoot:
             "√"
         case .log:
             "log"

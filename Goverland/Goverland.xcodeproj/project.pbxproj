@@ -127,6 +127,8 @@
 		558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */; };
 		558ACC982C80E797002FAE75 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC952C80E6FA002FAE75 /* TestData.swift */; };
+		558CF2A72C9B00CD00BE57E5 /* DistributionMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */; };
+		558CF2A92C9B186F00BE57E5 /* DistributionMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CF2A82C9B186F00BE57E5 /* DistributionMath.swift */; };
 		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
 		5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */; };
 		5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */; };
@@ -496,6 +498,8 @@
 		558ACC882C80DEA4002FAE75 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegationSplitViewModelTests.swift; sourceTree = "<group>"; };
 		558ACC952C80E6FA002FAE75 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionMathTests.swift; sourceTree = "<group>"; };
+		558CF2A82C9B186F00BE57E5 /* DistributionMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionMath.swift; sourceTree = "<group>"; };
 		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		5596F1532A51969D00BD55C7 /* DeviceOrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientationManager.swift; sourceTree = "<group>"; };
@@ -978,6 +982,7 @@
 			children = (
 				558ACC952C80E6FA002FAE75 /* TestData.swift */,
 				558ACC922C80E599002FAE75 /* Delegates */,
+				558CF2A52C9B009F00BE57E5 /* Charts */,
 				554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */,
 			);
 			path = GoverlandTests;
@@ -992,13 +997,14 @@
 			path = "Push Notifications";
 			sourceTree = "<group>";
 		};
-		5566EE1F2C9844F5005BE7BF /* Top Dao Voters Distribution */ = {
+		5566EE1F2C9844F5005BE7BF /* Distribution */ = {
 			isa = PBXGroup;
 			children = (
 				5566EE202C98453A005BE7BF /* TopDaoVotersDistributionView.swift */,
 				5566EE222C984562005BE7BF /* TopDaoVotersDistributionDataSource.swift */,
+				558CF2A82C9B186F00BE57E5 /* DistributionMath.swift */,
 			);
-			path = "Top Dao Voters Distribution";
+			path = Distribution;
 			sourceTree = "<group>";
 		};
 		556D435B2BB277E500D2D64F /* TopVoters */ = {
@@ -1120,6 +1126,14 @@
 				558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		558CF2A52C9B009F00BE57E5 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		5596F14C2A4F494000BD55C7 /* Buttons */ = {
@@ -1457,7 +1471,7 @@
 				55B5272C2AF2A46F0038B6B5 /* Monthly new proposals */,
 				BAE1AB342AF3DC7D001B89F3 /* Mutual DAOs */,
 				BA15F5902AFA9C71001107E8 /* Top Dao Voters */,
-				5566EE1F2C9844F5005BE7BF /* Top Dao Voters Distribution */,
+				5566EE1F2C9844F5005BE7BF /* Distribution */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -2051,6 +2065,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				558CF2A72C9B00CD00BE57E5 /* DistributionMathTests.swift in Sources */,
 				558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */,
 				558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */,
 			);
@@ -2135,6 +2150,7 @@
 				BA789BCA2B73CE090064D6FE /* AchievementsDataSource.swift in Sources */,
 				558ACC7B2C80DC1C002FAE75 /* DaoDelegatesDataSource.swift in Sources */,
 				BA8455AE2B8511D700A986CC /* AllDaoVotersDataSource.swift in Sources */,
+				558CF2A92C9B186F00BE57E5 /* DistributionMath.swift in Sources */,
 				553E74CF2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift in Sources */,
 				55DDE8C42A4636DA006DA335 /* SnapshotProposalDescriptionView.swift in Sources */,
 				550ACFBA2B02F11B006EF5BB /* VoteTypedData.swift in Sources */,

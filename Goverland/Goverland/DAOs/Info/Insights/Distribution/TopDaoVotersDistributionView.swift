@@ -13,11 +13,11 @@ import Charts
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
     @Binding private var datesFilteringOption: DatesFiltetingOption
-    @State private var distributionFilteringOption: DistributionFilteringOption = .square
+    @State private var distributionFilteringOption: DistributionFilteringOption = .squareRoot
 
     init(dao: Dao,
          datesFilteringOption: Binding<DatesFiltetingOption>,
-         distributionFilteringOption: DistributionFilteringOption = .square)
+         distributionFilteringOption: DistributionFilteringOption = .squareRoot)
     {
         let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
                                                             datesFilteringOption: datesFilteringOption.wrappedValue,
@@ -63,7 +63,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
 
     var xLabel: String {
         switch distributionFilteringOption {
-        case .square:
+        case .squareRoot:
             "Voting Power Range (Square Root)"
         case .log:
             "Voting Power Range (Log)"
@@ -101,10 +101,12 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                             {
                                 let voters = bin.count
                                 let percentage = Utils.percentage(of: voters, in: total)
+                                let descriptionSuffix = dataSource.bins.last?.range != bin.range ? "(not inclusive)" : "(inclusive)"
+                                let description = "aVP is between \(bin.range.lowerBound)\nand \(bin.range.upperBound) \(descriptionSuffix)"
                                 AnnotationView(firstPlaceholderValue: String(voters),
                                                firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
                                                secondPlaceholderValue: nil,
-                                               secondPlaceholderTitle: "aVP is between \(bin.range.lowerBound)\nand \(bin.range.upperBound) (not inclusive)",
+                                               secondPlaceholderTitle: description,
                                                description: nil)
                             }
                         }
@@ -131,6 +133,6 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
         guard let binIndex = bins.firstIndex(of: bin) else {
             return .trailing
         }
-        return binIndex < bins.count / 2 ? .trailing : .leading
+        return binIndex <= bins.count / 2 ? .trailing : .leading
     }
 }

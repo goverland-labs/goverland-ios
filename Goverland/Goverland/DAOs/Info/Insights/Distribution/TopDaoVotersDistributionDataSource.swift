@@ -13,8 +13,6 @@ import Combine
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
 
-    typealias Bin = (range: Range<Int>, count: Int)
-
     var datesFilteringOption: DatesFiltetingOption {
         didSet {
             refresh(invalidateCache: false)
@@ -33,7 +31,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         }
     }
 
-    @Published private(set) var bins = [Bin]()
+    @Published private(set) var bins = [DistributionBin]()
 
     @Published private(set) var failedToLoadInitialData: Bool = false
     @Published private(set) var isLoading = false
@@ -82,16 +80,18 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         cancellables = Set<AnyCancellable>()
 
 //        loadData()
-        loadMockData()
+
+        let mockVPS = [1, 2, 2.5, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7.5, 7.8, 10, 10.5, 11, 11.1, 11.2, 11.3, 15, 15, 25, 32, 65, 130, 300, 301]
+        loadMockData(vps: mockVPS)
     }
 
-    func loadMockData() {
+    func loadMockData(vps: [Double]) {
         logInfo("[App] Load data with filtering option: \(datesFilteringOption)")
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             self.isLoading = false
-            self.vps = [1, 2, 2.5, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 7, 7, 7.5, 7.8, 10, 10.5, 11, 11.1, 11.2, 11.3, 15, 15, 25, 32, 65, 130, 300]
+            self.vps = vps
             self.vpCache[datesFilteringOption] = self.vps
         }
     }
@@ -114,71 +114,13 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private func calculateBins() {
+        guard let vps else { return }
+
         switch distributionFilteringOption {
-        case .square:
-            calculateSquareRootBins()
+        case .squareRoot:
+            self.bins = DistributionMath.calculateSquareRootBins(values: vps)
         case .log:
-            calculateLogarithmicBins()
+            self.bins = DistributionMath.calculateLogarithmicBins(values: vps)
         }
-    }
-
-    // Function to calculate bins using Square Root Choice method
-    private func calculateSquareRootBins() {
-        guard let vps else { return }
-
-        var bins = [Bin]()
-        let n = vps.count
-        let numberOfBins = Int(sqrt(Double(n))) // Square root choice method
-        guard let minValue = vps.first, let maxValue = vps.last, numberOfBins > 0 else { return }
-        let binWidth = (maxValue - minValue) / Double(numberOfBins)
-
-        var currentIndex = 0
-        for i in 0..<numberOfBins {
-            let lowerBound = Int(minValue + Double(i) * binWidth)
-            let upperBound = Int(minValue + Double(i + 1) * binWidth)
-            let binRange = lowerBound..<upperBound // Use a half-open range [lowerBound, upperBound)
-            var binCount = 0
-            // Count how many sorted values fall into the current bin range
-            while currentIndex < vps.count, Int(vps[currentIndex]) < upperBound {
-                binCount += 1
-                currentIndex += 1
-            }
-            bins.append((range: binRange, count: binCount))
-        }
-
-        self.bins = bins
-    }
-
-    // Function to calculate bins using Logarithmic method
-    private func calculateLogarithmicBins(base: Double = 2.0) {
-        guard let vps else { return }
-
-        var bins = [Bin]()
-        guard let minValue = vps.first, let maxValue = vps.last, minValue > 0 else { return } // Avoid log(0)
-
-        func logBase(_ value: Double, base: Double) -> Double {
-            return log(value) / log(base)
-        }
-
-        let minLog = logBase(minValue, base: base)
-        let maxLog = logBase(maxValue, base: base)
-        let numberOfBins = Int(ceil(maxLog - minLog))
-
-        var currentIndex = 0
-        for i in 0..<numberOfBins {
-            let lowerBound = pow(base, minLog + Double(i))
-            let upperBound = pow(base, minLog + Double(i + 1))
-            let binRange = Int(lowerBound)..<Int(upperBound) // Use a half-open range [lowerBound, upperBound)
-            var binCount = 0
-            // Count how many sorted values fall into the current logarithmic bin range
-            while currentIndex < vps.count, Int(vps[currentIndex]) < Int(upperBound) {
-                binCount += 1
-                currentIndex += 1
-            }
-
-            bins.append((range: binRange, count: binCount))
-        }
-
-        self.bins = bins
     }
 }
