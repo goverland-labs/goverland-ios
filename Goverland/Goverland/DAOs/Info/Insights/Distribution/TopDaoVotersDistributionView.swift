@@ -13,11 +13,11 @@ import Charts
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
     @Binding private var datesFilteringOption: DatesFiltetingOption
-    @State private var distributionFilteringOption: DistributionFilteringOption = .squareRoot
+    @State private var distributionFilteringOption: DistributionFilteringOption
 
     init(dao: Dao,
          datesFilteringOption: Binding<DatesFiltetingOption>,
-         distributionFilteringOption: DistributionFilteringOption = .squareRoot)
+         distributionFilteringOption: DistributionFilteringOption = .log2)
     {
         let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
                                                             datesFilteringOption: datesFilteringOption.wrappedValue,
@@ -63,10 +63,10 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
 
     var xLabel: String {
         switch distributionFilteringOption {
+        case .log2:
+            "Voting Power Range (Log)"
         case .squareRoot:
             "Voting Power Range (Square Root)"
-        case .log:
-            "Voting Power Range (Log)"
         }
     }
 

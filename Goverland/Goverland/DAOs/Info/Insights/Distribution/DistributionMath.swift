@@ -41,9 +41,11 @@ enum DistributionMath {
     static func calculateLogarithmicBins(values: [Double], base: Double = 2.0) -> [DistributionBin] {
         var bins = [DistributionBin]()
         guard let minValue = values.first, let maxValue = values.last, minValue > 0 else { return [] } // Avoid log(0)
-        let minLog = logBase(minValue, base: base)
+        let minLog = max(-1, logBase(minValue, base: base))
         let maxLog = logBase(maxValue, base: base)
         let numberOfBins = Int(ceil(maxLog - minLog))
+
+//        logInfo("[App] minLog=\(minLog); maxLog=\(maxLog); numberOfBins=\(numberOfBins)")
 
         var currentIndex = 0
         for i in 0..<numberOfBins {
@@ -59,6 +61,7 @@ enum DistributionMath {
             bins.append((range: binRange, count: binCount))
         }
 
+//        logInfo("[App] log bins: \(bins)")
         return bins
     }
 

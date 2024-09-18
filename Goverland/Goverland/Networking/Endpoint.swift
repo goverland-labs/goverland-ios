@@ -495,11 +495,13 @@ struct DaoVoters_AVP_Endpoint: APIEndpoint {
     typealias ResponseType = [Double]
 
     let daoId: UUID
-    var path: String { "analytics/voters-avp/\(daoId)" }
+    var path: String { "analytics/avg-vps/\(daoId)" }
     var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
 
-    init(daoId: UUID) {
+    init(daoId: UUID, queryParameters: [URLQueryItem]? = nil) {
         self.daoId = daoId
+        self.queryParameters = queryParameters
     }
 }
 

@@ -79,10 +79,10 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         isLoading = false
         cancellables = Set<AnyCancellable>()
 
-//        loadData()
-
-        let mockVPS = [1, 2, 2.5, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7.5, 7.8, 10, 10.5, 11, 11.1, 11.2, 11.3, 15, 15, 25, 32, 65, 130, 300, 301]
-        loadMockData(vps: mockVPS)
+        loadData()
+//
+//        let mockVPS = [1, 2, 2.5, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7.5, 7.8, 10, 10.5, 11, 11.1, 11.2, 11.3, 15, 15, 25, 32, 65, 130, 300, 301]
+//        loadMockData(vps: mockVPS)
     }
 
     func loadMockData(vps: [Double]) {
@@ -98,7 +98,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
 
     func loadData() {
         isLoading = true
-        APIService.allDaoVotersAVP(daoId: dao.id)
+        APIService.allDaoVotersAVP(daoId: dao.id, filteringOption: datesFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -107,7 +107,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] vps, headers in
                 guard let self else { return }
-                self.vps = vps.sorted()
+                self.vps = vps.sorted().filter { $0 > 0 }
                 self.vpCache[datesFilteringOption] = self.vps
             }
             .store(in: &cancellables)
@@ -117,10 +117,10 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         guard let vps else { return }
 
         switch distributionFilteringOption {
+        case .log2:
+            self.bins = DistributionMath.calculateLogarithmicBins(values: vps)
         case .squareRoot:
             self.bins = DistributionMath.calculateSquareRootBins(values: vps)
-        case .log:
-            self.bins = DistributionMath.calculateLogarithmicBins(values: vps)
         }
     }
 }

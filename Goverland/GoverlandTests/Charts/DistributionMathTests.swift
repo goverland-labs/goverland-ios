@@ -191,4 +191,6 @@ final class DistributionMathTests: XCTestCase {
         XCTAssertEqual(bins[6].range.upperBound, 241)
         XCTAssertEqual(bins[6].count, 4)
     }
+
+    // TODO: add tests with a lot of small numbers < 1
 }
