@@ -59,6 +59,16 @@ struct TopDaoVotersDistributionView: View {
 fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
     @ObservedObject var dataSource: TopDaoVotersDistributionDataSource
     @Binding var distributionFilteringOption: DistributionFilteringOption
+    @State private var selectedBin: String?
+
+    var xLabel: String {
+        switch distributionFilteringOption {
+        case .square:
+            "Voting Power Range (Square Root)"
+        case .log:
+            "Voting Power Range (Log)"
+        }
+    }
 
     var body: some View {
         VStack {
@@ -71,45 +81,100 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                         // it crashes when chaning date filtering option, doesn't refresh on time
                         let bin = dataSource.bins[index]
                         BarMark (
-                            x: .value("Voting Power Range", "\(Int(bin.range.lowerBound))"),
-                            y: .value("Number of Voters", bin.count)
+                            x: .value("Range", "\(bin.range.lowerBound)"),
+                            y: .value("Voters", bin.count)
                         )
                         .foregroundStyle(Color.primaryDim)
                     }
+                }
 
-//                    if let selectedDate {
-//                        RuleMark(x: .value("Date", middleMarkDate))
-//                            .foregroundStyle(Color.textWhite)
-//                            .lineStyle(.init(lineWidth: 1, dash: [2]))
-//                            .annotation(
-//                                position: selectedDate <= midDate ? .trailing : .leading,
-//                                alignment: .center,
-//                                spacing: 4
-//                            ) {
-//                                AnnotationView(firstPlaceholderValue: dataSource.newProposalsCount(date: selectedDate),
-//                                               firstPlaceholderTitle: "New proposals",
-//                                               secondPlaceholderValue: dataSource.spamProposalsCount(date: selectedDate),
-//                                               secondPlaceholderTitle: "Spam proposals",
-//                                               description: dateStr)
-//                            }
-//                    }
+                if let selectedBin {
+                    RuleMark(x: .value("Range", selectedBin))
+                        .foregroundStyle(Color.textWhite)
+                        .lineStyle(.init(lineWidth: 1, dash: [2]))
+                        .annotation(
+                            position: annotationPositionForBin(bin: selectedBin),
+                            alignment: .center, spacing: 4
+                        ) {
+                            _AnnotationView(binLowerBound: selectedBin, dataSource: dataSource)
+                        }
                 }
             }
+            .padding()
             .chartXAxis {
                 AxisMarks(values: dataSource.xValues) { value in
                     AxisValueLabel()
                     AxisGridLine()
                 }
             }
-            .chartXAxisLabel("Voting Power Range (Log Scale)")
-            .chartYAxisLabel("Number of Voters")
-//            .chartXScale(type: .log)
-//            .chartForegroundStyleScale([
-//                // String name has to be same as in dataSource.chartData
-//                "New proposals": Color.primaryDim, "Spam proposals": Color.red
-//            ])
-//            .chartSelected_X_Date($selectedDate, minValue: minScaleDate, maxValue: maxScaleDate)
-            .padding()
+            .chartXAxisLabel(xLabel)
+//            .chartYAxisLabel("Number of Voters")
+            .chartForegroundStyleScale([
+                "Voters": Color.primaryDim
+            ])
+            .chartSelected_X_String($selectedBin)
         }
+    }
+
+    private func annotationPositionForBin(bin: String) -> AnnotationPosition {
+        let bins = dataSource.bins.map { "\($0.range.lowerBound)" }
+        guard let binIndex = bins.firstIndex(of: bin) else {
+            return .trailing
+        }
+        return binIndex < bins.count / 2 ? .trailing : .leading
+    }
+}
+
+fileprivate struct _AnnotationView: View {
+    let binLowerBound: String
+    let dataSource: TopDaoVotersDistributionDataSource
+
+    var bin: TopDaoVotersDistributionDataSource.Bin {
+        dataSource.bins.first { String($0.range.lowerBound) == binLowerBound } ?? (range: 1..<2, count: 1)
+    }
+
+    var voters: Int {
+        bin.count
+    }
+
+    var total: Int {
+        dataSource.vps?.count ?? 1
+    }
+
+    var percentage: String {
+        Utils.percentage(of: voters, in: total)
+    }
+
+    var binDescription: String { """
+aVP is between \(bin.range.lowerBound)
+and \(bin.range.upperBound) (not inclusive)"
+""" }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack {
+                HStack(alignment: .bottom, spacing: 4) {
+                    Text(String(voters))
+                        .font(.title3Regular)
+                        .foregroundStyle(Color.textWhite)
+                    Text(voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))")
+                        .font(.subheadlineRegular)
+                        .foregroundStyle(Color.textWhite60)
+                        .padding(.bottom, 2)
+                }
+                Spacer()
+            }
+            HStack {
+                HStack(spacing: 4) {
+                    Text(binDescription)
+                        .font(.subheadlineRegular)
+                        .foregroundStyle(Color.textWhite60)
+                }
+                Spacer()
+            }
+        }
+        .padding(8)
+        .background(Color.containerBright)
+        .cornerRadius(10)
     }
 }

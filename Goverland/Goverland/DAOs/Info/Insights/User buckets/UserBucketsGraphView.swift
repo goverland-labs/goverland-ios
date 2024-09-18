@@ -110,6 +110,7 @@ struct UserBucketsGraphView: View {
                         Text(voters == 1 ? "Voter" : "Voters")
                             .font(.subheadlineRegular)
                             .foregroundStyle(Color.textWhite60)
+                            .padding(.bottom, 2)
                     }
                     Spacer()
                 }

@@ -38,6 +38,7 @@ struct AnnotationView: View {
                     Text(firstPlaceholderTitle)
                         .font(.subheadlineRegular)
                         .foregroundStyle(Color.textWhite60)
+                        .padding(.bottom, 2)
                 }
                 Spacer()
             }
