@@ -96,7 +96,17 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                             position: annotationPositionForBin(bin: selectedBin),
                             alignment: .center, spacing: 4
                         ) {
-                            _AnnotationView(binLowerBound: selectedBin, dataSource: dataSource)
+                            if let bin = dataSource.bins.first(where: { String($0.range.lowerBound) == selectedBin }),
+                                let total = dataSource.vps?.count
+                            {
+                                let voters = bin.count
+                                let percentage = Utils.percentage(of: voters, in: total)
+                                AnnotationView(firstPlaceholderValue: String(voters),
+                                               firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
+                                               secondPlaceholderValue: nil,
+                                               secondPlaceholderTitle: "aVP is between \(bin.range.lowerBound)\nand \(bin.range.upperBound) (not inclusive)",
+                                               description: nil)
+                            }
                         }
                 }
             }
@@ -122,59 +132,5 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
             return .trailing
         }
         return binIndex < bins.count / 2 ? .trailing : .leading
-    }
-}
-
-fileprivate struct _AnnotationView: View {
-    let binLowerBound: String
-    let dataSource: TopDaoVotersDistributionDataSource
-
-    var bin: TopDaoVotersDistributionDataSource.Bin {
-        dataSource.bins.first { String($0.range.lowerBound) == binLowerBound } ?? (range: 1..<2, count: 1)
-    }
-
-    var voters: Int {
-        bin.count
-    }
-
-    var total: Int {
-        dataSource.vps?.count ?? 1
-    }
-
-    var percentage: String {
-        Utils.percentage(of: voters, in: total)
-    }
-
-    var binDescription: String { """
-aVP is between \(bin.range.lowerBound)
-and \(bin.range.upperBound) (not inclusive)"
-""" }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            HStack {
-                HStack(alignment: .bottom, spacing: 4) {
-                    Text(String(voters))
-                        .font(.title3Regular)
-                        .foregroundStyle(Color.textWhite)
-                    Text(voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))")
-                        .font(.subheadlineRegular)
-                        .foregroundStyle(Color.textWhite60)
-                        .padding(.bottom, 2)
-                }
-                Spacer()
-            }
-            HStack {
-                HStack(spacing: 4) {
-                    Text(binDescription)
-                        .font(.subheadlineRegular)
-                        .foregroundStyle(Color.textWhite60)
-                }
-                Spacer()
-            }
-        }
-        .padding(8)
-        .background(Color.containerBright)
-        .cornerRadius(10)
     }
 }

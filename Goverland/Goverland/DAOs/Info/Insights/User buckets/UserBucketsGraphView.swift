@@ -70,7 +70,12 @@ struct UserBucketsGraphView: View {
                                 position: annotationPositionForBucket(bucket: selectedBucket),
                                 alignment: .center, spacing: 4
                             ) {
-                                AnnotationView(bucket: selectedBucket, dataSource: dataSource)
+                                let voters = dataSource.votersInBucket(selectedBucket) ?? 0
+                                AnnotationView(firstPlaceholderValue: String(voters),
+                                               firstPlaceholderTitle: voters == 1 ? "Voter" : "Voters",
+                                               secondPlaceholderValue: selectedBucket,
+                                               secondPlaceholderTitle: selectedBucket == "1" ? "time" :" times",
+                                               description: nil)                                
                             }
                     }
                 }
@@ -89,46 +94,6 @@ struct UserBucketsGraphView: View {
                 return .leading
             }
             return bucketIndex < groups.count / 2 ? .trailing : .leading
-        }
-    }
-    
-    private struct AnnotationView: View {
-        let bucket: String
-        let dataSource: UserBucketsDataSource
-        
-        var voters: Int {
-            dataSource.votersInBucket(bucket) ?? 0
-        }
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 5) {
-                HStack {
-                    HStack(alignment: .bottom, spacing: 4) {
-                        Text(String(voters))
-                            .font(.title3Regular)
-                            .foregroundStyle(Color.textWhite)
-                        Text(voters == 1 ? "Voter" : "Voters")
-                            .font(.subheadlineRegular)
-                            .foregroundStyle(Color.textWhite60)
-                            .padding(.bottom, 2)
-                    }
-                    Spacer()
-                }
-                HStack {
-                    HStack(spacing: 4) {
-                        Text(bucket)
-                            .font(.subheadlineRegular)
-                            .foregroundStyle(Color.textWhite60)
-                        Text(bucket == "1" ? "time" :" times")
-                            .font(.subheadlineRegular)
-                            .foregroundStyle(Color.textWhite60)
-                    }
-                    Spacer()
-                }
-            }
-            .padding(8)
-            .background(Color.containerBright)
-            .cornerRadius(10)
         }
     }
 }
