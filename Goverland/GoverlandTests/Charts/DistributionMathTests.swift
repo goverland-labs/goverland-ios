@@ -11,7 +11,6 @@ import XCTest
 @testable import Goverland
 
 final class DistributionMathTests: XCTestCase {
-
     func test_squareRootBins_1() {
         // 25 values
         // bins = |sqrt(25)| = 5
@@ -89,7 +88,7 @@ final class DistributionMathTests: XCTestCase {
 
     func test_logBins_1() {
         // 25 values: max=256, min = 1
-        // bins = ceil(log(256) - log(1)) = 8
+        // bins = ceil(log2(256) - log2(1)) = 8
         let values = [
             1, 2, 2.5, 3, 3,
             3, 3, 4, 4, 4,
@@ -142,5 +141,54 @@ final class DistributionMathTests: XCTestCase {
         XCTAssertEqual(bins[7].count, 3)
     }
 
-    // TODO: write more tests for logBins
+    func test_logBins_2() {
+        // 27 values: max=241, min = 1
+        // bins = ceil(log2(241) - log2(2.1)) = ceil(7,9128 - 1,0703) = 7
+        let values = [
+            2.1, 2.2, 2.5, 3, 3,
+            3, 3, 4, 4, 4,
+            5, 6, 7, 7, 7.5,
+            10, 10.5, 11, 11.1, 11.2,
+            11.3, 15, 15, 25, 32,
+            61, 67, 133.999, 240, 240,
+            240.5, 241]
+
+        let bins = DistributionMath.calculateLogarithmicBins(values: values)
+        XCTAssertEqual(bins.count, 7)
+
+        // Bin 1: 2..<4
+        XCTAssertEqual(bins[0].range.lowerBound, 2)
+        XCTAssertEqual(bins[0].range.upperBound, 4)
+        XCTAssertEqual(bins[0].count, 7)
+
+        // Bin 2: 4..<8
+        XCTAssertEqual(bins[1].range.lowerBound, 4)
+        XCTAssertEqual(bins[1].range.upperBound, 8)
+        XCTAssertEqual(bins[1].count, 8)
+
+        // Bin 3: 8..<16
+        XCTAssertEqual(bins[2].range.lowerBound, 8)
+        XCTAssertEqual(bins[2].range.upperBound, 16)
+        XCTAssertEqual(bins[2].count, 8)
+
+        // Bin 4: 16..<33 (|2^(1,0703 + 4)| ..< |2^(1,0703 + 5)|)
+        XCTAssertEqual(bins[3].range.lowerBound, 16)
+        XCTAssertEqual(bins[3].range.upperBound, 33)
+        XCTAssertEqual(bins[3].count, 2)
+
+        // Bin 5: 33..<67
+        XCTAssertEqual(bins[4].range.lowerBound, 33)
+        XCTAssertEqual(bins[4].range.upperBound, 67)
+        XCTAssertEqual(bins[4].count, 1)
+
+        // Bin 6: 67..<134
+        XCTAssertEqual(bins[5].range.lowerBound, 67)
+        XCTAssertEqual(bins[5].range.upperBound, 134)
+        XCTAssertEqual(bins[5].count, 2)
+
+        // Bin 7: 134..<=241
+        XCTAssertEqual(bins[6].range.lowerBound, 134)
+        XCTAssertEqual(bins[6].range.upperBound, 241)
+        XCTAssertEqual(bins[6].count, 4)
+    }
 }

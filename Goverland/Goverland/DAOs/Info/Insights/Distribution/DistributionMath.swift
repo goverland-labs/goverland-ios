@@ -23,7 +23,7 @@ enum DistributionMath {
         var currentIndex = 0
         for i in 0..<numberOfBins {
             let lowerBound = Int(minValue + Double(i) * binWidth)
-            let upperBound = i == numberOfBins - 1 ? Int(ceil(minValue + Double(numberOfBins) * binWidth)) : Int(minValue + Double(i + 1) * binWidth)
+            let upperBound = i == numberOfBins - 1 ? Int(ceil(maxValue)) : Int(minValue + Double(i + 1) * binWidth)
             let binRange = lowerBound..<upperBound // Use a half-open range [lowerBound, upperBound)
             var binCount = 0
             // Count how many sorted values fall into the current bin range
@@ -48,7 +48,7 @@ enum DistributionMath {
         var currentIndex = 0
         for i in 0..<numberOfBins {
             let lowerBound = Int(pow(base, minLog + Double(i)))
-            let upperBound = i == numberOfBins - 1 ? Int(ceil(pow(base, minLog + Double(numberOfBins)))) : Int(pow(base, minLog + Double(i + 1)))
+            let upperBound = i == numberOfBins - 1 ? Int(ceil(maxValue)) : Int(pow(base, minLog + Double(i + 1)))
             let binRange = lowerBound..<upperBound // Use a half-open range [lowerBound, upperBound)
             var binCount = 0
             // Count how many sorted values fall into the current logarithmic bin range
