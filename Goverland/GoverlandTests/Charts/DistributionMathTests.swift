@@ -86,4 +86,61 @@ final class DistributionMathTests: XCTestCase {
         XCTAssertEqual(bins[3].range.upperBound, 11)
         XCTAssertEqual(bins[3].count, 2)
     }
+
+    func test_logBins_1() {
+        // 25 values: max=256, min = 1
+        // bins = ceil(log(256) - log(1)) = 8
+        let values = [
+            1, 2, 2.5, 3, 3,
+            3, 3, 4, 4, 4,
+            5, 6, 7, 7, 7.5,
+            10, 10.5, 11, 11.1, 11.2,
+            11.3, 15, 15, 25, 32,
+            61, 120.999, 181, 241, 256]
+
+        let bins = DistributionMath.calculateLogarithmicBins(values: values)
+        XCTAssertEqual(bins.count, 8)
+
+        // Bin 1: 1..<2 (|2^(0 + 0)| ..< |2^(0 + 1)|)
+        XCTAssertEqual(bins[0].range.lowerBound, 1)
+        XCTAssertEqual(bins[0].range.upperBound, 2)
+        XCTAssertEqual(bins[0].count, 1)
+
+        // Bin 2: 2..<4 (|2^1| ..< |2^2|)
+        XCTAssertEqual(bins[1].range.lowerBound, 2)
+        XCTAssertEqual(bins[1].range.upperBound, 4)
+        XCTAssertEqual(bins[1].count, 6)
+
+        // Bin 3: 4..<8
+        XCTAssertEqual(bins[2].range.lowerBound, 4)
+        XCTAssertEqual(bins[2].range.upperBound, 8)
+        XCTAssertEqual(bins[2].count, 8)
+
+        // Bin 4: 8..<16
+        XCTAssertEqual(bins[3].range.lowerBound, 8)
+        XCTAssertEqual(bins[3].range.upperBound, 16)
+        XCTAssertEqual(bins[3].count, 8)
+
+        // Bin 5: 16..<32
+        XCTAssertEqual(bins[4].range.lowerBound, 16)
+        XCTAssertEqual(bins[4].range.upperBound, 32)
+        XCTAssertEqual(bins[4].count, 1)
+
+        // Bin 6: 32..<64
+        XCTAssertEqual(bins[5].range.lowerBound, 32)
+        XCTAssertEqual(bins[5].range.upperBound, 64)
+        XCTAssertEqual(bins[5].count, 2)
+
+        // Bin 7: 64..<128
+        XCTAssertEqual(bins[6].range.lowerBound, 64)
+        XCTAssertEqual(bins[6].range.upperBound, 128)
+        XCTAssertEqual(bins[6].count, 1)
+
+        // Bin 8: 128..<=256
+        XCTAssertEqual(bins[7].range.lowerBound, 128)
+        XCTAssertEqual(bins[7].range.upperBound, 256)
+        XCTAssertEqual(bins[7].count, 3)
+    }
+
+    // TODO: write more tests for logBins
 }
