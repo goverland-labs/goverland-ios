@@ -20,25 +20,21 @@ enum DistributionMath {
         guard let minValue = values.first, let maxValue = values.last, numberOfBins > 0 else { return [] }
         let binWidth = (maxValue - minValue) / Double(numberOfBins)
 
-        logInfo("[App] bin width: \(binWidth)")
-
-        var currentIndex = 0
-
-        func valueWithinRange(_ value: Int, _ upperBoud: Int, _ closedRange: Bool) -> Bool {
-            closedRange ? value <= upperBoud : value < upperBoud
+        func valueWithinRange(_ value: Double, _ upperBoud: Int, _ closedRange: Bool) -> Bool {
+            closedRange ? value <= Double(upperBoud) : value < Double(upperBoud)
         }
 
+        var currentIndex = 0
         for i in 0..<numberOfBins {
             let lowerBound = Int(minValue + Double(i) * binWidth)
-            let upperBound = Int(minValue + Double(i + 1) * binWidth)
+            let upperBound = i == numberOfBins - 1 ? Int(ceil(minValue + Double(numberOfBins) * binWidth)) : Int(minValue + Double(i + 1) * binWidth)
             let binRange = lowerBound..<upperBound // Use a half-open range [lowerBound, upperBound)
             var binCount = 0
             // Count how many sorted values fall into the current bin range
-            while currentIndex < values.count, valueWithinRange(Int(values[currentIndex]), upperBound, i == numberOfBins - 1) {
+            while currentIndex < values.count, valueWithinRange(values[currentIndex], upperBound, i == numberOfBins - 1) {
                 binCount += 1
                 currentIndex += 1
             }
-            logInfo("[App] add to range \(binRange), count: \(binCount)")
             bins.append((range: binRange, count: binCount))
         }
 
