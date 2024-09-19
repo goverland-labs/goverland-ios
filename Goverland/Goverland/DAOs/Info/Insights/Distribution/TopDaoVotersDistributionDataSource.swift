@@ -107,7 +107,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 }
             } receiveValue: { [weak self] vps, headers in
                 guard let self else { return }
-                self.vps = vps.sorted().filter { $0 > 0 }
+                self.vps = vps.sorted().filter { $0 > 0.001 }
                 self.vpCache[datesFilteringOption] = self.vps
             }
             .store(in: &cancellables)
