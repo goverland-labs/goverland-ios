@@ -66,7 +66,7 @@ class SignInTwoStepsDataSource: ObservableObject {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
                     showLocalNotification(title: "Rejected to sign", body: "Open the App to repeat the request")
-                    showToast(rpcError.localizedDescription)
+                    showToast("Rejected to sign")
                 case .response(let signature):
                     // signature here is AnyCodable
                     guard let signatureStr = signature.value as? String else {

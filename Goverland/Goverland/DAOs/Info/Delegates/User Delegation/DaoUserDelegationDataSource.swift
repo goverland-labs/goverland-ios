@@ -164,7 +164,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
                     showLocalNotification(title: "Rejected to send transaction", body: "Open the App to repeat the request")
-                    showToast(rpcError.localizedDescription)
+                    showToast("Rejected to send transaction")
                 case .response(let txHash):
                     guard let txHashStr = txHash.value as? String else {
                         logError(GError.appInconsistency(reason: "Expected txId as string. Got \(txHash)"))

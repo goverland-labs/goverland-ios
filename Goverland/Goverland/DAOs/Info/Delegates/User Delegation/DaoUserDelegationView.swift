@@ -51,6 +51,10 @@ struct DaoUserDelegationView: View {
         .padding(.top, 24)
         .padding(.bottom, 16)
         .overlay {
+            InfoAlertView()
+                .environmentObject(activeSheetManager)
+        }
+        .overlay {
             ToastView()
                 .environmentObject(activeSheetManager)
         }
@@ -134,7 +138,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     Spacer()
 
                     HStack(spacing: 4) {
-                        Text(userDelegation.votingPower.power.description)
+                        Text(Utils.formattedNumber(userDelegation.votingPower.power))
                         Text(userDelegation.votingPower.symbol)
                     }
                     .font(.bodyRegular)
@@ -210,6 +214,7 @@ fileprivate struct _DaoUserDelegationView: View {
 
                     if let message = dataSource.infoMessage {
                         InfoMessageView(message: message)
+                            .padding(.vertical, 20)
                     }
                 }
 
