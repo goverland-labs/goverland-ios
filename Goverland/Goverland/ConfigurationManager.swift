@@ -17,6 +17,7 @@ class ConfigurationManager {
         case enablePushNotificationsRequestInterval = "ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL"
         case daoTermsAgreementRequestInterval = "DAO_TERMS_AGREEMENT_REQUEST_INTERVAL"
         case suggestToRateRequestInterval = "SUGGEST_TO_RATE_REQUEST_INTERVAL"
+        case hint_AI_summaryRequestInterval = "HINT_AI_SUMMARY_REQUEST_INTERVAL"
     }
 
     static func value(for key: ConfigKeys) -> String {
@@ -77,6 +78,15 @@ class ConfigurationManager {
 
     static var suggestToRateRequestInterval: TimeInterval {
         guard let interval = TimeInterval(self.value(for: .suggestToRateRequestInterval)) else {
+            fatalError("Invalid interval")
+        }
+        return interval
+    }
+
+    // - MARK: Hint AI summary
+
+    static var hint_AI_summaryRequestInterval: TimeInterval {
+        guard let interval = TimeInterval(self.value(for: .hint_AI_summaryRequestInterval)) else {
             fatalError("Invalid interval")
         }
         return interval

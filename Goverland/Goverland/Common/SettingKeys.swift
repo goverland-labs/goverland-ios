@@ -41,6 +41,8 @@ class SettingKeys: ObservableObject {
 
     @AppStorage("lastWhatsNewVersionDisplaied") var lastWhatsNewVersionDisplaied = ""
 
+    @AppStorage("lastViewed_AI_SummaryTime") var lastViewed_AI_SummaryTime: TimeInterval = 0
+
     static var shared = SettingKeys()
 
     private init() {
@@ -64,6 +66,7 @@ class SettingKeys: ObservableObject {
         SettingKeys.shared.lastSuggestedToRateTime = 0
         SettingKeys.shared.unreadEvents = 0
         SettingKeys.shared.lastWhatsNewVersionDisplaied = ""
+        SettingKeys.shared.lastViewed_AI_SummaryTime = 0
     }
 }
 
