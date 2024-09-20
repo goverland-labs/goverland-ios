@@ -68,7 +68,7 @@ struct DaoDelegateProfileActivityView: View {
                             .listRowInsets(Constants.listInsets)
                             .listRowBackground(Color.clear)
                         } else {
-                            ProposalListItemView(proposal: proposal, isDelegateVoted: delegated) {
+                            ProposalListItemView(proposal: proposal, isDelegateVoted: delegated, publicUserContext: .delegate) {
                                 Tracker.track(.delegateProfileOpenDao, parameters: ["dao" : proposal.dao.name])
                                 activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                             }

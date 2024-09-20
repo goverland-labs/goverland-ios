@@ -51,6 +51,10 @@ struct DaoUserDelegationView: View {
         .padding(.top, 24)
         .padding(.bottom, 16)
         .overlay {
+            InfoAlertView()
+                .environmentObject(activeSheetManager)
+        }
+        .overlay {
             ToastView()
                 .environmentObject(activeSheetManager)
         }
@@ -96,7 +100,7 @@ fileprivate struct _DaoUserDelegationView: View {
     private var isConfirmEnabled: Bool {
         splitViewModel.isConfirmEnabled && 
         !dataSource.isPreparingRequest &&
-        dataSource.chainIsApprovedByWallet
+        dataSource.selectedChainIsApprovedByWallet
     }
 
     private var selectedChainName: String {
@@ -134,7 +138,7 @@ fileprivate struct _DaoUserDelegationView: View {
                     Spacer()
 
                     HStack(spacing: 4) {
-                        Text(userDelegation.votingPower.power.description)
+                        Text(Utils.formattedNumber(userDelegation.votingPower.power))
                         Text(userDelegation.votingPower.symbol)
                     }
                     .font(.bodyRegular)
@@ -163,6 +167,12 @@ fileprivate struct _DaoUserDelegationView: View {
                         Text("Network")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
+                        Image(systemName: "questionmark.circle")
+                            .foregroundStyle(Color.textWhite40)
+                            .padding(.trailing)
+                            .onTapGesture() {
+                                showInfoAlert("The delegation registry is stored on the blockchain. You can delegate on Gnosis Chain or Ethereum, but only the latest delegation is valid. Gnosis Chain transactions are cheaper than Ethereum's.")
+                            }
                         Spacer()
                         HStack {
                             let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
@@ -197,7 +207,7 @@ fileprivate struct _DaoUserDelegationView: View {
                         }
                     }
 
-                    if let connectedWallet, !dataSource.chainIsApprovedByWallet {
+                    if let connectedWallet, !dataSource.selectedChainIsApprovedByWallet {
                         let warningMessage = connectedWallet.warningMarkdownMessageForNotConnectedChain(chainName: selectedChainName)
                         let buttonTitle = connectedWallet.redirectUrl != nil ? "Open wallet" : nil
                         WarningView(markdown: warningMessage, actionButtonTitle: buttonTitle) {
@@ -205,11 +215,12 @@ fileprivate struct _DaoUserDelegationView: View {
                             openUrl(redirectUrl)
                         }
                     } else if !dataSource.isEnoughBalance {
-                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(dataSource.deltaBalance) \(dataSource.selectedChain?.symbol ?? "")**")
+                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(Utils.rounded(dataSource.deltaBalance)) \(dataSource.selectedChain?.symbol ?? "")**")
                     }
 
                     if let message = dataSource.infoMessage {
                         InfoMessageView(message: message)
+                            .padding(.vertical, 20)
                     }
                 }
 

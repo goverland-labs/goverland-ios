@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+enum ProposalListItemViewPublicUserContext {
+    case publicUser
+    case delegate
+}
+
 struct ProposalListItemView: View {
     let proposal: Proposal
     let isSelected: Bool
@@ -15,6 +20,7 @@ struct ProposalListItemView: View {
     let isPresented: Bool
     let isHighlighted: Bool
     let isDelegateVoted: Bool
+    let publicUserContext: ProposalListItemViewPublicUserContext
     let onDaoTap: (() -> Void)?
 
     @Environment(\.isPresented) private var _isPresented
@@ -25,6 +31,7 @@ struct ProposalListItemView: View {
          isPresented: Bool = false,
          isHighlighted: Bool = false,
          isDelegateVoted: Bool = false,
+         publicUserContext: ProposalListItemViewPublicUserContext = .publicUser,
          onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
         self.isSelected = isSelected
@@ -32,6 +39,7 @@ struct ProposalListItemView: View {
         self.isPresented = isPresented
         self.isHighlighted = isHighlighted
         self.isDelegateVoted = isDelegateVoted
+        self.publicUserContext = publicUserContext
         self.onDaoTap = onDaoTap
     }
 
@@ -60,7 +68,7 @@ struct ProposalListItemView: View {
 
             VStack(spacing: 12) {
                 _ProposalListItemHeaderView(proposal: proposal, isDelegateVoted: isDelegateVoted)
-                _ProposalListItemBodyView(proposal: proposal, onDaoTap: onDaoTap)
+                _ProposalListItemBodyView(proposal: proposal, publicUserContext: publicUserContext, onDaoTap: onDaoTap)
                 _VoteFooterView(proposal: proposal)
             }
             .padding(.horizontal, Constants.horizontalPadding)
@@ -120,7 +128,16 @@ struct _ProposalListItemHeaderView: View {
 
 struct _ProposalListItemBodyView: View {
     let proposal: Proposal
+    let publicUserContext: ProposalListItemViewPublicUserContext
     let onDaoTap: (() -> Void)?
+
+    var votesOfPublicUserAndAppUserAreSame: Bool {
+        guard let (_, userChoiceId) = Utils.userChoice(from: proposal),
+              let (_, publicUserChoiceId) = Utils.publicUserChoice(from: proposal) else {
+            return false
+        }
+        return userChoiceId == publicUserChoiceId
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -148,22 +165,31 @@ struct _ProposalListItemBodyView: View {
                              font: .footnoteRegular,
                              color: proposal.state == .active ? .primaryDim : .textWhite40)
                 }
+                .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
 
-                if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
+                if let (publicUserChoice, _) = Utils.publicUserChoice(from: proposal), !votesOfPublicUserAndAppUserAreSame {
                     // public user voted
                     let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
-                    Text("User choice: \(choiceStr)")
-                        .lineLimit(1)
+                    switch publicUserContext {
+                    case .delegate:
+                        Text("Delegate choice: \(choiceStr)")
+                            .lineLimit(1)
+                            .foregroundStyle(proposal.state == .active ? Color.delegateText : .textWhite40)
+                    case .publicUser:
+                        Text("User choice: \(choiceStr)")
+                            .lineLimit(1)
+                            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
+                    }
                 }
 
-                if let userChoice = Utils.userChoice(from: proposal) {
+                if let (appUserChoice, _) = Utils.userChoice(from: proposal) {
                     // user voted
-                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: appUserChoice)
                     Text("Your choice: \(choiceStr)")
                         .lineLimit(1)
+                        .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                 }
             }
-            .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
             .font(.footnoteRegular)
 
             Spacer() // In a two-column design stratch to a height of a neighbour

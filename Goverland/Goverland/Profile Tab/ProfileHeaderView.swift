@@ -29,7 +29,7 @@ struct ProfileHeaderView: View {
                         if let name = user.resolvedName {
                             Button {
                                 UIPasteboard.general.string = user.resolvedName
-                                showToast("ENS name copied")
+                                showToast("Name copied")
                             } label: {
                                 Text(name)
                                     .truncationMode(.tail)
