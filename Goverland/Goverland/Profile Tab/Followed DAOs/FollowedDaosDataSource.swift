@@ -15,8 +15,8 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
     @Published var isLoading: Bool = true
     private var cancellables = Set<AnyCancellable>()
 
-    static let followedDaos = FollowedDaosDataSource()
-    static let profileHorizontalList = FollowedDaosDataSource()
+    static let followedDaosList = FollowedDaosDataSource()
+    static let horizontalList = FollowedDaosDataSource()
 
     private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
@@ -45,7 +45,7 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] subscriptions, headers in
-                self?.subscriptions = subscriptions
+                self?.subscriptions = subscriptions.sorted { $0.dao.activeVotes > $1.dao.activeVotes }
             }
             .store(in: &cancellables)
     }

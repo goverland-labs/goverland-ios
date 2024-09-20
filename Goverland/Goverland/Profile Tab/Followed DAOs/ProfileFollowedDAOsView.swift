@@ -27,7 +27,7 @@ struct ProfileFollowedDAOsView: View {
                 .padding(.top, 16)
                 .padding(.horizontal, Constants.horizontalPadding * 2)
 
-                ProfileFollowedDAOsHorizontalListView()
+                FollowedDAOsHorizontalListView()
             }
         } else {
             NavigationLink(value: ProfileScreen.followedDaos) {

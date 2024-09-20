@@ -27,7 +27,7 @@ struct DashboardView: View {
 
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
-        FollowedDAOsActiveVoteDataSource.dashboard.refresh()
+        FollowedDaosDataSource.horizontalList.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
@@ -82,9 +82,9 @@ struct DashboardView: View {
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
                     FeaturedProposalsDataSource.dashboard.refresh()
                 }
-
-                if FollowedDAOsActiveVoteDataSource.dashboard.subscriptions.isEmpty {
-                    FollowedDAOsActiveVoteDataSource.dashboard.refresh()
+                 
+                if FollowedDaosDataSource.horizontalList.subscriptions.isEmpty {
+                    FollowedDaosDataSource.horizontalList.refresh()
                 }
 
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
@@ -198,12 +198,12 @@ fileprivate struct SignedOutUserDashboardView: View {
 
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
-    @StateObject private var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
+    @StateObject private var followedDaosDataSource = FollowedDaosDataSource.horizontalList
     @StateObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
     @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
-    var shouldShowDaosWithActiveVote: Bool {
-        !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading
+    var shouldShowFollowedDaos: Bool {
+        !followedDaosDataSource.subscriptions.isEmpty || followedDaosDataSource.isLoading
     }
 
     var shouldShowRecommendationToVote: Bool {
@@ -221,9 +221,9 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
-        if shouldShowDaosWithActiveVote {
-            SectionHeader(header: "Followed DAOs with active vote")
-            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        if shouldShowFollowedDaos {
+            SectionHeader(header: "My followed DAOs")
+            FollowedDAOsHorizontalListView()
         }
 
         if shouldShowFeaturedProposal {

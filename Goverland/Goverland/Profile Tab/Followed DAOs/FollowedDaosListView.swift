@@ -1,5 +1,5 @@
 //
-//  FollowedDaosView.swift
+//  FollowedDaosListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2023-06-17.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct FollowedDaosView: View {
-    @StateObject private var dataSource = FollowedDaosDataSource.followedDaos
+struct FollowedDaosListView: View {
+    @StateObject private var dataSource = FollowedDaosDataSource.followedDaosList
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
