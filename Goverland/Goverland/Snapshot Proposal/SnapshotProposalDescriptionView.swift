@@ -174,10 +174,12 @@ struct SnapshotProposalDescriptionView: View {
             case .full:
                 if markdownDescription.count > minCharsForShowMore {
                     _ShowMoreButton(dataSource: dataSource)
+                        .padding(.top, 8)
                 }
             case .ai:
                 if let aiMarkdownDescription = dataSource.aiDescription, aiMarkdownDescription.count > minCharsForShowMore {
                     _ShowMoreButton(dataSource: dataSource)
+                        .padding(.top, 8)
                 }
             }
         }
