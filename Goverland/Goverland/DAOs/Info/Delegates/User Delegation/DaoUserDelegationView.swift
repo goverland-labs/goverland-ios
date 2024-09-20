@@ -167,6 +167,12 @@ fileprivate struct _DaoUserDelegationView: View {
                         Text("Network")
                             .font(.bodyRegular)
                             .foregroundColor(.textWhite)
+                        Image(systemName: "questionmark.circle")
+                            .foregroundStyle(Color.textWhite40)
+                            .padding(.trailing)
+                            .onTapGesture() {
+                                showInfoAlert("The delegation registry is stored on the blockchain. You can delegate on Gnosis Chain or Ethereum, but only the latest delegation is valid. Gnosis Chain transactions are cheaper than Ethereum's.")
+                            }
                         Spacer()
                         HStack {
                             let chains = [userDelegation.chains.gnosis, userDelegation.chains.eth]
