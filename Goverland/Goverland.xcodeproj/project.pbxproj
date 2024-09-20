@@ -60,8 +60,6 @@
 		553744DE2A7581DC00D05D8A /* GoogleService-Info.Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */; };
 		553756F12AE070E600416381 /* EmptyArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553756F02AE070E600416381 /* EmptyArchiveView.swift */; };
 		553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */; };
-		553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */; };
-		553D0F732B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */; };
 		553E74CF2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */; };
 		553E74D12BA1885800F697F8 /* PopoverNavigationViewWithToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */; };
 		553E74D32BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */; };
@@ -214,7 +212,7 @@
 		55FD73222AB75DC60081C38D /* SignInTwoStepsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */; };
 		55FD73252AB75DF80081C38D /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 55FD73242AB75DF80081C38D /* Starscream */; };
 		55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */; };
-		55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */; };
+		55FDC0E12B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E02B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift */; };
 		55FDC0E42B70AF7B00D1AD79 /* ProfileVotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */; };
 		55FDC0E62B70AFB600D1AD79 /* ProfileVotesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */; };
 		55FDC0EA2B70E1C100D1AD79 /* ProfileVotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDC0E92B70E1C100D1AD79 /* ProfileVotesListView.swift */; };
@@ -313,7 +311,7 @@
 		BADB166D2B201C3900CB99CC /* MonthlyTotalVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */; };
 		BADB16702B275F0C00CB99CC /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB166F2B275F0C00CB99CC /* AnnotationView.swift */; };
 		BADB99D02A3DFAA40098C0D3 /* FollowedDaosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */; };
-		BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */; };
+		BADB99D42A3DFF620098C0D3 /* FollowedDaosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */; };
 		BAE1AB152AE3650E001B89F3 /* ExclusiveVotersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */; };
 		BAE1AB172AE36522001B89F3 /* ExclusiveVotersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */; };
 		BAE1AB192AE366C5001B89F3 /* ExclusiveVoters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */; };
@@ -430,8 +428,6 @@
 		553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.Staging.plist"; sourceTree = "<group>"; };
 		553756F02AE070E600416381 /* EmptyArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyArchiveView.swift; sourceTree = "<group>"; };
 		553AA6292B2F94A6000402F0 /* RectanglePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePictureView.swift; sourceTree = "<group>"; };
-		553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFollowedDAOsActiveVoteHorizontalListView.swift; sourceTree = "<group>"; };
-		553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDAOsActiveVoteDataSource.swift; sourceTree = "<group>"; };
 		553E74CE2BA1793200F697F8 /* PublicUserProfileVotesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserProfileVotesDataSource.swift; sourceTree = "<group>"; };
 		553E74D02BA1885800F697F8 /* PopoverNavigationViewWithToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverNavigationViewWithToast.swift; sourceTree = "<group>"; };
 		553E74D22BA2C6E200F697F8 /* PopoverNavigationViewWithToast2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverNavigationViewWithToast2.swift; sourceTree = "<group>"; };
@@ -583,7 +579,7 @@
 		55FD73172AB75DC60081C38D /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		55FD73182AB75DC60081C38D /* SignInTwoStepsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInTwoStepsDataSource.swift; sourceTree = "<group>"; };
 		55FD73262AB75E210081C38D /* TopRoundedCornerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRoundedCornerShape.swift; sourceTree = "<group>"; };
-		55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowedDAOsHorizontalListView.swift; sourceTree = "<group>"; };
+		55FDC0E02B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDAOsHorizontalListView.swift; sourceTree = "<group>"; };
 		55FDC0E32B70AF7B00D1AD79 /* ProfileVotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesView.swift; sourceTree = "<group>"; };
 		55FDC0E52B70AFB600D1AD79 /* ProfileVotesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVotesDataSource.swift; sourceTree = "<group>"; };
 		55FDC0E72B70B12400D1AD79 /* APIService+Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Endpoint.swift"; sourceTree = "<group>"; };
@@ -673,7 +669,7 @@
 		BADB166C2B201C3900CB99CC /* MonthlyTotalVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyTotalVotersView.swift; sourceTree = "<group>"; };
 		BADB166F2B275F0C00CB99CC /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosDataSource.swift; sourceTree = "<group>"; };
-		BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosView.swift; sourceTree = "<group>"; };
+		BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedDaosListView.swift; sourceTree = "<group>"; };
 		BAE1AB142AE3650E001B89F3 /* ExclusiveVotersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersView.swift; sourceTree = "<group>"; };
 		BAE1AB162AE36522001B89F3 /* ExclusiveVotersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVotersDataSource.swift; sourceTree = "<group>"; };
 		BAE1AB182AE366C5001B89F3 /* ExclusiveVoters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveVoters.swift; sourceTree = "<group>"; };
@@ -870,8 +866,8 @@
 			isa = PBXGroup;
 			children = (
 				5518CA172B6E0D6100E6D243 /* ProfileFollowedDAOsView.swift */,
-				55FDC0E02B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift */,
-				BADB99D32A3DFF620098C0D3 /* FollowedDaosView.swift */,
+				55FDC0E02B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift */,
+				BADB99D32A3DFF620098C0D3 /* FollowedDaosListView.swift */,
 				BADB99CF2A3DFAA40098C0D3 /* FollowedDaosDataSource.swift */,
 				55458AC92A4087E000739002 /* AddSubscriptionView.swift */,
 			);
@@ -940,15 +936,6 @@
 				553744DD2A7581DC00D05D8A /* GoogleService-Info.Staging.plist */,
 			);
 			path = Firebase;
-			sourceTree = "<group>";
-		};
-		553D0F6F2B60EC1400EF5971 /* Followed DAOs active vote */ = {
-			isa = PBXGroup;
-			children = (
-				553D0F702B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift */,
-				553D0F722B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift */,
-			);
-			path = "Followed DAOs active vote";
 			sourceTree = "<group>";
 		};
 		553E74D82BA960C500F697F8 /* Recommended */ = {
@@ -1031,7 +1018,6 @@
 			children = (
 				55728B772ACD4E4E002961FD /* DashboardView.swift */,
 				553E74E02BAAB12500F697F8 /* Featured Proposals */,
-				553D0F6F2B60EC1400EF5971 /* Followed DAOs active vote */,
 				5526CAAE2ADEA46000B727A2 /* Hot Proposals */,
 				554243802AE04A7700504E97 /* New DAOs */,
 				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
@@ -2182,7 +2168,6 @@
 				BADB166B2B201AA700CB99CC /* MonthlyTotalVotersDataSource.swift in Sources */,
 				557C265C2B323E8F00AAF26C /* InfoMessageView.swift in Sources */,
 				BAC3CA1F2B9A3BFC001CC6C3 /* PublicUserProfileView.swift in Sources */,
-				553D0F732B60EDC000EF5971 /* FollowedDAOsActiveVoteDataSource.swift in Sources */,
 				BAAA2BFA2B0116EF0061F890 /* EcosystemDashboardView.swift in Sources */,
 				559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */,
 				BAF651FF29C8C1F300C78A8A /* Tracker.swift in Sources */,
@@ -2267,7 +2252,7 @@
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
-				55FDC0E12B6E0F8700D1AD79 /* ProfileFollowedDAOsHorizontalListView.swift in Sources */,
+				55FDC0E12B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift in Sources */,
 				55FD731D2AB75DC60081C38D /* SignInTwoStepsView.swift in Sources */,
 				552885952A28EAE700ED2BCD /* CategoryDaosDataSource.swift in Sources */,
 				5543011B2A4C83F000029BC3 /* MetricNumberFormatter.swift in Sources */,
@@ -2313,11 +2298,10 @@
 				BA84516C2A577A380088A6E6 /* PartnershipSettingView.swift in Sources */,
 				558ACC732C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift in Sources */,
 				BA50AB2F29FEE3CE00EC2AA6 /* ShimmerLoadingView.swift in Sources */,
-				BADB99D42A3DFF620098C0D3 /* FollowedDaosView.swift in Sources */,
+				BADB99D42A3DFF620098C0D3 /* FollowedDaosListView.swift in Sources */,
 				BA4A1C792A71D80700AC7470 /* ProgressBarView.swift in Sources */,
 				BAF651D229C0F00000C78A8A /* RoundPictureView.swift in Sources */,
 				558ACC982C80E797002FAE75 /* TestData.swift in Sources */,
-				553D0F712B60EC3C00EF5971 /* DashboardFollowedDAOsActiveVoteHorizontalListView.swift in Sources */,
 				55EFF8562C33080B00047108 /* InboxNotificationsDataSource.swift in Sources */,
 				558ACC592C80DBCC002FAE75 /* Chains.swift in Sources */,
 				55F143DD294B1DDA00D00B73 /* GoverlandApp.swift in Sources */,
@@ -2694,7 +2678,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;
@@ -2735,7 +2719,7 @@
 				CODE_SIGN_ENTITLEMENTS = Goverland/Goverland.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Goverland/Preview Content\"";
 				DEVELOPMENT_TEAM = G52RCXVY43;

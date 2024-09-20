@@ -45,6 +45,8 @@
 	<string>Access is required to enable the scheduling of reminders for voting on proposals</string>
 	<key>SUGGEST_TO_RATE_REQUEST_INTERVAL</key>
 	<string>$(SUGGEST_TO_RATE_REQUEST_INTERVAL)</string>
+	<key>HINT_AI_SUMMARY_REQUEST_INTERVAL</key>
+	<string>$(HINT_AI_SUMMARY_REQUEST_INTERVAL)</string>
 	<key>TIMEOUT</key>
 	<string>$(TIMEOUT)</string>
 	<key>UIAppFonts</key>

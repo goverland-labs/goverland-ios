@@ -73,7 +73,7 @@ struct ProfileView: View {
             .navigationDestination(for: ProfileScreen.self) { profileScreen in
                 switch profileScreen {
                 case .settings: SettingsView()
-                case .followedDaos: FollowedDaosView()
+                case .followedDaos: FollowedDaosListView()
                 case .votes: ProfileVotesListView(path: $path)
                 case .vote(let proposal):
                     SnapshotProposalView(proposal: proposal)
@@ -185,7 +185,7 @@ fileprivate struct _ProfileListView: View {
         }
         .refreshable {
             ProfileDataSource.shared.refresh()
-            FollowedDaosDataSource.followedDaos.refresh()
+            FollowedDaosDataSource.horizontalList.refresh()
             ProfileVotesDataSource.shared.refresh()
         }
     }

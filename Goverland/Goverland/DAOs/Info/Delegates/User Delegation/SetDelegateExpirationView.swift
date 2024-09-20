@@ -17,7 +17,8 @@ struct SetDelegateExpirationView: View {
         didSet {
             if isChecked {
                 // by default set it 1 year ahead
-                dataSource.expirationDate = Calendar.current.startOfDay(for: .now + 1.days) + 1.years
+                dataSource.expirationDate = Calendar.current.startOfDay(for: .now + 1.days) + 1.years + 12.hours
+                logInfo("[App] Set delegation expiration date: \(dataSource.expirationDate!)")
             } else {
                 dataSource.expirationDate = nil
             }
@@ -61,6 +62,7 @@ struct SetDelegateExpirationView: View {
                     DatePickerView(date: expirationDate) { date in
                         if let date {
                             dataSource.expirationDate = date
+                            logInfo("[App] Set delegation expiration date: \(dataSource.expirationDate!)")
                         }
                     }
                 }

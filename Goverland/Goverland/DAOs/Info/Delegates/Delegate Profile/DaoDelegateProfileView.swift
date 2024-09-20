@@ -125,18 +125,30 @@ struct DaoDelegateProfileHeaderView: View {
             RoundPictureView(image: delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
             
             VStack(spacing: 10) {
-                Text(delegate.user.usernameShort)
-                    .font(.title3Semibold)
-                    .foregroundColor(.textWhite)
-                HStack {
+                VStack(spacing: 4) {
+                    Text(delegate.user.usernameShort)
+                        .font(.title3Semibold)
+                        .foregroundColor(.textWhite)
+                        .onTapGesture {
+                            if let resolvedName = delegate.user.resolvedName {
+                                UIPasteboard.general.string = resolvedName
+                                showToast("Name copied")
+                            } else {
+                                UIPasteboard.general.string = delegate.user.address.value
+                                showToast("Address copied")
+                            }
+                        }
+
                     if delegate.user.resolvedName != nil {
                         Text(delegate.user.address.short)
-                    } else {
-                        Text(delegate.user.address.checksum ?? "")
+                            .foregroundColor(.textWhite60)
+                            .font(.footnoteRegular)
+                            .onTapGesture {
+                                UIPasteboard.general.string = delegate.user.address.value
+                                showToast("Address copied")
+                            }
                     }
                 }
-                .foregroundColor(.textWhite60)
-                .font(.footnoteRegular)
                 
                 HStack(spacing: 10) {
                     HStack(spacing: 2) {

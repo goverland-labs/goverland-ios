@@ -39,7 +39,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         return selectedChain.balance >= selectedChain.feeApproximation
     }
 
-    var chainIsApprovedByWallet: Bool {
+    var selectedChainIsApprovedByWallet: Bool {
         guard let selectedChain else { return false }
 
         if cbAddress != nil { return true } // no need to check for Coinbase wallet
@@ -120,6 +120,10 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         } else {
             self.selectedChain = userDelegation.chains.gnosis
         }
+
+        if !selectedChainIsApprovedByWallet {
+            self.selectedChain = userDelegation.chains.eth
+        }
     }
 
     func prepareSplitDelegation(splitModel: UserDelegationSplitViewModel) {
@@ -164,7 +168,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
                 case .error(let rpcError):
                     logInfo("[WC] Error: \(rpcError)")
                     showLocalNotification(title: "Rejected to send transaction", body: "Open the App to repeat the request")
-                    showToast(rpcError.localizedDescription)
+                    showToast("Rejected to send transaction")
                 case .response(let txHash):
                     guard let txHashStr = txHash.value as? String else {
                         logError(GError.appInconsistency(reason: "Expected txId as string. Got \(txHash)"))

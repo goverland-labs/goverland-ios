@@ -25,7 +25,7 @@ struct AllDaoVotersListView: View {
                 if dataSource.isLoading {
                     List(0..<7, id: \.self) { _ in
                         ShimmerVoteListItemView()
-                            .padding([.top, .bottom])
+                            .padding(.vertical)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets())
                     }
@@ -34,7 +34,6 @@ struct AllDaoVotersListView: View {
                         if index == dataSource.voters.count - 1 && dataSource.hasMore() {
                             if !dataSource.failedToLoadMore {
                                 ShimmerTopVoteListItemView()
-                                    .padding([.top, .bottom])
                                     .listRowBackground(Color.clear)
                                     .listRowInsets(EdgeInsets())
                                     .onAppear {

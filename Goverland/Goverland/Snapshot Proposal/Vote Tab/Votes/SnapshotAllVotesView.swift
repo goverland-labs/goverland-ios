@@ -49,14 +49,17 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
                     ScrollView(showsIndicators: false) {
                         LazyVStack {
                             if data.isLoading {
-                                List(0..<7, id: \.self) { _ in
+                                ForEach(0..<7, id: \.self) { _ in
                                     ShimmerVoteListItemView()
+                                        .padding(6)
+                                    Divider()
                                 }
                             } else {
                                 ForEach(0..<data.votes.count, id: \.self) { index in
                                     if index == data.votes.count - 1 && data.hasMore() {
                                         if !data.failedToLoadMore { // try to paginate
                                             ShimmerVoteListItemView()
+                                                .padding(6)
                                                 .onAppear {
                                                     data.loadMore()
                                                 }
@@ -88,10 +91,12 @@ fileprivate struct _SnapshotAllVotesView<ChoiceType: Decodable>: View {
                         } else if data.searchResultVotes.isEmpty { // initial searching
                             ForEach(0..<7) { _ in
                                 ShimmerVoteListItemView()
+                                Divider()
                             }
                         } else {
                             ForEach(data.searchResultVotes) { vote in
                                 VoteListItemView(proposal: proposal, vote: vote)
+                                Divider()
                             }
                         }
                     }

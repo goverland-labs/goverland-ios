@@ -29,5 +29,8 @@ ENABLE_PUSH_NOTIFICATIONS_REQUEST_INTERVAL = 5184000
 // Agree with DAO terms request interval: 180 days (60 * 60 * 24 * 180)
 DAO_TERMS_AGREEMENT_REQUEST_INTERVAL = 15552000
 
-// Suggest to rate after voting request intervel: 90 days (60 * 60 * 24 * 90)
+// Suggest to rate after voting request interval: 90 days (60 * 60 * 24 * 90)
 SUGGEST_TO_RATE_REQUEST_INTERVAL = 7776000
+
+// Hint AI summarization request interval: 30 days (60 * 60 * 24 * 30)
+HINT_AI_SUMMARY_REQUEST_INTERVAL = 2592000

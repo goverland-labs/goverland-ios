@@ -52,7 +52,7 @@ class SnapshotProposalDescriptionViewDataSource: ObservableObject, Refreshable {
                     }
                 }
             } receiveValue: { [weak self] summary, _ in
-                self?.aiDescription = summary.summaryMarkdown
+                self?.aiDescription = summary.summaryMarkdown + "\n\n###### ⚠️ AI can be inaccurate or misleading\n"      
             }
             .store(in: &cancellables)
     }
