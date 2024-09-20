@@ -39,7 +39,7 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
         return selectedChain.balance >= selectedChain.feeApproximation
     }
 
-    var chainIsApprovedByWallet: Bool {
+    var selectedChainIsApprovedByWallet: Bool {
         guard let selectedChain else { return false }
 
         if cbAddress != nil { return true } // no need to check for Coinbase wallet
@@ -119,6 +119,10 @@ class DaoUserDelegationDataSource: ObservableObject, Refreshable {
             self.selectedChain = userDelegation.chains.eth
         } else {
             self.selectedChain = userDelegation.chains.gnosis
+        }
+
+        if !selectedChainIsApprovedByWallet {
+            self.selectedChain = userDelegation.chains.eth
         }
     }
 

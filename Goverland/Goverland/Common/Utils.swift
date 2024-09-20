@@ -247,6 +247,11 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
+    static func rounded(_ value: Double, _ decimals: Int = 3) -> Double {
+        let factor = pow(10.0, Double(decimals))
+        return ceil(value * factor) / factor
+    }
+
     // MARK: - Misc
 
     static func urlFromString(_ string: String) -> URL? {
