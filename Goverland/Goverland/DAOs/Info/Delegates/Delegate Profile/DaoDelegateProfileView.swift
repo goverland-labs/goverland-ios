@@ -128,15 +128,12 @@ struct DaoDelegateProfileHeaderView: View {
                 Text(delegate.user.usernameShort)
                     .font(.title3Semibold)
                     .foregroundColor(.textWhite)
-                HStack {
-                    if delegate.user.resolvedName != nil {
-                        Text(delegate.user.address.short)
-                    } else {
-                        Text(delegate.user.address.checksum ?? "")
-                    }
+                
+                if delegate.user.resolvedName != nil {
+                    Text(delegate.user.address.short)
+                        .foregroundColor(.textWhite60)
+                        .font(.footnoteRegular)
                 }
-                .foregroundColor(.textWhite60)
-                .font(.footnoteRegular)
                 
                 HStack(spacing: 10) {
                     HStack(spacing: 2) {
