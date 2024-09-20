@@ -78,57 +78,52 @@ struct PushNotificationsSettingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Push Notifications")
         .onChange(of: notificationsEnabled) { _, toggleEnabled in
+            if !toggleEnabled {
+                logInfo("[App] Notifications toggle disabled")
+                Tracker.track(.settingsDisableGlbNotifications)
+                NotificationsManager.shared.disableNotifications { disabled in
+                    guard disabled else {
+                        // Error will be displayed automatically if there was a networking issue
+                        skipTrackingOnce = true
+                        notificationsEnabled = true
+                        return
+                    }
+                    // on purpose
+                    SettingKeys.shared.notificationsEnabled = false
+                    // update notifications settings
+                    dataSource.clear()
+                }
+
+                return
+            }
+
+            // enabling
             NotificationsManager.shared.getNotificationsStatus { status in
                 switch status {
                 case .notDetermined:
-                    if toggleEnabled {
-                        Tracker.track(.settingsEnableGlbNotifications)
-                        NotificationsManager.shared.requestUserPermissionAndRegister { granted in
-                            DispatchQueue.main.async {
-                                SettingKeys.shared.notificationsEnabled = granted
-                                notificationsEnabled = granted
-                            }
+                    Tracker.track(.settingsEnableGlbNotifications)
+                    NotificationsManager.shared.requestUserPermissionAndRegister { granted in
+                        DispatchQueue.main.async {
+                            SettingKeys.shared.notificationsEnabled = granted
+                            notificationsEnabled = granted
                         }
-                    } else {
-                        // should not happen
-                        logError(GError.appInconsistency(reason: "Enabled notifications toggle without determined permission"))
                     }
 
                 case .denied:
-                    if toggleEnabled {
-                        // Notifications are disabled in app settings
-                        notificationsEnabled = false
-                        showAlert = true
-                    } else {
-                        logInfo("Auto-disabled notifications toggle")
-                    }
+                    // Notifications are disabled in app settings
+                    notificationsEnabled = false
+                    showAlert = true
                 default:
-                    if toggleEnabled {
-                        if !skipTrackingOnce {
-                            Tracker.track(.settingsEnableGlbNotifications)
-                            // on purpose
-                            SettingKeys.shared.notificationsEnabled = true
-                            // optimistic enabling
-                            NotificationsManager.shared.enableNotificationsIfNeeded()
-                            // update notifications settings
-                            dataSource.refresh()
-                        } else {
-                            skipTrackingOnce = false
-                        }
+                    if !skipTrackingOnce {
+                        Tracker.track(.settingsEnableGlbNotifications)
+                        // on purpose
+                        SettingKeys.shared.notificationsEnabled = true
+                        // optimistic enabling
+                        NotificationsManager.shared.enableNotificationsIfNeeded()
+                        // update notifications settings
+                        dataSource.refresh()
                     } else {
-                        Tracker.track(.settingsDisableGlbNotifications)
-                        NotificationsManager.shared.disableNotifications { disabled in
-                            guard disabled else {
-                                // Error will be displayed automatically if there was a networking issue
-                                skipTrackingOnce = true
-                                notificationsEnabled = true
-                                return
-                            }
-                            // on purpose
-                            SettingKeys.shared.notificationsEnabled = false
-                            // update notifications settings
-                            dataSource.clear()
-                        }
+                        skipTrackingOnce = false
                     }
                 }
             }
@@ -149,5 +144,3 @@ struct PushNotificationsSettingView: View {
         }
     }    
 }
-
-

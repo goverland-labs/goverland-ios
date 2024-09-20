@@ -63,6 +63,11 @@ func showEnablePushNotificationsIfNeeded(activeSheetManager: ActiveSheetManager)
     }
 }
 
+func offerToEnableNotificationsOnNextEligibleAction() {
+    let now = Date().timeIntervalSinceReferenceDate
+    SettingKeys.shared.lastPromotedPushNotificationsTime = now - ConfigurationManager.enablePushNotificationsRequestInterval
+}
+
 enum Utils {
     // MARK: - App Settings
     
