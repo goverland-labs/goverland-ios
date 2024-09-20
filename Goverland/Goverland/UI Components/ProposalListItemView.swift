@@ -131,6 +131,14 @@ struct _ProposalListItemBodyView: View {
     let publicUserContext: ProposalListItemViewPublicUserContext
     let onDaoTap: (() -> Void)?
 
+    var votesOfPublicUserAndAppUserAreSame: Bool {
+        guard let (_, userChoiceId) = Utils.userChoice(from: proposal),
+              let (_, publicUserChoiceId) = Utils.publicUserChoice(from: proposal) else {
+            return false
+        }
+        return userChoiceId == publicUserChoiceId
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -159,24 +167,24 @@ struct _ProposalListItemBodyView: View {
                 }
                 .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
 
-                if let publicUserChoice = Utils.publicUserChoice(from: proposal) {
+                if let (publicUserChoice, _) = Utils.publicUserChoice(from: proposal), !votesOfPublicUserAndAppUserAreSame {
                     // public user voted
                     let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: publicUserChoice)
                     switch publicUserContext {
-                    case .publicUser:
+                    case .delegate:
                         Text("Delegate choice: \(choiceStr)")
                             .lineLimit(1)
                             .foregroundStyle(proposal.state == .active ? Color.delegateText : .textWhite40)
-                    case .delegate:
+                    case .publicUser:
                         Text("User choice: \(choiceStr)")
                             .lineLimit(1)
                             .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)
                     }
                 }
 
-                if let userChoice = Utils.userChoice(from: proposal) {
+                if let (appUserChoice, _) = Utils.userChoice(from: proposal) {
                     // user voted
-                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: userChoice)
+                    let choiceStr = Utils.choiseAsStr(proposal: proposal, choice: appUserChoice)
                     Text("Your choice: \(choiceStr)")
                         .lineLimit(1)
                         .foregroundStyle(proposal.state == .active ? Color.primaryDim : .textWhite40)

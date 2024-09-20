@@ -336,26 +336,29 @@ enum Utils {
         }
     }
 
-    static func userChoice(from proposal: Proposal) -> AnyObject? {
+    static func userChoice(from proposal: Proposal) -> (choice: AnyObject, id: String)? {
         // TODO: shutter completed proposals results are known. Need to improve.
         guard let vote = proposal.userVote, proposal.privacy != .shutter else { return nil }
         return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
     }
 
-    static func publicUserChoice(from proposal: Proposal) -> AnyObject? {
+    static func publicUserChoice(from proposal: Proposal) -> (choice: AnyObject, id: String)? {
         guard let vote = proposal.publicUserVote, proposal.privacy != .shutter else { return nil }
         return castAnyVoteToAnyObject(vote, proposalType: proposal.type)
     }
 
-    private static func castAnyVoteToAnyObject(_ vote: Proposal.AnyVote, proposalType: Proposal.ProposalType) -> AnyObject? {
+    private static func castAnyVoteToAnyObject(_ vote: Proposal.AnyVote, proposalType: Proposal.ProposalType) -> (choice: AnyObject, id: String) {
         // enumeration starts with 1 in Snapshot
         switch proposalType {
         case .singleChoice, .basic:
-            return (vote.base as! Vote<Int>).choice - 1 as AnyObject
+            let vote = vote.base as! Vote<Int>
+            return (vote.choice - 1 as AnyObject, vote.id)
         case .approval, .rankedChoice:
-            return (vote.base as! Vote<[Int]>).choice.map { $0 - 1 } as AnyObject
+            let vote = vote.base as! Vote<[Int]>
+            return (vote.choice.map { $0 - 1 } as AnyObject, vote.id)
         case .weighted, .quadratic:
-            return (vote.base as! Vote<[String: Double]>).choice as AnyObject
+            let vote = vote.base as! Vote<[String: Double]>
+            return (vote.choice as AnyObject, vote.id)
         }
     }
 }
