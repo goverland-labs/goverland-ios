@@ -82,7 +82,7 @@ struct DashboardView: View {
                 if FeaturedProposalsDataSource.dashboard.proposals?.isEmpty ?? true {
                     FeaturedProposalsDataSource.dashboard.refresh()
                 }
-                 
+
                 if FollowedDaosDataSource.horizontalList.subscriptions.isEmpty {
                     FollowedDaosDataSource.horizontalList.refresh()
                 }
@@ -187,6 +187,11 @@ fileprivate struct SignedOutUserDashboardView: View {
         }
         DashboardHotProposalsView(path: $path)
 
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
+        }
+        DashboardNewDaosView()
+
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 //        // Enable after public launch
 ////                {
@@ -231,18 +236,6 @@ fileprivate struct SignedInUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-
-        if shouldShowRecommendationToVote {
-            SectionHeader(header: "You have voting power") {
-                path.append(Path.profileHasVotingPower)
-            }
-            ProfileHasVotingPowerView(path: $path)
-        }
-
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)
         }
@@ -252,6 +245,18 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
+
+        if shouldShowRecommendationToVote {
+            SectionHeader(header: "You have voting power") {
+                path.append(Path.profileHasVotingPower)
+            }
+            ProfileHasVotingPowerView(path: $path)
+        }
+
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
+        }
+        DashboardNewDaosView()
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 ////                {
