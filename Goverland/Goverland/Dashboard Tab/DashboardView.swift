@@ -27,7 +27,7 @@ struct DashboardView: View {
 
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
-        FollowedDAOsActiveVoteDataSource.dashboard.refresh()
+        FollowedDaosDataSource.horizontalList.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
@@ -83,8 +83,8 @@ struct DashboardView: View {
                     FeaturedProposalsDataSource.dashboard.refresh()
                 }
 
-                if FollowedDAOsActiveVoteDataSource.dashboard.subscriptions.isEmpty {
-                    FollowedDAOsActiveVoteDataSource.dashboard.refresh()
+                if FollowedDaosDataSource.horizontalList.subscriptions.isEmpty {
+                    FollowedDaosDataSource.horizontalList.refresh()
                 }
 
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
@@ -187,6 +187,11 @@ fileprivate struct SignedOutUserDashboardView: View {
         }
         DashboardHotProposalsView(path: $path)
 
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
+        }
+        DashboardNewDaosView()
+
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 //        // Enable after public launch
 ////                {
@@ -198,12 +203,12 @@ fileprivate struct SignedOutUserDashboardView: View {
 
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
-    @StateObject private var followedDaosWithActiveVoteDataSource = FollowedDAOsActiveVoteDataSource.dashboard
+    @StateObject private var followedDaosDataSource = FollowedDaosDataSource.horizontalList
     @StateObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
     @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
-    var shouldShowDaosWithActiveVote: Bool {
-        !followedDaosWithActiveVoteDataSource.subscriptions.isEmpty || followedDaosWithActiveVoteDataSource.isLoading
+    var shouldShowFollowedDaos: Bool {
+        !followedDaosDataSource.subscriptions.isEmpty || followedDaosDataSource.isLoading
     }
 
     var shouldShowRecommendationToVote: Bool {
@@ -221,26 +226,14 @@ fileprivate struct SignedInUserDashboardView: View {
     }
 
     var body: some View {
-        if shouldShowDaosWithActiveVote {
-            SectionHeader(header: "Followed DAOs with active vote")
-            DashboardFollowedDAOsActiveVoteHorizontalListView()
+        if shouldShowFollowedDaos {
+            SectionHeader(header: "My followed DAOs")
+            FollowedDAOsHorizontalListView()
         }
 
         if shouldShowFeaturedProposal {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
-        }
-
-        SectionHeader(header: "New DAOs") {
-            path.append(Path.newDaos)
-        }
-        DashboardNewDaosView()
-
-        if shouldShowRecommendationToVote {
-            SectionHeader(header: "You have voting power") {
-                path.append(Path.profileHasVotingPower)
-            }
-            ProfileHasVotingPowerView(path: $path)
         }
 
         SectionHeader(header: "Hot Proposals") {
@@ -252,6 +245,18 @@ fileprivate struct SignedInUserDashboardView: View {
             path.append(Path.popularDaos)
         }
         DashboardPopularDaosHorizontalListView()
+
+        if shouldShowRecommendationToVote {
+            SectionHeader(header: "You have voting power") {
+                path.append(Path.profileHasVotingPower)
+            }
+            ProfileHasVotingPowerView(path: $path)
+        }
+
+        SectionHeader(header: "New DAOs") {
+            path.append(Path.newDaos)
+        }
+        DashboardNewDaosView()
 
 //        SectionHeader(header: "Ecosystem charts"/*, icon: Image(systemName: "chart.xyaxis.line")*/)
 ////                {

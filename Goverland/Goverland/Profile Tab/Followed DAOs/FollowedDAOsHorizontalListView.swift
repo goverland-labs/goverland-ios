@@ -1,5 +1,5 @@
 //
-//  ProfileFollowedDAOsHorizontalListView.swift
+//  FollowedDAOsHorizontalListView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 03.02.24.
@@ -9,8 +9,8 @@
 
 import SwiftUI
 
-struct ProfileFollowedDAOsHorizontalListView: View {
-    @StateObject private var dataSource = FollowedDaosDataSource.profileHorizontalList
+struct FollowedDAOsHorizontalListView: View {
+    @StateObject private var dataSource = FollowedDaosDataSource.horizontalList
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {

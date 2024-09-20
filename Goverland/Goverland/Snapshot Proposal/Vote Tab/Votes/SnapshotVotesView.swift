@@ -29,6 +29,7 @@ struct SnapshotVotesView<ChoiceType: Decodable>: View {
 
             if dataSource.isLoading {
                 ShimmerVoteListItemView()
+                    .padding(6)
             } else {
                 let count = dataSource.votes.count
                 ForEach(0..<min(5, count), id: \.self) { index in
@@ -94,6 +95,8 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(byUser ? .footnoteSemibold : .footnoteRegular)
                     .foregroundStyle(Color.textWhite)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                 if let reason = vote.message, !reason.isEmpty {
                     Image(systemName: "text.bubble.fill")
                         .foregroundStyle(Color.secondaryContainer)
@@ -119,23 +122,18 @@ struct VoteListItemView<ChoiceType: Decodable>: View {
 
 struct ShimmerVoteListItemView: View {
     var body: some View {
-        VStack {
-            HStack {
-                ShimmerView()
-                    .frame(width: 60, height: 20)
-                    .cornerRadius(10)
-                Spacer()
-                ShimmerView()
-                    .frame(width: 60, height: 20)
-                    .cornerRadius(8)
-                Spacer()
-                ShimmerView()
-                    .frame(width: 60, height: 20)
-                    .cornerRadius(8)
-            }
-            .padding(6)
-            
-            Divider()
+        HStack {
+            ShimmerView()
+                .frame(width: 60, height: 20)
+                .cornerRadius(10)
+            Spacer()
+            ShimmerView()
+                .frame(width: 60, height: 20)
+                .cornerRadius(8)
+            Spacer()
+            ShimmerView()
+                .frame(width: 60, height: 20)
+                .cornerRadius(8)
         }
     }
 }

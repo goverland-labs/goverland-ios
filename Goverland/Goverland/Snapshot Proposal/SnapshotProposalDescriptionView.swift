@@ -19,12 +19,12 @@ fileprivate enum _DescriptionTab: Int, Identifiable {
         [.full, .ai]
     }
 
-    func image() -> Image {
+    func image(replaceWand: Bool) -> Image {
         switch self {
         case .full:
             return Image(systemName: "scroll")
         case .ai:
-            return Image(systemName: "wand.and.stars")
+            return Image(systemName: replaceWand ? "eyes" : "wand.and.stars")
         }
     }
 }
@@ -33,6 +33,7 @@ struct SnapshotProposalDescriptionView: View {
     @StateObject private var dataSource: SnapshotProposalDescriptionViewDataSource
     @Query private var profiles: [UserProfile]
     @Setting(\.authToken) private var authToken
+    @Setting(\.lastViewed_AI_SummaryTime) private var lastViewed_AI_SummaryTime
 
     @State private var chosenTab: _DescriptionTab {
         didSet {
@@ -46,6 +47,10 @@ struct SnapshotProposalDescriptionView: View {
     }
     @State private var showSignIn = false
     @Namespace var namespace
+
+    let minCharsForShowMore = 300
+
+    @State private var replaceWand = false
 
     init(proposal: Proposal) {
         let dataSource = SnapshotProposalDescriptionViewDataSource(proposal: proposal)
@@ -68,7 +73,10 @@ struct SnapshotProposalDescriptionView: View {
         return !selected.isGuest
     }
 
-    let minCharsForShowMore = 300
+    var shouldHintWand: Bool {
+        let now = Date().timeIntervalSinceReferenceDate
+        return now - lastViewed_AI_SummaryTime > ConfigurationManager.hint_AI_summaryRequestInterval
+    }
 
     var body: some View {
         VStack {
@@ -83,8 +91,20 @@ struct SnapshotProposalDescriptionView: View {
                                     .fill(Color.secondaryContainer)
                                     .matchedGeometryEffect(id: "tab-background", in: namespace)
                             }
-                            tab.image()
+                            tab.image(replaceWand: replaceWand)
                                 .foregroundStyle(Color.onSecondaryContainer)
+                                .if(tab == .ai && shouldHintWand) { view in
+                                    view
+                                        .contentTransition(.symbolEffect(.replace))
+                                        .onAppear {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                                replaceWand = true
+                                            }
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                                replaceWand = false
+                                            }
+                                        }
+                                }
                         }
                         .frame(width: 40, height: 40)
                         .onTapGesture {
@@ -122,17 +142,22 @@ struct SnapshotProposalDescriptionView: View {
                                     .foregroundStyle(Color.textWhite)
                             }
                         }
+                        .onAppear {
+                            lastViewed_AI_SummaryTime = Date().timeIntervalSinceReferenceDate
+                        }
                     } else { // user is guest or not signed in
                         VStack(alignment: .leading) {
-                            Text("Please sign in to access the AI summarization for this proposal")
-                                .font(.bodyRegular)
-                                .foregroundStyle(Color.textWhite)
+                            InfoMessageView(message: "Please sign in to access the AI summarization for this proposal")
+                                .padding(.vertical, 20)
                             PrimaryButton("Sign in with wallet",
                                           height: 40,
                                           font: .footnoteSemibold) {
                                 Haptic.medium()
                                 showSignIn = true
                             }
+                        }
+                        .onAppear {
+                            lastViewed_AI_SummaryTime = Date().timeIntervalSinceReferenceDate
                         }
                     }
                 }
@@ -149,10 +174,12 @@ struct SnapshotProposalDescriptionView: View {
             case .full:
                 if markdownDescription.count > minCharsForShowMore {
                     _ShowMoreButton(dataSource: dataSource)
+                        .padding(.top, 8)
                 }
             case .ai:
                 if let aiMarkdownDescription = dataSource.aiDescription, aiMarkdownDescription.count > minCharsForShowMore {
                     _ShowMoreButton(dataSource: dataSource)
+                        .padding(.top, 8)
                 }
             }
         }

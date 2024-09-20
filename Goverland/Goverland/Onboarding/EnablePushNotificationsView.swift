@@ -51,6 +51,15 @@ fileprivate struct PushNotificationFooterControlsView: View {
                     DispatchQueue.main.async {
                         notificationsEnabled = granted
                         dismiss()
+                        if !granted, let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            showInfoAlert(
+"""
+### ⚠️ Action required! 
+To receive notifications, please enable them in your [device settings](\(settingsURL.absoluteString))
+"""
+                            )
+                            offerToEnableNotificationsOnNextEligibleAction()
+                        }
                     }
                 }
             }
