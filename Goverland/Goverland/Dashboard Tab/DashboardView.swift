@@ -21,8 +21,9 @@ struct DashboardView: View {
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     
     @Setting(\.authToken) private var authToken
-
     @Setting(\.lastWhatsNewVersionDisplaied) private var lastWhatsNewVersionDisplaied
+    @Setting(\.unreadEvents) private var unreadEvents
+
     @State private var showWhatsNew = false
 
     static func refresh() {
@@ -59,7 +60,33 @@ struct DashboardView: View {
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarTitle("Goverland")                
+                ToolbarTitle("Goverland")
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        logInfo("Press bell")
+                    } label: {
+                        HStack(spacing: 2) {
+                            if unreadEvents > 0 {
+                                Text("\(unreadEvents)")
+                                    .font(.сaption2Regular)
+                                    .padding(.horizontal, 5)
+                                    .padding(.vertical, 2)
+                                    .background(
+                                        Group {
+                                            if unreadEvents < 10 {
+                                                Circle().foregroundStyle(Color.red)
+                                            } else {
+                                                Capsule().foregroundStyle(Color.red)
+                                            }
+                                        }
+                                    )
+                                    .foregroundStyle(Color.textWhite)
+                                    .lineLimit(1)
+                        }
+                            Image(systemName: "bell.fill")
+                        }
+                    }
+                }
             }
             .onAppear {
                 Tracker.track(.screenDashboard)
