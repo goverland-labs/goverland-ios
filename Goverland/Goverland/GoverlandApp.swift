@@ -107,7 +107,9 @@ struct GoverlandApp: App {
                         }
 
                     case .notifications:
-                        InboxView()
+                        PopoverNavigationViewWithToast {
+                            InboxView()
+                        }
 
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
