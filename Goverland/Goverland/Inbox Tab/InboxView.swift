@@ -152,15 +152,13 @@ struct InboxView: View {
                     }
 
                     Button {
-                        TabManager.shared.selectedTab = .profile
-                        TabManager.shared.profilePath = [.followedDaos]
+                        pathManager.path.append(ProfileScreen.followedDaos)
                     } label: {
                         Label("My followed DAOs", systemImage: "d.circle.fill")
                     }
 
                     Button {
-                        TabManager.shared.selectedTab = .profile
-                        TabManager.shared.profilePath = [.settings, .inboxNofitications]
+                        pathManager.path.append(ProfileScreen.inboxNofitications)
                     } label: {
                         Label("Inbox Settings", systemImage: "gearshape.fill")
                     }
@@ -189,6 +187,16 @@ struct InboxView: View {
         .navigationDestination(for: Proposal.self) { proposal in
             SnapshotProposalView(proposal: proposal)
                 .environmentObject(activeSheetManager)
+        }
+        .navigationDestination(for: ProfileScreen.self) { profileScreen in
+            switch profileScreen {
+            case .followedDaos:
+                FollowedDaosListView()
+                    .environmentObject(activeSheetManager)
+            case .inboxNofitications:
+                InboxNotificationsSettingView()
+            default: FollowedDaosListView() // should not happen
+            }
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
