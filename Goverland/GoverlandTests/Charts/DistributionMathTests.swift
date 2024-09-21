@@ -10,6 +10,7 @@
 import XCTest
 @testable import Goverland
 
+// TODO: finialize when backend is ready
 final class DistributionMathTests: XCTestCase {
     func test_squareRootBins_1() {
         // 25 values
