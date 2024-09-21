@@ -61,7 +61,6 @@ struct ArchiveView: View {
                         let proposal = archive.eventData! as! Proposal
                         let isRead = archive.readAt != nil
                         ProposalListItemView(proposal: proposal,
-                                             isSelected: false,
                                              isRead: isRead,
                                              onDaoTap: {
                             activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)

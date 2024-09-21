@@ -62,7 +62,6 @@ struct InboxView: View {
                         if let proposal = event.eventData! as? Proposal, event.visible {
                             let isRead = event.readAt != nil
                             ProposalListItemView(proposal: proposal,
-                                                 isSelected: false,
                                                  isRead: isRead,
                                                  onDaoTap: {
                                 activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
@@ -183,6 +182,7 @@ struct InboxView: View {
                 if event.readAt == nil {
                     data.markRead(eventID: event.id)
                 }
+                // we need it to allow selecting second time same item
                 data.selectedEventIndex = nil
             }
         }
