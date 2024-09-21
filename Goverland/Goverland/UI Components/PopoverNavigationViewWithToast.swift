@@ -69,8 +69,9 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                 }
 
             case .archive:
-                // ArchiveView has path in NavigationStack
-                ArchiveView()
+                PopoverNavigationViewWithToast2 {
+                    ArchiveView()
+                }
 
             case .subscribeToNotifications:
                 EnablePushNotificationsView()
