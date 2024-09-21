@@ -60,6 +60,9 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                     AddSubscriptionView()
                 }
 
+            case .notifications:
+                InboxView()
+
             case .archive:
                 // ArchiveView has path in NavigationStack
                 ArchiveView()

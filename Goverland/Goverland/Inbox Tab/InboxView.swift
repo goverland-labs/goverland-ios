@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct InboxView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var data = InboxDataSource.shared
-    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+    @StateObject private var activeSheetManager = ActiveSheetManager()
 
-    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var path = NavigationPath()
 
     @State private var showReminderErrorAlert = false
     @State private var showReminderSelection = false
@@ -23,7 +24,7 @@ struct InboxView: View {
     }
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        NavigationStack(path: $path) {
             Group {
                 if data.failedToLoadInitialData {
                     RetryInitialLoadingView(dataSource: data,
@@ -62,12 +63,13 @@ struct InboxView: View {
                             if let proposal = event.eventData! as? Proposal, event.visible {
                                 let isRead = event.readAt != nil
                                 ProposalListItemView(proposal: proposal,
-                                                     isSelected: data.selectedEventIndex == index,
+                                                     isSelected: false,
                                                      isRead: isRead,
                                                      onDaoTap: {
                                     activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                                     Tracker.track(.inboxEventOpenDao)
                                 })
+                                .environmentObject(activeSheetManager)
                                 // TODO: submit bug to Apple: onLongPressGesture overrides list selection
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button {
@@ -121,17 +123,21 @@ struct InboxView: View {
                             }
                         }
                     }
-                    .refreshable {
-                        data.refresh()
-                    }
                 }
-
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarTitle("Inbox")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+
+                ToolbarTitle("Notifications")
 
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
@@ -168,28 +174,58 @@ struct InboxView: View {
                     }
                 }
             }
-        }  detail: {
-            // when data is loading it is also possible to select shimmer view
-            if let index = data.selectedEventIndex, events.count > index,
-               let proposal = events[index].eventData as? Proposal {
-                SnapshotProposalView(proposal: proposal)
-            } else {
-                EmptyView()
-            }
-        }
-        .onChange(of: data.selectedEventIndex) { _, _ in
-            if let index = data.selectedEventIndex, events.count > index {
-                let event = events[index]
-                Tracker.track(.inboxEventOpen)
-                if event.readAt == nil {
-                    data.markRead(eventID: event.id)
+            .onChange(of: data.selectedEventIndex) { _, _ in
+                if let index = data.selectedEventIndex, events.count > index,
+                   let proposal = events[index].eventData as? Proposal
+                {
+                    path.append(proposal)
+                    let event = events[index]
+                    Tracker.track(.inboxEventOpen)
+                    if event.readAt == nil {
+                        data.markRead(eventID: event.id)
+                    }
+                    data.selectedEventIndex = nil
                 }
             }
+            .navigationDestination(for: Proposal.self) { proposal in
+                SnapshotProposalView(proposal: proposal)
+                    .environmentObject(activeSheetManager)
+            }
+        }
+        .tint(.textWhite)
+        .overlay {
+            // we need it at this level to escape crashes inside ToastView
+            ToastView()
+                .environmentObject(activeSheetManager)
         }
         .onAppear() {
             if data.events?.isEmpty ?? true {
                 data.refresh()
-                Tracker.track(.screenInbox)
+            }
+            Tracker.track(.screenInbox)
+        }
+        .sheet(item: $activeSheetManager.activeSheet) { item in
+            switch item {
+            case .archive:
+                ArchiveView()
+                
+            case .daoInfoById(let daoId):
+                PopoverNavigationViewWithToast {
+                    DaoInfoView(daoId: daoId)
+                }
+
+            case .publicProfileById(let profileId):
+                PopoverNavigationViewWithToast {
+                    PublicUserProfileView(profileId: profileId)
+                }
+
+            case .proposalVoters(let proposal):
+                PopoverNavigationViewWithToast {
+                    SnapshotAllVotesView(proposal: proposal)
+                }
+
+            default:
+                EmptyView()
             }
         }
         .alert(isPresented: $showReminderErrorAlert) {

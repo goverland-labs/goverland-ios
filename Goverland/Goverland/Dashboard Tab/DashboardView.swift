@@ -63,7 +63,7 @@ struct DashboardView: View {
                 ToolbarTitle("Goverland")
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        logInfo("Press bell")
+                        activeSheetManager.activeSheet = .notifications
                     } label: {
                         HStack(spacing: 2) {
                             if unreadEvents > 0 {

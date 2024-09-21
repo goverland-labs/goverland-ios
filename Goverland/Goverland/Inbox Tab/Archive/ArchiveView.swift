@@ -66,6 +66,7 @@ struct ArchiveView: View {
                                 activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
                                 Tracker.track(.archiveEventOpenDao)
                             })
+                            .environmentObject(activeSheetManager)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
                                     unarchive(eventId: archive.id)

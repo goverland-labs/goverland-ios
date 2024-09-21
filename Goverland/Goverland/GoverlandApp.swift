@@ -58,11 +58,7 @@ struct GoverlandApp: App {
                             logInfo("[App] Auth Token: \(authToken)")
                             // If the app was not used for a while and a user opens it
                             // try to get a new counter for unread messages.
-                            if TabManager.shared.selectedTab != .inbox {
-                                // We make this check not to dismiss Cast Your Vote Success View
-                                // Which can be done from InboxView
-                                InboxDataSource.shared.refresh()
-                            }
+                            InboxDataSource.shared.refresh()
                             // Refresh user achievementsExp
                             AchievementsDataSource.shared.refresh()
                         } else {
@@ -109,6 +105,9 @@ struct GoverlandApp: App {
                         PopoverNavigationViewWithToast {
                             AddSubscriptionView()
                         }
+
+                    case .notifications:
+                        InboxView()
 
                     case .archive:
                         // If ArchiveView is places in NavigationStack, it brakes SwiftUI on iPhone
