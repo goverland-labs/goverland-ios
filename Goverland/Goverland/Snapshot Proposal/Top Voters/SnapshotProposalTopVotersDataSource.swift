@@ -12,8 +12,9 @@ import Foundation
 class SnapshotProposalTopVotersDataSource: TopVotersDataSource<TopProposalVoter> {
     let proposal: Proposal
 
-    init(proposal: Proposal) {
+    init(proposal: Proposal, filteringOption: DatesFiltetingOption) {
         self.proposal = proposal
+        super.init(selectedFilteringOption: filteringOption)
     }
 
     override func loadData() {

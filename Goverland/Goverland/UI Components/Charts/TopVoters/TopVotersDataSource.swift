@@ -18,7 +18,7 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
     @Published var failedToLoadInitialData: Bool = false
     var cancellables = Set<AnyCancellable>()
 
-    @Published var selectedFilteringOption: DatesFiltetingOption = .oneYear {
+    var selectedFilteringOption: DatesFiltetingOption {
         didSet {
             refresh(invalidateCache: false)
         }
@@ -28,6 +28,10 @@ class TopVotersDataSource<Voter: VoterVotingPower>: ObservableObject, Refreshabl
     var cache: [DatesFiltetingOption: [Voter]] = [:]
     var cacheTotalVP: [DatesFiltetingOption: Double] = [:]
     var cacheTotal: [DatesFiltetingOption: Int] = [:]
+
+    init(selectedFilteringOption: DatesFiltetingOption) {
+        self.selectedFilteringOption = selectedFilteringOption
+    }
 
     func refresh() {
         refresh(invalidateCache: true)

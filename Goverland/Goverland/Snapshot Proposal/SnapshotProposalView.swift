@@ -115,11 +115,13 @@ fileprivate struct _ProposalView: View {
     let proposal: Proposal
     let allowShowingDaoInfo: Bool
     @StateObject private var dataSource: SnapshotProposalTopVotersDataSource
+    @State private var filteringOption: DatesFiltetingOption
 
-    init(proposal: Proposal, allowShowingDaoInfo: Bool) {
+    init(proposal: Proposal, allowShowingDaoInfo: Bool, filteringOption: DatesFiltetingOption = .oneYear) {
         self.proposal = proposal
         self.allowShowingDaoInfo = allowShowingDaoInfo
-        let dataSource = SnapshotProposalTopVotersDataSource(proposal: proposal)
+        _filteringOption = State(wrappedValue: filteringOption)
+        let dataSource = SnapshotProposalTopVotersDataSource(proposal: proposal, filteringOption: filteringOption)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -163,7 +165,7 @@ fileprivate struct _ProposalView: View {
                     .padding(.bottom, 32)
 
                 if shouldShowTopVoters {
-                    SnapshotProposalTopVotersView(dataSource: dataSource)
+                    SnapshotProposalTopVotersView(filteringOption: $filteringOption, dataSource: dataSource)
                         .padding(.bottom, 32)
                 }
 

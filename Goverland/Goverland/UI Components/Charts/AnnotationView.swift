@@ -14,13 +14,13 @@ struct AnnotationView: View {
     let firstPlaceholderTitle: String
     let secondPlaceholderValue: String?
     let secondPlaceholderTitle: String?
-    let description: String
-    
+    let description: String?
+
     init(firstPlaceholderValue: String,
          firstPlaceholderTitle: String,
          secondPlaceholderValue: String?,
          secondPlaceholderTitle: String?,
-         description: String) {
+         description: String?) {
         self.firstPlaceholderValue = firstPlaceholderValue
         self.firstPlaceholderTitle = firstPlaceholderTitle
         self.secondPlaceholderValue = secondPlaceholderValue
@@ -38,31 +38,38 @@ struct AnnotationView: View {
                     Text(firstPlaceholderTitle)
                         .font(.subheadlineRegular)
                         .foregroundStyle(Color.textWhite60)
+                        .padding(.bottom, 2)
                 }
                 Spacer()
             }
             
-            if let secondPlaceholderValue = secondPlaceholderValue, let secondPlaceholderTitle = secondPlaceholderTitle {
+            if secondPlaceholderValue != nil || secondPlaceholderTitle != nil {
                 HStack {
                     HStack(spacing: 4) {
-                        Text(secondPlaceholderValue)
-                            .font(.subheadlineRegular)
-                            .foregroundStyle(Color.textWhite)
-                        Text(secondPlaceholderTitle)
-                            .font(.subheadlineRegular)
-                            .foregroundStyle(Color.textWhite60)
+                        if let secondPlaceholderValue {
+                            Text(secondPlaceholderValue)
+                                .font(.subheadlineRegular)
+                                .foregroundStyle(Color.textWhite)
+                        }
+                        if let secondPlaceholderTitle {
+                            Text(secondPlaceholderTitle)
+                                .font(.subheadlineRegular)
+                                .foregroundStyle(Color.textWhite60)
+                        }
                     }
                     Spacer()
                 }
             }
-            
-            HStack {
-                HStack(spacing: 4) {
-                    Text(description)
-                        .font(.captionSemibold)
-                        .foregroundStyle(Color.textWhite60)
+
+            if let description {
+                HStack {
+                    HStack(spacing: 4) {
+                        Text(description)
+                            .font(.captionSemibold)
+                            .foregroundStyle(Color.textWhite60)
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .padding(8)
