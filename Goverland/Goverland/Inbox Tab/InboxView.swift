@@ -135,7 +135,7 @@ struct InboxView: View {
                 }
             }
 
-            ToolbarTitle("Notifications")
+            ToolbarTitle("Notifications Inbox")
 
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Menu {
@@ -158,7 +158,7 @@ struct InboxView: View {
                     }
 
                     Button {
-                        pathManager.path.append(ProfileScreen.inboxNofitications)
+                        pathManager.path.append(ProfileScreen.inboxSettings)
                     } label: {
                         Label("Inbox Settings", systemImage: "gearshape.fill")
                     }
@@ -193,8 +193,8 @@ struct InboxView: View {
             case .followedDaos:
                 FollowedDaosListView()
                     .environmentObject(activeSheetManager)
-            case .inboxNofitications:
-                InboxNotificationsSettingView()
+            case .inboxSettings:
+                InboxSettingView()
             default: FollowedDaosListView() // should not happen
             }
         }

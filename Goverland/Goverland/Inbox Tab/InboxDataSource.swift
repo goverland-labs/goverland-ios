@@ -101,8 +101,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
             .store(in: &cancellables)
 
         // to check user's archiving options
-        if InboxNotificationsDataSource.shared.notificationsSettings == nil {
-            InboxNotificationsDataSource.shared.refresh()
+        if InboxSettingsDataSource.shared.notificationsSettings == nil {
+            InboxSettingsDataSource.shared.refresh()
         }
     }
 
@@ -243,7 +243,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     @objc func voteCasted(_ notification: Notification) {
         guard let proposal = notification.object as? Proposal else { return }
         if let index = events?.firstIndex(where: { ($0.eventData as? Proposal)?.id == proposal.id }),
-            let inboxSettings = InboxNotificationsDataSource.shared.notificationsSettings, inboxSettings.archiveProposalAfterVote 
+            let inboxSettings = InboxSettingsDataSource.shared.notificationsSettings, inboxSettings.archiveProposalAfterVote 
         {
             events?[index].visible = false
         }

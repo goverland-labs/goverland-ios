@@ -1,5 +1,5 @@
 //
-//  InboxNotificationSettings.swift
+//  InboxSettings.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 01.07.24.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct InboxNotificationSettings: Codable {
+struct InboxSettings: Codable {
     let archiveProposalAfterVote: Bool
     let autoarchiveAfter: Timeframe
 
@@ -35,8 +35,8 @@ struct InboxNotificationSettings: Codable {
     }
 
     func with(archiveProposalAfterVote: Bool? = nil,
-              autoarchiveAfter: Timeframe? = nil) -> InboxNotificationSettings {
-        InboxNotificationSettings(archiveProposalAfterVote: archiveProposalAfterVote ?? self.archiveProposalAfterVote,
+              autoarchiveAfter: Timeframe? = nil) -> InboxSettings {
+        InboxSettings(archiveProposalAfterVote: archiveProposalAfterVote ?? self.archiveProposalAfterVote,
                                   autoarchiveAfter: autoarchiveAfter ?? self.autoarchiveAfter)
     }
 }

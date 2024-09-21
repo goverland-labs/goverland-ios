@@ -507,7 +507,7 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func updateInboxNotificationSettings(settings: InboxNotificationSettings) -> AnyPublisher<(UpdateInboxNotificationSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func updateInboxNotificationSettings(settings: InboxSettings) -> AnyPublisher<(UpdateInboxNotificationSettingsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = UpdateInboxNotificationSettingsEndpoint(settings: settings)
         return shared.request(endpoint)
     }
