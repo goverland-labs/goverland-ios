@@ -90,6 +90,13 @@ extension APIService {
         let endpoint = MarkAchievementEndpoint(achievementId: achievementId)
         return shared.request(endpoint, defaultErrorDisplay: false)
     }
+    
+    static func voteNowProposals(value: Bool = false) -> AnyPublisher<(VoteNowProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [URLQueryItem(name: "featured", value: "\(value)")]
+        
+        let endpoint = ProfileHasVotingPowerEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
 
     // MARK: - Public Profile
 

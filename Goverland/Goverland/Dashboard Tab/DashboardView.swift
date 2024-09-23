@@ -14,6 +14,7 @@ fileprivate enum Path {
     case popularDaos
     case profileHasVotingPower
     case ecosystemCharts
+    case voteNow
 }
 
 struct DashboardView: View {
@@ -134,6 +135,10 @@ struct DashboardView: View {
                 if StatsDataSource.shared.stats == nil {
                     StatsDataSource.shared.refresh()
                 }
+                
+                if VoteNowDataSource.dashboard.proposals == nil {
+                    VoteNowDataSource.dashboard.refresh()
+                }
             }
             .refreshable {
                 Self.refresh()
@@ -166,6 +171,10 @@ struct DashboardView: View {
                     ProfileHasVotingPowerFullView(path: $path)
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
+                case .voteNow:
+                    VoteNowListView(dataSource: VoteNowDataSource.dashboard,
+                                    path: $path)
+                        .navigationTitle("Vote Now")
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
@@ -198,6 +207,11 @@ fileprivate struct SignedOutUserDashboardView: View {
                 .padding(.horizontal, Constants.horizontalPadding)
                 .padding(.vertical, 16)
         }
+        
+        SectionHeader(header: "Vote now") {
+            path.append(Path.voteNow)
+        }
+        DashboardVoteNowView(path: $path)
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
@@ -262,6 +276,11 @@ fileprivate struct SignedInUserDashboardView: View {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
         }
+        
+        SectionHeader(header: "Vote now") {
+            path.append(Path.voteNow)
+        }
+        DashboardVoteNowView(path: $path)
 
         SectionHeader(header: "Hot Proposals") {
             path.append(Path.hotProposals)

@@ -606,6 +606,18 @@ struct ProposalSummaryEndpoint: APIEndpoint {
     }
 }
 
+struct VoteNowProposalsEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String { "vote-now" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 // MARK: - Voting & Votes
 
 fileprivate enum TypedValue: Encodable {
