@@ -15,7 +15,6 @@ enum ProposalListItemViewPublicUserContext {
 
 struct ProposalListItemView: View {
     let proposal: Proposal
-    let isSelected: Bool
     let isRead: Bool
     let isPresented: Bool
     let isHighlighted: Bool
@@ -26,7 +25,6 @@ struct ProposalListItemView: View {
     @Environment(\.isPresented) private var _isPresented
 
     init(proposal: Proposal,
-         isSelected: Bool = false,
          isRead: Bool = false,
          isPresented: Bool = false,
          isHighlighted: Bool = false,
@@ -34,7 +32,6 @@ struct ProposalListItemView: View {
          publicUserContext: ProposalListItemViewPublicUserContext = .publicUser,
          onDaoTap: (() -> Void)? = nil) {
         self.proposal = proposal
-        self.isSelected = isSelected
         self.isRead = isRead
         self.isPresented = isPresented
         self.isHighlighted = isHighlighted
@@ -44,10 +41,6 @@ struct ProposalListItemView: View {
     }
 
     private var backgroundColor: Color {
-        if isSelected {
-            return .secondaryContainer
-        }
-
         if UIDevice.current.userInterfaceIdiom != .phone {
             return .containerBright
         }
@@ -74,7 +67,7 @@ struct ProposalListItemView: View {
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, 12)
 
-            if isRead && !isSelected {
+            if isRead {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.containerDim.opacity(0.6))
                     .allowsHitTesting(false)

@@ -1,5 +1,5 @@
 //
-//  InboxNotificationsDataSource.swift
+//  InboxSettingsDataSource.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 01.07.24.
@@ -10,12 +10,12 @@
 import Foundation
 import Combine
 
-class InboxNotificationsDataSource: ObservableObject, Refreshable {
-    @Published var notificationsSettings: InboxNotificationSettings?
+class InboxSettingsDataSource: ObservableObject, Refreshable {
+    @Published var notificationsSettings: InboxSettings?
     @Published var failedToLoadInitialData: Bool = false
     private var cancellables = Set<AnyCancellable>()
 
-    static let shared = InboxNotificationsDataSource()
+    static let shared = InboxSettingsDataSource()
 
     private init() {}
 
@@ -48,7 +48,7 @@ class InboxNotificationsDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 
-    func updateSettings(settings: InboxNotificationSettings) {
+    func updateSettings(settings: InboxSettings) {
         let oldSettings = notificationsSettings
         notificationsSettings = settings
         APIService.updateInboxNotificationSettings(settings: settings)

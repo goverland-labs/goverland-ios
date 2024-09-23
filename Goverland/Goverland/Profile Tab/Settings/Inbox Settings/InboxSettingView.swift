@@ -1,5 +1,5 @@
 //
-//  InboxNotificationsSettingView.swift
+//  InboxSettingView.swift
 //  Goverland
 //
 //  Created by Andrey Scherbovich on 01.07.24.
@@ -10,8 +10,8 @@
 import SwiftUI
 import SwiftData
 
-struct InboxNotificationsSettingView: View {
-    @ObservedObject var dataSource = InboxNotificationsDataSource.shared
+struct InboxSettingView: View {
+    @ObservedObject var dataSource = InboxSettingsDataSource.shared
     @Query private var profiles: [UserProfile]
 
     var selectedProfileIsGuest: Bool {
@@ -45,14 +45,14 @@ struct InboxNotificationsSettingView: View {
                                 dataSource.updateSettings(settings: settings)
                             }
                         )) {
-                            ForEach(InboxNotificationSettings.Timeframe.allCases, id: \.self) { option in
+                            ForEach(InboxSettings.Timeframe.allCases, id: \.self) { option in
                                 Text(option.localizedDescription).tag(option)
                             }
                         }
                     } header: {
-                        Text("Archive")
+                        Text("Proposals")
                     } footer: {
-                        Text("You can find archived notifications in your inbox")
+                        Text("You can find archived notifications in your inbox menu")
                             .font(.footnoteRegular)
                             .foregroundStyle(Color.textWhite40)
                     }
@@ -65,7 +65,7 @@ struct InboxNotificationsSettingView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Inbox Notifications")
+        .navigationTitle("Inbox Settings")
         .onAppear() {
             Tracker.track(.screenInboxNotifications)
             if dataSource.notificationsSettings == nil {

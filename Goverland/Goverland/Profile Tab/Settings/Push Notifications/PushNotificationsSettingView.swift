@@ -52,7 +52,7 @@ struct PushNotificationsSettingView: View {
                             dataSource.updateSettings(settings: settings)
                         }))
                     .tint(.green)
-                    Toggle("Vote finishes soon", isOn: Binding(
+                    Toggle("Vote finishes soon (in 6h)", isOn: Binding(
                         get: {
                             notificationsSettings.daoSettings.voteFinishesSoon
                         }, set: { newValue in

@@ -15,6 +15,7 @@ enum ActiveSheet: Identifiable, Equatable {
     case daoVoters(Dao, DatesFiltetingOption)
     case proposalVoters(Proposal)
     case followDaos
+    case notifications
     case archive
     case subscribeToNotifications
     case recommendedDaos([Dao])
@@ -30,12 +31,13 @@ enum ActiveSheet: Identifiable, Equatable {
         case .daoVoters: return 3
         case .proposalVoters: return 4
         case .followDaos: return 5
-        case .archive: return 6
-        case .subscribeToNotifications: return 7
-        case .recommendedDaos: return 8
-        case .daoDelegateProfileById: return 9
-        case .daoUserDelegate: return 10
-        case .proposal: return 11
+        case .notifications: return 6
+        case .archive: return 7
+        case .subscribeToNotifications: return 8
+        case .recommendedDaos: return 9
+        case .daoDelegateProfileById: return 10
+        case .daoUserDelegate: return 11
+        case .proposal: return 12
         }
     }
 }

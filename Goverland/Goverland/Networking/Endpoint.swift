@@ -919,7 +919,7 @@ struct MarkPushAsClickedEndpoint: APIEndpoint {
 // MARK: - Inbox Notifications
 
 struct InboxNotificationSettingsEndpoint: APIEndpoint {
-    typealias ResponseType = InboxNotificationSettings
+    typealias ResponseType = InboxSettings
 
     var path: String = "feed/settings"
     var method: HttpMethod = .get
@@ -932,7 +932,7 @@ struct UpdateInboxNotificationSettingsEndpoint: APIEndpoint {
     var method: HttpMethod = .post
     var body: Data?
 
-    init(settings: InboxNotificationSettings) {
+    init(settings: InboxSettings) {
         self.body = try! JSONEncoder().encode(settings)
     }
 }

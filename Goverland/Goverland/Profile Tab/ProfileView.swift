@@ -16,7 +16,7 @@ enum ProfileScreen: Hashable {
 
     // Settings
     case pushNofitications
-    case inboxNofitications
+    case inboxSettings
     case about
     case helpUsGrow
     case partnership
@@ -80,7 +80,7 @@ struct ProfileView: View {
 
                 // Settings
                 case .pushNofitications: PushNotificationsSettingView()
-                case .inboxNofitications: InboxNotificationsSettingView()
+                case .inboxSettings: InboxSettingView()
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
                 case .partnership: PartnershipSettingView()
@@ -175,11 +175,13 @@ fileprivate struct _ProfileListView: View {
 
     var body: some View {
         ScrollView {
+            if let user = profile.account { // signed in
+                ConnectedWalletView(user: user)
+            }
+
             ProfileFollowedDAOsView(profile: profile)
 
             if let user = profile.account {
-                ConnectedWalletView(user: user)
-
                 ProfileVotesView(path: $path)
             }
         }

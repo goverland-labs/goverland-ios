@@ -13,18 +13,21 @@ import SwiftUI
 struct PopoverNavigationViewWithToast<Content: View>: View {
     let content: Content
 
+    @StateObject private var pathManager: NavigationPathManager
     @StateObject private var activeSheetManager: ActiveSheetManager
     @StateObject private var recommendedDaosDataSource = RecommendedDaosDataSource.shared
     @Setting(\.lastAttemptToPromotedPushNotifications) private var lastAttemptToPromotedPushNotifications
 
     init(@ViewBuilder content: () -> Content) {
+        _pathManager = StateObject(wrappedValue: NavigationPathManager())
         _activeSheetManager = StateObject(wrappedValue: ActiveSheetManager())
         self.content = content()
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $pathManager.path) {
             content
+                .environmentObject(pathManager)
                 .environmentObject(activeSheetManager)
         }
         .sheet(item: $activeSheetManager.activeSheet) { item in
@@ -60,9 +63,15 @@ struct PopoverNavigationViewWithToast<Content: View>: View {
                     AddSubscriptionView()
                 }
 
+            case .notifications:
+                PopoverNavigationViewWithToast2 {
+                    InboxView()
+                }
+
             case .archive:
-                // ArchiveView has path in NavigationStack
-                ArchiveView()
+                PopoverNavigationViewWithToast2 {
+                    ArchiveView()
+                }
 
             case .subscribeToNotifications:
                 EnablePushNotificationsView()

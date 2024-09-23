@@ -11,7 +11,6 @@ import SwiftUI
 class TabManager: ObservableObject {
     enum Tab {
         case home
-        case inbox
         case search
         case profile
     }
@@ -26,9 +25,6 @@ class TabManager: ObservableObject {
                 case .home:                    
                     DashboardView.refresh()
                     dashboardPath = NavigationPath()
-                case .inbox:
-                    inboxViewId = UUID()
-                    InboxDataSource.shared.refresh(nullifySelectedEventIndex: true)
                 case .search:
                     SearchModel.shared.refresh()
                     GroupedDaosDataSource.search.refresh()
@@ -41,8 +37,7 @@ class TabManager: ObservableObject {
     
     @Published var profilePath = [ProfileScreen]()
     @Published var dashboardPath = NavigationPath()
-    @Published var inboxViewId = UUID()
-    
+
     static let shared = TabManager()
     
     private init() {}
@@ -50,7 +45,6 @@ class TabManager: ObservableObject {
 
 struct AppTabView: View {
     @StateObject private var tabManager = TabManager.shared
-    @Setting(\.unreadEvents) private var unreadEvents
     @Setting(\.authToken) private var authToken
 
     @State var currentInboxViewId: UUID?
@@ -62,33 +56,7 @@ struct AppTabView: View {
                     Label("Home", image: tabManager.selectedTab == .home ? "home-active" : "home-inactive")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
-                .tag(TabManager.Tab.home)
-            
-            // Don't display Inbox tab for signed out users
-            if !authToken.isEmpty {
-                // The magic below is to simulate view update by view id.
-                // Unfortunatly when using here `.id(tabManager.inboxViewId)` it crashes the app
-                if tabManager.inboxViewId == currentInboxViewId {
-                    InboxView()
-                        .tabItem {
-                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                        }
-                        .toolbarBackground(.visible, for: .tabBar)
-                        .tag(TabManager.Tab.inbox)
-                        .badge(unreadEvents)
-                } else {
-                    Spacer()
-                        .tabItem {
-                            Label("Notifications", image: tabManager.selectedTab == .inbox ? "inbox-active" : "inbox-inactive")
-                        }
-                        .onAppear {
-                            currentInboxViewId = tabManager.inboxViewId
-                        }
-                        .toolbarBackground(.visible, for: .tabBar)
-                        .tag(TabManager.Tab.inbox)
-                        .badge(unreadEvents)
-                }
-            }
+                .tag(TabManager.Tab.home)            
             
             SearchView()
                 .tabItem {

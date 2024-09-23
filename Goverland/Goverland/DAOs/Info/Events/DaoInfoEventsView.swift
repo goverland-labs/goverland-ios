@@ -65,7 +65,6 @@ struct DaoInfoEventsView: View {
                         } else {
                             let proposal = event.eventData! as! Proposal
                             ProposalListItemView(proposal: proposal,
-                                                 isSelected: false,
                                                  isRead: false)
                             .listRowSeparator(.hidden)
                             .listRowInsets(Constants.listInsets)
