@@ -29,11 +29,11 @@ struct DashboardVoteNowView: View {
                 ForEach((dataSource.proposals ?? []).prefix(3)) { proposal in
                     ProposalListItemView(proposal: proposal) {
                         activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
-                        // track dao opened like .dashVoteNowOpenDao
+                        Tracker.track(.dashVoteNowOpenDao)
                     }
                     .padding(.horizontal, Constants.horizontalPadding)
                     .onTapGesture {
-                        // tracker proposal open .dashVoteNowOpenPrp
+                        Tracker.track(.dashVoteNowOpenPrp)
                         path.append(proposal)
                     }
                 }

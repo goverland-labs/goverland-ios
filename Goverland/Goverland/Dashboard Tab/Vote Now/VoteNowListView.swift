@@ -34,7 +34,7 @@ struct VoteNowListView: View {
                     let proposal = proposals[index]
                     ProposalListItemView(proposal: proposal) {
                         activeSheetManager.activeSheet = .daoInfoById(proposal.dao.id.uuidString)
-                        //Track .voteNowFullOpenDao
+                        Tracker.track(.dashVoteNowDaoFromList)
                     }
                     .listRowSeparator(.hidden)
                     .listRowInsets(Constants.listInsets)
@@ -45,13 +45,13 @@ struct VoteNowListView: View {
         .onChange(of: selectedProposalIndex) { _, _ in
             if let index = selectedProposalIndex, let proposals = dataSource.proposals, proposals.count > index {
                 path.append(proposals[index])
-                // track .voteNowFullOpenPrp
+                Tracker.track(.dashVoteNowPrpFromList)
             }
         }
         .onAppear {
             selectedProposalIndex = nil
-            // track .screenVoteNowFull
             dataSource.loadFullList()
+            Tracker.track(.screenDashVoteNowList)
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
