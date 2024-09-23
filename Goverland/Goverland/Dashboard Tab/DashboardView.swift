@@ -208,7 +208,7 @@ fileprivate struct SignedOutUserDashboardView: View {
                 .padding(.vertical, 16)
         }
         
-        SectionHeader(header: "Vote now") {
+        SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
             path.append(Path.voteNow)
         }
         DashboardVoteNowView(path: $path)
@@ -223,7 +223,7 @@ fileprivate struct SignedOutUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        SectionHeader(header: "Hot Proposals") {
+        SectionHeader(header: "Hot Proposals", headerIcon: Image("hot-proposals")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -277,12 +277,12 @@ fileprivate struct SignedInUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
         
-        SectionHeader(header: "Vote now") {
+        SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
             path.append(Path.voteNow)
         }
         DashboardVoteNowView(path: $path)
 
-        SectionHeader(header: "Hot Proposals") {
+        SectionHeader(header: "Hot Proposals", headerIcon: Image("hot-proposals")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -370,13 +370,16 @@ fileprivate struct WelcomeBlockView: View {
 
 fileprivate struct SectionHeader: View {
     let header: String
+    let headerIcon: Image?
     let icon: Image
     let onTap: (() -> Void)?
 
-    init(header: String, 
+    init(header: String,
+         headerIcon: Image? = nil,
          icon: Image = Image(systemName: "arrow.right"),
          onTap: (() -> Void)? = nil) {
         self.header = header
+        self.headerIcon = headerIcon
         self.icon = icon
         self.onTap = onTap
     }
@@ -387,8 +390,16 @@ fileprivate struct SectionHeader: View {
                 .frame(height: 32)
 
             HStack {
-                Text(header)
-                    .font(.title2Semibold)
+                HStack {
+                    if let headerIcon = headerIcon {
+                        headerIcon
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 20)
+                    }
+                    Text(header)
+                        .font(.title2Semibold)
+                }
                 Spacer()
                 if onTap != nil {
                     icon
