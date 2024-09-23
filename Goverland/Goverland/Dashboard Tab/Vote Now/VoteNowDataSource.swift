@@ -31,6 +31,16 @@ class VoteNowDataSource: ObservableObject, Refreshable {
         loadMockData()
     }
     
+    func loadFullList() {
+        proposals = nil
+        failedToLoadInitialData = false
+        isLoading = false
+        cancellables = Set<AnyCancellable>()
+
+        //loadInitialData()
+        loadMockData()
+    }
+    
     private func loadMockData() {
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
