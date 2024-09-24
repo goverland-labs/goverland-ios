@@ -491,8 +491,8 @@ struct TopVotersEndpoint: APIEndpoint {
     }
 }
 
-struct DaoVoters_AVP_Endpoint: APIEndpoint {
-    typealias ResponseType = [Double]
+struct Dao_AVP_BinsEndpoint: APIEndpoint {
+    typealias ResponseType = Dao_AVP_Bins
 
     let daoId: UUID
     var path: String { "analytics/avg-vps/\(daoId)" }

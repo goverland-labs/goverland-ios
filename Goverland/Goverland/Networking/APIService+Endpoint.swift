@@ -274,11 +274,11 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func allDaoVotersAVP(daoId: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoVoters_AVP_Endpoint.ResponseType, HttpHeaders), APIError> {
+    static func dao_AVP_Bins(daoId: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(Dao_AVP_BinsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "period", value: filteringOption.queryParamName)
         ]
-        let endpoint = DaoVoters_AVP_Endpoint(daoId: daoId, queryParameters: queryParameters)
+        let endpoint = Dao_AVP_BinsEndpoint(daoId: daoId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
 

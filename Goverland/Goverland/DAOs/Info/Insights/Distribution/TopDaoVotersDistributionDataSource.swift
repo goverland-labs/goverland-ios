@@ -10,6 +10,8 @@
 import Foundation
 import Combine
 
+typealias DistributionBin = (range: Range<Double>, count: Int)
+
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
 
@@ -19,23 +21,25 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         }
     }
 
-    var distributionFilteringOption: DistributionFilteringOption {
-        didSet {
-            calculateBins()
-        }
-    }
-
-    private(set) var vps: [Double]? {
-        didSet {
-            calculateBins()
-        }
-    }
-
-    @Published private(set) var bins = [DistributionBin]()
-
+    @Published private(set) var daoBins: Dao_AVP_Bins?
     @Published private(set) var failedToLoadInitialData: Bool = false
     @Published private(set) var isLoading = false
     var cancellables = Set<AnyCancellable>()
+
+    var bins: [DistributionBin] {
+        guard let daoBins, daoBins.bins.count > 0 else { return [] }
+        var dBins = [DistributionBin]()
+        dBins.append((range: 0..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count))
+        for i in 1..<daoBins.bins.count {
+            dBins.append((range: daoBins.bins[i-1].upperBound..<daoBins.bins[i].upperBound, count: daoBins.bins[i].count))
+        }
+        return dBins
+    }
+
+    var notCuttedVoters: Int? {
+        guard let daoBins else { return nil }
+        return daoBins.votersTotal - daoBins.votersCutted
+    }
 
     var xValues: [String] {
         guard bins.count >= 4 else {
@@ -47,15 +51,11 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 bins[bins.count - 1].range.lowerBound].map { String($0) }
     }
 
-    private var vpCache: [DatesFiltetingOption: [Double]] = [:]
+    private var binsCache: [DatesFiltetingOption: Dao_AVP_Bins] = [:]
 
-    init(dao: Dao,
-         datesFilteringOption: DatesFiltetingOption,
-         distributionFilteringOption: DistributionFilteringOption)
-    {
+    init(dao: Dao, datesFilteringOption: DatesFiltetingOption) {
         self.dao = dao
         self.datesFilteringOption = datesFilteringOption
-        self.distributionFilteringOption = distributionFilteringOption
     }
 
     func refresh() {
@@ -63,64 +63,72 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private func refresh(invalidateCache: Bool) {
-        if let vpCachedData = vpCache[datesFilteringOption], !invalidateCache {
+        if let binsCachedData = binsCache[datesFilteringOption], !invalidateCache {
             logInfo("[App] found vpCache")
-            vps = vpCachedData
+            daoBins = binsCachedData
             return
         }
 
         if invalidateCache {
-            vpCache = [:]
+            binsCache = [:]
         }
 
-        vps = nil
-        bins = []
+        daoBins = nil
+//        bins = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
+//        loadData()
 
-        loadData()
-//
-//        let mockVPS = [1, 2, 2.5, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 7, 7.5, 7.8, 10, 10.5, 11, 11.1, 11.2, 11.3, 15, 15, 25, 32, 65, 130, 300, 301]
-//        loadMockData(vps: mockVPS)
+        loadMockData()
     }
 
-    func loadMockData(vps: [Double]) {
+    func loadMockData() {
         logInfo("[App] Load data with filtering option: \(datesFilteringOption)")
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             self.isLoading = false
-            self.vps = vps
-            self.vpCache[datesFilteringOption] = self.vps
+            let jsonData = Data(mockJson.utf8)
+            self.daoBins = try! JSONDecoder().decode(Dao_AVP_Bins.self, from: jsonData)
+            self.binsCache[datesFilteringOption] = self.daoBins
         }
     }
 
     func loadData() {
         isLoading = true
-        APIService.allDaoVotersAVP(daoId: dao.id, filteringOption: datesFilteringOption)
+        APIService.dao_AVP_Bins(daoId: dao.id, filteringOption: datesFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
-            } receiveValue: { [weak self] vps, headers in
+            } receiveValue: { [weak self] daoBins, headers in
                 guard let self else { return }
-                self.vps = vps.sorted().filter { $0 > 0.001 }
-                self.vpCache[datesFilteringOption] = self.vps
+                self.daoBins = daoBins
+                self.binsCache[datesFilteringOption] = self.daoBins
             }
             .store(in: &cancellables)
     }
-
-    private func calculateBins() {
-        guard let vps else { return }
-
-        switch distributionFilteringOption {
-        case .log2:
-            self.bins = DistributionMath.calculateLogarithmicBins(values: vps)
-        case .squareRoot:
-            self.bins = DistributionMath.calculateSquareRootBins(values: vps)
-        }
-    }
 }
+
+fileprivate let mockJson = """
+{
+  "vp_usd_value": 10.054,
+  "voters_cutted": 1555,
+  "voters_total": 10500,
+  "bins": [
+    { "upper_bound": 1.0, "count": 10 },
+    { "upper_bound": 2.0, "count": 20 },
+    { "upper_bound": 3.0, "count": 30 },
+    { "upper_bound": 4.0, "count": 40 },
+    { "upper_bound": 5.0, "count": 50 },
+    { "upper_bound": 6.0, "count": 45 },
+    { "upper_bound": 7.0, "count": 35 },
+    { "upper_bound": 8.0, "count": 25 },
+    { "upper_bound": 9.0, "count": 15 },
+    { "upper_bound": 10.0, "count": 10 }
+  ]
+}
+"""
