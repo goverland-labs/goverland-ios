@@ -55,7 +55,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                     // it crashes when chaning date filtering option, doesn't refresh on time
                     let bin = dataSource.bins[index]
                     BarMark (
-                        x: .value("Range", "\(bin.range.lowerBound)"),
+                        x: .value("Range", dataSource.xValue(bin)),
                         y: .value("Voters", bin.count)
                     )
                     .foregroundStyle(Color.primaryDim)
@@ -67,10 +67,10 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                     .foregroundStyle(Color.textWhite)
                     .lineStyle(.init(lineWidth: 1, dash: [2]))
                     .annotation(
-                        position: annotationPositionForBin(bin: selectedBin),
+                        position: annotationPositionForBin(selectedBin),
                         alignment: .center, spacing: 4
                     ) {
-                        if let bin = dataSource.bins.first(where: { String($0.range.lowerBound) == selectedBin }),
+                        if let bin = dataSource.bins.first(where: { dataSource.xValue($0) == selectedBin }),
                            let total = dataSource.notCuttedVoters
                         {
                             let voters = bin.count
@@ -86,14 +86,14 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                     }
             }
         }
-        .padding()
+        .padding(.horizontal)
         .chartXAxis {
             AxisMarks(values: dataSource.xValues) { value in
                 AxisValueLabel()
                 AxisGridLine()
             }
         }
-        .chartXAxisLabel("Voting Power Range")
+        .chartXAxisLabel("Voting Power Range denominated in USD")
         .chartYAxisLabel("Number of Voters")
 //        .chartForegroundStyleScale([
 //            "Voters": Color.primaryDim
@@ -101,9 +101,9 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
         .chartSelected_X_String($selectedBin)
     }
 
-    private func annotationPositionForBin(bin: String) -> AnnotationPosition {
-        let bins = dataSource.bins.map { "\($0.range.lowerBound)" }
-        guard let binIndex = bins.firstIndex(of: bin) else {
+    private func annotationPositionForBin(_ selectedBin: String) -> AnnotationPosition {
+        let bins = dataSource.bins.map { dataSource.xValue($0) }
+        guard let binIndex = bins.firstIndex(of: selectedBin) else {
             return .trailing
         }
         return binIndex <= bins.count / 2 ? .trailing : .leading

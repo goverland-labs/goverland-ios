@@ -42,13 +42,18 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     var xValues: [String] {
-        guard bins.count >= 4 else {
-            return bins.map { String($0.range.lowerBound) }
+        guard bins.count >= 5 else {
+            return bins.map { xValue($0) }
         }
-        return [bins[0].range.lowerBound,
-                bins[bins.count / 3].range.lowerBound,
-                bins[2 * bins.count / 3].range.lowerBound,
-                bins[bins.count - 1].range.lowerBound].map { String($0) }
+        return [xValue(bins[0]),
+                xValue(bins[bins.count / 4]),
+                xValue(bins[2 * bins.count / 4]),
+                xValue(bins[3 * bins.count / 4]),
+                xValue(bins[bins.count - 1])]
+    }
+
+    func xValue(_ bin: DistributionBin) -> String {
+        Utils.formattedNumber(bin.range.upperBound)
     }
 
     private var binsCache: [DatesFiltetingOption: Dao_AVP_Bins] = [:]
