@@ -125,7 +125,6 @@
 		558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */; };
 		558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */; };
 		558ACC982C80E797002FAE75 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558ACC952C80E6FA002FAE75 /* TestData.swift */; };
-		558CF2A72C9B00CD00BE57E5 /* DistributionMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */; };
 		558CF2A92C9B186F00BE57E5 /* DistributionMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558CF2A82C9B186F00BE57E5 /* DistributionMath.swift */; };
 		559025012A3DF6BE001B1770 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559025002A3DF6BE001B1770 /* Proposal.swift */; };
 		5596F14E2A4F497100BD55C7 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */; };
@@ -495,7 +494,6 @@
 		558ACC882C80DEA4002FAE75 /* GoverlandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoverlandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegationSplitViewModelTests.swift; sourceTree = "<group>"; };
 		558ACC952C80E6FA002FAE75 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionMathTests.swift; sourceTree = "<group>"; };
 		558CF2A82C9B186F00BE57E5 /* DistributionMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionMath.swift; sourceTree = "<group>"; };
 		559025002A3DF6BE001B1770 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		5596F14D2A4F497100BD55C7 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -971,7 +969,6 @@
 			children = (
 				558ACC952C80E6FA002FAE75 /* TestData.swift */,
 				558ACC922C80E599002FAE75 /* Delegates */,
-				558CF2A52C9B009F00BE57E5 /* Charts */,
 				554301222A4C897C00029BC3 /* MetricNumberFormatterTests.swift */,
 			);
 			path = GoverlandTests;
@@ -1114,14 +1111,6 @@
 				558ACC932C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift */,
 			);
 			path = Delegates;
-			sourceTree = "<group>";
-		};
-		558CF2A52C9B009F00BE57E5 /* Charts */ = {
-			isa = PBXGroup;
-			children = (
-				558CF2A62C9B00C400BE57E5 /* DistributionMathTests.swift */,
-			);
-			path = Charts;
 			sourceTree = "<group>";
 		};
 		5596F14C2A4F494000BD55C7 /* Buttons */ = {
@@ -2054,7 +2043,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				558CF2A72C9B00CD00BE57E5 /* DistributionMathTests.swift in Sources */,
 				558ACC942C80E5C2002FAE75 /* UserDelegationSplitViewModelTests.swift in Sources */,
 				558ACC912C80DEED002FAE75 /* MetricNumberFormatterTests.swift in Sources */,
 			);

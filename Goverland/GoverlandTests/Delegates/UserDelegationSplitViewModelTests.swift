@@ -243,6 +243,37 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
         XCTAssertTrue(model.delegates[2].user == .flipside)
         XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
-        
+    }
+
+    func test_ceil_ownerPercent() throws {
+        let model = UserDelegationSplitViewModel(
+            dao: .aave,
+            owner: .appUser,
+            userDelegation: DaoUserDelegation(dao: .aave,
+                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              chains: .testChains,
+                                              delegates: [DelegateVotingPower(user: .aaveChan,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .appUser,
+                                                                              powerPercent: 49.9950005,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .test,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .flipside,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2)],
+                                              expirationDate: nil),
+            delegate: .test)
+
+        XCTAssertEqual(model.ownerReservedPercentage , 50.0)
+        XCTAssertTrue(model.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model.delegates[0].powerRatio, 1)
+        XCTAssertTrue(model.delegates[1].user == .test)
+        XCTAssertEqual(model.delegates[1].powerRatio, 1)
+        XCTAssertTrue(model.delegates[2].user == .flipside)
+        XCTAssertEqual(model.delegates[2].powerRatio, 1)
+        XCTAssertEqual(model.delegates.count, 3)
     }
 }
