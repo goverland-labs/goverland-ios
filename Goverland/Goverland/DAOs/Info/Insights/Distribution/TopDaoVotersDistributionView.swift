@@ -21,9 +21,23 @@ struct TopDaoVotersDistributionView: View {
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
+    var infoDescriptionMarkdown: String {
+        guard let daoBins = dataSource.daoBins else { return "" }
+        let percentageOfVotersCutted = Utils.percentage(of: daoBins.votersCutted, in: daoBins.votersTotal)
+        return """
+### This chart illustrates the distribution of voting power, denominated in USD, over the selected \(datesFilteringOption.localizedName) period.
+
+Addresses with an average voting power of less than **1 USD** have been excluded and are not represented in this chart.
+
+- **Total addresses voted**: \(Utils.decimalNumber(from: daoBins.votersTotal))
+- **Excluded addresses**: \(Utils.decimalNumber(from: daoBins.votersCutted)) (\(percentageOfVotersCutted))
+"""
+//TODO: - **Average total voting power per proposal (USD)**: 22.6M USD
+    }
+
     var body: some View {
-        GraphView(header: "Average VP distribution",
-                  subheader: nil,
+        GraphView(header: "aVP distribution in USD (\(datesFilteringOption.localizedName))",
+                  subheader: infoDescriptionMarkdown,
                   isLoading: dataSource.isLoading,
                   failedToLoadInitialData: dataSource.failedToLoadInitialData,
                   height: 350,
@@ -76,7 +90,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                             let voters = bin.count
                             let percentage = Utils.percentage(of: voters, in: total)
                             let descriptionSuffix = dataSource.bins.last?.range != bin.range ? "(not inclusive)" : "(inclusive)"
-                            let description = "aVP is between \(bin.range.lowerBound)\nand \(bin.range.upperBound) \(descriptionSuffix)"
+                            let description = "aVP is between\n\(Utils.formattedNumber(bin.range.lowerBound)) USD and \(Utils.formattedNumber(bin.range.upperBound)) USD\n\(descriptionSuffix)"
                             AnnotationView(firstPlaceholderValue: String(voters),
                                            firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
                                            secondPlaceholderValue: nil,
@@ -93,7 +107,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                 AxisGridLine()
             }
         }
-        .chartXAxisLabel("Voting Power Range denominated in USD")
+        .chartXAxisLabel("Average voting power range denominated in USD")
         .chartYAxisLabel("Number of Voters")
 //        .chartForegroundStyleScale([
 //            "Voters": Color.primaryDim
