@@ -14,6 +14,7 @@ fileprivate enum Path {
     case popularDaos
     case profileHasVotingPower
     case ecosystemCharts
+    case voteNow
 }
 
 struct DashboardView: View {
@@ -29,6 +30,7 @@ struct DashboardView: View {
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
         FollowedDaosDataSource.horizontalList.refresh()
+        VoteNowDataSource.dashboard.refresh(featured: true)
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
@@ -114,6 +116,10 @@ struct DashboardView: View {
                     FollowedDaosDataSource.horizontalList.refresh()
                 }
 
+                if VoteNowDataSource.dashboard.proposals?.isEmpty ?? true {
+                    VoteNowDataSource.dashboard.refresh(featured: true)
+                }
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
@@ -166,6 +172,8 @@ struct DashboardView: View {
                     ProfileHasVotingPowerFullView(path: $path)
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
+                case .voteNow:
+                    VoteNowFullListView(path: $path)
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
@@ -209,7 +217,7 @@ fileprivate struct SignedOutUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        SectionHeader(header: "Hot Proposals") {
+        SectionHeader(header: "Hot ecosystem proposals", headerIcon: Image(systemName: "flame.fill")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -231,6 +239,7 @@ fileprivate struct SignedOutUserDashboardView: View {
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
     @StateObject private var followedDaosDataSource = FollowedDaosDataSource.horizontalList
+    @StateObject private var voteNowDataSource = VoteNowDataSource.dashboard
     @StateObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
     @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
@@ -252,6 +261,11 @@ fileprivate struct SignedInUserDashboardView: View {
         return !proposals.isEmpty
     }
 
+    var shouldShowVoteNow: Bool {
+        guard let proposals = voteNowDataSource.proposals else { return true }
+        return !proposals.isEmpty
+    }
+
     var body: some View {
         if shouldShowFollowedDaos {
             SectionHeader(header: "My followed DAOs")
@@ -263,7 +277,14 @@ fileprivate struct SignedInUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        SectionHeader(header: "Hot Proposals") {
+        if shouldShowVoteNow {
+            SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
+                path.append(Path.voteNow)
+            }
+            VoteNowView(path: $path)
+        }
+
+        SectionHeader(header: "Hot ecosystem proposals", headerIcon: Image(systemName: "flame.fill")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -274,7 +295,7 @@ fileprivate struct SignedInUserDashboardView: View {
         DashboardPopularDaosHorizontalListView()
 
         if shouldShowRecommendationToVote {
-            SectionHeader(header: "You have voting power") {
+            SectionHeader(header: "Discover where you can vote") {
                 path.append(Path.profileHasVotingPower)
             }
             ProfileHasVotingPowerView(path: $path)
@@ -351,13 +372,16 @@ fileprivate struct WelcomeBlockView: View {
 
 fileprivate struct SectionHeader: View {
     let header: String
+    let headerIcon: Image?
     let icon: Image
     let onTap: (() -> Void)?
 
-    init(header: String, 
+    init(header: String,
+         headerIcon: Image? = nil,
          icon: Image = Image(systemName: "arrow.right"),
          onTap: (() -> Void)? = nil) {
         self.header = header
+        self.headerIcon = headerIcon
         self.icon = icon
         self.onTap = onTap
     }
@@ -368,8 +392,16 @@ fileprivate struct SectionHeader: View {
                 .frame(height: 32)
 
             HStack {
-                Text(header)
-                    .font(.title2Semibold)
+                HStack {
+                    if let headerIcon = headerIcon {
+                        headerIcon
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 20)
+                    }
+                    Text(header)
+                        .font(.title2Semibold)
+                }
                 Spacer()
                 if onTap != nil {
                     icon

@@ -232,6 +232,9 @@
 		BA1EAD7029F053E9008D92E9 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EAD6F29F053E9008D92E9 /* Fonts.swift */; };
 		BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */; };
 		BA2413AA2C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */; };
+		BA2413B02CA1BC35009F0736 /* VoteNowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */; };
+		BA2413B22CA1BFC9009F0736 /* VoteNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B12CA1BFC9009F0736 /* VoteNowView.swift */; };
+		BA2413B42CA1C8E9009F0736 /* VoteNowFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -595,6 +598,9 @@
 		BA1EAD6F29F053E9008D92E9 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BA20122A2B7D2F4E00E9D78E /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateProfileActivityDataSource.swift; sourceTree = "<group>"; };
+		BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowDataSource.swift; sourceTree = "<group>"; };
+		BA2413B12CA1BFC9009F0736 /* VoteNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowView.swift; sourceTree = "<group>"; };
+		BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowFullListView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1025,6 +1031,7 @@
 				BAE1AB1C2AE59601001B89F3 /* Popular DAOs */,
 				552ACFD42B623CA70038A09F /* Can Vote */,
 				BAAA2BF82B0115AC0061F890 /* Ecosystem */,
+				BA2413AE2CA1BBB9009F0736 /* Vote Now */,
 			);
 			path = "Dashboard Tab";
 			sourceTree = "<group>";
@@ -1562,6 +1569,16 @@
 			path = "Top Dao Voters";
 			sourceTree = "<group>";
 		};
+		BA2413AE2CA1BBB9009F0736 /* Vote Now */ = {
+			isa = PBXGroup;
+			children = (
+				BA2413B12CA1BFC9009F0736 /* VoteNowView.swift */,
+				BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */,
+				BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */,
+			);
+			path = "Vote Now";
+			sourceTree = "<group>";
+		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2067,6 +2084,7 @@
 				BA789BD22B79388A0064D6FE /* APIService+Endpoint.swift in Sources */,
 				BA789BD12B7938750064D6FE /* APIService.swift in Sources */,
 				55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */,
+				BA2413B42CA1C8E9009F0736 /* VoteNowFullListView.swift in Sources */,
 				55C154162AFAFA7E0096F0A4 /* AboutSettingView.swift in Sources */,
 				BAE1AB382AF3DD49001B89F3 /* MutualDaosDataSource.swift in Sources */,
 				550ACFB52AFEED3A006EF5BB /* Profile.swift in Sources */,
@@ -2201,6 +2219,7 @@
 				55D68FDF2A43251900A22657 /* Notifications.swift in Sources */,
 				55D717842C908C9100217C4F /* InfoAlertModel.swift in Sources */,
 				55FD731F2AB75DC60081C38D /* WC_QRView.swift in Sources */,
+				BA2413B22CA1BFC9009F0736 /* VoteNowView.swift in Sources */,
 				558ACC752C80DC1C002FAE75 /* DaoDelegateProfileView.swift in Sources */,
 				558ACC5C2C80DBCC002FAE75 /* DelegateVotingPower.swift in Sources */,
 				556D43682BB2A89D00D2D64F /* TopProposalVoter.swift in Sources */,
@@ -2346,6 +2365,7 @@
 				55039F272BBFFD190025DE03 /* PublicUserProfileDaosListView.swift in Sources */,
 				BA84514C2A4896C00088A6E6 /* DaoInfoDataSource.swift in Sources */,
 				55EFF8542C3307EB00047108 /* InboxSettingView.swift in Sources */,
+				BA2413B02CA1BC35009F0736 /* VoteNowDataSource.swift in Sources */,
 				556D435F2BB2784A00D2D64F /* TopVotersDataSource.swift in Sources */,
 				55F700252AB05149008EA30C /* GraphView.swift in Sources */,
 				55E9D98A2B6B638E00697A12 /* DaoTermsAgreement.swift in Sources */,
