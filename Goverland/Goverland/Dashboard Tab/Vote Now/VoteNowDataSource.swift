@@ -32,15 +32,7 @@ class VoteNowDataSource: ObservableObject, Refreshable {
         cancellables = Set<AnyCancellable>()
 
         loadInitialData(featured: featured)
-//        loadMockData()
     }
-//    private func loadMockData() {
-//        isLoading = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.proposals = [.aaveTest, .aaveTest]
-//            self.isLoading = false
-//        }
-//    }
 
     private func loadInitialData(featured: Bool) {
         guard !SettingKeys.shared.authToken.isEmpty else { return }
