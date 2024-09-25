@@ -202,7 +202,7 @@ struct InboxView: View {
             }
         }
         .onAppear() {
-            if data.events?.isEmpty ?? true {
+            if (data.events?.isEmpty ?? true) && !data.isLoading {
                 data.refresh()
             }
             Tracker.track(.screenInbox)
