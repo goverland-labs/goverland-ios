@@ -93,19 +93,17 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
-//        loadData()
+        loadData()
 
-        loadMockData()
+//        loadMockData()
     }
 
     func loadMockData() {
-        logInfo("[App] Load data with filtering option: \(datesFilteringOption)")
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             self.isLoading = false
-            let random = Int.random(in: 1...10)
-            if random % 2 == 0 {
+            if true {
                 logInfo("[App] mock loaded")
                 let jsonData = Data(mockJson().utf8)
                 self.daoBins = try! JSONDecoder().decode(Dao_AVP_Bins.self, from: jsonData)
