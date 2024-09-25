@@ -145,7 +145,7 @@ extension Delegate {
                  delegators: 20,
                  votes: 21,
                  proposalsCreated: 1,
-                 votingPower: 14285728.4328434,
+                 votingPower: VotingPower(power: 14285728.4328434, symbol: "AAVE"),
                  percentVotingPower: 1.12,
                  delegationInfo: DelegationInfo(percentDelegated: 100.0))
     }
@@ -157,7 +157,7 @@ extension Delegate {
                  delegators: 20,
                  votes: 21,
                  proposalsCreated: 1,
-                 votingPower: 14285728.4328434,
+                 votingPower: VotingPower(power: 14285728.4328434, symbol: "AAVE"),
                  percentVotingPower: 1.12,
                  delegationInfo: DelegationInfo(percentDelegated: 0.0))
     }
