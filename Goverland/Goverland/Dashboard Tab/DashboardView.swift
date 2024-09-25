@@ -173,9 +173,7 @@ struct DashboardView: View {
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
                 case .voteNow:
-                    VoteNowFullListView(dataSource: VoteNowDataSource.dashboard,
-                                    path: $path)
-                        .navigationTitle("Vote Now")
+                    VoteNowFullListView(path: $path)
                 }
             }
             .navigationDestination(for: Proposal.self) { proposal in
