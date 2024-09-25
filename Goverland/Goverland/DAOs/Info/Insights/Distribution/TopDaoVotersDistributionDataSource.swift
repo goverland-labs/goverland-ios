@@ -22,7 +22,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     @Published private(set) var daoBins: Dao_AVP_Bins?
-    @Published private(set) var failedToLoadInitialData: Bool = false
+    @Published private(set) var failedToLoadInitialData = false
     @Published private(set) var isLoading = false
     var cancellables = Set<AnyCancellable>()
 
@@ -56,7 +56,11 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         Utils.formattedNumber(bin.range.upperBound)
     }
 
-    private var binsCache: [DatesFiltetingOption: Dao_AVP_Bins] = [:]
+    enum Dao_AVP_BinsState {
+        case loaded(Dao_AVP_Bins)
+        case empty
+    }
+    private var binsCache: [DatesFiltetingOption: Dao_AVP_BinsState] = [:]
 
     init(dao: Dao, datesFilteringOption: DatesFiltetingOption) {
         self.dao = dao
@@ -68,9 +72,16 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private func refresh(invalidateCache: Bool) {
-        if let binsCachedData = binsCache[datesFilteringOption], !invalidateCache {
-            logInfo("[App] found vpCache")
-            daoBins = binsCachedData
+        if let binsCachedDataState = binsCache[datesFilteringOption], !invalidateCache {
+            logInfo("[App] cache found")
+            switch binsCachedDataState {
+            case .loaded(let bins):
+                self.daoBins = bins
+                self.failedToLoadInitialData = false
+            case .empty:
+                self.failedToLoadInitialData = true
+                self.daoBins = nil
+            }
             return
         }
 
@@ -79,7 +90,6 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         }
 
         daoBins = nil
-//        bins = []
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
@@ -94,9 +104,17 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             self.isLoading = false
-            let jsonData = Data(mockJson.utf8)
-            self.daoBins = try! JSONDecoder().decode(Dao_AVP_Bins.self, from: jsonData)
-            self.binsCache[datesFilteringOption] = self.daoBins
+            let random = Int.random(in: 1...10)
+            if random % 2 == 0 {
+                logInfo("[App] mock loaded")
+                let jsonData = Data(mockJson().utf8)
+                self.daoBins = try! JSONDecoder().decode(Dao_AVP_Bins.self, from: jsonData)
+                self.binsCache[datesFilteringOption] = .loaded(self.daoBins!)
+            } else {
+                logInfo("[App] mock error")
+                self.failedToLoadInitialData = true
+                self.binsCache[datesFilteringOption] = .empty
+            }
         }
     }
 
@@ -107,33 +125,38 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 self?.isLoading = false
                 switch completion {
                 case .finished: break
-                case .failure(_): self?.failedToLoadInitialData = true
+                case .failure(_):
+                    guard let self else { return }
+                    self.failedToLoadInitialData = true
+                    self.binsCache[datesFilteringOption] = .empty
                 }
             } receiveValue: { [weak self] daoBins, headers in
                 guard let self else { return }
                 self.daoBins = daoBins
-                self.binsCache[datesFilteringOption] = self.daoBins
+                self.binsCache[datesFilteringOption] = .loaded(daoBins)
             }
             .store(in: &cancellables)
     }
 }
 
-fileprivate let mockJson = """
+fileprivate func mockJson() -> String {
+"""
 {
   "vp_usd_value": 10.054,
   "voters_cutted": 1555,
   "voters_total": 10500,
   "bins": [
-    { "upper_bound": 1.0, "count": 10 },
-    { "upper_bound": 2.0, "count": 20 },
-    { "upper_bound": 3.0, "count": 30 },
-    { "upper_bound": 4.0, "count": 40 },
-    { "upper_bound": 5.0, "count": 50 },
-    { "upper_bound": 6.0, "count": 45 },
-    { "upper_bound": 7.0, "count": 35 },
-    { "upper_bound": 8.0, "count": 25 },
-    { "upper_bound": 9.0, "count": 15 },
-    { "upper_bound": 10.0, "count": 10 }
+    { "upper_bound": 1.0, "count": \(Int.random(in: 1...100)) },
+    { "upper_bound": 2.0, "count": \(Int.random(in: 100...200)) },
+    { "upper_bound": 3.0, "count": \(Int.random(in: 150...250)) },
+    { "upper_bound": 4.0, "count": \(Int.random(in: 200...300)) },
+    { "upper_bound": 5.0, "count": \(Int.random(in: 250...350)) },
+    { "upper_bound": 6.0, "count": \(Int.random(in: 150...300)) },
+    { "upper_bound": 7.0, "count": \(Int.random(in: 100...150)) },
+    { "upper_bound": 8.0, "count": \(Int.random(in: 50...120)) },
+    { "upper_bound": 9.0, "count": \(Int.random(in: 30...80)) },
+    { "upper_bound": 10.0, "count": \(Int.random(in: 1...20)) }
   ]
 }
 """
+}

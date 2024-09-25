@@ -279,7 +279,7 @@ extension APIService {
             URLQueryItem(name: "period", value: filteringOption.queryParamName)
         ]
         let endpoint = Dao_AVP_BinsEndpoint(daoId: daoId, queryParameters: queryParameters)
-        return shared.request(endpoint)
+        return shared.request(endpoint, defaultErrorDisplay: false)
     }
 
     // MARK: - Stats

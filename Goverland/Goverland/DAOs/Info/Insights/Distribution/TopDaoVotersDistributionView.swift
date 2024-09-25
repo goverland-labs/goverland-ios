@@ -15,9 +15,9 @@ struct TopDaoVotersDistributionView: View {
     @Binding private var datesFilteringOption: DatesFiltetingOption
 
     init(dao: Dao, datesFilteringOption: Binding<DatesFiltetingOption>) {
+        _datesFilteringOption = datesFilteringOption
         let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
                                                             datesFilteringOption: datesFilteringOption.wrappedValue)
-        _datesFilteringOption = datesFilteringOption
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -36,23 +36,28 @@ Addresses with an average voting power of less than **1 USD** have been excluded
     }
 
     var body: some View {
-        GraphView(header: "aVP distribution in USD (\(datesFilteringOption.localizedName))",
-                  subheader: infoDescriptionMarkdown,
-                  isLoading: dataSource.isLoading,
-                  failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                  height: 350,
-                  onRefresh: dataSource.refresh)
-        {
-            _TopDaoVotersDistributionChart(dataSource: dataSource)
-        }
-        .onAppear() {
-            if dataSource.daoBins == nil {
-                dataSource.refresh()
+        VStack {
+            if dataSource.daoBins != nil {
+                GraphView(header: "aVP distribution in USD (\(datesFilteringOption.localizedName))",
+                          subheader: infoDescriptionMarkdown,
+                          isLoading: dataSource.isLoading,
+                          failedToLoadInitialData: dataSource.failedToLoadInitialData,
+                          height: 350,
+                          onRefresh: dataSource.refresh)
+                {
+                    _TopDaoVotersDistributionChart(dataSource: dataSource)
+                }
             }
         }
         .onChange(of: datesFilteringOption) { _, newValue in
             withAnimation {
                 dataSource.datesFilteringOption = newValue
+            }
+        }
+        .onAppear() {
+            logInfo("[App] on appear")
+            if dataSource.daoBins == nil {
+                dataSource.refresh()
             }
         }
     }
