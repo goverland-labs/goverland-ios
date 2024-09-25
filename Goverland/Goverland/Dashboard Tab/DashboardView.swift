@@ -207,11 +207,6 @@ fileprivate struct SignedOutUserDashboardView: View {
                 .padding(.horizontal, Constants.horizontalPadding)
                 .padding(.vertical, 16)
         }
-        
-        SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
-            path.append(Path.voteNow)
-        }
-        DashboardVoteNowView(path: $path)
 
         SectionHeader(header: "Popular DAOs") {
             path.append(Path.popularDaos)
@@ -264,7 +259,7 @@ fileprivate struct SignedInUserDashboardView: View {
     var shouldShowFeaturedProposal: Bool {
         guard let proposals = featuredDataSource.proposals else { return true }
         return !proposals.isEmpty
-    }
+    }    
 
     var body: some View {
         if shouldShowFollowedDaos {
@@ -276,13 +271,14 @@ fileprivate struct SignedInUserDashboardView: View {
             SectionHeader(header: "Proposal of the day")
             FeaturedProposalsView(path: $path)
         }
-        
+
+        // TODO: check if should show
         SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
             path.append(Path.voteNow)
         }
         DashboardVoteNowView(path: $path)
 
-        SectionHeader(header: "Hot Proposals", headerIcon: Image("hot-proposals")) {
+        SectionHeader(header: "Hot ecosystem proposals", headerIcon: Image(systemName: "flame.fill")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -293,7 +289,7 @@ fileprivate struct SignedInUserDashboardView: View {
         DashboardPopularDaosHorizontalListView()
 
         if shouldShowRecommendationToVote {
-            SectionHeader(header: "You have voting power") {
+            SectionHeader(header: "Discover where you can vote") {
                 path.append(Path.profileHasVotingPower)
             }
             ProfileHasVotingPowerView(path: $path)
