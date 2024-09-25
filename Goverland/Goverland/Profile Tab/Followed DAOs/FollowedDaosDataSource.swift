@@ -45,7 +45,7 @@ class FollowedDaosDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] subscriptions, headers in
-                self?.subscriptions = subscriptions.sorted { $0.dao.activeVotes > $1.dao.activeVotes }
+                self?.subscriptions = subscriptions
             }
             .store(in: &cancellables)
     }
