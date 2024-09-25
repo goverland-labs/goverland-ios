@@ -80,7 +80,16 @@ extension APIService {
         let endpoint = ProfileHasVotingPowerEndpoint(queryParameters: queryParameters)
         return shared.request(endpoint)
     }
-    
+
+    static func voteNowProposals(featured: Bool = false) -> AnyPublisher<(VoteNowEndpoint.ResponseType, HttpHeaders), APIError> {
+        let queryParameters = [
+            URLQueryItem(name: "limit", value: featured ? "3" : "10000"),
+            URLQueryItem(name: "featured", value: "\(featured)")
+        ]
+        let endpoint = VoteNowEndpoint(queryParameters: queryParameters)
+        return shared.request(endpoint)
+    }
+
     static func getAchievements() -> AnyPublisher<(GetAchievementsEndpoint.ResponseType, HttpHeaders), APIError> {
         let endpoint = GetAchievementsEndpoint()
         return shared.request(endpoint)
@@ -101,7 +110,6 @@ extension APIService {
     static func getPublicProfileDaos(profileId: String) -> AnyPublisher<(PublicProfileDaosEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
             URLQueryItem(name: "limit", value: "10000"),
-
         ]
         let endpoint = PublicProfileDaosEndpoint(profileId: profileId, queryParameters: queryParameters)
         return shared.request(endpoint)
