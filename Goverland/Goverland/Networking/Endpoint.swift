@@ -190,6 +190,18 @@ struct ProfileHasVotingPowerEndpoint: APIEndpoint {
     }
 }
 
+struct VoteNowEndpoint: APIEndpoint {
+    typealias ResponseType = [Proposal]
+
+    var path: String { "me/vote-now" }
+    var method: HttpMethod = .get
+    var queryParameters: [URLQueryItem]?
+
+    init(queryParameters: [URLQueryItem]? = nil) {
+        self.queryParameters = queryParameters
+    }
+}
+
 struct PublicProfileEndpoint: APIEndpoint {
     typealias ResponseType = User
 
@@ -603,18 +615,6 @@ struct ProposalSummaryEndpoint: APIEndpoint {
 
     init(proposalId: String) {
         self.proposalId = proposalId
-    }
-}
-
-struct VoteNowProposalsEndpoint: APIEndpoint {
-    typealias ResponseType = [Proposal]
-
-    var path: String { "vote-now" }
-    var method: HttpMethod = .get
-    var queryParameters: [URLQueryItem]?
-
-    init(queryParameters: [URLQueryItem]? = nil) {
-        self.queryParameters = queryParameters
     }
 }
 

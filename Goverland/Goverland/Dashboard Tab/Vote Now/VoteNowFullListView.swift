@@ -1,5 +1,5 @@
 //
-//  VoteNowListView.swift
+//  VoteNowFullListView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-09-23.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct VoteNowListView: View {
+struct VoteNowFullListView: View {
     @StateObject var dataSource: VoteNowDataSource
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
@@ -50,7 +50,7 @@ struct VoteNowListView: View {
         }
         .onAppear {
             selectedProposalIndex = nil
-            dataSource.loadFullList()
+            dataSource.refresh()
             Tracker.track(.screenDashVoteNowList)
         }
         .listStyle(.plain)

@@ -1,5 +1,5 @@
 //
-//  DashboardVoteNowView.swift
+//  VoteNowView.swift
 //  Goverland
 //
 //  Created by Jenny Shalai on 2024-09-23.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct DashboardVoteNowView: View {
+struct VoteNowView: View {
     @StateObject var dataSource = VoteNowDataSource.dashboard
     @Binding var path: NavigationPath
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
@@ -21,7 +21,7 @@ struct DashboardVoteNowView: View {
                     dataSource.refresh()
                 }
             } else if dataSource.isLoading && dataSource.proposals == nil { // initial loading
-                ForEach(0..<3) { _ in
+                ForEach(0..<1) { _ in
                     ShimmerProposalListItemView()
                         .padding(.horizontal, Constants.horizontalPadding)
                 }

@@ -30,6 +30,7 @@ struct DashboardView: View {
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
         FollowedDaosDataSource.horizontalList.refresh()
+        VoteNowDataSource.dashboard.refresh(featured: true)
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
@@ -115,6 +116,10 @@ struct DashboardView: View {
                     FollowedDaosDataSource.horizontalList.refresh()
                 }
 
+                if VoteNowDataSource.dashboard.proposals?.isEmpty ?? true {
+                    VoteNowDataSource.dashboard.refresh(featured: true)
+                }
+
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
                     TopProposalsDataSource.dashboard.refresh()
                 }
@@ -134,10 +139,6 @@ struct DashboardView: View {
 
                 if StatsDataSource.shared.stats == nil {
                     StatsDataSource.shared.refresh()
-                }
-                
-                if VoteNowDataSource.dashboard.proposals == nil {
-                    VoteNowDataSource.dashboard.refresh()
                 }
             }
             .refreshable {
@@ -172,7 +173,7 @@ struct DashboardView: View {
                 case .ecosystemCharts:
                     EcosystemChartsFullView()
                 case .voteNow:
-                    VoteNowListView(dataSource: VoteNowDataSource.dashboard,
+                    VoteNowFullListView(dataSource: VoteNowDataSource.dashboard,
                                     path: $path)
                         .navigationTitle("Vote Now")
                 }
@@ -218,7 +219,7 @@ fileprivate struct SignedOutUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        SectionHeader(header: "Hot Proposals", headerIcon: Image("hot-proposals")) {
+        SectionHeader(header: "Hot ecosystem proposals", headerIcon: Image(systemName: "flame.fill")) {
             path.append(Path.hotProposals)
         }
         DashboardHotProposalsView(path: $path)
@@ -240,6 +241,7 @@ fileprivate struct SignedOutUserDashboardView: View {
 fileprivate struct SignedInUserDashboardView: View {
     @Binding var path: NavigationPath
     @StateObject private var followedDaosDataSource = FollowedDaosDataSource.horizontalList
+    @StateObject private var voteNowDataSource = VoteNowDataSource.dashboard
     @StateObject private var profileHasVotingPowerDataSource = ProfileHasVotingPowerDataSource.dashboard
     @StateObject private var featuredDataSource = FeaturedProposalsDataSource.dashboard
 
@@ -259,7 +261,12 @@ fileprivate struct SignedInUserDashboardView: View {
     var shouldShowFeaturedProposal: Bool {
         guard let proposals = featuredDataSource.proposals else { return true }
         return !proposals.isEmpty
-    }    
+    }
+
+    var shouldShowVoteNow: Bool {
+        guard let proposals = voteNowDataSource.proposals else { return true }
+        return !proposals.isEmpty
+    }
 
     var body: some View {
         if shouldShowFollowedDaos {
@@ -272,11 +279,12 @@ fileprivate struct SignedInUserDashboardView: View {
             FeaturedProposalsView(path: $path)
         }
 
-        // TODO: check if should show
-        SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
-            path.append(Path.voteNow)
+        if shouldShowVoteNow {
+            SectionHeader(header: "Vote now", headerIcon: Image("vote-now")) {
+                path.append(Path.voteNow)
+            }
+            VoteNowView(path: $path)
         }
-        DashboardVoteNowView(path: $path)
 
         SectionHeader(header: "Hot ecosystem proposals", headerIcon: Image(systemName: "flame.fill")) {
             path.append(Path.hotProposals)

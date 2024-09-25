@@ -22,55 +22,31 @@ class VoteNowDataSource: ObservableObject, Refreshable {
     private init() {}
 
     func refresh() {
+        refresh(featured: false)
+    }
+
+    func refresh(featured: Bool) {
         proposals = nil
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
 
-        //loadInitialData()
-        loadMockData()
+        loadInitialData(featured: featured)
+//        loadMockData()
     }
-    
-    func loadFullList() {
-        proposals = nil
-        failedToLoadInitialData = false
-        isLoading = false
-        cancellables = Set<AnyCancellable>()
+//    private func loadMockData() {
+//        isLoading = true
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.proposals = [.aaveTest, .aaveTest]
+//            self.isLoading = false
+//        }
+//    }
 
-        //loadInitialData()
-        loadMockData()
-    }
-    
-    private func loadMockData() {
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.proposals = [.aaveTest, .aaveTest]
-            self.isLoading = false
-        }
-    }
-
-    private func loadInitialData() {
+    private func loadInitialData(featured: Bool) {
         guard !SettingKeys.shared.authToken.isEmpty else { return }
         
         isLoading = true
-        APIService.voteNowProposals()
-            .sink { [weak self] completion in
-                self?.isLoading = false
-                switch completion {
-                case .finished: break
-                case .failure(_): self?.failedToLoadInitialData = true
-                }
-            } receiveValue: { [weak self] proposals, headers in
-                self?.proposals = proposals
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func loadFullData() {
-        guard !SettingKeys.shared.authToken.isEmpty else { return }
-        
-        isLoading = true
-        APIService.voteNowProposals(value: true)
+        APIService.voteNowProposals(featured: featured)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -83,4 +59,3 @@ class VoteNowDataSource: ObservableObject, Refreshable {
             .store(in: &cancellables)
     }
 }
-

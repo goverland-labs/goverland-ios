@@ -54,8 +54,8 @@ enum TrackingEvent: String, Trackable {
     case dashVoteNowOpenDao = "dash_vote_now_open_dao"
     case dashVoteNowOpenPrp = "dash_vote_now_open_prp"
     case screenDashVoteNowList = "screen_vote_now_list"
-    case dashVoteNowPrpFromList = "dash_vote_now_prp_from_list"
-    case dashVoteNowDaoFromList = "dash_vote_now_dao_from_list"
+    case dashVoteNowPrpFromList = "dash_vote_now_open_prp_from_list"
+    case dashVoteNowDaoFromList = "dash_vote_now_open_dao_from_list"
     // Hot Proposals
     case dashHotOpenDao = "dash_hot_open_dao"
     case dashHotOpenPrp = "dash_hot_open_prp"
