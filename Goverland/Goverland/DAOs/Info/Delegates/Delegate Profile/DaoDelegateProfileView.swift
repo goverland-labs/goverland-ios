@@ -12,6 +12,7 @@ import SwiftUI
 enum DaoDelegateProfileFilter: Int, FilterOptions {
     case activity = 0
     case about
+    case insights
 
     var localizedName: String {
         switch self {
@@ -19,6 +20,8 @@ enum DaoDelegateProfileFilter: Int, FilterOptions {
             return "Activity"
         case .about:
             return "About"
+        case .insights:
+            return "Insights"
         }
     }
 }
@@ -65,6 +68,7 @@ struct DaoDelegateProfileView: View {
                                                                    delegateId: daoDelegate.delegate.user.address.value,
                                                                    delegated: isDelegated)
                     case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
+                    case .insights: DaoDelegateInsightsView(delegate: daoDelegate.delegate)
                     }
                 }
             }

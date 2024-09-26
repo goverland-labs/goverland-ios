@@ -252,6 +252,14 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
+    static func decimalNumber(from number: Double, _ decimals: Int = 2) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = decimals
+        let formattedString = formatter.string(from: NSNumber(value: number))
+        return formattedString ?? String(number)
+    }
+
     static func rounded(_ value: Double, _ decimals: Int = 3) -> Double {
         let factor = pow(10.0, Double(decimals))
         return ceil(value * factor) / factor

@@ -139,6 +139,7 @@
 		559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */; };
 		559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */; };
 		55ADDC092CA2CDD300A1B429 /* Dao_AVP_Bins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADDC082CA2CDD300A1B429 /* Dao_AVP_Bins.swift */; };
+		55ADDC0E2CA57B7A00A1B429 /* DaoDelegateInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADDC0D2CA57B6B00A1B429 /* DaoDelegateInsightsView.swift */; };
 		55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B4FFB82ACDD832003A65D7 /* SearchModel.swift */; };
 		55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */; };
 		55B527322AF2A8140038B6B5 /* ChartSelectedDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */; };
@@ -512,6 +513,7 @@
 		559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsListView.swift; sourceTree = "<group>"; };
 		559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchDataSource.swift; sourceTree = "<group>"; };
 		55ADDC082CA2CDD300A1B429 /* Dao_AVP_Bins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao_AVP_Bins.swift; sourceTree = "<group>"; };
+		55ADDC0D2CA57B6B00A1B429 /* DaoDelegateInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateInsightsView.swift; sourceTree = "<group>"; };
 		55B4FFB82ACDD832003A65D7 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaosSearchDataSource.swift; sourceTree = "<group>"; };
 		55B527312AF2A8140038B6B5 /* ChartSelectedDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelectedDateExtension.swift; sourceTree = "<group>"; };
@@ -1069,10 +1071,10 @@
 			children = (
 				558ACC642C80DC1C002FAE75 /* DaoDelegateProfileView.swift */,
 				5566EE1D2C944ED0005BE7BF /* DaoDelegateProfileDataSource.swift */,
-				558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */,
-				BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */,
 				558ACC622C80DC1C002FAE75 /* DaoDelegateProfileAboutView.swift */,
 				558ACC6E2C80DC1C002FAE75 /* DaoDelegateSharingMenu.swift */,
+				55ADDC0B2CA57B4300A1B429 /* Activity */,
+				55ADDC0A2CA57B3900A1B429 /* Insights */,
 			);
 			path = "Delegate Profile";
 			sourceTree = "<group>";
@@ -1142,6 +1144,23 @@
 				BA5D7A9A2B6D32FC00CD3FDB /* Http.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		55ADDC0A2CA57B3900A1B429 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				55ADDC0D2CA57B6B00A1B429 /* DaoDelegateInsightsView.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		55ADDC0B2CA57B4300A1B429 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				558ACC632C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift */,
+				BA2413A92C933EEB009F0736 /* DaoDelegateProfileActivityDataSource.swift */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		55B5272B2AF2A4490038B6B5 /* Monthly active voters */ = {
@@ -2300,6 +2319,7 @@
 				BAB960B12AA6263B00DC2D92 /* MonthlyActiveUsers.swift in Sources */,
 				557C265A2B32273D00AAF26C /* WC_SessionMeta.swift in Sources */,
 				558ACC822C80DD9C002FAE75 /* DelegateButton.swift in Sources */,
+				55ADDC0E2CA57B7A00A1B429 /* DaoDelegateInsightsView.swift in Sources */,
 				557177E92A3E3E1B0026B12A /* Utils.swift in Sources */,
 				55CD8C712BB4A13E0074D734 /* PublicUserProfileVotesListView.swift in Sources */,
 				558ACC5A2C80DBCC002FAE75 /* DaoUserDelegation.swift in Sources */,
