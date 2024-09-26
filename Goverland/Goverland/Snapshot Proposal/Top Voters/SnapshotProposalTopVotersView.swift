@@ -17,7 +17,7 @@ struct SnapshotProposalTopVotersView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Top 10 voters by VP")
+                Text("Top 10 voters by voting power")
                     .font(.headlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()

@@ -138,7 +138,7 @@
 		559DA0C52A5EF4D3001F975D /* GError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C42A5EF4D3001F975D /* GError.swift */; };
 		559DA0C72A5EFE1C001F975D /* ProposalsSearchResultsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */; };
 		559DA0C92A5EFE58001F975D /* ProposalsSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */; };
-		55ADDC092CA2CDD300A1B429 /* Dao_AVP_Bins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADDC082CA2CDD300A1B429 /* Dao_AVP_Bins.swift */; };
+		55ADDC092CA2CDD300A1B429 /* DaoAvpBins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADDC082CA2CDD300A1B429 /* DaoAvpBins.swift */; };
 		55ADDC0E2CA57B7A00A1B429 /* DaoDelegateInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADDC0D2CA57B6B00A1B429 /* DaoDelegateInsightsView.swift */; };
 		55B4FFB92ACDD832003A65D7 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B4FFB82ACDD832003A65D7 /* SearchModel.swift */; };
 		55B4FFBB2ACEDA84003A65D7 /* DaosSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */; };
@@ -512,7 +512,7 @@
 		559DA0C42A5EF4D3001F975D /* GError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GError.swift; sourceTree = "<group>"; };
 		559DA0C62A5EFE1C001F975D /* ProposalsSearchResultsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchResultsListView.swift; sourceTree = "<group>"; };
 		559DA0C82A5EFE58001F975D /* ProposalsSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalsSearchDataSource.swift; sourceTree = "<group>"; };
-		55ADDC082CA2CDD300A1B429 /* Dao_AVP_Bins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dao_AVP_Bins.swift; sourceTree = "<group>"; };
+		55ADDC082CA2CDD300A1B429 /* DaoAvpBins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoAvpBins.swift; sourceTree = "<group>"; };
 		55ADDC0D2CA57B6B00A1B429 /* DaoDelegateInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoDelegateInsightsView.swift; sourceTree = "<group>"; };
 		55B4FFB82ACDD832003A65D7 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		55B4FFBA2ACEDA84003A65D7 /* DaosSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaosSearchDataSource.swift; sourceTree = "<group>"; };
@@ -1728,7 +1728,7 @@
 				BA36DEF62B178DDC002EBEB0 /* MonthlyTotalDaos.swift */,
 				BA36DF042B17A75D002EBEB0 /* MonthlyTotalNewProposals.swift */,
 				BADB16682B2019DF00CB99CC /* MonthlyTotalVoters.swift */,
-				55ADDC082CA2CDD300A1B429 /* Dao_AVP_Bins.swift */,
+				55ADDC082CA2CDD300A1B429 /* DaoAvpBins.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -2242,7 +2242,7 @@
 				BAC3CA252B9A5B95001CC6C3 /* PublicUserProfileActivityView.swift in Sources */,
 				BA8455B02B88284E00A986CC /* MaintenanceView.swift in Sources */,
 				55FD73192AB75DC60081C38D /* WC_SocketFactory.swift in Sources */,
-				55ADDC092CA2CDD300A1B429 /* Dao_AVP_Bins.swift in Sources */,
+				55ADDC092CA2CDD300A1B429 /* DaoAvpBins.swift in Sources */,
 				550ACFB12AFED65C006EF5BB /* CastYourVoteDataSource.swift in Sources */,
 				BAE1AB1B2AE36F8F001B89F3 /* BrickView.swift in Sources */,
 				BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */,

@@ -10,7 +10,7 @@
 import Foundation
 import Combine
 
-typealias DistributionBin = (range: Range<Double>, count: Int)
+typealias DistributionBin = (range: Range<Double>, count: Int, totalUsd: Double)
 
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
@@ -21,7 +21,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         }
     }
 
-    @Published private(set) var daoBins: Dao_AVP_Bins?
+    @Published private(set) var daoBins: DaoAvpBins?
     @Published private(set) var failedToLoadInitialData = false
     @Published private(set) var isLoading = false
     var cancellables = Set<AnyCancellable>()
@@ -29,9 +29,9 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     var bins: [DistributionBin] {
         guard let daoBins, daoBins.bins.count > 0 else { return [] }
         var dBins = [DistributionBin]()
-        dBins.append((range: 0..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count))
+        dBins.append((range: 0..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count, totalUsd: daoBins.bins[0].totalAvpUsd))
         for i in 1..<daoBins.bins.count {
-            dBins.append((range: daoBins.bins[i-1].upperBound..<daoBins.bins[i].upperBound, count: daoBins.bins[i].count))
+            dBins.append((range: daoBins.bins[i-1].upperBound..<daoBins.bins[i].upperBound, count: daoBins.bins[i].count, totalUsd: daoBins.bins[i].totalAvpUsd))
         }
         return dBins
     }
@@ -57,7 +57,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     enum Dao_AVP_BinsState {
-        case loaded(Dao_AVP_Bins)
+        case loaded(DaoAvpBins)
         case empty
     }
     private var binsCache: [DatesFiltetingOption: Dao_AVP_BinsState] = [:]
@@ -106,7 +106,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
             if true {
                 logInfo("[App] mock loaded")
                 let jsonData = Data(mockJson().utf8)
-                self.daoBins = try! JSONDecoder().decode(Dao_AVP_Bins.self, from: jsonData)
+                self.daoBins = try! JSONDecoder().decode(DaoAvpBins.self, from: jsonData)
                 self.binsCache[datesFilteringOption] = .loaded(self.daoBins!)
             } else {
                 logInfo("[App] mock error")
@@ -143,17 +143,18 @@ fileprivate func mockJson() -> String {
   "vp_usd_value": 10.054,
   "voters_cutted": 1555,
   "voters_total": 10500,
+  "avp_usd_total": 123456423,
   "bins": [
-    { "upper_bound": 1.0, "count": \(Int.random(in: 1...100)) },
-    { "upper_bound": 2.0, "count": \(Int.random(in: 100...200)) },
-    { "upper_bound": 3.0, "count": \(Int.random(in: 150...250)) },
-    { "upper_bound": 4.0, "count": \(Int.random(in: 200...300)) },
-    { "upper_bound": 5.0, "count": \(Int.random(in: 250...350)) },
-    { "upper_bound": 6.0, "count": \(Int.random(in: 150...300)) },
-    { "upper_bound": 7.0, "count": \(Int.random(in: 100...150)) },
-    { "upper_bound": 8.0, "count": \(Int.random(in: 50...120)) },
-    { "upper_bound": 9.0, "count": \(Int.random(in: 30...80)) },
-    { "upper_bound": 10.0, "count": \(Int.random(in: 1...20)) }
+    { "upper_bound_usd": 1.0, "count": \(Int.random(in: 1...100)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 2.0, "count": \(Int.random(in: 100...200)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 3.0, "count": \(Int.random(in: 150...250)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 4.0, "count": \(Int.random(in: 200...300)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 5.0, "count": \(Int.random(in: 250...350)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 6.0, "count": \(Int.random(in: 150...300)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 7.0, "count": \(Int.random(in: 100...150)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 8.0, "count": \(Int.random(in: 50...120)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 9.0, "count": \(Int.random(in: 30...80)), "total_avp_usd": 2556 },
+    { "upper_bound_usd": 10.0, "count": \(Int.random(in: 1...20)), "total_avp_usd": 2556 }
   ]
 }
 """

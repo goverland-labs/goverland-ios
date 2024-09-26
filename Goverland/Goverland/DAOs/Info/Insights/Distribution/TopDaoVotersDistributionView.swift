@@ -100,7 +100,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                                            firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
                                            secondPlaceholderValue: nil,
                                            secondPlaceholderTitle: description,
-                                           description: nil)
+                                           description: annotationDescription(bin: bin))
                         }
                     }
             }
@@ -126,5 +126,11 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
             return .trailing
         }
         return binIndex <= bins.count / 2 ? .trailing : .leading
+    }
+
+    private func annotationDescription(bin: DistributionBin) -> String {
+        guard let daoBins = dataSource.daoBins else { return "" }
+        let binPercentage = Utils.percentage(of: bin.totalUsd, in: daoBins.avpUsdTotal)
+        return "\(binPercentage) of total aVP"
     }
 }

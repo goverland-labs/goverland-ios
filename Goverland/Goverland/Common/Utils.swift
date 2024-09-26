@@ -215,10 +215,10 @@ enum Utils {
         return percentage(of: Double(currentNumber), in: Double(totalNumber))
     }
 
-    static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
+    static func percentage(of currentNumber: Double, in totalNumber: Double, decimals: Int = 2) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
-        formatter.maximumFractionDigits = 2
+        formatter.maximumFractionDigits = decimals
         formatter.positiveSuffix = "%"
         var formattedString: String? = nil
         if totalNumber > 0 {
