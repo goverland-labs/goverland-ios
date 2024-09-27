@@ -31,16 +31,20 @@ struct TopDaoVotersDistributionView: View {
     var infoDescriptionMarkdown: String {
         guard let daoBins = dataSource.daoBins else { return "" }
         let percentageOfVotersCutted = Utils.percentage(of: daoBins.votersCutted, in: daoBins.votersTotal)
+        let thresholdFormatted = Utils.decimalNumber(from: thresholdFilteringOption.rawValue)
+        let percentageOfVPCutted = Utils.percentage(of: daoBins.avpUsdTotalCutted, in: daoBins.avpUsdTotal)
+
         return """
 ### This chart illustrates the distribution of voting power, denominated in USD (based on the current token price), over the selected \(datesFilteringOption.localizedName) period.
 
-⚠️ Addresses with an average voting power of less than **1 USD** have been excluded and are not represented in this chart.
+⚠️ Addresses with an average voting power of less than **\(thresholdFormatted) USD** have been excluded and are not represented in this chart.
 
 - **Total addresses voted**: \(Utils.decimalNumber(from: daoBins.votersTotal))
 - **Excluded addresses**: \(Utils.decimalNumber(from: daoBins.votersCutted)) (\(percentageOfVotersCutted))
-- **1VP price**: \(Utils.decimalNumber(from: daoBins.vpUsdValue))
+- **Total of average voting powers**: $\(Utils.formattedNumber(daoBins.avpUsdTotal))
+- **Excluded addresses voting power**: $\(Utils.formattedNumber(daoBins.avpUsdTotalCutted)) (\(percentageOfVPCutted))
+- **1VP price**: $\(Utils.decimalNumber(from: daoBins.vpUsdValue))
 """
-//TODO: - **Average total voting power per proposal (USD)**: 22.6M USD
     }
 
     var body: some View {
