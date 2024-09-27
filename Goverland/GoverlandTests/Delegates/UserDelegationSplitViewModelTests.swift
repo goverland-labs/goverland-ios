@@ -19,7 +19,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [],
                                               expirationDate: nil),
@@ -34,7 +34,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 66.6,
@@ -58,7 +58,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 33.3,
@@ -85,7 +85,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [],
                                               expirationDate: nil),
@@ -102,7 +102,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 33.3,
@@ -128,7 +128,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 33.3,
@@ -157,7 +157,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 50.0,
@@ -186,7 +186,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 40.0,
@@ -218,7 +218,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 40.0,
@@ -250,7 +250,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
             dao: .aave,
             owner: .appUser,
             userDelegation: DaoUserDelegation(dao: .aave,
-                                              votingPower: .init(symbol: "UTI", power: 12.5),
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
                                               chains: .testChains,
                                               delegates: [DelegateVotingPower(user: .aaveChan,
                                                                               powerPercent: 16.67,
@@ -275,5 +275,35 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
         XCTAssertTrue(model.delegates[2].user == .flipside)
         XCTAssertEqual(model.delegates[2].powerRatio, 1)
         XCTAssertEqual(model.delegates.count, 3)
+
+        let model2 = UserDelegationSplitViewModel(
+            dao: .aave,
+            owner: .appUser,
+            userDelegation: DaoUserDelegation(dao: .aave,
+                                              votingPower: .init(power: 12.5, symbol: "UTI"),
+                                              chains: .testChains,
+                                              delegates: [DelegateVotingPower(user: .aaveChan,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .appUser,
+                                                                              powerPercent: 50.02,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .test,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2),
+                                                          DelegateVotingPower(user: .flipside,
+                                                                              powerPercent: 16.67,
+                                                                              powerRatio: 2)],
+                                              expirationDate: nil),
+            delegate: .test)
+
+        XCTAssertEqual(model2.ownerReservedPercentage , 51.0)
+        XCTAssertTrue(model2.delegates[0].user == .aaveChan)
+        XCTAssertEqual(model2.delegates[0].powerRatio, 1)
+        XCTAssertTrue(model2.delegates[1].user == .test)
+        XCTAssertEqual(model2.delegates[1].powerRatio, 1)
+        XCTAssertTrue(model2.delegates[2].user == .flipside)
+        XCTAssertEqual(model2.delegates[2].powerRatio, 1)
+        XCTAssertEqual(model2.delegates.count, 3)
     }
 }

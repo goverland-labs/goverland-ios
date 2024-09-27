@@ -260,7 +260,7 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
-    static func rounded(_ value: Double, _ decimals: Int = 3) -> Double {
+    static func roundedUp(_ value: Double, decimals: Int = 3) -> Double {
         let factor = pow(10.0, Double(decimals))
         return ceil(value * factor) / factor
     }

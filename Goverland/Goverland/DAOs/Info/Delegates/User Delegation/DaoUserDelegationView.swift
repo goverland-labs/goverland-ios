@@ -215,7 +215,7 @@ fileprivate struct _DaoUserDelegationView: View {
                             openUrl(redirectUrl)
                         }
                     } else if !dataSource.isEnoughBalance {
-                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(Utils.rounded(dataSource.deltaBalance)) \(dataSource.selectedChain?.symbol ?? "")**")
+                        WarningView(markdown: "You don’t have enough gas token for this transaction. Top up your wallet balance for at least **\(Utils.roundedUp(dataSource.deltaBalance)) \(dataSource.selectedChain?.symbol ?? "")**")
                     }
 
                     if let message = dataSource.infoMessage {
