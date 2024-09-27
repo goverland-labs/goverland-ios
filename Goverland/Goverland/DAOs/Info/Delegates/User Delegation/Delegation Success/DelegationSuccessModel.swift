@@ -20,6 +20,7 @@ class DelegationSuccessModel: ObservableObject {
                 break
             case .success:
                 Tracker.track(.dlgActionSuccess)
+                NotificationCenter.default.post(name: .delegated, object: nil)
             case .failed:
                 Tracker.track(.dlgActionFailed)
             }

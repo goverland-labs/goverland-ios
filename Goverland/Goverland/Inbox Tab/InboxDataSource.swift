@@ -126,7 +126,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 case .failure(_): self?.failedToLoadMore = true
                 }
             } receiveValue: { [weak self] events, headers in
-                guard let `self` = self else { return }
+                guard let self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
                 self.events?.append(contentsOf: recognizedEvents)
                 self.totalSkipped! += events.count - recognizedEvents.count

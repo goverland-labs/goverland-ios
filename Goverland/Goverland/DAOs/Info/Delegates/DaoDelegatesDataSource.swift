@@ -33,7 +33,8 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable, Paginatable {
                 self?.performSearch(searchText)
             }
 
-        // TODO: refresh on sign in
+        NotificationCenter.default.addObserver(self, selector: #selector(authTokenChanged(_:)), name: .authTokenChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delegated(_:)), name: .delegated, object: nil)
     }
     
     func refresh() {
@@ -63,8 +64,19 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable, Paginatable {
             .store(in: &cancellables)
     }
     
-    func loadMore() {
-        // TODO: pagination when api ready
+    func loadMore() {        
+        APIService.daoDelegates(daoID: dao.id, offset: delegates.count)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadMore = true
+                }
+            } receiveValue: { [weak self] delegates, headers in
+                guard let self else { return }
+                self.delegates.append(contentsOf: delegates)
+                self.total = Utils.getTotal(from: headers)
+            }
+            .store(in: &cancellables)
     }
     
     private func performSearch(_ searchText: String) {
@@ -92,5 +104,13 @@ class DaoDelegatesDataSource: ObservableObject, Refreshable, Paginatable {
     func hasMore() -> Bool {
         guard let total = total else { return true }
         return delegates.count < total
+    }
+
+    @objc func authTokenChanged(_ notification: Notification) {
+        refresh()
+    }
+
+    @objc func delegated(_ notification: Notification) {
+        refresh()
     }
 }

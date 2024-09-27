@@ -18,4 +18,5 @@ extension Notification.Name {
     static let cbWalletAccountUpdated = Notification.Name("CoinbaseWalletAccountUpdated")
     static let voteCasted = Notification.Name("VoteCasted")
     static let proposalPushOpened = Notification.Name("ProposalPushOpened")
+    static let delegated = Notification.Name("Delegated")
 }
