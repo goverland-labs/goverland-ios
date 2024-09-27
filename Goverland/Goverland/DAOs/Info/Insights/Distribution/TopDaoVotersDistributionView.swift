@@ -13,11 +13,18 @@ import Charts
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
     @Binding private var datesFilteringOption: DatesFiltetingOption
+    @State private var thresholdFilteringOption: ThresholdFiltetingOption
 
-    init(dao: Dao, datesFilteringOption: Binding<DatesFiltetingOption>) {
+    init(dao: Dao,
+         datesFilteringOption: Binding<DatesFiltetingOption>,
+         thresholdFilteringOption: ThresholdFiltetingOption = .oneUsd)
+    {
         _datesFilteringOption = datesFilteringOption
+        _thresholdFilteringOption = State(wrappedValue: thresholdFilteringOption)
+
         let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
-                                                            datesFilteringOption: datesFilteringOption.wrappedValue)
+                                                            datesFilteringOption: datesFilteringOption.wrappedValue,
+                                                            thresholdFilteringOption: thresholdFilteringOption)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -39,6 +46,9 @@ struct TopDaoVotersDistributionView: View {
     var body: some View {
         VStack {
             if dataSource.daoBins != nil {
+                ChartFilters(selectedOption: $thresholdFilteringOption)
+                    .padding(.top, 16)
+
                 GraphView(header: "aVP distribution in USD (\(datesFilteringOption.localizedName))",
                           subheader: infoDescriptionMarkdown,
                           isLoading: dataSource.isLoading,
@@ -53,6 +63,11 @@ struct TopDaoVotersDistributionView: View {
         .onChange(of: datesFilteringOption) { _, newValue in
             withAnimation {
                 dataSource.datesFilteringOption = newValue
+            }
+        }
+        .onChange(of: thresholdFilteringOption) { _, newValue in
+            withAnimation {
+                dataSource.thresholdFilteringOption = newValue
             }
         }
         .onAppear() {

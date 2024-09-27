@@ -12,10 +12,40 @@ import Combine
 
 typealias DistributionBin = (range: Range<Double>, count: Int, totalUsd: Double)
 
+enum ThresholdFiltetingOption: Int, FilteringOption {
+    case oneUsd = 1
+    case tenUsd = 10
+    case hundredUsd = 100
+    case thousandUsd = 1_000
+    case tenThousandUsd = 10_000
+
+    var id: Int {
+        self.rawValue
+    }
+
+    static var allOptions: [Self] {
+        [.oneUsd, .tenUsd, .hundredUsd, .thousandUsd, .tenThousandUsd]
+    }
+
+    var localizedName: String {
+        "$\(Utils.decimalNumber(from: rawValue))"
+    }
+
+    var queryParamValue: String {
+        String(rawValue)
+    }
+}
+
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
 
     var datesFilteringOption: DatesFiltetingOption {
+        didSet {
+            refresh(invalidateCache: false)
+        }
+    }
+
+    var thresholdFilteringOption: ThresholdFiltetingOption {
         didSet {
             refresh(invalidateCache: false)
         }
@@ -60,11 +90,12 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         case loaded(DaoAvpBins)
         case empty
     }
-    private var binsCache: [DatesFiltetingOption: Dao_AVP_BinsState] = [:]
+    private var binsCache: [DatesFiltetingOption: [ThresholdFiltetingOption: Dao_AVP_BinsState]] = [:]
 
-    init(dao: Dao, datesFilteringOption: DatesFiltetingOption) {
+    init(dao: Dao, datesFilteringOption: DatesFiltetingOption, thresholdFilteringOption: ThresholdFiltetingOption) {
         self.dao = dao
         self.datesFilteringOption = datesFilteringOption
+        self.thresholdFilteringOption = thresholdFilteringOption
     }
 
     func refresh() {
@@ -72,7 +103,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     private func refresh(invalidateCache: Bool) {
-        if let binsCachedDataState = binsCache[datesFilteringOption], !invalidateCache {
+        if let binsCachedDataState = binsCache[datesFilteringOption]?[thresholdFilteringOption], !invalidateCache {
             logInfo("[App] cache found")
             switch binsCachedDataState {
             case .loaded(let bins):
@@ -93,6 +124,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         isLoading = false
         cancellables = Set<AnyCancellable>()
+        
         loadData()
 
 //        loadMockData()
@@ -107,18 +139,20 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 logInfo("[App] mock loaded")
                 let jsonData = Data(mockJson().utf8)
                 self.daoBins = try! JSONDecoder().decode(DaoAvpBins.self, from: jsonData)
-                self.binsCache[datesFilteringOption] = .loaded(self.daoBins!)
+                self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .loaded(self.daoBins!)
             } else {
                 logInfo("[App] mock error")
                 self.failedToLoadInitialData = true
-                self.binsCache[datesFilteringOption] = .empty
+                self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .empty
             }
         }
     }
 
     func loadData() {
         isLoading = true
-        APIService.dao_AVP_Bins(daoId: dao.id, filteringOption: datesFilteringOption)
+        APIService.daoAvpBins(daoId: dao.id,
+                              datesFilteringOption: datesFilteringOption,
+                              thresholdFilteringOption: thresholdFilteringOption)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -126,12 +160,12 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
                 case .failure(_):
                     guard let self else { return }
                     self.failedToLoadInitialData = true
-                    self.binsCache[datesFilteringOption] = .empty
+                    self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .empty
                 }
             } receiveValue: { [weak self] daoBins, headers in
                 guard let self else { return }
                 self.daoBins = daoBins
-                self.binsCache[datesFilteringOption] = .loaded(daoBins)
+                self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .loaded(daoBins)
             }
             .store(in: &cancellables)
     }
@@ -144,6 +178,7 @@ fileprivate func mockJson() -> String {
   "voters_cutted": 1555,
   "voters_total": 10500,
   "avp_usd_total": 123456423,
+  "avp_usd_total_cutted": 12
   "bins": [
     { "upper_bound_usd": 1.0, "count": \(Int.random(in: 1...100)), "total_avp_usd": 2556 },
     { "upper_bound_usd": 2.0, "count": \(Int.random(in: 100...200)), "total_avp_usd": 2556 },

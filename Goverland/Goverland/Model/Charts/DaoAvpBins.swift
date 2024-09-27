@@ -14,6 +14,7 @@ struct DaoAvpBins: Decodable {
     let votersCutted: Int
     let votersTotal: Int
     let avpUsdTotal: Double
+    let avpUsdTotalCutted: Double
     let bins: [Bin]
 
     struct Bin: Decodable {
@@ -33,6 +34,7 @@ struct DaoAvpBins: Decodable {
         case votersCutted = "voters_cutted"
         case votersTotal = "voters_total"
         case avpUsdTotal = "avp_usd_total"
+        case avpUsdTotalCutted = "avp_usd_total_cutted"
         case bins
     }
 }

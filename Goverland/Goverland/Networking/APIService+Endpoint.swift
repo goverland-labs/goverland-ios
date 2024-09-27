@@ -194,12 +194,11 @@ extension APIService {
                                  delegateId: String,
                                  offset: Int = 0,
                                  limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(DaoDelegateVotesEndpoint.ResponseType, HttpHeaders), APIError> {
-        var queryParameters = [
+        let queryParameters = [
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)"),
             URLQueryItem(name: "dao", value: daoId)
         ]
-        
         let endpoint = DaoDelegateVotesEndpoint(daoId: daoId, delegateId: delegateId, queryParameters: queryParameters)
         return shared.request(endpoint)
     }
@@ -213,7 +212,7 @@ extension APIService {
 
     static func monthlyActiveUsers(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(DaoMonthlyActiveUsersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "period", value: filteringOption.queryParamName)
+            URLQueryItem(name: "period", value: filteringOption.queryParamValue)
         ]
         let endpoint = DaoMonthlyActiveUsersEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
@@ -239,7 +238,7 @@ extension APIService {
 
     static func monthlyNewProposals(id: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(MonthlyNewProposalsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "period", value: filteringOption.queryParamName)
+            URLQueryItem(name: "period", value: filteringOption.queryParamValue)
         ]
         let endpoint = MonthlyNewProposalsEndpoint(daoID: id, queryParameters: queryParameters)
         return shared.request(endpoint)
@@ -274,7 +273,7 @@ extension APIService {
                              offset: Int = 0,
                              limit: Int = ConfigurationManager.defaultPaginationCount) -> AnyPublisher<(TopVotersEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "period", value: filteringOption.queryParamName),
+            URLQueryItem(name: "period", value: filteringOption.queryParamValue),
             URLQueryItem(name: "offset", value: "\(offset)"),
             URLQueryItem(name: "limit", value: "\(limit)")
         ]
@@ -282,9 +281,12 @@ extension APIService {
         return shared.request(endpoint)
     }
 
-    static func dao_AVP_Bins(daoId: UUID, filteringOption: DatesFiltetingOption) -> AnyPublisher<(Dao_AVP_BinsEndpoint.ResponseType, HttpHeaders), APIError> {
+    static func daoAvpBins(daoId: UUID,
+                           datesFilteringOption: DatesFiltetingOption,
+                           thresholdFilteringOption: ThresholdFiltetingOption) -> AnyPublisher<(Dao_AVP_BinsEndpoint.ResponseType, HttpHeaders), APIError> {
         let queryParameters = [
-            URLQueryItem(name: "period", value: filteringOption.queryParamName)
+            URLQueryItem(name: "period", value: datesFilteringOption.queryParamValue),
+            URLQueryItem(name: "min_avp_usd", value: thresholdFilteringOption.queryParamValue)
         ]
         let endpoint = Dao_AVP_BinsEndpoint(daoId: daoId, queryParameters: queryParameters)
         return shared.request(endpoint, defaultErrorDisplay: false)

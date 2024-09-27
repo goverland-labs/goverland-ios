@@ -39,7 +39,7 @@ enum DatesFiltetingOption: Int, FilteringOption {
         }
     }
 
-    var queryParamName: String {
+    var queryParamValue: String {
         switch self {
         case .all: return "all"
         case .oneYear: return "1y"
