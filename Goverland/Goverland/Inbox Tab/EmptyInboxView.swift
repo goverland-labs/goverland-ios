@@ -64,6 +64,8 @@ fileprivate struct _WelcomeView: View {
 }
 
 fileprivate struct _EmptyInboxView: View {
+    @EnvironmentObject private var pathManager: NavigationPathManager
+    
     var body: some View {
         VStack(spacing: 32) {
             Spacer()
@@ -84,8 +86,7 @@ fileprivate struct _EmptyInboxView: View {
                 .foregroundStyle(Color.textWhite)
 
             PrimaryButton("My followed DAOs") {
-                TabManager.shared.selectedTab = .profile
-                TabManager.shared.profilePath = [.followedDaos]
+                pathManager.path.append(ProfileScreen.followedDaos)
             }
 
             Spacer()

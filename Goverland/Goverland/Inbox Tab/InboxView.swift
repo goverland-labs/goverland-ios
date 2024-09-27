@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct InboxView: View {
+    @Setting(\.authToken) private var authToken
     @Environment(\.dismiss) private var dismiss
     @StateObject private var data = InboxDataSource.shared
 
@@ -25,7 +26,9 @@ struct InboxView: View {
 
     var body: some View {
         Group {
-            if data.failedToLoadInitialData {
+            if authToken.isEmpty {
+                SignInView(source: .inbox)
+            } else if data.failedToLoadInitialData {
                 RetryInitialLoadingView(dataSource: data,
                                         message: "Sorry, we couldn’t load the inbox")
             } else if data.events?.count == 0 {
@@ -199,7 +202,7 @@ struct InboxView: View {
             }
         }
         .onAppear() {
-            if data.events?.isEmpty ?? true {
+            if (data.events?.isEmpty ?? true) && !data.isLoading {
                 data.refresh()
             }
             Tracker.track(.screenInbox)

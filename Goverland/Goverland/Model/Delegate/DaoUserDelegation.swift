@@ -23,11 +23,6 @@ struct DaoUserDelegation: Decodable {
         case delegates
         case expirationDate = "expiration_date"
     }
-    
-    struct VotingPower: Decodable {
-        let symbol: String
-        let power: Double
-    }
 }
 
 struct DaoUserDelegationRequest: Encodable {

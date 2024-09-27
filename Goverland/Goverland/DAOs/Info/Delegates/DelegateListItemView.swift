@@ -51,12 +51,18 @@ fileprivate struct _DelegateListItemHeaderView: View {
                     .font(.bodySemibold)
                     .lineLimit(1)
 
-                if delegate.user.resolvedName != nil {
-                    Text(delegate.user.address.short)
-                        .foregroundStyle(Color.textWhite60)
-                        .font(.footnoteRegular)
-                        .lineLimit(1)
-                }
+                Text("\(Utils.formattedNumber(delegate.votingPower.power)) \(delegate.votingPower.symbol)")
+                    .foregroundStyle(Color.textWhite60)
+                    .font(.footnoteRegular)
+                    .lineLimit(1)
+
+//  TODO: clarify design
+//                if delegate.user.resolvedName != nil {
+//                    Text(delegate.user.address.short)
+//                        .foregroundStyle(Color.textWhite60)
+//                        .font(.footnoteRegular)
+//                        .lineLimit(1)
+//                }
             }
 
             Spacer()

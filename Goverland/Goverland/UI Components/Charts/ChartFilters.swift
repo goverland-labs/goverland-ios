@@ -39,7 +39,7 @@ enum DatesFiltetingOption: Int, FilteringOption {
         }
     }
 
-    var queryParamName: String {
+    var queryParamValue: String {
         switch self {
         case .all: return "all"
         case .oneYear: return "1y"
@@ -65,28 +65,6 @@ enum BucketGroupsFilteringOption: Int, FilteringOption {
 
     var localizedName: String {
         "\(rawValue)"
-    }
-}
-
-enum DistributionFilteringOption: Int, FilteringOption {
-    case log2 = 0
-    case squareRoot
-
-    var id: Int {
-        self.rawValue
-    }
-
-    static var allOptions: [Self] {
-        [.log2, .squareRoot]
-    }
-
-    var localizedName: String {
-        switch self {
-        case .log2:
-            "log2"
-        case .squareRoot:
-            "√"
-        }
     }
 }
 

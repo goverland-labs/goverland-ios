@@ -63,9 +63,13 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarTitle("Goverland")
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         activeSheetManager.activeSheet = .notifications
+                        // always refresh datasource when opening a popover
+                        // to fetch the latest data
+                        InboxDataSource.shared.refresh()
                     } label: {
                         HStack(spacing: 2) {
                             if unreadEvents > 0 {

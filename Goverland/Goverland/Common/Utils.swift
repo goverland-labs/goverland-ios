@@ -215,10 +215,10 @@ enum Utils {
         return percentage(of: Double(currentNumber), in: Double(totalNumber))
     }
 
-    static func percentage(of currentNumber: Double, in totalNumber: Double) -> String {
+    static func percentage(of currentNumber: Double, in totalNumber: Double, decimals: Int = 2) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
-        formatter.maximumFractionDigits = 2
+        formatter.maximumFractionDigits = decimals
         formatter.positiveSuffix = "%"
         var formattedString: String? = nil
         if totalNumber > 0 {
@@ -252,7 +252,15 @@ enum Utils {
         return formattedString ?? String(number)
     }
 
-    static func rounded(_ value: Double, _ decimals: Int = 3) -> Double {
+    static func decimalNumber(from number: Double, _ decimals: Int = 2) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = decimals
+        let formattedString = formatter.string(from: NSNumber(value: number))
+        return formattedString ?? String(number)
+    }
+
+    static func roundedUp(_ value: Double, decimals: Int = 3) -> Double {
         let factor = pow(10.0, Double(decimals))
         return ceil(value * factor) / factor
     }

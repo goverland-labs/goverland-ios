@@ -48,6 +48,9 @@ struct DaoDelegateProfileAboutView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            Tracker.track(.screenDelegateProfileAbout)
+        }
 
         Spacer()
     }

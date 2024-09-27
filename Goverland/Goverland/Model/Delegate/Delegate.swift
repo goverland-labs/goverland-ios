@@ -9,6 +9,11 @@
 
 import Foundation
 
+struct VotingPower: Decodable, Equatable {
+    let power: Double
+    let symbol: String
+}
+
 struct Delegate: Identifiable, Decodable, Equatable {
     let user: User
     let about: String
@@ -16,7 +21,7 @@ struct Delegate: Identifiable, Decodable, Equatable {
     let delegators: Int
     let votes: Int
     let proposalsCreated: Int
-    let votingPower: Double
+    let votingPower: VotingPower
     let percentVotingPower: Double
     let delegationInfo: DelegationInfo
     
