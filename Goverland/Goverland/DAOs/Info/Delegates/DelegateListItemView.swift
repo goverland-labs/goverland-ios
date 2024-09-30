@@ -146,6 +146,9 @@ fileprivate struct _DelegateListItemFooterView: View {
         }
         .font(.footnoteRegular)
         .foregroundStyle(Color.textWhite40)
+        .onTapGesture {
+            showInfoAlert("Delegate activity includes the number of users who have delegated their voting power to the delegate, the total votes they have cast, and the number of proposals they have initiated.")
+        }
     }
 }
 
