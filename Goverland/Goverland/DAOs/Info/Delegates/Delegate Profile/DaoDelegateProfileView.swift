@@ -64,7 +64,7 @@ struct DaoDelegateProfileView: View {
                     FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
 
                     switch filter {
-                    case .activity: DaoDelegateProfileActivityView(daoId: dataSource.daoId,
+                    case .activity: DaoDelegateProfileActivityView(dao: daoDelegate.dao,
                                                                    delegateId: daoDelegate.delegate.user.address.value,
                                                                    delegated: isDelegated)
                     case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
@@ -123,11 +123,15 @@ struct DaoDelegateProfileHeaderView: View {
     let action: DelegateAction
 
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: 30) {
             RoundPictureView(image: delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
-            
+                .onTapGesture {
+                    activeSheetManager.activeSheet = .publicProfileById(delegate.user.address.value)
+                }
+
             VStack(spacing: 10) {
                 VStack(spacing: 4) {
                     Text(delegate.user.usernameShort)
