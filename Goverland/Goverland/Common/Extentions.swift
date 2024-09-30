@@ -24,11 +24,14 @@ extension Bundle {
 }
 
 extension Array where Element: Equatable {
-    mutating func appendUnique(contentsOf newElements: [Element]) {
+    mutating func appendUnique(contentsOf newElements: [Element]) -> Int {
+        var appended = 0
         for element in newElements {
             if !contains(element) {
                 append(element)
+                appended += 1
             }
         }
+        return appended
     }
 }
