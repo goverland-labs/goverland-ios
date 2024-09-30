@@ -76,7 +76,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         if self.delegates.count == 0 {
             // when tapped user is the owner and no prior delegates from backend
             self.ownerReservedPercentage = 100
-        } else if self.delegates.count == 1 && delegates.first?.powerRatio == 0 {
+        } else if self.delegates.count == 1 {
             // when tapped user is a new delegate and no prior delegates from backend
             self.ownerReservedPercentage = 0
         }
