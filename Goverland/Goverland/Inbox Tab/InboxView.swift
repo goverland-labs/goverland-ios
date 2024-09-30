@@ -197,7 +197,7 @@ struct InboxView: View {
                 FollowedDaosListView()
                     .environmentObject(activeSheetManager)
             case .inboxSettings:
-                InboxSettingView()
+                InboxSettingView(showPushSettings: true)
             default: FollowedDaosListView() // should not happen
             }
         }
