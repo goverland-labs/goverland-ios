@@ -24,7 +24,10 @@ struct DelegateListItemView: View {
         VStack(alignment: .leading, spacing: 14) {
             _DelegateListItemHeaderView(dao: dao, delegate: delegate)
             _DelegateListItemBodyView(delegate: delegate)
-            _DelegateListItemFooterView(delegate: delegate)
+            HStack {
+                DelegateIconsView(delegate: delegate)
+                Spacer()
+            }
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.vertical, Constants.horizontalPadding)
@@ -121,12 +124,12 @@ fileprivate struct _ShimmerDelegateListItemBodyView: View {
     }
 }
 
-fileprivate struct _DelegateListItemFooterView: View {
+struct DelegateIconsView: View {
     let delegate: Delegate
 
     var body: some View {
         HStack(spacing: 10) {
-            HStack(spacing: 5) {
+            HStack(spacing: 4) {
                 Image(systemName: "person.fill")
                 Text(Utils.formattedNumber(Double(delegate.delegators)))
             }
@@ -141,11 +144,19 @@ fileprivate struct _DelegateListItemFooterView: View {
                 Image(systemName: "doc.text.fill")
                 Text(Utils.formattedNumber(Double(delegate.proposalsCreated)))
             }
-
-            Spacer()
         }
         .font(.footnoteRegular)
         .foregroundStyle(Color.textWhite40)
+        .onTapGesture {
+            showInfoAlert("""
+![delegators](info.person.fill) — Number of delegators
+
+![ballots](info.ballot) — Votes cast by the delegate in this DAO
+
+![proposals](info.doc.text.fill) — Proposals created by the delegate in this DAO
+"""
+            )
+        }
     }
 }
 

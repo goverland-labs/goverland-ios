@@ -33,7 +33,7 @@ fileprivate struct DelegatedVpView: View {
 
     var description: String {
         let delegators = Utils.decimalNumber(from: delegate.delegators)
-        let vp = Utils.decimalNumber(from: delegate.votingPower.power)
+        let vp = Utils.formattedNumber(delegate.votingPower.power)
         let symbol = delegate.votingPower.symbol
         return "\(delegators) delegators have collectively delegated a total of \(vp) \(symbol)"
     }
