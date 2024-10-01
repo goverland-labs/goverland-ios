@@ -149,7 +149,7 @@ class UserDelegationSplitViewModel: ObservableObject {
 
     func percentage(for index: Int) -> String {
         let p: Double = percentage(for: index)
-        guard p > 0 else { return "0%" }
+        guard p > 0 else { return Utils.numberWithPercent(from: 0) }
         return Utils.numberWithPercent(from: p)
     }
     
