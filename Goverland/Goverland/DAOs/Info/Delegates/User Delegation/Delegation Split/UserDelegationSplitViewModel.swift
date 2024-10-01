@@ -76,7 +76,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         if self.delegates.count == 0 {
             // when tapped user is the owner and no prior delegates from backend
             self.ownerReservedPercentage = 100
-        } else if self.delegates.count == 1 && delegates.first?.powerRatio == 0 {
+        } else if self.delegates.count == 1 {
             // when tapped user is a new delegate and no prior delegates from backend
             self.ownerReservedPercentage = 0
         }
@@ -134,10 +134,13 @@ class UserDelegationSplitViewModel: ObservableObject {
     func decreaseOwnerVotingPower() {
         if self.ownerReservedPercentage > 0 {
             self.ownerReservedPercentage = max(round(self.ownerReservedPercentage - 1), 0)
+            if self.ownerReservedPercentage < 100 && self.delegates.count == 1 {
+                self.delegates[0].powerRatio = 1
+            }
         }
     }
 
-    func percentage(for index: Int) -> Double {
+    private func percentage(for index: Int) -> Double {
         guard totalDelegatesAssignedPowerRatios > 0, index < delegates.count else { return 0 }
         let delegateAssignedPower = delegates[index].1
         let availablePowerPercentage = 100.0 - ownerReservedPercentage
@@ -146,7 +149,7 @@ class UserDelegationSplitViewModel: ObservableObject {
 
     func percentage(for index: Int) -> String {
         let p: Double = percentage(for: index)
-        guard p > 0 else { return "0" }
+        guard p > 0 else { return Utils.numberWithPercent(from: 0) }
         return Utils.numberWithPercent(from: p)
     }
     
