@@ -11,6 +11,8 @@ import SwiftUI
 import SwiftData
 
 struct InboxSettingView: View {
+    let showPushSettings: Bool
+
     @ObservedObject var dataSource = InboxSettingsDataSource.shared
     @Query private var profiles: [UserProfile]
 
@@ -55,6 +57,14 @@ struct InboxSettingView: View {
                         Text("You can find archived notifications in your inbox menu")
                             .font(.footnoteRegular)
                             .foregroundStyle(Color.textWhite40)
+                    }
+
+                    if showPushSettings {
+                        Section {
+                            NavigationLink("Push Notifications") {
+                                PushNotificationsSettingView()
+                            }
+                        }
                     }
                 }
             } else { // is loading

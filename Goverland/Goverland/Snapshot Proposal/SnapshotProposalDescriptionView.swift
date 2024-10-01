@@ -166,7 +166,14 @@ struct SnapshotProposalDescriptionView: View {
             .frame(maxHeight: dataSource.descriptionIsExpanded ? .infinity : heightLimit)
             .onTapGesture {} // do not delete, otherwise onLongPressGesture breaks the scrollview
             .onLongPressGesture(minimumDuration: 1) {
-                UIPasteboard.general.string = markdownDescription
+                switch chosenTab {
+                case .full:
+                    UIPasteboard.general.string = markdownDescription
+                case .ai:
+                    guard let aiMarkdownDescription = dataSource.aiDescription else { return }
+                    UIPasteboard.general.string = aiMarkdownDescription
+                }
+
                 showToast("Content copied to clipboard")
             }
 

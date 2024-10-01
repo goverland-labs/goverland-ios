@@ -11,7 +11,9 @@ import SwiftUI
 
 struct DaoDelegateSharingMenu: View {
     let daoDelegate: DaoDelegate
-    
+
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
+
     var body: some View {
         if let snapshotUrl = daoDelegate.snapshotUrl, let goverlandUrl = daoDelegate.goverlandUrl {
             ShareLink(item: goverlandUrl) {
@@ -28,6 +30,13 @@ struct DaoDelegateSharingMenu: View {
             ShareLink(item: daoDelegate.dao.alias) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
+        }
+
+        Button {
+            activeSheetManager.activeSheet = .publicProfileById(daoDelegate.delegate.user.address.value)
+        } label: {
+            // for now we handle only Snapshot proposals
+            Label("Open detailed Profile", systemImage: "person.crop.circle.fill")
         }
     }
 }

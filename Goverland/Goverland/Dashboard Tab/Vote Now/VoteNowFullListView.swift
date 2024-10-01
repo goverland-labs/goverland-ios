@@ -11,7 +11,7 @@ import SwiftUI
 
 struct VoteNowFullListView: View {
     @Binding var path: NavigationPath
-    @StateObject var dataSource = VoteNowDataSource.dashboard
+    @StateObject var dataSource = VoteNowDataSource.fullList
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
     @State private var selectedProposalIndex: Int?
     
@@ -43,6 +43,9 @@ struct VoteNowFullListView: View {
             }
         }
         .navigationTitle("Vote Now")
+        .refreshable {
+            dataSource.refresh()
+        }
         .onChange(of: selectedProposalIndex) { _, _ in
             if let index = selectedProposalIndex, let proposals = dataSource.proposals, proposals.count > index {
                 path.append(proposals[index])

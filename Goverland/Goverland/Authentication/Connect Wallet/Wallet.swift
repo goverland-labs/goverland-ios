@@ -222,16 +222,16 @@ struct ConnectedWallet {
             .replacingOccurrences(of: " wallet", with: "")
             .replacingOccurrences(of: " Wallet", with: "")
         return """
-⚠️ Your current **\(walletName)** wallet didn’t approve transacting on **\(chainName)**.
+⚠️ Your current **\(walletName) wallet** didn’t approve transacting on **\(chainName)**.
 
-> Note: Not all wallets support \(chainName). If yours doesn't, consider using a different wallet, such as [Zerion](https://apps.apple.com/app/id1456732565)
-
-**Follow these steps to fix the issue:**
+## Follow these steps to fix the issue:
 1. Open your \(walletName) wallet and select \(chainName) as the active chain
 2. Go to your profile on the Goverland app
 3. Disconnect your current \(walletName) wallet session
-4. Reconnect to \(walletName) wallet (make sure \(chainName) is set as the active chain)
+4. Reconnect to \(walletName) wallet **(make sure \(chainName) is set as the active chain)**
 5. Try the operation again
+
+> Note: Not all wallets support \(chainName). If yours doesn't, consider using a different wallet, such as [Zerion](https://apps.apple.com/app/id1456732565)
 
 If the issue persists, please get in touch with our support team on [Discord](https://discord.gg/uerWdwtGkQ).
 """

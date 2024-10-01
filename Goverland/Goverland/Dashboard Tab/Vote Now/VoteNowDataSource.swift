@@ -18,6 +18,7 @@ class VoteNowDataSource: ObservableObject, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     static let dashboard = VoteNowDataSource()
+    static let fullList = VoteNowDataSource()
 
     private init() {}
 

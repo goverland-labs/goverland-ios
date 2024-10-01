@@ -64,7 +64,7 @@ struct DaoDelegateProfileView: View {
                     FilterButtonsView<DaoDelegateProfileFilter>(filter: $filter)
 
                     switch filter {
-                    case .activity: DaoDelegateProfileActivityView(daoId: dataSource.daoId,
+                    case .activity: DaoDelegateProfileActivityView(dao: daoDelegate.dao,
                                                                    delegateId: daoDelegate.delegate.user.address.value,
                                                                    delegated: isDelegated)
                     case .about: DaoDelegateProfileAboutView(delegate: daoDelegate.delegate)
@@ -123,11 +123,15 @@ struct DaoDelegateProfileHeaderView: View {
     let action: DelegateAction
 
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
     var body: some View {
         HStack(spacing: 30) {
             RoundPictureView(image: delegate.user.avatar(size: .xl), imageSize: Avatar.Size.xl.profileImageSize)
-            
+                .onTapGesture {
+                    activeSheetManager.activeSheet = .publicProfileById(delegate.user.address.value)
+                }
+
             VStack(spacing: 10) {
                 VStack(spacing: 4) {
                     Text(delegate.user.usernameShort)
@@ -153,24 +157,10 @@ struct DaoDelegateProfileHeaderView: View {
                             }
                     }
                 }
-                
-                HStack(spacing: 10) {
-                    HStack(spacing: 2) {
-                        Image(systemName: "person.fill")
-                        Text(String(delegate.delegators))
-                    }
-                    HStack(spacing: 2) {
-                        Image("ballot")
-                        Text(String(delegate.votes))
-                    }
-                    HStack(spacing: 2) {
-                        Image(systemName: "doc.text")
-                        Text(String(delegate.proposalsCreated))
-                    }
-                }
-                .foregroundColor(.textWhite40)
-                .font(.footnoteRegular)
-                
+
+                DelegateIconsView(delegate: delegate)
+                    .padding(.bottom, 4)
+
                 switch action {
                 case .delegate:
                     DelegateButton(dao: dao, delegate: delegate) {

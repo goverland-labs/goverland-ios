@@ -11,6 +11,8 @@ import SwiftUI
 
 struct DaoDelegateProfileActivityView: View {
     let delegated: Bool
+    let dao: Dao
+
     @StateObject private var dataSource: DaoDelegateProfileActivityDataSource
 
     @State private var selectedProposalIndex: Int?
@@ -18,9 +20,10 @@ struct DaoDelegateProfileActivityView: View {
 
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
-    init(daoId: String, delegateId: String, delegated: Bool) {
+    init(dao: Dao, delegateId: String, delegated: Bool) {
         self.delegated = delegated
-        let dataSource = DaoDelegateProfileActivityDataSource(daoId: daoId, delegateId: delegateId)
+        self.dao = dao
+        let dataSource = DaoDelegateProfileActivityDataSource(daoId: dao.id.uuidString, delegateId: delegateId)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
@@ -45,7 +48,7 @@ struct DaoDelegateProfileActivityView: View {
                     }
                     .padding(.top, Constants.horizontalPadding / 2)
                 } else if dataSource.proposals != nil && proposals.isEmpty {
-                    Text("No votes")
+                    Text("No votes in \(dao.name)")
                         .font(.body)
                         .foregroundStyle(Color.textWhite)
                         .padding(.top, 16)

@@ -43,10 +43,14 @@ struct InfoAlertView: View {
                     if longMessage {
                         ScrollView {
                             GMarkdown(message)
+                                .markdownImageProvider(.asset)
+                                .markdownInlineImageProvider(.asset)
                         }
                         .scrollIndicators(.hidden)
                     } else {
                         GMarkdown(message)
+                            .markdownImageProvider(.asset)
+                            .markdownInlineImageProvider(.asset)
                     }
 
                     SecondaryButton("Close", maxWidth: 160, height: 32, font: .footnoteSemibold) {

@@ -98,7 +98,7 @@ fileprivate struct _DaoUserDelegationView: View {
     }
 
     private var isConfirmEnabled: Bool {
-        splitViewModel.isConfirmEnabled && 
+        splitViewModel.isConfirmEnabled &&
         !dataSource.isPreparingRequest &&
         dataSource.selectedChainIsApprovedByWallet
     }
@@ -259,8 +259,8 @@ fileprivate struct WarningView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {            
-            GMarkdown(markdown)                
+        VStack(spacing: 20) {
+            GMarkdown(markdown)
 
             if let actionButtonTitle {
                 HStack {

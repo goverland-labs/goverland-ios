@@ -11,12 +11,16 @@ import Combine
 
 class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
     private let category: DaoCategory
+    private let limit = ConfigurationManager.defaultPaginationCount
 
     @Published var daos: [Dao] = []
     @Published var failedToLoadInitialData = false
     @Published var failedToLoadMore = false
     @Published var isLoading = false
+
     private(set) var total: Int?
+    private var totalSkipped: Int?
+
     private var cancellables = Set<AnyCancellable>()
 
     @Published var searchText = ""
@@ -38,6 +42,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
         failedToLoadInitialData = false
         failedToLoadMore = false
         total = nil
+        totalSkipped = nil
         cancellables = Set<AnyCancellable>()
 
         searchText = ""
@@ -50,7 +55,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
 
     private func loadInitialData() {
         isLoading = true
-        APIService.daos(category: category)
+        APIService.daos(limit: limit, category: category)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -58,23 +63,27 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] daos, headers in
-                self?.daos = daos
-                self?.total = Utils.getTotal(from: headers)
+                guard let self else { return }
+                self.daos = daos
+                self.total = Utils.getTotal(from: headers)
+                self.totalSkipped = 0
             }
             .store(in: &cancellables)
     }
 
     func loadMore() {
-        APIService.daos(offset: daos.count, category: category)
+        APIService.daos(offset: daos.count, limit: limit, category: category)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadMore = true
                 }
             } receiveValue: { [weak self] result, headers in
-                self?.failedToLoadMore = false
-                self?.daos.appendUnique(contentsOf: result)
-                self?.total = Utils.getTotal(from: headers)
+                guard let self else { return }
+                self.failedToLoadMore = false
+                let appended = self.daos.appendUnique(contentsOf: result)
+                self.total = Utils.getTotal(from: headers)
+                self.totalSkipped! += limit - appended
             }
             .store(in: &cancellables)
     }
@@ -102,7 +111,7 @@ class CategoryDaosDataSource: ObservableObject, Refreshable, Paginatable {
     }
 
     func hasMore() -> Bool {
-        guard let total = total else { return true }
-        return daos.count < total
+        guard let total = total, let totalSkipped = totalSkipped else { return true }
+        return daos.count < total - totalSkipped
     }
 }

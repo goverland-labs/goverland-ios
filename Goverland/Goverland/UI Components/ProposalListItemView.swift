@@ -203,7 +203,7 @@ fileprivate struct _VoteFooterView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            HStack(spacing: 5) {
+            HStack(spacing: 4) {
                 Image(systemName: "person.fill")
                 Text(Utils.formattedNumber(Double(proposal.votes)))
             }
@@ -220,6 +220,14 @@ fileprivate struct _VoteFooterView: View {
             }
 
             Spacer()
+        }
+        .onTapGesture {
+            showInfoAlert("""
+![delegators](info.person.fill) — Number of voters
+
+![quorum](info.flag.checkered) — Quorum percentage reached (if a quorum is set)
+"""
+            )
         }
     }
 }

@@ -80,7 +80,7 @@ struct ProfileView: View {
 
                 // Settings
                 case .pushNofitications: PushNotificationsSettingView()
-                case .inboxSettings: InboxSettingView()
+                case .inboxSettings: InboxSettingView(showPushSettings: false)
                 case .about: AboutSettingView()
                 case .helpUsGrow: HelpUsGrowSettingView()
                 case .partnership: PartnershipSettingView()
@@ -181,7 +181,7 @@ fileprivate struct _ProfileListView: View {
 
             ProfileFollowedDAOsView(profile: profile)
 
-            if let user = profile.account {
+            if profile.account != nil {
                 ProfileVotesView(path: $path)
             }
         }

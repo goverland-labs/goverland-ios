@@ -13,12 +13,17 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published var categoryDaos: [DaoCategory: [Dao]] = [:]
     @Published var failedToLoadInitialData: Bool = false
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
+
     private(set) var totalInCategory: [DaoCategory: Int] = [:]
+    private(set) var totalSkippedInCategory: [DaoCategory: Int] = [:]
+
     private var cancellables = Set<AnyCancellable>()
 
     static let dashboard = GroupedDaosDataSource()
     static let search = GroupedDaosDataSource()
     static let addSubscription = GroupedDaosDataSource()
+
+    private let limit = ConfigurationManager.defaultPaginationCount
 
     private init() {}
 
@@ -26,7 +31,8 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
         categoryDaos = [:]
         failedToLoadInitialData = false
         failedToLoadInCategory = [:]
-        totalInCategory = [:]        
+        totalInCategory = [:]
+        totalSkippedInCategory = [:]
         cancellables = Set<AnyCancellable>()
 
         loadInitialData()
@@ -44,6 +50,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                     if let category = DaoCategory(rawValue: key) {
                         self?.categoryDaos[category] = value.list
                         self?.totalInCategory[category] = value.count
+                        self?.totalSkippedInCategory[category] = 0
                     }
                 }
             }
@@ -51,22 +58,25 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     }
 
     func loadMore(category: DaoCategory) {
-        APIService.daos(offset: offset(category: category), category: category)
+        APIService.daos(offset: offset(category: category), limit: limit, category: category)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadInCategory[category] = true
                 }
             } receiveValue: { [weak self] result, headers in
-                self?.failedToLoadInCategory[category] = false
+                guard let self else { return }
+                self.failedToLoadInCategory[category] = false
 
-                if self?.categoryDaos[category] != nil {
-                    self?.categoryDaos[category]!.appendUnique(contentsOf: result)
+                if self.categoryDaos[category] != nil {
+                    let appended = self.categoryDaos[category]!.appendUnique(contentsOf: result)
+                    self.totalSkippedInCategory[category, default: 0] += limit - appended
                 } else {
-                    self?.categoryDaos[category] = result
+                    self.categoryDaos[category] = result
+                    self.totalSkippedInCategory[category] = 0
                 }
 
-                self?.totalInCategory[category] = Utils.getTotal(from: headers)
+                self.totalInCategory[category] = Utils.getTotal(from: headers)
             }
             .store(in: &cancellables)
     }
@@ -78,10 +88,11 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
 
     func hasMore(category: DaoCategory) -> Bool {
         guard let count = categoryDaos[category]?.count,
-            let total = totalInCategory[category] else {
+              let total = totalInCategory[category],
+                let totalSkipped = totalSkippedInCategory[category] else {
             return true
         }
-        return count < total
+        return count < total - totalSkipped
     }
 
     func failedToLoad(category: DaoCategory) -> Bool {
