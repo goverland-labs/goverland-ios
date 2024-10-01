@@ -140,36 +140,38 @@ struct InboxView: View {
 
             ToolbarTitle("Notifications Inbox")
 
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Menu {
-                    Button {
-                        activeSheetManager.activeSheet = .archive
-                    } label: {
-                        Label("See Archive", systemImage: "archivebox.fill")
-                    }
+            if !authToken.isEmpty {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button {
+                            activeSheetManager.activeSheet = .archive
+                        } label: {
+                            Label("See Archive", systemImage: "archivebox.fill")
+                        }
 
-                    Button {
-                        data.markAllEventsRead() // also refreshes inbox
-                    } label: {
-                        Label("Mark all as read", systemImage: "envelope.open.fill")
-                    }
+                        Button {
+                            data.markAllEventsRead() // also refreshes inbox
+                        } label: {
+                            Label("Mark all as read", systemImage: "envelope.open.fill")
+                        }
 
-                    Button {
-                        pathManager.path.append(ProfileScreen.followedDaos)
-                    } label: {
-                        Label("My followed DAOs", systemImage: "d.circle.fill")
-                    }
+                        Button {
+                            pathManager.path.append(ProfileScreen.followedDaos)
+                        } label: {
+                            Label("My followed DAOs", systemImage: "d.circle.fill")
+                        }
 
-                    Button {
-                        pathManager.path.append(ProfileScreen.inboxSettings)
+                        Button {
+                            pathManager.path.append(ProfileScreen.inboxSettings)
+                        } label: {
+                            Label("Inbox Settings", systemImage: "gearshape.fill")
+                        }
                     } label: {
-                        Label("Inbox Settings", systemImage: "gearshape.fill")
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.textWhite)
+                            .fontWeight(.bold)
+                            .frame(height: 20)
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.textWhite)
-                        .fontWeight(.bold)
-                        .frame(height: 20)
                 }
             }
         }
