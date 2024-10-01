@@ -11,7 +11,7 @@ import SwiftUI
 struct SignInTwoStepsView: View {
     let onSignIn: () -> Void
 
-    @StateObject private var dataSource = SignInTwoStepsDataSource()
+    @StateObject private var dataSource = SignInTwoStepsDataSource.shared
     @Environment(\.dismiss) private var dismiss
     @Setting(\.authToken) private var authToken
 

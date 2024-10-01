@@ -16,7 +16,7 @@ PRODUCT_BUNDLE_IDENTIFIER = xyz.goverland.ios.staging
 FIREBASE_CONFIG = GoogleService-Info.Staging
 
 // WalletConnect
-WC_PROJECT_ID = cbca9321570134df3d46a6ec431610da
+WC_PROJECT_ID = 91b2aae469cff88a5ad9d18e77d1fed5
 
 // URLs
 BASE_URL = https:/$()/inbox.staging.goverland.xyz
