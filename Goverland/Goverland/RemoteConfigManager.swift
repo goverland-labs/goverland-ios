@@ -39,8 +39,8 @@ class RemoteConfigManager: ObservableObject {
     }
     
     private func checkForUpdate() {
-        guard let _minAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue,
-              let minAppVersion = Version(_minAppVersion) else {
+        let _minAppVersion = remoteConfig.configValue(forKey: "min_app_supported_version").stringValue
+        guard let minAppVersion = Version(_minAppVersion) else {
             logInfo("[REMOTE CONFIG] Remote config missing or incorrect min_app_supported_version")
             return
         }

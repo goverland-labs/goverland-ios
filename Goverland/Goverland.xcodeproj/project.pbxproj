@@ -3179,7 +3179,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.28.1;
+				minimumVersion = 11.3.0;
 			};
 		};
 		55DDE8C02A46367F006DA335 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
@@ -3187,7 +3187,7 @@
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.1;
+				minimumVersion = 2.4.0;
 			};
 		};
 		55EEC0322B2BB326007962BD /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
@@ -3195,7 +3195,7 @@
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.2;
+				minimumVersion = 1.8.3;
 			};
 		};
 		55FD73232AB75DF80081C38D /* XCRemoteSwiftPackageReference "Starscream" */ = {
@@ -3211,7 +3211,7 @@
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.12.0;
+				minimumVersion = 8.0.3;
 			};
 		};
 		BAA6C2F2295CF5E000C848D8 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
@@ -3227,7 +3227,7 @@
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.3;
+				minimumVersion = 4.5.0;
 			};
 		};
 		BAC3CA2A2B9CC034001CC6C3 /* XCRemoteSwiftPackageReference "Version" */ = {
@@ -3235,7 +3235,7 @@
 			repositoryURL = "https://github.com/mxcl/Version.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.1;
+				minimumVersion = 2.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

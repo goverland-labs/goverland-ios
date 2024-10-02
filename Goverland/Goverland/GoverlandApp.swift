@@ -219,6 +219,9 @@ struct GoverlandApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Setup Firebase
+        FirebaseConfig.setUp()
+
         // Setup logging
         GLogger.append(handler: SystemLogHandler())
         GLogger.append(handler: CrashlyticsLogHandler())
@@ -229,9 +232,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Very important line of code. Do not remove it.
         Tracker.setTrackingEnabled(SettingKeys.shared.trackingAccepted)
-
-        // Setup Firebase
-        FirebaseConfig.setUp()
 
         // Run WalletConnect manager initializer that will configure WalletConnect required parameters.
         _ = WC_Manager.shared
