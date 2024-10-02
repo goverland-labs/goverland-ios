@@ -63,6 +63,7 @@ class ConnectWalletModel: ObservableObject {
                     logInfo("[WC] URL: \(String(describing: url))")
                     openUrl(url)
                 } catch {
+                    logInfo("[WC] connection error: \(error)")
                     showToast("Failed to connect. Please try again later.")
                 }
             }

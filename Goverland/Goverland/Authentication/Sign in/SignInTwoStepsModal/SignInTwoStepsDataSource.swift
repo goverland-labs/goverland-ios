@@ -19,7 +19,9 @@ class SignInTwoStepsDataSource: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    static let shared = SignInTwoStepsDataSource()
+
+    private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(wcSessionUpdated(_:)), name: .wcSessionUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(cbWalletAccountUpdated(_:)), name: .cbWalletAccountUpdated, object: nil)
         listen_WC_Responses()
@@ -83,7 +85,10 @@ class SignInTwoStepsDataSource: ObservableObject {
 
     private func signIn(signature: String) {
         guard let address = (wcAddress ?? cbAddress),
-              let siweMessage = siweMessage else { return }
+              let siweMessage else {
+            logInfo("[WC] unexpected return")
+            return
+        }
 
         let deviceName = UIDevice.current.name
         let deviceId = SettingKeys.shared.deviceId
