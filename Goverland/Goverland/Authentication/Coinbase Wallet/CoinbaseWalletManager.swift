@@ -14,6 +14,7 @@ class CoinbaseWalletManager {
     static let shared = CoinbaseWalletManager()
 
     private init() {
+        logInfo("[App] configuring Coinbase SDK")
         configure()
         getStoredAccount()
     }
