@@ -62,7 +62,8 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     var bins: [DistributionBin] {
         guard let daoBins, daoBins.bins.count > 0 else { return [] }
         var dBins = [DistributionBin]()
-        dBins.append((range: 0..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count, totalUsd: daoBins.bins[0].totalAvpUsd))
+        let lowerRange = Double(thresholdFilteringOption.rawValue)
+        dBins.append((range: lowerRange..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count, totalUsd: daoBins.bins[0].totalAvpUsd))
         for i in 1..<daoBins.bins.count {
             dBins.append((range: daoBins.bins[i-1].upperBound..<daoBins.bins[i].upperBound, count: daoBins.bins[i].count, totalUsd: daoBins.bins[i].totalAvpUsd))
         }
