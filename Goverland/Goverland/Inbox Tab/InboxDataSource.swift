@@ -46,7 +46,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     static let shared = InboxDataSource()
 
     private var total: Int?
-    private var totalSkipped: Int?
+    private var loaded = 0
+    private let paginationCount = ConfigurationManager.defaultPaginationCount
 
     // subclassable
     init() {
@@ -72,7 +73,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         failedToLoadMore = false
         cancellables = Set<AnyCancellable>()
         total = nil
-        totalSkipped = nil
+        loaded = 0
 
         loadInitialData()
     }
@@ -82,7 +83,7 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
         guard !SettingKeys.shared.authToken.isEmpty else { return }
 
         isLoading = true
-        APIService.inboxEvents()
+        APIService.inboxEvents(limit: paginationCount)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -93,8 +94,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }                
                 self.events = recognizedEvents
-                self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
+                self.loaded = paginationCount
 
                 self.storeUnreadEventsCount(headers: headers)
             }
@@ -112,14 +113,12 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
     }
 
     func hasMore() -> Bool {
-        guard let events = events,
-                let total = total,
-                let totalSkipped = totalSkipped else { return true }
-        return events.count < total - totalSkipped
+        guard let total else { return true }
+        return loaded < total
     }
 
     func loadMore() {
-        APIService.inboxEvents(offset: events?.count ?? 0)
+        APIService.inboxEvents(offset: loaded, limit: paginationCount)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -129,8 +128,8 @@ class InboxDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
                 self.events?.append(contentsOf: recognizedEvents)
-                self.totalSkipped! += events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
+                self.loaded += paginationCount
             }
             .store(in: &cancellables)
     }
