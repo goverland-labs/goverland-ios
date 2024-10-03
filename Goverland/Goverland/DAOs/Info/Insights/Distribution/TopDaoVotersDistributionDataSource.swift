@@ -93,7 +93,7 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     func xValue(_ bin: DistributionBin) -> String {
-        Utils.formattedNumber(bin.range.upperBound)
+        "$\(Utils.formattedNumber(bin.range.upperBound))"
     }
 
     enum Dao_AVP_BinsState {
