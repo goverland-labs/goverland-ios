@@ -44,7 +44,7 @@ struct TopDaoVotersDistributionView: View {
                           subheader: infoDescriptionMarkdown,
                           isLoading: dataSource.isInitialLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
-                          height: 350,
+                          height: 390,
                           onRefresh: dataSource.refresh)
                 {
                     _TopDaoVotersDistributionChart(dataSource: dataSource)
@@ -79,7 +79,7 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
                 ProgressView()
                     .foregroundStyle(Color.textWhite20)
                     .controlSize(.regular)
-                    .padding(.top, 74)
+                    .padding(.top, 94)
                 Spacer()
             } else {
                 Chart {
