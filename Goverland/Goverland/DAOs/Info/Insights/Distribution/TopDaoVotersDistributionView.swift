@@ -39,10 +39,10 @@ struct TopDaoVotersDistributionView: View {
 
     var body: some View {
         VStack {
-            if dataSource.daoBins != nil {
+            if dataSource.hasData { // some data was initially loaded
                 GraphView(header: "aVP distribution in USD (\(dataSource.datesFilteringOption.localizedName))",
                           subheader: infoDescriptionMarkdown,
-                          isLoading: dataSource.isLoading,
+                          isLoading: dataSource.isInitialLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           height: 350,
                           onRefresh: dataSource.refresh)
@@ -50,6 +50,7 @@ struct TopDaoVotersDistributionView: View {
                     _TopDaoVotersDistributionChart(dataSource: dataSource)
                 }
             }
+            // else show nothing
         }
         .onAppear() {
             if dataSource.daoBins == nil {
@@ -66,60 +67,68 @@ fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
     var body: some View {
         VStack {
             ChartFilters(selectedOption: $dataSource.datesFilteringOption)
-            HStack(spacing: 8) {
+            VStack(alignment: .leading) {
                 Text("Min. aVP value")
                     .font(.subheadlineSemibold)
                     .foregroundStyle(Color.textWhite)
                 ChartFilters(selectedOption: $dataSource.thresholdFilteringOption)
             }
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
 
-            Chart {
-                ForEach(dataSource.bins.indices, id: \.self) { index in
-                    if index < dataSource.bins.count {
-                        // it crashes when chaning date filtering option, doesn't refresh on time
-                        let bin = dataSource.bins[index]
-                        BarMark (
-                            x: .value("Range", dataSource.xValue(bin)),
-                            y: .value("Voters", bin.count)
-                        )
-                        .foregroundStyle(Color.primaryDim)
+            if dataSource.isAdditionalDataLoading {
+                ProgressView()
+                    .foregroundStyle(Color.textWhite20)
+                    .controlSize(.regular)
+                    .padding(.top, 74)
+                Spacer()
+            } else {
+                Chart {
+                    ForEach(dataSource.bins.indices, id: \.self) { index in
+                        if index < dataSource.bins.count {
+                            // it crashes when chaning date filtering option, doesn't refresh on time
+                            let bin = dataSource.bins[index]
+                            BarMark (
+                                x: .value("Range", dataSource.xValue(bin)),
+                                y: .value("Voters", bin.count)
+                            )
+                            .foregroundStyle(Color.primaryDim)
+                        }
+                    }
+
+                    if let selectedBin {
+                        RuleMark(x: .value("Range", selectedBin))
+                            .foregroundStyle(Color.textWhite)
+                            .lineStyle(.init(lineWidth: 1, dash: [2]))
+                            .annotation(
+                                position: annotationPositionForBin(selectedBin),
+                                alignment: .center, spacing: 4
+                            ) {
+                                if let bin = dataSource.bins.first(where: { dataSource.xValue($0) == selectedBin }),
+                                   let total = dataSource.notCuttedVoters
+                                {
+                                    let voters = bin.count
+                                    let percentage = Utils.percentage(of: voters, in: total)
+                                    let descriptionSuffix = dataSource.bins.last?.range != bin.range ? "(not inclusive)" : "(inclusive)"
+                                    let description = "aVP is between\n\(Utils.formattedNumber(bin.range.lowerBound)) USD and \(Utils.formattedNumber(bin.range.upperBound)) USD\n\(descriptionSuffix)"
+                                    AnnotationView(firstPlaceholderValue: String(voters),
+                                                   firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
+                                                   secondPlaceholderValue: nil,
+                                                   secondPlaceholderTitle: description,
+                                                   description: annotationDescription(bin: bin))
+                                }
+                            }
                     }
                 }
-
-                if let selectedBin {
-                    RuleMark(x: .value("Range", selectedBin))
-                        .foregroundStyle(Color.textWhite)
-                        .lineStyle(.init(lineWidth: 1, dash: [2]))
-                        .annotation(
-                            position: annotationPositionForBin(selectedBin),
-                            alignment: .center, spacing: 4
-                        ) {
-                            if let bin = dataSource.bins.first(where: { dataSource.xValue($0) == selectedBin }),
-                               let total = dataSource.notCuttedVoters
-                            {
-                                let voters = bin.count
-                                let percentage = Utils.percentage(of: voters, in: total)
-                                let descriptionSuffix = dataSource.bins.last?.range != bin.range ? "(not inclusive)" : "(inclusive)"
-                                let description = "aVP is between\n\(Utils.formattedNumber(bin.range.lowerBound)) USD and \(Utils.formattedNumber(bin.range.upperBound)) USD\n\(descriptionSuffix)"
-                                AnnotationView(firstPlaceholderValue: String(voters),
-                                               firstPlaceholderTitle: voters == 1 ? "Voter (\(percentage))" : "Voters (\(percentage))",
-                                               secondPlaceholderValue: nil,
-                                               secondPlaceholderTitle: description,
-                                               description: annotationDescription(bin: bin))
-                            }
-                        }
+                .chartXAxis {
+                    AxisMarks(values: dataSource.xValues) { value in
+                        AxisValueLabel()
+                        AxisGridLine()
+                    }
                 }
+                .chartXAxisLabel("Average voting power range denominated in USD")
+                .chartYAxisLabel("Number of Voters")
+                .chartSelected_X_String($selectedBin)
             }
-            .chartXAxis {
-                AxisMarks(values: dataSource.xValues) { value in
-                    AxisValueLabel()
-                    AxisGridLine()
-                }
-            }
-            .chartXAxisLabel("Average voting power range denominated in USD")
-            .chartYAxisLabel("Number of Voters")
-            .chartSelected_X_String($selectedBin)
         }
         .padding(.horizontal)
     }

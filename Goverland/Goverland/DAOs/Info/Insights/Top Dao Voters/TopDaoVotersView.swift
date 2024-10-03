@@ -26,10 +26,5 @@ struct TopDaoVotersView: View {
         TopVotersView(dataSource: dataSource, showFilters: true) {
             activeSheetManager.activeSheet = .daoVoters(dataSource.dao, dataSource.selectedFilteringOption)
         }
-//        .onChange(of: filteringOption) { _, newValue in
-//            withAnimation {
-//                dataSource.selectedFilteringOption = newValue
-//            }
-//        }
     }
 }
