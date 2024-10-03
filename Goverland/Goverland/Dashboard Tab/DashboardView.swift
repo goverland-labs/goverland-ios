@@ -30,7 +30,7 @@ struct DashboardView: View {
     static func refresh() {
         FeaturedProposalsDataSource.dashboard.refresh()
         FollowedDaosDataSource.horizontalList.refresh()
-        VoteNowDataSource.dashboard.refresh(featured: true)
+        VoteNowDataSource.dashboard.refresh()
         TopProposalsDataSource.dashboard.refresh()
         GroupedDaosDataSource.dashboard.refresh()
         ProfileHasVotingPowerDataSource.dashboard.refresh()
@@ -121,7 +121,7 @@ struct DashboardView: View {
                 }
 
                 if VoteNowDataSource.dashboard.proposals?.isEmpty ?? true {
-                    VoteNowDataSource.dashboard.refresh(featured: true)
+                    VoteNowDataSource.dashboard.refresh()
                 }
 
                 if TopProposalsDataSource.dashboard.proposals.isEmpty {
