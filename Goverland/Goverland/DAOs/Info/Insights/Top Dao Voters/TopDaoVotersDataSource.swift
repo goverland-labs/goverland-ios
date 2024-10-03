@@ -12,9 +12,9 @@ import Combine
 class TopDaoVotersDataSource: TopVotersDataSource<TopDaoVoter> {
     let dao: Dao
 
-    init(dao: Dao, filteringOption: DatesFiltetingOption) {
+    init(dao: Dao) {
         self.dao = dao
-        super.init(selectedFilteringOption: filteringOption)
+        super.init()
     }
 
     override func loadData() {

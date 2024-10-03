@@ -15,15 +15,14 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     @Published private var failedToLoadInCategory: [DaoCategory: Bool] = [:]
 
     private(set) var totalInCategory: [DaoCategory: Int] = [:]
-    private(set) var totalSkippedInCategory: [DaoCategory: Int] = [:]
+    private(set) var totalLoadedInCategory: [DaoCategory: Int] = [:]
+    private let paginationCount = ConfigurationManager.defaultPaginationCount
 
     private var cancellables = Set<AnyCancellable>()
 
     static let dashboard = GroupedDaosDataSource()
     static let search = GroupedDaosDataSource()
     static let addSubscription = GroupedDaosDataSource()
-
-    private let limit = ConfigurationManager.defaultPaginationCount
 
     private init() {}
 
@@ -32,7 +31,7 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
         failedToLoadInitialData = false
         failedToLoadInCategory = [:]
         totalInCategory = [:]
-        totalSkippedInCategory = [:]
+        totalLoadedInCategory = [:]
         cancellables = Set<AnyCancellable>()
 
         loadInitialData()
@@ -46,19 +45,19 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
                 case .failure(_): self?.failedToLoadInitialData = true
                 }
             } receiveValue: { [weak self] result, headers in
+                guard let self else { return }
                 result.forEach { (key: String, value: DaoTopEndpoint.GroupedDaos) in
-                    if let category = DaoCategory(rawValue: key) {
-                        self?.categoryDaos[category] = value.list
-                        self?.totalInCategory[category] = value.count
-                        self?.totalSkippedInCategory[category] = 0
-                    }
+                    guard let category = DaoCategory(rawValue: key) else { return }
+                    self.categoryDaos[category] = value.list
+                    self.totalInCategory[category] = value.count
+                    self.totalLoadedInCategory[category] = self.paginationCount
                 }
             }
             .store(in: &cancellables)
     }
 
     func loadMore(category: DaoCategory) {
-        APIService.daos(offset: offset(category: category), limit: limit, category: category)
+        APIService.daos(offset: offset(category: category), limit: paginationCount, category: category)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
@@ -67,13 +66,12 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
             } receiveValue: { [weak self] result, headers in
                 guard let self else { return }
                 self.failedToLoadInCategory[category] = false
-
                 if self.categoryDaos[category] != nil {
                     let appended = self.categoryDaos[category]!.appendUnique(contentsOf: result)
-                    self.totalSkippedInCategory[category, default: 0] += limit - appended
+                    self.totalLoadedInCategory[category, default: 0] += paginationCount
                 } else {
                     self.categoryDaos[category] = result
-                    self.totalSkippedInCategory[category] = 0
+                    self.totalLoadedInCategory[category] = paginationCount
                 }
 
                 self.totalInCategory[category] = Utils.getTotal(from: headers)
@@ -87,12 +85,11 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     }
 
     func hasMore(category: DaoCategory) -> Bool {
-        guard let count = categoryDaos[category]?.count,
-              let total = totalInCategory[category],
-                let totalSkipped = totalSkippedInCategory[category] else {
+        guard let total = totalInCategory[category],
+                let loaded = totalLoadedInCategory[category] else {
             return true
         }
-        return count < total - totalSkipped
+        return loaded < total
     }
 
     func failedToLoad(category: DaoCategory) -> Bool {
@@ -100,6 +97,6 @@ class GroupedDaosDataSource: ObservableObject, Refreshable {
     }
 
     private func offset(category: DaoCategory) -> Int {
-        return categoryDaos[category]?.count ?? 0
+        return totalLoadedInCategory[category] ?? 0
     }
 }

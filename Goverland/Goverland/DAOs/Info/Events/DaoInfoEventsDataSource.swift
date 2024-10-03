@@ -19,7 +19,8 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
     private var cancellables = Set<AnyCancellable>()
 
     private var total: Int?
-    private var totalSkipped: Int?
+    private var loaded = 0
+    private let paginationCount = ConfigurationManager.defaultPaginationCount
 
     init(daoID: UUID) {
         self.daoID = daoID
@@ -33,14 +34,14 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
         failedToLoadMore = false
         cancellables = Set<AnyCancellable>()
         total = nil
-        totalSkipped = nil
+        loaded = 0
 
         loadInitialData()
     }
 
     private func loadInitialData() {
         isLoading = true
-        APIService.daoEvents(daoID: daoID)
+        APIService.daoEvents(daoID: daoID, limit: paginationCount)
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -51,32 +52,30 @@ class DaoInfoEventsDataSource: ObservableObject, Paginatable, Refreshable {
                 guard let `self` = self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
                 self.events = recognizedEvents
-                self.totalSkipped = events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
+                self.loaded = paginationCount
             }
             .store(in: &cancellables)
     }
 
     func hasMore() -> Bool {
-        guard let events = events,
-              let total = total,
-              let totalSkipped = totalSkipped else { return true }
-        return events.count < total - totalSkipped
+        guard let total = total else { return true }
+        return loaded < total
     }
 
     func loadMore() {
-        APIService.daoEvents(daoID: daoID, offset: events?.count ?? 0)
+        APIService.daoEvents(daoID: daoID, offset: loaded, limit: paginationCount)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished: break
                 case .failure(_): self?.failedToLoadMore = true
                 }
             } receiveValue: { [weak self] events, headers in
-                guard let `self` = self else { return }
+                guard let self else { return }
                 let recognizedEvents = events.filter { $0.eventData != nil }
                 self.events?.append(contentsOf: recognizedEvents)
-                self.totalSkipped! += events.count - recognizedEvents.count
                 self.total = Utils.getTotal(from: headers)
+                self.loaded += paginationCount
             }
             .store(in: &cancellables)
     }

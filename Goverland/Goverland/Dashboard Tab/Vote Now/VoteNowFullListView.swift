@@ -54,7 +54,9 @@ struct VoteNowFullListView: View {
         }
         .onAppear {
             selectedProposalIndex = nil
-            dataSource.refresh()
+            if dataSource.proposals?.isEmpty ?? true {
+                dataSource.refresh()
+            }
             Tracker.track(.screenDashVoteNowList)
         }
         .listStyle(.plain)

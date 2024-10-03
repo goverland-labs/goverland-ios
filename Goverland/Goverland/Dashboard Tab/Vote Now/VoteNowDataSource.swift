@@ -11,22 +11,23 @@ import Foundation
 import Combine
 
 class VoteNowDataSource: ObservableObject, Refreshable {
+    let featured: Bool
+
     @Published var proposals: [Proposal]?
     @Published var failedToLoadInitialData = false
     @Published var isLoading = false
 
     private var cancellables = Set<AnyCancellable>()
 
-    static let dashboard = VoteNowDataSource()
-    static let fullList = VoteNowDataSource()
+    static let dashboard = VoteNowDataSource(featured: true)
+    static let fullList = VoteNowDataSource(featured: false)
 
-    private init() {}
-
-    func refresh() {
-        refresh(featured: false)
+    private init(featured: Bool) {
+        self.featured = featured
+        NotificationCenter.default.addObserver(self, selector: #selector(voteCasted(_:)), name: .voteCasted, object: nil)
     }
 
-    func refresh(featured: Bool) {
+    func refresh() {
         proposals = nil
         failedToLoadInitialData = false
         isLoading = false
@@ -50,5 +51,9 @@ class VoteNowDataSource: ObservableObject, Refreshable {
                 self?.proposals = proposals
             }
             .store(in: &cancellables)
+    }
+
+    @objc func voteCasted(_ notification: Notification) {
+        refresh()
     }
 }

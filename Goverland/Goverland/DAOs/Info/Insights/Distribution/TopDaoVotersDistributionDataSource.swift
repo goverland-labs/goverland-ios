@@ -39,31 +39,42 @@ enum ThresholdFiltetingOption: Int, FilteringOption {
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
 
-    var datesFilteringOption: DatesFiltetingOption {
+    @Published var datesFilteringOption: DatesFiltetingOption = .oneYear {
         didSet {
             refresh(invalidateCache: false)
         }
     }
 
-    var thresholdFilteringOption: ThresholdFiltetingOption {
+    @Published var thresholdFilteringOption: ThresholdFiltetingOption = .oneUsd {
         didSet {
             refresh(invalidateCache: false)
         }
     }
 
     @Published private(set) var daoBins: DaoAvpBins?
+    @Published private(set) var binsCache: [DatesFiltetingOption: [ThresholdFiltetingOption: Dao_AVP_BinsState]] = [:]
+
     @Published private(set) var failedToLoadInitialData = false
-    @Published private(set) var isLoading = false
+    @Published private(set) var isInitialLoading = false
+    @Published private(set) var isAdditionalDataLoading = false
     var cancellables = Set<AnyCancellable>()
 
     var bins: [DistributionBin] {
         guard let daoBins, daoBins.bins.count > 0 else { return [] }
         var dBins = [DistributionBin]()
-        dBins.append((range: 0..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count, totalUsd: daoBins.bins[0].totalAvpUsd))
+        let lowerRange = Double(thresholdFilteringOption.rawValue)
+        dBins.append((range: lowerRange..<daoBins.bins[0].upperBound, count: daoBins.bins[0].count, totalUsd: daoBins.bins[0].totalAvpUsd))
         for i in 1..<daoBins.bins.count {
             dBins.append((range: daoBins.bins[i-1].upperBound..<daoBins.bins[i].upperBound, count: daoBins.bins[i].count, totalUsd: daoBins.bins[i].totalAvpUsd))
         }
         return dBins
+    }
+
+    var hasData: Bool {
+        if let state = binsCache[datesFilteringOption]?[thresholdFilteringOption], case .empty = state {
+            return false
+        }
+        return !binsCache.isEmpty
     }
 
     var notCuttedVoters: Int? {
@@ -83,19 +94,16 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
 
     func xValue(_ bin: DistributionBin) -> String {
-        Utils.formattedNumber(bin.range.upperBound)
+        "$\(Utils.formattedNumber(bin.range.upperBound))"
     }
 
     enum Dao_AVP_BinsState {
         case loaded(DaoAvpBins)
         case empty
     }
-    private var binsCache: [DatesFiltetingOption: [ThresholdFiltetingOption: Dao_AVP_BinsState]] = [:]
 
-    init(dao: Dao, datesFilteringOption: DatesFiltetingOption, thresholdFilteringOption: ThresholdFiltetingOption) {
+    init(dao: Dao) {
         self.dao = dao
-        self.datesFilteringOption = datesFilteringOption
-        self.thresholdFilteringOption = thresholdFilteringOption
     }
 
     func refresh() {
@@ -122,43 +130,30 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
 
         daoBins = nil
         failedToLoadInitialData = false
-        isLoading = false
+        isInitialLoading = false
+        isAdditionalDataLoading = false
         cancellables = Set<AnyCancellable>()
         
         loadData()
-
-//        loadMockData()
-    }
-
-    func loadMockData() {
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self else { return }
-            self.isLoading = false
-            if true {
-                logInfo("[App] mock loaded")
-                let jsonData = Data(mockJson().utf8)
-                self.daoBins = try! JSONDecoder().decode(DaoAvpBins.self, from: jsonData)
-                self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .loaded(self.daoBins!)
-            } else {
-                logInfo("[App] mock error")
-                self.failedToLoadInitialData = true
-                self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .empty
-            }
-        }
     }
 
     func loadData() {
-        isLoading = true
+        if binsCache.isEmpty {
+            isInitialLoading = true
+        } else {
+            isAdditionalDataLoading = true
+        }
+
         APIService.daoAvpBins(daoId: dao.id,
                               datesFilteringOption: datesFilteringOption,
                               thresholdFilteringOption: thresholdFilteringOption)
             .sink { [weak self] completion in
-                self?.isLoading = false
+                guard let self else { return }
+                self.isInitialLoading = false
+                self.isAdditionalDataLoading = false
                 switch completion {
                 case .finished: break
                 case .failure(_):
-                    guard let self else { return }
                     self.failedToLoadInitialData = true
                     self.binsCache[datesFilteringOption, default: [:]][thresholdFilteringOption] = .empty
                 }
@@ -169,28 +164,4 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
             }
             .store(in: &cancellables)
     }
-}
-
-fileprivate func mockJson() -> String {
-"""
-{
-  "vp_usd_value": 10.054,
-  "voters_cutted": 1555,
-  "voters_total": 10500,
-  "avp_usd_total": 123456423,
-  "avp_usd_total_cutted": 12
-  "bins": [
-    { "upper_bound_usd": 1.0, "count": \(Int.random(in: 1...100)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 2.0, "count": \(Int.random(in: 100...200)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 3.0, "count": \(Int.random(in: 150...250)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 4.0, "count": \(Int.random(in: 200...300)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 5.0, "count": \(Int.random(in: 250...350)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 6.0, "count": \(Int.random(in: 150...300)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 7.0, "count": \(Int.random(in: 100...150)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 8.0, "count": \(Int.random(in: 50...120)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 9.0, "count": \(Int.random(in: 30...80)), "total_avp_usd": 2556 },
-    { "upper_bound_usd": 10.0, "count": \(Int.random(in: 1...20)), "total_avp_usd": 2556 }
-  ]
-}
-"""
 }

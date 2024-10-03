@@ -79,6 +79,7 @@ class WC_Manager {
     private var cancellables = Set<AnyCancellable>()
 
     private init() {
+        logInfo("[App] configuring WalletConnect")
         getStoredSessionMeta()
         configure()
         listen()

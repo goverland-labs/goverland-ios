@@ -16,8 +16,7 @@ func showToast(_ message: String) {
     }
 }
 
-func showInfoAlert(_ message: String) {
-    logInfo("[App] Markdown alert diaplayed with message: \(message)")
+func showInfoAlert(_ message: String) {    
     DispatchQueue.main.async {
         InfoAlertModel.shared.setAllertMarkdownMessage(message)
     }
