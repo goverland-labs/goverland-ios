@@ -39,13 +39,13 @@ enum ThresholdFiltetingOption: Int, FilteringOption {
 class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     let dao: Dao
 
-    var datesFilteringOption: DatesFiltetingOption {
+    @Published var datesFilteringOption: DatesFiltetingOption = .oneYear {
         didSet {
             refresh(invalidateCache: false)
         }
     }
 
-    var thresholdFilteringOption: ThresholdFiltetingOption {
+    @Published var thresholdFilteringOption: ThresholdFiltetingOption = .oneUsd {
         didSet {
             refresh(invalidateCache: false)
         }
@@ -92,10 +92,8 @@ class TopDaoVotersDistributionDataSource: ObservableObject, Refreshable {
     }
     private var binsCache: [DatesFiltetingOption: [ThresholdFiltetingOption: Dao_AVP_BinsState]] = [:]
 
-    init(dao: Dao, datesFilteringOption: DatesFiltetingOption, thresholdFilteringOption: ThresholdFiltetingOption) {
+    init(dao: Dao) {
         self.dao = dao
-        self.datesFilteringOption = datesFilteringOption
-        self.thresholdFilteringOption = thresholdFilteringOption
     }
 
     func refresh() {

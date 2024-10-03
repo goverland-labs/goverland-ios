@@ -12,30 +12,20 @@ import Charts
 
 struct TopDaoVotersDistributionView: View {
     @StateObject private var dataSource: TopDaoVotersDistributionDataSource
-    @Binding private var datesFilteringOption: DatesFiltetingOption
-    @State private var thresholdFilteringOption: ThresholdFiltetingOption
 
-    init(dao: Dao,
-         datesFilteringOption: Binding<DatesFiltetingOption>,
-         thresholdFilteringOption: ThresholdFiltetingOption = .oneUsd)
-    {
-        _datesFilteringOption = datesFilteringOption
-        _thresholdFilteringOption = State(wrappedValue: thresholdFilteringOption)
-
-        let dataSource = TopDaoVotersDistributionDataSource(dao: dao,
-                                                            datesFilteringOption: datesFilteringOption.wrappedValue,
-                                                            thresholdFilteringOption: thresholdFilteringOption)
+    init(dao: Dao) {
+        let dataSource = TopDaoVotersDistributionDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
 
     var infoDescriptionMarkdown: String {
         guard let daoBins = dataSource.daoBins else { return "" }
         let percentageOfVotersCutted = Utils.percentage(of: daoBins.votersCutted, in: daoBins.votersTotal)
-        let thresholdFormatted = Utils.decimalNumber(from: thresholdFilteringOption.rawValue)
+        let thresholdFormatted = Utils.decimalNumber(from: dataSource.thresholdFilteringOption.rawValue)
         let percentageOfVPCutted = Utils.percentage(of: daoBins.avpUsdTotalCutted, in: daoBins.avpUsdTotal)
 
         return """
-### This chart illustrates the distribution of voting power, denominated in USD (based on the current token price), over the selected \(datesFilteringOption.localizedName) period.
+### This chart illustrates the distribution of voting power, denominated in USD (based on the current token price), over the selected \(dataSource.datesFilteringOption.localizedName) period.
 
 ⚠️ Addresses with an average voting power of less than **\(thresholdFormatted) USD** have been excluded and are not represented in this chart.
 
@@ -50,29 +40,18 @@ struct TopDaoVotersDistributionView: View {
     var body: some View {
         VStack {
             if dataSource.daoBins != nil {
-                GraphView(header: "aVP distribution in USD (\(datesFilteringOption.localizedName))",
+                GraphView(header: "aVP distribution in USD (\(dataSource.datesFilteringOption.localizedName))",
                           subheader: infoDescriptionMarkdown,
                           isLoading: dataSource.isLoading,
                           failedToLoadInitialData: dataSource.failedToLoadInitialData,
                           height: 350,
                           onRefresh: dataSource.refresh)
                 {
-                    _TopDaoVotersDistributionChart(dataSource: dataSource, thresholdFilteringOption: $thresholdFilteringOption)
+                    _TopDaoVotersDistributionChart(dataSource: dataSource)
                 }
             }
         }
-        .onChange(of: datesFilteringOption) { _, newValue in
-            withAnimation {
-                dataSource.datesFilteringOption = newValue
-            }
-        }
-        .onChange(of: thresholdFilteringOption) { _, newValue in
-            withAnimation {
-                dataSource.thresholdFilteringOption = newValue
-            }
-        }
         .onAppear() {
-            logInfo("[App] on appear")
             if dataSource.daoBins == nil {
                 dataSource.refresh()
             }
@@ -82,13 +61,18 @@ struct TopDaoVotersDistributionView: View {
 
 fileprivate struct _TopDaoVotersDistributionChart: GraphViewContent {
     @ObservedObject var dataSource: TopDaoVotersDistributionDataSource
-    @Binding var thresholdFilteringOption: ThresholdFiltetingOption
     @State private var selectedBin: String?
 
     var body: some View {
         VStack {
-            ChartFilters(selectedOption: $thresholdFilteringOption)
-                .padding(.bottom, 12)
+            ChartFilters(selectedOption: $dataSource.datesFilteringOption)
+            HStack(spacing: 8) {
+                Text("Min. aVP value")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                ChartFilters(selectedOption: $dataSource.thresholdFilteringOption)
+            }
+            .padding(.bottom, 12)
 
             Chart {
                 ForEach(dataSource.bins.indices, id: \.self) { index in
