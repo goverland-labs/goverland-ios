@@ -24,7 +24,7 @@ struct DaoInsightsView: View {
                 .padding(10)
                 MonthlyActiveVotersGraphView(dao: dao)
                 UserBucketsGraphView(dao: dao)
-                TopDaoVotersView(dao: dao, filteringOption: $topDaoDatesFilteringOption)
+                TopDaoVotersView(dao: dao)
                 TopDaoVotersDistributionView(dao: dao, datesFilteringOption: $topDaoDatesFilteringOption)
                 MonthlyNewProposalsView(dao: dao)
                 MutualDaosView(dao: dao)

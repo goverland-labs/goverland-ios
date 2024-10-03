@@ -10,7 +10,6 @@
 import SwiftUI
 
 struct SnapshotProposalTopVotersView: View {
-    @Binding var filteringOption: DatesFiltetingOption
     @ObservedObject var dataSource: SnapshotProposalTopVotersDataSource
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
 
@@ -23,7 +22,7 @@ struct SnapshotProposalTopVotersView: View {
                 Spacer()
             }
 
-            TopVotersView(filteringOption: $filteringOption, dataSource: dataSource, showFilters: false, horizontalPadding: 0) {
+            TopVotersView(dataSource: dataSource, showFilters: false, horizontalPadding: 0) {
                 activeSheetManager.activeSheet = .proposalVoters(dataSource.proposal)
             }
         }

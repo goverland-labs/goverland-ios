@@ -11,19 +11,16 @@ import SwiftUI
 import Charts
 
 struct TopVotersView<Voter: VoterVotingPower>: View {
-    @Binding private var filteringOption: DatesFiltetingOption
     @ObservedObject private var dataSource: TopVotersDataSource<Voter>
     private let showFilters: Bool
     private let horizontalPadding: CGFloat
     private let onShowAll: () -> Void
 
-    init(filteringOption: Binding<DatesFiltetingOption>,
-         dataSource: TopVotersDataSource<Voter>,
+    init(dataSource: TopVotersDataSource<Voter>,
          showFilters: Bool,
          horizontalPadding: CGFloat = Constants.horizontalPadding,
          onShowAll: @escaping () -> Void)
     {
-        _filteringOption = filteringOption
         _dataSource = ObservedObject(wrappedValue: dataSource)
         self.showFilters = showFilters
         self.horizontalPadding = horizontalPadding
@@ -43,7 +40,7 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
                     .controlSize(.regular)
                     .frame(height: 120)
             } else {
-                _TopVotePowerVotersGraphView(filteringOption: $filteringOption, dataSource: dataSource, showFilters: showFilters, onShowAll: onShowAll)
+                _TopVotePowerVotersGraphView(dataSource: dataSource, showFilters: showFilters, onShowAll: onShowAll)
             }
         }
         .padding(.horizontal, horizontalPadding)
@@ -57,7 +54,6 @@ struct TopVotersView<Voter: VoterVotingPower>: View {
 }
 
 fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
-    @Binding var filteringOption: DatesFiltetingOption
     @ObservedObject var dataSource: TopVotersDataSource<Voter>
     let showFilters: Bool
     let onShowAll: () -> Void
@@ -77,7 +73,7 @@ fileprivate struct _TopVotePowerVotersGraphView<Voter: VoterVotingPower>: View {
     var body: some View {
         VStack {
             if showFilters {
-                ChartFilters(selectedOption: $filteringOption)
+                ChartFilters(selectedOption: $dataSource.selectedFilteringOption)
                     .padding(.bottom, 16)
             }
 
