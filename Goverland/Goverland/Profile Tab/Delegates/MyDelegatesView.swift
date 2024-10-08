@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct MyDelegatesView: View {
+    @StateObject private var dataSource = MyDelegatesDataSource.shared
+    
     var body: some View {
         VStack {
             HStack {

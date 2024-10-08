@@ -238,6 +238,7 @@
 		BA2413B42CA1C8E9009F0736 /* VoteNowFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */; };
 		BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B62CB58983009F0736 /* MyDelegatesView.swift */; };
 		BA2413B92CB58A73009F0736 /* MyDelegatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */; };
+		BA2413BB2CB596AA009F0736 /* MyDelegatesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -607,6 +608,7 @@
 		BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowFullListView.swift; sourceTree = "<group>"; };
 		BA2413B62CB58983009F0736 /* MyDelegatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesView.swift; sourceTree = "<group>"; };
 		BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesListView.swift; sourceTree = "<group>"; };
+		BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesDataSource.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1599,6 +1601,7 @@
 			children = (
 				BA2413B62CB58983009F0736 /* MyDelegatesView.swift */,
 				BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */,
+				BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -2369,6 +2372,7 @@
 				BA5D8D3D2A2E62D900F76DB3 /* GroupedDaosView.swift in Sources */,
 				558ACC742C80DC1C002FAE75 /* DaoDelegateProfileActivityView.swift in Sources */,
 				55E545812C6A4D1F00E479E4 /* RemindersManager.swift in Sources */,
+				BA2413BB2CB596AA009F0736 /* MyDelegatesDataSource.swift in Sources */,
 				BA36DF012B17A62C002EBEB0 /* MonthlyTotalNewProposalsView.swift in Sources */,
 				550E85752A5F4C3400B0CFDD /* SnapshotVotesDataSource.swift in Sources */,
 				553E74D72BA42D5B00F697F8 /* ToolbarTitle.swift in Sources */,

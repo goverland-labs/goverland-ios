@@ -9,8 +9,20 @@
 
 import SwiftUI
 
-struct MyDelegatesListView: View, Hashable {
+struct MyDelegatesListView: View {
+    @StateObject var dataSource = MyDelegatesDataSource.shared
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Text("Hello, World!")
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("My delegates")
+        .onAppear() {
+            //Tracker.track(.screen)
+            if dataSource.delegates.isEmpty {
+                dataSource.refresh()
+            }
+        }
     }
 }
