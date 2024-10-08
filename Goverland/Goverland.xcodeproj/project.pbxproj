@@ -236,6 +236,8 @@
 		BA2413B02CA1BC35009F0736 /* VoteNowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */; };
 		BA2413B22CA1BFC9009F0736 /* VoteNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B12CA1BFC9009F0736 /* VoteNowView.swift */; };
 		BA2413B42CA1C8E9009F0736 /* VoteNowFullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */; };
+		BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B62CB58983009F0736 /* MyDelegatesView.swift */; };
+		BA2413B92CB58A73009F0736 /* MyDelegatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -603,6 +605,8 @@
 		BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowDataSource.swift; sourceTree = "<group>"; };
 		BA2413B12CA1BFC9009F0736 /* VoteNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowView.swift; sourceTree = "<group>"; };
 		BA2413B32CA1C8E9009F0736 /* VoteNowFullListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteNowFullListView.swift; sourceTree = "<group>"; };
+		BA2413B62CB58983009F0736 /* MyDelegatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesView.swift; sourceTree = "<group>"; };
+		BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesListView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1236,6 +1240,7 @@
 				553E74D42BA4254200F697F8 /* ProfileHeaderView.swift */,
 				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 				5518CA162B6E0D1100E6D243 /* Followed DAOs */,
+				BA2413B52CB5896E009F0736 /* Delegates */,
 				5518CA132B6E0C3700E6D243 /* Connected Wallet */,
 				55FDC0E22B70AF3D00D1AD79 /* Profile Votes */,
 				BA789BC82B73CDE30064D6FE /* Achievements */,
@@ -1587,6 +1592,15 @@
 				BA2413AF2CA1BC35009F0736 /* VoteNowDataSource.swift */,
 			);
 			path = "Vote Now";
+			sourceTree = "<group>";
+		};
+		BA2413B52CB5896E009F0736 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				BA2413B62CB58983009F0736 /* MyDelegatesView.swift */,
+				BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
@@ -2187,6 +2201,7 @@
 				553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */,
 				55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
+				BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */,
 				558ACC5D2C80DBCC002FAE75 /* DelegationInfo.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
 				BA20122B2B7D2F4E00E9D78E /* RemoteConfigManager.swift in Sources */,
@@ -2306,6 +2321,7 @@
 				BAB4B9212A4487B400D24110 /* LottieIntroView.swift in Sources */,
 				55FD73272AB75E210081C38D /* TopRoundedCornerShape.swift in Sources */,
 				BA4A1C772A719E0B00AC7470 /* SnapshopVotingResultView.swift in Sources */,
+				BA2413B92CB58A73009F0736 /* MyDelegatesListView.swift in Sources */,
 				BAC997BE2BC6F41600476735 /* LensSettingsView.swift in Sources */,
 				55C1541A2AFAFAD00096F0A4 /* AdvancedSettingView.swift in Sources */,
 				550E85732A5F4C3400B0CFDD /* SnapshotSingleChoiceVotingView.swift in Sources */,

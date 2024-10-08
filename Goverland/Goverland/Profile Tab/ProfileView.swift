@@ -180,6 +180,8 @@ fileprivate struct _ProfileListView: View {
             }
 
             ProfileFollowedDAOsView(profile: profile)
+            
+            MyDelegatesView()
 
             if profile.account != nil {
                 ProfileVotesView(path: $path)
