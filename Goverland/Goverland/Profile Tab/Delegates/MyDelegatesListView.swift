@@ -14,13 +14,21 @@ struct MyDelegatesListView: View {
     
     var body: some View {
         VStack {
-            Text("Hello, World!")
+            List(dataSource.delegations) { delegation in
+                Section("\(delegation)") {
+                    ForEach(delegation.delegations) { d in
+                        HStack {
+                            Text("\(d.delegate.usernameShort)")
+                        }
+                    }
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("My delegates")
         .onAppear() {
             //Tracker.track(.screen)
-            if dataSource.delegates.isEmpty {
+            if dataSource.delegations.isEmpty {
                 dataSource.refresh()
             }
         }
