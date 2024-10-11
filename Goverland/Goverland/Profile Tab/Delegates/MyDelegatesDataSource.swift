@@ -56,10 +56,10 @@ class MyDelegations: Identifiable {
 class MyDelegation: Identifiable {
     let id: UUID
     let delegate: User
-    let percent_of_delegated: Float
+    let percent_of_delegated: Double
     let expires_at: Date?
     
-    init(id: UUID, delegate: User, percent_of_delegated: Float, expires_at: Date?) {
+    init(id: UUID, delegate: User, percent_of_delegated: Double, expires_at: Date?) {
         self.id = id
         self.delegate = delegate
         self.percent_of_delegated = percent_of_delegated
