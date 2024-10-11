@@ -35,14 +35,15 @@ struct MyDelegatesListView: View {
                                     Text("Self delegation")
                                         .font(.caption2)
                                         .foregroundColor(.textWhite)
-                                        .padding(.horizontal, 5)
-                                        .padding(5)
+                                        .frame(width: 100)
+                                        .padding(.vertical, 5)
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
                                 Text("\(Utils.numberWithPercent(from: d.percent_of_delegated))")
                                     .font(.footnote)
                                     .foregroundColor(.textWhite60)
+                                    .frame(width: 35)
                             }
                         }
                     }
