@@ -242,6 +242,7 @@
 		BA2413BE2CB97998009F0736 /* MyDelegators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BD2CB97998009F0736 /* MyDelegators.swift */; };
 		BA2413C02CB97AC5009F0736 /* MyDelegatorsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */; };
 		BA2413C22CB97B84009F0736 /* MyDelegatorsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */; };
+		BA2413C42CB99BE5009F0736 /* UserDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413C32CB99BE5009F0736 /* UserDelegation.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -615,6 +616,7 @@
 		BA2413BD2CB97998009F0736 /* MyDelegators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegators.swift; sourceTree = "<group>"; };
 		BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsDataSource.swift; sourceTree = "<group>"; };
 		BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsListView.swift; sourceTree = "<group>"; };
+		BA2413C32CB99BE5009F0736 /* UserDelegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegation.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1076,6 +1078,7 @@
 				558ACC542C80DBCC002FAE75 /* Delegate.swift */,
 				558ACC552C80DBCC002FAE75 /* DelegateVotingPower.swift */,
 				558ACC562C80DBCC002FAE75 /* DelegationInfo.swift */,
+				BA2413C32CB99BE5009F0736 /* UserDelegation.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -2323,6 +2326,7 @@
 				55E800A62AF8419E00A43D5F /* SignInDataSource.swift in Sources */,
 				554243822AE04A9100504E97 /* DashboardNewDaosView.swift in Sources */,
 				5596F1542A51969D00BD55C7 /* DeviceOrientationManager.swift in Sources */,
+				BA2413C42CB99BE5009F0736 /* UserDelegation.swift in Sources */,
 				553744DC2A75802E00D05D8A /* FirebaseConfig.swift in Sources */,
 				55FDC0E12B6E0F8700D1AD79 /* FollowedDAOsHorizontalListView.swift in Sources */,
 				55FD731D2AB75DC60081C38D /* SignInTwoStepsView.swift in Sources */,
