@@ -239,6 +239,9 @@
 		BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B62CB58983009F0736 /* MyDelegatesView.swift */; };
 		BA2413B92CB58A73009F0736 /* MyDelegatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */; };
 		BA2413BB2CB596AA009F0736 /* MyDelegatesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */; };
+		BA2413BE2CB97998009F0736 /* MyDelegators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BD2CB97998009F0736 /* MyDelegators.swift */; };
+		BA2413C02CB97AC5009F0736 /* MyDelegatorsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */; };
+		BA2413C22CB97B84009F0736 /* MyDelegatorsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */; };
 		BA27EA6129DE0F0F00AA5055 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA27EA6029DE0F0F00AA5055 /* Kingfisher */; };
 		BA2EA2012967610500FB87AC /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA2002967610500FB87AC /* FilterButtonsView.swift */; };
 		BA2EA20429677F7C00FB87AC /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */; };
@@ -609,6 +612,9 @@
 		BA2413B62CB58983009F0736 /* MyDelegatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesView.swift; sourceTree = "<group>"; };
 		BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesListView.swift; sourceTree = "<group>"; };
 		BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesDataSource.swift; sourceTree = "<group>"; };
+		BA2413BD2CB97998009F0736 /* MyDelegators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegators.swift; sourceTree = "<group>"; };
+		BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsDataSource.swift; sourceTree = "<group>"; };
+		BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsListView.swift; sourceTree = "<group>"; };
 		BA2EA2002967610500FB87AC /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
 		BA2EA20329677F7C00FB87AC /* InboxDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
 		BA2EA20C2968904C00FB87AC /* InboxEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxEvent.swift; sourceTree = "<group>"; };
@@ -1243,6 +1249,7 @@
 				550ACFB62AFEEFF8006EF5BB /* ProfileDataSource.swift */,
 				5518CA162B6E0D1100E6D243 /* Followed DAOs */,
 				BA2413B52CB5896E009F0736 /* Delegates */,
+				BA2413BC2CB9797A009F0736 /* Delegators */,
 				5518CA132B6E0C3700E6D243 /* Connected Wallet */,
 				55FDC0E22B70AF3D00D1AD79 /* Profile Votes */,
 				BA789BC82B73CDE30064D6FE /* Achievements */,
@@ -1604,6 +1611,16 @@
 				BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		BA2413BC2CB9797A009F0736 /* Delegators */ = {
+			isa = PBXGroup;
+			children = (
+				BA2413BD2CB97998009F0736 /* MyDelegators.swift */,
+				BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */,
+				BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */,
+			);
+			path = Delegators;
 			sourceTree = "<group>";
 		};
 		BA2EA20229677F0800FB87AC /* Model */ = {
@@ -2204,6 +2221,7 @@
 				553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */,
 				55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
+				BA2413BE2CB97998009F0736 /* MyDelegators.swift in Sources */,
 				BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */,
 				558ACC5D2C80DBCC002FAE75 /* DelegationInfo.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,
@@ -2230,6 +2248,7 @@
 				55BD8D542AFAA4F20014982C /* SecondaryButton.swift in Sources */,
 				BA789BD02B7420C90064D6FE /* GuestAchievementsView.swift in Sources */,
 				BA8455AC2B85110F00A986CC /* AllDaoVotersListView.swift in Sources */,
+				BA2413C02CB97AC5009F0736 /* MyDelegatorsDataSource.swift in Sources */,
 				BAAA2BFE2B011B760061F890 /* EcosystemChart.swift in Sources */,
 				550E2C3B2C6CDDEF00411FF0 /* WhatsNewDataSource.swift in Sources */,
 				550E856D2A5F4C3400B0CFDD /* SnapshotProposalVoteTabView.swift in Sources */,
@@ -2283,6 +2302,7 @@
 				550E2C392C6CDDD300411FF0 /* WhatsNewView.swift in Sources */,
 				BAF651C529B3EA0100C78A8A /* MailSendingView.swift in Sources */,
 				559DA0C12A5DC745001F975D /* MarkdownTheme.swift in Sources */,
+				BA2413C22CB97B84009F0736 /* MyDelegatorsListView.swift in Sources */,
 				558ACC7C2C80DC1C002FAE75 /* DaoDelegateSharingMenu.swift in Sources */,
 				5521D27729EF145300A09FD4 /* ProposalStatusView.swift in Sources */,
 				558ACC7D2C80DC1C002FAE75 /* DaoDelegatesView.swift in Sources */,

@@ -181,7 +181,7 @@ fileprivate struct _ProfileListView: View {
 
             ProfileFollowedDAOsView(profile: profile)
             
-            MyDelegatesView()
+            _ProfileDelegations()
 
             if profile.account != nil {
                 ProfileVotesView(path: $path)
@@ -192,5 +192,22 @@ fileprivate struct _ProfileListView: View {
             FollowedDaosDataSource.horizontalList.refresh()
             ProfileVotesDataSource.shared.refresh()
         }
+    }
+}
+
+fileprivate struct _ProfileDelegations: View {
+    var body: some View {
+        HStack {
+            Text("Delegations")
+                .font(.subheadlineSemibold)
+                .foregroundStyle(Color.textWhite)
+            Spacer()
+        }
+        .padding(.top, 16)
+        .padding(.horizontal, Constants.horizontalPadding * 2)
+        
+        MyDelegatesView()
+        
+        MyDelegators()
     }
 }
