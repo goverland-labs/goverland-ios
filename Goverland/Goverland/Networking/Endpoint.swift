@@ -407,6 +407,32 @@ struct DaoSuccessDelegatedEndpoint: APIEndpoint {
     }
 }
 
+struct UserDelegatesProfileEndpoint: APIEndpoint {
+    typealias ResponseType = [UserDaoDelegates]
+
+    let userID: Address
+
+    var path: String { "\(userID)/delegation-delegates" }
+    var method: HttpMethod = .get
+
+    init(userID: Address) {
+        self.userID = userID
+    }
+}
+
+struct UserDelegatorsProfileEndpoint: APIEndpoint {
+    typealias ResponseType = [UserDaoDelegators]
+
+    let userID: Address
+
+    var path: String { "\(userID)/delegation-delegators" }
+    var method: HttpMethod = .get
+
+    init(userID: Address) {
+        self.userID = userID
+    }
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {

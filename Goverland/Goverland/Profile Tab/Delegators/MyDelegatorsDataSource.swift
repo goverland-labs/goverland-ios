@@ -8,35 +8,50 @@
 	
 
 import Foundation
+import Combine
 
 class MyDelegatorsDataSource: ObservableObject {
-    @Published var delegations: [MyDelegations] = []
+    let appUserId: Address
+    @Published var userDelegators: [UserDaoDelegators] = []
+    @Published var delegatorsCount: Int = 0
     
-    static let shared = MyDelegatorsDataSource()
+    @Published var failedToLoadInitialData = false
+    @Published var isLoading = false
     
-    func refresh() {
-        let delegates: [MyDelegation] = [MyDelegation.init(id: UUID(),
-                                                           delegate: User.flipside,
-                                                           percent_of_delegated: 30,
-                                                           expires_at: nil),
-                                         MyDelegation.init(id: UUID(),
-                                                           delegate: User.aaveChan,
-                                                           percent_of_delegated: 20,
-                                                           expires_at: nil),
-                                         MyDelegation.init(id: UUID(),
-                                                           delegate: .appUser,
-                                                           percent_of_delegated: 50,
-                                                           expires_at: nil)]
-        let myDelegations: [MyDelegations] = [.init(id: UUID(),
-                                                    dao: .aave,
-                                                    delegations: delegates),
-                                              .init(id: UUID(),
-                                                    dao: .gnosis,
-                                                    delegations: delegates)]
-        
-        self.delegations = myDelegations
-        
+    private var cancellables = Set<AnyCancellable>()
+    init(appUserId: Address) {
+        self.appUserId = appUserId
     }
     
+    func refresh() {
+        userDelegators = []
+        delegatorsCount = 0
+        failedToLoadInitialData = false
+        isLoading = false
+        cancellables = Set<AnyCancellable>()
+        
+        loadInitialData()
+        userDelegatesCount()
+    }
     
+    private func loadInitialData() {
+        isLoading = true
+        APIService.userDelegators(userID: appUserId)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished: break
+                case .failure(_): self?.failedToLoadInitialData = true
+                }
+            } receiveValue: { [weak self] userDelegators, headers in
+                self?.userDelegators = userDelegators
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func userDelegatesCount() {
+        for d in self.userDelegators {
+            self.delegatorsCount += d.delegators.count
+        }
+    }
 }

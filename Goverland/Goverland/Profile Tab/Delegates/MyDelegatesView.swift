@@ -10,11 +10,11 @@
 import SwiftUI
 
 struct MyDelegatesView: View {
-    @StateObject private var dataSource = MyDelegatesDataSource.shared
+    @ObservedObject var dataSource: MyDelegatesDataSource
     
     var body: some View {
         VStack {
-            NavigationLink(destination: MyDelegatesListView()) {
+            NavigationLink(destination: MyDelegatesListView(dataSource: dataSource)) {
                 HStack {
                     HStack {
                         Image(systemName: "person.wave.2.fill")
@@ -24,7 +24,7 @@ struct MyDelegatesView: View {
                     .foregroundColor(.textWhite)
                     Spacer()
                     HStack {
-                        Text("\(dataSource.delegations.count)")
+                        Text("\(dataSource.delegatesCount)")
                         Image(systemName: "chevron.right")
                     }
                     .font(.subheadlineSemibold)

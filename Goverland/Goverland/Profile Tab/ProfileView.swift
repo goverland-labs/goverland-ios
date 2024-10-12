@@ -181,7 +181,9 @@ fileprivate struct _ProfileListView: View {
 
             ProfileFollowedDAOsView(profile: profile)
             
-            _ProfileDelegations()
+            if let user = profile.account {
+                _ProfileDelegations(appUserID: user.address)
+            }
 
             if profile.account != nil {
                 ProfileVotesView(path: $path)
@@ -196,6 +198,16 @@ fileprivate struct _ProfileListView: View {
 }
 
 fileprivate struct _ProfileDelegations: View {
+    let appUserID: Address
+    @StateObject var delegatesDataSource: MyDelegatesDataSource
+    @StateObject var delegatorsDataSource: MyDelegatorsDataSource
+
+    init(appUserID: Address) {
+        self.appUserID = appUserID
+        self._delegatesDataSource = StateObject(wrappedValue: MyDelegatesDataSource(appUserId: appUserID))
+        self._delegatorsDataSource = StateObject(wrappedValue: MyDelegatorsDataSource(appUserId: appUserID))
+    }
+
     var body: some View {
         HStack {
             Text("Delegations")
@@ -206,8 +218,8 @@ fileprivate struct _ProfileDelegations: View {
         .padding(.top, 16)
         .padding(.horizontal, Constants.horizontalPadding * 2)
         
-        MyDelegatesView()
+        MyDelegatesView(dataSource: delegatesDataSource)
         
-        MyDelegators()
+        MyDelegatorsView(dataSource: delegatorsDataSource)
     }
 }

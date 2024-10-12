@@ -8,30 +8,23 @@
 	
 
 import SwiftUI
-import SwiftData
 
 struct MyDelegatorsListView: View {
-    @StateObject var dataSource = MyDelegatorsDataSource.shared
-    @Query private var profiles: [UserProfile]
-    
-    private var appUser: User {
-        let profile = profiles.first(where: { $0.selected })!
-        return profile.user
-    }
+    @ObservedObject var dataSource: MyDelegatorsDataSource
     
     var body: some View {
         List {
-            ForEach(dataSource.delegations) { delegation in
-                Section(header: headerview(dao: delegation.dao)) {
-                    ForEach(delegation.delegations) { d in
+            ForEach(dataSource.userDelegators, id: \.id) { userDaoDelegator in
+                Section(header: headerview(dao: userDaoDelegator.dao)) {
+                    ForEach(userDaoDelegator.delegators, id: \.id) { userDelegator in
                         HStack {
                             HStack {
-                                UserPictureView(user: d.delegate, size: .xs)
-                                Text("\(d.delegate.usernameShort)")
+                                UserPictureView(user: userDelegator.delegator, size: .xs)
+                                Text("\(userDelegator.delegator.usernameShort)")
                             }
                             Spacer()
                             HStack {
-                                if d.delegate == appUser {
+                                if userDelegator.delegator.address == dataSource.appUserId {
                                     Text("Self delegation")
                                         .font(.caption2)
                                         .foregroundColor(.textWhite)
@@ -40,7 +33,7 @@ struct MyDelegatorsListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                Text("\(Utils.numberWithPercent(from: d.percent_of_delegated))")
+                                Text("\(Utils.numberWithPercent(from: userDelegator.percent_of_delegated))")
                                     .font(.footnote)
                                     .foregroundColor(.textWhite60)
                                     .frame(width: 35)
@@ -54,7 +47,7 @@ struct MyDelegatorsListView: View {
         .navigationTitle("My delegators")
         .onAppear() {
             //Tracker.track(.screen)
-            if dataSource.delegations.isEmpty {
+            if dataSource.userDelegators.isEmpty {
                 dataSource.refresh()
             }
         }
