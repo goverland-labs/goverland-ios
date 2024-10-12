@@ -15,10 +15,10 @@ struct MyDelegatesListView: View {
     
     var body: some View {
         List {
-            ForEach(dataSource.userDelegates) { userDaoDelegates in
+            ForEach(dataSource.userDelegates, id: \.id) { userDaoDelegates in
                 Section(header: headerview(dao: userDaoDelegates.dao)) {
-                    let delegates = userDaoDelegates.delegates
-                    ForEach(delegates) { userDelegate in
+                    let delegates: [UserDelegate] = userDaoDelegates.delegates
+                    ForEach(delegates, id: \.id) { userDelegate in
                         HStack {
                             HStack {
                                 UserPictureView(user: userDelegate.delegate, size: .xs)
@@ -35,7 +35,7 @@ struct MyDelegatesListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                Text("\(Utils.numberWithPercent(from: userDelegate.percent_of_delegated))")
+                                Text("\(Utils.numberWithPercent(from: userDelegate.percentDelegated))")
                                     .font(.footnote)
                                     .foregroundColor(.textWhite60)
                                     .frame(width: 35)

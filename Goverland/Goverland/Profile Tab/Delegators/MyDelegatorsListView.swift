@@ -16,7 +16,8 @@ struct MyDelegatorsListView: View {
         List {
             ForEach(dataSource.userDelegators, id: \.id) { userDaoDelegator in
                 Section(header: headerview(dao: userDaoDelegator.dao)) {
-                    ForEach(userDaoDelegator.delegators, id: \.id) { userDelegator in
+                    let delegators: [UserDelegator] = userDaoDelegator.delegators
+                    ForEach(delegators, id: \.id) { userDelegator in
                         HStack {
                             HStack {
                                 UserPictureView(user: userDelegator.delegator, size: .xs)
@@ -33,7 +34,7 @@ struct MyDelegatorsListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                Text("\(Utils.numberWithPercent(from: userDelegator.percent_of_delegated))")
+                                Text("\(Utils.numberWithPercent(from: userDelegator.percentDelegated))")
                                     .font(.footnote)
                                     .foregroundColor(.textWhite60)
                                     .frame(width: 35)
