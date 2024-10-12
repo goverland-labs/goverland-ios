@@ -35,11 +35,10 @@ struct MyDelegatesListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                // swiftUI bug if run this code
-//                                Text("\(Utils.numberWithPercent(from: userDelegate.percentDelegated))")
-//                                    .font(.footnote)
-//                                    .foregroundColor(.textWhite60)
-//                                    .frame(width: 35)
+                                Text("\(Utils.numberWithPercent(from: userDelegate.percentDelegated))")
+                                    .font(.footnote)
+                                    .foregroundColor(.textWhite60)
+                                    .frame(width: 35)
                             }
                         }
                     }

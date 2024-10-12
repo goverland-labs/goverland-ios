@@ -34,11 +34,10 @@ struct MyDelegatorsListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                // swiftUI bug if run this code
-//                                Text("\(Utils.numberWithPercent(from: userDelegator.votingPower))")
-//                                    .font(.footnote)
-//                                    .foregroundColor(.textWhite60)
-//                                    .frame(width: 35)
+                                Text("\(Utils.formattedNumber(userDelegator.votingPower))")
+                                    .font(.footnote)
+                                    .foregroundColor(.textWhite60)
+                                    .frame(width: 35)
                             }
                         }
                     }
