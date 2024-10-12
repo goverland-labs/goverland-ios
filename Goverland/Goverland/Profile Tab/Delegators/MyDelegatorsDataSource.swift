@@ -30,7 +30,13 @@ class MyDelegatorsDataSource: ObservableObject {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadInitialData()
+        self.userDelegators = [.init(id: UUID(),
+                                     dao: .aave,
+                                     delegators: [.init(id: UUID(),
+                                                        delegator: .aaveChan,
+                                                        votingPower: 21000)])]
+        
+        //loadInitialData()
         userDelegatesCount()
     }
     

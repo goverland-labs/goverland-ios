@@ -5,7 +5,7 @@
 //  Created by Jenny Shalai on 2024-10-08.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import Foundation
 import Combine
@@ -31,7 +31,28 @@ class MyDelegatesDataSource: ObservableObject {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        loadInitialData()
+        self.userDelegates = [.init(id: UUID(),
+                                    dao: .aave,
+                                    delegates: [.init(id: UUID(),
+                                                      delegate: .aaveChan,
+                                                      percentDelegated: 30,
+                                                      expiresAt: nil),
+                                                .init(id: UUID(),
+                                                      delegate: .appUser,
+                                                      percentDelegated: 20,
+                                                      expiresAt: nil),
+                                                .init(id: UUID(),
+                                                      delegate: .flipside,
+                                                      percentDelegated: 50,
+                                                      expiresAt: nil)]),
+                              .init(id: UUID(),
+                                    dao: .gnosis,
+                                    delegates: [.init(id: UUID(),
+                                                      delegate: .appUser,
+                                                      percentDelegated: 100,
+                                                      expiresAt: nil)])]
+        
+        //loadInitialData()
         userDelegatesCount()
     }
     
