@@ -15,10 +15,10 @@ struct MyDelegatesListView: View {
     
     var body: some View {
         List {
-            ForEach(dataSource.userDelegates, id: \.id) { userDaoDelegates in
+            ForEach(dataSource.userDelegates) { userDaoDelegates in
                 Section(header: headerview(dao: userDaoDelegates.dao)) {
                     let delegates: [UserDelegate] = userDaoDelegates.delegates
-                    ForEach(delegates, id: \.id) { userDelegate in
+                    ForEach(delegates) { userDelegate in
                         HStack {
                             HStack {
                                 UserPictureView(user: userDelegate.delegate, size: .xs)
@@ -35,10 +35,11 @@ struct MyDelegatesListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                Text("\(Utils.numberWithPercent(from: userDelegate.percentDelegated))")
-                                    .font(.footnote)
-                                    .foregroundColor(.textWhite60)
-                                    .frame(width: 35)
+                                // swiftUI bug if run this code
+//                                Text("\(Utils.numberWithPercent(from: userDelegate.percentDelegated))")
+//                                    .font(.footnote)
+//                                    .foregroundColor(.textWhite60)
+//                                    .frame(width: 35)
                             }
                         }
                     }
