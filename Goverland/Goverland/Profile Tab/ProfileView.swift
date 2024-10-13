@@ -209,17 +209,27 @@ fileprivate struct _ProfileDelegations: View {
     }
 
     var body: some View {
-        HStack {
-            Text("Delegations")
-                .font(.subheadlineSemibold)
-                .foregroundStyle(Color.textWhite)
-            Spacer()
+        VStack {
+            HStack {
+                Text("Delegations")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+            }
+            .padding(.top, 16)
+            .padding(.horizontal, Constants.horizontalPadding * 2)
+            
+            MyDelegatesView(dataSource: delegatesDataSource)
+            
+            MyDelegatorsView(dataSource: delegatorsDataSource)
         }
-        .padding(.top, 16)
-        .padding(.horizontal, Constants.horizontalPadding * 2)
-        
-        MyDelegatesView(dataSource: delegatesDataSource)
-        
-        MyDelegatorsView(dataSource: delegatorsDataSource)
+        .onAppear() {
+            if delegatesDataSource.userDelegates.isEmpty {
+                delegatesDataSource.refresh()
+            }
+            if delegatorsDataSource.userDelegators.isEmpty {
+                delegatorsDataSource.refresh()
+            }
+        }
     }
 }
