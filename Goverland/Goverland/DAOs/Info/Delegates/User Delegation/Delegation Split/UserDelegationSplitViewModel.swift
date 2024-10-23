@@ -64,7 +64,7 @@ class UserDelegationSplitViewModel: ObservableObject {
         // add to model delegates returned by backend
         for del in userDelegation.delegates {
             if del.user.address == owner.address {
-                self.ownerReservedPercentage = Utils.roundedUp(del.powerPercent, decimals: 0)
+                self.ownerReservedPercentage = round(del.powerPercent)
             } else {
                 self.delegates.append((del.user, del.powerRatio))
             }

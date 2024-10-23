@@ -245,7 +245,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
         XCTAssertEqual(model.delegates.count, 3)
     }
 
-    func test_ceil_ownerPercent() throws {
+    func test_round_ownerPercent() throws {
         let model = UserDelegationSplitViewModel(
             dao: .aave,
             owner: .appUser,
@@ -297,7 +297,7 @@ final class UserDelegationSplitViewModelTests: XCTestCase {
                                               expirationDate: nil),
             delegate: .test)
 
-        XCTAssertEqual(model2.ownerReservedPercentage , 51.0)
+        XCTAssertEqual(model2.ownerReservedPercentage , 50.0)
         XCTAssertTrue(model2.delegates[0].user == .aaveChan)
         XCTAssertEqual(model2.delegates[0].powerRatio, 1)
         XCTAssertTrue(model2.delegates[1].user == .test)

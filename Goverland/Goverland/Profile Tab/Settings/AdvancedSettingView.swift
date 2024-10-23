@@ -19,7 +19,7 @@ struct AdvancedSettingView: View {
 
     var body: some View {
         List {
-            #if STAGE
+            #if STAGE || DEV
             Section(header: Text("Debug")) {
                 Button("RESET") {
                     SettingKeys.reset()

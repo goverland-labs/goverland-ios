@@ -19,7 +19,7 @@ class NetworkManager {
     }
 
     func request(_ urlRequest: URLRequest) -> AnyPublisher<(Data, HttpHeaders), APIError> {
-#if STAGE
+#if STAGE || DEV
         var body = ""
         if let bodyData = urlRequest.httpBody {
             body = String(data: bodyData, encoding: .utf8)!
