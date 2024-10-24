@@ -17,12 +17,14 @@ struct ProfileFollowedDAOsView: View {
             VStack(spacing: 12) {
                 HStack {
                     Text("My followed DAOs (\(profile.subscriptionsCount))")
-                        .font(.subheadlineSemibold)
+                        .font(.title3Semibold)
                         .foregroundStyle(Color.textWhite)
                     Spacer()
-                    NavigationLink("See all", value: ProfileScreen.followedDaos)
-                        .font(.subheadlineSemibold)
-                        .foregroundStyle(Color.primaryDim)
+                    NavigationLink(value: ProfileScreen.followedDaos) {
+                        Image(systemName: "arrow.forward")
+                            .font(.title3Semibold)
+                            .foregroundStyle(Color.textWhite)
+                    }
                 }
                 .padding(.top, 16)
                 .padding(.horizontal, Constants.horizontalPadding * 2)
