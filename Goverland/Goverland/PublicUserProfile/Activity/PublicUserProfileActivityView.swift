@@ -46,13 +46,15 @@ fileprivate struct _VotedDaosView: View {
         VStack(spacing: 12) {
             HStack {
                 Text(header)
-                    .font(.subheadlineSemibold)
+                    .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
                 if daos.count > 0 {
-                    NavigationLink("See all", value: PublicUserProfileScreen.votedInDaos)
-                        .font(.subheadlineSemibold)
-                        .foregroundStyle(Color.primaryDim)
+                    NavigationLink(value: PublicUserProfileScreen.votedInDaos) {
+                        Image(systemName: "arrow.forward")
+                            .font(.title3Semibold)
+                            .foregroundStyle(Color.textWhite)
+                    }
                 }
             }
             .padding(.top, 16)
@@ -118,13 +120,15 @@ fileprivate struct _VotedProposalsView: View {
         VStack {
             HStack {
                 Text(header)
-                    .font(.subheadlineSemibold)
+                    .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
                 if !votedProposals.isEmpty {
-                    NavigationLink("See all", value: PublicUserProfileScreen.votes)
-                        .font(.subheadlineSemibold)
-                        .foregroundStyle(Color.primaryDim)
+                    NavigationLink(value: PublicUserProfileScreen.votes) {
+                        Image(systemName: "arrow.forward")
+                            .font(.title3Semibold)
+                            .foregroundStyle(Color.textWhite)
+                    }
                 }
             }
             .padding(.top, 16)

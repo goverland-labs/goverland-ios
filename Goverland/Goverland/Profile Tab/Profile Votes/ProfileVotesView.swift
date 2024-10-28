@@ -31,12 +31,14 @@ struct ProfileVotesView: View {
         VStack {
             HStack {
                 Text("My votes (\(dataSource.total ?? 0))")
-                    .font(.subheadlineSemibold)
+                    .font(.title3Semibold)
                     .foregroundStyle(Color.textWhite)
                 Spacer()
-                NavigationLink("See all", value: ProfileScreen.votes)
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.primaryDim)
+                NavigationLink(value: ProfileScreen.votes) {
+                    Image(systemName: "arrow.forward")
+                        .font(.title3Semibold)
+                        .foregroundStyle(Color.textWhite)
+                }
             }
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)

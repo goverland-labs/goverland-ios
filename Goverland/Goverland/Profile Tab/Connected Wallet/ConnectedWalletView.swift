@@ -17,12 +17,6 @@ struct ConnectedWalletView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Connected wallet")
-                .font(.subheadlineSemibold)
-                .foregroundStyle(Color.textWhite)
-                .padding(.top, 16)
-                .padding(.horizontal, Constants.horizontalPadding * 2)
-
             Group {
                 if let wallet = ConnectedWallet.current() {
                     _SwipeableConnectedWalletView(wallet: wallet)
@@ -42,6 +36,7 @@ struct ConnectedWalletView: View {
             .background(Color.container)
             .cornerRadius(12)
             .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.top)
         }
         .id(wcViewId)
         .onReceive(NotificationCenter.default.publisher(for: .wcSessionUpdated)) { notification in
