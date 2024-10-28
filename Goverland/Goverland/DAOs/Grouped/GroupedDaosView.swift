@@ -73,12 +73,14 @@ struct GroupedDaosView: View {
                         HStack {
                             let total = dataSource.totalInCategory[category] ?? 0
                             Text(total != 0 ? "\(category.name) (\(Utils.formattedNumber(Double(total))))" : category.name)
-                                .font(.subheadlineSemibold)
+                                .font(.title3Semibold)
                                 .foregroundStyle(Color.textWhite)
                             Spacer()
-                            NavigationLink("See all", value: category)
-                                .font(.subheadlineSemibold)
-                                .foregroundStyle(Color.primaryDim)
+                            NavigationLink(value: category) {
+                                Image(systemName: "arrow.forward")
+                                    .font(.title3Semibold)
+                                    .foregroundStyle(Color.textWhite)
+                            }
                         }
                         .padding(.top, 16)
                         .padding(.horizontal, Constants.horizontalPadding * 2)
