@@ -5,19 +5,19 @@
 //  Created by Andrey Scherbovich on 11.06.24.
 //  Copyright © Goverland Inc. All rights reserved.
 //
-	
+
 
 import SwiftUI
 
 struct DaoDelegatesView: View {
     @StateObject private var dataSource: DaoDelegatesDataSource
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     init(dao: Dao) {
         let dataSource = DaoDelegatesDataSource(dao: dao)
         _dataSource = StateObject(wrappedValue: dataSource)
     }
-
+    
     var columns: [GridItem] {
         if horizontalSizeClass == .regular {
             return Array(repeating: .init(.flexible()), count: 2)
@@ -25,15 +25,15 @@ struct DaoDelegatesView: View {
             return Array(repeating: .init(.flexible()), count: 1)
         }
     }
-
+    
     var dao: Dao {
         dataSource.dao
     }
-
+    
     var delegates: [Delegate] {
         dataSource.delegates
     }
-
+    
     var body: some View {
         Group {
             if dataSource.failedToLoadInitialData {
@@ -94,24 +94,24 @@ fileprivate struct _DelegatesListHeaderView: View {
     let count: Int
     
     @EnvironmentObject private var activeSheetManager: ActiveSheetManager
-
+    
     var formattedCount: String {
         Utils.formattedNumber(Double(count))
     }
-
+    
     var body: some View {
         HStack {
             Text("Delegates (\(formattedCount))")
-                .font(.subheadlineSemibold)
+                .font(.headlineSemibold)
                 .foregroundStyle(Color.textWhite)
             Spacer()
             NavigationLink(
                 destination: DelegatesFullListView(dao: dao, action: .delegate)
                     .environmentObject(activeSheetManager)
             ) {
-                Text("See all")
-                    .font(.subheadlineSemibold)
-                    .foregroundStyle(Color.primaryDim)
+                Image(systemName: "arrow.forward")
+                    .font(.headlineSemibold)
+                    .foregroundStyle(Color.textWhite)
             }
         }
     }
@@ -122,7 +122,7 @@ fileprivate struct _ShimmerDelegatesListHeaderView: View {
         HStack {
             ShimmerView.rounded(width: 110, height: 18)
             Spacer()
-            ShimmerView.rounded(width: 60, height: 18)
+            ShimmerView.rounded(width: 30, height: 18)
         }
     }
 }

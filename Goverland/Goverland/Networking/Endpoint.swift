@@ -407,6 +407,24 @@ struct DaoSuccessDelegatedEndpoint: APIEndpoint {
     }
 }
 
+struct UserDelegatesProfileEndpoint: APIEndpoint {
+    typealias ResponseType = [UserDaoDelegates]
+
+    var path: String { "me/delegates" }
+    var method: HttpMethod = .get
+
+    init() {}
+}
+
+struct UserDelegatorsProfileEndpoint: APIEndpoint {
+    typealias ResponseType = [UserDaoDelegators]
+
+    var path: String { "me/delegators" }
+    var method: HttpMethod = .get
+
+    init() {}
+}
+
 // MARK: - DAO Analytics
 
 struct DaoMonthlyActiveUsersEndpoint: APIEndpoint {

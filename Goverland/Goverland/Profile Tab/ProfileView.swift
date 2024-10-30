@@ -180,6 +180,12 @@ fileprivate struct _ProfileListView: View {
             }
 
             ProfileFollowedDAOsView(profile: profile)
+            
+            if let user = profile.account {
+                _ProfileDelegations(appUser: user,
+                                    delegatesCount: profile.delegates,
+                                    delegatorsCount: profile.delegators)
+            }
 
             if profile.account != nil {
                 ProfileVotesView(path: $path)
@@ -189,6 +195,28 @@ fileprivate struct _ProfileListView: View {
             ProfileDataSource.shared.refresh()
             FollowedDaosDataSource.horizontalList.refresh()
             ProfileVotesDataSource.shared.refresh()
+        }
+    }
+}
+
+fileprivate struct _ProfileDelegations: View {
+    let appUser: User
+    let delegatesCount: Int
+    let delegatorsCount: Int
+
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Delegations")
+                    .font(.subheadlineSemibold)
+                    .foregroundStyle(Color.textWhite)
+                Spacer()
+            }
+            .padding(.top, 16)
+            .padding(.horizontal, Constants.horizontalPadding * 2)
+            
+            MyDelegatesView(count: delegatesCount, appUser: appUser)
+            MyDelegatorsView(count: delegatorsCount, appUser: appUser)
         }
     }
 }
