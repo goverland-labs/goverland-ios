@@ -410,27 +410,19 @@ struct DaoSuccessDelegatedEndpoint: APIEndpoint {
 struct UserDelegatesProfileEndpoint: APIEndpoint {
     typealias ResponseType = [UserDaoDelegates]
 
-    let userID: Address
-
-    var path: String { "\(userID)/delegation-delegates" }
+    var path: String { "me/delegates" }
     var method: HttpMethod = .get
 
-    init(userID: Address) {
-        self.userID = userID
-    }
+    init() {}
 }
 
 struct UserDelegatorsProfileEndpoint: APIEndpoint {
     typealias ResponseType = [UserDaoDelegators]
 
-    let userID: Address
-
-    var path: String { "\(userID)/delegation-delegators" }
+    var path: String { "me/delegators" }
     var method: HttpMethod = .get
 
-    init(userID: Address) {
-        self.userID = userID
-    }
+    init() {}
 }
 
 // MARK: - DAO Analytics

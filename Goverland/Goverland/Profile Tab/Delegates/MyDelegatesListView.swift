@@ -8,9 +8,9 @@
 	
 
 import SwiftUI
-import SwiftData
 
 struct MyDelegatesListView: View {
+    let appUser: User
     @ObservedObject var dataSource: MyDelegatesDataSource
     
     var body: some View {
@@ -26,7 +26,7 @@ struct MyDelegatesListView: View {
                             }
                             Spacer()
                             HStack {
-                                if userDelegate.delegate.address == dataSource.appUserId {
+                               if userDelegate.delegate == appUser {
                                     Text("Self delegation")
                                         .font(.caption2)
                                         .foregroundColor(.textWhite)
@@ -75,5 +75,4 @@ fileprivate struct headerview: View {
         }
         .padding(.bottom, 5)
     }
-    
 }

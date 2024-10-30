@@ -239,7 +239,7 @@
 		BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B62CB58983009F0736 /* MyDelegatesView.swift */; };
 		BA2413B92CB58A73009F0736 /* MyDelegatesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */; };
 		BA2413BB2CB596AA009F0736 /* MyDelegatesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */; };
-		BA2413BE2CB97998009F0736 /* MyDelegators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BD2CB97998009F0736 /* MyDelegators.swift */; };
+		BA2413BE2CB97998009F0736 /* MyDelegatorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BD2CB97998009F0736 /* MyDelegatorsView.swift */; };
 		BA2413C02CB97AC5009F0736 /* MyDelegatorsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */; };
 		BA2413C22CB97B84009F0736 /* MyDelegatorsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */; };
 		BA2413C42CB99BE5009F0736 /* UserDelegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2413C32CB99BE5009F0736 /* UserDelegation.swift */; };
@@ -613,7 +613,7 @@
 		BA2413B62CB58983009F0736 /* MyDelegatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesView.swift; sourceTree = "<group>"; };
 		BA2413B82CB58A73009F0736 /* MyDelegatesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesListView.swift; sourceTree = "<group>"; };
 		BA2413BA2CB596AA009F0736 /* MyDelegatesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatesDataSource.swift; sourceTree = "<group>"; };
-		BA2413BD2CB97998009F0736 /* MyDelegators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegators.swift; sourceTree = "<group>"; };
+		BA2413BD2CB97998009F0736 /* MyDelegatorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsView.swift; sourceTree = "<group>"; };
 		BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsDataSource.swift; sourceTree = "<group>"; };
 		BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDelegatorsListView.swift; sourceTree = "<group>"; };
 		BA2413C32CB99BE5009F0736 /* UserDelegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegation.swift; sourceTree = "<group>"; };
@@ -1619,7 +1619,7 @@
 		BA2413BC2CB9797A009F0736 /* Delegators */ = {
 			isa = PBXGroup;
 			children = (
-				BA2413BD2CB97998009F0736 /* MyDelegators.swift */,
+				BA2413BD2CB97998009F0736 /* MyDelegatorsView.swift */,
 				BA2413C12CB97B84009F0736 /* MyDelegatorsListView.swift */,
 				BA2413BF2CB97AC5009F0736 /* MyDelegatorsDataSource.swift */,
 			);
@@ -2224,7 +2224,7 @@
 				553AA62A2B2F94A6000402F0 /* RectanglePictureView.swift in Sources */,
 				55D717822C908BDF00217C4F /* InfoAlertView.swift in Sources */,
 				550E85762A5F4C3400B0CFDD /* SnapshotVotesView.swift in Sources */,
-				BA2413BE2CB97998009F0736 /* MyDelegators.swift in Sources */,
+				BA2413BE2CB97998009F0736 /* MyDelegatorsView.swift in Sources */,
 				BA2413B72CB58983009F0736 /* MyDelegatesView.swift in Sources */,
 				558ACC5D2C80DBCC002FAE75 /* DelegationInfo.swift in Sources */,
 				559025012A3DF6BE001B1770 /* Proposal.swift in Sources */,

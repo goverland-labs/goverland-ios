@@ -182,7 +182,9 @@ fileprivate struct _ProfileListView: View {
             ProfileFollowedDAOsView(profile: profile)
             
             if let user = profile.account {
-                _ProfileDelegations(appUserID: user.address)
+                _ProfileDelegations(appUser: user,
+                                    delegatesCount: profile.delegates,
+                                    delegatorsCount: profile.delegators)
             }
 
             if profile.account != nil {
@@ -198,15 +200,9 @@ fileprivate struct _ProfileListView: View {
 }
 
 fileprivate struct _ProfileDelegations: View {
-    let appUserID: Address
-    @StateObject var delegatesDataSource: MyDelegatesDataSource
-    @StateObject var delegatorsDataSource: MyDelegatorsDataSource
-
-    init(appUserID: Address) {
-        self.appUserID = appUserID
-        self._delegatesDataSource = StateObject(wrappedValue: MyDelegatesDataSource(appUserId: appUserID))
-        self._delegatorsDataSource = StateObject(wrappedValue: MyDelegatorsDataSource(appUserId: appUserID))
-    }
+    let appUser: User
+    let delegatesCount: Int
+    let delegatorsCount: Int
 
     var body: some View {
         VStack {
@@ -219,17 +215,8 @@ fileprivate struct _ProfileDelegations: View {
             .padding(.top, 16)
             .padding(.horizontal, Constants.horizontalPadding * 2)
             
-            MyDelegatesView(dataSource: delegatesDataSource)
-            
-            MyDelegatorsView(dataSource: delegatorsDataSource)
-        }
-        .onAppear() {
-            if delegatesDataSource.userDelegates.isEmpty {
-                delegatesDataSource.refresh()
-            }
-            if delegatorsDataSource.userDelegators.isEmpty {
-                delegatorsDataSource.refresh()
-            }
+            MyDelegatesView(count: delegatesCount, appUser: appUser)
+            MyDelegatorsView(count: delegatorsCount, appUser: appUser)
         }
     }
 }

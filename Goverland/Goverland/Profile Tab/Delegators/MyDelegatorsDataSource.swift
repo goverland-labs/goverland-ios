@@ -11,7 +11,6 @@ import Foundation
 import Combine
 
 class MyDelegatorsDataSource: ObservableObject {
-    let appUserId: Address
     @Published var userDelegators: [UserDaoDelegators] = []
     @Published var delegatorsCount: Int = 0
     
@@ -19,9 +18,7 @@ class MyDelegatorsDataSource: ObservableObject {
     @Published var isLoading = false
     
     private var cancellables = Set<AnyCancellable>()
-    init(appUserId: Address) {
-        self.appUserId = appUserId
-    }
+    init() {}
     
     func refresh() {
         userDelegators = []
@@ -30,19 +27,12 @@ class MyDelegatorsDataSource: ObservableObject {
         isLoading = false
         cancellables = Set<AnyCancellable>()
         
-        self.userDelegators = [.init(id: UUID(),
-                                     dao: .aave,
-                                     delegators: [.init(id: UUID(),
-                                                        delegator: .aaveChan,
-                                                        votingPower: 21000)])]
-        
-        //loadInitialData()
-        userDelegatesCount()
+        loadInitialData()
     }
     
     private func loadInitialData() {
         isLoading = true
-        APIService.userDelegators(userID: appUserId)
+        APIService.userDelegators()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -53,11 +43,5 @@ class MyDelegatorsDataSource: ObservableObject {
                 self?.userDelegators = userDelegators
             }
             .store(in: &cancellables)
-    }
-    
-    private func userDelegatesCount() {
-        for d in self.userDelegators {
-            self.delegatorsCount += d.delegators.count
-        }
     }
 }

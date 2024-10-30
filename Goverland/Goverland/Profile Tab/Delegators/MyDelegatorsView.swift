@@ -10,11 +10,19 @@
 import SwiftUI
 
 struct MyDelegatorsView: View {
-    @ObservedObject var dataSource: MyDelegatorsDataSource
+    let count: Int
+    let appUser: User
+    @StateObject var dataSource: MyDelegatorsDataSource
+
+    init(count: Int, appUser: User) {
+        self.count = count
+        self.appUser = appUser
+        self._dataSource = StateObject(wrappedValue: MyDelegatorsDataSource())
+    }
     
     var body: some View {
         VStack {
-            NavigationLink(destination: MyDelegatorsListView(dataSource: dataSource)) {
+            NavigationLink(destination: MyDelegatorsListView(appUser: appUser, dataSource: dataSource)) {
                 HStack {
                     HStack {
                         Image(systemName: "heart.fill")
@@ -24,7 +32,7 @@ struct MyDelegatorsView: View {
                     .foregroundColor(.textWhite)
                     Spacer()
                     HStack {
-                        Text("\(dataSource.delegatorsCount)")
+                        Text("\(count)")
                         Image(systemName: "chevron.right")
                     }
                     .font(.subheadlineSemibold)

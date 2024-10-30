@@ -208,13 +208,13 @@ extension APIService {
         return shared.request(endpoint, defaultErrorDisplay: false)
     }
 
-    static func userDelegates(userID: Address) -> AnyPublisher<(UserDelegatesProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = UserDelegatesProfileEndpoint(userID: userID)
+    static func userDelegates() -> AnyPublisher<(UserDelegatesProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = UserDelegatesProfileEndpoint()
         return shared.request(endpoint)
     }
     
-    static func userDelegators(userID: Address) -> AnyPublisher<(UserDelegatorsProfileEndpoint.ResponseType, HttpHeaders), APIError> {
-        let endpoint = UserDelegatorsProfileEndpoint(userID: userID)
+    static func userDelegators() -> AnyPublisher<(UserDelegatorsProfileEndpoint.ResponseType, HttpHeaders), APIError> {
+        let endpoint = UserDelegatorsProfileEndpoint()
         return shared.request(endpoint)
     }
     // MARK: - DAO Analytics

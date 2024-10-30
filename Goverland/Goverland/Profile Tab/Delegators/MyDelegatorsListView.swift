@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct MyDelegatorsListView: View {
+    let appUser: User
     @ObservedObject var dataSource: MyDelegatorsDataSource
     
     var body: some View {
@@ -25,7 +26,7 @@ struct MyDelegatorsListView: View {
                             }
                             Spacer()
                             HStack {
-                                if userDelegator.delegator.address == dataSource.appUserId {
+                                if userDelegator.delegator == appUser {
                                     Text("Self delegation")
                                         .font(.caption2)
                                         .foregroundColor(.textWhite)
@@ -34,7 +35,7 @@ struct MyDelegatorsListView: View {
                                         .background(Capsule()
                                             .fill(Color.tertiaryContainer))
                                 }
-                                Text("\(Utils.formattedNumber(userDelegator.votingPower))")
+                                Text("\(Utils.formattedNumber(userDelegator.percentDelegated))")
                                     .font(.footnote)
                                     .foregroundColor(.textWhite60)
                                     .frame(width: 35)

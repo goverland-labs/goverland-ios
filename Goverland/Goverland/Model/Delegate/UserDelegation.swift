@@ -10,39 +10,45 @@
 import Foundation
 
 struct UserDelegate: Decodable, Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     let delegate: User
     let percentDelegated: Double
-    let expiresAt: Date?
+    let expiration: Date?
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case delegate
+        case delegate = "user"
         case percentDelegated = "percent_of_delegated"
-        case expiresAt = "expires_at"
+        case expiration
     }
 }
 
 struct UserDaoDelegates: Decodable, Identifiable {
-    let id: UUID
     let dao: Dao
     let delegates: [UserDelegate]
+    
+    var id: UUID {
+        dao.id
+    }
 }
 
 struct UserDelegator: Decodable, Identifiable {
-    let id: UUID
+    let id: UUID = UUID()
     let delegator: User
-    let votingPower: Double
+    let percentDelegated: Double
+    let expiration: Date?
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case delegator
-        case votingPower = "voting_power"
+        case delegator = "user"
+        case percentDelegated = "percent_of_delegated"
+        case expiration
     }
 }
 
 struct UserDaoDelegators: Decodable, Identifiable {
-    let id: UUID
     let dao: Dao
     let delegators: [UserDelegator]
+    
+    var id: UUID {
+        dao.id
+    }
 }
